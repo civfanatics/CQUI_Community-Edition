@@ -78,7 +78,7 @@ end
 --  This is fixing a bug in the unmodified game, as it still shows 0.5 Housing on the tool tip
 -- ===========================================================================
 function GetUnitActionsTable( pUnit )
-  print("** Hooked GetUnitActionsTable called 2");
+  print_debug("CQUI: GetUnitActionsTable Hook Called")
   actionsTable = BASE_CQUI_GetUnitActionsTable(pUnit);
 
   --[[
@@ -131,28 +131,25 @@ function GetUnitActionsTable( pUnit )
           print("Unknown language type: "..tostring(curLang.Type));
         end
 
-        -- temp
-        print("housingStr is: "..housingStr);
-
         if housingStr ~= "" then
           local chunkToUpdate = "{1_Amount:number #.#}";
           local housingStrBefore = housingStr:gsub(chunkToUpdate, tostring(Locale.ToNumber("0.5")));
           local housingStrAfter = housingStr:gsub(chunkToUpdate, "1");
 
-          print("housingStrBefore is: "..housingStrBefore);
-          print("housingStrAfter is: "..housingStrAfter);
-
+          print_debug("housingStr is: "..housingStr);
+          print_debug("housingStrBefore is: "..housingStrBefore);
+          print_debug("housingStrAfter is: "..housingStrAfter);
 
           local updatedHelpString, replacedCount = actionsTable["BUILD"][i]["helpString"]:gsub(housingStrBefore, housingStrAfter);
-          print("updatedHelpString is: "..updatedHelpString);
-          print("replacedCount is: "..tostring(replacedCount));
+          print_debug("updatedHelpString is: "..updatedHelpString);
+          print_debug("replacedCount is: "..tostring(replacedCount));
 
           if replacedCount == 1 then
             actionsTable["BUILD"][i]["helpString"] = updatedHelpString;
           end
         end
 
-        break -- Only one farm icon, break from the for loop
+        break -- Only the farm icon needs updating, break from the for loop
       end
     end
   end
