@@ -20,6 +20,7 @@ BANNERTYPE_ENCAMPMENT     = 1;
 BANNERTYPE_AERODROME      = 2;
 BANNERTYPE_MISSILE_SILO   = 3;
 BANNERTYPE_OTHER_DISTRICT = 4;
+
 -- ===========================================================================
 --  CONSTANTS
 -- ===========================================================================
@@ -539,7 +540,7 @@ function CityBanner:Initialize( playerID: number, cityID : number, districtID : 
     end
 
     if self.m_DetailEffectsIM == nil then
-      self.m_DetailEffectsIM = InstanceManager:new( "CityDetailEffect", "Button", self.m_Instance.CityDetailsEffects );
+      self.m_DetailEffectsIM = InstanceManager:new( "CityDetailEffect", "Icon", self.m_Instance.CityDetailsEffects );
     end
 
     if self.m_InfoIconIM == nil then

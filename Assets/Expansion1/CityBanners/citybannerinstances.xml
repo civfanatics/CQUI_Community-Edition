@@ -34,6 +34,7 @@
 
         <!-- CENTER: MAIN BUTTON -->
         <Button ID="CityBannerButton" Anchor="L,T" Size="parent,parent" NoStateChange="true">
+          <!-- COLORED BG -->
           <Grid ID="CityBannerFill" Anchor="C,T" Size="parent,parent" Texture="Banner_FrameBase_Combo" SliceTextureSize="113,41" SliceCorner="18,7" SliceSize="76,27"/>
 
           <!-- OUTLINE: MOUSE IN / OUT -->
@@ -55,7 +56,7 @@
           <Stack ID="ContentStack" Anchor="C,C" StackGrowth="Right" Padding="10" >
             <Stack ID="CityInfoStack" Anchor="L,C" StackGrowth="Right" Padding="2" />
             <Stack ID="CQUI_Districts" Anchor="L,C" Offset="0,1" StackGrowth="Right" Padding="-12" />
-            <Label ID="CityName" Anchor="L,C" Style="FontFlair16" FontStyle="Shadow" Color0="255,255,255,255"	Color1="0,0,0,20" SmallCaps="18" SmallCapsType="EveryWord" />
+            <Label ID="CityName" Anchor="L,C" Style="HeaderSmallCaps" />
             <Stack ID="CityStatusStack" Anchor="R,C" StackGrowth="Right" Padding="2"/>
           </Stack>
         </Button>
@@ -81,9 +82,7 @@
 
   <!-- Instances populate in CityDetailsStack -->
   <Instance Name="CityDetailEffect">
-    <Button ID="Button" Size="20,20" Anchor="C,C">
       <Image ID="Icon" Size="20,20" Anchor="C,C"/>
-    </Button>
   </Instance>
 
   <!-- Instances populate in CityInfoStack -->
@@ -95,7 +94,7 @@
 
   <Instance Name="CityInfoCondition">
     <Button ID="Button" Anchor="C,C" Size="20,20" Texture="Banner_TypeSlot" NoStateChange="1">
-      <Image ID="Icon" Anchor="C,C" Size="22,22" Texture="Cities22">
+      <Image ID="Icon" Anchor="C,C" Size="22,22" Offset="0,-1" Texture="Cities22">
         <Image ID="ConditionRising" Offset="-4,-1" Anchor="R,B" Size="12,12" Texture="CityCondition_Rising" Hidden="1"/>
         <Image ID="ConditionFalling" Offset="-4,-1" Anchor="R,B" Size="12,12" Texture="CityCondition_Falling" Hidden="1"/>
       </Image>
@@ -233,8 +232,16 @@
     <ZoomAnchor ID="Anchor" ZoomOffsetNear="0,0,0" ZoomOffsetFar="0,0,-20">
       <Container ID="EncampmentBannerContainer" Anchor="C,C" Size="106,34">
 
+        <!-- District strength -->
+        <Grid ID="DistrictDefenseGrid" Texture="Banner_StatusFrame" Size="55,20" Anchor="C,T" AnchorSide="I,O" Offset="0,-3" SliceTextureSize="24,20" SliceCorner="9,2" SliceSize="5,15">
+          <Stack Anchor="C,C" Offset="-2,0" StackGrowth="Right">
+            <Image Size="21,18" Texture="Banner_StrengthIcon_Shields"/>
+            <Label ID="DistrictDefenseStrengthLabel" Offset="0,2" Style="StrongSmall" String="17"/>
+          </Stack>
+        </Grid>
+
         <!-- Banner Background -->
-        <Grid ID="Banner_Base" Size="parent,parent" Texture="BannerMini_Base_Combo" SliceCorner="18,9" SliceSize="44,16" SliceTextureSize="80,34"/>
+        <Grid ID="Banner_Base" Size="parent,parent" Texture="BannerMini_Base_Combo" SliceCorner="14,14" SliceSize="51,5" SliceTextureSize="80,34"/>
 
         <!-- District Font Icon -->
         <Label Anchor="L,C" Offset="7,3" Style="FontNormal14" String="[Icon_DISTRICT_ENCAMPMENT]"/>
@@ -242,14 +249,6 @@
         <!-- Healthbars -->
         <TextureBar ID="CityHealthBar" Anchor="R,C" Offset="8,3" Size="66,7" Texture="CityBannerShieldsBar1" Direction="Right" Speed="1" Percent="1.0" />
         <TextureBar ID="CityDefenseBar" Anchor="R,C" Offset="8,-4" Size="66,7" Texture="CityBannerShieldsBar1" Direction="Right" Speed="1" Percent="1.0" Color="120,198,247,255"/>
-
-        <!-- District strength -->
-        <Grid ID="DistrictDefenseGrid" Texture="Banner_StrengthBacking" Size="60,15" Anchor="C,T" AnchorSide="I,O" SliceTextureSize="42,15" SliceCorner="21,7" Color="255,255,255,150">
-          <Stack Anchor="C,C" Offset="-2,1" StackGrowth="Right">
-            <Image Size="21,18" Texture="Banner_StrengthIcon_Shields"/>
-            <Label ID="DistrictDefenseStrengthLabel" Offset="0,2" Style="StrongSmall" String="17"/>
-          </Stack>
-        </Grid>
 
         <!-- District ranged strike button -->
         <Image ID="CityStrike" Texture="CityBannerRangeAttackRim" Size="36,45" Anchor="C,B" Offset="0,-4" AnchorSide="I,O" >
