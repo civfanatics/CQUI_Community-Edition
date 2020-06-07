@@ -34,6 +34,7 @@
 
         <!-- CENTER: MAIN BUTTON -->
         <Button ID="CityBannerButton" Anchor="L,T" Size="parent,parent" NoStateChange="true">
+          <!-- COLORED BG -->
           <Grid ID="CityBannerFill" Anchor="C,T" Size="parent,parent" Texture="Banner_FrameBase_Combo" SliceTextureSize="113,41" SliceCorner="18,7" SliceSize="76,27"/>
 
           <!-- OUTLINE: MOUSE IN / OUT -->
@@ -93,7 +94,7 @@
 
   <Instance Name="CityInfoCondition">
     <Button ID="Button" Anchor="C,C" Size="20,20" Texture="Banner_TypeSlot" NoStateChange="1">
-      <Image ID="Icon" Anchor="C,C" Size="22,22" Texture="Cities22">
+      <Image ID="Icon" Anchor="C,C" Size="22,22" Offset="0,-1" Texture="Cities22">
         <Image ID="ConditionRising" Offset="-4,-1" Anchor="R,B" Size="12,12" Texture="CityCondition_Rising" Hidden="1"/>
         <Image ID="ConditionFalling" Offset="-4,-1" Anchor="R,B" Size="12,12" Texture="CityCondition_Falling" Hidden="1"/>
       </Image>
