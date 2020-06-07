@@ -97,7 +97,7 @@ function GetUnitActionsTable( pUnit )
       if (actionsTable["BUILD"][i]["IconId"] == "ICON_IMPROVEMENT_FARM") then
         -- For some reason, Locale.Lookup("LOC_OPERATION_BUILD_IMPROVEMENT_HOUSING") returns an empty string, so we need to do this manually
         -- Each of the strings below is the LOC_OPERATION_BUILD_IMPROVEMENT_HOUSING value
-        -- Note: The Lua string matching requires that we use the escape character (the % sign) for the brackets and plus and other , otherwise the strings will not match
+        -- Note: The Lua string matching requires that we use the escape character (the % sign) for the brackets and plus and other lua special characters used in string matching, otherwise the strings will not match
         local curLang = Locale.GetCurrentLanguage();
         local housingStr = "";
         if curLang.Type == "en_US" then
