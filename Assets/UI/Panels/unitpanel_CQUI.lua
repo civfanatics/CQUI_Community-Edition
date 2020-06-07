@@ -78,68 +78,25 @@ function GetUnitActionsTable( pUnit )
   print_debug("CQUI: GetUnitActionsTable Hook Called")
   local actionsTable = BASE_CQUI_GetUnitActionsTable(pUnit);
 
-  --[[
-    Powershell Script to Pull the two lines from the text file:
-  
-    $xmlfiles = Get-ChildItem -Filter *.xml
-    $pat = 'LOC_OPERATION_BUILD_IMPROVEMENT_HOUSING'
-    foreach ($xml in $xmlfiles)
-    {
-        $fn = $xml.Name
-        Get-Content $fn | Select-String -Pattern 'LOC_OPERATION_BUILD_IMPROVEMENT_HOUSING' -Context 0,1
-    }
-  --]]
-
   -- Update the Farm Tool Tip to show 1 Housing if the player is Maya
   if HasTrait("TRAIT_CIVILIZATION_MAYAB", Game.GetLocalPlayer()) then
     local iconCount = #actionsTable["BUILD"];
     for i = 1, iconCount do
       if (actionsTable["BUILD"][i]["IconId"] == "ICON_IMPROVEMENT_FARM") then
-        -- For some reason, Locale.Lookup("LOC_OPERATION_BUILD_IMPROVEMENT_HOUSING") returns an empty string, so we need to do this manually
-        -- Each of the strings below is the LOC_OPERATION_BUILD_IMPROVEMENT_HOUSING value
-        -- Note: The Lua string matching requires that we use the escape character (the % sign) for the brackets and plus and other lua special characters used in string matching, otherwise the strings will not match
-        local curLang = Locale.GetCurrentLanguage();
-        local housingStr = "";
-        if curLang.Type == "en_US" then
-          housingStr = "Provides {1_Amount:number #.#} %[ICON_Housing%] Housing";
-        elseif curLang.Type == "de_DE" then
-          housingStr = "Gewährt {1_Amount:number #.#} %[ICON_Housing%] Wohnraum";
-        elseif curLang.Type == "es_ES" then
-          housingStr = "Proporciona {1_Amount:number #.#} a Alojamiento %[ICON_Housing%]";
-        elseif curLang.Type == "fr_FR" then
-          housingStr = "%[ICON_Housing%] Habitations %+{1_Amount:number #.#}.";
-        elseif curLang.Type == "it_IT" then
-          housingStr = "Fornisce {1_Amount:number #.#} %[ICON_Housing%] Abitazioni";
-        elseif curLang.Type == "ja_JP" then
-          housingStr = "%[ICON_Housing%] 住宅%+{1_Amount:number #.#}";
-        elseif curLang.Type == "ko_KR" then
-          housingStr = "%[ICON_Housing%] 주거공간 {1_Amount:number #.#} 제공";
-        elseif curLang.Type == "pl_PL" then
-          housingStr = "Daje następującą liczbę %[ICON_Housing%] obszarów mieszkalnych: {1_Amount:number #.#}";
-        elseif curLang.Type == "pt_BR" then
-          housingStr = "Concede {1_Amount:number #.#} de %[ICON_Housing%] habitação";
-        elseif curLang.Type == "ru_RU" then
-          housingStr = "Предоставляет {1_Amount:number #.#} %[ICON_Housing%] жилья";
-        elseif curLang.Type == "zh_Hans_CN" then
-          housingStr = "提供{1_Amount:number #.#} %[ICON_Housing%] 住房";
-        elseif curLang.Type == "zh_Hant_HK" then
-          housingStr = "提供 {1_Amount:number #.#} %[ICON_Housing%] 住房";
-        else
-          print("Unknown language type: "..tostring(curLang.Type));
-        end
-
         if housingStr ~= "" then
-          local chunkToUpdate = "{1_Amount:number #.#}";
-          local housingStrBefore = housingStr:gsub(chunkToUpdate, tostring(Locale.ToNumber("0.5")));
-          local housingStrAfter = housingStr:gsub(chunkToUpdate, "1");
-
-          print_debug("housingStr is: "..housingStr);
-          print_debug("housingStrBefore is: "..housingStrBefore);
-          print_debug("housingStrAfter is: "..housingStrAfter);
-
+          local housingStrBefore = Locale.Lookup("LOC_OPERATION_BUILD_IMPROVEMENT_HOUSING", 0.5);
+          print("housingStrBefore is (before adding escape chars): "..housingStrBefore);
+          -- Lua parses characters that are found in regex ([],+, etc) so we need to escape those in our string we're looking to replace
+          -- Using gsub("%p", "%%%1") will replace all of the punctuation characters (which includes [], +, )
+          -- See https://www.lua.org/pil/20.2.html
+          housingStrBefore = housingStrBefore:gsub("%p", "%%%1")
+          local housingStrAfter = Locale.Lookup("LOC_OPERATION_BUILD_IMPROVEMENT_HOUSING", 1);
           local updatedHelpString, replacedCount = actionsTable["BUILD"][i]["helpString"]:gsub(housingStrBefore, housingStrAfter);
-          print_debug("updatedHelpString is: "..updatedHelpString);
-          print_debug("replacedCount is: "..tostring(replacedCount));
+
+          print("housingStrBefore is (after adding escape chars): "..housingStrBefore);
+          print("housingStrAfter is: "..housingStrAfter);
+          print("updatedHelpString is: "..updatedHelpString);
+          print("replacedCount is: "..tostring(replacedCount));
 
           if replacedCount == 1 then
             actionsTable["BUILD"][i]["helpString"] = updatedHelpString;
