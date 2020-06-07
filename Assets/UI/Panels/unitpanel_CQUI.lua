@@ -7,9 +7,6 @@ BASE_CQUI_VIEW = View;
 BASE_CQUI_Refresh = Refresh;
 BASE_CQUI_GetUnitActionsTable = GetUnitActionsTable;
 
--- temp global
-actionsTable = nil;
-
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
@@ -79,7 +76,7 @@ end
 -- ===========================================================================
 function GetUnitActionsTable( pUnit )
   print_debug("CQUI: GetUnitActionsTable Hook Called")
-  actionsTable = BASE_CQUI_GetUnitActionsTable(pUnit);
+  local actionsTable = BASE_CQUI_GetUnitActionsTable(pUnit);
 
   --[[
     Powershell Script to Pull the two lines from the text file:
