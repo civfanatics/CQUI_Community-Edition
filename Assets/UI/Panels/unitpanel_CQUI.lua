@@ -71,7 +71,7 @@ end
 
 -- ===========================================================================
 --  CQUI modified Refresh functiton : GetUnitActionsTable
---  Update the Housing tool tip to show Farm Provides 1 Housing when Plaeyr is Maya
+--  Update the Housing tool tip to show Farm Provides 1 Housing when Player is Maya
 --  This is fixing a bug in the unmodified game, as it still shows 0.5 Housing on the tool tip
 -- ===========================================================================
 function GetUnitActionsTable( pUnit )
