@@ -82,7 +82,7 @@
 
   <!-- Instances populate in CityDetailsStack -->
   <Instance Name="CityDetailEffect">
-      <Image ID="Icon" Size="20,20" Anchor="C,C"/>
+    <Image ID="Icon" Size="20,20" Anchor="C,C"/>
   </Instance>
 
   <!-- Instances populate in CityInfoStack -->
