@@ -162,15 +162,17 @@ function LeaderIcon:UpdateTeamAndRelationship( playerID: number)
   self.Controls.Relationship:SetHide( not isValid );
 
   -- CQUI Additions
-  local gameEras:table = Game.GetEras();
-  if gameEras:HasHeroicGoldenAge(playerID) then
-    self.Controls.CQUI_Era:SetText("[ICON_GLORY_SUPER_GOLDEN_AGE]");
-  elseif gameEras:HasGoldenAge(playerID) then
-    self.Controls.CQUI_Era:SetText("[ICON_GLORY_GOLDEN_AGE]");
-  elseif gameEras:HasDarkAge(playerID) then
-    self.Controls.CQUI_Era:SetText("[ICON_GLORY_DARK_AGE]");
-  else
-    self.Controls.CQUI_Era:SetText("[ICON_GLORY_NORMAL_AGE]");
+  if (self.Controls.CQUI_Era ~= nil) then
+    local gameEras:table = Game.GetEras();
+    if gameEras:HasHeroicGoldenAge(playerID) then
+      self.Controls.CQUI_Era:SetText("[ICON_GLORY_SUPER_GOLDEN_AGE]");
+    elseif gameEras:HasGoldenAge(playerID) then
+      self.Controls.CQUI_Era:SetText("[ICON_GLORY_GOLDEN_AGE]");
+    elseif gameEras:HasDarkAge(playerID) then
+      self.Controls.CQUI_Era:SetText("[ICON_GLORY_DARK_AGE]");
+    else
+      self.Controls.CQUI_Era:SetText("[ICON_GLORY_NORMAL_AGE]");
+    end
   end
   -- CQUI Additions
 
