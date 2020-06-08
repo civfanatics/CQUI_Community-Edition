@@ -110,6 +110,16 @@ end
 function OnActivateIntelRelationshipPanel(relationshipInstance : table)
   local intelSubPanel = relationshipInstance;
 
+  -- Check to make sure the XML wasn't overwritten by another mod
+  local cquiXmlActive:boolean = true;
+  cquiXmlActive = cquiXmlActive and (intelSubPanel.RelationshipScore ~= nil);
+  cquiXmlActive = cquiXmlActive and (intelSubPanel.RelationshipReasonsTotal ~= nil);
+  cquiXmlActive = cquiXmlActive and (intelSubPanel.RelationshipReasonsTotalScorePerTurn ~= nil);
+  if not cquiXmlActive then
+    BASE_OnActivateIntelRelationshipPanel(intelSubPanel);
+    return
+  end
+
   -- Get the selected player's Diplomactic AI
   local selectedPlayerDiplomaticAI = ms_SelectedPlayer:GetDiplomaticAI();
   -- What do they think of us?

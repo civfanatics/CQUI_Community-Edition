@@ -389,12 +389,22 @@ end
 function UpdateOtherPlayerText(otherPlayerSays)
   BASE_CQUI_UpdateOtherPlayerText(otherPlayerSays);
 
-  CQUI_IconOnlyIM:ResetInstances();
-  CQUI_IconAndTextForCitiesIM:ResetInstances();
-  CQUI_IconAndTextForGreatWorkIM:ResetInstances();
+  local isCquiXmlActive : boolean = true;
+  isCquiXmlActive = isCquiXmlActive and (Controls.PlayerCivIcon ~= nil);
+  isCquiXmlActive = isCquiXmlActive and (Controls.PlayerLeaderName ~= nil);
+  isCquiXmlActive = isCquiXmlActive and (Controls.PlayerCivName ~= nil);
+  isCquiXmlActive = isCquiXmlActive and (Controls.OtherPlayerCivIcon ~= nil);
+  isCquiXmlActive = isCquiXmlActive and (Controls.OtherPlayerLeaderName ~= nil);
+  isCquiXmlActive = isCquiXmlActive and (Controls.OtherPlayerCivName ~= nil);
 
-  PopulateSignatureArea(g_LocalPlayer, Controls.PlayerCivIcon, Controls.PlayerLeaderName, Controls.PlayerCivName);  -- Expansion 2 added global variable for local and other player
-  PopulateSignatureArea(g_OtherPlayer, Controls.OtherPlayerCivIcon, Controls.OtherPlayerLeaderName, Controls.OtherPlayerCivName);
+  if isCquiXmlActive then
+    CQUI_IconOnlyIM:ResetInstances();
+    CQUI_IconAndTextForCitiesIM:ResetInstances();
+    CQUI_IconAndTextForGreatWorkIM:ResetInstances();
+
+    PopulateSignatureArea(g_LocalPlayer, Controls.PlayerCivIcon, Controls.PlayerLeaderName, Controls.PlayerCivName);  -- Expansion 2 added global variable for local and other player
+    PopulateSignatureArea(g_OtherPlayer, Controls.OtherPlayerCivIcon, Controls.OtherPlayerLeaderName, Controls.OtherPlayerCivName);
+  end
 end
 
 
