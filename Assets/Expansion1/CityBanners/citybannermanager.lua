@@ -9,6 +9,7 @@ include( "LoyaltySupport" );
 include( "Civ6Common" );
 include( "Colors" );
 include( "CitySupport" );
+include( "GameCapabilities" );
 
 -- ===========================================================================
 --	GLOBALS
@@ -4097,7 +4098,11 @@ function CQUI_RealHousingFromImprovements(pCity, PlayerID, pCityID)
           if not kPlot:IsImprovementPillaged() then
             local kImprovementData = GameInfo.Improvements[eImprovementType].Housing;
             if kImprovementData == 1 then    -- farms, pastures etc.
-              CQUI_HousingFromImprovements = CQUI_HousingFromImprovements + 1;
+              if GameInfo.Improvements[eImprovementType].ImprovementType == "IMPROVEMENT_FARM" and HasTrait("TRAIT_CIVILIZATION_MAYAB", Game.GetLocalPlayer()) then
+                CQUI_HousingFromImprovements = CQUI_HousingFromImprovements + 2;
+              else
+                CQUI_HousingFromImprovements = CQUI_HousingFromImprovements + 1;
+              end
             elseif kImprovementData == 2 then    -- stepwells, kampungs, mekewaps, golf courses
               if GameInfo.Improvements[eImprovementType].ImprovementType == "IMPROVEMENT_STEPWELL" then    -- stepwells
                 local CQUI_PlayerResearchedSanitation :boolean = Players[Game.GetLocalPlayer()]:GetTechs():HasTech(GameInfo.Technologies["TECH_SANITATION"].Index);    -- check if a player researched Sanitation

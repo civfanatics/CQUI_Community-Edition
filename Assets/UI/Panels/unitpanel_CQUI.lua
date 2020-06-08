@@ -1,8 +1,11 @@
+include("GameCapabilities");
+
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
 BASE_CQUI_VIEW = View;
 BASE_CQUI_Refresh = Refresh;
+BASE_CQUI_GetUnitActionsTable = GetUnitActionsTable;
 
 -- ===========================================================================
 -- CQUI Members
@@ -64,4 +67,46 @@ function Refresh(player, unitId)
       end
     end
   end
+end
+
+-- ===========================================================================
+--  CQUI modified Refresh functiton : GetUnitActionsTable
+--  Update the Housing tool tip to show Farm Provides 1 Housing when Player is Maya
+--  This is fixing a bug in the unmodified game, as it still shows 0.5 Housing on the tool tip
+-- ===========================================================================
+function GetUnitActionsTable( pUnit )
+  local actionsTable = BASE_CQUI_GetUnitActionsTable(pUnit);
+
+  -- Update the Farm Tool Tip to show 1 Housing if the player is Maya
+  if HasTrait("TRAIT_CIVILIZATION_MAYAB", Game.GetLocalPlayer()) then
+    local iconCount = #actionsTable["BUILD"];
+    for i = 1, iconCount do
+      if (actionsTable["BUILD"][i]["IconId"] == "ICON_IMPROVEMENT_FARM") then
+        if housingStr ~= "" then
+          local housingStrBefore = Locale.Lookup("LOC_OPERATION_BUILD_IMPROVEMENT_HOUSING", 0.5);
+          -- print_debug isn't working in this file, so for now just comment out the print statements
+          -- print("housingStrBefore is (before adding escape chars): "..housingStrBefore);
+          -- Lua parses characters that are found in regex ([],+, etc) so we need to escape those in our string we're looking to replace
+          -- Using gsub("%p", "%%%1") will replace all of the punctuation characters (which includes [], +, )
+          -- See https://www.lua.org/pil/20.2.html
+          housingStrBefore = housingStrBefore:gsub("%p", "%%%1")
+          local housingStrAfter = Locale.Lookup("LOC_OPERATION_BUILD_IMPROVEMENT_HOUSING", 1);
+          local updatedHelpString, replacedCount = actionsTable["BUILD"][i]["helpString"]:gsub(housingStrBefore, housingStrAfter);
+
+          -- print("housingStrBefore is (after adding escape chars): "..housingStrBefore);
+          -- print("housingStrAfter is: "..housingStrAfter);
+          -- print("updatedHelpString is: "..updatedHelpString);
+          -- print("replacedCount is: "..tostring(replacedCount));
+
+          if replacedCount == 1 then
+            actionsTable["BUILD"][i]["helpString"] = updatedHelpString;
+          end
+        end
+
+        break -- Only the farm icon needs updating, break from the for loop
+      end
+    end
+  end
+
+  return actionsTable;
 end
