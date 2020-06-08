@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Mod id="1d44b5e7-753e-405b-af24-5ee634ec8a01" version="2.01">
+<Mod id="1d44b5e7-753e-405b-af24-5ee634ec8a01" version="2.1">
   <!-- ==============================  Basic Mod Information ============================== -->
   <Properties>
     <AffectsSavedGames>0</AffectsSavedGames>
     <Name>Community Quick User Interface</Name>
     <Teaser>CQUI</Teaser>
     <Description>The Community Quick User Interface MOD, CivFanatics Version: Updated May 2020.</Description>
-    <CompatibleVersions>2.0</CompatibleVersions>
+    <CompatibleVersions>2.0,2.01</CompatibleVersions>
   </Properties>
 
   <!--============================== Incompatible mods ============================== -->
