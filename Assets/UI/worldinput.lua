@@ -71,7 +71,8 @@ InterfaceModeMessageHandler =
   [InterfaceModeTypes.SPY_TRAVEL_TO_CITY] = {},
   [InterfaceModeTypes.NATURAL_WONDER]    = {},  -- DEPRECATED: Use CINEMATIC
   [InterfaceModeTypes.CINEMATIC]      = {},
-  [InterfaceModeTypes.VIEW_MODAL_LENS]  = {}
+  [InterfaceModeTypes.VIEW_MODAL_LENS]  = {},
+  [InterfaceModeTypes.SACRIFICE_SELECTION] = {}
 }
 
 -- ===========================================================================
@@ -137,7 +138,7 @@ local m_kTutorialPermittedHexes       :table = nil;   -- Which hexes are permitt
 local m_kTutorialUnitHexRestrictions  :table = nil;   -- Any restrictions on where units can move.  (Key=UnitType, Value={restricted plotIds})
 local m_isPlotFlaggedRestricted       :boolean = false; -- In a previous operation to determine a move path, was a plot flagged restrticted/bad? (likely due to the tutorial system)
 local m_kTutorialUnitMoveRestrictions :table = nil;   -- Restrictions for moving (anywhere) of a selected unit type.
-local m_isInputBlocked          :boolean = false;
+local m_isInputBlocked                :boolean = false;
 
 g_MovementPath = UILens.CreateLensLayerHash("Movement_Path");
 g_Numbers = UILens.CreateLensLayerHash("Numbers");
@@ -3158,7 +3159,70 @@ function OnInterfaceModeChange_Selection(eNewMode)
   UILens.SetActive("Default");
 end
 
+-- ===========================================================================
+--  Code related to the Sacrifice Selection interface mode
+-- ===========================================================================
+function OnMouseSacrificeEnd( pInputStruct )
+  -- If a drag was occurring, end it; otherwise raise event.
+  if g_isMouseDragging then
+    g_isMouseDragging = false;
+  else
+    if IsSelectionAllowedAt( UI.GetCursorPlotID() ) then
+      DOSacrificeSelection(pInputStruct);
+    end
+  end
 
+  EndDragMap(true);
+  g_isMouseDownInWorld = false;
+  return true;
+end
+-------------------------------------------------------------------------------
+function DOSacrificeSelection( pInputStruct )
+  local plotID = UI.GetCursorPlotID();
+  if (Map.IsPlot(plotID)) then
+    local plot = Map.GetPlotByIndex(plotID);
+        
+    local tParameters = {};
+    tParameters[UnitOperationTypes.PARAM_X] = plot:GetX();
+    tParameters[UnitOperationTypes.PARAM_Y] = plot:GetY();
+    local pSelectedUnit = UI.GetHeadSelectedUnit();
+    if (UnitManager.CanStartOperation( pSelectedUnit, "UNITOPERATION_SOOTHSAYER_SACRIFICE", nil, tParameters)) then
+      UnitManager.RequestOperation( pSelectedUnit, "UNITOPERATION_SOOTHSAYER_SACRIFICE", tParameters);
+      UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
+    end
+  end
+
+  return true;
+end
+-------------------------------------------------------------------------------
+function OnInterfaceModeChange_Sacrifice(eNewMode)
+  UIManager:SetUICursor(CursorTypes.RANGE_ATTACK);
+  local pSelectedUnit = UI.GetHeadSelectedUnit();
+  if (pSelectedUnit ~= nil) then
+
+    local tResults = UnitManager.GetOperationTargets(pSelectedUnit, "UNITOPERATION_SOOTHSAYER_SACRIFICE" );
+    local allPlots = tResults[UnitOperationResults.PLOTS];
+    if (allPlots ~= nil) then
+      g_targetPlots = {};
+      for i,modifier in ipairs(tResults[UnitOperationResults.PLOTS]) do
+          table.insert(g_targetPlots, allPlots[i]);
+      end 
+
+      if (table.count(g_targetPlots) ~= 0) then
+        local eLocalPlayer:number = Game.GetLocalPlayer();
+        UILens.ToggleLayerOn(g_HexColoringMovement);
+        UILens.SetLayerHexesArea(g_HexColoringMovement, eLocalPlayer, g_targetPlots);
+      end
+    end
+  end
+end
+
+---------------------------------------------------------------------------------
+function OnInterfaceModeLeave_Sacrifice( eNewMode:number )
+  UIManager:SetUICursor(CursorTypes.NORMAL);
+  UILens.ToggleLayerOff( g_HexColoringMovement );
+  UILens.ClearLayerHexes( g_HexColoringMovement );
+end
 
 -- .,;/^`'^\:,.,;/^`'^\:,.,;/^`'^\:,.,;/^`'^\:,.,;/^`'^\:,.,;/^`'^\:,.,;/^`'^\:,.,;/^`'^\:,
 --
@@ -3631,6 +3695,7 @@ function LateInitialize()
   InterfaceModeMessageHandler[InterfaceModeTypes.WB_SELECT_PLOT]    [INTERFACEMODE_ENTER]    = OnInterfaceModeChange_WBSelectPlot;
   InterfaceModeMessageHandler[InterfaceModeTypes.SPY_CHOOSE_MISSION]  [INTERFACEMODE_ENTER]    = OnInterfaceModeChange_SpyChooseMission;
   InterfaceModeMessageHandler[InterfaceModeTypes.SPY_TRAVEL_TO_CITY]  [INTERFACEMODE_ENTER]    = OnInterfaceModeChange_SpyTravelToCity;
+  InterfaceModeMessageHandler[InterfaceModeTypes.SACRIFICE_SELECTION] [INTERFACEMODE_ENTER] = OnInterfaceModeChange_Sacrifice;
 
 
   -- Interface Mode LEAVING (optional):
@@ -3653,6 +3718,8 @@ function LateInitialize()
   InterfaceModeMessageHandler[InterfaceModeTypes.FORM_CORPS]        [INTERFACEMODE_LEAVE]    = OnInterfaceModeLeave_UnitFormCorps;
   InterfaceModeMessageHandler[InterfaceModeTypes.FORM_ARMY]        [INTERFACEMODE_LEAVE]    = OnInterfaceModeLeave_UnitFormArmy;
   InterfaceModeMessageHandler[InterfaceModeTypes.AIRLIFT]          [INTERFACEMODE_LEAVE]    = OnInterfaceModeLeave_UnitAirlift;
+  InterfaceModeMessageHandler[InterfaceModeTypes.SACRIFICE_SELECTION] [INTERFACEMODE_LEAVE] = OnInterfaceModeLeave_Sacrifice;
+
 
   -- Keyboard Events (all happen on up!)
   InterfaceModeMessageHandler[InterfaceModeTypes.BUILDING_PLACEMENT]    [KeyEvents.KeyUp]    = OnPlacementKeyUp;
@@ -3722,6 +3789,8 @@ function LateInitialize()
   InterfaceModeMessageHandler[InterfaceModeTypes.WB_SELECT_PLOT]    [MouseEvents.RButtonUp]    = OnRButtonUp_WBSelectPlot;
   InterfaceModeMessageHandler[InterfaceModeTypes.WB_SELECT_PLOT]    [MouseEvents.RButtonDown]    = OnRButtonDown_WBSelectPlot;
   InterfaceModeMessageHandler[InterfaceModeTypes.WB_SELECT_PLOT]    [MouseEvents.MouseMove]    = OnMouseMove_WBSelectPlot;
+  InterfaceModeMessageHandler[InterfaceModeTypes.SACRIFICE_SELECTION] [MouseEvents.LButtonUp] = OnMouseSacrificeEnd;
+
 
   -- Touch Events (if a touch system)
   if g_isTouchEnabled then
@@ -3760,6 +3829,8 @@ function LateInitialize()
     InterfaceModeMessageHandler[InterfaceModeTypes.COASTAL_RAID]    [MouseEvents.PointerUp]    = CoastalRaid;
     InterfaceModeMessageHandler[InterfaceModeTypes.PLACE_MAP_PIN]    [MouseEvents.PointerUp]    = PlaceMapPin;
     InterfaceModeMessageHandler[InterfaceModeTypes.CITY_MANAGEMENT]    [MouseEvents.PointerUp]    = OnDoNothing;
+    InterfaceModeMessageHandler[InterfaceModeTypes.SACRIFICE_SELECTION] [MouseEvents.PointerUp]   = DOSacrificeSelection;
+
   end
 
 
