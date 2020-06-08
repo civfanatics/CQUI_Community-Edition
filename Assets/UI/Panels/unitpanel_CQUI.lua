@@ -75,7 +75,6 @@ end
 --  This is fixing a bug in the unmodified game, as it still shows 0.5 Housing on the tool tip
 -- ===========================================================================
 function GetUnitActionsTable( pUnit )
-  print_debug("CQUI: GetUnitActionsTable Hook Called")
   local actionsTable = BASE_CQUI_GetUnitActionsTable(pUnit);
 
   -- Update the Farm Tool Tip to show 1 Housing if the player is Maya
@@ -85,7 +84,8 @@ function GetUnitActionsTable( pUnit )
       if (actionsTable["BUILD"][i]["IconId"] == "ICON_IMPROVEMENT_FARM") then
         if housingStr ~= "" then
           local housingStrBefore = Locale.Lookup("LOC_OPERATION_BUILD_IMPROVEMENT_HOUSING", 0.5);
-          print("housingStrBefore is (before adding escape chars): "..housingStrBefore);
+          -- print_debug isn't working in this file, so for now just comment out the print statements
+          -- print("housingStrBefore is (before adding escape chars): "..housingStrBefore);
           -- Lua parses characters that are found in regex ([],+, etc) so we need to escape those in our string we're looking to replace
           -- Using gsub("%p", "%%%1") will replace all of the punctuation characters (which includes [], +, )
           -- See https://www.lua.org/pil/20.2.html
@@ -93,10 +93,10 @@ function GetUnitActionsTable( pUnit )
           local housingStrAfter = Locale.Lookup("LOC_OPERATION_BUILD_IMPROVEMENT_HOUSING", 1);
           local updatedHelpString, replacedCount = actionsTable["BUILD"][i]["helpString"]:gsub(housingStrBefore, housingStrAfter);
 
-          print("housingStrBefore is (after adding escape chars): "..housingStrBefore);
-          print("housingStrAfter is: "..housingStrAfter);
-          print("updatedHelpString is: "..updatedHelpString);
-          print("replacedCount is: "..tostring(replacedCount));
+          -- print("housingStrBefore is (after adding escape chars): "..housingStrBefore);
+          -- print("housingStrAfter is: "..housingStrAfter);
+          -- print("updatedHelpString is: "..updatedHelpString);
+          -- print("replacedCount is: "..tostring(replacedCount));
 
           if replacedCount == 1 then
             actionsTable["BUILD"][i]["helpString"] = updatedHelpString;
