@@ -131,7 +131,6 @@
         <File>Assets/UI/toppanel_CQUI.lua</File>
         <File>Assets/UI/unitflagmanager_CQUI.lua</File>
         <File>Assets/UI/unitflagmanager.xml</File>
-        <!-- <File>Assets/UI/worldinput.lua</File> -->
         <File>Assets/UI/worldinput_CQUI_basegame.lua</File>
         <File>Assets/UI/worldinput_CQUI.lua</File>
         <File>Assets/UI/worldtracker.lua</File>
@@ -960,7 +959,6 @@
     <File>Assets/UI/toppanel_CQUI.lua</File>
     <File>Assets/UI/unitflagmanager_CQUI.lua</File>
     <File>Assets/UI/unitflagmanager.xml</File>
-    <!-- <File>Assets/UI/worldinput.lua</File> -->
     <File>Assets/UI/WorldInput_CQUI_basegame.lua</File>
     <File>Assets/UI/worldinput_CQUI.lua</File>
     <File>Assets/UI/worldtracker.lua</File>
