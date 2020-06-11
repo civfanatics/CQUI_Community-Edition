@@ -858,6 +858,8 @@ function OnInputActionTriggered( actionId )
 
   if ( m_isGreatWorksAvailable ) then
     if ( actionId == Input.GetActionId("ToggleGreatWorks") and UI.QueryGlobalParameterInt("DISABLE_GREAT_WORKS_HOTKEY") ~= 1 ) then
+      -- TEMP
+      print("GREAT WORKS HOT KEY");
       OnOpenGreatWorks();
     end
   end

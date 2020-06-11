@@ -9,6 +9,7 @@ include("WorldInput");
 BASE_CQUI_UpdateDragMap            = UpdateDragMap;
 BASE_CQUI_RealizeMovementPath      = RealizeMovementPath;
 BASE_CQUI_OnUnitSelectionChanged   = OnUnitSelectionChanged;
+BASE_CQUI_OnInputActionTriggered   = OnInputActionTriggered;
 BASE_CQUI_DefaultKeyDownHandler    = DefaultKeyDownHandler;
 BASE_CQUI_DefaultKeyUpHandler      = DefaultKeyUpHandler;
 BASE_CQUI_OnDefaultKeyDown         = OnDefaultKeyDown;
@@ -21,10 +22,16 @@ BASE_CQUI_Initialize               = Initialize;
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
-local m_isInputBlocked :boolean = false;
-local CQUI_cityview    :boolean = false;
-local CQUI_hotkeyMode  :number  = 1; -- 0: V-Style with enhancements 1: V-Style 2: No changes
-local CQUI_isShiftDown :boolean = false;
+local CQUI_HOTKEYMODE_ENHANCED    = 2;
+local CQUI_HOTKEYMODE_CLASSIC     = 1;
+local CQUI_HOTKEYMODE_STANDARD    = 0;
+
+local m_isInputBlocked  :boolean = false;
+local CQUI_cityview     :boolean = false;
+local CQUI_hotkeyMode   :number  = CQUI_HOTKEYMODE_ENHANCED;
+local CQUI_isShiftDown  :boolean = false;
+local CQUI_isAltDown    :boolean = false;
+local CQUI_isCtrlDown   :boolean = false;
 
 function CQUI_OnSettingsUpdate()
   CQUI_hotkeyMode = GameConfiguration.GetValue("CQUI_BindingsMode");
@@ -103,273 +110,274 @@ function DefaultKeyDownHandler( uiKey:number )
 
   --CQUI Keybinds
   local keyPanChanged :boolean = false;
+
   if uiKey == Keys.VK_SHIFT then
+    print_debug("CQUI_isShiftDown = true");
     CQUI_isShiftDown = true;
   end
 
-  if CQUI_hotkeyMode ~= 0 then
-    if CQUI_hotkeyMode == 2 then
-      if( uiKey == Keys.W ) then
+  if uiKey == Keys.VK_ALT then
+    print_debug("CQUI_isAltDown = true");
+    CQUI_isAltDown = true;
+  end
+
+  if CQUI_hotkeyMode ~= CQUI_HOTKEYMODE_STANDARD then
+    if CQUI_hotkeyMode == CQUI_HOTKEYMODE_ENHANCED then
+      if (uiKey == Keys.W) then
         keyPanChanged = true;
         m_isUPpressed = true;
       end
 
-      if( uiKey == Keys.D ) then
+      if (uiKey == Keys.D) then
         keyPanChanged = true;
         m_isRIGHTpressed = true;
       end
 
-      if( uiKey == Keys.S ) then
+      if (uiKey == Keys.S) then
         keyPanChanged = true;
         m_isDOWNpressed = true;
       end
 
-      if( uiKey == Keys.A ) then
+      if (uiKey == Keys.A) then
         keyPanChanged = true;
         m_isLEFTpressed = true;
       end
     end
   end
 
-  if( uiKey == Keys.VK_UP ) then
-    keyPanChanged = true;
-    m_isUPpressed = true;
-  end
-
-  if( uiKey == Keys.VK_RIGHT ) then
-    keyPanChanged = true;
-    m_isRIGHTpressed = true;
-  end
-
-  if( uiKey == Keys.VK_DOWN ) then
-    keyPanChanged = true;
-    m_isDOWNpressed = true;
-  end
-
-  if( uiKey == Keys.VK_LEFT ) then
-    keyPanChanged = true;
-    m_isLEFTpressed = true;
-  end
-
-  if( keyPanChanged == true ) then
-    -- Base game file uses m_edgePanX and m_edgePanY... but I do not see evidence where these are assigned to, except for the initial 0.
-    -- ProcessPan(m_edgePanX,m_edgePanY);
+  if (keyPanChanged == true) then
+    -- Base game file uses m_edgePanX and m_edgePanY... but those values do not appear to ever change from 0, so just send 0.
     ProcessPan(0, 0);
+    return true;
   end
 
+  -- Allow other handlers of KeyDown events to capture input, if any exist after World Input
   return false;
 end
 
 -- ===========================================================================
 function DefaultKeyUpHandler( uiKey:number )
   print_debug("** Function Entry: DefaultKeyUpHandler (CQUI Hook).  uiKey: "..tostring(uiKey));
-  local keyPanChanged :boolean = false;
-  --print("Key Up: " .. uiKey);
+
+  -- If set to Standard, just let the game do its thing
+  if CQUI_hotkeyMode == CQUI_HOTKEYMODE_STANDARD then
+    if uiKey == Keys.VK_SHIFT then
+      CQUI_isShiftDown = false;
+    end
+  
+    if uiKey == Keys.VK_ALT then
+      CQUI_isAltDown = false;
+    end
+
+    return BASE_CQUI_DefaultKeyUpHandler(uiKey);
+  end
+
+  local keyPanChanged  :boolean = false;
+  local cquiHandledKey :boolean = false;
+
   local selectedUnit = UI.GetHeadSelectedUnit();
   local unitType = nil;
   local formationClass = nil;
-  if selectedUnit then
+  if (selectedUnit) then
     unitType = GameInfo.Units[selectedUnit:GetUnitType()].UnitType;
     formationClass = GameInfo.Units[selectedUnit:GetUnitType()].FormationClass;
-    --print("Unit Type: " .. unitType .. " Formation Class: " .. formationClass);
   end
 
-    --CQUI Keybinds
-  if CQUI_hotkeyMode ~= 0 then
-    if CQUI_hotkeyMode == 2 then -- CQUI Hotkey Enhanced mode
-      if( uiKey == Keys.W ) then
-        m_isUPpressed = false;
-        keyPanChanged = true;
-      end
+  --CQUI Keybinds
+  if CQUI_hotkeyMode == CQUI_HOTKEYMODE_ENHANCED then
+    if (uiKey == Keys.W) then
+      m_isUPpressed = false;
+      keyPanChanged = true;
+    end
 
-      if( uiKey == Keys.D ) then
-        m_isRIGHTpressed = false;
-        keyPanChanged = true;
-      end
+    if (uiKey == Keys.D) then
+      m_isRIGHTpressed = false;
+      keyPanChanged = true;
+    end
 
-      if( uiKey == Keys.S ) then
-        m_isDOWNpressed = false;
-        keyPanChanged = true;
-      end
+    if (uiKey == Keys.S) then
+      m_isDOWNpressed = false;
+      keyPanChanged = true;
+    end
 
-      if( uiKey == Keys.A ) then
-        m_isLEFTpressed = false;
-        keyPanChanged = true;
-      end
+    if (uiKey == Keys.A) then
+      m_isLEFTpressed = false;
+      keyPanChanged = true;
+    end
 
-      if( uiKey == Keys.E ) then
-        if(CQUI_cityview) then
-          LuaEvents.CQUI_GoNextCity();
-        else
-          UI.SelectNextReadyUnit();
-        end
+    if (uiKey == Keys.E) then
+      if (CQUI_isAltDown == true) then
+        -- Behave as if just "E" was pressed, send the unit exploring
+        -- Calling this using UnitOperationTypes doesn't work as Automate_Explore hash does not appear among the GameInfo.OperationTypes
+        UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), GameInfo.UnitOperations["UNITOPERATION_AUTOMATE_EXPLORE"].Hash);
+        -- Use false as we need to let the unmodifed script deal with the Alt Key
+        cquiHandledKey = false;
+      elseif (CQUI_cityview) then
+        LuaEvents.CQUI_GoNextCity();
+        cquiHandledKey = true;
+      else
+        UI.SelectNextReadyUnit();
+        cquiHandledKey = true;
       end
+    end
 
-      if( uiKey == Keys.Q ) then
-        if(CQUI_cityview) then
-          LuaEvents.CQUI_GoPrevCity();
-        else
-          UI.SelectPrevReadyUnit();
-        end
+    if (uiKey == Keys.Q) then
+      if (CQUI_isAltDown == true and unitType == "UNIT_BUILDER" ) then
+        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_QUARRY"].Hash);
+        -- Use false as we need to let the unmodifed script deal with the Alt Key
+        cquiHandledKey = false;
+      elseif (CQUI_cityview) then
+        LuaEvents.CQUI_GoPrevCity();
+        cquiHandledKey = true;
+      else
+        UI.SelectPrevReadyUnit();
+        cquiHandledKey = true;
       end
+    end
 
-      if( uiKey == Keys.VK_SHIFT and ContextPtr:LookUpControl("/InGame/TechTree"):IsHidden() and ContextPtr:LookUpControl("/InGame/CivicsTree"):IsHidden()) then
-        if(CQUI_cityview) then
-          UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
-          UI.SelectNextReadyUnit();
-        else
-          LuaEvents.CQUI_GoNextCity();
-        end
+    if (uiKey == Keys.VK_SHIFT and ContextPtr:LookUpControl("/InGame/TechTree"):IsHidden() and ContextPtr:LookUpControl("/InGame/CivicsTree"):IsHidden()) then
+      cquiHandledKey = true;
+      if (CQUI_cityview) then
+        UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
+        UI.SelectNextReadyUnit();
+      else
+        LuaEvents.CQUI_GoNextCity();
       end
-    else --Classic binds that would overlap with the enhanced binds
-      if( uiKey == Keys.Q ) then
-        if (unitType == "UNIT_BUILDER") then
-        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), -80493497); --Quarry
-        end
-      end
+    end
 
-      if( uiKey == Keys.S ) then
+    if (keyPanChanged == true) then
+      -- Base game file uses m_edgePanX and m_edgePanY... but I do not see evidence where these are assigned to, except for the initial 0.
+      ProcessPan(0, 0);
+      cquiHandledKey = true;
+    end
+  else -- CQUI_hotkeyMode == CQUI_HOTKEYMODE_CLASSIC  (Classic binds that overlap with enhanced binds)
+    if (uiKey == Keys.Q) then
+      if (unitType == "UNIT_BUILDER") then
+        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_QUARRY"].Hash);
+        cquiHandledKey = true;
+      end
+    end
+
+    if (uiKey == Keys.S) then
+      if (formationClass == "FORMATION_CLASS_AIR") then
+        -- M4A: Not certain that this command actually is functional
         UnitManager.RequestCommand(UI.GetHeadSelectedUnit(), UnitOperationTypes.AIR_ATTACK);
+        cquiHandledKey = true;
       end
     end
-
-    -- Fortify until healed hotkey
-    if( uiKey == Keys.H ) then
-      if (unitType ~= nil) then -- OPTIMIZATION -- if unit health 100% alert not heal
-        UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), 2126026491); -- OH MY GOD IT WAS SO HARD TO FIND THAT ID. WHAT WAS FIRAXIS THINKING
-      end
-      return;
-    end
+  end -- Classic binds that overlap with enhanced binds
 
     -- Focus Capital hotkey
-    if( uiKey == Keys.VK_HOME ) then
-      UI.SelectCity(Players[Game.GetLocalPlayer()]:GetCities():GetCapitalCity());
-    end
+  if (uiKey == Keys.VK_HOME) then
+    UI.SelectCity(Players[Game.GetLocalPlayer()]:GetCities():GetCapitalCity());
+    cquiHandledKey = true;
+  end
 
-    if( uiKey == Keys.VK_BACK ) then
-      if (unitType ~= nil) then
-        UnitManager.RequestCommand(UI.GetHeadSelectedUnit(), UnitCommandTypes.CANCEL);
-      end
+  if (uiKey == Keys.VK_BACK) then
+    if (unitType ~= nil) then
+      UnitManager.RequestCommand(UI.GetHeadSelectedUnit(), UnitCommandTypes.CANCEL);
+      cquiHandledKey = true;
     end
+  end
 
-    if( uiKey == Keys.I ) then
+  if (uiKey == Keys.C and CQUI_isAltDown == true) then
+    if (unitType == "UNIT_BUILDER") or (unitType == "UNIT_MILITARY_ENGINEER") then
+      UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.HARVEST_RESOURCE);
+      UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.REMOVE_FEATURE);
+      -- Use false as we need to let the unmodifed script deal with the Alt Key
+      cquiHandledKey = false;
+    end
+  end
+
+  if (uiKey == Keys.F) then
+    if (unitType == "UNIT_BUILDER") then
+      CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_FISHING_BOATS"].Hash);
+      cquiHandledKey = true;
+    elseif (unitType == "UNIT_MILITARY_ENGINEER") then
+      CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_FORT"].Hash);
+      cquiHandledKey = true;
+    end
+  end
+
+  if (uiKey == Keys.H and unitType == "UNIT_BUILDER") then
+    CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_CAMP"].Hash);
+    cquiHandledKey = true;
+  end
+
+  if (uiKey == Keys.I and unitType == "UNIT_BUILDER") then
+    CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_FARM"].Hash);
+    cquiHandledKey = true;
+  end
+
+  if (uiKey == Keys.L and unitType == "UNIT_BUILDER") then
+    CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_LUMBER_MILL"].Hash);
+    cquiHandledKey = true;
+  end
+
+  if (uiKey == Keys.N) then
+    cquiHandledKey = true;
+    if (unitType == "UNIT_BUILDER") then
+      CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_MINE"].Hash);
+    else
+      UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.WMD_STRIKE);
+    end
+  end
+
+  if (uiKey == Keys.O) then
+    if (unitType == "UNIT_BUILDER") then
+      CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_OIL_WELL"].Hash);
+      CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_OFFSHORE_OIL_RIG"].Hash);
+      cquiHandledKey = true;
+    end
+  end
+
+  if (uiKey == Keys.P) then
+    if (CQUI_isShiftDown) then
+      CQUI_isShiftDown = false;
+      PlaceMapPin();
+      cquiHandledKey = true;
+    else
       if (unitType == "UNIT_BUILDER") then
-        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), 168372657); --Farm
+        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_PASTURE"].Hash);
+        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_PLANTATION"].Hash);
+        cquiHandledKey = true;
       end
     end
+  end
 
-    if( uiKey == Keys.P ) then
-      if ( CQUI_isShiftDown) then
-        CQUI_isShiftDown = false;
-        PlaceMapPin();
-      else
-        if (unitType == "UNIT_BUILDER") then
-          CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), 154488225); --Pasture
-          CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), 1523996587); --Plantation
-        end
-      end
+  if (uiKey == Keys.R) then
+    if (unitType == "UNIT_MILITARY_ENGINEER") then
+      -- Build Road/Rail is a UnitOperation
+      CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.UnitOperations["UNITOPERATION_BUILD_ROUTE"].Hash);
+      cquiHandledKey = true;
+    elseif (formationClass == "FORMATION_CLASS_AIR") then
+      UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.REBASE);
+      cquiHandledKey = true;
     end
+  end
 
-    if( uiKey == Keys.N ) then
-      if (unitType == "UNIT_BUILDER") then
-        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), 1001859687); --Mine
-      else
-        UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.WMD_STRIKE);
-      end
+  if (uiKey == Keys.S and CQUI_isAltDown == true) then
+    if (formationClass == "FORMATION_CLASS_AIR") then
+      UnitManager.RequestCommand(UI.GetHeadSelectedUnit(), UnitOperationTypes.AIR_ATTACK);
+      -- Use false as we need to let the unmodifed script deal with the Alt Key
+      cquiHandledKey =false;
     end
-
-    if( uiKey == Keys.H ) then
-      if (unitType == "UNIT_BUILDER") then
-        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), -1819558972); --Camp
-      end
-    end
-
-    if( uiKey == Keys.L ) then
-      CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), 2048582848); --Lumber Mill
-    end
-
-    if( uiKey == Keys.R ) then
-      if (unitType == "UNIT_MILITARY_ENGINEER") then
-        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), 115772143); --Road
-      elseif (formationClass == "FORMATION_CLASS_AIR") then
-        UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.REBASE);
-      else
-        return false;
-      end
-    end
-
-    if( uiKey == Keys.F ) then
-      if (unitType == "UNIT_BUILDER") then
-        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), 578093457); --Fishing Boats
-      elseif (unitType == "UNIT_MILITARY_ENGINEER") then
-        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), 1694280827); --Fort
-      else
-        UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), -744032280); --Sleep
-      end
-    end
-
-    if( uiKey == Keys.Z ) then
-      UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), -41338758); --Sleep
-    end
-
-    if( uiKey == Keys.O ) then
-      if (unitType == "UNIT_BUILDER") then
-        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), -1355513600); --Oil Well
-        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), -396628467); --Offshore Platform
-      end
-    end
-
-    if( m_isALTDown ) then --Overridden classic binds get an alt-version as well as the normal alt-shortcuts
-      if( uiKey == Keys.C ) then
-        if (unitType == "UNIT_BUILDER") or (unitType == "UNIT_MILITARY_ENGINEER") then
-          UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.HARVEST_RESOURCE);
-          UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.REMOVE_FEATURE);
-        end
-      end
-
-      if( uiKey == Keys.Q ) then
-        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), -80493497); --Quarry
-      end
-
-      if( uiKey == Keys.S ) then
-        if (formationClass == "FORMATION_CLASS_AIR") then
-          UnitManager.RequestCommand(UI.GetHeadSelectedUnit(), UnitOperationTypes.AIR_ATTACK);
-        end
-      end
-    end
-  end -- CQUI_hotkeyMode ~= 0
+  end
 
   if uiKey == Keys.VK_SHIFT then
     CQUI_isShiftDown = false;
   end
 
-  if( uiKey == Keys.VK_UP ) then
-    m_isUPpressed = false;
-    keyPanChanged = true;
+  if uiKey == Keys.VK_ALT then
+    CQUI_isAltDown = false;
   end
 
-  if( uiKey == Keys.VK_RIGHT ) then
-    m_isRIGHTpressed = false;
-    keyPanChanged = true;
+  if (cquiHandledKey == false) then
+    print_debug("CQUI Did not handle key: "..tostring(uiKey));
+    cquiHandledKey = BASE_CQUI_DefaultKeyUpHandler( uiKey );
   end
 
-  if( uiKey == Keys.VK_DOWN ) then
-    m_isDOWNpressed = false;
-    keyPanChanged = true;
-  end
-
-  if( uiKey == Keys.VK_LEFT ) then
-    m_isLEFTpressed = false;
-    keyPanChanged = true;
-  end
-
-  if( keyPanChanged == true ) then
-    -- Base game file uses m_edgePanX and m_edgePanY... but I do not see evidence where these are assigned to, except for the initial 0.
-    -- ProcessPan(m_edgePanX,m_edgePanY);
-    ProcessPan(0, 0);
-  end
-
-  return BASE_CQUI_DefaultKeyUpHandler( uiKey );
+  return cquiHandledKey;
 end
 
 -- ===========================================================================
@@ -411,6 +419,12 @@ function ClearAllCachedInputState()
   BASE_CQUI_ClearAllCachedInputState();
 
   CQUI_isShiftDown = false;
+end
+
+-- ===========================================================================
+function OnInputActionTriggered( actionId:number )
+ -- CQUI Enhanced Keyboard over-rides some of the ingame hot keys
+
 end
 
 -- ===========================================================================
@@ -522,7 +536,7 @@ end
   
 -- ===========================================================================
 function OnUnblockInput()
-    print_debug("** Function Entry: OnUnblockInput (CQUI Hook)");
+  print_debug("** Function Entry: OnUnblockInput (CQUI Hook)");
   m_isInputBlocked = false;
   ClearAllCachedInputState();
 end
