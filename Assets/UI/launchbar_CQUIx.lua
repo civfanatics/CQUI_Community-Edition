@@ -48,11 +48,6 @@ function Subscribe()
 end
 
 -- ===========================================================================
--- CQUI Replacement Functions
--- These functions replace the unmodifed versions
--- ===========================================================================
-
--- ===========================================================================
 -- CQUI: Unique Functions
 -- These functions are unique to CQUI, do not exist in the Base WorldInput.lua
 -- ===========================================================================
@@ -61,6 +56,7 @@ function OnInputActionTriggeredVanilla( actionId )
   OnInputActionTriggered( actionId )
 end
 
+-- ===========================================================================
 function BuildExtraEntries()
     -- Clear previous entries
     Controls.LaunchExtraStack:DestroyAllChildren();
@@ -177,6 +173,66 @@ function OnAddLaunchbarIcon(buttonInfo:table)
   end
 
   RefreshView();
+end
+
+-- ===========================================================================
+function TestLaunchBarExtension()
+  LuaEvents.LaunchBar_AddExtra("Test1", {Text="Test1", Callback=function() print("Test1") end, Tooltip="Test1"})
+  LuaEvents.LaunchBar_AddExtra("Test2", {Text="Test2", Callback=function() print("Test2") end})
+
+  local textureOffsetX, textureOffsetY, textureSheet = IconManager:FindIconAtlas("ICON_BUILDING_AGORA", 38);
+  local buttonInfo = {
+    -- ICON TEXTURE
+    IconTexture = {
+      OffsetX = textureOffsetX;
+      OffsetY = textureOffsetY+3;
+      Sheet = textureSheet;
+    };
+
+    -- BUTTON TEXTURE
+    BaseTexture = {
+      OffsetX = 0;
+      OffsetY = 0;
+      Sheet = "LaunchBar_Hook_ReligionButton";
+
+      -- Offset to have when hovering
+      HoverOffsetX = 0;
+      HoverOffsetY = 49;
+    };
+
+    -- BUTTON INFO
+    Callback = function() print("Agora!") end;
+    Tooltip = "Agora";
+  }
+
+  LuaEvents.LaunchBar_AddIcon(buttonInfo);
+
+  textureOffsetX, textureOffsetY, textureSheet = IconManager:FindIconAtlas("ICON_UNIT_JAPANESE_SAMURAI", 38);
+  local button2Info = {
+    -- ICON TEXTURE
+    IconTexture = {
+      OffsetX = textureOffsetX;
+      OffsetY = textureOffsetY+3;
+      Sheet = textureSheet;
+      Color = UI.GetColorValue("COLOR_PLAYER_BARBARIAN_PRIMARY");
+    };
+
+    -- BASE TEXTURE (Treat it as Button Texture)
+    BaseTexture = {
+      OffsetX = 0;
+      OffsetY = 147;
+      Sheet = "LaunchBar_Hook_GreatPeopleButton";
+      -- Color = UI.GetColorValue("COLOR_BLUE");
+      HoverOffsetX = 0;
+      HoverOffsetY = 0;
+    };
+
+    -- BUTTON INFO
+    Callback = function() print("ATTACK!") end;
+    -- Tooltip = "barbs...";
+  }
+
+  LuaEvents.LaunchBar_AddIcon(button2Info);
 end
 
 -- ===========================================================================
