@@ -43,7 +43,7 @@ LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
 -- ===========================================================================
 --  VARIABLES
 -- ===========================================================================
-local CQUI_ShowDebugPrint = true;
+local CQUI_ShowDebugPrint = false;
 
 -- ===========================================================================
 --CQUI setting control support functions
