@@ -9,6 +9,7 @@ include( "LoyaltySupport" );
 include( "Civ6Common" );
 include( "Colors" );
 include( "CitySupport" );
+include( "GameCapabilities" );
 
 -- ===========================================================================
 --	GLOBALS
@@ -4222,9 +4223,11 @@ end
 
 -- ===========================================================================
 -- CQUI calculate real housing from improvements
+-- NOTE: Housing Values from Improvements determined by adding integers, and halved once all housing has been calculated
 function CQUI_RealHousingFromImprovements(pCity, PlayerID, pCityID)
   local CQUI_HousingFromImprovements = 0;
   local kCityPlots :table = Map.GetCityPlots():GetPurchasedPlots(pCity);
+
   if kCityPlots ~= nil then
     for _, plotID in pairs(kCityPlots) do
       local kPlot :table = Map.GetPlotByIndex(plotID);
@@ -4234,7 +4237,11 @@ function CQUI_RealHousingFromImprovements(pCity, PlayerID, pCityID)
           if not kPlot:IsImprovementPillaged() then
             local kImprovementData = GameInfo.Improvements[eImprovementType].Housing;
             if kImprovementData == 1 then    -- farms, pastures etc.
-              CQUI_HousingFromImprovements = CQUI_HousingFromImprovements + 1;
+              if GameInfo.Improvements[eImprovementType].ImprovementType == "IMPROVEMENT_FARM" and HasTrait("TRAIT_CIVILIZATION_MAYAB", Game.GetLocalPlayer()) then
+                CQUI_HousingFromImprovements = CQUI_HousingFromImprovements + 2;
+              else
+                CQUI_HousingFromImprovements = CQUI_HousingFromImprovements + 1;
+              end
             elseif kImprovementData == 2 then    -- stepwells, kampungs, mekewaps, golf courses
               if GameInfo.Improvements[eImprovementType].ImprovementType == "IMPROVEMENT_STEPWELL" then    -- stepwells
                 local CQUI_PlayerResearchedSanitation :boolean = Players[Game.GetLocalPlayer()]:GetTechs():HasTech(GameInfo.Technologies["TECH_SANITATION"].Index);    -- check if a player researched Sanitation
@@ -4273,6 +4280,7 @@ function CQUI_RealHousingFromImprovements(pCity, PlayerID, pCityID)
     if CQUI_HousingFromImprovementsTable[PlayerID] == nil then
       CQUI_HousingFromImprovementsTable[PlayerID] = {};
     end
+
     if CQUI_HousingUpdated[PlayerID] == nil then
       CQUI_HousingUpdated[PlayerID] = {};
     end
