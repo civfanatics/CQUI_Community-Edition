@@ -6,7 +6,7 @@
     <Name>Community Quick User Interface</Name>
     <Teaser>CQUI</Teaser>
     <Description>The Community Quick User Interface MOD, CivFanatics Version: Updated May 2020.</Description>
-    <CompatibleVersions>2.0,2.01,2.1</CompatibleVersions>
+    <CompatibleVersions>1.2,2.0</CompatibleVersions>
   </Properties>
 
   <!--============================== Incompatible mods ============================== -->
