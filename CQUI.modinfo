@@ -117,8 +117,7 @@
         <File>Assets/UI/diplomacydealview.xml</File>
         <File>Assets/UI/diplomacyribbon_CQUI_basegame.lua</File>
         <File>Assets/UI/diplomacyribbon_CQUI.lua</File>
-        <File>Assets/UI/ingame_CQUI_basegame.lua</File>
-        <File>Assets/UI/ingame_CQUI.lua</File>
+        <File>Assets/UI/ingame.lua</File>
         <File>Assets/UI/launchbar_CQUI_basegame.lua</File>
         <File>Assets/UI/launchbar_CQUI.lua</File>
         <File>Assets/UI/launchbar.xml</File>
@@ -229,7 +228,7 @@
         <File>Assets/Expansion2/Replacements/diplomacydealview_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/diplomacyribbon_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/governmentscreen_CQUI_expansion2.lua</File>
-        <File>Assets/Expansion2/Replacements/ingame_CQUI_expansion2.lua</File>
+        <File>Assets/Expansion2/Replacements/ingame.lua</File>
         <File>Assets/Expansion2/Replacements/launchbar_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/notificationpanel_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/partialscreenhooks_CQUI_expansion2.lua</File>
@@ -649,7 +648,7 @@
         <LuaContext>LaunchBar</LuaContext>
         <LuaReplace>Assets/Expansion2/Replacements/launchbar_CQUI_expansion2.lua</LuaReplace>
       </Properties>
-    </ReplaceUIScript> -->
+    </ReplaceUIScript>
 
     <ReplaceUIScript id="CQUI_WorldInput">
       <Properties>
@@ -887,7 +886,7 @@
     <File>Assets/Expansion2/Replacements/diplomacydealview_CQUI_expansion2.lua</File>
     <File>Assets/Expansion2/Replacements/diplomacyribbon_CQUI_expansion2.lua</File>
     <File>Assets/Expansion2/Replacements/governmentscreen_CQUI_expansion2.lua</File>
-    <File>Assets/Expansion2/Replacements/ingame_CQUI_expansion2.lua</File>
+    <File>Assets/Expansion2/Replacements/ingame.lua</File>
     <File>Assets/Expansion2/Replacements/launchbar_CQUI_expansion2.lua</File>
     <File>Assets/Expansion2/Replacements/notificationpanel_CQUI_expansion2.lua</File>
     <File>Assets/Expansion2/Replacements/partialscreenhooks_CQUI_expansion2.lua</File>
@@ -947,8 +946,7 @@
     <File>Assets/UI/diplomacydealview.xml</File>
     <File>Assets/UI/diplomacyribbon_CQUI_basegame.lua</File>
     <File>Assets/UI/diplomacyribbon_CQUI.lua</File>
-    <File>Assets/UI/ingame_CQUI_basegame.lua</File>
-    <File>Assets/UI/ingame_CQUI.lua</File>
+    <File>Assets/UI/ingame.lua</File>
     <File>Assets/UI/launchbar_CQUI_basegame.lua</File>
     <File>Assets/UI/launchbar_CQUI.lua</File>
     <File>Assets/UI/launchbar.xml</File>
