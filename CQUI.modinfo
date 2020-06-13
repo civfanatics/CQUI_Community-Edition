@@ -188,13 +188,13 @@
         <File>Assets/Expansion1/Replacements/diplomacyactionview_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/diplomacyribbon_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/governmentscreen_CQUI_expansion1.lua</File>
-        <File>Assets/Expansion1/Replacements/LaunchBar_CQUI_expansion1.lua</File>
+        <File>Assets/Expansion1/Replacements/launchbar_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/notificationpanel_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/partialscreenhooks_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/techtree_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/toppanel_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/unitpanel_CQUI_expansion1.lua</File>
-        <File>Assets/Expansion1/Replacements/WorldInput_CQUI_expansion1.lua</File>
+        <File>Assets/Expansion1/Replacements/worldinput_CQUI_expansion1.lua</File>
       </Items>
     </ImportFiles>
 
@@ -229,14 +229,14 @@
         <File>Assets/Expansion2/Replacements/diplomacyribbon_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/governmentscreen_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/ingame.lua</File>
-        <File>Assets/Expansion2/Replacements/LaunchBar_CQUI_expansion2.lua</File>
+        <File>Assets/Expansion2/Replacements/launchbar_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/notificationpanel_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/partialscreenhooks_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/plottooltip_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/techtree_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/toppanel_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/unitpanel_CQUI_expansion2.lua</File>
-        <File>Assets/Expansion2/Replacements/WorldInput_CQUI_expansion2.lua</File>
+        <File>Assets/Expansion2/Replacements/worldinput_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/CityBanners/citybannermanager.lua</File>
         <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
       </Items>
