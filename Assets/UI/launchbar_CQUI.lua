@@ -4,8 +4,6 @@ include( "GameCapabilities" );
 -- Cached Base Functions
 -- ===========================================================================
 BASE_CQUI_OnOpen = OnOpen;
-BASE_CQUI_Unsubscribe = Unsubscribe;
-BASE_CQUI_Subscribe = Subscribe;
 
 -- ===========================================================================
 -- CQUI Members
@@ -28,30 +26,8 @@ function OnOpen()
 end
 
 -- ===========================================================================
-function Unsubscribe()
-  BASE_CQUI_Unsubscribe();
-  -- Vaniila-only function, because OnInputActionTriggered may be overriden elsewhere (like XP1)
-  Events.InputActionTriggered.Remove( OnInputActionTriggeredVanilla );
-end
-
--- ===========================================================================
-function Subscribe()
-  BASE_CQUI_Subscribe();
-  -- Undo the default for this Event
-  Events.InputActionTriggered.Remove( OnInputActionTriggered );
-  -- Vaniila-only function, because OnInputActionTriggered may be overriden elsewhere (like XP1)
-  Events.InputActionTriggered.Add( OnInputActionTriggeredVanilla );
-end
-
--- ===========================================================================
 -- CQUI: Unique Functions
 -- These functions are unique to CQUI, do not exist in the Base WorldInput.lua
--- ===========================================================================
-function OnInputActionTriggeredVanilla( actionId )
-  -- Vanilla-only function, because OnInputActionTriggered may be overriden elsewhere (like XP1)
-  OnInputActionTriggered( actionId )
-end
-
 -- ===========================================================================
 function BuildExtraEntries()
     -- Clear previous entries
@@ -173,6 +149,8 @@ end
 
 -- ===========================================================================
 function TestLaunchBarExtension()
+  -- NOTE: This function is not called, exists to be called if wanting to test should we ever decide to add things here
+  -- Running this method shows how to add items to the "extra" menu that is made visible by clicking on the small circle next to the Science/Culture/Government/etc (in the LaunchBar)
   LuaEvents.LaunchBar_AddExtra("Test1", {Text="Test1", Callback=function() print("Test1") end, Tooltip="Test1"})
   LuaEvents.LaunchBar_AddExtra("Test2", {Text="Test2", Callback=function() print("Test2") end})
 
