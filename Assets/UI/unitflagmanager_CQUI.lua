@@ -21,6 +21,7 @@ local CQUI_SelectionMade = false;
 local CQUI_ShowPaths = true; --Toggle for showing the paths
 local CQUI_IsFlagHover = false; -- if the path is the flag us currently hover or not
 
+-- ===========================================================================
 --Hides any currently drawn paths.
 function CQUI_HidePath()
   if CQUI_ShowPaths and CQUI_IsFlagHover then
@@ -29,11 +30,13 @@ function CQUI_HidePath()
   end
 end
 
+-- ===========================================================================
 function CQUI_OnSettingsUpdate()
   CQUI_HidePath();
   CQUI_ShowPaths = GameConfiguration.GetValue("CQUI_ShowUnitPaths");
 end
 
+-- ===========================================================================
 function CQUI_Refresh()
   -- AZURENCY : update the stats of the flags on refresh
   local unitList = Players[Game.GetLocalPlayer()]:GetUnits();
@@ -50,20 +53,24 @@ function CQUI_Refresh()
   end
 end
 
+-- ===========================================================================
 function CQUI_OnUnitFlagPointerEntered(playerID:number, unitID:number)
-  if CQUI_ShowPaths and not CQUI_IsFlagHover then
+if CQUI_ShowPaths and not CQUI_IsFlagHover then
     if not CQUI_SelectionMade then
       LuaEvents.CQUI_showUnitPath(true, unitID);
     end
+
     CQUI_IsFlagHover = true;
   end
 end
 
+-- ===========================================================================
 function CQUI_OnUnitFlagPointerExited(playerID:number, unitID:number)
   if CQUI_ShowPaths and CQUI_IsFlagHover then
     if not CQUI_SelectionMade then
       LuaEvents.CQUI_clearUnitPath();
     end
+
     CQUI_IsFlagHover = false;
   end
 end
@@ -157,6 +164,7 @@ function UnitFlag.UpdatePromotions( self )
         if not bCanStart then
           bCanStart = unitExperience:GetExperiencePoints() >= unitExperience:GetExperienceForNextLevel()
         end
+
         -- Nilt: Added check to prevent the promotion flag staying a red + permanently on max XP units.
         if bCanStart and isLocalPlayerUnit and (#promotionList < 7) then
           self.m_Instance.New_Promotion_Flag:SetHide(false);
@@ -199,6 +207,7 @@ function OnUnitSelectionChanged( playerID : number, unitID : number, hexI : numb
         if(CQUI_ShowingPath ~= nil) then
             CQUI_HidePath();
         end
+
         CQUI_ShowingPath = unitID;
       end
     else
@@ -212,6 +221,7 @@ function OnUnitSelectionChanged( playerID : number, unitID : number, hexI : numb
   end
 end
 
+-- ===========================================================================
 function OnDiplomacyWarStateChange(player1ID:number, player2ID:number)
   local localPlayer =  Players[Game.GetLocalPlayer()];
 
@@ -221,7 +231,6 @@ function OnDiplomacyWarStateChange(player1ID:number, player2ID:number)
   else
     playerToUpdate = player1ID;
   end
-
 
   if (playerToUpdate ~= nil) then
     for index,pUnit in Players[playerToUpdate]:GetUnits():Members() do
@@ -235,9 +244,8 @@ function OnDiplomacyWarStateChange(player1ID:number, player2ID:number)
   end
 end
 
--------------------------------------------------
+-- ===========================================================================
 -- Update charges on units
--------------------------------------------------
 function OnUnitChargesChanged(player, unitID)
   local localPlayerID = Game.GetLocalPlayer();
   local pPlayer = Players[ player ];
@@ -286,6 +294,7 @@ function OnUnitPromotionChanged( playerID : number, unitID : number )
   end
 end
 
+-- ===========================================================================
 function Initialize()
   ContextPtr:SetRefreshHandler(CQUI_Refresh);
 
@@ -305,5 +314,4 @@ function Initialize()
   LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
   LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 end
-
-Initialize()
+Initialize();

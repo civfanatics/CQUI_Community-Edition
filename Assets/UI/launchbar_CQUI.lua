@@ -1,7 +1,4 @@
--- ===========================================================================
--- Base File
--- ===========================================================================
-include("LaunchBar");
+include( "GameCapabilities" );
 
 -- ===========================================================================
 -- Cached Base Functions
@@ -9,7 +6,6 @@ include("LaunchBar");
 BASE_CQUI_OnOpen = OnOpen;
 BASE_CQUI_Unsubscribe = Unsubscribe;
 BASE_CQUI_Subscribe = Subscribe;
-BASE_CQUI_Initialize = Initialize;
 
 -- ===========================================================================
 -- CQUI Members
@@ -239,7 +235,6 @@ end
 -- CQUI: Initialize Function
 -- ===========================================================================
 function Initialize()
-  BASE_CQUI_Initialize();
   Controls.LaunchExtraShow:RegisterCallback( Mouse.eLClick, OnToggleExtras );
 
   -- Modular Screens
