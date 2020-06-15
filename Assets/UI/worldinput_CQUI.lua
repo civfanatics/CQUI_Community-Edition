@@ -338,9 +338,12 @@ function DefaultKeyUpHandler( uiKey:number )
       -- Build Road/Rail is a UnitOperation
       CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.UnitOperations["UNITOPERATION_BUILD_ROUTE"].Hash);
       cquiHandledKey = true;
-    elseif (formationClass == "FORMATION_CLASS_AIR") then
-      UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.REBASE);
-      cquiHandledKey = true;
+      -- TODO: Rebase requires a separate set of parameters be passed to it, pointing at the location to move to
+      --       Similar to how the CQUI_BuildImprovement generates an object based on where the Builder/Engineer unit happens to be.
+      -- Logged on GitHub as Issue #40
+    -- elseif (formationClass == "FORMATION_CLASS_AIR") then
+      -- UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.REBASE);
+      -- cquiHandledKey = true;
     end
   end
 
