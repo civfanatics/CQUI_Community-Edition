@@ -3,4 +3,4 @@
 -- ===========================================================================
 include("WorldInput");
 
-include("WorldInput_CQUI.lua");
+include("worldinput_CQUI.lua");

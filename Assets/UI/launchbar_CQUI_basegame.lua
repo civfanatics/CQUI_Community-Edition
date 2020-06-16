@@ -3,4 +3,4 @@
 -- ===========================================================================
 include("LaunchBar");
 
-include("LaunchBar_CQUI.lua");
+include("launchbar_CQUI.lua");
