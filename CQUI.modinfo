@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Mod id="1d44b5e7-753e-405b-af24-5ee634ec8a01" version="2.1">
+<Mod id="1d44b5e7-753e-405b-af24-5ee634ec8a01" version="2.2">
   <!-- ==============================  Basic Mod Information ============================== -->
   <Properties>
     <AffectsSavedGames>0</AffectsSavedGames>
     <Name>Community Quick User Interface</Name>
     <Teaser>CQUI</Teaser>
     <Description>The Community Quick User Interface MOD, CivFanatics Version: Updated May 2020.</Description>
-    <CompatibleVersions>2.0,2.01</CompatibleVersions>
+    <CompatibleVersions>1.2,2.0</CompatibleVersions>
   </Properties>
 
   <!--============================== Incompatible mods ============================== -->
@@ -118,7 +118,8 @@
         <File>Assets/UI/diplomacyribbon_CQUI_basegame.lua</File>
         <File>Assets/UI/diplomacyribbon_CQUI.lua</File>
         <File>Assets/UI/ingame.lua</File>
-        <File>Assets/UI/launchbar.lua</File>
+        <File>Assets/UI/launchbar_CQUI_basegame.lua</File>
+        <File>Assets/UI/launchbar_CQUI.lua</File>
         <File>Assets/UI/launchbar.xml</File>
         <File>Assets/UI/leadericon.lua</File>
         <File>Assets/UI/partialscreenhooks_CQUI_basegame.lua</File>
@@ -131,7 +132,8 @@
         <File>Assets/UI/toppanel_CQUI.lua</File>
         <File>Assets/UI/unitflagmanager_CQUI.lua</File>
         <File>Assets/UI/unitflagmanager.xml</File>
-        <File>Assets/UI/worldinput.lua</File>
+        <File>Assets/UI/worldinput_CQUI_basegame.lua</File>
+        <File>Assets/UI/worldinput_CQUI.lua</File>
         <File>Assets/UI/worldtracker.lua</File>
         <File>Assets/UI/worldtracker.xml</File>
         <File>Assets/UI/worldviewiconsmanager_CQUI.lua</File>
@@ -186,11 +188,13 @@
         <File>Assets/Expansion1/Replacements/diplomacyactionview_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/diplomacyribbon_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/governmentscreen_CQUI_expansion1.lua</File>
+        <File>Assets/Expansion1/Replacements/launchbar_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/notificationpanel_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/partialscreenhooks_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/techtree_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/toppanel_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/unitpanel_CQUI_expansion1.lua</File>
+        <File>Assets/Expansion1/Replacements/worldinput_CQUI_expansion1.lua</File>
       </Items>
     </ImportFiles>
 
@@ -225,12 +229,14 @@
         <File>Assets/Expansion2/Replacements/diplomacyribbon_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/governmentscreen_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/ingame.lua</File>
+        <File>Assets/Expansion2/Replacements/launchbar_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/notificationpanel_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/partialscreenhooks_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/plottooltip_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/techtree_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/toppanel_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/unitpanel_CQUI_expansion2.lua</File>
+        <File>Assets/Expansion2/Replacements/worldinput_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/CityBanners/citybannermanager.lua</File>
         <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
       </Items>
@@ -298,7 +304,7 @@
     <!-- ============================== CQUI specific art overrides ============================== -->
     <ModArt id="CQUI_MODART">
       <Items>
-        <File>cqui.dep</File>
+        <File>CQUI.dep</File>
       </Items>
     </ModArt>
 
@@ -598,6 +604,52 @@
       </Properties>
     </ReplaceUIScript>
 
+    <ReplaceUIScript id="CQUI_LaunchBar">
+      <Properties>
+        <LuaContext>LaunchBar</LuaContext>
+        <LuaReplace>Assets/UI/launchbar_CQUI_basegame.lua</LuaReplace>
+      </Properties>
+    </ReplaceUIScript>
+
+    <ReplaceUIScript id="CQUI_LaunchBar_EXP1" criteria="Expansion1">
+      <Properties>
+        <LoadOrder>100</LoadOrder>
+        <LuaContext>LaunchBar</LuaContext>
+        <LuaReplace>Assets/Expansion1/Replacements/launchbar_CQUI_expansion1.lua</LuaReplace>
+      </Properties>
+    </ReplaceUIScript>
+
+    <ReplaceUIScript id="CQUI_LaunchBar_EXP2" criteria="Expansion2">
+      <Properties>
+        <LoadOrder>200</LoadOrder>
+        <LuaContext>LaunchBar</LuaContext>
+        <LuaReplace>Assets/Expansion2/Replacements/launchbar_CQUI_expansion2.lua</LuaReplace>
+      </Properties>
+    </ReplaceUIScript> -->
+
+    <ReplaceUIScript id="CQUI_WorldInput">
+      <Properties>
+        <LuaContext>WorldInput</LuaContext>
+        <LuaReplace>Assets/UI/worldinput_CQUI_basegame.lua</LuaReplace>
+      </Properties>
+    </ReplaceUIScript>
+
+    <ReplaceUIScript id="CQUI_WorldInput_EXP1" criteria="Expansion1">
+      <Properties>
+        <LoadOrder>100</LoadOrder>
+        <LuaContext>WorldInput</LuaContext>
+        <LuaReplace>Assets/Expansion1/Replacements/worldinput_CQUI_expansion1.lua</LuaReplace>
+      </Properties>
+    </ReplaceUIScript>
+
+    <ReplaceUIScript id="CQUI_WorldInput_EXP2" criteria="Expansion2">
+      <Properties>
+        <LoadOrder>200</LoadOrder>
+        <LuaContext>WorldInput</LuaContext>
+        <LuaReplace>Assets/Expansion2/Replacements/worldinput_CQUI_expansion2.lua</LuaReplace>
+      </Properties>
+    </ReplaceUIScript>
+
     <!-- ============================== Mod integrations ======================================== -->
     <!-- ============================== Better Trade Screen (BTS) ============================== -->
     <LocalizedText id="BTS_TEXT">
@@ -826,7 +878,6 @@
     <File>Assets/cqui_toplayer.xml</File>
     <File>Assets/cqui_toplayer.lua</File>
     <File>Assets/UI/CQUICommon.lua</File>
-    <File>Assets/UI/WTF.Lua</File>
 
     <!-- EXP 1 -->
     <File>Assets/Expansion1/CityBanners/citybannermanager.lua</File>
@@ -841,11 +892,13 @@
     <File>Assets/Expansion1/Replacements/governmentscreen_CQUI_expansion1.lua</File>
     <File>Assets/Expansion1/Replacements/leadericon.lua</File>
     <File>Assets/Expansion1/Replacements/leadericon.xml</File>
+    <File>Assets/Expansion1/Replacements/launchbar_CQUI_expansion1.lua</File>
     <File>Assets/Expansion1/Replacements/notificationpanel_CQUI_expansion1.lua</File>
     <File>Assets/Expansion1/Replacements/partialscreenhooks_CQUI_expansion1.lua</File>
     <File>Assets/Expansion1/Replacements/techtree_CQUI_expansion1.lua</File>
     <File>Assets/Expansion1/Replacements/toppanel_CQUI_expansion1.lua</File>
     <File>Assets/Expansion1/Replacements/unitpanel_CQUI_expansion1.lua</File>
+    <File>Assets/Expansion1/Replacements/worldinput_CQUI_expansion1.lua</File>
     <File>Assets/Expansion1/Replacements/worldtracker_expansion1.lua</File>
 
     <!-- EXP 2 -->
@@ -859,12 +912,14 @@
     <File>Assets/Expansion2/Replacements/diplomacyribbon_CQUI_expansion2.lua</File>
     <File>Assets/Expansion2/Replacements/governmentscreen_CQUI_expansion2.lua</File>
     <File>Assets/Expansion2/Replacements/ingame.lua</File>
+    <File>Assets/Expansion2/Replacements/launchbar_CQUI_expansion2.lua</File>
     <File>Assets/Expansion2/Replacements/notificationpanel_CQUI_expansion2.lua</File>
     <File>Assets/Expansion2/Replacements/partialscreenhooks_CQUI_expansion2.lua</File>
     <File>Assets/Expansion2/Replacements/plottooltip_CQUI_expansion2.lua</File>
     <File>Assets/Expansion2/Replacements/techtree_CQUI_expansion2.lua</File>
     <File>Assets/Expansion2/Replacements/toppanel_CQUI_expansion2.lua</File>
     <File>Assets/Expansion2/Replacements/unitpanel_CQUI_expansion2.lua</File>
+    <File>Assets/Expansion2/Replacements/worldinput_CQUI_expansion2.lua</File>
     <File>Assets/Expansion2/CityBanners/citybannermanager.lua</File>
     <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
 
@@ -917,7 +972,8 @@
     <File>Assets/UI/diplomacyribbon_CQUI_basegame.lua</File>
     <File>Assets/UI/diplomacyribbon_CQUI.lua</File>
     <File>Assets/UI/ingame.lua</File>
-    <File>Assets/UI/launchbar.lua</File>
+    <File>Assets/UI/launchbar_CQUI_basegame.lua</File>
+    <File>Assets/UI/launchbar_CQUI.lua</File>
     <File>Assets/UI/launchbar.xml</File>
     <File>Assets/UI/leadericon.lua</File>
     <File>Assets/UI/partialscreenhooks_CQUI_basegame.lua</File>
@@ -930,7 +986,8 @@
     <File>Assets/UI/toppanel_CQUI.lua</File>
     <File>Assets/UI/unitflagmanager_CQUI.lua</File>
     <File>Assets/UI/unitflagmanager.xml</File>
-    <File>Assets/UI/worldinput.lua</File>
+    <File>Assets/UI/worldinput_CQUI_basegame.lua</File>
+    <File>Assets/UI/worldinput_CQUI.lua</File>
     <File>Assets/UI/worldtracker.lua</File>
     <File>Assets/UI/worldtracker.xml</File>
     <File>Assets/UI/worldviewiconsmanager_CQUI.lua</File>
