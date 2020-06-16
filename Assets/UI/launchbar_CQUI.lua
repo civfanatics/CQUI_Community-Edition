@@ -220,4 +220,3 @@ function Initialize()
   LuaEvents.LaunchBar_AddIcon.Add( OnAddLaunchbarIcon );
 end
 Initialize();
-

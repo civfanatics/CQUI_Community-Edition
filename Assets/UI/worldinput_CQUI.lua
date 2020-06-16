@@ -172,7 +172,7 @@ function DefaultKeyUpHandler( uiKey:number )
       keyPanChanged = true;
     end
 
-    if (uiKey == Keys.S and CQUI_isAltDown == false) then
+    if (uiKey == Keys.S) then
       m_isDOWNpressed = false;
       keyPanChanged = true;
     end
@@ -209,15 +209,17 @@ function DefaultKeyUpHandler( uiKey:number )
       end
     end
 
-    if (uiKey == Keys.VK_SHIFT and ContextPtr:LookUpControl("/InGame/TechTree"):IsHidden() and ContextPtr:LookUpControl("/InGame/CivicsTree"):IsHidden()) then
-      cquiHandledKey = true;
-      if (CQUI_cityview) then
-        UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
-        UI.SelectNextReadyUnit();
-      else
-        LuaEvents.CQUI_GoNextCity();
-      end
-    end
+    -- TODO: Not a huge fan of the Shift key being used to do things when the Shift key should just be a modifier.
+    --       Taking it out for now and will address with Issue #40
+    -- if (uiKey == Keys.VK_SHIFT and ContextPtr:LookUpControl("/InGame/TechTree"):IsHidden() and ContextPtr:LookUpControl("/InGame/CivicsTree"):IsHidden()) then
+    --   cquiHandledKey = true;
+    --   if (CQUI_cityview) then
+    --     UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
+    --     UI.SelectNextReadyUnit();
+    --   else
+    --     LuaEvents.CQUI_GoNextCity();
+    --   end
+    -- end
 
     if (keyPanChanged == true) then
       -- Base game file uses m_edgePanX and m_edgePanY... but I do not see evidence where these are assigned to, except for the initial 0.
@@ -232,13 +234,15 @@ function DefaultKeyUpHandler( uiKey:number )
       end
     end
 
-    if (uiKey == Keys.S) then
-      if (formationClass == "FORMATION_CLASS_AIR") then
-        -- TODO M4A: Not certain that this command actually is functional
-        UnitManager.RequestCommand(UI.GetHeadSelectedUnit(), UnitOperationTypes.AIR_ATTACK);
-        cquiHandledKey = true;
-      end
-    end
+    -- TODO: AIR_ATTACK requires a separate set of parameters be passed to it, pointing at the object to attack
+    --       Similar to how the CQUI_BuildImprovement generates an object based on where the Builder/Engineer unit happens to be.
+    -- Logged on GitHub as Issue #40
+    -- if (uiKey == Keys.S) then
+      -- if (formationClass == "FORMATION_CLASS_AIR") then
+      -- UnitManager.RequestCommand(UI.GetHeadSelectedUnit(), UnitOperationTypes.AIR_ATTACK);
+      --  cquiHandledKey = true;
+      -- end
+    -- end
   end -- Classic binds that overlap with enhanced binds
 
     -- Focus Capital hotkey
@@ -288,11 +292,16 @@ function DefaultKeyUpHandler( uiKey:number )
   end
 
   if (uiKey == Keys.N) then
-    cquiHandledKey = true;
+    -- See TODO note Below
+    -- cquiHandledKey = true;
     if (unitType == "UNIT_BUILDER") then
       CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_MINE"].Hash);
+      cquiHandledKey = true;
     else
-      UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.WMD_STRIKE);
+      -- TODO: WMD_STRIKE requires a separate set of parameters be passed to it, pointing at the object to attack
+      --       Similar to how the CQUI_BuildImprovement generates an object based on where the Builder/Engineer unit happens to be.
+      -- Logged on GitHub as Issue #40
+      -- UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.WMD_STRIKE);
     end
   end
 
@@ -329,18 +338,24 @@ function DefaultKeyUpHandler( uiKey:number )
       -- Build Road/Rail is a UnitOperation
       CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.UnitOperations["UNITOPERATION_BUILD_ROUTE"].Hash);
       cquiHandledKey = true;
-    elseif (formationClass == "FORMATION_CLASS_AIR") then
-      UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.REBASE);
-      cquiHandledKey = true;
+      -- TODO: Rebase requires a separate set of parameters be passed to it, pointing at the location to move to
+      --       Similar to how the CQUI_BuildImprovement generates an object based on where the Builder/Engineer unit happens to be.
+      -- Logged on GitHub as Issue #40
+    -- elseif (formationClass == "FORMATION_CLASS_AIR") then
+      -- UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.REBASE);
+      -- cquiHandledKey = true;
     end
   end
 
-  if (uiKey == Keys.S and CQUI_isAltDown == true) then
-    if (formationClass == "FORMATION_CLASS_AIR") then
-      UnitManager.RequestCommand(UI.GetHeadSelectedUnit(), UnitOperationTypes.AIR_ATTACK);
-      cquiHandledKey = true;
-    end
-  end
+  -- TODO: AIR_ATTACK requires a separate set of parameters be passed to it, pointing at the object to attack
+  --       Similar to how the CQUI_BuildImprovement generates an object based on where the Builder/Engineer unit happens to be.
+  -- Logged on GitHub as Issue #40
+  -- if (uiKey == Keys.S and CQUI_isAltDown == true) then
+    -- if (formationClass == "FORMATION_CLASS_AIR") then
+    --   UnitManager.RequestCommand(UI.GetHeadSelectedUnit(), UnitOperationTypes.AIR_ATTACK);
+    --   cquiHandledKey = true;
+    -- end
+  -- end
 
   if uiKey == Keys.VK_SHIFT then
     -- We need to let the base function also handle the Shift Up action
@@ -353,8 +368,8 @@ function DefaultKeyUpHandler( uiKey:number )
   end
 
   if (cquiHandledKey == false) then
-    print_debug("CQUI Did not handle key: "..tostring(uiKey));
-    cquiHandledKey = BASE_CQUI_DefaultKeyUpHandler( uiKey );
+    print_debug("** CQUI DefaultKeyUpHandler did not handle key: "..tostring(uiKey));
+    cquiHandledKey = BASE_CQUI_DefaultKeyUpHandler(uiKey);
   end
 
   return cquiHandledKey;
