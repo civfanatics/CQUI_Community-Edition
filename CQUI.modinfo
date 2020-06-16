@@ -625,7 +625,7 @@
         <LuaContext>LaunchBar</LuaContext>
         <LuaReplace>Assets/Expansion2/Replacements/launchbar_CQUI_expansion2.lua</LuaReplace>
       </Properties>
-    </ReplaceUIScript> -->
+    </ReplaceUIScript>
 
     <ReplaceUIScript id="CQUI_WorldInput">
       <Properties>
