@@ -8,7 +8,7 @@ BASE_CQUI_GetCityData = GetCityData;
 
 -- ===========================================================================
 -- CQUI Extension Functions
--- These functions replace the unmodifed versions
+-- These functions extend the unmodifed versions
 -- ===========================================================================
 function GetCityData( pCity:table )
   -- call the base function, extend the return data we give back
