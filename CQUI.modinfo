@@ -107,6 +107,7 @@
         <File>Assets/Texture/CQUI_GreatPeople_Background_Repeat_Top.dds</File>
         <File>Assets/Texture/CQUI_GreatPeople_Background_Top.dds</File>
         <File>Assets/UI/civ6common.lua</File>
+        <File>Assets/UI/actionpanel.lua</File>
         <File>Assets/UI/citysupport_CQUI_basegame.lua</File>
         <File>Assets/UI/citysupport_CQUI.lua</File>
         <File>Assets/UI/diplomacyactionview_CQUI_basegame.lua</File>
@@ -935,6 +936,7 @@
     <File>Assets/Texture/CQUI_GreatPeople_Background_Repeat_Bottom.dds</File>
     <File>Assets/Texture/CQUI_GreatPeople_Background_Repeat_Top.dds</File>
     <File>Assets/Texture/CQUI_GreatPeople_Background_Top.dds</File>
+    <File>Assets/UI/actionpanel.lua</File>
     <File>Assets/UI/citysupport_CQUI_basegame.lua</File>
     <File>Assets/UI/citysupport_CQUI.lua</File>
     <File>Assets/UI/civ6common.lua</File>
