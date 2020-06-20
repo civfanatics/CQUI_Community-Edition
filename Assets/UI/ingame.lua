@@ -1,5 +1,6 @@
 -- CQUI InGame.lua Replacement
 -- CQUI-Specific Changes marked in-line below
+-- NOTE: InGame.lua cannot be replaced via ReplaceUIScript, per the comment below from Firaxis.
 
 -- Copyright 2015-2018, Firaxis Games
 -- Root context for ingame (aka: All-the-things)

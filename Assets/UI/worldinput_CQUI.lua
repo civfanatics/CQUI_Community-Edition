@@ -1,4 +1,5 @@
 include("PopupDialog.lua");
+include("CQUICommon.lua");
 
 -- ===========================================================================
 -- Cached Base Functions
@@ -29,19 +30,19 @@ end
 LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
 LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
 
--- ===========================================================================
---  VARIABLES
--- ===========================================================================
-local CQUI_ShowDebugPrint = false;
+-- -- ===========================================================================
+-- --  VARIABLES
+-- -- ===========================================================================
+-- local CQUI_ShowDebugPrint = false;
 
--- ===========================================================================
---CQUI setting control support functions
--- ===========================================================================
-function print_debug(str)
-  if CQUI_ShowDebugPrint then
-    print(str);
-  end
-end
+-- -- ===========================================================================
+-- --CQUI setting control support functions
+-- -- ===========================================================================
+-- function print_debug(str)
+--   if CQUI_ShowDebugPrint then
+--     print(str);
+--   end
+-- end
 
 -- ===========================================================================
 -- CQUI Base Extension Functions
