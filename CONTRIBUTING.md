@@ -5,12 +5,15 @@ Some issues are labeled "easy" it should be a great entry point if you want to j
 A comprehensive contribution guide created for the predecessor of this mod is a good starting point.
 
 ## Quick coding style
-* Please use 2 spaces for indentation
+* Please use 2 spaces for indentation. Do NOT use tabs.
+* Follow whatever style is currently present in the file you are editing, do not reformat it.
+You can configure your IDE/editor to auto-format **your new files** only. 
 * When modifying existing game files, prefix newly added functions, events, and members with "CQUI_"
-* When commenting, it's a good practice to add your username at the beginning of the comment to know who modified this part of the code
 * There should be NO hardcoded strings in CQUI
+* These are guidelines and now laws. a PR should be still accepted if the styling is a bit off. We need to be realistic about the volunteering nature of this project and the limited amount of time we ca expect from contributors. **We value progress over perfection.**
 
 ## Quick git guideline
+* A pull request summary line should have a meaningful description of the changes.
 * When your commit includes a bugfix or implements a feature that's tracked on the issue tracker, 
 include the phrase "Fixes #X" or "Resolves #X", where X is the tracker number of the issue or feature. This will notify everyone participating in the issue of your change when you push it to your fork, as well as automatically close the issue when the change is merged into the main repo.
 
