@@ -7,27 +7,32 @@ include("WorldViewIconsManager");
 -- Cached Base Functions
 -- ===========================================================================
 BASE_SetResourceIcon = SetResourceIcon;
+BASE_AddImprovementRecommendationsForCity = AddImprovementRecommendationsForCity;
 
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
-local CQUI_ResourceIconStyle = 1;
+local CQUI_ResourceIconStyle:number = 1;
+local CQUI_ShowImprovementsRecommendations:boolean = false;
 
 function CQUI_GetSettingsValues()
-  CQUI_ResourceIconStyle = GameConfiguration.GetValue("CQUI_ResourceDimmingStyle");
-  if CQUI_ResourceIconStyle == nil then
-    print("CQUI_ResourceIconStyle is nil!  Using default value.");
-    CQUI_ResourceIconStyle = 1;
-  end
+	CQUI_ResourceIconStyle = GameConfiguration.GetValue("CQUI_ResourceDimmingStyle");
+	if CQUI_ResourceIconStyle == nil then
+		print("CQUI_ResourceIconStyle is nil!  Using default value.");
+		CQUI_ResourceIconStyle = 1;
+	end
+	CQUI_ShowImprovementsRecommendations = ( GameConfiguration.GetValue("CQUI_ShowImprovementsRecommendations") == 1);
 end
 
-function CQUI_OnIconStyleSettingsUpdate()
-  CQUI_GetSettingsValues();
-  Rebuild();
+function CQUI_OnSettingsUpdate()
+	CQUI_GetSettingsValues();
+	Rebuild();
+	if not CQUI_ShowImprovementsRecommendations then ClearImprovementRecommendations(); end -- allows to switch them off while the builder is still selected
 end
 
-LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnIconStyleSettingsUpdate );
-LuaEvents.CQUI_SettingsInitialized.Add(CQUI_GetSettingsValues);
+LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
+LuaEvents.CQUI_SettingsInitialized.Add( CQUI_GetSettingsValues );
+
 
 function CQUI_IsResourceOptimalImproved(resourceInfo, pPlot)
   if table.count(resourceInfo.ImprovementCollection) > 0 then
@@ -86,10 +91,10 @@ function SetResourceIcon( pInstance:table, pPlot, type, state)
   end
 end
 
+
 -- ===========================================================================
 --  CQUI modified AddImprovementRecommendationsForCity functiton
---  Don't show builder recommandation, it's often stupid
 -- ===========================================================================
 function AddImprovementRecommendationsForCity( pCity:table, pSelectedUnit:table )
-  return;
+	if CQUI_ShowImprovementsRecommendations then BASE_AddImprovementRecommendationsForCity(pCity, pSelectedUnit); end
 end
