@@ -10,7 +10,7 @@
 include( "LocalPlayerActionSupport" );
 include( "InputSupport" );
 -- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
-include( "Civ6Common" )
+include( "Civ6Common" );
 -- ==== CQUI CUSTOMIZATION END ======================================================================================= --
 
 

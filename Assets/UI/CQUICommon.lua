@@ -13,27 +13,31 @@ CQUI_ShowDebugPrint = true;
 --CQUI setting control support functions
 -- ===========================================================================
 function print_debug(str)
-  if CQUI_ShowDebugPrint then
-    print(str);
-  end
+    if CQUI_ShowDebugPrint then
+        print(str);
+    end
 end
 
+-- ===========================================================================
 function CQUI_OnSettingsUpdate()
   print_debug("ENTRY: CQUICommon - CQUI_OnSettingsUpdate");
-  CQUI_ShowDebugPrint = GameConfiguration.GetValue("CQUI_ShowDebugPrint") == 1
+  CQUI_ShowDebugPrint = GameConfiguration.GetValue("CQUI_ShowDebugPrint") -- == 1
 end
 
+-- ===========================================================================
 -- Used to register a control to be updated whenever settings update (only necessary for controls that can be updated from multiple places)
 function RegisterControl(control, setting_name, update_function, extra_data)
   print_debug("ENTRY: CQUICommon - RegisterControl");
   LuaEvents.CQUI_SettingsUpdate.Add(function() update_function(control, setting_name, extra_data); end);
 end
 
+-- ===========================================================================
 -- Companion functions to RegisterControl
 function UpdateComboBox(control, setting_name, values)
   -- TODO (2020-05) - is this required?
 end
 
+-- ===========================================================================
 function UpdateCheckbox(control, setting_name)
   print_debug("ENTRY: CQUICommon - UpdateCheckbox");
   local value = GameConfiguration.GetValue(setting_name);
@@ -44,6 +48,7 @@ function UpdateCheckbox(control, setting_name)
   control:SetSelected(value);
 end
 
+-- ===========================================================================
 function UpdateSlider( control, setting_name, data_converter)
   print_debug("ENTRY: CQUICommon - UpdateSlider");
   local value = GameConfiguration.GetValue(setting_name);
@@ -54,6 +59,7 @@ function UpdateSlider( control, setting_name, data_converter)
   control:SetStep(data_converter.ToSteps(value));
 end
 
+-- ===========================================================================
 --Used to populate combobox options
 function PopulateComboBox(control, values, setting_name, tooltip)
   print_debug("ENTRY: CQUICommon - PopulateComboBox");
@@ -140,6 +146,7 @@ function PopulateCheckBox(control, setting_name, tooltip)
   end
 end
 
+-- ===========================================================================
 --Used to populate sliders. data_converter is a table containing two functions: ToStep and ToValue, which describe how to hanlde converting from the incremental slider steps to a setting value, think of it as a less elegant inner class
 --Optional third function: ToString. When included, this function will handle how the value is converted to a display value, otherwise this defaults to using the value from ToValue
 function PopulateSlider(control, label, setting_name, data_converter, tooltip)
@@ -189,6 +196,7 @@ function PopulateSlider(control, label, setting_name, data_converter, tooltip)
   end
 end
 
+-- ===========================================================================
 -- Trims source information from gossip messages. Returns nil if the message couldn't be trimmed (this usually means the provided string wasn't a gossip message at all)
 function CQUI_TrimGossipMessage(str:string)
   print_debug("ENTRY: CQUICommon - CQUI_TrimGossipMessage");
@@ -214,7 +222,39 @@ function CQUI_TrimGossipMessage(str:string)
   return Split(str, last .. " " , 2)[2];
 end
 
+-- ===========================================================================
+-- CQUI calculate real housing from improvements
+-- NOTE: Housing Values from Improvements determined by adding integers, and halved once all housing has been calculated
+--       The basegame function doesn't include the half-value (e.g. as Non-Maya, 3 farms is 1.5, but basegame returns only 1).
+--       Basegame also appears to consider the Maya as +1 Housing in addition to the 0.5 for each farm (so, 1.5 for each Mayan farm)
+--       In basegame, when Maya have 2 farms, pCity:GetGrowth():GetHousingFromImprovements() will return a value of 3
+function CQUI_GetRealHousingFromImprovements(pCity, PlayerID, pCityID, maxCityPlotRange)
+    print_debug("CityBannerManager_CQUI_Expansion2: CQUI_RealHousingFromImprovements ENTRY  pCity:"..tostring(pCity).." PlayerID:"..tostring(PlayerID).." pCityID:"..tostring(pCityID));
+    local cityX:number, cityY:number = pCity:GetX(), pCity:GetY();
+    local iNumHousing:number = 0; 
+    -- Add data from Housing field in Improvements divided by TilesRequired which is usually 2
+    -- Checks all of the plots available to the city and gathers the housing value from any improved
+    -- Logic for this calculation suggested by Infixio
+    for _, plotIndex in ipairs(Map.GetCityPlots():GetPurchasedPlots(pCity)) do
+        local pPlot:table = Map.GetPlotByIndex(plotIndex);
+        if (pPlot ~= nil 
+            and pPlot:GetImprovementType() > -1
+            and not pPlot:IsImprovementPillaged()
+            and Map.GetPlotDistance(cityX, cityY, pPlot:GetX(), pPlot:GetY()) <= maxCityPlotRange) then
+            local imprInfo:table = GameInfo.Improvements[pPlot:GetImprovementType()];
+            iNumHousing = iNumHousing + (imprInfo.Housing / imprInfo.TilesRequired);
+        end
+    end
 
+    local baseHousingFromImprovements = pCity:GetGrowth():GetHousingFromImprovements();
+    -- This effectively adds any half values that may be missing
+    local realHousingValue = baseHousingFromImprovements + Round(iNumHousing - math.floor(iNumHousing), 1);
+    print_debug("CityBannerManager_CQUI_Expansion2: BaseHousingFromImprovements: "..tostring(baseHousingFromImprovements).." iNumHousing: "..tostring(iNumHousing).."  Updated housing value: "..tostring(realHousingValue));
+
+    return realHousingValue;
+end
+
+-- ===========================================================================
 function Initialize()
   print_debug("INITIALZE: CQUICommon.lua");
   LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);

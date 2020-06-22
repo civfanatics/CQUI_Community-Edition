@@ -9,6 +9,7 @@ include( "ToolTipHelper" );
 include( "Colors" );
 include( "PortraitSupport" );
 --  CQUI: BEGIN CHANGE FROM UNMODIFIED BASE VERSION **************************************
+-- TODO: This can be removed when the load order stuff is right, I believe...
 include( "CQUICommon" );
 --  CQUI: END CHANGE FROM UNMODIFIED BASE VERSION ****************************************
 

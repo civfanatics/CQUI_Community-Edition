@@ -1415,7 +1415,6 @@ end
 
 -- ===========================================================================
 function LateInitialize()
-  print_debug("ENTRY: Replacement MinimapPanel - LateInitialize");
   m_MiniMap_xmloffsety = Controls.MiniMap:GetOffsetY();
   g_ContinentsCache = Map.GetContinentsInUse();
 
@@ -1553,7 +1552,6 @@ end
 -- INITIALIZATION
 -- ===========================================================================
 function Initialize()
-  print_debug("ENTRY: Replacement MinimapPanel - Initialize");
   ContextPtr:SetInitHandler( OnInit );
   ContextPtr:SetInputHandler( OnInputHandler, true );
 

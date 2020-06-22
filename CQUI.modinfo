@@ -64,6 +64,14 @@
       <Items>
         <File>Assets/cqui_databaseschema.sql</File>
         <File>Assets/cqui_settings.sql</File>
+      </Items>
+    </UpdateDatabase>
+    <UpdateDatabase id="CQUI_Settings_Local">
+      <Properties>
+        <Name>CQUI Settings Local</Name>
+        <LoadOrder>-99</LoadOrder>
+      </Properties>
+      <Items>
         <File>Assets/cqui_settings_local.sql</File>
       </Items>
     </UpdateDatabase>
@@ -450,7 +458,7 @@
     </ReplaceUIScript>
 
 <!--
-    <ReplaceUIScript id="CQUI_CityBannerManager_EXP1">
+    <ReplaceUIScript id="CQUI_CityBannerManager_EXP1" criteria="Expansion1">
       <Properties>
         <LoadOrder>100</LoadOrder>
         <LuaContext>CityBannerManager</LuaContext>
@@ -459,7 +467,7 @@
     </ReplaceUIScript>
 -->
 
-    <ReplaceUIScript id="CQUI_CityBannerManager_EXP2">
+    <ReplaceUIScript id="CQUI_CityBannerManager_EXP2" criteria="Expansion2">
       <Properties>
         <LoadOrder>200</LoadOrder>
         <LuaContext>CityBannerManager</LuaContext>
@@ -633,7 +641,6 @@
         <LuaReplace>Assets/Expansion2/Replacements/citysupport_CQUI_expansion2.lua</LuaReplace>
       </Properties>
     </ReplaceUIScript>
-
 
     <ReplaceUIScript id="CQUI_DiplomacyDealView">
       <Properties>
