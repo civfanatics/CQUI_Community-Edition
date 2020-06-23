@@ -100,7 +100,7 @@ function DefaultKeyDownHandler( uiKey:number )
     CQUI_isAltDown = true;
   end
 
-  if CQUI_hotkeyMode == CQUI_HOTKEYMODE_ENHANCED then
+  if not CQUI_isAltDown and not CQUI_isShiftDown and CQUI_hotkeyMode == CQUI_HOTKEYMODE_ENHANCED then
     if (uiKey == Keys.W) then
       keyPanChanged = true;
       m_isUPpressed = true;
@@ -172,7 +172,7 @@ function DefaultKeyUpHandler( uiKey:number )
       keyPanChanged = true;
     end
 
-    if (uiKey == Keys.S) then
+    if (not CQUI_isAltDown and uiKey == Keys.S) then
       m_isDOWNpressed = false;
       keyPanChanged = true;
     end
@@ -234,15 +234,13 @@ function DefaultKeyUpHandler( uiKey:number )
       end
     end
 
-    -- TODO: AIR_ATTACK requires a separate set of parameters be passed to it, pointing at the object to attack
-    --       Similar to how the CQUI_BuildImprovement generates an object based on where the Builder/Engineer unit happens to be.
-    -- Logged on GitHub as Issue #40
-    -- if (uiKey == Keys.S) then
-      -- if (formationClass == "FORMATION_CLASS_AIR") then
-      -- UnitManager.RequestCommand(UI.GetHeadSelectedUnit(), UnitOperationTypes.AIR_ATTACK);
-      --  cquiHandledKey = true;
-      -- end
-    -- end
+    if (uiKey == Keys.S) then
+      local bCanStartAirAttack = UnitManager.CanStartOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.AIR_ATTACK, nil, true);
+      if (bCanStartAirAttack) then
+        UI.SetInterfaceMode(InterfaceModeTypes.AIR_ATTACK);
+        cquiHandledKey = true;
+      end
+    end
   end -- Classic binds that overlap with enhanced binds
 
     -- Focus Capital hotkey
@@ -292,16 +290,20 @@ function DefaultKeyUpHandler( uiKey:number )
   end
 
   if (uiKey == Keys.N) then
-    -- See TODO note Below
-    -- cquiHandledKey = true;
+    local bCanStartWmdStrike = UnitManager.CanStartOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.WMD_STRIKE, nil, true);
     if (unitType == "UNIT_BUILDER") then
       CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_MINE"].Hash);
       cquiHandledKey = true;
-    else
-      -- TODO: WMD_STRIKE requires a separate set of parameters be passed to it, pointing at the object to attack
-      --       Similar to how the CQUI_BuildImprovement generates an object based on where the Builder/Engineer unit happens to be.
-      -- Logged on GitHub as Issue #40
-      -- UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.WMD_STRIKE);
+    elseif (bCanStartWmdStrike) then
+      local tParameters = {};
+      if (CQUI_isAltDown) then
+        tParameters[UnitOperationTypes.PARAM_WMD_TYPE] = GameInfo.WMDs["WMD_THERMONUCLEAR_DEVICE"].Index;
+      else
+        tParameters[UnitOperationTypes.PARAM_WMD_TYPE] = GameInfo.WMDs["WMD_NUCLEAR_DEVICE"].Index;
+      end
+      -- TODO: Prevent setting interface mode if no items in stock
+      UI.SetInterfaceMode(InterfaceModeTypes.WMD_STRIKE, tParameters);
+      cquiHandledKey = true;
     end
   end
 
@@ -334,28 +336,26 @@ function DefaultKeyUpHandler( uiKey:number )
   end
 
   if (uiKey == Keys.R) then
+    local bCanStartRebase = UnitManager.CanStartOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.REBASE, nil, true);
     if (unitType == "UNIT_MILITARY_ENGINEER") then
       -- Build Road/Rail is a UnitOperation
       CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.UnitOperations["UNITOPERATION_BUILD_ROUTE"].Hash);
       cquiHandledKey = true;
-      -- TODO: Rebase requires a separate set of parameters be passed to it, pointing at the location to move to
-      --       Similar to how the CQUI_BuildImprovement generates an object based on where the Builder/Engineer unit happens to be.
-      -- Logged on GitHub as Issue #40
-    -- elseif (formationClass == "FORMATION_CLASS_AIR") then
-      -- UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.REBASE);
-      -- cquiHandledKey = true;
+    elseif bCanStartRebase then
+      -- TODO: Prevent interface mode change if no valid target in range
+      UI.SetInterfaceMode(InterfaceModeTypes.REBASE);
+      cquiHandledKey = true;
     end
   end
 
-  -- TODO: AIR_ATTACK requires a separate set of parameters be passed to it, pointing at the object to attack
-  --       Similar to how the CQUI_BuildImprovement generates an object based on where the Builder/Engineer unit happens to be.
-  -- Logged on GitHub as Issue #40
-  -- if (uiKey == Keys.S and CQUI_isAltDown == true) then
-    -- if (formationClass == "FORMATION_CLASS_AIR") then
-    --   UnitManager.RequestCommand(UI.GetHeadSelectedUnit(), UnitOperationTypes.AIR_ATTACK);
-    --   cquiHandledKey = true;
-    -- end
-  -- end
+  if (uiKey == Keys.S and CQUI_isAltDown == true) then
+    local bCanStartAirAttack = UnitManager.CanStartOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.AIR_ATTACK, nil, true);
+    if (bCanStartAirAttack) then
+      -- TODO: Prevent interface mode change if no valid target in range
+      UI.SetInterfaceMode(InterfaceModeTypes.AIR_ATTACK);
+      cquiHandledKey = true;
+    end
+  end
 
   if uiKey == Keys.VK_SHIFT then
     -- We need to let the base function also handle the Shift Up action
