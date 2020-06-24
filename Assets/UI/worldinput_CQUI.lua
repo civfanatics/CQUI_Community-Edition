@@ -337,11 +337,12 @@ function DefaultKeyUpHandler( uiKey:number )
 
   if (uiKey == Keys.R) then
     local bCanStartRebase = UnitManager.CanStartOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.REBASE, nil, true);
-    if (unitType == "UNIT_MILITARY_ENGINEER") then
+    local bCanBuildRailroad = UnitManager.CanStartOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.BUILD_ROUTE, nil, true);
+    if (bCanBuildRailroad) then
       -- Build Road/Rail is a UnitOperation
-      CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.UnitOperations["UNITOPERATION_BUILD_ROUTE"].Hash);
+      UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), GameInfo.UnitOperations["UNITOPERATION_BUILD_ROUTE"].Hash);
       cquiHandledKey = true;
-    elseif bCanStartRebase then
+    elseif (bCanStartRebase) then
       -- TODO: Prevent interface mode change if no valid target in range
       UI.SetInterfaceMode(InterfaceModeTypes.REBASE);
       cquiHandledKey = true;
