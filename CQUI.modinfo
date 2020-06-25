@@ -173,7 +173,6 @@
         <File>Assets/UI/ToolTips/plottooltip_CQUI_basegame.lua</File>
         <File>Assets/UI/ToolTips/plottooltip_CQUI.lua</File>
         <File>Assets/UI/Utilities/extendedrelationship.lua</File>
-        <!-- <File>Assets/UI/WorldView/citybannermanager.lua</File> -->
         <File>Assets/UI/WorldView/citybannermanager_CQUI_basegame.lua</File>
         <File>Assets/UI/WorldView/citybannermanager_CQUI.lua</File>
         <File>Assets/UI/WorldView/citybannermanager.xml</File>
@@ -190,7 +189,7 @@
         <Context>InGame</Context>
       </Properties>
       <Items>
-        <File>Assets/Expansion1/CityBanners/citybannermanager.lua</File>
+        <File>Assets/Expansion1/CityBanners/citybannermanager_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/CityBanners/citybannermanager.xml</File>
         <File>Assets/Expansion1/CityBanners/citybannerinstances.xml</File>
         <File>Assets/Expansion1/Replacements/citypaneloverview_expansion1_CQUI.lua</File>
@@ -216,6 +215,7 @@
         <Context>InGame</Context>
       </Properties>
       <Items>
+        <File>Assets/UI/WorldView/citybannermanager_CQUI_expansions.lua</File>
         <File>Assets/Expansion1/Replacements/citypanelculture_CQUI.lua</File>
         <File>Assets/Expansion1/Replacements/leadericon.lua</File>
         <File>Assets/Expansion1/Replacements/leadericon.xml</File>
@@ -248,7 +248,6 @@
         <File>Assets/Expansion2/Replacements/toppanel_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/unitpanel_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/worldinput_CQUI_expansion2.lua</File>
-        <!-- <File>Assets/Expansion2/CityBanners/citybannermanager.lua</File> -->
         <File>Assets/Expansion2/CityBanners/citybannermanager_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
       </Items>
@@ -457,15 +456,13 @@
       </Properties>
     </ReplaceUIScript>
 
-<!--
     <ReplaceUIScript id="CQUI_CityBannerManager_EXP1" criteria="Expansion1">
       <Properties>
         <LoadOrder>100</LoadOrder>
         <LuaContext>CityBannerManager</LuaContext>
-        <LuaReplace>Assets/UI/WorldView/citybannermanager_CQUI_basegame.lua</LuaReplace>
+        <LuaReplace>Assets/Expansion1/CityBanners/citybannermanager_CQUI_expansion1.lua</LuaReplace>
       </Properties>
     </ReplaceUIScript>
--->
 
     <ReplaceUIScript id="CQUI_CityBannerManager_EXP2" criteria="Expansion2">
       <Properties>
@@ -939,8 +936,11 @@
     <File>Assets/cqui_toplayer.lua</File>
     <File>Assets/UI/CQUICommon.lua</File>
 
+    <!-- COMMON TO BOTH EXPANSIONS -->
+    <File>Assets/UI/WorldView/citybannermanager_CQUI_expansions.lua</File>
+
     <!-- EXP 1 -->
-    <File>Assets/Expansion1/CityBanners/citybannermanager.lua</File>
+    <File>Assets/Expansion1/CityBanners/citybannermanager_CQUI_expansion1.lua</File>
     <File>Assets/Expansion1/CityBanners/citybannermanager.xml</File>
     <File>Assets/Expansion1/CityBanners/citybannerinstances.xml</File>
     <File>Assets/Expansion1/Replacements/citypanelculture_CQUI.lua</File>
@@ -980,7 +980,6 @@
     <File>Assets/Expansion2/Replacements/toppanel_CQUI_expansion2.lua</File>
     <File>Assets/Expansion2/Replacements/unitpanel_CQUI_expansion2.lua</File>
     <File>Assets/Expansion2/Replacements/worldinput_CQUI_expansion2.lua</File>
-    <!-- <File>Assets/Expansion2/CityBanners/citybannermanager.lua</File> -->
     <File>Assets/Expansion2/CityBanners/citybannermanager_CQUI_expansion2.lua</File>
     <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
 

@@ -223,38 +223,6 @@ function CQUI_TrimGossipMessage(str:string)
 end
 
 -- ===========================================================================
--- CQUI calculate real housing from improvements
--- NOTE: Housing Values from Improvements determined by adding integers, and halved once all housing has been calculated
---       The basegame function doesn't include the half-value (e.g. as Non-Maya, 3 farms is 1.5, but basegame returns only 1).
---       Basegame also appears to consider the Maya as +1 Housing in addition to the 0.5 for each farm (so, 1.5 for each Mayan farm)
---       In basegame, when Maya have 2 farms, pCity:GetGrowth():GetHousingFromImprovements() will return a value of 3
-function CQUI_GetRealHousingFromImprovements(pCity, PlayerID, pCityID, maxCityPlotRange)
-    print_debug("CityBannerManager_CQUI_Expansion2: CQUI_RealHousingFromImprovements ENTRY  pCity:"..tostring(pCity).." PlayerID:"..tostring(PlayerID).." pCityID:"..tostring(pCityID));
-    local cityX:number, cityY:number = pCity:GetX(), pCity:GetY();
-    local iNumHousing:number = 0; 
-    -- Add data from Housing field in Improvements divided by TilesRequired which is usually 2
-    -- Checks all of the plots available to the city and gathers the housing value from any improved
-    -- Logic for this calculation suggested by Infixio
-    for _, plotIndex in ipairs(Map.GetCityPlots():GetPurchasedPlots(pCity)) do
-        local pPlot:table = Map.GetPlotByIndex(plotIndex);
-        if (pPlot ~= nil 
-            and pPlot:GetImprovementType() > -1
-            and not pPlot:IsImprovementPillaged()
-            and Map.GetPlotDistance(cityX, cityY, pPlot:GetX(), pPlot:GetY()) <= maxCityPlotRange) then
-            local imprInfo:table = GameInfo.Improvements[pPlot:GetImprovementType()];
-            iNumHousing = iNumHousing + (imprInfo.Housing / imprInfo.TilesRequired);
-        end
-    end
-
-    local baseHousingFromImprovements = pCity:GetGrowth():GetHousingFromImprovements();
-    -- This effectively adds any half values that may be missing
-    local realHousingValue = baseHousingFromImprovements + Round(iNumHousing - math.floor(iNumHousing), 1);
-    print_debug("CityBannerManager_CQUI_Expansion2: BaseHousingFromImprovements: "..tostring(baseHousingFromImprovements).." iNumHousing: "..tostring(iNumHousing).."  Updated housing value: "..tostring(realHousingValue));
-
-    return realHousingValue;
-end
-
--- ===========================================================================
 function Initialize()
   print_debug("INITIALZE: CQUICommon.lua");
   LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
