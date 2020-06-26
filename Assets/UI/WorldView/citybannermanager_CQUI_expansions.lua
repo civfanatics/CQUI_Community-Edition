@@ -143,7 +143,11 @@ function CityBanner.UpdateStats(self)
                     local districtType = district:GetType();
                     local districtInfo:table = GameInfo.Districts[districtType];
                     local isBuilt = pCityDistricts:HasDistrict(districtInfo.Index, true);
-                    if (isBuilt and districtInfo.Index ~= 0) then
+                    if (isBuilt == true
+                        and districtInfo.Index ~= 0
+                        and districtInfo.DistrictType ~= "DISTRICT_GOVERNMENT"
+                        and districtInfo.DistrictType ~= "DISTRICT_WONDER"
+                        and districtInfo.DistrictType ~= "DISTRICT_CITY_CENTER") then
                         SetDetailIcon(self.CQUI_DistrictBuiltIM:GetInstance(), "ICON_"..districtInfo.DistrictType);
                     end
                 end

@@ -170,51 +170,52 @@ function CityBanner.UpdateName( self )
 
     -- Update district icons
     -- districtType:number == Index
-    local iAquaduct       = CQUI_GetDistrictIndexSafe("DISTRICT_AQUEDUCT");
-    local iBath           = CQUI_GetDistrictIndexSafe("DISTRICT_BATH");
-    local iNeighborhood   = CQUI_GetDistrictIndexSafe("DISTRICT_NEIGHBORHOOD");
-    local iMbanza         = CQUI_GetDistrictIndexSafe("DISTRICT_MBANZA");
-    local iCampus         = CQUI_GetDistrictIndexSafe("DISTRICT_CAMPUS");
-    local iTheater        = CQUI_GetDistrictIndexSafe("DISTRICT_THEATER");
+    -- TODO: Can we do the same thing the expansions to, instead of manually maintaining this list?
     local iAcropolis      = CQUI_GetDistrictIndexSafe("DISTRICT_ACROPOLIS");
-    local iIndustrial     = CQUI_GetDistrictIndexSafe("DISTRICT_INDUSTRIAL_ZONE");
-    local iHansa          = CQUI_GetDistrictIndexSafe("DISTRICT_HANSA");
+    local iAqueduct       = CQUI_GetDistrictIndexSafe("DISTRICT_AQUEDUCT");
+    local iAerodrome      = CQUI_GetDistrictIndexSafe("DISTRICT_AERODROME");
+    local iBath           = CQUI_GetDistrictIndexSafe("DISTRICT_BATH");
+    local iCampus         = CQUI_GetDistrictIndexSafe("DISTRICT_CAMPUS");
     local iCommerce       = CQUI_GetDistrictIndexSafe("DISTRICT_COMMERCIAL_HUB");
     local iEncampment     = CQUI_GetDistrictIndexSafe("DISTRICT_ENCAMPMENT");
+    local iEntComplex     = CQUI_GetDistrictIndexSafe("DISTRICT_ENTERTAINMENT_COMPLEX");
+    local iHansa          = CQUI_GetDistrictIndexSafe("DISTRICT_HANSA");
     local iHarbor         = CQUI_GetDistrictIndexSafe("DISTRICT_HARBOR");
+    local iHolySite       = CQUI_GetDistrictIndexSafe("DISTRICT_HOLY_SITE");
+    local iIndustrial     = CQUI_GetDistrictIndexSafe("DISTRICT_INDUSTRIAL_ZONE");
+    local iLavra          = CQUI_GetDistrictIndexSafe("DISTRICT_LAVRA");
+    local iMbanza         = CQUI_GetDistrictIndexSafe("DISTRICT_MBANZA");
+    local iNeighborhood   = CQUI_GetDistrictIndexSafe("DISTRICT_NEIGHBORHOOD");
     local iRoyalNavy      = CQUI_GetDistrictIndexSafe("DISTRICT_ROYAL_NAVY_DOCKYARD");
     local iSpaceport      = CQUI_GetDistrictIndexSafe("DISTRICT_SPACEPORT");
-    local iEntComplex     = CQUI_GetDistrictIndexSafe("DISTRICT_ENTERTAINMENT_COMPLEX");
-    local iHolySite       = CQUI_GetDistrictIndexSafe("DISTRICT_HOLY_SITE");
-    local iAerodrome      = CQUI_GetDistrictIndexSafe("DISTRICT_AERODROME");
     local iStreetCarnival = CQUI_GetDistrictIndexSafe("DISTRICT_STREET_CARNIVAL");
-    local iLavra          = CQUI_GetDistrictIndexSafe("DISTRICT_LAVRA");
+    local iTheater        = CQUI_GetDistrictIndexSafe("DISTRICT_THEATER");
 
-    if (self.m_Instance.CityBuiltDistrictAquaduct ~= nil) then
+    if (self.m_Instance.CityBuiltDistrictAqueduct ~= nil) then
         self.m_Instance.CityUnlockedCitizen:SetHide(true);
-        self.m_Instance.CityBuiltDistrictAquaduct:SetHide(true);
+        self.m_Instance.CityBuiltDistrictAcropolis:SetHide(true);
+        self.m_Instance.CityBuiltDistrictAerodrome:SetHide(true);
+        self.m_Instance.CityBuiltDistrictAqueduct:SetHide(true);
         self.m_Instance.CityBuiltDistrictBath:SetHide(true);
-        self.m_Instance.CityBuiltDistrictNeighborhood:SetHide(true);
-        self.m_Instance.CityBuiltDistrictMbanza:SetHide(true);
         self.m_Instance.CityBuiltDistrictCampus:SetHide(true);
         self.m_Instance.CityBuiltDistrictCommercial:SetHide(true);
         self.m_Instance.CityBuiltDistrictEncampment:SetHide(true);
-        self.m_Instance.CityBuiltDistrictTheatre:SetHide(true);
-        self.m_Instance.CityBuiltDistrictAcropolis:SetHide(true);
-        self.m_Instance.CityBuiltDistrictIndustrial:SetHide(true);
+        self.m_Instance.CityBuiltDistrictEntertainment:SetHide(true);
         self.m_Instance.CityBuiltDistrictHansa:SetHide(true);
         self.m_Instance.CityBuiltDistrictHarbor:SetHide(true);
+        self.m_Instance.CityBuiltDistrictHoly:SetHide(true);
+        self.m_Instance.CityBuiltDistrictIndustrial:SetHide(true);
+        self.m_Instance.CityBuiltDistrictLavra:SetHide(true);
+        self.m_Instance.CityBuiltDistrictMbanza:SetHide(true);
+        self.m_Instance.CityBuiltDistrictNeighborhood:SetHide(true);
         self.m_Instance.CityBuiltDistrictRoyalNavy:SetHide(true);
         self.m_Instance.CityBuiltDistrictSpaceport:SetHide(true);
-        self.m_Instance.CityBuiltDistrictEntertainment:SetHide(true);
-        self.m_Instance.CityBuiltDistrictHoly:SetHide(true);
-        self.m_Instance.CityBuiltDistrictAerodrome:SetHide(true);
         self.m_Instance.CityBuiltDistrictStreetCarnival:SetHide(true);
-        self.m_Instance.CityBuiltDistrictLavra:SetHide(true);
+        self.m_Instance.CityBuiltDistrictTheater:SetHide(true);
     end
 
     local pCityDistricts:table  = pCity:GetDistricts();
-    if (CQUI_SmartBanner and self.m_Instance.CityBuiltDistrictAquaduct ~= nil) then
+    if (CQUI_SmartBanner and self.m_Instance.CityBuiltDistrictAqueduct ~= nil) then
         --Unlocked citizen check
         if CQUI_SmartBanner_Unmanaged_Citizen then
             local tParameters :table = {};
@@ -244,25 +245,25 @@ function CityBanner.UpdateName( self )
                 local districtInfo:table = GameInfo.Districts[districtType];
                 local isBuilt = pCityDistricts:HasDistrict(districtInfo.Index, true);
                 if (isBuilt) then
-                    if (districtType == iAquaduct)       then self.m_Instance.CityBuiltDistrictAquaduct:SetHide(false);       end
-                    if (districtType == iBath)           then self.m_Instance.CityBuiltDistrictBath:SetHide(false);           end
-                    if (districtType == iNeighborhood)   then self.m_Instance.CityBuiltDistrictNeighborhood:SetHide(false);   end
-                    if (districtType == iMbanza)         then self.m_Instance.CityBuiltDistrictMbanza:SetHide(false);         end
-                    if (districtType == iCampus)         then self.m_Instance.CityBuiltDistrictCampus:SetHide(false);         end
-                    if (districtType == iCommerce)       then self.m_Instance.CityBuiltDistrictCommercial:SetHide(false);     end
-                    if (districtType == iEncampment)     then self.m_Instance.CityBuiltDistrictEncampment:SetHide(false);     end
-                    if (districtType == iTheater)        then self.m_Instance.CityBuiltDistrictTheatre:SetHide(false);        end
-                    if (districtType == iAcropolis)      then self.m_Instance.CityBuiltDistrictAcropolis:SetHide(false);      end
-                    if (districtType == iIndustrial)     then self.m_Instance.CityBuiltDistrictIndustrial:SetHide(false);     end
-                    if (districtType == iHansa)          then self.m_Instance.CityBuiltDistrictHansa:SetHide(false);          end
-                    if (districtType == iHarbor)         then self.m_Instance.CityBuiltDistrictHarbor:SetHide(false);         end
-                    if (districtType == iRoyalNavy)      then self.m_Instance.CityBuiltDistrictRoyalNavy:SetHide(false);      end
-                    if (districtType == iSpaceport)      then self.m_Instance.CityBuiltDistrictSpaceport:SetHide(false);      end
-                    if (districtType == iEntComplex)     then self.m_Instance.CityBuiltDistrictEntertainment:SetHide(false);  end
-                    if (districtType == iHolySite)       then self.m_Instance.CityBuiltDistrictHoly:SetHide(false);           end
-                    if (districtType == iAerodrome)      then self.m_Instance.CityBuiltDistrictAerodrome:SetHide(false);      end
-                    if (districtType == iStreetCarnival) then self.m_Instance.CityBuiltDistrictStreetCarnival:SetHide(false); end
-                    if (districtType == iLavra)          then self.m_Instance.CityBuiltDistrictLavra:SetHide(false);          end
+                    if (districtType == iAcropolis)       then self.m_Instance.CityBuiltDistrictAcropolis:SetHide(false);      end
+                    if (districtType == iAerodrome)       then self.m_Instance.CityBuiltDistrictAerodrome:SetHide(false);      end
+                    if (districtType == iAqueduct)        then self.m_Instance.CityBuiltDistrictAqueduct:SetHide(false);       end
+                    if (districtType == iBath)            then self.m_Instance.CityBuiltDistrictBath:SetHide(false);           end
+                    if (districtType == iCampus)          then self.m_Instance.CityBuiltDistrictCampus:SetHide(false);         end
+                    if (districtType == iCommerce)        then self.m_Instance.CityBuiltDistrictCommercial:SetHide(false);     end
+                    if (districtType == iEncampment)      then self.m_Instance.CityBuiltDistrictEncampment:SetHide(false);     end
+                    if (districtType == iEntComplex)      then self.m_Instance.CityBuiltDistrictEntertainment:SetHide(false);  end
+                    if (districtType == iHansa)           then self.m_Instance.CityBuiltDistrictHansa:SetHide(false);          end
+                    if (districtType == iHarbor)          then self.m_Instance.CityBuiltDistrictHarbor:SetHide(false);         end
+                    if (districtType == iHolySite)        then self.m_Instance.CityBuiltDistrictHoly:SetHide(false);           end
+                    if (districtType == iIndustrial)      then self.m_Instance.CityBuiltDistrictIndustrial:SetHide(false);     end
+                    if (districtType == iLavra)           then self.m_Instance.CityBuiltDistrictLavra:SetHide(false);          end        
+                    if (districtType == iMbanza)          then self.m_Instance.CityBuiltDistrictMbanza:SetHide(false);         end
+                    if (districtType == iNeighborhood)    then self.m_Instance.CityBuiltDistrictNeighborhood:SetHide(false);   end
+                    if (districtType == iRoyalNavy)       then self.m_Instance.CityBuiltDistrictRoyalNavy:SetHide(false);      end
+                    if (districtType == iSpaceport)       then self.m_Instance.CityBuiltDistrictSpaceport:SetHide(false);      end
+                    if (districtType == iStreetCarnival)  then self.m_Instance.CityBuiltDistrictStreetCarnival:SetHide(false); end
+                    if (districtType == iTheater)         then self.m_Instance.CityBuiltDistrictTheatre:SetHide(false);        end
                 end -- if isBuilt
             end -- for loop
         end -- if CQUI_SmartBanner_Districts
