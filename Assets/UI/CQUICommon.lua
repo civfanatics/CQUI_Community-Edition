@@ -21,7 +21,14 @@ end
 -- ===========================================================================
 function CQUI_OnSettingsUpdate()
   print_debug("ENTRY: CQUICommon - CQUI_OnSettingsUpdate");
-  CQUI_ShowDebugPrint = GameConfiguration.GetValue("CQUI_ShowDebugPrint") -- == 1
+  if (GameInfo.CQUI_Settings ~= nil and GameInfo.CQUI_Settings["CQUI_ShowDebugPrint"] ~= nil) then
+    CQUI_ShowDebugPrint = GameInfo.CQUI_Settings["CQUI_ShowDebugPrint"].Value;
+else
+    CQUI_ShowDebugPrint = GameConfiguration.GetValue("CQUI_ShowDebugPrint");
+end
+
+-- TEMP
+print("CQUICommon CQUI_OnSettingsUpdate retrieved CQUI_ShowDebugPrint, value is: "..tostring(CQUI_ShowDebugPrint));
 end
 
 -- ===========================================================================

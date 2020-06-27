@@ -4,9 +4,6 @@
 -- Functions and objects common to basegame and expansions
 include( "citybannermanager_CQUI.lua");
 
--- TEMP, until I can figure out why the setting in CQUICommon is not honored
-CQUI_ShowDebugPrint = true;
-
 -- ===========================================================================
 -- Cached Base Functions (Expansions only)
 -- ===========================================================================
@@ -190,6 +187,7 @@ end
 function Initialize()
     print_debug("CityBannerManager_CQUI_Expansions: Initialize CQUI CityBannerManager")
     -- Events are initialized in the common file
+    LateInitialize();
 end
 Initialize();
 

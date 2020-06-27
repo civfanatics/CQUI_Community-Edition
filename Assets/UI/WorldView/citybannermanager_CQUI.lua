@@ -5,9 +5,6 @@
 include( "CityBannerManager" );
 include( "CQUICommon.lua" );
 
--- TEMP, until I can figure out why the setting in CQUICommon is not honored
-CQUI_ShowDebugPrint = true;
-
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
@@ -82,7 +79,7 @@ function CQUI_OnSettingsInitialized()
     CQUI_ShowYieldsOnCityHover  = GameConfiguration.GetValue("CQUI_ShowYieldsOnCityHover");
     CQUI_SmartBanner            = GameConfiguration.GetValue("CQUI_Smartbanner");
     CQUI_SmartBanner_Districts  = CQUI_SmartBanner and GameConfiguration.GetValue("CQUI_Smartbanner_Districts");
-    CQUI_SmartBanner_Population = CQUI_SmartBanner andGameConfiguration.GetValue("CQUI_Smartbanner_Population");
+    CQUI_SmartBanner_Population = CQUI_SmartBanner and GameConfiguration.GetValue("CQUI_Smartbanner_Population");
     CQUI_SmartBanner_Cultural   = CQUI_SmartBanner and GameConfiguration.GetValue("CQUI_Smartbanner_Cultural");
     CQUI_SmartBanner_Unmanaged_Citizen = CQUI_SmartBanner and GameConfiguration.GetValue("CQUI_Smartbanner_UnlockedCitizen");
 
@@ -862,8 +859,8 @@ end
 -- ===========================================================================
 --  CQUI Initialize Function
 -- ===========================================================================
-function Initialize()
-    print_debug("CityBannerManager_CQUI: Initialize CQUI CityBannerManager (Common File)")
+function LateInitialize()
+    print_debug("CityBannerManager_CQUI: LateInitialize CQUI CityBannerManager (Common File)")
     -- CQUI related events
     LuaEvents.CQUI_AllCitiesInfoUpdated.Add(CQUI_OnAllCitiesInfoUpdated);    -- CQUI update all cities real housing from improvements
     LuaEvents.CQUI_CityInfoUpdated.Add(CQUI_OnCityInfoUpdated);    -- CQUI update city's real housing from improvements
@@ -879,7 +876,4 @@ function Initialize()
 
     LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
     LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
-    -- TODO: Investigate exactly how the OnSettingsInitialized gets called, because unless doing this here, it doesn't seem to be called until the settings UI is brought up.
-    -- CQUI_OnSettingsInitialized();
 end
-Initialize();

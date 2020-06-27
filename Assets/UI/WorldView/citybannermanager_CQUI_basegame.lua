@@ -339,5 +339,6 @@ end
 function Initialize()
     print_debug("CityBannerManager_CQUI_basegame: Initialize CQUI CityBannerManager");
     -- LuaEvents are initialized in the common file
+    LateInitialize();
 end
 Initialize();
