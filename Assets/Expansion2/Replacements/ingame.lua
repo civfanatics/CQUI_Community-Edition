@@ -5,7 +5,7 @@
 
 include( "LocalPlayerActionSupport" );
 include( "InputSupport" );
-include( "civ6common" )
+include( "civ6common" );
 
 
 -- ===========================================================================

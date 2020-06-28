@@ -93,8 +93,13 @@ end
 function LateInitialize()
   BASE_CQUI_LateInitialize()
 
-  LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+  
   if Controls.ViewReports then
     Controls.ViewReports:SetHide(true); -- CQUI : hide the report button, moved to launchbar
   end
 end
+
+function Initialize()
+  LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+end
+Initialize();

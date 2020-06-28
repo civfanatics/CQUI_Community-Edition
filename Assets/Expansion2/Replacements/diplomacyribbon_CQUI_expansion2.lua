@@ -3,4 +3,4 @@
 -- ===========================================================================
 include("DiplomacyRibbon_Expansion2.lua");
 
-include("DiplomacyRibbon_CQUI.lua");
+include("diplomacyribbon_CQUI.lua");
