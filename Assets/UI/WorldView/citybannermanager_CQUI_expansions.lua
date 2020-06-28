@@ -21,10 +21,8 @@ function CityBanner.Initialize(self, playerID, cityID, districtID, bannerType, b
     print_debug("CityBannerManager_CQUI_Expansions: CityBanner:Initialize ENTRY: playerID:"..tostring(playerID).." cityID:"..tostring(cityID).." districtID:"..tostring(districtID).." bannerType:"..tostring(bannerType).." bannerStyle:"..tostring(bannerStyle));
     CQUI_Common_CityBanner_Initialize(self, playerID, cityID, districtID, bannerType, bannerStyle);
 
-    if (bannerType == BANNERTYPE_CITY_CENTER) then
-        if (self.CQUI_DistrictBuiltIM == nil) then
-            self.CQUI_DistrictBuiltIM = InstanceManager:new( "CQUI_DistrictBuilt", "Icon", self.m_Instance.CQUI_Districts );
-        end
+    if (IsBannerTypeCityCenter(bannerType) and (self.CQUI_DistrictBuiltIM == nil)) then
+        self.CQUI_DistrictBuiltIM = InstanceManager:new( "CQUI_DistrictBuilt", "Icon", self.m_Instance.CQUI_Districts );
     end
 end
 
@@ -49,7 +47,7 @@ function CityBanner.UpdateInfo(self, pCity : table )
     end
 
     --CQUI : Unlocked citizen check
-    if (playerID == Game.GetLocalPlayer() and CQUI_SmartBanner and CQUI_SmartBanner_Unmanaged_Citizen) then
+    if (playerID == Game.GetLocalPlayer() and IsCQUI_SmartBanner_Unmanaged_CitizenEnabled()) then
         local tParameters :table = {};
         tParameters[CityCommandTypes.PARAM_MANAGE_CITIZEN] = UI.GetInterfaceModeParameter(CityCommandTypes.PARAM_MANAGE_CITIZEN);
 
@@ -94,14 +92,10 @@ function CityBanner.UpdatePopulation(self, isLocalPlayer:boolean, pCity:table, p
 
     -- Get real housing from improvements value
     local localPlayerID = Game.GetLocalPlayer();
-    local pCityID = pCity:GetID();
-    if (CQUI_HousingUpdated[localPlayerID] == nil or CQUI_HousingUpdated[localPlayerID][pCityID] ~= true) then
-        CQUI_RealHousingFromImprovements(pCity, localPlayerID, pCityID);
-    end
 
     -- CQUI : housing left
-    if (CQUI_SmartBanner and CQUI_SmartBanner_Population) then
-        local cqui_HousingFromImprovementsCalc = CQUI_HousingFromImprovementsTable[localPlayerID][pCityID];    -- CQUI real housing from improvements value
+    if (IsCQUI_SmartBanner_PopulationEnabled()) then
+        local cqui_HousingFromImprovementsCalc = CQUI_GetRealHousingFromImprovementsValue(pCity, localPlayerID);
         if (cqui_HousingFromImprovementsCalc ~= nil) then    -- CQUI real housing from improvements fix to show correct values when waiting for the next turn
             local housingText, housingLeft = CQUI_GetHousingString(pCity, cqui_HousingFromImprovementsCalc, true);
             populationInstance.CQUI_CityHousing:SetText(housingText);
@@ -112,7 +106,7 @@ function CityBanner.UpdatePopulation(self, isLocalPlayer:boolean, pCity:table, p
             local CQUI_housingLeftPopupText = "[NEWLINE] [ICON_Housing]" .. Locale.Lookup("LOC_HUD_CITY_HOUSING") .. ": " .. housingLeft;
             popTooltip = popTooltip .. CQUI_housingLeftPopupText;
             populationInstance.FillMeter:SetToolTipString(popTooltip);
-        end -- if CQUI_HousingFromImprovements ~= nil
+        end
     else
         populationInstance.CQUI_CityHousing:SetHide(true);
     end
@@ -124,7 +118,7 @@ function CityBanner.UpdateStats(self)
     BASE_CQUI_CityBanner_UpdateStats(self);
 
     local pDistrict:table = self:GetDistrict();
-    if (pDistrict ~= nil and self.m_Type == BANNERTYPE_CITY_CENTER) then
+    if (pDistrict ~= nil and IsBannerTypeCityCenter(self.m_Type)) then
         local localPlayerID:number = Game.GetLocalPlayer();
         local pCity        :table  = self:GetCity();
         local iCityOwner   :number = pCity:GetOwner();
@@ -135,7 +129,7 @@ function CityBanner.UpdateStats(self)
             -- Update the built districts 
             self.CQUI_DistrictBuiltIM:ResetInstances(); -- CQUI : Reset CQUI_DistrictBuiltIM
             local pCityDistricts:table = pCity:GetDistricts();
-            if (CQUI_SmartBanner and CQUI_SmartBanner_Districts) then
+            if (IsCQUI_SmartBanner_DistrictsEnabled()) then
                 for i, district in pCityDistricts:Members() do
                     local districtType = district:GetType();
                     local districtInfo:table = GameInfo.Districts[districtType];

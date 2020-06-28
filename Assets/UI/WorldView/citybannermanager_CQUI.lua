@@ -18,60 +18,52 @@ BASE_CQUI_Reload = Reload;
 --  CONSTANTS
 -- ===========================================================================
 --  We have to re-do the declaration on the ones we need because they're declared as local in that other file
--- !!! TEMP!! Removed the 'local' prefix while porting over to tempcommon file
--- !!! TEMP!! Likely we still need local when all is said and done
 
-COLOR_CITY_GREEN           = UI.GetColorValueFromHexLiteral(0xFF4CE710);
-COLOR_CITY_RED             = UI.GetColorValueFromHexLiteral(0xFF0101F5);
-COLOR_CITY_YELLOW          = UI.GetColorValueFromHexLiteral(0xFF2DFFF8);
-BANNERTYPE_CITY_CENTER     = 0;
-BANNERTYPE_ENCAMPMENT      = 1;
-BANNERTYPE_AERODROME       = 2;
-BANNERTYPE_MISSILE_SILO    = 3;
-BANNERTYPE_OTHER_DISTRICT  = 4;
-BANNERSTYLE_LOCAL_TEAM     = 0;
-BANNERSTYLE_OTHER_TEAM     = 1;
+local COLOR_CITY_GREEN           = UI.GetColorValueFromHexLiteral(0xFF4CE710);
+local COLOR_CITY_RED             = UI.GetColorValueFromHexLiteral(0xFF0101F5);
+local COLOR_CITY_YELLOW          = UI.GetColorValueFromHexLiteral(0xFF2DFFF8);
+local BANNERTYPE_CITY_CENTER     = 0;
+local BANNERTYPE_ENCAMPMENT      = 1;
+local BANNERTYPE_AERODROME       = 2;
+local BANNERTYPE_MISSILE_SILO    = 3;
+local BANNERTYPE_OTHER_DISTRICT  = 4;
+local BANNERSTYLE_LOCAL_TEAM     = 0;
+local BANNERSTYLE_OTHER_TEAM     = 1;
 
-CQUI_WorkIconSize       = 48;
-CQUI_WorkIconAlpha      = 0.60;
-CQUI_SmartWorkIcon      = true;
-CQUI_SmartWorkIconSize  = 64;
-CQUI_SmartWorkIconAlpha = 0.45;
+local CQUI_WorkIconSize       = 48;
+local CQUI_WorkIconAlpha      = 0.60;
+local CQUI_SmartWorkIcon      = true;
+local CQUI_SmartWorkIconSize  = 64;
+local CQUI_SmartWorkIconAlpha = 0.45;
 
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
 -- CQUI real housing from improvements tables
--- !!! TEMP!! Removed the 'local' prefix while porting over to tempcommon file
--- !!! TEMP!! Likely we still need local when all is said and done
-CQUI_HousingFromImprovementsTable = {};
-CQUI_HousingUpdated               = {};
+local CQUI_HousingFromImprovementsTable = {};
+local CQUI_HousingUpdated               = {};
 
-CQUI_PlotIM        = InstanceManager:new( "CQUI_WorkedPlotInstance", "Anchor", Controls.CQUI_WorkedPlotContainer );
-CQUI_uiWorldMap    = {};
-CQUI_yieldsOn      = false;
-CQUI_Hovering      = false;
-CQUI_NextPlot4Away = nil;
+local CQUI_PlotIM        = InstanceManager:new( "CQUI_WorkedPlotInstance", "Anchor", Controls.CQUI_WorkedPlotContainer );
+local CQUI_UIWorldMap    = {};
+local CQUI_YieldsOn      = false;
+local CQUI_Hovering      = false;
+local CQUI_NextPlot4Away = nil;
 
-CQUI_ShowYieldsOnCityHover         = false;
-CQUI_ShowCitizenIconsOnCityHover   = false;
-CQUI_ShowCityManageAreaOnCityHover = true;
-CQUI_CityManageAreaShown           = false;
-CQUI_CityManageAreaShouldShow      = false;
+local CQUI_ShowYieldsOnCityHover         = false;
+local CQUI_ShowCitizenIconsOnCityHover   = false;
+local CQUI_ShowCityManageAreaOnCityHover = true;
+local CQUI_CityManageAreaShown           = false;
+local CQUI_CityManageAreaShouldShow      = false;
 
-CQUI_SmartBanner                   = true;
-CQUI_SmartBanner_Unmanaged_Citizen = false;
-CQUI_SmartBanner_Districts         = true;
-CQUI_SmartBanner_Population        = true;
-CQUI_SmartBanner_Cultural          = true;
+local CQUI_SmartBanner                   = true;
+local CQUI_SmartBanner_Unmanaged_Citizen = false;
+local CQUI_SmartBanner_Districts         = true;
+local CQUI_SmartBanner_Population        = true;
+local CQUI_SmartBanner_Cultural          = true;
 
-CQUI_cityMaxBuyPlotRange = tonumber(GlobalParameters.CITY_MAX_BUY_PLOT_RANGE);
-CQUI_CityYields          = UILens.CreateLensLayerHash("City_Yields");
-CQUI_CitizenManagement   = UILens.CreateLensLayerHash("Citizen_Management");
-
--- Members from basegame version
-m_isMapDeselectDisabled = false;
-m_isReligionLensActive  = false;
+local CQUI_CityMaxBuyPlotRange = tonumber(GlobalParameters.CITY_MAX_BUY_PLOT_RANGE);
+local CQUI_CityYields          = UILens.CreateLensLayerHash("City_Yields");
+local CQUI_CitizenManagement   = UILens.CreateLensLayerHash("Citizen_Management");
 
 -- ===========================================================================
 function CQUI_OnSettingsInitialized()
@@ -102,6 +94,7 @@ function CQUI_OnSettingsUpdate()
 end
 
 -- ===========================================================================
+-- Common code to both basegame and expansions during the CityBanner.Initialize function
 function CQUI_Common_CityBanner_Initialize(self, playerID, cityID, districtID, bannerType, bannerStyle)
     -- Defined in the respective basegame/expansion files
     BASE_CQUI_CityBanner_Initialize(self, playerID, cityID, districtID, bannerType, bannerStyle);
@@ -439,34 +432,14 @@ end
 
 -- ===========================================================================
 -- CQUI calculate real housing from improvements
-function CQUI_GetRealHousingFromImprovementsValue(pCity, PlayerID, pCityID, maxCityPlotRange)
-    -- NOTE: Housing Values from Improvements determined by adding integers, and halved once all housing has been calculated
-    --       The basegame function doesn't include the half-value (e.g. as Non-Maya, 3 farms is 1.5, but basegame returns only 1).
-    --       Basegame also appears to consider the Maya as +1 Housing in addition to the 0.5 for each farm (so, 1.5 for each Mayan farm)
-    --       In basegame, when Maya have 2 farms, pCity:GetGrowth():GetHousingFromImprovements() will return a value of 3
-    print_debug("CityBannerManager_CQUI: CQUI_GetRealHousingFromImprovementsValue ENTRY  pCity:"..tostring(pCity).." PlayerID:"..tostring(PlayerID).." pCityID:"..tostring(pCityID));
-    local cityX:number, cityY:number = pCity:GetX(), pCity:GetY();
-    local iNumHousing:number = 0; 
-    -- Add data from Housing field in Improvements divided by TilesRequired which is usually 2
-    -- Checks all of the plots available to the city and gathers the housing value from any improved
-    -- Logic for this calculation suggested by Infixio
-    for _, plotIndex in ipairs(Map.GetCityPlots():GetPurchasedPlots(pCity)) do
-        local pPlot:table = Map.GetPlotByIndex(plotIndex);
-        if (pPlot ~= nil 
-            and pPlot:GetImprovementType() > -1
-            and not pPlot:IsImprovementPillaged()
-            and Map.GetPlotDistance(cityX, cityY, pPlot:GetX(), pPlot:GetY()) <= maxCityPlotRange) then
-            local imprInfo:table = GameInfo.Improvements[pPlot:GetImprovementType()];
-            iNumHousing = iNumHousing + (imprInfo.Housing / imprInfo.TilesRequired);
-        end
+function CQUI_GetRealHousingFromImprovementsValue(pCity, localPlayerID)
+    print_debug("CityBannerManager_CQUI: CQUI_GetRealHousingFromImprovementsValue ENTRY  pCity:"..tostring(pCity).." localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
+    local pCityID :number = pCity:GetID();
+    if (CQUI_HousingUpdated[localPlayerID] == nil or CQUI_HousingUpdated[localPlayerID][pCityID] ~= true) then
+        CQUI_RealHousingFromImprovements(pCity, localPlayerID, pCityID);
     end
 
-    local baseHousingFromImprovements = pCity:GetGrowth():GetHousingFromImprovements();
-    -- This effectively adds any half values that may be missing
-    local realHousingValue = baseHousingFromImprovements + Round(iNumHousing - math.floor(iNumHousing), 1);
-    print_debug("CQUI_GetRealHousingFromImprovementsValue: BaseHousingFromImprovements: "..tostring(baseHousingFromImprovements).." iNumHousing: "..tostring(iNumHousing).."  Updated housing value: "..tostring(realHousingValue));
-
-    return realHousingValue;
+    return CQUI_HousingFromImprovementsTable[localPlayerID][pCityID];
 end
 
 -- ===========================================================================
@@ -487,11 +460,11 @@ function CQUI_GetInstanceAt( plotIndex:number )
     -- plotIndex Game engine index of the plot (taken from PlotInfo)
     -- Enabling this print_debug is very noisy
     -- print_debug("CityBannerManager_CQUI: CQUI_GetInstanceAt ENTRY plotIndex:"..tostring(plotIndex));
-    local pInstance:table = CQUI_uiWorldMap[plotIndex];
+    local pInstance:table = CQUI_UIWorldMap[plotIndex];
 
     if (pInstance == nil) then
         pInstance = CQUI_PlotIM:GetInstance();
-        CQUI_uiWorldMap[plotIndex] = pInstance;
+        CQUI_UIWorldMap[plotIndex] = pInstance;
         local worldX:number, worldY:number = UI.GridToWorld( plotIndex );
         pInstance.Anchor:SetWorldPositionVal( worldX, worldY, 20 );
         -- Make it so that the button can't be clicked while it's in this temporary state, this stops it from blocking clicks intended for the citybanner
@@ -504,25 +477,44 @@ end
 
 -- ===========================================================================
 -- CQUI calculate real housing from improvements
-function CQUI_RealHousingFromImprovements(pCity, PlayerID, pCityID)
+function CQUI_RealHousingFromImprovements(pCity, localPlayerID, pCityID)
     -- NOTE: Housing Values from Improvements determined by adding integers, and halved once all housing has been calculated
     --       The basegame function doesn't include the half-value (e.g. as Non-Maya, 3 farms is 1.5, but basegame returns only 1).
     --       Basegame also appears to consider the Maya as +1 Housing in addition to the 0.5 for each farm (so, 1.5 for each Mayan farm)
     --       In basegame, when Maya have 2 farms, pCity:GetGrowth():GetHousingFromImprovements() will return a value of 3
-    print_debug("CityBannerManager_CQUI: CQUI_RealHousingFromImprovements ENTRY  pCity:"..tostring(pCity).." PlayerID:"..tostring(PlayerID).." pCityID:"..tostring(pCityID));
+    print_debug("CityBannerManager_CQUI: CQUI_RealHousingFromImprovements ENTRY  pCity:"..tostring(pCity).." localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
 
-    local realHousingValue = CQUI_GetRealHousingFromImprovementsValue(pCity, PlayerID, pCityID, CQUI_cityMaxBuyPlotRange);
-
-    if CQUI_HousingFromImprovementsTable[PlayerID] == nil then
-        CQUI_HousingFromImprovementsTable[PlayerID] = {};
+    local cityX:number, cityY:number = pCity:GetX(), pCity:GetY();
+    local iNumHousing:number = 0; 
+    -- Add data from Housing field in Improvements divided by TilesRequired which is usually 2
+    -- Checks all of the plots available to the city and gathers the housing value from any improved
+    -- Logic for this calculation suggested by Infixio
+    for _, plotIndex in ipairs(Map.GetCityPlots():GetPurchasedPlots(pCity)) do
+        local pPlot:table = Map.GetPlotByIndex(plotIndex);
+        if (pPlot ~= nil 
+            and pPlot:GetImprovementType() > -1
+            and not pPlot:IsImprovementPillaged()
+            and Map.GetPlotDistance(cityX, cityY, pPlot:GetX(), pPlot:GetY()) <= CQUI_CityMaxBuyPlotRange) then
+            local imprInfo:table = GameInfo.Improvements[pPlot:GetImprovementType()];
+            iNumHousing = iNumHousing + (imprInfo.Housing / imprInfo.TilesRequired);
+        end
     end
 
-    if CQUI_HousingUpdated[PlayerID] == nil then
-        CQUI_HousingUpdated[PlayerID] = {};
+    local baseHousingFromImprovements = pCity:GetGrowth():GetHousingFromImprovements();
+    -- This effectively adds any half values that may be missing
+    local realHousingValue = baseHousingFromImprovements + Round(iNumHousing - math.floor(iNumHousing), 1);
+    print_debug("CQUI_GetRealHousingFromImprovementsValue: BaseHousingFromImprovements: "..tostring(baseHousingFromImprovements).." iNumHousing: "..tostring(iNumHousing).."  Updated housing value: "..tostring(realHousingValue));
+
+    if CQUI_HousingFromImprovementsTable[localPlayerID] == nil then
+        CQUI_HousingFromImprovementsTable[localPlayerID] = {};
     end
 
-    CQUI_HousingFromImprovementsTable[PlayerID][pCityID] =  realHousingValue;
-    CQUI_HousingUpdated[PlayerID][pCityID] = true;
+    if CQUI_HousingUpdated[localPlayerID] == nil then
+        CQUI_HousingUpdated[localPlayerID] = {};
+    end
+
+    CQUI_HousingFromImprovementsTable[localPlayerID][pCityID] =  realHousingValue;
+    CQUI_HousingUpdated[localPlayerID][pCityID] = true;
     LuaEvents.CQUI_RealHousingFromImprovementsCalculated(pCityID, realHousingValue);
 end
 
@@ -530,26 +522,25 @@ end
 function CQUI_ReleaseInstanceAt( plotIndex:number)
     -- Enabling this print_debug is very noisy
     -- print_debug("CityBannerManager_CQUI: CQUI_ReleaseInstanceAt ENTRY plotIndex:"..tostring(plotIndex));
-    local pInstance :table = CQUI_uiWorldMap[plotIndex];
+    local pInstance :table = CQUI_UIWorldMap[plotIndex];
 
     if (pInstance ~= nil) then
         pInstance.Anchor:SetHide( true );
         -- Return the button to normal so that it can be clicked again
         pInstance.CitizenButton:SetConsumeMouseButton(true);
-        CQUI_uiWorldMap[plotIndex] = nil;
+        CQUI_UIWorldMap[plotIndex] = nil;
     end
 end
 
 -- ===========================================================================
 -- CQUI update all cities real housing from improvements
-function CQUI_OnAllCitiesInfoUpdated(PlayerID)
-    print_debug("CityBannerManager_CQUI: CQUI_OnCityInfoUpdated ENTRY PlayerID:"..tostring(PlayerID));
-    local m_pCity:table = Players[PlayerID]:GetCities();
+function CQUI_OnAllCitiesInfoUpdated(localPlayerID)
+    print_debug("CityBannerManager_CQUI: CQUI_OnCityInfoUpdated ENTRY localPlayerID:"..tostring(localPlayerID));
+    local m_pCity:table = Players[localPlayerID]:GetCities();
     for i, pCity in m_pCity:Members() do
         local pCityID = pCity:GetID();
-        CQUI_OnCityInfoUpdated(PlayerID, pCityID)
+        CQUI_OnCityInfoUpdated(localPlayerID, pCityID)
     end
-
 end
 
 -- ===========================================================================
@@ -561,8 +552,8 @@ function CQUI_OnBannerMouseOver(playerID: number, cityID: number)
     end
 
     CQUI_Hovering = true;
-    -- Astog: Fix for lens being shown when other lenses are on.
-    -- Astog: Don't show this lens if any unit is selected.
+    -- Fix for lens being shown when other lenses are on.
+    -- Don't show this lens if any unit is selected.
     -- This prevents the need to check if every lens is on or not, like builder, religious lens.
     if (CQUI_ShowCityManageAreaOnCityHover
           and not UILens.IsLayerOn(CQUI_CitizenManagement)
@@ -599,7 +590,7 @@ function CQUI_OnBannerMouseOver(playerID: number, cityID: number)
     local yieldsIndex :table = {};
 
     if (tPlots ~= nil and table.count(tPlots) ~= 0 and UILens.IsLayerOn(CQUI_CitizenManagement) == false) then
-        CQUI_yieldsOn = UserConfiguration.ShowMapYield();
+        CQUI_YieldsOn = UserConfiguration.ShowMapYield();
         for i,plotId in pairs(tPlots) do
             local kPlot :table = Map.GetPlotByIndex(plotId);
             local workerCount = kPlot:GetWorkerCount();
@@ -662,7 +653,7 @@ function CQUI_OnBannerMouseOver(playerID: number, cityID: number)
 
         local plotCount = Map.GetPlotCount();
 
-        if (CQUI_yieldsOn == false and not UILens.IsLayerOn(CQUI_CitizenManagement)) then
+        if (CQUI_YieldsOn == false and not UILens.IsLayerOn(CQUI_CitizenManagement)) then
             UILens.SetLayerHexesArea(CQUI_CityYields, Game.GetLocalPlayer(), yields);
             UILens.ToggleLayerOn( CQUI_CityYields );
         end
@@ -684,9 +675,9 @@ function CQUI_OnBannerMouseExit(playerID: number, cityID: number)
         return;
     end
 
-    CQUI_yieldsOn = UserConfiguration.ShowMapYield();
+    CQUI_YieldsOn = UserConfiguration.ShowMapYield();
 
-    if (CQUI_yieldsOn == false and not UILens.IsLayerOn(CQUI_CitizenManagement)) then
+    if (CQUI_YieldsOn == false and not UILens.IsLayerOn(CQUI_CitizenManagement)) then
         UILens.ClearLayerHexes( CQUI_CityYields );
     end
 
@@ -741,31 +732,31 @@ end
 
 -- ===========================================================================
 -- CQUI update city's real housing from improvements
-function CQUI_OnCityInfoUpdated(PlayerID, pCityID)
-    print_debug("CityBannerManager_CQUI: CQUI_OnCityInfoUpdated ENTRY PlayerID:"..tostring(PlayerID).." pCityID:"..tostring(pCityID));
-    CQUI_HousingUpdated[PlayerID][pCityID] = nil;
+function CQUI_OnCityInfoUpdated(localPlayerID, pCityID)
+    print_debug("CityBannerManager_CQUI: CQUI_OnCityInfoUpdated ENTRY localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
+    CQUI_HousingUpdated[localPlayerID][pCityID] = nil;
 end
 
 -- ===========================================================================
 -- CQUI update close to a culture bomb cities data and real housing from improvements
-function CQUI_OnCityLostTileToCultureBomb(PlayerID, x, y)
-    print_debug("CityBannerManager_CQUI: CQUI_OnCityLostTileToCultureBomb ENTRY PlayerID:"..tostring(PlayerID).." LocationXY:"..tostring(x)..","..tostring(y));
-    local m_pCity:table = Players[PlayerID]:GetCities();
+function CQUI_OnCityLostTileToCultureBomb(localPlayerID, x, y)
+    print_debug("CityBannerManager_CQUI: CQUI_OnCityLostTileToCultureBomb ENTRY localPlayerID:"..tostring(localPlayerID).." LocationXY:"..tostring(x)..","..tostring(y));
+    local m_pCity:table = Players[localPlayerID]:GetCities();
     for i, pCity in m_pCity:Members() do
         if Map.GetPlotDistance( pCity:GetX(), pCity:GetY(), x, y ) <= 4 then
             local pCityID = pCity:GetID();
-            CQUI_OnCityInfoUpdated(PlayerID, pCityID)
+            CQUI_OnCityInfoUpdated(localPlayerID, pCityID)
             CityManager.RequestCommand(pCity, CityCommandTypes.SET_FOCUS, nil);
         end
     end
 end
 -- ===========================================================================
 -- CQUI erase real housing from improvements data everywhere when a city removed from map
-function CQUI_OnCityRemovedFromMap(PlayerID, pCityID)
-    print_debug("CityBannerManager_CQUI: CQUI_OnCityRemovedFromMap ENTRY PlayerID:"..tostring(PlayerID).." pCityID:"..tostring(pCityID));
+function CQUI_OnCityRemovedFromMap(localPlayerID, pCityID)
+    print_debug("CityBannerManager_CQUI: CQUI_OnCityRemovedFromMap ENTRY localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
     if playerID == Game.GetLocalPlayer() then
-        CQUI_HousingFromImprovementsTable[PlayerID][pCityID] = nil;
-        CQUI_HousingUpdated[PlayerID][pCityID] = nil;
+        CQUI_HousingFromImprovementsTable[localPlayerID][pCityID] = nil;
+        CQUI_HousingUpdated[localPlayerID][pCityID] = nil;
         LuaEvents.CQUI_RealHousingFromImprovementsCalculated(pCityID, nil);
     end
 end
@@ -773,7 +764,7 @@ end
 -- ===========================================================================
 -- Common handler for the City Strike Button (Vanilla and the expansions have 2 different functions for this)
 function CQUI_OnCityRangeStrikeButtonClick( playerID, cityID )
-    print_debug("CityBannerManager_CQUI: CQUI_OnCityRangeStrikeButtonClick ENTRY PlayerID:"..tostring(PlayerID).." pCityID:"..tostring(pCityID));
+    print_debug("CityBannerManager_CQUI: CQUI_OnCityRangeStrikeButtonClick ENTRY localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
     local pPlayer = Players[playerID];
     if (pPlayer == nil) then
         return;
@@ -845,6 +836,44 @@ function CQUI_UpdateSuzerainIcon( pPlayer:table, bannerInstance )
         bannerInstance.m_Instance.CQUI_CivSuzerain:SetHide(true);
     end
 end
+
+-- ===========================================================================
+-- Utility Functions for use by the Basegame and Expansions CityBannerManager files
+-- These functions are here in order to allow all CQUI Objects be declared as local
+-- ===========================================================================
+function IsBannerTypeCityCenter(bannerType)
+    if (bannerType == BANNERTYPE_CITY_CENTER) then
+        return true;
+    end
+
+    return false;
+end
+
+-- ===========================================================================
+function IsCQUI_SmartBannerEnabled()
+    return CQUI_SmartBanner;
+end
+
+-- ===========================================================================
+function IsCQUI_SmartBanner_CulturalEnabled()
+    return (CQUI_SmartBanner and CQUI_SmartBanner_Cultural);
+end
+
+-- ===========================================================================
+function IsCQUI_SmartBanner_DistrictsEnabled()
+    return (CQUI_SmartBanner and CQUI_SmartBanner_Districts);
+end
+
+-- ===========================================================================
+function IsCQUI_SmartBanner_PopulationEnabled()
+    return (CQUI_SmartBanner and CQUI_SmartBanner_Population);
+end
+
+-- ===========================================================================
+function IsCQUI_SmartBanner_Unmanaged_CitizenEnabled()
+    return (CQUI_SmartBanner and CQUI_SmartBanner_Unmanaged_Citizen);
+end
+
 
 -- ===========================================================================
 -- Game Engine EVENT

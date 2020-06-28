@@ -49,15 +49,10 @@ function CityBanner.UpdateStats(self)
     BASE_CQUI_CityBanner_UpdateStats(self);
 
     -- CQUI get real housing from improvements value (do this regardless of whether or not the banners will be updated)
-    local pCity   :table  = self:GetCity();
-    local pCityID :number = pCity:GetID();
+    local pCity         :table  = self:GetCity();
     local localPlayerID :number = Game.GetLocalPlayer();
 
-    if (CQUI_HousingUpdated[localPlayerID] == nil or CQUI_HousingUpdated[localPlayerID][pCityID] ~= true) then
-        CQUI_RealHousingFromImprovements(pCity, localPlayerID, pCityID);
-    end
-
-    if (self.m_Type ~= BANNERTYPE_CITY_CENTER) then
+    if (IsBannerTypeCityCenter(self.m_Type) == false) then
         return;
     end
 
@@ -65,11 +60,11 @@ function CityBanner.UpdateStats(self)
         return;
     end
 
-    if (CQUI_SmartBanner == false) then
+    if (IsCQUI_SmartBannerEnabled() == false) then
         return;
     end
 
-    if (CQUI_SmartBanner_Cultural) then
+    if (IsCQUI_SmartBanner_CulturalEnabled()) then
         -- Show the turns left until border expansion to the left of the population
         local pCityCulture = pCity:GetCulture();
         local turnsUntilBorderGrowth = pCityCulture:GetTurnsUntilExpansion();
@@ -79,9 +74,9 @@ function CityBanner.UpdateStats(self)
         self.m_Instance.CityCultureTurnsLeft:SetHide(true);
     end
 
-    if (CQUI_SmartBanner_Population) then
+    if (IsCQUI_SmartBanner_PopulationEnabled()) then
         -- TODO: This logic in this if statement appears in all 3 of the citybannermanager files, can be put into single common file
-        local cqui_HousingFromImprovementsCalc = CQUI_HousingFromImprovementsTable[localPlayerID][pCityID];    -- CQUI real housing from improvements value
+        local cqui_HousingFromImprovementsCalc = CQUI_GetRealHousingFromImprovementsValue(pCity, localPlayerID)
         if (cqui_HousingFromImprovementsCalc ~= nil) then
             -- Basegame text includes the number of turns remaining before city growth
             local currentPopulation :number  = pCity:GetPopulation();
@@ -125,7 +120,7 @@ end
 function CityBanner.UpdateName( self )
     print_debug("CityBannerManager_CQUI_basegame: CityBanner.UpdateName ENTRY");
 
-    if (self.m_Type ~= BANNERTYPE_CITY_CENTER) then
+    if (IsBannerTypeCityCenter(self.m_Type) == false) then
         return;
     end
 
@@ -215,9 +210,9 @@ function CityBanner.UpdateName( self )
     end
 
     local pCityDistricts:table  = pCity:GetDistricts();
-    if (CQUI_SmartBanner and self.m_Instance.CityBuiltDistrictAqueduct ~= nil) then
+    if (IsCQUI_SmartBannerEnabled() and self.m_Instance.CityBuiltDistrictAqueduct ~= nil) then
         --Unlocked citizen check
-        if CQUI_SmartBanner_Unmanaged_Citizen then
+        if (IsCQUI_SmartBanner_Unmanaged_CitizenEnabled()) then
             local tParameters :table = {};
             tParameters[CityCommandTypes.PARAM_MANAGE_CITIZEN] = UI.GetInterfaceModeParameter(CityCommandTypes.PARAM_MANAGE_CITIZEN);
 
@@ -239,7 +234,7 @@ function CityBanner.UpdateName( self )
         end
         -- End Unlocked Citizen Check
 
-        if (CQUI_SmartBanner and CQUI_SmartBanner_Districts) then
+        if (IsCQUI_SmartBanner_DistrictsEnabled()) then
             for i, district in pCityDistricts:Members() do
                 local districtType = district:GetType();
                 local districtInfo:table = GameInfo.Districts[districtType];
