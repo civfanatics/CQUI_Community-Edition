@@ -12,9 +12,9 @@ CQUI_ShowDebugPrint = false;
 -- ===========================================================================
 --CQUI setting control support functions
 -- ===========================================================================
-function print_debug(str)
+function print_debug(...)
     if CQUI_ShowDebugPrint then
-        print(str);
+        print(...);
     end
 end
 
@@ -22,7 +22,7 @@ end
 function CQUI_OnSettingsUpdate()
   print_debug("ENTRY: CQUICommon - CQUI_OnSettingsUpdate");
   if (GameInfo.CQUI_Settings ~= nil and GameInfo.CQUI_Settings["CQUI_ShowDebugPrint"] ~= nil) then
-    CQUI_ShowDebugPrint = GameInfo.CQUI_Settings["CQUI_ShowDebugPrint"].Value;
+    CQUI_ShowDebugPrint = ( GameInfo.CQUI_Settings["CQUI_ShowDebugPrint"].Value == 1 );
   else
     CQUI_ShowDebugPrint = GameConfiguration.GetValue("CQUI_ShowDebugPrint");
   end
