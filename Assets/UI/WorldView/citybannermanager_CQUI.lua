@@ -636,7 +636,7 @@ function CQUI_OnBannerMouseOver(playerID: number, cityID: number)
     end
 
     tPlots = tResults[CityCommandResults.PLOTS];
-    if (tPlots ~= nil and table.count(tPlots) ~= 0 and UILens.IsLayerOn(CQUI_CitizenManagement)) == false then
+    if (tPlots ~= nil and table.count(tPlots) ~= 0 and UILens.IsLayerOn(CQUI_CitizenManagement) == false) then
         for i,plotId in pairs(tPlots) do
             local kPlot :table = Map.GetPlotByIndex(plotId);
             local index:number = kPlot:GetIndex();
