@@ -178,11 +178,8 @@ end
 -- ===========================================================================
 --  CQUI Initialize Function
 -- ===========================================================================
-function Initialize()
+function Initialize_CQUI_expansions()
     print_debug("CityBannerManager_CQUI_Expansions: Initialize CQUI CityBannerManager")
     -- Events are initialized in the common file
-    LateInitialize();
 end
-Initialize();
-
-
+Initialize_CQUI_expansions();

@@ -888,8 +888,8 @@ end
 -- ===========================================================================
 --  CQUI Initialize Function
 -- ===========================================================================
-function LateInitialize()
-    print_debug("CityBannerManager_CQUI: LateInitialize CQUI CityBannerManager (Common File)")
+function Initialize_CQUI()
+    print_debug("CityBannerManager_CQUI: Initialize_CQUI CQUI CityBannerManager (Common File)")
     -- CQUI related events
     LuaEvents.CQUI_AllCitiesInfoUpdated.Add(CQUI_OnAllCitiesInfoUpdated);    -- CQUI update all cities real housing from improvements
     LuaEvents.CQUI_CityInfoUpdated.Add(CQUI_OnCityInfoUpdated);    -- CQUI update city's real housing from improvements
@@ -897,12 +897,11 @@ function LateInitialize()
     LuaEvents.CQUI_CityRangeStrike.Add(CQUI_OnCityRangeStrikeButtonClick); -- AZURENCY : to acces it in the actionpannel on the city range attack button
     LuaEvents.CQUI_DistrictRangeStrike.Add(OnDistrictRangeStrikeButtonClick); -- AZURENCY : to acces it in the actionpannel on the district range attack button
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);
+    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
 
     Events.CityRemovedFromMap.Add(CQUI_OnCityRemovedFromMap);    -- CQUI erase real housing from improvements data everywhere when a city removed from map
     Events.CitySelectionChanged.Add(CQUI_OnBannerMouseExit);
     Events.CityWorkerChanged.Add(OnCityWorkerChanged);
     Events.InfluenceGiven.Add(CQUI_OnInfluenceGiven);
-
-    LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
-    LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
 end
+Initialize_CQUI();
