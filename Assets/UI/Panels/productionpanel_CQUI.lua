@@ -613,7 +613,10 @@ end
 function CreateCorrectTabs()
 end
 
+-- ===========================================================================
 function Initialize()
+  print("ProductionPanel_CQUI Initialize ENTRY");
+  -- ProductionPanel.lua does not implement a LateInitialize function
   Events.InterfaceModeChanged.Remove( BASE_OnInterfaceModeChanged );
   Events.InterfaceModeChanged.Add( OnInterfaceModeChanged );
   Events.CityMadePurchase.Add( function() Refresh(); end);

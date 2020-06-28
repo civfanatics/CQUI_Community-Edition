@@ -47,6 +47,8 @@ end
 
 -- ===========================================================================
 function Initialize()
+  print("CityPanelCulture_CQUI Initialize ENTRY");
+  -- CityPanelCulture does not define LateInitialize
   LuaEvents.CityPanelTabRefresh.Remove(BASE_CQUI_OnRefresh);
 	Events.GovernorAssigned.Remove( BASE_CQUI_OnRefresh );
 	Events.GovernorChanged.Remove( BASE_CQUI_OnRefresh );

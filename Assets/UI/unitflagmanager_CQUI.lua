@@ -12,6 +12,7 @@ BASE_CQUI_OnUnitSelectionChanged = OnUnitSelectionChanged;
 BASE_CQUI_OnPlayerTurnActivated = OnPlayerTurnActivated;
 BASE_CQUI_OnUnitPromotionChanged = OnUnitPromotionChanged;
 BASE_CQUI_UpdateFlagType = UnitFlag.UpdateFlagType;
+BASE_CQUI_LateInitialize = LateInitialize;
 
 -- ===========================================================================
 -- CQUI Members
@@ -295,23 +296,24 @@ function OnUnitPromotionChanged( playerID : number, unitID : number )
 end
 
 -- ===========================================================================
-function Initialize()
-  ContextPtr:SetRefreshHandler(CQUI_Refresh);
+function LateInitialize()
+    print("UnitFlagManager_CQUI LateInitialize ENTRY");
+    BASE_CQUI_LateInitialize();
+    ContextPtr:SetRefreshHandler(CQUI_Refresh);
 
-  Events.DiplomacyMakePeace.Add(OnDiplomacyWarStateChange);
-  Events.DiplomacyDeclareWar.Add(OnDiplomacyWarStateChange);
-  Events.UnitChargesChanged.Add(OnUnitChargesChanged);
-  Events.UnitSelectionChanged.Remove(BASE_CQUI_OnUnitSelectionChanged);
-  Events.UnitSelectionChanged.Add(OnUnitSelectionChanged);
-  Events.PlayerTurnActivated.Remove(BASE_CQUI_OnPlayerTurnActivated);
-  Events.PlayerTurnActivated.Add(OnPlayerTurnActivated);
-  Events.UnitPromoted.Remove(BASE_CQUI_OnUnitPromotionChanged);
-  Events.UnitPromoted.Add(OnUnitPromotionChanged);
+    Events.DiplomacyMakePeace.Add(OnDiplomacyWarStateChange);
+    Events.DiplomacyDeclareWar.Add(OnDiplomacyWarStateChange);
+    Events.UnitChargesChanged.Add(OnUnitChargesChanged);
+    Events.UnitSelectionChanged.Remove(BASE_CQUI_OnUnitSelectionChanged);
+    Events.UnitSelectionChanged.Add(OnUnitSelectionChanged);
+    Events.PlayerTurnActivated.Remove(BASE_CQUI_OnPlayerTurnActivated);
+    Events.PlayerTurnActivated.Add(OnPlayerTurnActivated);
+    Events.UnitPromoted.Remove(BASE_CQUI_OnUnitPromotionChanged);
+    Events.UnitPromoted.Add(OnUnitPromotionChanged);
 
-  LuaEvents.UnitFlagManager_PointerEntered.Add(CQUI_OnUnitFlagPointerEntered);
-  LuaEvents.UnitFlagManager_PointerExited.Add(CQUI_OnUnitFlagPointerExited);
+    LuaEvents.UnitFlagManager_PointerEntered.Add(CQUI_OnUnitFlagPointerEntered);
+    LuaEvents.UnitFlagManager_PointerExited.Add(CQUI_OnUnitFlagPointerExited);
 
-  LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
-  LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
+    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 end
-Initialize();

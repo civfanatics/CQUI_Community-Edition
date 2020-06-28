@@ -196,7 +196,10 @@ function RealizeTilt()
   BASE_RealizeTilt();
 end
 
+-- ===========================================================================
 function Initialize()
+  -- PlotInfo does not implement a LateInitialize method
+  print("PlotInfo_CQUI Initialize ENTRY");
   Events.DistrictAddedToMap.Remove(BASE_OnDistrictAddedToMap);
   Events.DistrictAddedToMap.Add(OnDistrictAddedToMap);
 

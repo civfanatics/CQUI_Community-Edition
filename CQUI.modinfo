@@ -102,6 +102,7 @@
     <ImportFiles id="CQUI_IMPORT_COMMON_FILES">
       <Properties>
         <LoadOrder>-75</LoadOrder>
+        <Context>InGame</Context>
       </Properties>
       <Items>
         <File>Assets/UI/CQUICommon.lua</File>

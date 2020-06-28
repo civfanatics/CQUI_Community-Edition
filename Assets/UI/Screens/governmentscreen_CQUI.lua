@@ -6,6 +6,7 @@ BASE_CQUI_RealizeTabs = RealizeTabs;
 BASE_CQUI_OnOpenGovernmentScreen = OnOpenGovernmentScreen;
 BASE_CQUI_PopulatePolicyFilterData = PopulatePolicyFilterData;
 BASE_CQUI_RealizeFilterTabs = RealizeFilterTabs;
+-- Yes, this is correct, it's called LateInitialization in the unmodified
 BASE_CQUI_LateInitialization = LateInitialization;
 BASE_CQUI_OnOpenGovernmentScreenMyGovernment = OnOpenGovernmentScreenMyGovernment
 
@@ -127,6 +128,7 @@ end
 
 -- ===========================================================================
 function LateInitialization()
+  print("GovernmentScreen_CQUI LateInitialization ENTRY");
   BASE_CQUI_LateInitialization();
 
   LuaEvents.LaunchBar_GovernmentOpenMyGovernment.Remove(BASE_CQUI_OnOpenGovernmentScreenMyGovernment);

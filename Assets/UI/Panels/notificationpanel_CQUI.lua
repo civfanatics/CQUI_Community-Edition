@@ -101,6 +101,7 @@ end
 
 -- ===========================================================================
 function LateInitialize()
+  print("NotificationPanel_CQUI LateInitialize ENTRY");
   BASE_CQUI_LateInitialize();
 
   Events.NotificationAdded.Remove(BASE_CQUI_OnNotificationAdded);

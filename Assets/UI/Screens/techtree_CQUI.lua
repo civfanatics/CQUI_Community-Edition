@@ -156,6 +156,7 @@ function SetCurrentNode( hash:number )
 end
 
 function LateInitialize()
+  print("TechTree_CQUI LateInitialize ENTRY");
   BASE_CQUI_LateInitialize();
 
   LuaEvents.LaunchBar_RaiseTechTree.Remove(BASE_CQUI_OnOpen);

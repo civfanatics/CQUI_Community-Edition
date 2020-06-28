@@ -155,7 +155,9 @@ function SetCurrentNode( hash )
 	end
 end
 
+-- ===========================================================================
 function LateInitialize()
+  print("CivicsTree_CQUI LateInitialize ENTRY");
   BASE_CQUI_LateInitialize();
 
   LuaEvents.CivicsPanel_RaiseCivicsTree.Remove(BASE_CQUI_OnOpen);

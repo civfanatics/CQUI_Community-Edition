@@ -416,7 +416,10 @@ function View(data:table, bIsUpdate:boolean)
   Controls.PlotName:SetHide(true)
 end
 
-function Initialize()
+function Initialize(isReload:boolean)
+  -- Unmodified PlotTooltip does not implement a LateInitialize function
+  print("PlotToolTip_CQUI Initialize ENTRY");
+
   Controls.TooltipMain:SetSpeed(8);  -- CQUI : tooltip spawn faster
 end
 Initialize();

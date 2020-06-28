@@ -6,13 +6,15 @@ include("WorldViewIconsManager");
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
-BASE_SetResourceIcon = SetResourceIcon;
+BASE_CQUI_SetResourceIcon = SetResourceIcon;
+BASE_CQUI_LateInitialize = LateInitialize;
 
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
 local CQUI_ResourceIconStyle = 1;
 
+-- ===========================================================================
 function CQUI_GetSettingsValues()
   CQUI_ResourceIconStyle = GameConfiguration.GetValue("CQUI_ResourceDimmingStyle");
   if CQUI_ResourceIconStyle == nil then
@@ -21,14 +23,13 @@ function CQUI_GetSettingsValues()
   end
 end
 
+-- ===========================================================================
 function CQUI_OnIconStyleSettingsUpdate()
   CQUI_GetSettingsValues();
   Rebuild();
 end
 
-LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnIconStyleSettingsUpdate );
-LuaEvents.CQUI_SettingsInitialized.Add(CQUI_GetSettingsValues);
-
+-- ===========================================================================
 function CQUI_IsResourceOptimalImproved(resourceInfo, pPlot)
   if table.count(resourceInfo.ImprovementCollection) > 0 then
     for _, improvement in ipairs(resourceInfo.ImprovementCollection) do
@@ -53,7 +54,7 @@ end
 --  CQUI modified SetResourceIcon functiton : Improved resource icon dimming/hiding
 -- ===========================================================================
 function SetResourceIcon( pInstance:table, pPlot, type, state)
-  BASE_SetResourceIcon(pInstance, pPlot, type, state);
+  BASE_CQUI_SetResourceIcon(pInstance, pPlot, type, state);
 
   local resourceInfo = GameInfo.Resources[type];
   if (pPlot and resourceInfo ~= nil) then
@@ -93,3 +94,13 @@ end
 function AddImprovementRecommendationsForCity( pCity:table, pSelectedUnit:table )
   return;
 end
+
+-- ===========================================================================
+function LateInitialize()
+    print("WorldViewIconsManager_CQUI LateInitialize ENTRY");
+    BASE_CQUI_LateInitialize();
+
+    LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnIconStyleSettingsUpdate );
+    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_GetSettingsValues);
+end
+

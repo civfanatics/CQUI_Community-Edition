@@ -2,6 +2,7 @@
 -- Cached Base Functions
 -- ===========================================================================
 BASE_OnActivateIntelRelationshipPanel = OnActivateIntelRelationshipPanel
+BASE_CQUI_LateInitialize = LateInitialize;
 
 -- ===========================================================================
 -- Members
@@ -16,9 +17,6 @@ local CQUI_trimGossip = true;
 function CQUI_OnSettingsUpdate()
   CQUI_trimGossip = GameConfiguration.GetValue("CQUI_TrimGossip");
 end
-
-LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
-LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
 
 -- ===========================================================================
 --  CQUI modified OnActivateIntelGossipHistoryPanel functiton
@@ -173,4 +171,12 @@ function OnActivateIntelRelationshipPanel(relationshipInstance : table)
   end
 
   BASE_OnActivateIntelRelationshipPanel(intelSubPanel);
+end
+
+function LateInitialize()
+    print("DiplomacyActionView_CQUI LateInitialize ENTRY");
+    BASE_CQUI_LateInitialize();
+
+    LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
+    LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
 end

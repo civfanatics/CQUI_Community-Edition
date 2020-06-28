@@ -4,6 +4,7 @@ include( "GameCapabilities" );
 -- Cached Base Functions
 -- ===========================================================================
 BASE_CQUI_OnOpen = OnOpen;
+BASE_CQUI_LateInitialize = LateInitialize;
 
 -- ===========================================================================
 -- CQUI Members
@@ -212,11 +213,12 @@ end
 -- ===========================================================================
 -- CQUI: Initialize Function
 -- ===========================================================================
-function Initialize()
+function LateInitialize()
+  print("LaunchBar_CQUI LateInitialize ENTRY");
+  BASE_CQUI_LateInitialize();
   Controls.LaunchExtraShow:RegisterCallback( Mouse.eLClick, OnToggleExtras );
 
   -- Modular Screens
   LuaEvents.LaunchBar_AddExtra.Add( OnAddExtraEntry );
   LuaEvents.LaunchBar_AddIcon.Add( OnAddLaunchbarIcon );
 end
-Initialize();

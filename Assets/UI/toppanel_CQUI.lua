@@ -7,8 +7,13 @@ BASE_CQUI_RefreshResources = RefreshResources;
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
-local CQUI_showLuxury = true;
+local CQUI_showLuxury = nil;
 
+function CQUI_OnSettingsInitialized()
+  CQUI_showLuxury = GameConfiguration.GetValue("CQUI_ShowLuxuries");
+end
+
+-- ===========================================================================
 function CQUI_OnSettingsUpdate()
   CQUI_showLuxury = GameConfiguration.GetValue("CQUI_ShowLuxuries");
   RefreshResources();
@@ -46,6 +51,7 @@ function RefreshResources()
             if (amount >= 10) then
               numDigits = 4;
             end
+
             local guessinstanceWidth = math.ceil(numDigits * FONT_MULTIPLIER);
             if(currSize + guessinstanceWidth < maxSize and not isOverflow) then
               if (amount ~= 0) then
@@ -64,6 +70,7 @@ function RefreshResources()
               else
                 overflowString = overflowString .. "[NEWLINE]".. amount.. "[ICON_"..resource.ResourceType.."]".. Locale.Lookup(resource.Name);
               end
+
               isOverflow = true;
             end
           end
@@ -74,6 +81,7 @@ function RefreshResources()
     if (plusInstance ~= nil) then
       plusInstance:SetToolTipString(overflowString);
     end
+
     Controls.ResourceStack:CalculateSize();
     if(Controls.ResourceStack:GetSizeX() == 0) then
       Controls.Resources:SetHide(true);
@@ -90,15 +98,19 @@ end
 function OnToggleReportsScreen()
 end
 
+-- ===========================================================================
 function LateInitialize()
-  BASE_CQUI_LateInitialize()
+    print("TopPanel_CQUI LateInitialize ENTRY");
+    BASE_CQUI_LateInitialize();
 
-  
-  if Controls.ViewReports then
-    Controls.ViewReports:SetHide(true); -- CQUI : hide the report button, moved to launchbar
-  end
+    LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsInitialized ); -- Infixo, issue #44
+    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+    if Controls.ViewReports then
+        Controls.ViewReports:SetHide(true); -- CQUI : hide the report button, moved to launchbar
+    end
 end
 
+-- TEMP ?? does toppanel have a lateinitialize?
 function Initialize()
   LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
 end

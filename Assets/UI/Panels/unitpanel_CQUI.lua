@@ -6,6 +6,7 @@ include("GameCapabilities");
 BASE_CQUI_VIEW = View;
 BASE_CQUI_Refresh = Refresh;
 BASE_CQUI_GetUnitActionsTable = GetUnitActionsTable;
+BASE_CQUI_LateInitialize = LateInitialize;
 
 -- ===========================================================================
 -- CQUI Members
@@ -14,8 +15,6 @@ local CQUI_ShowImprovementsRecommendations :boolean = false;
 function CQUI_OnSettingsUpdate()
   CQUI_ShowImprovementsRecommendations = GameConfiguration.GetValue("CQUI_ShowImprovementsRecommendations") == 1
 end
-LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
-LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 
 -- ===========================================================================
 --  CQUI modified View functiton : check if we should show the recommanded action
@@ -109,4 +108,11 @@ function GetUnitActionsTable( pUnit )
   end
 
   return actionsTable;
+end
+
+function LateInitialize()
+    print("UnitPanel_CQUI LateInitialize ENTRY");
+    BASE_CQUI_LateInitialize();
+    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 end
