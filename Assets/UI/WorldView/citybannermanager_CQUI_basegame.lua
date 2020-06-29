@@ -9,7 +9,7 @@ include("citybannermanager_CQUI.lua");
 -- ===========================================================================
 BASE_CQUI_CityBanner_Initialize = CityBanner.Initialize;
 BASE_CQUI_CityBanner_UpdateProduction = CityBanner.UpdateProduction;
-BASE_CQUI_CityBanner_UpdateStats = CityBanner.UpdateStats; -- Basegame only!  Not Expansion 1/2
+BASE_CQUI_CityBanner_UpdateStats = CityBanner.UpdateStats;
 
 -- ===========================================================================
 -- CQUI Basegame Extension Functions
@@ -331,9 +331,8 @@ end
 -- ===========================================================================
 -- CQUI Initialize Function
 -- ===========================================================================
-function Initialize()
+function Initialize_CQUI_basegame()
     print_debug("CityBannerManager_CQUI_basegame: Initialize CQUI CityBannerManager");
-    -- LuaEvents are initialized in the common file
-    LateInitialize();
+    -- Events are initialized in the common file
 end
-Initialize();
+Initialize_CQUI_basegame();
