@@ -135,8 +135,8 @@ function CityBanner.UpdateStats(self)
                     local districtInfo:table = GameInfo.Districts[districtType];
                     local isBuilt = pCityDistricts:HasDistrict(districtInfo.Index, true);
                     if (isBuilt == true
-                        and districtInfo.Index ~= 0
-                        and districtInfo.DistrictType ~= "DISTRICT_GOVERNMENT"
+                        --and districtInfo.Index ~= 0 -- duplicated, this is the city center
+                        --and districtInfo.DistrictType ~= "DISTRICT_GOVERNMENT"
                         and districtInfo.DistrictType ~= "DISTRICT_WONDER"
                         and districtInfo.DistrictType ~= "DISTRICT_CITY_CENTER") then
                         SetDetailIcon(self.CQUI_DistrictBuiltIM:GetInstance(), "ICON_"..districtInfo.DistrictType);
@@ -178,11 +178,8 @@ end
 -- ===========================================================================
 --  CQUI Initialize Function
 -- ===========================================================================
-function Initialize()
+function Initialize_CQUI_expansions()
     print_debug("CityBannerManager_CQUI_Expansions: Initialize CQUI CityBannerManager")
     -- Events are initialized in the common file
-    LateInitialize();
 end
-Initialize();
-
-
+Initialize_CQUI_expansions();
