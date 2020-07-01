@@ -71,13 +71,13 @@ end
 
 -- ===========================================================================
 --  CQUI modified Refresh functiton : GetUnitActionsTable
---  Update the Housing tool tip to show Farm Provides 1 Housing when Player is Maya
+--  Update the Housing tool tip to show Farm Provides 1.5 Housing when Player is Maya
 --  This is fixing a bug in the unmodified game, as it still shows 0.5 Housing on the tool tip
 -- ===========================================================================
 function GetUnitActionsTable( pUnit )
   local actionsTable = BASE_CQUI_GetUnitActionsTable(pUnit);
 
-  -- Update the Farm Tool Tip to show 1 Housing if the player is Maya
+  -- Update the Farm Tool Tip to show 1.5 Housing if the player is Maya
   if HasTrait("TRAIT_CIVILIZATION_MAYAB", Game.GetLocalPlayer()) then
     local iconCount = #actionsTable["BUILD"];
     for i = 1, iconCount do
@@ -90,7 +90,7 @@ function GetUnitActionsTable( pUnit )
           -- Using gsub("%p", "%%%1") will replace all of the punctuation characters (which includes [], +, )
           -- See https://www.lua.org/pil/20.2.html
           housingStrBefore = housingStrBefore:gsub("%p", "%%%1")
-          local housingStrAfter = Locale.Lookup("LOC_OPERATION_BUILD_IMPROVEMENT_HOUSING", 1);
+          local housingStrAfter = Locale.Lookup("LOC_OPERATION_BUILD_IMPROVEMENT_HOUSING", 1.5);
           local updatedHelpString, replacedCount = actionsTable["BUILD"][i]["helpString"]:gsub(housingStrBefore, housingStrAfter);
 
           -- print("housingStrBefore is (after adding escape chars): "..housingStrBefore);

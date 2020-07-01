@@ -1,6 +1,7 @@
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
-include("DiplomacyRibbon_Expansion2.lua");
+-- Note: CitySupport.Lua is a complete replacement in the Expansion2 from Firaxis
+include("CitySupport");
 
-include("diplomacyribbon_CQUI.lua");
+include("citysupport_CQUI.lua");

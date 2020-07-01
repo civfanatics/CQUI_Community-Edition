@@ -1,6 +1,6 @@
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
-include("DiplomacyRibbon_Expansion2.lua");
+include("CitySupport");
 
-include("diplomacyribbon_CQUI.lua");
+include("citysupport_CQUI.lua");

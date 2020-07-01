@@ -7,33 +7,41 @@
 -- ===========================================================================
 --  VARIABLES
 -- ===========================================================================
-local CQUI_ShowDebugPrint = true;
+CQUI_ShowDebugPrint = false;
 
 -- ===========================================================================
 --CQUI setting control support functions
 -- ===========================================================================
-function print_debug(str)
-  if CQUI_ShowDebugPrint then
-    print(str);
+function print_debug(...)
+    if CQUI_ShowDebugPrint then
+        print(...);
+    end
+end
+
+-- ===========================================================================
+function CQUI_OnSettingsUpdate()
+  print_debug("ENTRY: CQUICommon - CQUI_OnSettingsUpdate");
+  if (GameInfo.CQUI_Settings ~= nil and GameInfo.CQUI_Settings["CQUI_ShowDebugPrint"] ~= nil) then
+    CQUI_ShowDebugPrint = ( GameInfo.CQUI_Settings["CQUI_ShowDebugPrint"].Value == 1 );
+  else
+    CQUI_ShowDebugPrint = GameConfiguration.GetValue("CQUI_ShowDebugPrint");
   end
 end
 
-function CQUI_OnSettingsUpdate()
-  print_debug("ENTRY: CQUICommon - CQUI_OnSettingsUpdate");
-  CQUI_ShowDebugPrint = GameConfiguration.GetValue("CQUI_ShowDebugPrint") == 1
-end
-
+-- ===========================================================================
 -- Used to register a control to be updated whenever settings update (only necessary for controls that can be updated from multiple places)
 function RegisterControl(control, setting_name, update_function, extra_data)
   print_debug("ENTRY: CQUICommon - RegisterControl");
   LuaEvents.CQUI_SettingsUpdate.Add(function() update_function(control, setting_name, extra_data); end);
 end
 
+-- ===========================================================================
 -- Companion functions to RegisterControl
 function UpdateComboBox(control, setting_name, values)
   -- TODO (2020-05) - is this required?
 end
 
+-- ===========================================================================
 function UpdateCheckbox(control, setting_name)
   print_debug("ENTRY: CQUICommon - UpdateCheckbox");
   local value = GameConfiguration.GetValue(setting_name);
@@ -44,6 +52,7 @@ function UpdateCheckbox(control, setting_name)
   control:SetSelected(value);
 end
 
+-- ===========================================================================
 function UpdateSlider( control, setting_name, data_converter)
   print_debug("ENTRY: CQUICommon - UpdateSlider");
   local value = GameConfiguration.GetValue(setting_name);
@@ -54,6 +63,7 @@ function UpdateSlider( control, setting_name, data_converter)
   control:SetStep(data_converter.ToSteps(value));
 end
 
+-- ===========================================================================
 --Used to populate combobox options
 function PopulateComboBox(control, values, setting_name, tooltip)
   print_debug("ENTRY: CQUICommon - PopulateComboBox");
@@ -140,6 +150,7 @@ function PopulateCheckBox(control, setting_name, tooltip)
   end
 end
 
+-- ===========================================================================
 --Used to populate sliders. data_converter is a table containing two functions: ToStep and ToValue, which describe how to hanlde converting from the incremental slider steps to a setting value, think of it as a less elegant inner class
 --Optional third function: ToString. When included, this function will handle how the value is converted to a display value, otherwise this defaults to using the value from ToValue
 function PopulateSlider(control, label, setting_name, data_converter, tooltip)
@@ -189,6 +200,7 @@ function PopulateSlider(control, label, setting_name, data_converter, tooltip)
   end
 end
 
+-- ===========================================================================
 -- Trims source information from gossip messages. Returns nil if the message couldn't be trimmed (this usually means the provided string wasn't a gossip message at all)
 function CQUI_TrimGossipMessage(str:string)
   print_debug("ENTRY: CQUICommon - CQUI_TrimGossipMessage");
@@ -214,7 +226,7 @@ function CQUI_TrimGossipMessage(str:string)
   return Split(str, last .. " " , 2)[2];
 end
 
-
+-- ===========================================================================
 function Initialize()
   print_debug("INITIALZE: CQUICommon.lua");
   LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
