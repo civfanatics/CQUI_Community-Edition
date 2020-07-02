@@ -40,7 +40,6 @@ function RealizeCurrentResearch( playerID:number, kData:table, kControl:table )
             showAllianceIcon = true;
         end
     end
-
     kControl.Alliance:SetShow(showAllianceIcon);
 end
 

@@ -31,7 +31,6 @@ function LeaderIcon:AttachInstance(instance:table)
         self = LeaderIcon:new(instance);
         instance[LeaderIcon.DATA_FIELD_CLASS] = self;
     end
-
     self:Reset();
     return self, instance;
 end
@@ -42,9 +41,10 @@ end
 function LeaderIcon:new(instanceOrControls: table)
     self = LuaClass.new(LeaderIcon)
     self.Controls = instanceOrControls or Controls;
-
     return self;
 end
+
+
 
 -- ===========================================================================
 function LeaderIcon:UpdateIcon(iconName: string, playerID: number, isUniqueLeader: boolean, ttDetails: string)
@@ -54,7 +54,7 @@ function LeaderIcon:UpdateIcon(iconName: string, playerID: number, isUniqueLeade
 
     -- Display the civ colors/icon for duplicate civs
     if (isUniqueLeader == false and (playerID == localPlayerID or Players[localPlayerID]:GetDiplomacy():HasMet(playerID))) then
-        local backColor, frontColor    = UI.GetPlayerColors( playerID );
+        local backColor, frontColor  = UI.GetPlayerColors( playerID );
         self.Controls.CivIndicator:SetHide(false);
         self.Controls.CivIndicator:SetColor(backColor);
         self.Controls.CivIcon:SetHide(false);
@@ -74,8 +74,8 @@ function LeaderIcon:UpdateIcon(iconName: string, playerID: number, isUniqueLeade
     if (ttDetails ~= nil and ttDetails ~= "") then
         tooltip = tooltip .. "[NEWLINE]" .. ttDetails;
     end
-
     self.Controls.Portrait:SetToolTipString(tooltip);
+
     self:UpdateTeamAndRelationship(playerID);
 end
 
@@ -126,7 +126,7 @@ function LeaderIcon:UpdateTeamAndRelationship( playerID: number)
     end	
     
     local localPlayerID	:number = Game.GetLocalPlayer();
-    if localPlayerID < 0 then return; end		--    Local player is auto-play.
+    if localPlayerID < 0 then return; end  --  Local player is auto-play.
 
     local pPlayer		:table = Players[playerID];
     local pPlayerConfig	:table = PlayerConfigurations[playerID];	
@@ -146,7 +146,6 @@ function LeaderIcon:UpdateTeamAndRelationship( playerID: number)
             isTeamRibbonHidden = false;
         end
     end
-
     self.Controls.TeamRibbon:SetHide(isTeamRibbonHidden);
 
     -- Relationship status (Humans don't show anything, unless we are at war)
@@ -164,7 +163,6 @@ function LeaderIcon:UpdateTeamAndRelationship( playerID: number)
         -- 	 self.Controls.Relationship:SetToolTipString(Locale.Lookup(GameInfo.DiplomaticStates[eRelationship].Name));
         -- end
     end
-
     self.Controls.Relationship:SetHide( not isValid );
 end
 

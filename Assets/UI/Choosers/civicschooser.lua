@@ -23,6 +23,7 @@ local MAX_BEFORE_TRUNC_BOOST_MSG :number = 210; -- Size in which boost messages 
 local SIZE_ICON_LARGE            :number = 38;
 local SIZE_ICON_SMALL            :number = 38;
 
+
 -- ===========================================================================
 -- MEMBERS
 -- ===========================================================================
@@ -41,6 +42,7 @@ local CQUI_ShowTechCivicRecommendations = false;
 -- ===========================================================================
 -- METHODS
 -- ===========================================================================
+
 
 -- ===========================================================================
 -- Determine the current data.
@@ -99,6 +101,7 @@ function GetData()
     return kData;
 end
 
+
 -- ===========================================================================
 -- Populate the list of research options.
 -- ===========================================================================
@@ -131,6 +134,7 @@ function View( playerID:number, kData:table )
     RealizeSize();
 end
 
+
 -- ===========================================================================
 -- Get the latest data and visualize.
 -- ===========================================================================
@@ -142,6 +146,7 @@ function Refresh()
     end
     m_needsRefresh = false;
 end
+
 
 -- ===========================================================================
 -- No culture? No government for you!
@@ -213,7 +218,6 @@ function AddAvailableCivic( playerID:number, kData:table )
         else
             kItemInstance.NodeNumber:SetOffsetX(-5);
         end
-
         kItemInstance.NodeNumber:SetText(tostring(kData.ResearchQueuePosition));
     else
         kItemInstance.QueueBadge:SetHide(true);
@@ -297,7 +301,7 @@ function OnClosePanel()
 end
 
 -- ===========================================================================
---        Callback from Slide Animator
+--  Callback from Slide Animator
 -- ===========================================================================
 function OnSlideAnimatorClose()
     LuaEvents.ResearchChooser_RestoreWorldTracker();
@@ -313,9 +317,10 @@ function OnUpdateUI(type)
     end
 end
 
+
 -- ===========================================================================
---        Game Engine EVENT
---        City added to map, refresh for local player needed if it's the 1st city.
+--  Game Engine EVENT
+--  City added to map, refresh for local player needed if it's the 1st city.
 -- ===========================================================================
 function OnCityInitialized( owner:number, cityID:number )
     local localPlayer:number = Game.GetLocalPlayer();
@@ -325,7 +330,7 @@ function OnCityInitialized( owner:number, cityID:number )
 end
 
 -- ===========================================================================
---        Game Engine EVENT
+--  Game Engine EVENT
 -- ===========================================================================
 function OnLocalPlayerTurnBegin()
     local localPlayer:number = Game.GetLocalPlayer();
@@ -338,7 +343,7 @@ function OnLocalPlayerTurnBegin()
 end
 
 -- ===========================================================================
---        Game Engine EVENT
+--  Game Engine EVENT
 -- ===========================================================================
 function OnPhaseBegin()
     if Game.GetLocalPlayer() >= 0 then
@@ -347,7 +352,7 @@ function OnPhaseBegin()
 end
 
 -- ===========================================================================
---        Game Engine EVENT
+--  Game Engine EVENT
 -- ===========================================================================
 function OnCivicChanged( ePlayer:number, eCivic:number )
     local localPlayer = Game.GetLocalPlayer();
@@ -387,12 +392,14 @@ function FlushChanges()
     end
 end
 
+
 -- ===========================================================================
 --        UI Event
 -- ===========================================================================
 function OnInputHandler( kInputStruct:table )
     return m_kSlideAnimator.OnInputHandler( kInputStruct );
 end
+
 
 -- ===========================================================================
 --
@@ -417,13 +424,13 @@ function OnShow()
     Refresh();
 end
 
+
 -- ===========================================================================
 function OnShutdown()
     LuaEvents.GameDebug_AddValue(RELOAD_CACHE_ID, "m_currentID", m_currentID);
     LuaEvents.GameDebug_AddValue(RELOAD_CACHE_ID, "m_isExpanded", m_isExpanded);
     LuaEvents.GameDebug_AddValue(RELOAD_CACHE_ID, "m_lastCompletedID", m_lastCompletedID);
 end
-
 -- ===========================================================================
 function OnGameDebugReturn(context:string, contextTable:table)
     if context == RELOAD_CACHE_ID then
@@ -443,6 +450,7 @@ function CQUI_OnSettingsUpdate()
     CQUI_AlwaysOpenTechTrees = GameConfiguration.GetValue("CQUI_AlwaysOpenTechTrees");
     CQUI_ShowTechCivicRecommendations = GameConfiguration.GetValue("CQUI_ShowTechCivicRecommendations") == 1
 end
+
 
 -- ===========================================================================
 --        INIT

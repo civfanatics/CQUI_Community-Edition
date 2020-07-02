@@ -12,6 +12,7 @@ include("SupportFunctions");
 include("Civ6Common");
 include("GameCapabilities");
 
+
 -- ===========================================================================
 -- CONSTANTS
 -- ===========================================================================
@@ -67,6 +68,7 @@ function GetData()
 
     -- Fill in the "other" (not-current) items
     for kTech in GameInfo.Technologies() do
+
         local iTech :number = kTech.Index;
         if iTech == m_currentID or
             iTech == m_lastCompletedID or
@@ -105,6 +107,7 @@ end
 -- Populate the list of research options.
 -- ===========================================================================
 function View( playerID:number, kData:table )
+
     m_researchIM:ResetInstances();
 
     local kActive : table = GetActiveData(kData);
@@ -143,7 +146,6 @@ function View( playerID:number, kData:table )
             end
             if tutorialControl then break; end
         end
-
         if tutorialControl then
             Controls.ResearchStack:AddChildAtIndex(tutorialControl, tutorialIndex);
         end
@@ -174,7 +176,6 @@ function CanPlayerResearchAnything( playerID:number )
     local pPlayer :table    = Players[playerID];
     local playerTechnology :table = pPlayer:GetTechs();
     local currentScienceYield :number = playerTechnology:GetScienceYield();
-
     return currentScienceYield <= 0;
 end
 
@@ -183,6 +184,7 @@ end
 --
 -- ===========================================================================
 function AddAvailableResearch( playerID:number, kData:table )
+
     if playerID == -1 then return; end -- Autoplay
 
     local isDisabled:boolean = CanPlayerResearchAnything( playerID );
@@ -238,7 +240,6 @@ function AddAvailableResearch( playerID:number, kData:table )
     if IsTutorialRunning()==false then
         kItemInstance.Top:RegisterCallback(Mouse.eRClick, function() LuaEvents.OpenCivilopedia(kData.TechType); end);
     end
-
     kItemInstance.Top:SetDisabled( isDisabled );
 
     -- Hide/Show Recommendation Icon
@@ -382,7 +383,6 @@ function ShouldRefreshWhenResearchChanges(ePlayer:number)
 
         return true;
     end
-
     return false;
 end
 
@@ -413,12 +413,14 @@ function FlushChanges()
     end
 end
 
+
 -- ===========================================================================
 -- UI Event
 -- ===========================================================================
 function OnInputHandler( kInputStruct:table )
     return m_kSlideAnimator.OnInputHandler( kInputStruct );
 end
+
 
 -- ===========================================================================
 --

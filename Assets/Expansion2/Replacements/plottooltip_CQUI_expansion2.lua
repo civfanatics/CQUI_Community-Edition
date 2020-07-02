@@ -6,10 +6,10 @@ include("PlotToolTip_Expansion2");
 include("plottooltip_CQUI.lua");
 
 -- ===========================================================================
---    CQUI modified GetDetails functiton
---    Re-arrrange the tooltip informations (https://github.com/CQUI-Org/cqui/issues/232)
---    Complete override for Expansion2 to integrate new landscape feature and climate related changes
---    This builds the tool-tip using table.insert as the mechanism for each line
+--  CQUI modified GetDetails functiton
+--  Re-arrrange the tooltip informations (https://github.com/CQUI-Org/cqui/issues/232)
+--  Complete override for Expansion2 to integrate new landscape feature and climate related changes
+--  This builds the tool-tip using table.insert as the mechanism for each line
 -- ===========================================================================
 function GetDetails(data)
     local details = {};
@@ -144,7 +144,7 @@ function GetDetails(data)
         -- Are there any improvements that specifically require this resource?
         for row in GameInfo.Improvement_ValidResources() do
             if (row.ResourceType == resourceType) then
-                -- Found one!    Now...can it be constructed on this terrain/feature
+                -- Found one!  Now...can it be constructed on this terrain/feature
                 local improvementType = row.ImprovementType;
                 local has_feature = false;
                 for inner_row in GameInfo.Improvement_ValidFeatures() do
@@ -170,7 +170,7 @@ function GetDetails(data)
                 valid_terrain = not has_terrain or valid_terrain;
 
                 -- If terrain is coast, then only sea-things are valid... otherwise only land
-                if ( GameInfo.Terrains[terrainType].TerrainType    == "TERRAIN_COAST") then
+                if ( GameInfo.Terrains[terrainType].TerrainType  == "TERRAIN_COAST") then
                     if ("DOMAIN_SEA" == GameInfo.Improvements[improvementType].Domain) then
                         valid_terrain = true;
                     elseif ("DOMAIN_LAND" == GameInfo.Improvements[improvementType].Domain) then
@@ -197,10 +197,10 @@ function GetDetails(data)
             local playerResources = localPlayer:GetResources();
             if (playerResources:IsResourceVisible(resourceHash)) then
                 if (resourceTechType ~= nil and valid_feature == true and valid_terrain == true) then
-                    local playerTechs    = localPlayer:GetTechs();
+                    local playerTechs  = localPlayer:GetTechs();
                     local techType = GameInfo.Technologies[resourceTechType];
                     if (techType ~= nil and not playerTechs:HasTech(techType.Index)) then
-                        resourceString = resourceString .. "[COLOR:Civ6Red]    ( " .. Locale.Lookup("LOC_TOOLTIP_REQUIRES") .. " " .. Locale.Lookup(techType.Name) .. ")[ENDCOLOR]";
+                        resourceString = resourceString .. "[COLOR:Civ6Red]  ( " .. Locale.Lookup("LOC_TOOLTIP_REQUIRES") .. " " .. Locale.Lookup(techType.Name) .. ")[ENDCOLOR]";
                     end
                 end
 
@@ -303,7 +303,7 @@ function GetDetails(data)
                 if (playerResources:IsResourceVisible(resourceHash)) then
                     local resourceTechType = GameInfo.Resources[data.ResourceType].PrereqTech;
                     if (resourceTechType ~= nil) then
-                        local playerTechs     = localPlayer:GetTechs();
+                        local playerTechs   = localPlayer:GetTechs();
                         local techType = GameInfo.Technologies[resourceTechType];
                         if (techType ~= nil and playerTechs:HasTech(techType.Index)) then
                             local kConsumption:table = GameInfo.Resource_Consumption[data.ResourceType];    
@@ -327,7 +327,7 @@ function GetDetails(data)
 
     -- DISTRICT TILE
     elseif(data.DistrictID ~= -1 and data.DistrictType ~= nil) then
-        if (not GameInfo.Districts[data.DistrictType].InternalOnly) then    --Ignore 'Wonder' districts
+        if (not GameInfo.Districts[data.DistrictType].InternalOnly) then  --Ignore 'Wonder' districts
             -- Plot yields (ie. from Specialists)
             if (data.Yields ~= nil) then
                 if (table.count(data.Yields) > 0) then
@@ -429,7 +429,7 @@ function GetDetails(data)
                 if (playerResources:IsResourceVisible(resourceHash)) then
                     local resourceTechType = GameInfo.Resources[data.ResourceType].PrereqTech;
                     if (resourceTechType ~= nil) then
-                        local playerTechs     = localPlayer:GetTechs();
+                        local playerTechs   = localPlayer:GetTechs();
                         local techType = GameInfo.Technologies[resourceTechType];
                         if (techType ~= nil and playerTechs:HasTech(techType.Index)) then
                             local kConsumption:table = GameInfo.Resource_Consumption[data.ResourceType];    
@@ -485,7 +485,7 @@ function GetDetails(data)
                     local greatWorkIndex:number = cityBuildings:GetGreatWorkInSlot(data.BuildingTypes[i], j);
                     if (greatWorkIndex ~= -1) then
                         local greatWorkType:number = cityBuildings:GetGreatWorkTypeFromIndex(greatWorkIndex)
-                        table.insert(greatWorksSection, "    * " .. Locale.Lookup(GameInfo.GreatWorks[greatWorkType].Name));
+                        table.insert(greatWorksSection, "  * " .. Locale.Lookup(GameInfo.GreatWorks[greatWorkType].Name));
                     end
                 end
             end

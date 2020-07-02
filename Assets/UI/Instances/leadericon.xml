@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <Include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" File="LeaderIcon" xsi:noNamespaceSchemaLocation="..\..\..\..\..\..\CivTech\Libs\ForgeUI\ForgeUI_Assets\Controls.xsd">
+
     <Instance Name="LeaderIconTarget32">
         <Button ID="SelectButton" Size="auto,auto">
             <Image Texture="Controls_CircleBacking28" Size="35,35" Anchor="C,C" Offset="0,1" />
@@ -13,6 +15,7 @@
             </Image>
         </Button>
     </Instance>
+
     <Instance Name="LeaderIcon32">
         <Button ID="SelectButton" Size="auto,auto">
             <Image Texture="Controls_CircleBacking28" Size="35,35" Anchor="C,C" Offset="0,1" />
@@ -25,6 +28,7 @@
             </Image>
         </Button>
     </Instance>
+
     <Instance Name="LeaderIcon45">
         <Button ID="SelectButton" Size="auto,auto">
             <Image Texture="Controls_CircleBacking45" Size="51,51" Anchor="C,C" Offset="0,1" />
@@ -37,6 +41,7 @@
             </Image>
         </Button>
     </Instance>
+
     <Instance Name="LeaderIcon55">
         <Button ID="SelectButton" Size="auto,auto">
             <Image Texture="Controls_CircleBacking68" Size="68,68" Anchor="C,C" />
@@ -49,4 +54,5 @@
             </Image>
         </Button>
     </Instance>
+
 </Include>

@@ -7,10 +7,12 @@ include( "LocalPlayerActionSupport" );
 include( "InputSupport" );
 include( "civ6common" );
 
+
 -- ===========================================================================
 --	CONSTANTS
 -- ===========================================================================
 local TIME_UNTIL_UPDATE:number = 0.1;	-- time to wait before attempting to release delayshow popups.
+
 
 -- ===========================================================================
 --	VARIABLES
@@ -77,12 +79,10 @@ DefaultMessageHandler[KeyEvents.KeyUp] =
                 UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
                 return true;
             end
-
             if( Controls.TopOptionsMenu:IsHidden() ) then
                 OpenInGameOptionsMenu();
                 return true;
             end
-
             return false;	-- Already open, let it handle it.
         elseif( uiKey == Keys.B and pInputStruct:IsShiftDown() and pInputStruct:IsAltDown() and (not UI.IsFinalRelease()) ) then
             -- DEBUG: Force unhiding
@@ -92,7 +92,7 @@ DefaultMessageHandler[KeyEvents.KeyUp] =
             BulkHide(false, msg);
         elseif( uiKey == Keys.J and pInputStruct:IsShiftDown() and pInputStruct:IsAltDown() and (not UI.IsFinalRelease()) ) then
             if m_bulkHideTracker < 1 then
-                BulkHide(true,    "Forced" );
+                BulkHide(true,  "Forced" );
             else
                 BulkHide(false, "Forced" );
             end
@@ -337,13 +337,14 @@ end
 --	Cannot use LateInitialize patterns as this context is attached via C++
 -- ===========================================================================
 function Initialize()
+
     m_activeLocalPlayer = Game.GetLocalPlayer();
 
     -- Support for Modded Add-in UI's
     for i, addin in ipairs(Modding.GetUserInterfaces("InGame")) do
         print_debug("Loading InGame UI - " .. addin.ContextPath);
-        local id                :string = addin.ContextPath:sub(-(string.find(string.reverse(addin.ContextPath), '/') - 1));                 -- grab id from end of path
-        local isHidden    :boolean = true;
+        local id        :string = addin.ContextPath:sub(-(string.find(string.reverse(addin.ContextPath), '/') - 1));         -- grab id from end of path
+        local isHidden  :boolean = true;
         local newContext:table = ContextPtr:LoadNewContext(addin.ContextPath, Controls.AdditionalUserInterfaces, id, isHidden); -- Content, ID, hidden
         table.insert(g_uiAddins, newContext);
     end

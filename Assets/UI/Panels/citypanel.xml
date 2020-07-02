@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\..\..\..\CivTech\Libs\ForgeUI\ForgeUI_Assets\Controls.xsd">
+
     <WorldAnchor ID="GrowthHexAnchor" Hidden="1">
         <AlphaAnim ID="GrowthHexAlpha" AlphaBegin="1" AlphaEnd="0" Stopped="1" Function="OutQuad">
             <Stack ID="GrowthHexStack" Anchor="C,T" StackGrowth="Right" Padding="5">
@@ -8,11 +9,13 @@
             </Stack>
         </AlphaAnim>
     </WorldAnchor>
+
     <AlphaAnim ID="CityPanelAlpha" Anchor="R,B" Size="300,200" Speed="4.0" Function="OutSine" Cycle="Once" AlphaBegin="0" AlphaEnd="1">
         <SlideAnim ID="CityPanelSlide" Start="0,0" End="-73,0" Size="200,200" Speed="3.4" Function="OutSine" Cycle="Once">
             <GridButton ID="MainPanel" Anchor="R,B" Offset="0,-5" Size="500,162" Texture="SelectionPanel_WoodBacking" SliceCorner="51,50" SliceSize="1,1" SliceTextureSize="148,156" ConsumeMouse="1" NoStateChange="1">
                 <Grid ID="PanelStackShadow" Anchor="L,T" Offset="100,-100" Size="250,200" Style="DropShadow" />
                 <Grid Anchor="R,B" Offset="46,0" Size="parent-78,parent-2" Texture="SelectionPanel_MainPanel" SliceCorner="60,60" SliceTextureSize="263,160" />
+
                 <Image ID="PortraitFrame" Anchor="L,B" Offset="-14,36" Texture="SelectionPanel_PortraitFrame">
                     <Container ID="LabelButtonRows" Anchor="L,T" Size="270,138">
                         <Image Anchor="R,B" Offset="0,-7" Texture="SelectionPanel_Divider" />
@@ -50,6 +53,7 @@
                             </TextureBar>
                         </Image>
                     </Container>
+
                     <Image ID="PortraitCity" Anchor="L,T" Offset="4,14" Texture="SelectionPanel_Portrait">
                         <Image Offset="53,6" Texture="SelectionPanel_StatBrace" />
                         <Image ID="CityHealthMeters" Size="57,107" Texture="CityPanel_HealthShieldsBacking">
@@ -67,6 +71,7 @@
                             <Image Texture="Circle80_None" Size="80,80" Anchor="C,C" />
                         </Button>
                     </Image>
+
                     <Button ID="BreakdownButton" Texture="SelectionPanel_Stat" Size="28,32" Offset="85,18" Disabled="1">
                         <Image ID="BreakdownIcon" Texture="Stats22" Icon="ICON_BUILDINGS" Size="22,22" Anchor="C,C" Offset="-1,-2" />
                     </Button>
@@ -80,6 +85,7 @@
                         <Image Texture="Stats22" Icon="ICON_HOUSING" Size="22,22" Anchor="C,C" Offset="0,-2" />
                     </Button>
                 </Image>
+
                 <Image ID="ProductionFrame" Anchor="R,B" Offset="3,36" Texture="SelectionPanel_PortraitFrame" FlipX="1">
                     <ScrollPanel ID="ProductionDataScroll" AutoScrollBar="1" Vertical="1" Size="130,101" Anchor="L,T" Offset="-155,15" ConsumeMouseWheel="0">
                         <Stack ID="ProductionDataStack" Padding="5" ConsumeMouseWheel="0">
@@ -108,6 +114,7 @@
                         </TextureBar>
                     </Image>
                 </Image>
+
                 <Grid ID="YieldsArea" Anchor="R,T" Offset="0,-28" Size="parent+30,27" Texture="CityPanel_YieldBacking" SliceCorner="6,12" SliceSize="17,1" SliceTextureSize="29,25">
                     <Grid Anchor="L,B" Offset="0,-3" Size="parent,5" Texture="SelectionPanel_TopRim" SliceCorner="2,3" SliceSize="10,1" SliceTextureSize="14,5" />
                     <Stack ID="YieldStack" Anchor="C,C" Offset="3,0" StackGrowth="Right" StackPadding="2">
@@ -137,6 +144,7 @@
                         </Grid>
                     </Stack>
                 </Grid>
+
                 <Grid ID="Banner" Anchor="L,T" Offset="50,-2" Size="380,33" Texture="CityPanel_BannerBase" SliceCorner="20,10" SliceSize="160,1" SliceTextureSize="199,33" Color="150,170,100,255">
                     <Grid ID="BannerDarker" Anchor="L,T" Offset="4,2" Size="parent-8,parent-10" Texture="CityPanel_BannerDarker" SliceCorner="95,10" SliceSize="1,1" SliceTextureSize="191,23" />
                     <Grid ID="BannerLighter" Anchor="L,T" Offset="4,2" Size="parent-8,parent-10" Texture="CityPanel_BannerLighter" SliceCorner="95,10" SliceSize="1,1" SliceTextureSize="191,23" />
@@ -145,6 +153,7 @@
                     <Button ID="PrevCityButton" Anchor="L,T" Offset="4,2" Style="ArrowButtonLeft" />
                     <Button ID="NextCityButton" Anchor="R,T" Offset="4,2" Style="ArrowButtonRight" />
                 </Grid>
+
                 <Stack StackGrowth="Right" Padding="3" Anchor="C,T" Hidden="1">
                     <Grid Anchor="C,T" Offset="-120,-68" Size="auto,41" Texture="UnitPanel_ActionGroupSlot" SliceCorner="5,19" SliceSize="1,1" InnerPadding="10,-16">
                         <CheckBox ID="ToggleOverviewPanel" Offset="0,-2" Size="44,53" ButtonTexture="UnitPanel_ActionButton" ButtonSize="44,53" CheckTexture="CityPanel_ActionTogglePanel" CheckTextureOffset="0,32" CheckSize="32,32" CheckOffset="5,8" UnCheckTexture="CityPanel_ActionTogglePanel" UnCheckSize="32,32" UnCheckOffset="5,8" UseSelectedTextures="1" ToolTip="LOC_HUD_CITY_TOGGLE_OVERVIEW" IsChecked="0" />
@@ -169,7 +178,9 @@
                             </CheckBox>
                         </Stack>
                     </Grid>
+
                 </Stack>
+
                 <Button ID="CitizensGrowthButton" Offset="28,116" Texture="SelectionPanel_StatLarge" Size="41,42" Disabled="1">
                     <Image Texture="CityPanel_CitizenIcon" Size="32,32" Anchor="C,C" Offset="0,-2" Color="255,255,255,150">
                         <Label ID="PopulationNumber" Anchor="C,C" Style="CityPanelNumLarge" WrapWidth="70" String="999" Align="Center" KerningAdjustment="-1" Offset="-1,0" />
