@@ -5,7 +5,7 @@
 
   <Grid               ID="TrackerHeading"           Offset="-15,24"   Size="215,54" Texture="Tracker_Header" SliceCorner="15,27" SliceTextureSize="61,54" Color="255,255,255,200" Hidden="1"/>
   <Grid               ID="TrackerHeadingCollapsed"  Offset="-15,24"   Size="215,54" Texture="Tracker_HeaderCollapsed" SliceCorner="11,27" SliceTextureSize="61,54" Color="255,255,255,200" Hidden="1"/>
-  <!-- <CheckBox           ID="ToggleAllButton"          Offset="158,44"   ButtonSize="35,35" ButtonTexture="Controls_CheckboxCircle" CheckTexture="Controls_CheckboxCircle" CheckSize="35,35" CheckTextureOffset="0,35"  Style="FontNormal16" NoStateChange="1" ToolTip="LOC_WORLDTRACKER_HIDE_TEXT"/> -->
+  <CheckBox ID="ToggleAllButton" ConsumeMouseOver="1" Offset="158,44" ButtonSize="35,35" ButtonTexture="Controls_CheckboxCircle" CheckTexture="Controls_CheckboxCircle" CheckSize="35,35" CheckTextureOffset="0,35"  Style="FontNormal16" NoStateChange="1" ToolTip="LOC_WORLDTRACKER_HIDE_TEXT"/>
 
   <AlphaAnim ID="WorldTrackerAlpha" AlphaBegin="0" AlphaEnd="1" Speed="3" Cycle="Once" Function="OutQuint" Stopped="0">
     <SlideAnim ID="WorldTrackerSlide" Start="0,-100" EndOffset="0,100" Function="OutQuint" Speed="3" Cycle="Once" Stopped="0">

@@ -1,19 +1,21 @@
+-- Copyright 2014-2019, Firaxis Games.
+
+--	Hotloading note: The World Tracker button check now positions based on how many hooks are showing.  
+--	You'll need to save "LaunchBar" to see the tracker button appear.
+
 include("InstanceManager");
 include("TechAndCivicSupport");
 include("SupportFunctions");
 include("GameCapabilities");
 
-g_TrackedItems = {}; -- Populated by WorldTrackerItems_* scripts;
-g_TrackedInstances = {};
-
+g_TrackedItems = {};		-- Populated by WorldTrackerItems_* scripts;
 include("WorldTrackerItem_", true);
 
 -- Include self contained additional tabs
 g_ExtraIconData = {};
 include("CivicsTreeIconLoader_", true);
 
---  Hotloading note: The World Tracker button check now positions based on how many hooks are showing.
---  You'll need to save "LaunchBar" to see the tracker button appear.
+
 -- ===========================================================================
 --  CONSTANTS
 -- ===========================================================================
@@ -46,7 +48,7 @@ local m_currentResearchID    :number = -1;
 local m_lastResearchCompletedID  :number = -1;
 local m_currentCivicID      :number = -1;
 local m_lastCivicCompletedID  :number = -1;
-local m_TrackerAlwaysVisuallyCollapsed:boolean = false;  -- Once the launch bar extends past the width of the world tracker, we always show the collapsed version of the backing for the tracker element
+local m_isTrackerAlwaysCollapsed:boolean = false;  -- Once the launch bar extends past the width of the world tracker, we always show the collapsed version of the backing for the tracker element
 
 local m_needsRefresh        :boolean = false;
 
@@ -86,9 +88,9 @@ function ToggleAll(hideAll:boolean)
     UI.PlaySound("Tech_Tray_Slide_Open");
   end
 
-  -- Controls.ToggleAllButton:SetCheck(not m_hideAll);
+  Controls.ToggleAllButton:SetCheck(not m_hideAll);
 
-  if ( not m_TrackerAlwaysVisuallyCollapsed) then
+  if ( not m_isTrackerAlwaysCollapsed) then
     Controls.TrackerHeading:SetHide(hideAll);
     Controls.TrackerHeadingCollapsed:SetHide(not hideAll);
   else
@@ -125,21 +127,25 @@ function OnWorldTrackerAnimationFinished()
   end
 end
 
--- When the launch bar is resized, make sure that we  adjust the world tracker button position/size to accommodate it
+-- ===========================================================================
+-- When the launch bar is resized, make sure to adjust the world tracker 
+-- button position/size to accommodate it
+-- ===========================================================================
 function OnLaunchBarResized( buttonStackSize: number)
-  Controls.TrackerHeading:SetSizeX(buttonStackSize + LAUNCH_BAR_PADDING);
-  Controls.TrackerHeadingCollapsed:SetSizeX(buttonStackSize + LAUNCH_BAR_PADDING);
-  if( buttonStackSize > WORLD_TRACKER_PANEL_WIDTH - LAUNCH_BAR_PADDING) then
-    m_TrackerAlwaysVisuallyCollapsed = true;
-    Controls.TrackerHeading:SetHide(true);
-    Controls.TrackerHeadingCollapsed:SetHide(false);
-  else
-    m_TrackerAlwaysVisuallyCollapsed = false;
-    Controls.TrackerHeading:SetHide(m_hideAll);
-    Controls.TrackerHeadingCollapsed:SetHide(not m_hideAll);
-  end
-  -- Controls.ToggleAllButton:SetOffsetX(buttonStackSize - 7);
+    Controls.TrackerHeading:SetSizeX(buttonStackSize + LAUNCH_BAR_PADDING);
+    Controls.TrackerHeadingCollapsed:SetSizeX(buttonStackSize + LAUNCH_BAR_PADDING);
+    if( buttonStackSize > WORLD_TRACKER_PANEL_WIDTH - LAUNCH_BAR_PADDING) then
+        m_isTrackerAlwaysCollapsed = true;
+        Controls.TrackerHeading:SetHide(true);
+        Controls.TrackerHeadingCollapsed:SetHide(false);
+    else
+        m_isTrackerAlwaysCollapsed = false;
+        Controls.TrackerHeading:SetHide(m_hideAll);
+        Controls.TrackerHeadingCollapsed:SetHide(not m_hideAll);
+    end
+    Controls.ToggleAllButton:SetOffsetX(buttonStackSize - 6);
 end
+
 -- ===========================================================================
 function RealizeStack()
   Controls.PanelStack:CalculateSize();
@@ -511,7 +517,7 @@ end
 
 -- ===========================================================================
 function Tutorial_ShowFullTracker()
-  --Controls.ToggleAllButton:SetHide(true);
+  Controls.ToggleAllButton:SetHide(true);
   Controls.ToggleDropdownButton:SetHide(true);
   UpdateCivicsPanel(false);
   UpdateResearchPanel(false);
@@ -520,7 +526,7 @@ end
 
 -- ===========================================================================
 function Tutorial_ShowTrackerOptions()
-  --Controls.ToggleAllButton:SetHide(false);
+  Controls.ToggleAllButton:SetHide(false);
   Controls.ToggleDropdownButton:SetHide(false);
 end
 
@@ -596,14 +602,14 @@ function Initialize()
   Controls.ChatCheck:SetCheck(true);
   Controls.CivicsCheck:SetCheck(true);
   Controls.ResearchCheck:SetCheck(true);
-  -- Controls.ToggleAllButton:SetCheck(true);
+  Controls.ToggleAllButton:SetCheck(true);
 
   Controls.ChatCheck:RegisterCheckHandler(            function() UpdateChatPanel(not m_hideChat); end);
   Controls.CivicsCheck:RegisterCheckHandler(            function() UpdateCivicsPanel(not m_hideCivics); end);
   Controls.ResearchCheck:RegisterCheckHandler(          function() UpdateResearchPanel(not m_hideResearch); end);
   m_researchInstance.IconButton:RegisterCallback(  Mouse.eLClick,  function() LuaEvents.WorldTracker_OpenChooseResearch(); end);
   m_civicsInstance.IconButton:RegisterCallback(  Mouse.eLClick,  function() LuaEvents.WorldTracker_OpenChooseCivic(); end);
-  -- Controls.ToggleAllButton:RegisterCheckHandler(          function() ToggleAll(not Controls.ToggleAllButton:IsChecked()) end);
+  Controls.ToggleAllButton:RegisterCheckHandler( function() ToggleAll(not Controls.ToggleAllButton:IsChecked()) end);
   Controls.ToggleDropdownButton:RegisterCallback(  Mouse.eLClick, ToggleDropdown);
   Controls.WorldTrackerAlpha:RegisterEndCallback( OnWorldTrackerAnimationFinished );
 
