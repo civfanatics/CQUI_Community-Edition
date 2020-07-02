@@ -17,6 +17,7 @@
 
       <AlphaAnim ID="FlagRoot" Anchor="C,C"  Size="64,64" Cycle="Once" Speed="1.5">
         <!-- Religious Unit Indicator -->
+        <Label ID="ReligionPromotions" Anchor="C,T" Offset="0,-8" Style="FontNormal20"/>
         <Image ID="ReligionIconBacking" Anchor="C,T" Size="25,35" Offset="0,45" Texture="UnitFlagReligionTag" Hidden="1">
           <Image ID="ReligionIcon" Anchor="C,B" Size="22,22" Offset="0,5" IconSize="22" Icon="ICON_RELIGION_ISLAM"/>
         </Image>

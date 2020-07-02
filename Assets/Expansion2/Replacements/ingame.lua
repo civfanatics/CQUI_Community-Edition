@@ -328,7 +328,6 @@ function OnTutorialEndHide()           BulkHide( true, "TutorialEnd" );     end
 function OnWonderBuiltPopupShown()     BulkHide( true, "Wonder" );          end
 function OnWonderBuiltPopupClosed()    BulkHide(false, "Wonder" );          end
 
-
 -- ===========================================================================
 function OnShutdown()
     UIManager:ClearPopupChangeHandler();
@@ -374,13 +373,13 @@ function Initialize()
     LuaEvents.FullscreenMap_Shown.Add( OnFullscreenMapShown );
     LuaEvents.FullscreenMap_Closed.Add(	OnFullscreenMapClosed );
     LuaEvents.ProjectBuiltPopup_Shown.Add( OnProjectBuiltShown );
-	LuaEvents.ProjectBuiltPopup_Closed.Add( OnProjectBuiltClosed );
-	LuaEvents.NaturalDisasterPopup_Shown.Add( OnDisasterRevealPopupShown );
-	LuaEvents.NaturalDisasterPopup_Closed.Add( OnDisasterRevealPopupClosed );
+    LuaEvents.ProjectBuiltPopup_Closed.Add( OnProjectBuiltClosed );
+    LuaEvents.NaturalDisasterPopup_Shown.Add( OnDisasterRevealPopupShown );
+    LuaEvents.NaturalDisasterPopup_Closed.Add( OnDisasterRevealPopupClosed );
     LuaEvents.NaturalWonderPopup_Shown.Add( OnNaturalWonderPopupShown );
     LuaEvents.NaturalWonderPopup_Closed.Add( OnNaturalWonderPopupClosed );
     LuaEvents.RockBandMoviePopup_Shown.Add( OnRockBandMoviePopupShown );
-	LuaEvents.RockBandMoviePopup_Closed.Add( OnRockBandMoviePopupClosed );
+    LuaEvents.RockBandMoviePopup_Closed.Add( OnRockBandMoviePopupClosed );
     LuaEvents.Tutorial_ToggleInGameOptionsMenu.Add( OnTutorialToggleInGameOptionsMenu );
     LuaEvents.Tutorial_TutorialEndHideBulkUI.Add( OnTutorialEndHide );
     LuaEvents.WonderBuiltPopup_Shown.Add( OnWonderBuiltPopupShown );

@@ -134,6 +134,42 @@ end
 --  Builder show charges in promotion flag
 --  Unit pending a promotion show a "+"
 -- ===========================================================================
+
+-- Infixo converts promotions into a few font icons
+-- an Apostle can have up to 3 promos
+
+local tReligionPromosMap:table = {
+    --PROMOTION_ORATOR -- adds charges
+    PROMOTION_PROSELYTIZER       = { Icon = "[ICON_Damaged]" },-- 75% reduce
+    PROMOTION_TRANSLATOR         = { Icon = "[ICON_Bombard]" }, -- 3x pressure
+    --PROMOTION_PILGRIM -- adds charges
+    PROMOTION_INDULGENCE_VENDOR  = { Icon = "[ICON_Gold]" }, -- gold
+    PROMOTION_HEATHEN_CONVERSION = { Icon = "[ICON_Barbarian]" }, -- barbs
+    PROMOTION_DEBATER            = { Icon = "[ICON_Ability]" }, -- +20 combat
+    PROMOTION_MARTYR             = { Icon = "[ICON_GreatWork_Relic]" }, -- relic
+    PROMOTION_CHAPLAIN           = { Icon = "[ICON_Religion]" },-- medic
+    -- add more promos here to support other mods, etc.
+};
+
+-- add names to speed up TT creation
+for promoType,promoData in pairs(tReligionPromosMap) do
+    promoData.Name = Locale.Lookup( GameInfo.UnitPromotions[ promoType ].Name );
+end
+
+function GetReligionPromotions(pUnit:table)
+    local sPromos:string, sTT:string = "", "";
+    for _,promoID in ipairs(pUnit:GetExperience():GetPromotions()) do
+        local promoData:table = tReligionPromosMap[ GameInfo.UnitPromotions[promoID].UnitPromotionType ];
+        if promoData ~= nil then
+            sPromos = sPromos..promoData.Icon;
+            if sTT ~= "" then sTT = sTT.."[NEWLINE]";end
+            sTT = sTT..promoData.Icon.." "..promoData.Name;
+        end
+    end
+    return sPromos, sTT;
+end
+
+
 function UnitFlag.UpdatePromotions( self )
   self.m_Instance.Promotion_Flag:SetHide(true);
   local pUnit : table = self:GetUnit();
@@ -152,6 +188,20 @@ function UnitFlag.UpdatePromotions( self )
       self.m_Instance.Promotion_Flag:SetHide(false);
       self.m_Instance.Promotion_Flag:SetOffsetX(-4);
       self.m_Instance.Promotion_Flag:SetOffsetY(12);
+	
+        -- Infixo extension to show charges for religious units and promotions for Apostles
+        elseif isLocalPlayerUnit and self.m_Style == FLAGSTYLE_RELIGION then
+            --print("religious unit", pUnit:GetID(), pUnit:GetType(), pUnit:GetUnitType(), pUnit:GetName());
+            -- charges
+            self.m_Instance.New_Promotion_Flag:SetHide(true);
+            self.m_Instance.UnitNumPromotions:SetText( pUnit:GetSpreadCharges() + pUnit:GetReligiousHealCharges() );
+            self.m_Instance.Promotion_Flag:SetHide(false);
+            -- promotions
+            local sPromos:string, sTT:string = GetReligionPromotions(pUnit);
+            self.m_Instance.ReligionPromotions:SetText(sPromos);
+            self.m_Instance.ReligionPromotions:SetToolTipString(sTT);
+            self.m_Instance.ReligionPromotions:SetHide(false);
+		
     else
       local unitExperience = pUnit:GetExperience();
       if (unitExperience ~= nil) then
