@@ -31,7 +31,6 @@ function OnRefresh()
     if (pPlayer == nil) then
         return;
     end
-
     local pCity = UI.GetHeadSelectedCity();
     if (pCity == nil) then
         return;

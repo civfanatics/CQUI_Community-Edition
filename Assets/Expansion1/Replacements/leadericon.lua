@@ -21,16 +21,14 @@ end
 --	Essentially the "new"
 -- ===========================================================================
 function LeaderIcon:AttachInstance( instance:table )
-    if (instance == nil) then
-        UI.DataError("NIL instance passed into LeaderIcon:AttachInstance.    Setting the value to the ContextPtr's 'Controls'.");
+    if instance == nil then
+        UI.DataError("NIL instance passed into LeaderIcon:AttachInstance.  Setting the value to the ContextPtr's 'Controls'.");
         instance = Controls;
 
     end
-
     setmetatable(instance, {__index = self });
     self.Controls = instance;
     self:Reset();
-
     return instance;
 end
 
@@ -46,7 +44,7 @@ function LeaderIcon:UpdateIcon(iconName: string, playerID: number, isUniqueLeade
 
     -- Display the civ colors/icon for duplicate civs
     if isUniqueLeader == false and (playerID == localPlayerID or Players[localPlayerID]:GetDiplomacy():HasMet(playerID)) then
-        local backColor, frontColor = UI.GetPlayerColors( playerID );
+        local backColor, frontColor  = UI.GetPlayerColors( playerID );
         self.Controls.CivIndicator:SetHide(false);
         self.Controls.CivIndicator:SetColor(backColor);
         self.Controls.CivIcon:SetHide(false);
@@ -60,7 +58,6 @@ function LeaderIcon:UpdateIcon(iconName: string, playerID: number, isUniqueLeade
     -- Set leader portrait and hide overlay if not local player
     self.Controls.Portrait:SetIcon(iconName);
     self.Controls.YouIndicator:SetHide(playerID ~= localPlayerID);
-
 
     -- Set the tooltip
     local tooltip:string = self:GetToolTipString(playerID);
@@ -211,7 +208,7 @@ function LeaderIcon:GetToolTipString(playerID:number)
         local civDesc		:string = pPlayerConfig:GetCivilizationDescription();
         local localPlayerID	:number = Game.GetLocalPlayer();
         
-        if localPlayerID==PlayerTypes.NONE or localPlayerID==PlayerTypes.OBSERVER then
+        if localPlayerID==PlayerTypes.NONE or localPlayerID==PlayerTypes.OBSERVER  then
             return "";
         end		
 

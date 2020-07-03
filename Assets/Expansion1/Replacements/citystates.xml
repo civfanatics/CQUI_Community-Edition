@@ -4,7 +4,7 @@
     <SlideAnim ID="SlideAnim" Anchor="R,T" Size="514,parent" Start="-514,27" End="-1,27" Cycle="Once" Speed="3.4" Function="OutSine" Stopped="1">
 
         <Image Anchor="R,T" Size="parent,parent+5" Texture="Controls_BannerWide" StretchMode="Tile" ConsumeMouse="1" >
-            <Image Texture="Controls_GradientSmall" Size="22,parent" AnchorSide="O,I" Anchor="L,T" Color="0,0,0,255" Rotate="90" Offset="-2,0" />
+            <Image Texture="Controls_GradientSmall" Size="22,parent" AnchorSide="O,I" Anchor="L,T" Color="0,0,0,255" Rotate="90" Offset="-2,0"/>
         </Image>
 
         <!-- List view of CityStates -->
@@ -160,19 +160,19 @@
                         <ScrollPanel ID="RelationshipsScroll" Offset="7,60" Size="parent-15,parent-60" Vertical="1">
                             <Stack Anchor="C,T" StackGrowth="Down" StackPadding="4">
                                 <Container Size="parent,auto">
-                                    <Grid Style="DividerGrid" Size="parent-8,8" Anchor="C,C" Color="34,48,59,255" />
+                                    <Grid Style="DividerGrid" Size="parent-8,8" Anchor="C,C" Color="34,48,59,255"/>
                                     <Grid Style="DropShadow4" Size="auto,auto" Anchor="C,C">
-                                        <Label String="{LOC_CITY_STATES_CIVILIZATION_HEADER:upper}" Anchor="C,C" Style="DiplomacyGossipHeader" />
+                                        <Label String="{LOC_CITY_STATES_CIVILIZATION_HEADER:upper}" Anchor="C,C"  Style="DiplomacyGossipHeader"/>
                                     </Grid>
                                 </Container>
-                                <Stack ID="RelationshipsCivsStack" Anchor="C,T" StackGrowth="Right" WrapWidth="400" />
+                                <Stack ID="RelationshipsCivsStack" Anchor="C,T" StackGrowth="Right" WrapWidth="400"/>
                                 <Container Size="parent,auto">
-                                    <Grid Style="DividerGrid" Size="parent-8,8" Anchor="C,C" Color="34,48,59,255" />
+                                    <Grid Style="DividerGrid" Size="parent-8,8" Anchor="C,C" Color="34,48,59,255"/>
                                     <Grid Style="DropShadow4" Size="auto,auto" Anchor="C,C">
-                                        <Label String="{LOC_CITY_STATES_CITY_STATES:upper}" Anchor="C,C" Style="DiplomacyGossipHeader" />
+                                        <Label String="{LOC_CITY_STATES_CITY_STATES:upper}" Anchor="C,C"  Style="DiplomacyGossipHeader"/>
                                     </Grid>
                                 </Container>
-                                <Stack ID="RelationshipsCityStatesStack" Anchor="C,T" StackGrowth="Right" WrapWidth="400" />
+                                <Stack ID="RelationshipsCityStatesStack" Anchor="C,T" StackGrowth="Right" WrapWidth="400"/>
                             </Stack>
                             <ScrollBar Anchor="R,C" Offset="-12,0" AnchorSide="O,I" Style="ScrollVerticalBarAlt" />
                         </ScrollPanel>
@@ -310,9 +310,9 @@
     <Instance Name="RelationshipIcon">
         <Container ID="Background" Size="40,40">
             <Image ID="Icon" StretchMode="None" Size="32,32" Anchor="R,T">
-                <Image ID="TeamRibbon" Anchor="C,B" Offset="0,-7" Size="30,30" Texture="TeamRibbon32" />
+                <Image ID="TeamRibbon" Anchor="C,B" Offset="0,-7" Size="30,30" Texture="TeamRibbon32"/>
             </Image>
-            <Image ID="DiplomacyPip" Anchor="L,B" Size="23,23" Texture="Diplomacy_RelationshipPips" />
+            <Image ID="DiplomacyPip" Anchor="L,B" Size="23,23" Texture="Diplomacy_RelationshipPips"/>
         </Container>
     </Instance>
 
