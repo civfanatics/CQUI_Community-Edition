@@ -3,4 +3,4 @@
 -- ===========================================================================
 include("DiplomacyActionView_Expansion1.lua");
 
-include("DiplomacyActionView_CQUI.lua");
+include("diplomacyactionview_CQUI.lua");
