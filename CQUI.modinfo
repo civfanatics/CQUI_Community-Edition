@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Mod id="1d44b5e7-753e-405b-af24-5ee634ec8a01" version="2.2">
+<Mod id="1d44b5e7-753e-405b-af24-5ee634ec8a01" version="2.3">
   <!-- ==============================  Basic Mod Information ============================== -->
   <Properties>
     <AffectsSavedGames>0</AffectsSavedGames>
@@ -192,6 +192,7 @@
         <File>Assets/Expansion1/CityBanners/citybannermanager_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/CityBanners/citybannermanager.xml</File>
         <File>Assets/Expansion1/CityBanners/citybannerinstances.xml</File>
+        <File>Assets/Expansion1/CityBanners/cityreligioninstances.xml</File>
         <File>Assets/Expansion1/Replacements/citypaneloverview_expansion1_CQUI.lua</File>
         <File>Assets/Expansion1/Replacements/citystates.xml</File>
         <File>Assets/Expansion1/Replacements/citysupport_CQUI_expansion1.lua</File>
@@ -250,6 +251,7 @@
         <File>Assets/Expansion2/Replacements/worldinput_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/CityBanners/citybannermanager_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
+        <File>Assets/Expansion2/CityBanners/cityreligioninstances.xml</File>
       </Items>
     </ImportFiles>
 
@@ -943,6 +945,7 @@
     <File>Assets/Expansion1/CityBanners/citybannermanager_CQUI_expansion1.lua</File>
     <File>Assets/Expansion1/CityBanners/citybannermanager.xml</File>
     <File>Assets/Expansion1/CityBanners/citybannerinstances.xml</File>
+    <File>Assets/Expansion1/CityBanners/cityreligioninstances.xml</File>
     <File>Assets/Expansion1/Replacements/citypanelculture_CQUI.lua</File>
     <File>Assets/Expansion1/Replacements/citypaneloverview_expansion1_CQUI.lua</File>
     <File>Assets/Expansion1/Replacements/citystates.xml</File>
@@ -982,6 +985,7 @@
     <File>Assets/Expansion2/Replacements/worldinput_CQUI_expansion2.lua</File>
     <File>Assets/Expansion2/CityBanners/citybannermanager_CQUI_expansion2.lua</File>
     <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
+    <File>Assets/Expansion2/CityBanners/cityreligioninstances.xml</File>
 
     <File>Integrations/URS/Expansion1/Replacements/reportscreen_expansion1.lua</File>
     <File>Integrations/URS/Expansion1/Replacements/reportscreen.xml</File>
