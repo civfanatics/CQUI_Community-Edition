@@ -11,7 +11,7 @@ BASE_CQUI_LateInitialize = LateInitialize;
 -- ===========================================================================
 -- CQUI File
 -- ===========================================================================
-include("DiplomacyDealView_CQUI.lua");
+include("diplomacydealview_CQUI.lua");
 
 -- ===========================================================================
 function LateInitialize()
