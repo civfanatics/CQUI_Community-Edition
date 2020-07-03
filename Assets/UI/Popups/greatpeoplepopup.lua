@@ -5,7 +5,7 @@
 include("InstanceManager");
 include("TabSupport");
 include("SupportFunctions");
-include("Civ6Common"); --DifferentiateCiv
+include("civ6common"); --DifferentiateCiv
 include("ModalScreen_PlayerYieldsHelper");
 include("GameCapabilities");
 

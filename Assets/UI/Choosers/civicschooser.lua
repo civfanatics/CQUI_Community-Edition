@@ -12,7 +12,7 @@ include("ToolTipHelper")
 include("TechAndCivicSupport"); -- Already includes Civ6Common and InstanceManager
 include("AnimSidePanelSupport");
 include("SupportFunctions");
-include("Civ6Common");
+include("civ6common");
 
 -- ===========================================================================
 --	CONSTANTS

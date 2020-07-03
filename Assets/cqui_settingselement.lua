@@ -1,5 +1,5 @@
 -- TODO (2020-05): Custom localizations are temporarily disabled due to reloads breaking them at the moment. Localizations are complete, so remember to enable them once Firaxis fixes this!
-include("Civ6Common");
+include("civ6common");
 
 -- ============================================================================
 -- VARIABLE DECLARATIONS

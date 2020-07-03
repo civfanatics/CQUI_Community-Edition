@@ -3,7 +3,7 @@
 -- ===========================================================================
 include( "InstanceManager" );
 include( "CitySupport" );
-include( "Civ6Common" ); -- AutoSizeGridButton
+include( "civ6common" ); -- AutoSizeGridButton
 include( "Colors" );
 include( "SupportFunctions" );
 include( "PopupDialog" );

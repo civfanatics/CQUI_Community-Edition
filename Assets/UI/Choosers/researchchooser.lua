@@ -9,7 +9,7 @@ include("ToolTipHelper");
 include("TechAndCivicSupport");
 include("AnimSidePanelSupport");
 include("SupportFunctions");
-include("Civ6Common");
+include("civ6common");
 include("GameCapabilities");
 
 

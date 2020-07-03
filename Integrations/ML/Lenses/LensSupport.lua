@@ -1,4 +1,4 @@
-include( "Civ6Common.lua" ) -- GetCivilizationUniqueTraits, GetLeaderUniqueTraits
+include( "civ6common.lua" ) -- GetCivilizationUniqueTraits, GetLeaderUniqueTraits
 include( "SupportFunctions" ) -- Split
 
 CITY_WORK_RANGE = GlobalParameters.CITY_MIN_RANGE

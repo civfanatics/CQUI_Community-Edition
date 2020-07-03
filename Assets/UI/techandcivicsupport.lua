@@ -5,7 +5,7 @@
 
 include("InstanceManager");
 include("SupportFunctions");
-include("Civ6Common");
+include("civ6common");
 
 
 -- ===========================================================================

@@ -9,7 +9,7 @@
 
 include( "InstanceManager" );
 include( "SupportFunctions" );
-include( "Civ6Common" ); -- IsTutorialRunning()
+include( "civ6common" ); -- IsTutorialRunning()
 include( "PopupDialog" );
 include( "GameCapabilities" );
 

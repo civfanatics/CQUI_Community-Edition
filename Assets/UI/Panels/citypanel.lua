@@ -6,7 +6,7 @@
 
 include( "AdjacencyBonusSupport" );   -- GetAdjacentYieldBonusString()
 include( "CitySupport" );
-include( "Civ6Common" );        -- GetYieldString()
+include( "civ6common" );        -- GetYieldString()
 include( "Colors" );
 include( "InstanceManager" );
 include( "SupportFunctions" );      -- Round(), Clamp()

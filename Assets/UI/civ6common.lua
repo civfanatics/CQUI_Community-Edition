@@ -10,7 +10,7 @@ include( "Colors" );
 include( "PortraitSupport" );
 --  CQUI: BEGIN CHANGE FROM UNMODIFIED BASE VERSION **************************************
 -- TODO: This can be removed when the load order stuff is right, I believe...
-include( "CQUICommon" );
+include( "CQUICommon.lua" );
 --  CQUI: END CHANGE FROM UNMODIFIED BASE VERSION ****************************************
 
 -- ===========================================================================

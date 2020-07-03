@@ -2,7 +2,7 @@
 -- AKA: "City Details", (Left) side panel with details on a selected city
 
 include( "AdjacencyBonusSupport" );   -- GetAdjacentYieldBonusString()
-include( "Civ6Common" );        -- GetYieldString()
+include( "civ6common" );        -- GetYieldString()
 include( "InstanceManager" );
 include( "ToolTipHelper" );
 include( "SupportFunctions" );      -- Round(), Clamp()

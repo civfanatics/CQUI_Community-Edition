@@ -4,7 +4,7 @@
 --
 -- ===========================================================================
 include("CitySupport");
-include("Civ6Common");
+include("civ6common");
 include("InstanceManager");
 include("SupportFunctions");
 include("TabSupport");
