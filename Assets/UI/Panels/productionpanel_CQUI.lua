@@ -379,7 +379,7 @@ function PopulateGenericItemData( kInstance:table, kItem:table )
     if CQUI_PurchaseTable[kItem.Hash] and CQUI_PurchaseTable[kItem.Hash]["corpsFaith"] then
       kInstance.CorpsFaithPurchaseButton:SetHide(false);
       kInstance.CorpsFaithPurchaseButton:SetDisabled(false);
-      kInstance.CorpsFaithPurchaseButton:SetText(CQUI_PurchaseTable[kItem.Hash]["corpsFaith"] .. "[ICON_GOLD]");
+      kInstance.CorpsFaithPurchaseButton:SetText(CQUI_PurchaseTable[kItem.Hash]["corpsFaith"] .. "[ICON_FAITH]");
       kInstance.CorpsFaithPurchaseButton:SetSizeX(kInstance.CorpsFaithPurchaseButton:GetTextControl():GetSizeX() + purchaseButtonPadding);
       kInstance.CorpsFaithPurchaseButton:RegisterCallback(Mouse.eLClick, CQUI_PurchaseTable[kItem.Hash]["corpsFaithCallback"]);
 
@@ -398,7 +398,7 @@ function PopulateGenericItemData( kInstance:table, kItem:table )
     if CQUI_PurchaseTable[kItem.Hash] and CQUI_PurchaseTable[kItem.Hash]["armyFaith"] then
       kInstance.ArmyFaithPurchaseButton:SetHide(false);
       kInstance.ArmyFaithPurchaseButton:SetDisabled(false);
-      kInstance.ArmyFaithPurchaseButton:SetText(CQUI_PurchaseTable[kItem.Hash]["armyFaith"] .. "[ICON_GOLD]");
+      kInstance.ArmyFaithPurchaseButton:SetText(CQUI_PurchaseTable[kItem.Hash]["armyFaith"] .. "[ICON_FAITH]");
       kInstance.ArmyFaithPurchaseButton:SetSizeX(kInstance.ArmyFaithPurchaseButton:GetTextControl():GetSizeX() + purchaseButtonPadding);
       kInstance.ArmyFaithPurchaseButton:RegisterCallback(Mouse.eLClick, CQUI_PurchaseTable[kItem.Hash]["armyFaithCallback"]);
 
