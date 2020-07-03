@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Context FontStyle="Stroke">
-  <!-- ==== CQUI DiplomacyActionView.xml Replacement ==================================================================================== -->
-  <!-- ==== CQUI-Specific sections marked            ==================================================================================== -->
+
   <Container ID="LaunchContainer" Offset="-65,-5" ConsumeMouseOver="1">
     <Grid ID="LaunchBarDropShadow" Offset="0,35" Size="310,60" Texture="Controls_Glow2" SliceCorner="25,25" SliceTextureSize="50,50" Color="0,0,0,200"/>
     <Image ID="LaunchBackingTile" Offset="65,34" Size="200,41" Texture="LaunchBar_Backing_Tile" StretchMode="Tile"/>
@@ -20,7 +19,6 @@
           <Image ID="ScienceHookWithMeter" Anchor="C,C" Offset="0,-5" Size="57,57" Hidden="1" Texture="LaunchBar_Hook_ScienceMeter_Backing.dds">
             <Meter ID="ScienceMeter" Anchor="C,C" Size="57,57" Percent="0" Speed="1.0" Follow="1" Texture="LaunchBar_Hook_ScienceMeter_Fill.dds"/>
           </Image>
-
         </Button>
         <Image ID="ScienceBolt" Anchor="L,C" Offset="0,-2" Size="7,7" Texture="LaunchBar_TrackPip" Color="255,255,255,200"/>
 
@@ -29,7 +27,6 @@
           <Image ID="CultureHookWithMeter" Anchor="C,C" Offset="0,-5" Size="57,57" Hidden="1" Texture="LaunchBar_Hook_CultureMeter_Backing.dds">
             <Meter ID="CultureMeter" Anchor="C,C" Size="57,57" Percent="0" Speed="1.0" Follow="1" Texture="LaunchBar_Hook_CultureMeter_Fill.dds"/>
           </Image>
-
         </Button>
         <Image  ID="CultureBolt"      Anchor="L,C" Offset="0,-2"  Size="7,7"      Texture="LaunchBar_TrackPip"    Color="255,255,255,200" />
 
@@ -58,7 +55,7 @@
       </Stack>
 
       <!-- Toggle Show/Hide Button -->
-      <CheckBox ID="LaunchExtraShow" Offset="-4,49" Anchor="R,T" ButtonSize="35,35" ButtonTexture="Controls_RadioButtonLarge" CheckTexture="Controls_RadioButtonLarge" CheckSize="35,35" CheckTextureOffset="0,35"/>
+      <CheckBox ID="LaunchExtraShow" Offset="-4,28" Anchor="R,T" ButtonSize="35,35" ButtonTexture="Controls_RadioButtonLarge" CheckTexture="Controls_RadioButtonLarge" CheckSize="35,35" CheckTextureOffset="0,35" ToolTip="LOC_GAMESUMMARY_CATEGORY_EXTRA"/>
     </Stack>
 
     <Container ID="LaunchExtraContainer" Anchor="L,T" Offset="361,75">

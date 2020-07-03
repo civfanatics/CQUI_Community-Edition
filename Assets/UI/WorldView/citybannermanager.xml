@@ -376,8 +376,9 @@
 
   <Instance Name="HolySiteIcon">
     <ZoomAnchor ID="Anchor" ZoomOffsetNear="0,0,0" ZoomOffsetFar="0,0,-20">
-      <Image ID="HolySiteIcon" Size="22,22" Anchor="L,T" Texture="FontIcons" />
-      <Label ID="HolySiteLabel"  Anchor="L,T" Offset ="20,0" Style="FontFlair22" Text="TextLabel" />
+      <Grid    ID="HolySiteBacking" Style="DistrictBonusBack"  Size="auto,default" AutoSizePadding="8,0">
+        <Label ID="HolySiteLabel"  Anchor="C,C"  Style="FontNormal16" Text="TextLabel" Offset="-2,-1" FontStyle="Glow" Color="208,212,217,255" EffectColor="88,144,191,100"/>
+      </Grid>
     </ZoomAnchor>
   </Instance>
 
@@ -390,10 +391,16 @@
     </Image>
   </Instance>
 
+  <!-- Infixo this is the singular religion icon displayed below the banner -->
   <Instance Name="ReligionIconInstance">
-    <Image ID="ReligionIconButtonBacking" Texture="Religion_FollowersSlot" Size="30,30">
-      <Image ID="ReligionIconButton" Anchor="C,C" Size="22,22" IconSize="22"/>
-    </Image>
+    <Container ID="ReligionIconContainer" Anchor="L,T" Size="auto,30">
+      <Stack StackGrowth="Right">
+        <Image ID="ReligionIconButtonBacking" Texture="Religion_FollowersSlot" Size="30,30">
+          <Image ID="ReligionIconButton" Anchor="C,C" Size="22,22" IconSize="22"/>
+        </Image>
+        <Label ID="ReligionIconFollowers" Offset="0,6" Style="FontNormal18" Text="$3$" />
+      </Stack>
+    </Container>
   </Instance>
 
   <Instance Name="ReligionFollowerListInstance">
