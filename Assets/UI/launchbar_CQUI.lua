@@ -16,13 +16,13 @@ local m_LaunchbarExtras:table = {};
 -- These functions replace the unmodifed versions
 -- ===========================================================================
 function OnOpen()
-  local screenX, screenY:number = UIManager:GetScreenSizeVal();
-  if screenY <= 850 then
-    Controls.ScienceHookWithMeter:SetOffsetY(-5);
-    Controls.CultureHookWithMeter:SetOffsetY(-5);
-  end
+    local screenX, screenY:number = UIManager:GetScreenSizeVal();
+    if screenY <= 850 then
+        Controls.ScienceHookWithMeter:SetOffsetY(-5);
+        Controls.CultureHookWithMeter:SetOffsetY(-5);
+    end
 
-  BASE_CQUI_OnOpen();
+    BASE_CQUI_OnOpen();
 end
 
 -- ===========================================================================
@@ -57,37 +57,39 @@ function BuildExtraEntries()
     Controls.LaunchExtraStack:ReprocessAnchoring();
     Controls.LaunchExtraWrapper:DoAutoSize();
     Controls.LaunchExtraWrapper:ReprocessAnchoring();
-  end
+end
   
-  -- ===========================================================================
-  function OnCloseExtras()
+-- ===========================================================================
+function OnCloseExtras()
     Controls.LaunchExtraControls:SetHide(true);
     Controls.LaunchExtraShow:SetCheck(false);
-  end
+end
 
 -- ===========================================================================
-  function OnToggleExtras()
+function OnToggleExtras()
     if Controls.LaunchExtraShow:IsChecked() then
-      Controls.LaunchExtraControls:SetHide(true);
-  
-      Controls.LaunchExtraAlpha:SetToBeginning();
-      Controls.LaunchExtraSlide:SetToBeginning();
-  
-      Controls.LaunchExtraAlpha:Play();
-      Controls.LaunchExtraSlide:Play();
-  
-      Controls.LaunchExtraControls:SetHide(false);
-  
-      BuildExtraEntries();
+        Controls.LaunchExtraControls:SetHide(true);
+
+        Controls.LaunchExtraAlpha:SetToBeginning();
+        Controls.LaunchExtraSlide:SetToBeginning();
+
+        Controls.LaunchExtraAlpha:Play();
+        Controls.LaunchExtraSlide:Play();
+
+        Controls.LaunchExtraControls:SetHide(false);
+
+        BuildExtraEntries();
     else
-      OnCloseExtras()
+        OnCloseExtras();
     end
-  end
+end
 
 -- ===========================================================================
 function OnAddExtraEntry(entryKey:string, entryInfo:table)
-  -- Add info at key. Overwrite if they key already exists.
-  m_LaunchbarExtras[entryKey] = entryInfo
+    -- Add info at key. Overwrite if they key already exists.
+    m_LaunchbarExtras[entryKey] = entryInfo;
+    -- show the button
+    Controls.LaunchExtraShow:SetHide(false);
 end
 
 -- ===========================================================================
@@ -154,7 +156,7 @@ function TestLaunchBarExtension()
   LuaEvents.LaunchBar_AddExtra("Test1", {Text="Test1", Callback=function() print("Test1") end, Tooltip="Test1"})
   LuaEvents.LaunchBar_AddExtra("Test2", {Text="Test2", Callback=function() print("Test2") end})
 
-  local textureOffsetX, textureOffsetY, textureSheet = IconManager:FindIconAtlas("ICON_BUILDING_AGORA", 38);
+  local textureOffsetX, textureOffsetY, textureSheet = IconManager:FindIconAtlas("ICON_BUILDING_MONUMENT", 38);
   local buttonInfo = {
     -- ICON TEXTURE
     IconTexture = {
@@ -213,10 +215,14 @@ end
 -- CQUI: Initialize Function
 -- ===========================================================================
 function Initialize()
-  Controls.LaunchExtraShow:RegisterCallback( Mouse.eLClick, OnToggleExtras );
 
-  -- Modular Screens
-  LuaEvents.LaunchBar_AddExtra.Add( OnAddExtraEntry );
-  LuaEvents.LaunchBar_AddIcon.Add( OnAddLaunchbarIcon );
+    Controls.LaunchExtraShow:RegisterCallback( Mouse.eLClick, OnToggleExtras );
+    Controls.LaunchExtraShow:SetHide(true); -- will be enabled only if any entries will be registered
+
+    -- Modular Screens
+    LuaEvents.LaunchBar_AddExtra.Add( OnAddExtraEntry );
+    LuaEvents.LaunchBar_AddIcon.Add( OnAddLaunchbarIcon );
+    --TestLaunchBarExtension();
+    
 end
 Initialize();
