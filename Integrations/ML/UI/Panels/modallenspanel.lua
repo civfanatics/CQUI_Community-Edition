@@ -2,6 +2,7 @@
 
 include( "InstanceManager" );
 include( "GameCapabilities" );
+include( "CQUICommon.lua" );
 
 -- ===========================================================================
 --  MODDED LENS

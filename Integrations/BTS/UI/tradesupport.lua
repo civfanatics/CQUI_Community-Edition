@@ -1,5 +1,5 @@
 include( "Colors" );
-include("civ6common");
+include( "Civ6Common");
 
 -- ===========================================================================
 --  Local Constants

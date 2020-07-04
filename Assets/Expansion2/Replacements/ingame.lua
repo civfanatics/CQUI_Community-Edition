@@ -5,8 +5,8 @@
 
 include( "LocalPlayerActionSupport" );
 include( "InputSupport" );
-include( "civ6common" );
-
+include( "Civ6Common" );
+include( "CQUICommon.lua" );
 
 -- ===========================================================================
 --	CONSTANTS

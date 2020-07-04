@@ -1,7 +1,5 @@
 ------------------------------------------------------------------------------
 --  Additional CQUI Common LUA support functions specific to Civilization 6
---  This file is included by the Civ6Common.lua script
---  TODO (2020-05): Is it possible to NOT require this be included by the Civ6Common?
 ------------------------------------------------------------------------------
 
 -- ===========================================================================
@@ -37,10 +35,6 @@ end
 
 -- ===========================================================================
 -- Companion functions to RegisterControl
-function UpdateComboBox(control, setting_name, values)
-  -- TODO (2020-05) - is this required?
-end
-
 -- ===========================================================================
 function UpdateCheckbox(control, setting_name)
   print_debug("ENTRY: CQUICommon - UpdateCheckbox");

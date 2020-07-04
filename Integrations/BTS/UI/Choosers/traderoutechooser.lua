@@ -13,7 +13,8 @@ local RoutePanelScrollPanelExtraOffset = 9;
 include("InstanceManager");
 include("SupportFunctions");
 include("TradeSupport");
-include("civ6common");
+include("Civ6Common");
+include("CQUICommon.lua");
 
 -- ===========================================================================
 --  VARIABLES
