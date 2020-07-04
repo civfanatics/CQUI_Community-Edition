@@ -9,7 +9,7 @@ g_ExtraIconData = {};
 include("CivicsTreeIconLoader_", true);
 
 include("ToolTipHelper")
-include("TechAndCivicSupport"); -- Already includes Civ6Common and InstanceManager
+include("TechAndCivicSupport");
 include("AnimSidePanelSupport");
 include("SupportFunctions");
 include("Civ6Common");
