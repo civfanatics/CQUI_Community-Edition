@@ -13,7 +13,8 @@ BASE_CQUI_View = View;
 -- ===========================================================================
 function GetDetails(data)
   local details = {};
-
+  local iTourism:number = 0; -- #75
+  
   --Civilization and city ownership line
   if(data.Owner ~= nil) then
 
@@ -40,6 +41,9 @@ function GetDetails(data)
       szOwnerString2 = string.sub(szOwnerString2,1,cutoff1-1);
     end
     table.insert(details,szOwnerString2);
+    -- #75 Infixo tourism
+    iTourism = pPlayer:GetCulture():GetTourismAt(data.Index);
+    --print("..plot tourism at", data.Index, iTourism);
   end
 
   local szTerrainString;
@@ -227,6 +231,9 @@ function GetDetails(data)
       table.insert(details, Locale.Lookup("LOC_TOOLTIP_APPEAL", strAppealDescriptor, data.Appeal));
     end
   end
+
+  -- #75 Infixo tourism
+  if iTourism > 0 then table.insert(details, string.format("%s %+d[ICON_Tourism]", Locale.Lookup("LOC_TOP_PANEL_TOURISM"), iTourism)); end
 
   -- Do not include ('none') continent line unless continent plot. #35955
   if (data.Continent ~= nil) then
