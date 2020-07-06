@@ -10,7 +10,7 @@ BASE_CQUI_RefreshResources = RefreshResources;
 local CQUI_showLuxury = true;
 
 function CQUI_OnSettingsInitialized()
-	CQUI_showLuxury = GameConfiguration.GetValue("CQUI_ShowLuxuries"); -- Infixo, issue #44
+    CQUI_showLuxury = GameConfiguration.GetValue("CQUI_ShowLuxuries"); -- Infixo, issue #44
 end
 
 function CQUI_OnSettingsUpdate()
