@@ -1006,7 +1006,6 @@ function OnShowOverviewPanel( isShowing: boolean )
             Close();
         end
     end
-
     -- Ensure button state in CityPanel is correct
     LuaEvents.CityPanel_SetOverViewState(m_isShowingPanel);
 end

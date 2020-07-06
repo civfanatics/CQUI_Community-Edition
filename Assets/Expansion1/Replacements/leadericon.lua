@@ -161,7 +161,7 @@ function LeaderIcon:UpdateTeamAndRelationship( playerID: number)
     end
     self.Controls.Relationship:SetHide( not isValid );
 
-    -- === BEGIN CQUI Additions =============================================
+    -- CQUI Additions
     if (self.Controls.CQUI_Era ~= nil) then
         local gameEras:table = Game.GetEras();
         if gameEras:HasHeroicGoldenAge(playerID) then
@@ -174,7 +174,7 @@ function LeaderIcon:UpdateTeamAndRelationship( playerID: number)
             self.Controls.CQUI_Era:SetText("[ICON_GLORY_NORMAL_AGE]");
         end
     end
-    -- === END CQUI Additions =============================================
+    -- CQUI Additions
 
 end
 
@@ -232,7 +232,7 @@ end
 
 -- ===========================================================================
 function LeaderIcon:AppendTooltip( extraText:string )
-    if (extraText == nil or extraText == "") then return; end --Ignore blank
+    if extraText == nil or extraText == "" then return; end --Ignore blank
     local tooltip:string = self:GetToolTipString(self.playerID) .. "[NEWLINE]" .. extraText;
     self.Controls.Portrait:SetToolTipString(tooltip);
 end

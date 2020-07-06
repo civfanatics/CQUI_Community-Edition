@@ -367,12 +367,12 @@
                     <Button ID="ReligionButton" Offset="0,2" Anchor="L,C" Size="44,44" Texture="LaunchBar_Hook_ButtonMedium" Style="ButtonNormalText" ToolTip="LOC_HUD_CITY_OVERVIEW_RELIGION_TOOLTIP">
                         <Image ID="ReligionIcon" Offset="0,-1" Texture="Stats32" Size="32,32" Anchor="C,C" Icon="ICON_RELIGION" />
                     </Button>
-                    <!--  <Button ID="QueueButton" Offset="0,2" Anchor="L,C" Size="44,44"  Texture="LaunchBar_Hook_ButtonMedium" Style="ButtonNormalText"> -->
-                        <!-- <Image ID="QueueIcon" Offset="0,-1" Texture="Stats32" Size="32,32" Anchor="C,C"  Icon="ICON_QUEUE"/> -->
-                    <!-- </Button>-->
-                    <!--<Button ID="StrengthButton" Offset="0,2" Anchor="L,C" Size="44,44"  Texture="LaunchBar_Hook_ButtonMedium" Style="ButtonNormalText"> -->
-                        <!-- <Image ID="StrengthIcon" Offset="-1,-1" Texture="Stats32" Size="32,32" Anchor="C,C"  Icon="ICON_DEFENSE"/> -->
-                    <!-- </Button>-->
+                    <!--<Button ID="QueueButton" Offset="0,2" Anchor="L,C" Size="44,44"  Texture="LaunchBar_Hook_ButtonMedium" Style="ButtonNormalText">
+                            <Image ID="QueueIcon" Offset="0,-1" Texture="Stats32" Size="32,32" Anchor="C,C"  Icon="ICON_QUEUE"/>
+                        </Button>
+                        <Button ID="StrengthButton" Offset="0,2" Anchor="L,C" Size="44,44"  Texture="LaunchBar_Hook_ButtonMedium" Style="ButtonNormalText">
+                            <Image ID="StrengthIcon" Offset="-1,-1" Texture="Stats32" Size="32,32" Anchor="C,C"  Icon="ICON_DEFENSE"/>
+                        </Button>-->
 
                     <SlideAnim ID="TabAnim" Begin="0,0" End="0,0" Cycle="Once" Speed="3.5" Function="OutQuint" Size="67,68">
                         <Image ID="TabArrow" Texture="LaunchBar_HookSelectArrow_Medium2" Size="67,68" />

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Context xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\..\..\..\CivTech\Libs\ForgeUI\ForgeUI_Assets\Controls.xsd">
 
     <SlideAnim ID="SlideAnim" Anchor="R,T" Size="514,parent" Start="-514,27" End="-1,27" Cycle="Once" Speed="3.4" Function="OutSine" Stopped="1">

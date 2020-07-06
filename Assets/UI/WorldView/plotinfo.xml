@@ -1,6 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Context Layer="WorldAnchor">
+
     <Container ID="PlotInfoContainer" />
+
     <Instance Name="InfoInstance">
         <WorldAnchor ID="Anchor" Size="2,2">
             <GridButton ID="PurchaseButton" Anchor="C,T" Offset="0,-40" Size="51,30" Hidden="1" Style="PurchaseTileButton" ConsumeMouseButton="0">
@@ -22,7 +24,9 @@
             </Button>
         </WorldAnchor>
     </Instance>
+
     <Instance Name="DebugPixelInstance">
         <Box ID="Pixel" Size="100,100" Color="100,100,100,100" />
     </Instance>
+
 </Context>
