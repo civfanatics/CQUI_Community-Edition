@@ -15,7 +15,7 @@ include("diplomacydealview_CQUI.lua");
 
 -- ===========================================================================
 function LateInitialize()
-  BASE_CQUI_LateInitialize();
-    
-  print("CQUI Diplomacy Deal View for expansion 2 loaded");
+    BASE_CQUI_LateInitialize();
+
+    print("CQUI Diplomacy Deal View for expansion 2 loaded");
 end
