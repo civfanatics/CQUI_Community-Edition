@@ -280,36 +280,31 @@ function PopulateGenericItemData( kInstance:table, kItem:table )
     local notEnoughGoldColor = UI.GetColorValueFromHexLiteral(0xFF222258);
     local purchaseButtonPadding = 15;
 
-    -- CQUI show recommandations check
+  -- CQUI show recommandations check
     if not CQUI_ShowProductionRecommendations then
         kInstance.RecommendedIcon:SetHide(true);
     end
 
-    -- CQUI Reset the color
+  -- CQUI Reset the color
     if kInstance.PurchaseButton then
         kInstance.PurchaseButton:GetTextControl():SetColor(UI.GetColorValueFromHexLiteral(0xFFFFFFFF));
     end
-
     if kInstance.CorpsPurchaseButton then
         kInstance.CorpsPurchaseButton:GetTextControl():SetColor(UI.GetColorValueFromHexLiteral(0xFFFFFFFF));
     end
-
     if kInstance.ArmyPurchaseButton then
         kInstance.ArmyPurchaseButton:GetTextControl():SetColor(UI.GetColorValueFromHexLiteral(0xFFFFFFFF));
     end
-
     if kInstance.FaithPurchaseButton then
         kInstance.FaithPurchaseButton:GetTextControl():SetColor(UI.GetColorValueFromHexLiteral(0xFFFFFFFF));
     end
-
     if kInstance.CorpsFaithPurchaseButton then
         kInstance.CorpsFaithPurchaseButton:GetTextControl():SetColor(UI.GetColorValueFromHexLiteral(0xFFFFFFFF));
     end
-
     if kInstance.ArmyFaithPurchaseButton then
         kInstance.ArmyFaithPurchaseButton:GetTextControl():SetColor(UI.GetColorValueFromHexLiteral(0xFFFFFFFF));
     end
-    
+  
     -- Gold purchase button for building, district and units
     if kInstance.PurchaseButton then
         if CQUI_PurchaseTable[kItem.Hash] and CQUI_PurchaseTable[kItem.Hash]["gold"] then
@@ -371,7 +366,7 @@ function PopulateGenericItemData( kInstance:table, kItem:table )
         end
     end
 
-    -- Faith purchase button for building, district and units
+  -- Faith purchase button for building, district and units
     if kInstance.FaithPurchaseButton then
         if CQUI_PurchaseTable[kItem.Hash] and CQUI_PurchaseTable[kItem.Hash]["faith"] then
             kInstance.FaithPurchaseButton:SetText(CQUI_PurchaseTable[kItem.Hash]["faith"] .. "[ICON_FAITH]");
@@ -380,7 +375,7 @@ function PopulateGenericItemData( kInstance:table, kItem:table )
             kInstance.FaithPurchaseButton:SetHide(false);
             kInstance.FaithPurchaseButton:SetDisabled(false);
             kInstance.FaithPurchaseButton:RegisterCallback(Mouse.eLClick, CQUI_PurchaseTable[kItem.Hash]["faithCallback"]);
-            
+        
             if CQUI_PurchaseTable[kItem.Hash]["faithCantAfford"] or CQUI_PurchaseTable[kItem.Hash]["faithDisabled"] then
                 kInstance.FaithPurchaseButton:SetDisabled(true);
                 kInstance.FaithPurchaseButton:SetColor(UI.GetColorValueFromHexLiteral(0xDD3366FF));
@@ -399,7 +394,7 @@ function PopulateGenericItemData( kInstance:table, kItem:table )
         if CQUI_PurchaseTable[kItem.Hash] and CQUI_PurchaseTable[kItem.Hash]["corpsFaith"] then
             kInstance.CorpsFaithPurchaseButton:SetHide(false);
             kInstance.CorpsFaithPurchaseButton:SetDisabled(false);
-            kInstance.CorpsFaithPurchaseButton:SetText(CQUI_PurchaseTable[kItem.Hash]["corpsFaith"] .. "[ICON_GOLD]");
+            kInstance.CorpsFaithPurchaseButton:SetText(CQUI_PurchaseTable[kItem.Hash]["corpsFaith"] .. "[ICON_FAITH]");
             kInstance.CorpsFaithPurchaseButton:SetSizeX(kInstance.CorpsFaithPurchaseButton:GetTextControl():GetSizeX() + purchaseButtonPadding);
             kInstance.CorpsFaithPurchaseButton:RegisterCallback(Mouse.eLClick, CQUI_PurchaseTable[kItem.Hash]["corpsFaithCallback"]);
 
@@ -418,7 +413,7 @@ function PopulateGenericItemData( kInstance:table, kItem:table )
         if CQUI_PurchaseTable[kItem.Hash] and CQUI_PurchaseTable[kItem.Hash]["armyFaith"] then
             kInstance.ArmyFaithPurchaseButton:SetHide(false);
             kInstance.ArmyFaithPurchaseButton:SetDisabled(false);
-            kInstance.ArmyFaithPurchaseButton:SetText(CQUI_PurchaseTable[kItem.Hash]["armyFaith"] .. "[ICON_GOLD]");
+            kInstance.ArmyFaithPurchaseButton:SetText(CQUI_PurchaseTable[kItem.Hash]["armyFaith"] .. "[ICON_FAITH]");
             kInstance.ArmyFaithPurchaseButton:SetSizeX(kInstance.ArmyFaithPurchaseButton:GetTextControl():GetSizeX() + purchaseButtonPadding);
             kInstance.ArmyFaithPurchaseButton:RegisterCallback(Mouse.eLClick, CQUI_PurchaseTable[kItem.Hash]["armyFaithCallback"]);
 
@@ -427,9 +422,8 @@ function PopulateGenericItemData( kInstance:table, kItem:table )
                 kInstance.ArmyFaithPurchaseButton:SetColor(UI.GetColorValueFromHexLiteral(0xDD3366FF));
                 kInstance.ArmyFaithPurchaseButton:GetTextControl():SetColor(notEnoughGoldColor);
             end
-        else
-            kInstance.ArmyFaithPurchaseButton:SetHide(true);
-        end
+    else
+        kInstance.ArmyFaithPurchaseButton:SetHide(true);
     end
 end
 

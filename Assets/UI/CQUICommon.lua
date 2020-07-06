@@ -1,8 +1,16 @@
 ------------------------------------------------------------------------------
 --  Additional CQUI Common LUA support functions specific to Civilization 6
---  This file is included by the Civ6Common.lua script
---  TODO (2020-05): Is it possible to NOT require this be included by the Civ6Common?
 ------------------------------------------------------------------------------
+
+-- ===========================================================================
+-- Expansions check
+-- ===========================================================================
+
+-- these are global variables, will be visible in the entire context
+-- please note that Modding object is only available in the UI context
+-- in the Gameplay context a different method must be used as those variables will be nil
+g_bIsRiseAndFall    = Modding and Modding.IsModActive("1B28771A-C749-434B-9053-D1380C553DE9"); -- Rise & Fall
+g_bIsGatheringStorm = Modding and Modding.IsModActive("4873eb62-8ccc-4574-b784-dda455e74e68"); -- Gathering Storm
 
 -- ===========================================================================
 --  VARIABLES
@@ -37,10 +45,6 @@ end
 
 -- ===========================================================================
 -- Companion functions to RegisterControl
-function UpdateComboBox(control, setting_name, values)
-  -- TODO (2020-05) - is this required?
-end
-
 -- ===========================================================================
 function UpdateCheckbox(control, setting_name)
   print_debug("ENTRY: CQUICommon - UpdateCheckbox");

@@ -59,7 +59,7 @@
     <UpdateDatabase id="CQUI_Settings">
       <Properties>
         <Name>CQUI Settings</Name>
-        <LoadOrder>-100</LoadOrder>
+        <LoadOrder>-15</LoadOrder>
       </Properties>
       <Items>
         <File>Assets/cqui_databaseschema.sql</File>
@@ -69,7 +69,7 @@
     <UpdateDatabase id="CQUI_Settings_Local">
       <Properties>
         <Name>CQUI Settings Local</Name>
-        <LoadOrder>-99</LoadOrder>
+        <LoadOrder>-10</LoadOrder>
       </Properties>
       <Items>
         <File>Assets/cqui_settings_local.sql</File>
@@ -97,11 +97,10 @@
         |125        |Unofficial changes to Scenario updates.|
     -->
 
-    <!-- The CQUICommon file is referenced by the Civ6Common file replacement.-->
     <!-- The LoadOrder of this file needs to be after the Database Schema changes, but before everything else in the mod -->
     <ImportFiles id="CQUI_IMPORT_COMMON_FILES">
       <Properties>
-        <LoadOrder>-75</LoadOrder>
+        <LoadOrder>-10</LoadOrder>
       </Properties>
       <Items>
         <File>Assets/UI/CQUICommon.lua</File>
@@ -115,7 +114,6 @@
         <File>Assets/Texture/CQUI_GreatPeople_Background_Repeat_Top.dds</File>
         <File>Assets/Texture/CQUI_GreatPeople_Background_Top.dds</File>
         <File>Assets/UI/actionpanel.lua</File>
-        <File>Assets/UI/civ6common.lua</File>
         <File>Assets/UI/citysupport_CQUI_basegame.lua</File>
         <File>Assets/UI/citysupport_CQUI.lua</File>
         <File>Assets/UI/diplomacyactionview_CQUI_basegame.lua</File>
@@ -1027,7 +1025,6 @@
     <File>Assets/UI/actionpanel.lua</File>
     <File>Assets/UI/citysupport_CQUI_basegame.lua</File>
     <File>Assets/UI/citysupport_CQUI.lua</File>
-    <File>Assets/UI/civ6common.lua</File>
     <File>Assets/UI/diplomacyactionview_CQUI_basegame.lua</File>
     <File>Assets/UI/diplomacyactionview_CQUI.lua</File>
     <File>Assets/UI/diplomacyactionview.xml</File>
@@ -1086,7 +1083,6 @@
     <File>Assets/UI/ToolTips/plottooltip_CQUI_basegame.lua</File>
     <File>Assets/UI/ToolTips/plottooltip_CQUI.lua</File>
     <File>Assets/UI/Utilities/extendedrelationship.lua</File>
-    <!-- <File>Assets/UI/WorldView/citybannermanager.lua</File> -->
     <File>Assets/UI/WorldView/citybannermanager_CQUI_basegame.lua</File>
     <File>Assets/UI/WorldView/citybannermanager_CQUI.lua</File>
     <File>Assets/UI/WorldView/citybannermanager.xml</File>

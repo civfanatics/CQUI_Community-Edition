@@ -2,7 +2,7 @@
 -- Base File
 -- ===========================================================================
 include("DiplomacyDealView");
-include("DiplomacyDealView_CQUI.lua");
+include("diplomacydealview_CQUI.lua");
 
 g_LocalPlayer = nil;
 g_OtherPlayer = nil;

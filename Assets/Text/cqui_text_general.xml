@@ -75,6 +75,14 @@
     <Row Tag="LOC_CQUI_SMARTBANNER_UNLOCKEDCITIZEN_TOOLTIP" Language="en_US">
       <Text>There are unlocked citizens being automatically assigned by the AI city governor.</Text>
     </Row>
+    
+    <!-- #62 Infixo original owner tooltip -->
+    <Row Tag="LOC_CQUI_CITY_BANNER_ORIGINAL_CAPITAL_TT" Language="en_US">
+        <Text>[NEWLINE][ICON_Bullet]Original capital of {1_OriginalOwner}</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITY_BANNER_ORIGINAL_CITY_TT" Language="en_US">
+        <Text>[NEWLINE][ICON_Bullet]Original city of {1_OriginalOwner}</Text>
+    </Row>
 
   </LocalizedText>
 </GameData>

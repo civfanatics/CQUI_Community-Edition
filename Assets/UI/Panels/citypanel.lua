@@ -90,7 +90,8 @@ local m_kTutorialDisabledControls :table = nil;
 
 local CQUI_HousingFromImprovementsTable :table = {};    -- CQUI real housing from improvements table
 local CQUI_ImprovementRemoved :table = {};    -- CQUI: a table we use to update real housing when improvement removed
-
+local CQUI_bSukUI:boolean = Modding.IsModActive("805cc499-c534-4e0a-bdce-32fb3c53ba38"); -- Sukritact's Simple UI Adjustments
+ 
 -- ====================CQUI Cityview==========================================
 
 local CQUI_cityview = false;
@@ -667,14 +668,71 @@ function ViewMain( data:table )
     if m_isShowingPanels then
         Controls.LabelButtonRows:SetSizeX( SIZE_MAIN_ROW_LEFT_COLLAPSED );
     else
-        Controls.LabelButtonRows:SetSizeX( SIZE_MAIN_ROW_LEFT_WIDE );
+      HousingTooltip = Locale.Lookup("LOC_HUD_CITY_POPULATION_GROWTH_NORMAL");
     end
+  end
+  -- Production info
+  local buildQueue  = selectedCity:GetBuildQueue();
+  local currentProductionHash   = buildQueue:GetCurrentProductionTypeHash();
+  local productionHash = 0;
+
+  if( currentProductionHash == 0 ) then
+    productionHash = buildQueue:GetPreviousProductionTypeHash();
+  else
+    productionHash = currentProductionHash;
+  end
+  local currentProductionInfo       :table = GetProductionInfoOfCity( data.City, productionHash );
 
 
-    Controls.BreakdownNum:SetText( data.DistrictsNum.."/"..data.DistrictsPossibleNum );
-    Controls.BreakdownGrid:SetOffsetY(PANEL_INFOLINE_LOCATIONS[m_CurrentPanelLine]);
-    Controls.BreakdownButton:SetOffsetX(PANEL_BUTTON_LOCATIONS[m_CurrentPanelLine].x);
-    Controls.BreakdownButton:SetOffsetY(PANEL_BUTTON_LOCATIONS[m_CurrentPanelLine].y);
+  -- Set icons and values for the yield checkboxes
+  Controls.CultureCheck:GetTextButton():SetText(    "[ICON_Culture]"  ..toPlusMinusString(data.CulturePerTurn) );
+  Controls.FoodCheck:GetTextButton():SetText(     "[ICON_Food]"   ..toPlusMinusString(totalFood) );
+  Controls.ProductionCheck:GetTextButton():SetText( "[ICON_Production]" ..toPlusMinusString(data.ProductionPerTurn) );
+  Controls.ScienceCheck:GetTextButton():SetText(    "[ICON_Science]"  ..toPlusMinusString(data.SciencePerTurn) );
+  Controls.FaithCheck:GetTextButton():SetText(    "[ICON_Faith]"    ..toPlusMinusString(data.FaithPerTurn) );
+  Controls.GoldCheck:GetTextButton():SetText(     "[ICON_Gold]"   ..toPlusMinusString(data.GoldPerTurn) );
+
+  -- Set the Yield checkboxes based on the game state
+  RealizeYield3WayCheck( data.YieldFilters[YieldTypes.CULTURE], YieldTypes.CULTURE, data.CulturePerTurnToolTip);
+  RealizeYield3WayCheck( data.YieldFilters[YieldTypes.FAITH], YieldTypes.FAITH, data.FaithPerTurnToolTip);
+  RealizeYield3WayCheck( data.YieldFilters[YieldTypes.FOOD], YieldTypes.FOOD, realFoodPerTurnToolTip);
+  RealizeYield3WayCheck( data.YieldFilters[YieldTypes.GOLD], YieldTypes.GOLD, data.GoldPerTurnToolTip);
+  RealizeYield3WayCheck( data.YieldFilters[YieldTypes.PRODUCTION], YieldTypes.PRODUCTION, data.ProductionPerTurnToolTip);
+  RealizeYield3WayCheck( data.YieldFilters[YieldTypes.SCIENCE], YieldTypes.SCIENCE, data.SciencePerTurnToolTip);
+  
+  -- #33 Infixo SukUI integration
+  if CQUI_bSukUI then
+    local toPlusMinus = function(value) return Locale.ToNumber(value, "+#,###.#;-#,###.#") end
+    LuaEvents.SetSuk_YieldTooltip(Controls.CultureGrid,    data.YieldFilters[YieldTypes.CULTURE],    toPlusMinus(data.CulturePerTurn),    data.CulturePerTurnToolTip);
+    LuaEvents.SetSuk_YieldTooltip(Controls.FaithGrid,      data.YieldFilters[YieldTypes.FAITH],      toPlusMinus(data.FaithPerTurn),      data.FaithPerTurnToolTip);
+    LuaEvents.SetSuk_YieldTooltip(Controls.FoodGrid,       data.YieldFilters[YieldTypes.FOOD],       toPlusMinus(totalFood),              realFoodPerTurnToolTip); -- different here
+    LuaEvents.SetSuk_YieldTooltip(Controls.GoldGrid,       data.YieldFilters[YieldTypes.GOLD],       toPlusMinus(data.GoldPerTurn),       data.GoldPerTurnToolTip);
+    LuaEvents.SetSuk_YieldTooltip(Controls.ProductionGrid, data.YieldFilters[YieldTypes.PRODUCTION], toPlusMinus(data.ProductionPerTurn), data.ProductionPerTurnToolTip);
+    LuaEvents.SetSuk_YieldTooltip(Controls.ScienceGrid,    data.YieldFilters[YieldTypes.SCIENCE],    toPlusMinus(data.SciencePerTurn),    data.SciencePerTurnToolTip);
+  end
+
+  if m_isShowingPanels then
+    Controls.LabelButtonRows:SetSizeX( SIZE_MAIN_ROW_LEFT_COLLAPSED );
+  else
+    Controls.LabelButtonRows:SetSizeX( SIZE_MAIN_ROW_LEFT_WIDE );
+  end
+
+
+  Controls.BreakdownNum:SetText( data.DistrictsNum.."/"..data.DistrictsPossibleNum );
+  Controls.BreakdownGrid:SetOffsetY(PANEL_INFOLINE_LOCATIONS[m_CurrentPanelLine]);
+  Controls.BreakdownButton:SetOffsetX(PANEL_BUTTON_LOCATIONS[m_CurrentPanelLine].x);
+  Controls.BreakdownButton:SetOffsetY(PANEL_BUTTON_LOCATIONS[m_CurrentPanelLine].y);
+  m_CurrentPanelLine = m_CurrentPanelLine + 1;
+
+  -- Hide Religion / Faith UI in some scenarios
+  if not GameCapabilities.HasCapability("CAPABILITY_CITY_HUD_RELIGION_TAB") then
+    Controls.ReligionGrid:SetHide(true);
+    Controls.ReligionIcon:SetHide(true);
+    Controls.ReligionButton:SetHide(true);
+  else
+    Controls.ReligionGrid:SetOffsetY(PANEL_INFOLINE_LOCATIONS[m_CurrentPanelLine]);
+    Controls.ReligionButton:SetOffsetX(PANEL_BUTTON_LOCATIONS[m_CurrentPanelLine].x);
+    Controls.ReligionButton:SetOffsetY(PANEL_BUTTON_LOCATIONS[m_CurrentPanelLine].y);
     m_CurrentPanelLine = m_CurrentPanelLine + 1;
 
     -- Hide Religion / Faith UI in some scenarios
