@@ -211,7 +211,7 @@ function AddAvailableCivic( playerID:number, kData:table )
     if kData.ResearchQueuePosition ~= -1 then
         kItemInstance.QueueBadge:SetHide(false);
         kItemInstance.NodeNumber:SetHide(false);
-        if(kData.ResearchQueuePosition < 10) then
+        if (kData.ResearchQueuePosition < 10) then
             kItemInstance.NodeNumber:SetOffsetX(-2);
         else
             kItemInstance.NodeNumber:SetOffsetX(-5);
@@ -272,7 +272,7 @@ function RealizeSize()
     Controls.CivicStack:CalculateSize();
     Controls.CivicStack:ReprocessAnchoring();
 
-    if(Controls.ChooseCivicList:GetScrollBar():IsHidden()) then
+    if (Controls.ChooseCivicList:GetScrollBar():IsHidden()) then
         Controls.ChooseCivicList:SetOffsetX(10);
     else
         Controls.ChooseCivicList:SetOffsetX(20);
@@ -282,7 +282,7 @@ end
 -- ===========================================================================
 function OnOpenPanel()
 --CQUI: ignores command and opens the tech tree instead if AlwaysShowTechTrees is true
-    if(CQUI_AlwaysOpenTechTrees) then
+    if (CQUI_AlwaysOpenTechTrees) then
         LuaEvents.CivicsChooser_RaiseCivicsTree()
     else
         Refresh();

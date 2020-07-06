@@ -98,7 +98,7 @@ function GetUnlockIcon( typeName :string )
     local icon :string = "ICON_TECHUNLOCK_0";
 
     local typeInfo :table = GameInfo.Types[typeName];
-    if(typeInfo) then
+    if (typeInfo) then
         local icons_by_kind = {
             KIND_PROJECT    = "ICON_TECHUNLOCK_0",
             KIND_WONDER     = "ICON_TECHUNLOCK_0",
@@ -113,17 +113,17 @@ function GetUnlockIcon( typeName :string )
             KIND_POLICY     = "ICON_TECHUNLOCK_9",
         };
 
-        if(typeInfo.Kind == "KIND_POLICY") then
+        if (typeInfo.Kind == "KIND_POLICY") then
             local policy = GameInfo.Policies[typeName];
             local slotType = policy and policy.GovernmentSlotType or nil;
 
-            if(slotType == "SLOT_MILITARY" ) then
+            if (slotType == "SLOT_MILITARY" ) then
                 icon = "ICON_TECHUNLOCK_10";
-            elseif(slotType == "SLOT_DIPLOMATIC" ) then
+            elseif (slotType == "SLOT_DIPLOMATIC" ) then
                 icon = "ICON_TECHUNLOCK_11";
-            elseif(slotType == "SLOT_ECONOMIC" ) then
+            elseif (slotType == "SLOT_ECONOMIC" ) then
                 icon = "ICON_TECHUNLOCK_12";
-            elseif(slotType == "SLOT_WILDCARD" or slotType == "SLOT_GREAT_PERSON") then
+            elseif (slotType == "SLOT_WILDCARD" or slotType == "SLOT_GREAT_PERSON") then
                 icon = "ICON_TECHUNLOCK_9";
             else
                 icon = icons_by_kind["KIND_POLICY"];
@@ -140,7 +140,7 @@ function GetUnlockIcon( typeName :string )
                     end
                 end
             else
-                if(typeInfo.Kind == "KIND_DIPLOMATIC_ACTION") then
+                if (typeInfo.Kind == "KIND_DIPLOMATIC_ACTION") then
                     icon = "ICON_TECHUNLOCK_8";
                 else
                     icon = icons_by_kind[typeInfo.Kind];
@@ -167,10 +167,10 @@ function GetGovernmentData()
             for entry in GameInfo.Government_SlotCounts() do
                 if (governmentType == entry.GovernmentType) then
                     local slotType = entry.GovernmentSlotType;        
-                    if (slotType    == "SLOT_MILITARY")   then slotMilitary = slotMilitary + entry.NumSlots;
-                    elseif(slotType == "SLOT_ECONOMIC")   then slotEconomic = slotEconomic + entry.NumSlots;
-                    elseif(slotType == "SLOT_DIPLOMATIC") then slotDiplomatic = slotDiplomatic + entry.NumSlots;
-                    elseif(slotType == "SLOT_WILDCARD" or slotType =="SLOT_GREAT_PERSON") then slotWildcard  = slotWildcard + entry.NumSlots;
+                    if (slotType     == "SLOT_MILITARY")   then slotMilitary = slotMilitary + entry.NumSlots;
+                    elseif (slotType == "SLOT_ECONOMIC")   then slotEconomic = slotEconomic + entry.NumSlots;
+                    elseif (slotType == "SLOT_DIPLOMATIC") then slotDiplomatic = slotDiplomatic + entry.NumSlots;
+                    elseif (slotType == "SLOT_WILDCARD" or slotType =="SLOT_GREAT_PERSON") then slotWildcard  = slotWildcard + entry.NumSlots;
                     end
                 end
             end
@@ -254,19 +254,19 @@ function PopulateUnlockablesForCivic(playerID:number, civicID:number, kItemIM:ta
     local numIcons:number = 0;
     local unlockables = GetUnlockablesForCivic_Cached(civicType, playerID);
     
-    if(unlockables and #unlockables > 0) then
+    if (unlockables and #unlockables > 0) then
         for i,v in ipairs(unlockables) do
 
             local typeName = v[1];
             local civilopediaKey = v[3];
             local typeInfo = GameInfo.Types[typeName];
 
-            if(kGovernmentIM and typeInfo and typeInfo.Kind == "KIND_GOVERNMENT") then
+            if (kGovernmentIM and typeInfo and typeInfo.Kind == "KIND_GOVERNMENT") then
 
                 local unlock = kGovernmentIM:GetInstance();
 
                 local government = governmentData[typeName];
-                if(government) then
+                if (government) then
                     unlock.MilitaryPolicyLabel:SetText(tostring(government.NumSlotMilitary));
                     unlock.EconomicPolicyLabel:SetText(tostring(government.NumSlotEconomic));
                     unlock.DiplomaticPolicyLabel:SetText(tostring(government.NumSlotDiplomatic));
@@ -278,7 +278,7 @@ function PopulateUnlockablesForCivic(playerID:number, civicID:number, kItemIM:ta
 
                 unlock.GovernmentInstanceGrid:RegisterCallback(Mouse.eLClick, callback);
 
-                if(not IsTutorialRunning()) then
+                if (not IsTutorialRunning()) then
                     unlock.GovernmentInstanceGrid:RegisterCallback(Mouse.eRClick, function() 
                         LuaEvents.OpenCivilopedia(civilopediaKey);
                     end);
@@ -304,7 +304,7 @@ function PopulateUnlockablesForCivic(playerID:number, civicID:number, kItemIM:ta
                     unlockIcon.UnlockIcon:ClearCallback(Mouse.eLClick);
                 end
 
-                if(not IsTutorialRunning()) then
+                if (not IsTutorialRunning()) then
                     unlockIcon.UnlockIcon:RegisterCallback(Mouse.eRClick, function() 
                         LuaEvents.OpenCivilopedia(civilopediaKey);
                     end);
@@ -330,7 +330,7 @@ function PopulateUnlockablesForCivic(playerID:number, civicID:number, kItemIM:ta
             unlockIcon.UnlockIcon:ClearCallback(Mouse.eLClick);
         end
 
-        if(not IsTutorialRunning()) then
+        if (not IsTutorialRunning()) then
             unlockIcon.UnlockIcon:RegisterCallback(Mouse.eRClick, function() 
                 LuaEvents.OpenCivilopedia(civicType);
             end);
@@ -387,7 +387,7 @@ function PopulateUnlockablesForTech(playerID:number, techID:number, instanceMana
                 unlockIcon.UnlockIcon:ClearCallback(Mouse.eLClick);
             end
 
-            if(not IsTutorialRunning()) then
+            if (not IsTutorialRunning()) then
                 unlockIcon.UnlockIcon:RegisterCallback(Mouse.eRClick, function() 
                     LuaEvents.OpenCivilopedia(civilopediaKey);
                 end);
@@ -411,7 +411,7 @@ function PopulateUnlockablesForTech(playerID:number, techID:number, instanceMana
             unlockIcon.UnlockIcon:ClearCallback(Mouse.eLClick);
         end
 
-        if(not IsTutorialRunning()) then
+        if (not IsTutorialRunning()) then
             unlockIcon.UnlockIcon:RegisterCallback(Mouse.eRClick, function() 
                 LuaEvents.OpenCivilopedia(kTechData.TechnologyType);
             end);
@@ -610,7 +610,7 @@ function RealizeCurrentResearch( playerID:number, kData:table, kControl:table )
         local numUnlockables:number;
         kControl.TitleButton:SetText(Locale.ToUpper(kData.Name));
 
-        if(not IsTutorialRunning()) then
+        if (not IsTutorialRunning()) then
             kControl.TitleButton:RegisterCallback(Mouse.eRClick, function() LuaEvents.OpenCivilopedia(techType); end);
         end
 
@@ -729,7 +729,7 @@ function RealizeCurrentCivic( playerID:number, kData:table, kControl:table, cach
         local numUnlockables:number = 0;
         kControl.TitleButton:SetText( Locale.ToUpper(kData.Name) );
 
-        if(not IsTutorialRunning()) then
+        if (not IsTutorialRunning()) then
             kControl.TitleButton:RegisterCallback(Mouse.eRClick,  function() LuaEvents.OpenCivilopedia(techType); end);
         end
 

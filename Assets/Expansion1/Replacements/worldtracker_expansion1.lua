@@ -52,7 +52,7 @@ end
 function RealizeEmptyMessage()
     local crisisData = Game.GetEmergencyManager():GetEmergencyInfoTable(Game.GetLocalPlayer());
     local foo = not crisisData;
-    if(m_hideChat and m_hideCivics and m_hideResearch and next(crisisData) == nil) then
+    if (m_hideChat and m_hideCivics and m_hideResearch and next(crisisData) == nil) then
         --Controls.EmptyPanel:SetHide(false);
     else
         --Controls.EmptyPanel:SetHide(true);

@@ -49,7 +49,7 @@ function CQUI_GetWonderTooltip(buildingHash, playerId, cityId)
     AddBuildingYieldTooltip(buildingHash, city, stats);
 
     for row in GameInfo.Building_YieldDistrictCopies() do
-        if(row.BuildingType == buildingType) then
+        if (row.BuildingType == buildingType) then
             local from = GameInfo.Yields[row.OldYieldType];
             local to   = GameInfo.Yields[row.NewYieldType];
 
@@ -58,19 +58,19 @@ function CQUI_GetWonderTooltip(buildingHash, playerId, cityId)
     end
 
     local housing = building.Housing or 0;
-    if(housing ~= 0) then
+    if (housing ~= 0) then
         table.insert(stats, Locale.Lookup("LOC_TYPE_TRAIT_HOUSING", housing));
     end
 
     AddBuildingEntertainmentTooltip(buildingHash, city, district, stats);
 
     local citizens = building.CitizenSlots or 0;
-    if(citizens ~= 0) then
+    if (citizens ~= 0) then
         table.insert(stats, Locale.Lookup("LOC_TYPE_TRAIT_CITIZENS", citizens));
     end
 
     local defense = building.OuterDefenseHitPoints or 0;
-    if(defense ~= 0) then
+    if (defense ~= 0) then
         table.insert(stats, Locale.Lookup("LOC_TYPE_TRAIT_OUTER_DEFENSE", defense));
     end
 
@@ -96,16 +96,16 @@ function CQUI_GetWonderTooltip(buildingHash, playerId, cityId)
     };
 
     for row in GameInfo.Building_GreatWorks() do
-        if(row.BuildingType == buildingType) then
+        if (row.BuildingType == buildingType) then
             local slotType = row.GreatWorkSlotType;
             local key = slotStrings[slotType];
-            if(key) then
+            if (key) then
                 table.insert(stats, Locale.Lookup(key, row.NumSlots));
             end
         end
     end
     
-    if(not Locale.IsNilOrWhitespace(description)) then
+    if (not Locale.IsNilOrWhitespace(description)) then
         table.insert(toolTipLines, Locale.Lookup(description));
     end
     
@@ -124,7 +124,7 @@ function CQUI_GetWonderTooltip(buildingHash, playerId, cityId)
     end
 
     for i,v in ipairs(stats) do
-        if(i == 1) then
+        if (i == 1) then
             table.insert(toolTipLines, "[NEWLINE]" .. v);
         else
             table.insert(toolTipLines, v);
@@ -163,7 +163,7 @@ function OnWonderCompleted( locX:number, locY:number, buildingIndex:number, play
         if currentBuildingType ~= nil then
 
             -- Remolten: Begin CQUI changes (reordered in front of visual code)
-            if(GameInfo.Buildings[buildingIndex].QuoteAudio ~= nil and CQUI_wonderBuiltAudio) then
+            if (GameInfo.Buildings[buildingIndex].QuoteAudio ~= nil and CQUI_wonderBuiltAudio) then
             -- Remolten: End CQUI changes
                 UI.PlaySound(GameInfo.Buildings[buildingIndex].QuoteAudio);
             end
@@ -199,7 +199,7 @@ end
 -- ===========================================================================
 function ShowPopup( kData:table )
 
-    if(UI.GetInterfaceMode() ~= InterfaceModeTypes.CINEMATIC) then
+    if (UI.GetInterfaceMode() ~= InterfaceModeTypes.CINEMATIC) then
         UILens.SaveActiveLens();
         UILens.SetActive("Cinematic");
         UI.SetInterfaceMode(InterfaceModeTypes.CINEMATIC);
@@ -226,7 +226,7 @@ function ShowPopup( kData:table )
     Controls.WonderIcon:SetIcon("ICON_"..currentBuildingType);
     --Controls.WonderIcon:SetToolTipString(Locale.Lookup(GameInfo.Buildings[buildingIndex].Description));
     Controls.WonderIcon:SetToolTipString(CQUI_GetWonderTooltip(GameInfo.Buildings[buildingIndex].Hash, Game.GetLocalPlayer(), cityId));
-    if(Locale.Lookup(GameInfo.Buildings[buildingIndex].Quote) ~= nil) then
+    if (Locale.Lookup(GameInfo.Buildings[buildingIndex].Quote) ~= nil) then
         Controls.WonderQuote:SetText(Locale.Lookup(GameInfo.Buildings[buildingIndex].Quote));
     else
         UI.DataError("The field 'Quote' has not been initialized for "..GameInfo.Buildings[buildingIndex].BuildingType);

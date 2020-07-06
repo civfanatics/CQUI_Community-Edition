@@ -61,13 +61,13 @@ function OnLocalPlayerTurnBegin()
 
             -- Finds boost amount, always 50 in base game, China's +10% modifier is not applied here
             for row in GameInfo.Boosts() do
-                if(row.CivicType == civicType) then
+                if (row.CivicType == civicType) then
                     CQUI_halfway = (100 - row.Boost) / 100;
                     break;
                 end
             end
             --If playing as china, apply boost modifier. Not sure where I can query this value...
-            if(PlayerConfigurations[Game.GetLocalPlayer()]:GetCivilizationTypeName() == "CIVILIZATION_CHINA") then
+            if (PlayerConfigurations[Game.GetLocalPlayer()]:GetCivilizationTypeName() == "CIVILIZATION_CHINA") then
                 CQUI_halfway = CQUI_halfway - .1;
             end
 

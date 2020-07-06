@@ -49,7 +49,7 @@ function OnActivateIntelGossipHistoryPanel(gossipInstance : table)
     local earliestTurn = iCurrentTurn - 100;
     local gossipStringTable = gossipManager:GetRecentVisibleGossipStrings(earliestTurn, ms_LocalPlayerID, ms_SelectedPlayerID);
     
-    if(#gossipStringTable > 0) then                              -- FF16~ Neccesary with new loop to prevent trying to reference items in empty gossip tables of civs you just met.
+    if (#gossipStringTable > 0) then                              -- FF16~ Neccesary with new loop to prevent trying to reference items in empty gossip tables of civs you just met.
         --for i, currTable:table in pairs(gossipStringTable) do  -- FF16~ The original loop delcaration seems to have a bug, it puts the most recent gossip entry at the bottom instead of the top.
         for i = 0, #gossipStringTable do                         -- FF16~ I have delcared a simpler loop which seems to resolve the issue and correctly puts the list in the right order.
             
@@ -63,7 +63,7 @@ function OnActivateIntelGossipHistoryPanel(gossipInstance : table)
                     item = ms_IntelGossipHistoryPanelEntryIM:GetInstance(intelSubPanel.LastTenTurnsStack);
                     bAddedLastTenTurnsItem = true;
                     -- If we received this gossip this turn or last turn mark it as new
-                    if((iCurrentTurn-1) <= gossipTurn) then
+                    if ((iCurrentTurn-1) <= gossipTurn) then
                         item.NewIndicator:SetHide(false);
                     else
                         item.NewIndicator:SetHide(true);
@@ -76,7 +76,7 @@ function OnActivateIntelGossipHistoryPanel(gossipInstance : table)
                 
                 if (item ~= nil) then
                     -- AZURENCY : trim the message if the setting is enable
-                    if(CQUI_trimGossip) then
+                    if (CQUI_trimGossip) then
                         trimmed = CQUI_TrimGossipMessage(gossipString);
                         if trimmed ~= nil then
                             gossipString = trimmed
@@ -145,14 +145,14 @@ function OnActivateIntelRelationshipPanel(relationshipInstance : table)
     local reasonsTotalScore = 0;
     local hasReasonEntries = false;
 
-    if(toolTips) then
+    if (toolTips) then
         table.sort(toolTips, function(a,b) return a.Score > b.Score; end);
 
         for i, tip in ipairs(toolTips) do
             local score = tip.Score;
             reasonsTotalScore = reasonsTotalScore + score;
 
-            if(score ~= 0) then
+            if (score ~= 0) then
                 hasReasonEntries = true;
             end
         end

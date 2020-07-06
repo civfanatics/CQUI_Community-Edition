@@ -971,7 +971,7 @@ function AddCityStateRow( kCityState:table )
 end
 
 function CQUI_TruncateSuzerainName( name:string )
-    if(name:len() >= 12) then
+    if (name:len() >= 12) then
         return string.sub(name, 0, 10) .. "...";
     else
         return name;
@@ -1173,7 +1173,7 @@ function ViewCityState( iPlayer:number )
             Controls.PeaceWarButton:SetText( Locale.Lookup("LOC_CITY_STATES_MAKE_PEACE") );
             Controls.PeaceWarButton:SetDisabled( not kCityState.CanMakePeaceWith );        
             if not kCityState.CanMakePeaceWith then
-                if(GlobalParameters.DIPLOMACY_WAR_LAST_FOREVER == 1 or GlobalParameters.DIPLOMACY_WAR_LAST_FOREVER == true) then
+                if (GlobalParameters.DIPLOMACY_WAR_LAST_FOREVER == 1 or GlobalParameters.DIPLOMACY_WAR_LAST_FOREVER == true) then
                     warPeaceTooltip = warPeaceTooltip .. Locale.Lookup("LOC_CITY_STATES_TURNS_WAR_NO_PEACE");
                 else
                     if kCityState.SuzerainID ~= -1 and pLocalPlayerDiplomacy:IsAtWarWith(kCityState.SuzerainID) then

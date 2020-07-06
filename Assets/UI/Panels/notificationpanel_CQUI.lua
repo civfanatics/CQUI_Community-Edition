@@ -13,7 +13,7 @@ function OnCityRangeAttack( notificationEntry : NotificationType )
         local pPlayer = Players[notificationEntry.m_PlayerID];
         if pPlayer ~= nil then
             local attackCity = pPlayer:GetCities():GetFirstRangedAttackCity();
-            if(attackCity ~= nil) then
+            if (attackCity ~= nil) then
                 LuaEvents.CQUI_Strike_Enter();
                 LuaEvents.CQUI_CityRangeStrike(Game.GetLocalPlayer(), attackCity:GetID());
             else
@@ -31,7 +31,7 @@ function OnTechBoostActivateNotification( notificationEntry : NotificationType, 
             local techIndex = pNotification:GetValue("TechIndex");
             local techProgress = pNotification:GetValue("TechProgress");
             local techSource = pNotification:GetValue("TechSource");
-            if(techIndex ~= nil and techProgress ~= nil and techSource ~= nil) then
+            if (techIndex ~= nil and techProgress ~= nil and techSource ~= nil) then
                 -- CQUI update all cities real housing when play as India and boosted and researched Sanitation
                 if techIndex == GameInfo.Technologies["TECH_SANITATION"].Index then        -- Sanitation
                     if PlayerConfigurations[notificationEntry.m_PlayerID]:GetCivilizationTypeName() == "CIVILIZATION_INDIA" then
@@ -62,7 +62,7 @@ function OnCivicBoostActivateNotification( notificationEntry : NotificationType,
             local civicIndex = pNotification:GetValue("CivicIndex");
             local civicProgress = pNotification:GetValue("CivicProgress");
             local civicSource = pNotification:GetValue("CivicSource");
-            if(civicIndex ~= nil and civicProgress ~= nil and civicSource ~= nil) then
+            if (civicIndex ~= nil and civicProgress ~= nil and civicSource ~= nil) then
                 -- CQUI update all cities real housing when play as Cree and boosted and researched Civil Service
                 if civicIndex == GameInfo.Civics["CIVIC_CIVIL_SERVICE"].Index then -- Civil Service
                     if PlayerConfigurations[notificationEntry.m_PlayerID]:GetCivilizationTypeName() == "CIVILIZATION_CREE" then

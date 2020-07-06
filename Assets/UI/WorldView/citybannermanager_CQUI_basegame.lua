@@ -235,7 +235,7 @@ function CityBanner.UpdateName( self )
                 if tPlots ~= nil and (table.count(tPlots) > 0) then
                     for i,plotId in pairs(tPlots) do
                         local kPlot :table = Map.GetPlotByIndex(plotId);
-                        if(tMaxUnits[i] >= 1 and tUnits[i] >= 1 and tLockedUnits[i] <= 0) then
+                        if (tMaxUnits[i] >= 1 and tUnits[i] >= 1 and tLockedUnits[i] <= 0) then
                             self.m_Instance.CityUnlockedCitizen:SetHide(false);
                         end
                     end
@@ -383,7 +383,7 @@ function CityBanner.UpdateReligion( self )
     self:Resize();
 
     -- Hide the meter and bail out if the religion lens isn't active
-    if(not m_isReligionLensActive or table.count(religionsInCity) == 0) then
+    if (not m_isReligionLensActive or table.count(religionsInCity) == 0) then
         if cityInst[DATA_FIELD_RELIGION_INFO_INSTANCE] then
             cityInst[DATA_FIELD_RELIGION_INFO_INSTANCE].ReligionInfoContainer:SetHide(true);
         end
@@ -392,7 +392,7 @@ function CityBanner.UpdateReligion( self )
 
     -- Update religion icon + religious pressure animation
     local majorityReligionColor:number = COLOR_RELIGION_DEFAULT;
-    if(eMajorityReligion >= 0) then
+    if (eMajorityReligion >= 0) then
         majorityReligionColor = UI.GetColorValue(GameInfo.Religions[eMajorityReligion].Color);
     end
     
@@ -406,7 +406,7 @@ function CityBanner.UpdateReligion( self )
     for _, cityReligion in pairs(pReligionsInCity) do
         local religion:number = cityReligion.Religion;
         if religion == -1 then religion = 0; end -- #59 Infixo include a pantheon
-        --if(religion >= 0) then
+        --if (religion >= 0) then
             local followers:number = cityReligion.Followers;
             local fillPercent:number = followers / iCityPopulation;
             totalFillPercent = totalFillPercent + fillPercent;
@@ -440,7 +440,7 @@ function CityBanner.UpdateReligion( self )
         religion.AccumulativeFillPercent = accumulativeFillPercent;
     end
 
-    if(table.count(activeReligions) > 0) then
+    if (table.count(activeReligions) > 0) then
         local localPlayerVis:table = PlayersVisibility[Game.GetLocalPlayer()];
         if (localPlayerVis ~= nil) then
             -- Holy sites get a different color and texture
@@ -449,7 +449,7 @@ function CityBanner.UpdateReligion( self )
             local playerDistricts:table = self.m_Player:GetDistricts();
             for i, district in cityDistricts:Members() do
                 local districtType:string = GameInfo.Districts[district:GetType()].DistrictType;
-                if(districtType == "DISTRICT_HOLY_SITE") then
+                if (districtType == "DISTRICT_HOLY_SITE") then
                     local locX:number = district:GetX();
                     local locY:number = district:GetY();
                     if localPlayerVis:IsVisible(locX, locY) then
@@ -464,7 +464,7 @@ function CityBanner.UpdateReligion( self )
 
             -- Color hexes in this city the same color as religion
             local plots:table = Map.GetCityPlots():GetPurchasedPlots(pCity);
-            if(table.count(plots) > 0) then
+            if (table.count(plots) > 0) then
                 UILens.SetLayerHexesColoredArea( m_HexColoringReligion, Game.GetLocalPlayer(), plots, majorityReligionColor );
             end
         end
@@ -483,7 +483,7 @@ function CityBanner.UpdateReligion( self )
     if religionInfoInst and religionInfoInst.ReligionInfoContainer then
         -- Create or reset icon instance manager
         local iconIM:table = cityInst[DATA_FIELD_RELIGION_ICONS_IM];
-        if(iconIM == nil) then
+        if (iconIM == nil) then
             iconIM = InstanceManager:new("ReligionIconInstance", "ReligionIconContainer", religionInfoInst.ReligionInfoIconStack);
             cityInst[DATA_FIELD_RELIGION_ICONS_IM] = iconIM;
         else
@@ -492,7 +492,7 @@ function CityBanner.UpdateReligion( self )
 
         -- Create or reset follower list instance manager
         local followerListIM:table = cityInst[DATA_FIELD_RELIGION_FOLLOWER_LIST_IM];
-        if(followerListIM == nil) then
+        if (followerListIM == nil) then
             followerListIM = InstanceManager:new("ReligionFollowerListInstance", "ReligionFollowerListContainer", religionInfoInst.ReligionFollowerListStack);
             cityInst[DATA_FIELD_RELIGION_FOLLOWER_LIST_IM] = followerListIM;
         else
@@ -501,7 +501,7 @@ function CityBanner.UpdateReligion( self )
 
         -- Create or reset pop chart instance manager
         local popChartIM:table = cityInst[DATA_FIELD_RELIGION_POP_CHART_IM];
-        if(popChartIM == nil) then
+        if (popChartIM == nil) then
             popChartIM = InstanceManager:new("ReligionPopChartInstance", "PopChartMeter", religionInfoInst.ReligionPopChartContainer);
             cityInst[DATA_FIELD_RELIGION_POP_CHART_IM] = popChartIM;
         else

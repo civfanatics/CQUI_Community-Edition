@@ -149,7 +149,7 @@ function ShowCitizens()
                 local numUnits:number = tUnits[i];
 
                 --CQUI Citizen buttons tweaks
-                if(CQUI_SmartWorkIcon and numUnits >= 1) then
+                if (CQUI_SmartWorkIcon and numUnits >= 1) then
                     pInstance.CitizenButton:SetSizeVal(CQUI_SmartWorkIconSize, CQUI_SmartWorkIconSize);
                     pInstance.CitizenButton:SetAlpha(CQUI_SmartWorkIconAlpha);
                 else
@@ -157,7 +157,7 @@ function ShowCitizens()
                     pInstance.CitizenButton:SetAlpha(CQUI_WorkIconAlpha);
                 end
 
-                if(numUnits >= 1) then
+                if (numUnits >= 1) then
                     pInstance.CitizenButton:SetTextureOffsetVal(0, 256);
                 end
             end

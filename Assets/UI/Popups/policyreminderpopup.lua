@@ -33,13 +33,13 @@ function ShowPolicyReminderPopup(player:number, civic:number)
 
         local unlockables = GetUnlockablesForCivic(civicType, player);
 
-        if(unlockables and #unlockables > 0) then
+        if (unlockables and #unlockables > 0) then
             for i,v in ipairs(unlockables) do
                 local typeName = v[1];
                 local civilopediaKey = v[3];
                 local typeInfo = GameInfo.Types[typeName];
 
-                if(typeInfo and typeInfo.Kind == "KIND_POLICY") then
+                if (typeInfo and typeInfo.Kind == "KIND_POLICY") then
                     local unlockIcon = m_unlockIM:GetInstance();
                     local icon = GetUnlockIcon(typeName);
                     unlockIcon.Icon:SetIcon("ICON_"..typeName);

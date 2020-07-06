@@ -36,7 +36,7 @@ function CQUI_OnSettingsUpdate()
 end
 
 function CQUI_SelectRightTab()
-    if(not CQUI_ProductionQueue) then
+    if (not CQUI_ProductionQueue) then
         OnTabChangeProduction();
     else
         OnTabChangeQueue();
@@ -119,7 +119,7 @@ end
 function View(data)
     for i, item in ipairs(data.UnitPurchases) do
         if item.Yield then 
-            if(CQUI_PurchaseTable[item.Hash] == nil) then
+            if (CQUI_PurchaseTable[item.Hash] == nil) then
                 CQUI_PurchaseTable[item.Hash] = {};
             end
             if (item.Yield == "YIELD_GOLD") then
@@ -127,12 +127,12 @@ function View(data)
                 CQUI_PurchaseTable[item.Hash]["goldCantAfford"] = item.CantAfford;
                 CQUI_PurchaseTable[item.Hash]["goldDisabled"] = item.Disabled;
                 CQUI_PurchaseTable[item.Hash]["goldCallback"] = CQUI_PurchaseUnit(item, data.City);
-                if(item.Corps) then
+                if (item.Corps) then
                     CQUI_PurchaseTable[item.Hash]["corpsGold"] = item.CorpsCost;
                     CQUI_PurchaseTable[item.Hash]["corpsGoldDisabled"] = item.CorpsDisabled;
                     CQUI_PurchaseTable[item.Hash]["corpsGoldCallback"] = CQUI_PurchaseUnitCorps(item, data.City);
                 end
-                if(item.Army) then
+                if (item.Army) then
                     CQUI_PurchaseTable[item.Hash]["armyGold"] = item.ArmyCost;
                     CQUI_PurchaseTable[item.Hash]["armyGoldDisabled"] = item.ArmyDisabled;
                     CQUI_PurchaseTable[item.Hash]["armyGoldCallback"] = CQUI_PurchaseUnitArmy(item, data.City);
@@ -142,12 +142,12 @@ function View(data)
                 CQUI_PurchaseTable[item.Hash]["faithCantAfford"] = item.CantAfford;
                 CQUI_PurchaseTable[item.Hash]["faithDisabled"] = item.Disabled;
                 CQUI_PurchaseTable[item.Hash]["faithCallback"] = CQUI_PurchaseUnit(item, data.City);
-                if(item.Corps) then
+                if (item.Corps) then
                     CQUI_PurchaseTable[item.Hash]["corpsFaith"] = item.CorpsCost;
                     CQUI_PurchaseTable[item.Hash]["corpsFaithDisabled"] = item.ArmyDisabled;
                     CQUI_PurchaseTable[item.Hash]["corpsFaithCallback"] = CQUI_PurchaseUnitCorps(item, data.City);
                 end
-                if(item.Army) then
+                if (item.Army) then
                     CQUI_PurchaseTable[item.Hash]["armyFaith"] = item.ArmyCost;
                     CQUI_PurchaseTable[item.Hash]["armyFaithDisabled"] = item.ArmyDisabled;
                     CQUI_PurchaseTable[item.Hash]["armyFaithCallback"] = CQUI_PurchaseUnitArmy(item, data.City);
@@ -158,7 +158,7 @@ function View(data)
 
     for i, item in ipairs(data.DistrictPurchases) do
         if item.Yield then 
-            if(CQUI_PurchaseTable[item.Hash] == nil) then
+            if (CQUI_PurchaseTable[item.Hash] == nil) then
                 CQUI_PurchaseTable[item.Hash] = {};
             end
             if (item.Yield == "YIELD_GOLD") then
@@ -177,7 +177,7 @@ function View(data)
 
     for i, item in ipairs(data.BuildingPurchases) do
         if item.Yield then 
-            if(CQUI_PurchaseTable[item.Hash] == nil) then
+            if (CQUI_PurchaseTable[item.Hash] == nil) then
                 CQUI_PurchaseTable[item.Hash] = {};
             end
             if (item.Yield == "YIELD_GOLD") then
@@ -561,7 +561,7 @@ end
 --    CQUI modified OnCityBannerManagerProductionToggle
 -- ===========================================================================
 function OnCityBannerManagerProductionToggle()
-    if(ContextPtr:IsHidden()) then
+    if (ContextPtr:IsHidden()) then
         Open();
         m_tabs.SelectTab(m_productionTab);
     end
@@ -581,7 +581,7 @@ end
 --    CQUI modified OnCityBannerManagerProductionToggle : Removed tab selection
 -- ===========================================================================
 function OnCityBannerManagerProductionToggle()
-    if(ContextPtr:IsHidden()) then
+    if (ContextPtr:IsHidden()) then
         Open();
         --m_tabs.SelectTab(m_productionTab);
     else

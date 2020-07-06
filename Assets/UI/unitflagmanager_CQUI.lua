@@ -95,7 +95,7 @@ function UnitFlag.SetColor( self )
         local isAtWar = localPlayer:GetDiplomacy():IsAtWarWith( ownerPlayer );
         local CQUI_isBarb = Players[ownerPlayer]:IsBarbarian(); --pUnit:GetBarbarianTribeIndex() ~= -1
 
-        if(isAtWar and (not CQUI_isBarb)) then
+        if (isAtWar and (not CQUI_isBarb)) then
             instance.FlagBaseDarken:SetColor( UI.GetColorValue(255,0,0,255) );
             instance.FlagBaseDarken:SetHide(false);
         end
@@ -253,8 +253,8 @@ function OnUnitSelectionChanged( playerID : number, unitID : number, hexI : numb
         -- unitID could be nil, if unit is consumed (f.e. settler, worker)
         if (unitID ~= nil) then
             CQUI_SelectionMade = true;
-            if(CQUI_ShowingPath ~= unitID) then
-                if(CQUI_ShowingPath ~= nil) then
+            if (CQUI_ShowingPath ~= unitID) then
+                if (CQUI_ShowingPath ~= nil) then
                     CQUI_HidePath();
                 end
 
@@ -276,7 +276,7 @@ function OnDiplomacyWarStateChange(player1ID:number, player2ID:number)
     local localPlayer =  Players[Game.GetLocalPlayer()];
 
     local playerToUpdate = player1ID;
-    if(player1ID ==Game.GetLocalPlayer()) then
+    if (player1ID ==Game.GetLocalPlayer()) then
         playerToUpdate = player2ID;
     else
         playerToUpdate = player1ID;

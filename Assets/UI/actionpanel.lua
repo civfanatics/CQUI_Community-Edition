@@ -236,7 +236,7 @@ function OnRefresh()
         icon           = "ICON_NOTIFICATION_CITY_RANGE_ATTACK";
         toolTipString  = cqui_encampmentRangedAttackTip;
         iFlashingState = FLASHING_END_TURN;
-    elseif(CQUI_CheckPolicyCanBeChanged()) then
+    elseif (CQUI_CheckPolicyCanBeChanged()) then
         message        = Locale.Lookup("LOC_POLICY_REMINDER_ACTION_BUTTON")
         icon           = "ICON_NOTIFICATION_CHOOSE_CIVIC"
         toolTipString  = Locale.Lookup("LOC_POLICY_REMINDER_ACTION_BUTTON_TOOLTIP")
@@ -272,7 +272,7 @@ function OnRefresh()
             if g_kMessageInfo[endTurnBlockingId] then
                 local tooltip:string = g_kMessageInfo[endTurnBlockingId].ToolTip;
                 local icon:string    = g_kMessageInfo[endTurnBlockingId].Icon;
-                if(icon ~= nil) then
+                if (icon ~= nil) then
                     local textureOffsetX, textureOffsetY, textureSheet = IconManager:FindIconAtlas(icon,40);
                     kButtonControl:SetTexture( textureOffsetX, textureOffsetY, textureSheet );
                 end
@@ -317,7 +317,7 @@ function OnRefresh()
                 local tooltip :string = g_kMessageInfo[endTurnBlockingId].ToolTip;
                 local icon    :string = g_kMessageInfo[endTurnBlockingId].Icon;
 
-                if(icon ~= nil) then
+                if (icon ~= nil) then
                     local textureOffsetX, textureOffsetY, textureSheet = IconManager:FindIconAtlas(icon,40);
                     kInst.TurnBlockerIcon:SetTexture( textureOffsetX, textureOffsetY, textureSheet );
                 end
@@ -349,7 +349,7 @@ function OnRefresh()
     Controls.EndTurnButton:SetToolTipString( toolTipString );
 
     -- Set big icon
-    if(icon ~= nil) then
+    if (icon ~= nil) then
         local countActiveType :number = 0;
         Controls.CurrentTurnBlockerIcon:SetHide(false);
         Controls.CurrentTurnBlockerIcon:SetIcon(icon);
@@ -479,7 +479,7 @@ function CheckCityRangeAttackState()
         return false;
     end
 
-    if(not HaveCityRangeAttackStateEnabled()) then
+    if (not HaveCityRangeAttackStateEnabled()) then
         return false;
     end
 
@@ -499,7 +499,7 @@ function CQUI_CheckEncampmentRangeAttackState()
         return false;
     end
 
-    if(not HaveCityRangeAttackStateEnabled()) then
+    if (not HaveCityRangeAttackStateEnabled()) then
         return false;
     end
 
@@ -527,7 +527,7 @@ function CQUI_CheckPolicyCanBeChanged()
     local futureCivicIndex = GameInfo["Civics"]["CIVIC_FUTURE_CIVIC"].Index
 
     local PRD:table    = pPlayer:GetCulture()
-    if(PRD:CivicCompletedThisTurn() and PRD:GetCivicCompletedThisTurn() ~= futureCivicIndex and not PRD:PolicyChangeMade()) then
+    if (PRD:CivicCompletedThisTurn() and PRD:GetCivicCompletedThisTurn() ~= futureCivicIndex and not PRD:PolicyChangeMade()) then
         return true
     end
     return false
@@ -663,9 +663,9 @@ function DoEndTurn( optionalNewBlocker:number )
     if m_activeBlockerId == EndTurnBlockingTypes.NO_ENDTURN_BLOCKING then
         if (CheckUnitsHaveMovesState()) then
             UI.SelectNextReadyUnit();
-        elseif(CheckCityRangeAttackState()) then
+        elseif (CheckCityRangeAttackState()) then
             local attackCity = pPlayer:GetCities():GetFirstRangedAttackCity();
-            if(attackCity ~= nil) then
+            if (attackCity ~= nil) then
                 -- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
                 -- CQUI: Commented lines are the unmodified code
                 -- UI.SelectCity(attackCity);
@@ -677,15 +677,15 @@ function DoEndTurn( optionalNewBlocker:number )
                 UI.DataError( "Unable to find selectable attack city while in CheckCityRangeAttackState()" );
             end
         -- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
-        elseif(CQUI_CheckEncampmentRangeAttackState()) then
+        elseif (CQUI_CheckEncampmentRangeAttackState()) then
             local attackEncampment = CQUI_GetFirstRangedAttackEncampment();
-            if(attackEncampment ~= nil) then
+            if (attackEncampment ~= nil) then
                 UI.LookAtPlot(attackEncampment:GetX(), attackEncampment:GetY());
                 LuaEvents.CQUI_DistrictRangeStrike(Game.GetLocalPlayer(), attackEncampment:GetID());
             else
                 UI.DataError( "Unable to find selectable attack encampment while in CQUI_CheckEncampmentRangeAttackState()" );
             end
-        elseif(CQUI_CheckPolicyCanBeChanged()) then
+        elseif (CQUI_CheckPolicyCanBeChanged()) then
             LuaEvents.CQUI_ShowPolicyReminderPopup(Game.GetLocalPlayer(), pPlayer:GetCulture():GetCivicCompletedThisTurn(), false)
         -- ==== CQUI CUSTOMIZATION END ======================================================================================= --
         else
@@ -813,12 +813,12 @@ function OnEndTurnRightClicked()
     end
 
     -- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
-    -- The lines above the 'if(CheckCityRangeAttackState'
+    -- The lines above the 'if (CheckCityRangeAttackState'
     -- local activeBlockerId = NotificationManager.GetFirstEndTurnBlocking(Game.GetLocalPlayer());
     -- if activeBlockerId == EndTurnBlockingTypes.NO_ENDTURN_BLOCKING then
     --     if (CheckUnitsHaveMovesState()) then
     --         -- Do Nothing
-    --     elseif(CheckCityRangeAttackState()) then
+    --     elseif (CheckCityRangeAttackState()) then
     --         -- Remove the city range attack notification so the turn can proceed.
     --         local pNotification :table = NotificationManager.FindType(NotificationTypes.CITY_RANGE_ATTACK, Game.GetLocalPlayer());
     --         if pNotification ~= nil and not pNotification:IsDismissed() then
@@ -830,9 +830,9 @@ function OnEndTurnRightClicked()
     -- end
 
     -- CQUI: This elseif line is the original, the if line below is CQUI replacement
-    -- elseif(CheckCityRangeAttackState()) then
+    -- elseif (CheckCityRangeAttackState()) then
     -- AZURENCY : Added the original behavior to skip turn on right click (and kept the notification removal)
-    if(CheckCityRangeAttackState()) then
+    if (CheckCityRangeAttackState()) then
     -- ==== CQUI CUSTOMIZATION END  ====================================================================================== --
 
         -- Remove the city range attack notification so the turn can proceed.
@@ -852,7 +852,7 @@ end
 -- ===========================================================================
 function OnOverflowClick()
     Controls.OverflowContainer:SetSizeY( Controls.OverflowStack:GetSizeY() + 22 );
-    if(Controls.OverflowCheckbox:IsChecked()) then
+    if (Controls.OverflowCheckbox:IsChecked()) then
         Controls.EndTurnButtonLabel:SetHide(true);
         Controls.TurnBlockerContainerAlpha:SetHide(false);
         Controls.TurnBlockerContainerAlpha:SetToBeginning();
@@ -880,20 +880,20 @@ function SetEndTurnWaiting()
     local playersWaiting : number = 0;
     local iActivePlayer = Game.GetLocalPlayer();
 
-    if(m_cloudTurnState == CloudTurnStates.CLOUDTURN_UPLOADING) then
+    if (m_cloudTurnState == CloudTurnStates.CLOUDTURN_UPLOADING) then
         Controls.EndTurnText:SetText( cloudTurnUploadingString );
         Controls.EndTurnButton:SetToolTipString( cloudTurnUploadingTip );
         SetEndTurnFlashing(NO_FLASHING);
         return;
     -- Show "EXITING" when the cloud turn has been updated if we are going to exit to the main menu.
-    elseif(m_cloudTurnState == CloudTurnStates.CLOUDTURN_UPLOADED
+    elseif (m_cloudTurnState == CloudTurnStates.CLOUDTURN_UPLOADED
         and UserConfiguration.GetPlayByCloudEndTurnBehavior() == PlayByCloudEndTurnBehaviorType.PBC_ENDTURN_EXIT_MAINMENU) then
 
         -- [TTP 42975] Only show if there is another alive human in the match.
         local players = Game.GetPlayers{Human = true, Major = true};
         for _, player in ipairs(players) do
             local iPlayer = player:GetID();
-            if(iPlayer ~= iActivePlayer and player:IsAlive()) then
+            if (iPlayer ~= iActivePlayer and player:IsAlive()) then
                 Controls.EndTurnText:SetText( cloudTurnUploadedString );
                 Controls.EndTurnButton:SetToolTipString( cloudTurnUploadedTip );
                 SetEndTurnFlashing(NO_FLASHING);
@@ -905,14 +905,14 @@ function SetEndTurnWaiting()
     local players = Game.GetPlayers{Human = true, Major = true};
     for _, player in ipairs(players) do
         local iPlayer = player:GetID();
-        if(iPlayer ~= iActivePlayer and player:IsTurnActive()) then
+        if (iPlayer ~= iActivePlayer and player:IsTurnActive()) then
             local pPlayer:table = Players[iPlayer];
             local pPlayerConfig = PlayerConfigurations[iPlayer];
-            if(pPlayerConfig ~= nil) then
+            if (pPlayerConfig ~= nil) then
                 local playerName = Locale.Lookup(pPlayerConfig:GetPlayerName());
 
                 if GameConfiguration.IsAnyMultiplayer() and pPlayer:IsHuman() then
-                    if(iPlayer ~= iActivePlayer and not Players[iActivePlayer]:GetDiplomacy():HasMet(iPlayer)) then
+                    if (iPlayer ~= iActivePlayer and not Players[iActivePlayer]:GetDiplomacy():HasMet(iPlayer)) then
                         endButtonTooltip = endButtonTooltip .. "[NEWLINE]" .. Locale.Lookup("LOC_DIPLOPANEL_UNMET_PLAYER") .. " (" .. playerName .. ")";
                     else
                         endButtonTooltip = endButtonTooltip .. "[NEWLINE]" .. Locale.Lookup(pPlayerConfig:GetCivilizationDescription()) .. " (" .. playerName .. ")";
@@ -925,7 +925,7 @@ function SetEndTurnWaiting()
 
                 -- Remember the name of the first turn active human we find so we can display it on
                 -- the end turn button.
-                if(turnActiveHumanName == nil) then
+                if (turnActiveHumanName == nil) then
                     turnActiveHumanName = playerName;
                 end
             end
@@ -939,13 +939,13 @@ function SetEndTurnWaiting()
     end
 
     Controls.CurrentTurnBlockerIcon:SetHide(true);
-    if(playersWaiting == 0) then
+    if (playersWaiting == 0) then
         -- Not waiting on other human players.  Just show "Please Wait".
         Controls.EndTurnText:LocalizeAndSetText( pleaseWaitString );
         endButtonTooltip = pleaseWaitTip;
     else
         -- Waiting on human players.
-        if(turnActiveHumanName ~= nil) then
+        if (turnActiveHumanName ~= nil) then
             local textToSet : string = Locale.Lookup(waitForPlayerTurnString, string.upper(turnActiveHumanName));
             TruncateStringWithTooltip(Controls.EndTurnText, MAX_BEFORE_TRUNC_TURN_STRING, textToSet);
         else
@@ -986,7 +986,7 @@ end
 -- ===========================================================================
 function OnCityCommandStarted( cityOwnerID: number, cityID :number, districtOwnerID :number, districtID :number, commandType :number, iData1 :number )
     -- When the local player starts a city command (ranged attack), that might end the turn for them.
-    if(cityOwnerID == Game.GetLocalPlayer() and HaveCityRangeAttackStateEnabled()) then
+    if (cityOwnerID == Game.GetLocalPlayer() and HaveCityRangeAttackStateEnabled()) then
         local blockingType  :number= NotificationManager.GetFirstEndTurnBlocking(Game.GetLocalPlayer());
         CheckAutoEndTurn( blockingType );
     end
@@ -995,8 +995,8 @@ end
 -- ===========================================================================
 function OnUserOptionChanged(eOptionSet, hOptionKey, iNewOptionValue)
     -- If we enable certain user options, we need to check auto end turns because our auto end turn status might be affected.
-    if(hOptionKey == autoEndTurnOptionHash or hOptionKey == cityRangeAttackTurnOptionHash) then
-        if(UserConfiguration.IsAutoEndTurn()) then
+    if (hOptionKey == autoEndTurnOptionHash or hOptionKey == cityRangeAttackTurnOptionHash) then
+        if (UserConfiguration.IsAutoEndTurn()) then
             local blockingType  :number= NotificationManager.GetFirstEndTurnBlocking(Game.GetLocalPlayer());
             CheckAutoEndTurn( blockingType );
         end
@@ -1007,9 +1007,9 @@ end
 
 -- ===========================================================================
 function OnUploadCloudEndTurnStart()
-    if(m_cloudTurnState ~= CloudTurnStates.CLOUDTURN_UPLOADING) then
+    if (m_cloudTurnState ~= CloudTurnStates.CLOUDTURN_UPLOADING) then
         m_cloudTurnState = CloudTurnStates.CLOUDTURN_UPLOADING;
-        if(not ContextPtr:IsHidden()) then
+        if (not ContextPtr:IsHidden()) then
             ContextPtr:RequestRefresh();
         end
     end
@@ -1017,22 +1017,22 @@ end
 
 -- ===========================================================================
 function OnUploadCloudEndTurnComplete()
-    if(m_cloudTurnState ~= CloudTurnStates.CLOUDTURN_UPLOADED) then
+    if (m_cloudTurnState ~= CloudTurnStates.CLOUDTURN_UPLOADED) then
         m_cloudTurnState = CloudTurnStates.CLOUDTURN_UPLOADED;
-        if(not ContextPtr:IsHidden()) then
+        if (not ContextPtr:IsHidden()) then
             ContextPtr:RequestRefresh();
-            if(UserConfiguration.GetPlayByCloudEndTurnBehavior() == PlayByCloudEndTurnBehaviorType.PBC_ENDTURN_ASK_ME) then
-                if(Game.GetLocalPlayer() == NO_PLAYER) then
+            if (UserConfiguration.GetPlayByCloudEndTurnBehavior() == PlayByCloudEndTurnBehaviorType.PBC_ENDTURN_ASK_ME) then
+                if (Game.GetLocalPlayer() == NO_PLAYER) then
                     -- No local player.
                     return;
                 end
 
                 local pLocalPlayer        :table = Players[Game.GetLocalPlayer()];
-                if(pLocalPlayer == nil) then
+                if (pLocalPlayer == nil) then
                     return;
                 end
 
-                if(pLocalPlayer:IsTurnActive()) then
+                if (pLocalPlayer:IsTurnActive()) then
                     -- Local player is already turn active again.  This happens if the local player is the solo remaining human player.
                     -- We should simply not show the Ask Me popup in this case.
                     return;
@@ -1056,14 +1056,14 @@ function OnRememberChoice(checked : boolean)
 end
 
 function OnChoiceDoNothing()
-    if(m_rememberCloudChoice == true) then
+    if (m_rememberCloudChoice == true) then
         Options.SetUserOption("Interface", "PlayByCloudEndTurnBehavior", PlayByCloudEndTurnBehaviorType.PBC_ENDTURN_DO_NOTHING);
         Options.SaveOptions();
     end
 end
 
 function OnChoiceExitToMainMenu()
-    if(m_rememberCloudChoice == true) then
+    if (m_rememberCloudChoice == true) then
         Options.SetUserOption("Interface", "PlayByCloudEndTurnBehavior", PlayByCloudEndTurnBehaviorType.PBC_ENDTURN_EXIT_MAINMENU);
         Options.SaveOptions();
     end
@@ -1172,7 +1172,7 @@ function OnNotificationDismissed( playerID:number, notificationID:number )
             -- It is possible, that by the time we get this event, the notification was 'expired' by some other action in the game.
             -- To be safe, assume it was a NotificationTypes.CITY_RANGE_ATTACK.
             wasCityRangeNotification = true;
-        elseif(pNotification:GetType() == NotificationTypes.CITY_RANGE_ATTACK) then
+        elseif (pNotification:GetType() == NotificationTypes.CITY_RANGE_ATTACK) then
             wasCityRangeNotification = true;
         end
 
@@ -1343,7 +1343,7 @@ end
 --  Update turn timer meter
 -- ===========================================================================
 function OnTurnTimerUpdated(elapsedTime :number, maxTurnTime :number)
-    if(maxTurnTime <= 0) then
+    if (maxTurnTime <= 0) then
         -- We're in a state where there isn't a turn time, hide all the turn timer elements.
         Controls.TurnTimerContainer:SetHide(true);
     else
@@ -1368,7 +1368,7 @@ function OnTurnTimerUpdated(elapsedTime :number, maxTurnTime :number)
 
         -- Update turn timer bar progress
         local progress : number = 0;
-        if(elapsedTime < maxTurnTime) then
+        if (elapsedTime < maxTurnTime) then
             progress = 1 - (elapsedTime/maxTurnTime);
         end
         Controls.TurnTimerMeter:SetPercent(progress);
@@ -1376,12 +1376,12 @@ function OnTurnTimerUpdated(elapsedTime :number, maxTurnTime :number)
         local timeRemaining : number = maxTurnTime - elapsedTime;
 
         -- Update turn timer bar color
-        if(pPlayer:IsTurnActive()) then
+        if (pPlayer:IsTurnActive()) then
             Controls.TurnTimerMeter:SetColor(TURN_TIMER_BAR_ACTIVE_COLOR);
             Controls.TurnTimerLabelBG:SetToolTipString(yourTurnToolStr);
         else
             Controls.TurnTimerMeter:SetColor(TURN_TIMER_BAR_INACTIVE_COLOR);
-            if(timeRemaining > 0) then
+            if (timeRemaining > 0) then
                 Controls.TurnTimerLabelBG:SetToolTipString(estTilTurnToolStr);
             else
                 Controls.TurnTimerLabelBG:SetToolTipString(estTimeElapsedToolStr);
@@ -1389,12 +1389,12 @@ function OnTurnTimerUpdated(elapsedTime :number, maxTurnTime :number)
         end
 
         -- Update turn timer label
-        if(timeRemaining > 0) then
+        if (timeRemaining > 0) then
             -- Update countdown tick sound.
             -- Round the remaining time so the audio syncs up with the numerial countdown.
             local roundedTime = SoftRound(timeRemaining);
-            if( roundedTime <= START_TURN_TIMER_TICK_SOUND) then
-                if(roundedTime > m_lastTurnTickTime -- last tick was for previous countdown
+            if ( roundedTime <= START_TURN_TIMER_TICK_SOUND) then
+                if (roundedTime > m_lastTurnTickTime -- last tick was for previous countdown
                     or roundedTime <= (m_lastTurnTickTime-1)) then -- last tick was more than a 1 second ago.
                     m_lastTurnTickTime = roundedTime;
                     UI.PlaySound("Play_MP_Game_Launch_Timer_Beep");

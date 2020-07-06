@@ -46,12 +46,12 @@ end
 function Refresh(player, unitId)
     BASE_CQUI_Refresh(player, unitId);
 
-    if(player ~= nil and player ~= -1 and unitId ~= nil and unitId ~= -1) then
+    if (player ~= nil and player ~= -1 and unitId ~= nil and unitId ~= -1) then
         local units = Players[player]:GetUnits();
         local unit = units:FindID(unitId);
-        if(unit ~= nil) then
+        if (unit ~= nil) then
             --CQUI auto-expando
-            if(GameConfiguration.GetValue("CQUI_AutoExpandUnitActions")) then
+            if (GameConfiguration.GetValue("CQUI_AutoExpandUnitActions")) then
                 local isHidden:boolean = Controls.SecondaryActionsStack:IsHidden();
                 if isHidden then
                     Controls.SecondaryActionsStack:SetHide(false);

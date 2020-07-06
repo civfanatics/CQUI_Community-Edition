@@ -48,7 +48,7 @@ function PopulateSignatureArea(player:table, iconControl, leaderControl, civCont
     local pPlayerConfig = PlayerConfigurations[player:GetID()];
     local playerName = pPlayerConfig:GetPlayerName();
     local playerCities = player:GetCities();
-    if(playerCities ~= nil) then
+    if (playerCities ~= nil) then
         civTooltip = civTooltip .. " "..Locale.Lookup("LOC_PEDIA_CONCEPTS_PAGEGROUP_CITIES_NAME").. ":[NEWLINE]----------";
         for i,city in playerCities:Members() do
             civTooltip = civTooltip.. "[NEWLINE]".. Locale.Lookup(city:GetName());
@@ -213,14 +213,14 @@ function CQUI_RenderResourceButton(resource, resourceCategory, iconList, howAcqu
     icon.SelectButton:SetTexture("Controls_DraggableButton");
     icon.SelectButton:SetTextureOffsetVal(0, 0);
 
-    if(resourceCategory == 'scarce') then
+    if (resourceCategory == 'scarce') then
         icon.AmountText:SetColor(UI.GetColorValue(224/255,124/255,124/255,230/255));
         icon.Important:SetHide(false);
-    elseif(resourceCategory == 'duplicate') then
+    elseif (resourceCategory == 'duplicate') then
         icon.SelectButton:SetAlpha(.8);
         icon.AmountText:SetColor(UI.GetColorValue(124/255,154/255,224/255,230/255));
         tooltipAddedText = ' [COLOR:GoldMetalDark](' .. Locale.Lookup("LOC_IDS_DEAL_DUPLICATE") .. ')[ENDCOLOR]';
-    elseif(resourceCategory == 'none' or resourceCategory == 'imported') then
+    elseif (resourceCategory == 'none' or resourceCategory == 'imported') then
         icon.SelectButton:SetTexture("");
         icon.AmountText:SetAlpha(.3);
         tooltipAddedText = ' [COLOR:GoldMetalDark](' .. Locale.Lookup("LOC_IDS_DEAL_UNTRADEABLE") .. ')[ENDCOLOR]';
@@ -446,7 +446,7 @@ function PopulateAvailableResources(player : table, iconList : table, className 
                 else
                     -- It's a tradeable resource
                     local tradeableType;
-                    if(entry.MaxAmount == 1) then
+                    if (entry.MaxAmount == 1) then
                         tradeableType = 'scarce';
                     else
                         tradeableType = 'default';
@@ -481,7 +481,7 @@ function PopulateAvailableResources(player : table, iconList : table, className 
         end
     end
 
-    if(playerImportedResources ~= nil) then
+    if (playerImportedResources ~= nil) then
         for y, entry in ipairs(playerImportedResources) do
             if (entry.ClassType == className) then
                 tradeableType = 'imported';
@@ -626,7 +626,7 @@ function PopulateAvailableGreatWorks(player : table, iconList : table)
                     slotTypeIcon = slotTypeIcon .. "_" .. greatWorkDesc.EraType;
                 end
                 local textureOffsetX:number, textureOffsetY:number, textureSheet:string = IconManager:FindIconAtlas(slotTypeIcon, CQUI_SIZE_SLOT_TYPE_ICON);
-                if(textureSheet == nil or textureSheet == "") then
+                if (textureSheet == nil or textureSheet == "") then
                     UI.DataError("Could not find slot type icon in PopulateAvailableGreatWorks: icon=\""..slotTypeIcon.."\", iconSize="..tostring(CQUI_SIZE_SLOT_TYPE_ICON));
                 else
                     icon.TypeIcon:SetTexture(textureOffsetX, textureOffsetY, textureSheet);

@@ -41,7 +41,7 @@ local m_timeUntilPopupCheck : number = 0;
 --CQUI Functions
 function CQUI_RequestUIAddin( request: string ) --Returns the first context to match the request string. Returns nil if a matching context can't be found
     for _,v in ipairs(g_uiAddins) do
-        if(v:GetID() == request) then
+        if (v:GetID() == request) then
             return v;
         end
     end
@@ -71,7 +71,7 @@ DefaultMessageHandler[KeyEvents.KeyUp] =
 
         local uiKey = pInputStruct:GetKey();
 
-        if( uiKey == Keys.VK_ESCAPE ) then
+        if ( uiKey == Keys.VK_ESCAPE ) then
             -- AZURENCY : if a unit or a city is selected, deselect and reset interface mode
             -- instead of showing the option menu immediatly
             if (UI.GetHeadSelectedCity() or UI.GetHeadSelectedUnit()) then
@@ -79,18 +79,18 @@ DefaultMessageHandler[KeyEvents.KeyUp] =
                 UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
                 return true;
             end
-            if( Controls.TopOptionsMenu:IsHidden() ) then
+            if ( Controls.TopOptionsMenu:IsHidden() ) then
                 OpenInGameOptionsMenu();
                 return true;
             end
             return false;  -- Already open, let it handle it.
-        elseif( uiKey == Keys.B and pInputStruct:IsShiftDown() and pInputStruct:IsAltDown() and (not UI.IsFinalRelease()) ) then
+        elseif ( uiKey == Keys.B and pInputStruct:IsShiftDown() and pInputStruct:IsAltDown() and (not UI.IsFinalRelease()) ) then
             -- DEBUG: Force unhiding
             local msg:string =    "***PLAYER Force Bulk unhiding SHIFT+ALT+B ***";
             UI.DataError(msg);
             m_bulkHideTracker = 1;
             BulkHide(false, msg);
-        elseif( uiKey == Keys.J and pInputStruct:IsShiftDown() and pInputStruct:IsAltDown() and (not UI.IsFinalRelease()) ) then
+        elseif ( uiKey == Keys.J and pInputStruct:IsShiftDown() and pInputStruct:IsAltDown() and (not UI.IsFinalRelease()) ) then
             if m_bulkHideTracker < 1 then
                 BulkHide(true,  "Forced" );
             else
@@ -106,7 +106,7 @@ DefaultMessageHandler[KeyEvents.KeyUp] =
 ----------------------------------------------------------------
 function OnLoadGameViewStateDone()
     -- show HUD elements that relay on the gamecache being fully initialized.
-    if(GameConfiguration.IsNetworkMultiplayer()) then
+    if (GameConfiguration.IsNetworkMultiplayer()) then
         Controls.MultiplayerTurnManager:SetHide(false);
     end
 end
@@ -186,7 +186,7 @@ end
 -- ===========================================================================
 function OnInputActionTriggered( actionId )
     if actionId == m_PauseId then
-        if(Controls.TopOptionsMenu:IsHidden()) then
+        if (Controls.TopOptionsMenu:IsHidden()) then
             OpenInGameOptionsMenu();
             return true;
         end

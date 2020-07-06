@@ -327,7 +327,7 @@ function GetDetails(data)
         end -- data.ResourceType and data.DistrictType are not nil
 
     -- DISTRICT TILE
-    elseif(data.DistrictID ~= -1 and data.DistrictType ~= nil) then
+    elseif (data.DistrictID ~= -1 and data.DistrictType ~= nil) then
         if (not GameInfo.Districts[data.DistrictType].InternalOnly) then  --Ignore 'Wonder' districts
             -- Plot yields (ie. from Specialists)
             if (data.Yields ~= nil) then

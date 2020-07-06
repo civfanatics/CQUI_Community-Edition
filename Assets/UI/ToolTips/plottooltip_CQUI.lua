@@ -15,7 +15,7 @@ function GetDetails(data)
     local details = {};
 
     --Civilization and city ownership line
-    if(data.Owner ~= nil) then
+    if (data.Owner ~= nil) then
 
         local szOwnerString;
 
@@ -29,7 +29,7 @@ function GetDetails(data)
         end
 
         local pPlayer = Players[data.Owner];
-        if(GameConfiguration:IsAnyMultiplayer() and pPlayer:IsHuman()) then
+        if (GameConfiguration:IsAnyMultiplayer() and pPlayer:IsHuman()) then
             szOwnerString = szOwnerString .. " (" .. Locale.Lookup(pPlayerConfig:GetPlayerName()) .. ")";
         end
 
@@ -49,7 +49,7 @@ function GetDetails(data)
         szTerrainString = Locale.Lookup(data.TerrainTypeName);
     end
 
-    if(data.FeatureType ~= nil) then
+    if (data.FeatureType ~= nil) then
         local szFeatureString = Locale.Lookup(GameInfo.Features[data.FeatureType].Name);
         local localPlayer = Players[Game.GetLocalPlayer()];
         local addCivicName = GameInfo.Features[data.FeatureType].AddCivic;
@@ -75,11 +75,11 @@ function GetDetails(data)
     table.insert(details, szTerrainString);
 
 
-    if(data.NationalPark ~= "") then
+    if (data.NationalPark ~= "") then
         table.insert(details, data.NationalPark);
     end
 
-    if(data.ResourceType ~= nil) then
+    if (data.ResourceType ~= nil) then
         --if it's a resource that requires a tech to improve, let the player know that in the tooltip
         local resourceType = data.ResourceType;
         local resource = GameInfo.Resources[resourceType];
@@ -116,9 +116,9 @@ function GetDetails(data)
                 local improvementType = row.ImprovementType;
                 local has_feature = false;
                 for inner_row in GameInfo.Improvement_ValidFeatures() do
-                    if(inner_row.ImprovementType == improvementType) then
+                    if (inner_row.ImprovementType == improvementType) then
                         has_feature = true;
-                        if(inner_row.FeatureType == featureType) then
+                        if (inner_row.FeatureType == featureType) then
                             valid_feature = true;
                         end
                     end
@@ -127,16 +127,16 @@ function GetDetails(data)
 
                 local has_terrain = false;
                 for inner_row in GameInfo.Improvement_ValidTerrains() do
-                    if(inner_row.ImprovementType == improvementType) then
+                    if (inner_row.ImprovementType == improvementType) then
                         has_terrain = true;
-                        if(inner_row.TerrainType == terrainType) then
+                        if (inner_row.TerrainType == terrainType) then
                             valid_terrain = true;
                         end
                     end
                 end
                 valid_terrain = not has_terrain or valid_terrain;
                 
-                if( GameInfo.Terrains[terrainType].TerrainType  == "TERRAIN_COAST") then
+                if ( GameInfo.Terrains[terrainType].TerrainType  == "TERRAIN_COAST") then
                     if ("DOMAIN_SEA" == GameInfo.Improvements[improvementType].Domain) then
                         valid_terrain = true;
                     elseif ("DOMAIN_LAND" == GameInfo.Improvements[improvementType].Domain) then
@@ -150,7 +150,7 @@ function GetDetails(data)
                     end
                 end
 
-                if(valid_feature == true and valid_terrain == true) then
+                if (valid_feature == true and valid_terrain == true) then
                     resourceTechType = GameInfo.Improvements[improvementType].PrereqTech;
                     break;
                 end
@@ -159,7 +159,7 @@ function GetDetails(data)
         local localPlayer = Players[Game.GetLocalPlayer()];
         if (localPlayer ~= nil) then
             local playerResources = localPlayer:GetResources();
-            if(playerResources:IsResourceVisible(resourceHash)) then
+            if (playerResources:IsResourceVisible(resourceHash)) then
                 if (resourceTechType ~= nil and valid_feature == true and valid_terrain == true) then
                     local playerTechs  = localPlayer:GetTechs();
                     local techType = GameInfo.Technologies[resourceTechType];
@@ -187,7 +187,7 @@ function GetDetails(data)
     if (data.IsRoute) then
         local routeInfo = GameInfo.Routes[data.RouteType];
         if (routeInfo ~= nil and routeInfo.MovementCost ~= nil and routeInfo.Name ~= nil) then
-            if(data.RoutePillaged) then
+            if (data.RoutePillaged) then
                 szMoveString = Locale.Lookup("LOC_TOOLTIP_ROUTE_MOVEMENT_PILLAGED", routeInfo.MovementCost, routeInfo.Name);
             else
                 szMoveString = Locale.Lookup("LOC_TOOLTIP_ROUTE_MOVEMENT", routeInfo.MovementCost, routeInfo.Name);
@@ -223,7 +223,7 @@ function GetDetails(data)
                 break;
             end
         end
-        if(strAppealDescriptor) then
+        if (strAppealDescriptor) then
             table.insert(details, Locale.Lookup("LOC_TOOLTIP_APPEAL", strAppealDescriptor, data.Appeal));
         end
     end
@@ -236,7 +236,7 @@ function GetDetails(data)
     -- Conditional display based on tile type
 
     -- WONDER TILE
-    if(data.WonderType ~= nil) then
+    if (data.WonderType ~= nil) then
 
         table.insert(details, "------------------");
 
@@ -253,7 +253,7 @@ function GetDetails(data)
     local CQUIYields = {};
 
     -- CITY TILE
-    if(data.IsCity == true and data.DistrictType ~= nil) then
+    if (data.IsCity == true and data.DistrictType ~= nil) then
 
         table.insert(details, "------------------");
 
@@ -269,7 +269,7 @@ function GetDetails(data)
         for i, v in ipairs(CQUIYields) do
             table.insert(details,v);
         end
-        --if(data.Buildings ~= nil and table.count(data.Buildings) > 0) then
+        --if (data.Buildings ~= nil and table.count(data.Buildings) > 0) then
         --  table.insert(details, "Buildings: ");
 
         --  for i, v in ipairs(data.Buildings) do
@@ -277,7 +277,7 @@ function GetDetails(data)
         --  end
         --end
 
-        --if(data.Constructions ~= nil and table.count(data.Constructions) > 0) then
+        --if (data.Constructions ~= nil and table.count(data.Constructions) > 0) then
         --  table.insert(details, "UnderConstruction: ");
         --
         --  for i, v in ipairs(data.Constructions) do
@@ -286,7 +286,7 @@ function GetDetails(data)
         --end
 
     -- DISTRICT TILE
-    elseif(data.DistrictID ~= -1 and data.DistrictType ~= nil) then
+    elseif (data.DistrictID ~= -1 and data.DistrictType ~= nil) then
         if (not GameInfo.Districts[data.DistrictType].InternalOnly) then  --Ignore 'Wonder' districts
             -- Plot yields (ie. from Specialists)
             if (data.Yields ~= nil) then
@@ -322,13 +322,13 @@ function GetDetails(data)
         end
 
     -- IMPASSABLE TILE
-    elseif(data.Impassable == true) then
+    elseif (data.Impassable == true) then
         table.insert(details, Locale.Lookup("LOC_TOOLTIP_PLOT_IMPASSABLE_TEXT"));
 
     -- OTHER TILE
     else
         table.insert(details, "------------------");
-        if(data.ImprovementType ~= nil) then
+        if (data.ImprovementType ~= nil) then
             local improvementStr = Locale.Lookup(GameInfo.Improvements[data.ImprovementType].Name);
             if (data.ImprovementPillaged) then
                 improvementStr = improvementStr .. " " .. Locale.Lookup("LOC_TOOLTIP_PLOT_PILLAGED_TEXT");
@@ -353,8 +353,8 @@ function GetDetails(data)
     end
 
     -- NATURAL WONDER TILE
-    if(data.FeatureType ~= nil) then
-        if(feature.NaturalWonder) then
+    if (data.FeatureType ~= nil) then
+        if (feature.NaturalWonder) then
             table.insert(details, "------------------");
             table.insert(details, Locale.Lookup(feature.Description));
         end
@@ -363,7 +363,7 @@ function GetDetails(data)
     -- For districts, city center show all building info including Great Works
     -- For wonders, just show Great Work info
     if (data.IsCity or data.WonderType ~= nil or data.DistrictID ~= -1) then
-        if(data.BuildingNames ~= nil and table.count(data.BuildingNames) > 0) then
+        if (data.BuildingNames ~= nil and table.count(data.BuildingNames) > 0) then
             local cityBuildings = data.OwnerCity:GetBuildings();
             if (data.WonderType == nil) then
                 table.insert(details, Locale.Lookup("LOC_TOOLTIP_PLOT_BUILDINGS_TEXT"));

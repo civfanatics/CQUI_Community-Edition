@@ -28,7 +28,7 @@ function TruncateString(control, resultSize, longStr, trailingText)
     -- TODO if trailingText is ever used, add a way to do it to TextControl
     UI.AssertMsg(trailingText == nil or trailingText == "", "trailingText is not supported");
     
-    if(longStr == nil) then
+    if (longStr == nil) then
         longStr = control:GetText();
     end
 
@@ -114,14 +114,14 @@ end
 function CQUI_SmartWrap( textString, wrapWidth )
     local lines = {""}; --Table that holds each individual line as it's build
     function append(w) --Appends a new word to the end of the currently processed line along with proper spacing
-        if(lines[#lines] ~= "") then
+        if (lines[#lines] ~= "") then
             w = lines[#lines] .. " " .. w;
         end
         return w;
     end
 
     for i, word in ipairs(Split(textString, " ")) do --Takes each word and builds it into lines that respect the wrapWidth param, except for long individual words
-        if(i ~= 1 and string.len(append(word)) > wrapWidth) then
+        if (i ~= 1 and string.len(append(word)) > wrapWidth) then
             lines[#lines] = lines[#lines] .. "[NEWLINE]";
             lines[#lines + 1] = "";
         end
@@ -214,7 +214,7 @@ function bitNot( value:number )
     local kBits:table = numberToBitsTable(value);
     local size:number = math.max(table.getn(kBits), 32)
     for i = 1, size do
-        if(kBits[i] == 1) then
+        if (kBits[i] == 1) then
             kBits[i] = 0
         else
             kBits[i] = 1
@@ -320,7 +320,7 @@ function RemoveTableEntry( T:table, key:string, theValue )
             break;
         end
     end
-    if(pos ~= nil) then
+    if (pos ~= nil) then
         table.remove(T, pos);
         return true;
     end
@@ -435,7 +435,7 @@ end
 --  Rounds the passed in parameter with no decimal places.
 -- ===========================================================================
 function SoftRound(x)
-    if(x >= 0) then
+    if (x >= 0) then
         return math.floor(x+0.5);
     else
         return math.ceil(x-0.5);

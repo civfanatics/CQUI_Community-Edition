@@ -217,7 +217,7 @@ function AddAvailableResearch( playerID:number, kData:table )
     if kData.ResearchQueuePosition ~= -1 then
         kItemInstance.QueueBadge:SetHide(false);
         kItemInstance.NodeNumber:SetHide(false);
-        if(kData.ResearchQueuePosition < 10) then
+        if (kData.ResearchQueuePosition < 10) then
             kItemInstance.NodeNumber:SetOffsetX(-2);
         else
             kItemInstance.NodeNumber:SetOffsetX(-5);
@@ -282,7 +282,7 @@ function RealizeSize()
     Controls.ChooseResearchList:SetSizeY(screenY - Controls.ChooseResearchList:GetOffsetY() - 30);
     Controls.ChooseResearchList:CalculateInternalSize();
     
-    if(Controls.ChooseResearchList:GetScrollBar():IsHidden()) then
+    if (Controls.ChooseResearchList:GetScrollBar():IsHidden()) then
         Controls.ChooseResearchList:SetOffsetX(10);
     else
         Controls.ChooseResearchList:SetOffsetX(20);
@@ -292,7 +292,7 @@ end
 -- ===========================================================================
 function OnOpenPanel()
     --CQUI: ignores command and opens the tech tree instead if AlwaysShowTechTrees is true
-    if(CQUI_AlwaysOpenTechTrees) then
+    if (CQUI_AlwaysOpenTechTrees) then
         LuaEvents.ResearchChooser_RaiseTechTree();
     else
         Refresh();
@@ -510,7 +510,7 @@ function Initialize()
     Controls.IconButton:RegisterCallback(  Mouse.eLClick,     OnClosePanel);
     Controls.IconButton:RegisterCallback(  Mouse.eMouseEnter, function() UI.PlaySound("Main_Menu_Mouse_Over"); end);
 
-    if(HasCapability("CAPABILITY_TECH_TREE")) then
+    if (HasCapability("CAPABILITY_TECH_TREE")) then
         Controls.OpenTreeButton:SetHide(false);
         Controls.OpenTreeButton:RegisterCallback(Mouse.eLClick, function() LuaEvents.ResearchChooser_RaiseTechTree(); OnClosePanel(); end);
         Controls.OpenTreeButton:RegisterCallback( Mouse.eMouseEnter, function() UI.PlaySound("Main_Menu_Mouse_Over"); end);

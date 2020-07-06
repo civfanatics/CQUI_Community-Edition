@@ -15,8 +15,8 @@ function RelationshipGet(nPlayerID :number)
         local nScore :number = tTooltip.Score;
         local sText :string = tTooltip.Text;
 
-        if(nScore ~= 0) then
-            if(nScore > 0) then
+        if (nScore ~= 0) then
+            if (nScore > 0) then
                 sTextColor = "[COLOR_Civ6Green]";
             else
                 sTextColor = "[COLOR_Civ6Red]";
@@ -35,7 +35,7 @@ function RelationshipGet(nPlayerID :number)
 
     local sRelationshipSum :string = "";
     local sRelationship :string = "";
-    if(nRelationshipSum >= 0) then
+    if (nRelationshipSum >= 0) then
         sRelationshipSum = "[COLOR_Civ6Green]";
     else
         sRelationshipSum = "[COLOR_Civ6Red]";

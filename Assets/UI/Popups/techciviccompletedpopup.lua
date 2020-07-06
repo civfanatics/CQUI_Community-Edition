@@ -102,7 +102,7 @@ function ShowCivicCompletedPopup( player:number, civic:number, quote:string, aud
     -- Determine if we've unlocked a new government type
     for _,unlockItem in ipairs(unlockableTypes) do
         local typeInfo = GameInfo.Types[unlockItem[1]];
-        if(typeInfo and typeInfo.Kind == "KIND_GOVERNMENT") then
+        if (typeInfo and typeInfo.Kind == "KIND_GOVERNMENT") then
             isCivicUnlockGovernmentType = true;
         end
     end
@@ -296,7 +296,7 @@ function RealizeNextPopup()
 
     UI.PlaySound("Pause_Advisor_Speech");
     UI.PlaySound("Resume_TechCivic_Speech");
-    if(m_kCurrentData and m_kCurrentData.audio and CQUI_TechPopupAudio) then
+    if (m_kCurrentData and m_kCurrentData.audio and CQUI_TechPopupAudio) then
             UI.PlaySound( m_kCurrentData.audio );
     end
 

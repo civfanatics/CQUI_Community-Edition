@@ -174,10 +174,10 @@ LuaEvents.CQUI_Strike_Enter.Add (function() CQUI_usingStrikeButton = true; end)
 LuaEvents.CQUI_Strike_Exit.Add (function() CQUI_usingStrikeButton = false; end)
 
 function CQUI_OnInterfaceModeChanged( eOldMode:number, eNewMode:number )
-    if(eNewMode == InterfaceModeTypes.CITY_RANGE_ATTACK or eNewMode == InterfaceModeTypes.DISTRICT_RANGE_ATTACK or CQUI_usingStrikeButton) then
+    if (eNewMode == InterfaceModeTypes.CITY_RANGE_ATTACK or eNewMode == InterfaceModeTypes.DISTRICT_RANGE_ATTACK or CQUI_usingStrikeButton) then
         LuaEvents.CQUI_CityviewHide(); -- AZURENCY : always hide the cityview if new mode is CITY_RANGE_ATTACK
-    elseif(eOldMode == InterfaceModeTypes.CITY_MANAGEMENT or eOldMode == InterfaceModeTypes.DISTRICT_PLACEMENT or eOldMode == InterfaceModeTypes.BUILDING_PLACEMENT) then
-        if(eNewMode == InterfaceModeTypes.DISTRICT_PLACEMENT or eNewMode == InterfaceModeTypes.BUILDING_PLACEMENT) then
+    elseif (eOldMode == InterfaceModeTypes.CITY_MANAGEMENT or eOldMode == InterfaceModeTypes.DISTRICT_PLACEMENT or eOldMode == InterfaceModeTypes.BUILDING_PLACEMENT) then
+        if (eNewMode == InterfaceModeTypes.DISTRICT_PLACEMENT or eNewMode == InterfaceModeTypes.BUILDING_PLACEMENT) then
             CQUI_WonderModeEnabled();
             HideGrowthTile();
 
@@ -189,7 +189,7 @@ function CQUI_OnInterfaceModeChanged( eOldMode:number, eNewMode:number )
             end
 
             local newGrowthPlot:number = g_pCity:GetCulture():GetNextPlot();  --show the growth tile if the district or wonder can be placed there
-            if(newGrowthPlot ~= -1) then
+            if (newGrowthPlot ~= -1) then
                 if (eNewMode == InterfaceModeTypes.DISTRICT_PLACEMENT) then
                     local districtHash:number = UI.GetInterfaceModeParameter(CityOperationTypes.PARAM_DISTRICT_TYPE);
                     local district:table      = GameInfo.Districts[districtHash];
@@ -206,8 +206,8 @@ function CQUI_OnInterfaceModeChanged( eOldMode:number, eNewMode:number )
                     end
                 end
             end
-        elseif(eNewMode ~= InterfaceModeTypes.CITY_MANAGEMENT) then
-            if(CQUI_wonderMode) then
+        elseif (eNewMode ~= InterfaceModeTypes.CITY_MANAGEMENT) then
+            if (CQUI_wonderMode) then
                 LuaEvents.CQUI_CityviewEnable();
             else
                 LuaEvents.CQUI_CityviewDisable();
@@ -215,8 +215,8 @@ function CQUI_OnInterfaceModeChanged( eOldMode:number, eNewMode:number )
         else
             LuaEvents.CQUI_CityviewEnable();
         end
-    elseif(eOldMode == InterfaceModeTypes.CITY_RANGE_ATTACK) then
-        if(eNewMode == InterfaceModeTypes.CITY_MANAGEMENT) then
+    elseif (eOldMode == InterfaceModeTypes.CITY_RANGE_ATTACK) then
+        if (eNewMode == InterfaceModeTypes.CITY_MANAGEMENT) then
             LuaEvents.CQUI_CityviewEnable(); -- AZURENCY : always show the cityview if new mode is CITY_MANAGEMENT
         else
             UI.DeselectAllCities()
@@ -316,11 +316,11 @@ function CQUI_ToggleGrowthTile()
 end
 function CQUI_SettingsUpdate()
     CQUI_growthTile = GameConfiguration.GetValue("CQUI_ShowCultureGrowth");
-    if(g_growthPlotId ~= -1 and not CQUI_growthTile) then
+    if (g_growthPlotId ~= -1 and not CQUI_growthTile) then
         UILens.ClearHex(m_PurchasePlot, g_growthPlotId);
         g_growthPlotId = -1;
     end
-    if(UI.GetInterfaceMode() == InterfaceModeTypes.CITY_MANAGEMENT) then
+    if (UI.GetInterfaceMode() == InterfaceModeTypes.CITY_MANAGEMENT) then
         DisplayGrowthTile();
     end
 end
@@ -344,7 +344,7 @@ end
 function RealizeYield3WayCheck( yieldData:number, yieldType, yieldToolTip )
 
     local yieldInfo = GameInfo.Yields[yieldType];
-    if(yieldInfo) then
+    if (yieldInfo) then
 
         local controlLookup = {
             YIELD_FOOD = "Food",
@@ -356,13 +356,13 @@ function RealizeYield3WayCheck( yieldData:number, yieldType, yieldToolTip )
         };
 
         local yieldName = controlLookup[yieldInfo.YieldType];
-        if(yieldName) then
+        if (yieldName) then
 
             local checkControl = Controls[yieldName.."Check"];
             local ignoreControl = Controls[yieldName.."Ignore"];
             local gridControl = Controls[yieldName.."Grid"];
 
-            if(checkControl and ignoreControl and gridControl) then
+            if (checkControl and ignoreControl and gridControl) then
 
                 local toolTip = "";
 
@@ -386,7 +386,7 @@ function RealizeYield3WayCheck( yieldData:number, yieldType, yieldToolTip )
                     toolTip = Locale.Lookup("LOC_HUD_CITY_YIELD_CITIZENS", yieldInfo.Name) .. "[NEWLINE][NEWLINE]";
                 end
 
-                if(#yieldToolTip > 0) then
+                if (#yieldToolTip > 0) then
                     toolTip = toolTip .. yieldToolTip;
                 else
                     toolTip = toolTip .. Locale.Lookup("LOC_HUD_CITY_YIELD_NOTHING");
@@ -422,7 +422,7 @@ end
 function ViewMain( data:table )
     m_primaryColor, m_secondaryColor  = UI.GetPlayerColors( m_pPlayer:GetID() );
 
-    if(m_primaryColor == nil or m_secondaryColor == nil or m_primaryColor == 0 or m_secondaryColor == 0) then
+    if (m_primaryColor == nil or m_secondaryColor == nil or m_primaryColor == 0 or m_secondaryColor == 0) then
         UI.DataError("Couldn't find player colors for player - " .. (m_pPlayer and tostring(m_pPlayer:GetID()) or "nil"));
     end
     
@@ -449,7 +449,7 @@ function ViewMain( data:table )
 
     -- Damage meters ---
     RealizeHealthMeter( Controls.CityHealthMeter, data.HitpointPercent );
-    if(data.CityWallTotalHP > 0) then
+    if (data.CityWallTotalHP > 0) then
         Controls.CityWallHealthMeters:SetHide(false);
         --RealizeHealthMeter( Controls.WallHealthMeter, data.CityWallHPPercent );
         local percent     = (data.CityWallHPPercent * 0.5) + 0.5;
@@ -573,7 +573,7 @@ function ViewMain( data:table )
                 table.insert(tableChanges["Neg"], {Amenities = Locale.ToNumber(data["AmenitiesLostFrom"..dataID]), AmenityType = textValue});
             end
         else
-            if( data["AmenitiesFrom"..dataID] > 0) then
+            if ( data["AmenitiesFrom"..dataID] > 0) then
                 table.insert(tableChanges["Pos"], {Amenities = Locale.ToNumber(data["AmenitiesFrom"..dataID]), AmenityType = textValue});
             end
         end
@@ -620,24 +620,24 @@ function ViewMain( data:table )
     end
     -- Production info
     local buildQueue  = selectedCity:GetBuildQueue();
-    local currentProductionHash   = buildQueue:GetCurrentProductionTypeHash();
+    local currentProductionHash = buildQueue:GetCurrentProductionTypeHash();
     local productionHash = 0;
 
-    if( currentProductionHash == 0 ) then
+    if ( currentProductionHash == 0 ) then
         productionHash = buildQueue:GetPreviousProductionTypeHash();
     else
         productionHash = currentProductionHash;
     end
-    local currentProductionInfo       :table = GetProductionInfoOfCity( data.City, productionHash );
+    local currentProductionInfo :table = GetProductionInfoOfCity( data.City, productionHash );
 
 
   -- Set icons and values for the yield checkboxes
   Controls.CultureCheck:GetTextButton():SetText(    "[ICON_Culture]"  ..toPlusMinusString(data.CulturePerTurn) );
-  Controls.FoodCheck:GetTextButton():SetText(     "[ICON_Food]"   ..toPlusMinusString(totalFood) );
+  Controls.FoodCheck:GetTextButton():SetText(       "[ICON_Food]"   ..toPlusMinusString(totalFood) );
   Controls.ProductionCheck:GetTextButton():SetText( "[ICON_Production]" ..toPlusMinusString(data.ProductionPerTurn) );
   Controls.ScienceCheck:GetTextButton():SetText(    "[ICON_Science]"  ..toPlusMinusString(data.SciencePerTurn) );
-  Controls.FaithCheck:GetTextButton():SetText(    "[ICON_Faith]"    ..toPlusMinusString(data.FaithPerTurn) );
-  Controls.GoldCheck:GetTextButton():SetText(     "[ICON_Gold]"   ..toPlusMinusString(data.GoldPerTurn) );
+  Controls.FaithCheck:GetTextButton():SetText(      "[ICON_Faith]"    ..toPlusMinusString(data.FaithPerTurn) );
+  Controls.GoldCheck:GetTextButton():SetText(       "[ICON_Gold]"   ..toPlusMinusString(data.GoldPerTurn) );
 
   -- Set the Yield checkboxes based on the game state
   RealizeYield3WayCheck( data.YieldFilters[YieldTypes.CULTURE], YieldTypes.CULTURE, data.CulturePerTurnToolTip);
@@ -783,7 +783,7 @@ function ViewMain( data:table )
 
     Controls.ProductionDescriptionString:SetText( data.CurrentProductionDescription );
     --Controls.ProductionDescription:SetText( "There was a young lady from Venus, who's body was shaped like a, THAT'S ENOUGH DATA." );
-    if( data.CurrentProductionStats ~= "") then
+    if ( data.CurrentProductionStats ~= "") then
         Controls.ProductionStatString:SetText( data.CurrentProductionStats );
     end
     Controls.ProductionDataStack:CalculateSize();
@@ -1072,7 +1072,7 @@ end
 
 function OnCityNameChanged( playerID:number, cityID:number )
     local city = UI.GetHeadSelectedCity();
-    if(city and city:GetOwner() == playerID and city:GetID() == cityID) then
+    if (city and city:GetOwner() == playerID and city:GetID() == cityID) then
         local name = city:IsCapital() and "[ICON_Capital]" or "";
         name = name .. Locale.ToUpper(Locale.Lookup(city:GetName()));
         Controls.CityName:SetText(name);
@@ -1443,7 +1443,7 @@ function DisplayGrowthTile()
         local cityCulture:table = g_pCity:GetCulture();
         if cityCulture ~= nil then
             local newGrowthPlot:number = cityCulture:GetNextPlot();
-            if(newGrowthPlot ~= -1 and newGrowthPlot ~= g_growthPlotId and CQUI_growthTile) then
+            if (newGrowthPlot ~= -1 and newGrowthPlot ~= g_growthPlotId and CQUI_growthTile) then
                 g_growthPlotId = newGrowthPlot;
 
                 local cost:number = cityCulture:GetNextPlotCultureCost();

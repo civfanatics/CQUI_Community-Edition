@@ -120,7 +120,7 @@ function OnLeaderMouseOver(playerID : number )
                     end
                 end
             end
-            if(playerID == otherPlayerID) then
+            if (playerID == otherPlayerID) then
                 instance.YouIndicator:SetHide(false);
             else
                 instance.YouIndicator:SetHide(true);
@@ -147,9 +147,9 @@ function AddLeader(iconName : string, playerID : number, kProps: table)
     local pPlayerConfig:table = PlayerConfigurations[playerID];
     local isHuman:boolean = pPlayerConfig:IsHuman();
 
-    if(pPlayerConfig ~= nil) then
+    if (pPlayerConfig ~= nil) then
         local leaderTypeName:string = pPlayerConfig:GetLeaderTypeName();
-        if(leaderTypeName ~= nil) then
+        if (leaderTypeName ~= nil) then
             -- Append GetExtendedTooltip string to the end of the tooltip created by LeaderIcon
             if (not GameConfiguration.IsAnyMultiplayer() or not isHuman) then
                 local civData:string = GetExtendedTooltip(playerID);

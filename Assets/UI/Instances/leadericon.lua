@@ -136,7 +136,7 @@ function LeaderIcon:UpdateTeamAndRelationship( playerID: number)
 
     -- Team Ribbon
     local isTeamRibbonHidden:boolean = true;
-    if(isSelf or isMet) then
+    if (isSelf or isMet) then
         -- Show team ribbon for ourselves and civs we've met
         local teamID:number = pPlayerConfig:GetTeam();
         if #Teams[teamID] > 1 then
@@ -191,13 +191,13 @@ function LeaderIcon:GetToolTipString(playerID:number)
         local civDesc:string = pPlayerConfig:GetCivilizationDescription();
 
         if GameConfiguration.IsAnyMultiplayer() and isHuman then
-            if(playerID ~= localPlayerID and not Players[localPlayerID]:GetDiplomacy():HasMet(playerID)) then
+            if (playerID ~= localPlayerID and not Players[localPlayerID]:GetDiplomacy():HasMet(playerID)) then
                 result = Locale.Lookup("LOC_DIPLOPANEL_UNMET_PLAYER") .. " (" .. pPlayerConfig:GetPlayerName() .. ")";
             else
                 result = Locale.Lookup("LOC_DIPLOMACY_DEAL_PLAYER_PANEL_TITLE", leaderDesc, civDesc) .. " (" .. pPlayerConfig:GetPlayerName() .. ")";
             end
         else
-            if(playerID ~= localPlayerID and not Players[localPlayerID]:GetDiplomacy():HasMet(playerID)) then
+            if (playerID ~= localPlayerID and not Players[localPlayerID]:GetDiplomacy():HasMet(playerID)) then
                 result = Locale.Lookup("LOC_DIPLOPANEL_UNMET_PLAYER");
             else
                 result = Locale.Lookup("LOC_DIPLOMACY_DEAL_PLAYER_PANEL_TITLE", leaderDesc, civDesc);

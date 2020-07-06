@@ -551,10 +551,10 @@ function RealizeMovementPath(showQueuedPath:boolean, unitID:number)
             -- is there an enemy unit at the end?
             local bIsEnemyAtEnd:boolean = false;
             local endPlot :table  = Map.GetPlotByIndex(endPlotId);
-            if( endPlot ~= nil ) then
+            if ( endPlot ~= nil ) then
                 local unitList  = Units.GetUnitsInPlotLayerID( endPlot:GetX(), endPlot:GetY(), MapLayers.ANY );
                 for i, pUnit in ipairs(unitList) do
-                    if( eLocalPlayer ~= pUnit:GetOwner() and pPlayerVis ~= nil and pPlayerVis:IsVisible(endPlot:GetX(), endPlot:GetY()) and pPlayerVis:IsUnitVisible(pUnit) ) then
+                    if ( eLocalPlayer ~= pUnit:GetOwner() and pPlayerVis ~= nil and pPlayerVis:IsVisible(endPlot:GetX(), endPlot:GetY()) and pPlayerVis:IsUnitVisible(pUnit) ) then
                         bIsEnemyAtEnd = true;
                     end
                 end
@@ -714,7 +714,7 @@ end
 -- ===========================================================================
 function OnCycleUnitSelectionRequest()
     print_debug("** Function Entry: OnCycleUnitSelectionRequest (CQUI Hook)");
-    if(UI.GetInterfaceMode() ~= InterfaceModeTypes.CINEMATIC or m_isMouseButtonRDown) then
+    if (UI.GetInterfaceMode() ~= InterfaceModeTypes.CINEMATIC or m_isMouseButtonRDown) then
         -- AZURENCY : OnCycleUnitSelectionRequest is called by UI.SetCycleAdvanceTimer()
         -- in SelectedUnit.lua causing a conflict with the auto-cyling of unit
         -- (not the same given by UI.SelectNextReadyUnit() and player:GetUnits():GetFirstReadyUnit())

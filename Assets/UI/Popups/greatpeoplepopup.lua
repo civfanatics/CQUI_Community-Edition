@@ -226,7 +226,7 @@ function ViewCurrent( data:table )
             local actionIcon:string = classData.ActionIcon;
             if actionIcon ~= nil and actionIcon ~= "" then
                 local textureOffsetX:number, textureOffsetY:number, textureSheet:string = IconManager:FindIconAtlas(actionIcon, SIZE_ACTION_ICON);
-                if(textureSheet == nil or textureSheet == "") then
+                if (textureSheet == nil or textureSheet == "") then
                     UI.DataError("Could not find icon in ViewCurrent: icon=\""..actionIcon.."\", iconSize="..tostring(SIZE_ACTION_ICON) );
                 else
                     effectInst.ActiveAbilityIcon:SetTexture(textureOffsetX, textureOffsetY, textureSheet);
@@ -316,7 +316,7 @@ function ViewCurrent( data:table )
             end
             table.sort(recruitTable,
                 function (a,b) 
-                    if(a.PointsTotal == b.PointsTotal) then
+                    if (a.PointsTotal == b.PointsTotal) then
                         return a.PlayerID < b.PlayerID;
                     else
                         return a.PointsTotal > b.PointsTotal;
@@ -443,7 +443,7 @@ function FillRecruitInstance(instance:table, playerPoints:table, personData:tabl
     -- CQUI Points Per Turn and Turns Left -- Add the turn icon into the text
     -- recruitTurnsLeft gets +0.5 so that's rounded up
     local recruitTurnsLeft = Round((personData.RecruitCost-playerPoints.PointsTotal)/playerPoints.PointsPerTurn + 0.5,0);
-    if(recruitTurnsLeft == math.huge) then recruitTurnsLeft = "∞"; end
+    if (recruitTurnsLeft == math.huge) then recruitTurnsLeft = "∞"; end
     instance.Amount:SetText( "(+" .. tostring(Round(playerPoints.PointsPerTurn,1)) .. ") " .. tostring(recruitTurnsLeft) .. "[ICON_Turn]");
 
 
@@ -523,7 +523,7 @@ function ViewPast( data:table )
                 local iconName :string = "ICON_"..playerConfig:GetLeaderTypeName();
                 local localPlayer :table = Players[localPlayerID];
     
-                if(localPlayer ~= nil and localPlayerID == kPerson.ClaimantID) then 
+                if (localPlayer ~= nil and localPlayerID == kPerson.ClaimantID) then 
                     instance.RecruitedImage:SetIcon(iconName, 55);
                     instance.RecruitedImage:SetToolTipString( Locale.Lookup("LOC_GREAT_PEOPLE_RECRUITED_BY_YOU"));
                     instance.RecruitedImage:SetHide(false);
@@ -591,7 +591,7 @@ function ViewPast( data:table )
             local actionIcon:string = classData.ActionIcon;
             if actionIcon ~= nil and actionIcon ~= "" then
                 local textureOffsetX:number, textureOffsetY:number, textureSheet:string = IconManager:FindIconAtlas(actionIcon, SIZE_ACTION_ICON);
-                if(textureSheet == nil or textureSheet == "") then
+                if (textureSheet == nil or textureSheet == "") then
                     error("Could not find icon in ViewCurrent: icon=\""..actionIcon.."\", iconSize="..tostring(SIZE_ACTION_ICON) );
                 else
                     effectInst.ActiveAbilityIcon:SetTexture(textureOffsetX, textureOffsetY, textureSheet);

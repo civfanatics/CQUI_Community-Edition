@@ -53,7 +53,7 @@ local m_isTrackerAlwaysCollapsed :boolean = false;  -- Once the launch bar exten
 local m_needsRefresh             :boolean = false;
 
 function RealizeEmptyMessage()
-    if(m_hideChat and m_hideCivics and m_hideResearch) then
+    if (m_hideChat and m_hideCivics and m_hideResearch) then
         -- Controls.EmptyPanel:SetHide(false);
     else
         -- Controls.EmptyPanel:SetHide(true);
@@ -83,7 +83,7 @@ function ToggleAll(hideAll:boolean)
 
     m_hideAll = hideAll;
 
-    if(not hideAll) then
+    if (not hideAll) then
         Controls.PanelStack:SetHide(false);
         UI.PlaySound("Tech_Tray_Slide_Open");
     end
@@ -98,9 +98,9 @@ function ToggleAll(hideAll:boolean)
         Controls.TrackerHeadingCollapsed:SetHide(false);
     end
 
-    if( hideAll ) then
+    if ( hideAll ) then
         UI.PlaySound("Tech_Tray_Slide_Closed");
-        if( m_dropdownExpanded ) then
+        if ( m_dropdownExpanded ) then
             Controls.DropdownAnim:SetToBeginning();
             m_dropdownExpanded = false;
         end
@@ -111,7 +111,7 @@ function ToggleAll(hideAll:boolean)
     CheckUnreadChatMessageCount();
 
     -- CQUI --
-    if(not hideAll) then
+    if (not hideAll) then
         LuaEvents.WorldTracker_ToggleResearchPanel(m_hideResearch);
         LuaEvents.WorldTracker_ToggleCivicPanel(m_hideCivics);
     else
@@ -122,7 +122,7 @@ function ToggleAll(hideAll:boolean)
 end
 
 function OnWorldTrackerAnimationFinished()
-    if(m_hideAll) then
+    if (m_hideAll) then
         Controls.PanelStack:SetHide(true);
     end
 end
@@ -134,7 +134,7 @@ end
 function OnLaunchBarResized( buttonStackSize: number)
     Controls.TrackerHeading:SetSizeX(buttonStackSize + LAUNCH_BAR_PADDING);
     Controls.TrackerHeadingCollapsed:SetSizeX(buttonStackSize + LAUNCH_BAR_PADDING);
-    if( buttonStackSize > WORLD_TRACKER_PANEL_WIDTH - LAUNCH_BAR_PADDING) then
+    if ( buttonStackSize > WORLD_TRACKER_PANEL_WIDTH - LAUNCH_BAR_PADDING) then
         m_isTrackerAlwaysCollapsed = true;
         Controls.TrackerHeading:SetHide(true);
         Controls.TrackerHeadingCollapsed:SetHide(false);
@@ -150,7 +150,7 @@ end
 function RealizeStack()
     Controls.PanelStack:CalculateSize();
     Controls.PanelStack:ReprocessAnchoring();
-    if(m_hideAll) then ToggleAll(true); end
+    if (m_hideAll) then ToggleAll(true); end
 end
 
 -- ===========================================================================
@@ -272,7 +272,7 @@ end
 -- ===========================================================================
 function CheckUnreadChatMessageCount()
     -- Unhiding the chat panel resets the unread chat message count.
-    if(not hideAll and not m_hideChat) then
+    if (not hideAll and not m_hideChat) then
         m_unreadChatMsgs = 0;
         UpdateUnreadChatMsgs();
         LuaEvents.WorldTracker_OnChatShown();
@@ -281,9 +281,9 @@ end
 
 -- ===========================================================================
 function UpdateUnreadChatMsgs()
-    if(GameConfiguration.IsPlayByCloud()) then
+    if (GameConfiguration.IsPlayByCloud()) then
         Controls.ChatCheck:GetTextButton():SetText(Locale.Lookup("LOC_PLAY_BY_CLOUD_PANEL"));
-    elseif(m_unreadChatMsgs > 0) then
+    elseif (m_unreadChatMsgs > 0) then
         Controls.ChatCheck:GetTextButton():SetText(Locale.Lookup("LOC_HIDE_CHAT_PANEL_UNREAD_MESSAGES", m_unreadChatMsgs));
     else
         Controls.ChatCheck:GetTextButton():SetText(Locale.Lookup("LOC_HIDE_CHAT_PANEL"));
@@ -325,7 +325,7 @@ function Refresh()
     UpdateCivicsPanel();
 
     -- Hide world tracker by default if there are no tracker options enabled
-    if( Controls.ChatCheck:IsHidden() and
+    if ( Controls.ChatCheck:IsHidden() and
         Controls.CivicsCheck:IsHidden() and
         Controls.ResearchCheck:IsHidden() ) then
         ToggleAll(true);
@@ -465,7 +465,7 @@ end
 -- ===========================================================================
 function OnMultiplayerChat( fromPlayer, toPlayer, text, eTargetType )
     -- If the chat panels are hidden, indicate there are unread messages waiting on the world tracker panel toggler.
-    if(m_hideAll or m_hideChat) then
+    if (m_hideAll or m_hideChat) then
         m_unreadChatMsgs = m_unreadChatMsgs + 1;
         UpdateUnreadChatMsgs();
     end
@@ -575,12 +575,12 @@ function Initialize()
     for i,v in ipairs(g_TrackedItems) do
         local instance = {};
         ContextPtr:BuildInstanceForControl( v.InstanceType, instance, Controls.PanelStack );
-        if(instance.IconButton) then
+        if (instance.IconButton) then
             instance.IconButton:RegisterCallback(Mouse.eLClick, function() v.SelectFunc() end);
             table.insert(g_TrackedInstances, instance);
         end
 
-        if(instance.TitleButton) then
+        if (instance.TitleButton) then
             instance.TitleButton:LocalizeAndSetText(v.Name);
         end
     end
@@ -640,7 +640,7 @@ function Initialize()
     LuaEvents.ChatPanel_CloseExpandedPanels.Add(        OnChatPanel_CloseExpandedPanels);
 
         -- InitChatPanel
-    if(UI.HasFeature("Chat")
+    if (UI.HasFeature("Chat")
         and (GameConfiguration.IsNetworkMultiplayer() or GameConfiguration.IsPlayByCloud()) ) then
         UpdateChatPanel(false);
     else
