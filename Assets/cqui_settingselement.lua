@@ -30,16 +30,16 @@ local boolean_options = {
 local ProductionItemHeightConverter = {
   ToSteps = function(value)
       local out = value - 24;
-      if(out < 0) then
+      if (out < 0) then
         out = 0;
-      elseif(out > 104) then
+      elseif (out > 104) then
         out = 104;
       end
       return out;
     end,
   ToValue = function(steps)
       local out = steps + 24;
-      if(out > 128) then
+      if (out > 128) then
         out = 128;
       end
       return out;
@@ -50,14 +50,14 @@ local ProductionItemHeightConverter = {
 local WorkIconSizeConverter = {
   ToSteps = function(value)
       local out = math.floor((value - 48) / 8);
-      if(out < 0) then
+      if (out < 0) then
         out = 0;
       end
       return out;
     end,
   ToValue = function(steps)
       local out = (steps) * 8 + 48;
-      if(out > 128) then
+      if (out > 128) then
         out = 128;
       end
       return out;
@@ -68,14 +68,14 @@ local WorkIconSizeConverter = {
 local WorkIconAlphaConverter = {
     ToSteps = function(value)
       local out = value;
-      if(out < 0) then
+      if (out < 0) then
         out = 0;
       end
       return out;
     end,
   ToValue = function(steps)
       local out = steps;
-      if(out > 100) then
+      if (out > 100) then
         out = 100;
       end
       return out;
