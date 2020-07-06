@@ -28,7 +28,6 @@ local CQUI_ManagerShowing = false;
 local m_AdjacencyBonusDistricts : number = UILens.CreateLensLayerHash("Adjacency_Bonus_Districts");
 local m_Districts : number = UILens.CreateLensLayerHash("Districts");
 
--- ===========================================================================
 function CQUI_OnSettingsUpdate()
     CQUI_ProductionQueue = GameConfiguration.GetValue("CQUI_ProductionQueue");
     CQUI_ShowProductionRecommendations = GameConfiguration.GetValue("CQUI_ShowProductionRecommendations") == 1
@@ -36,7 +35,6 @@ function CQUI_OnSettingsUpdate()
     Controls.CQUI_ShowManagerButton:SetHide(not CQUI_ProductionQueue);
 end
 
--- ===========================================================================
 function CQUI_SelectRightTab()
     if(not CQUI_ProductionQueue) then
         OnTabChangeProduction();
@@ -45,7 +43,6 @@ function CQUI_SelectRightTab()
     end
 end
 
--- ===========================================================================
 function CQUI_ToogleManager()
     if CQUI_ManagerShowing then
         CQUI_ManagerShowing = false;
@@ -54,11 +51,9 @@ function CQUI_ToogleManager()
         CQUI_ManagerShowing = true;
         OnTabChangeManager();
     end
-
     Controls.CQUI_ShowManagerButton:SetSelected(CQUI_ManagerShowing);
 end
 
--- ===========================================================================
 function CQUI_PurchaseUnit(item, city)
     return function()
         if not item.CantAfford and not item.Disabled then
@@ -67,7 +62,6 @@ function CQUI_PurchaseUnit(item, city)
     end
 end
 
--- ===========================================================================
 function CQUI_PurchaseUnitCorps(item, city)
     return function()
         if not item.CantAfford and not item.Disabled then
@@ -76,7 +70,6 @@ function CQUI_PurchaseUnitCorps(item, city)
     end
 end
 
--- ===========================================================================
 function CQUI_PurchaseUnitArmy(item, city)
     return function()
         if not item.CantAfford and not item.Disabled then
@@ -85,7 +78,6 @@ function CQUI_PurchaseUnitArmy(item, city)
     end
 end
 
--- ===========================================================================
 function CQUI_PurchaseDistrict(item, city)
     return function()
         if not item.CantAfford and not item.Disabled then
@@ -94,7 +86,6 @@ function CQUI_PurchaseDistrict(item, city)
     end
 end
 
--- ===========================================================================
 function CQUI_PurchaseBuilding(item, city)
     return function()
         if not item.CantAfford and not item.Disabled then
@@ -103,7 +94,6 @@ function CQUI_PurchaseBuilding(item, city)
     end
 end
 
--- ===========================================================================
 function CQUI_ClearDistrictBuildingLayers()
     -- Make it's the right mode.
     if (UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT) then
@@ -117,7 +107,6 @@ function CQUI_ClearDistrictBuildingLayers()
         UILens.ClearLayerHexes( m_Districts );
         RealizePlotArtForWonderPlacement();
     end
-
     LuaEvents.CQUI_RefreshPurchasePlots();
     LuaEvents.CQUI_DistrictPlotIconManager_ClearEveything();
     LuaEvents.CQUI_Realize2dArtForDistrictPlacement();
@@ -133,7 +122,6 @@ function View(data)
             if(CQUI_PurchaseTable[item.Hash] == nil) then
                 CQUI_PurchaseTable[item.Hash] = {};
             end
-
             if (item.Yield == "YIELD_GOLD") then
                 CQUI_PurchaseTable[item.Hash]["gold"] = item.Cost;
                 CQUI_PurchaseTable[item.Hash]["goldCantAfford"] = item.CantAfford;
@@ -144,7 +132,6 @@ function View(data)
                     CQUI_PurchaseTable[item.Hash]["corpsGoldDisabled"] = item.CorpsDisabled;
                     CQUI_PurchaseTable[item.Hash]["corpsGoldCallback"] = CQUI_PurchaseUnitCorps(item, data.City);
                 end
-
                 if(item.Army) then
                     CQUI_PurchaseTable[item.Hash]["armyGold"] = item.ArmyCost;
                     CQUI_PurchaseTable[item.Hash]["armyGoldDisabled"] = item.ArmyDisabled;
@@ -160,7 +147,6 @@ function View(data)
                     CQUI_PurchaseTable[item.Hash]["corpsFaithDisabled"] = item.ArmyDisabled;
                     CQUI_PurchaseTable[item.Hash]["corpsFaithCallback"] = CQUI_PurchaseUnitCorps(item, data.City);
                 end
-
                 if(item.Army) then
                     CQUI_PurchaseTable[item.Hash]["armyFaith"] = item.ArmyCost;
                     CQUI_PurchaseTable[item.Hash]["armyFaithDisabled"] = item.ArmyDisabled;
@@ -175,7 +161,6 @@ function View(data)
             if(CQUI_PurchaseTable[item.Hash] == nil) then
                 CQUI_PurchaseTable[item.Hash] = {};
             end
-
             if (item.Yield == "YIELD_GOLD") then
                 CQUI_PurchaseTable[item.Hash]["goldCantAfford"] = item.CantAfford;
                 CQUI_PurchaseTable[item.Hash]["goldDisabled"] = item.Disabled;
@@ -422,8 +407,9 @@ function PopulateGenericItemData( kInstance:table, kItem:table )
                 kInstance.ArmyFaithPurchaseButton:SetColor(UI.GetColorValueFromHexLiteral(0xDD3366FF));
                 kInstance.ArmyFaithPurchaseButton:GetTextControl():SetColor(notEnoughGoldColor);
             end
-    else
-        kInstance.ArmyFaithPurchaseButton:SetHide(true);
+        else
+            kInstance.ArmyFaithPurchaseButton:SetHide(true);
+        end
     end
 end
 
@@ -454,7 +440,7 @@ function BuildBuilding(city, buildingEntry)
     end
 
     -- Does the building need to be placed?
-    if ( bNeedsPlacement ) then            
+    if ( bNeedsPlacement ) then
         -- If so, set the placement mode
         local tParameters = {}; 
         tParameters[CityOperationTypes.PARAM_BUILDING_TYPE] = buildingEntry.Hash;
@@ -610,7 +596,6 @@ function CQUI_OnCityviewEnabled()
     Open();
 end
 
--- ===========================================================================
 function CQUI_OnCityviewDisabled()
     Close();
 end
@@ -628,7 +613,6 @@ end
 function CreateCorrectTabs()
 end
 
--- ===========================================================================
 function Initialize()
     Events.InterfaceModeChanged.Remove( BASE_OnInterfaceModeChanged );
     Events.InterfaceModeChanged.Add( OnInterfaceModeChanged );

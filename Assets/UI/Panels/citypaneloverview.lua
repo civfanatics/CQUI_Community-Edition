@@ -130,7 +130,6 @@ function SetDesiredLens(desiredLens)
     end
 end
 
--- ===========================================================================
 function EnsureDesiredLens()
     if m_isShowingPanel then
         if m_desiredLens == "CityManagement" then
@@ -428,11 +427,10 @@ end
 --  Return ColorSet name
 -- ===========================================================================
 function GetTurnsUntilGrowthColor( turns:number )
-    if (turns < 1) then return "StatBadCSGlow"; end
+    if turns < 1 then return "StatBadCSGlow"; end
     return "StatGoodCSGlow";
 end
 
--- ===========================================================================
 function GetPercentGrowthColor( percent:number )
     if percent == 0 then return "Error"; end
     if percent <= 0.25 then return "WarningMajor"; end
@@ -440,13 +438,12 @@ function GetPercentGrowthColor( percent:number )
     return "StatNormalCSGlow";
 end
 
--- ===========================================================================
 function GetColor( count:number )
     if count > 0 then return "StatGoodCSGlow"; end
     if count < 0 then return "StatBadCSGlow"; end
     return "StatNormalCSGlow";
 end
--- ===========================================================================
+
 function GetOffset( count:number )
     if count > 0 then return 200; end
     if count < 0 then return 0; end
@@ -466,17 +463,15 @@ function CQUI_BuildBubbleInstance(icon, amount, labelLOC, instanceManager)
     kInstance.BubbleLabel:SetText( CQUI_SmartWrap(Locale.Lookup(labelLOC), 10) );
     kInstance.BubbleLabel:SetColor(UI.GetColorValueFromHexLiteral(0xffffffff));
 end
--- ===========================================================================
+
 function CQUI_BuildAmenityBubbleInstance(icon, amount, labelLOC)
     CQUI_BuildBubbleInstance(icon, amount, labelLOC, g_kAmenitiesIM);
 end
 
--- ===========================================================================
 function CQUI_BuildHousingBubbleInstance(icon, amount, labelLOC)
     CQUI_BuildBubbleInstance(icon, amount, labelLOC, m_kHousingIM);
 end
 
--- ===========================================================================
 function ViewPanelAmenities( data:table )
     -- Only show the advisor bubbles during the tutorial
     -- AZURENCY : or show the advisor if the setting is enabled
@@ -679,6 +674,7 @@ function ViewPanelCitizensGrowth( data:table )
     end
 
     if data.TurnsUntilGrowth > -1 then
+
         -- Set bonuses and multipliers
         local iHappinessPercent = data.HappinessGrowthModifier;
         Controls.HappinessBonus:SetText( toPlusMinusString(Round(iHappinessPercent, 0)) .. "%");
@@ -854,16 +850,15 @@ function View(data)
 
     local canChangeName = GameCapabilities.HasCapability("CAPABILITY_RENAME");
     if (canChangeName and not m_kEspionageViewManager:IsEspionageView()) then
-        Controls.RenameCityButton:RegisterCallback(Mouse.eLClick,
-            function()
+        Controls.RenameCityButton:RegisterCallback(Mouse.eLClick, function()
                 Controls.OverviewSubheader:SetHide(true);
+
                 Controls.EditCityName:SetText(Controls.OverviewSubheader:GetText());
                 Controls.EditCityName:SetHide(false);
                 Controls.EditCityName:TakeFocus();
             end);
         local city = data.City;
-        Controls.EditCityName:RegisterCommitCallback(
-            function(editBox)
+        Controls.EditCityName:RegisterCommitCallback(function(editBox)
                 local userInput:string = Controls.EditCityName:GetText();
                 RenameCity(city, userInput);
                 data.CityName = userInput;
@@ -930,14 +925,12 @@ function KeyHandler( key:number )
     return false;
 end
 
--- ===========================================================================
 function OnInputHandler( pInputStruct:table )
     local uiMsg = pInputStruct:GetMessageType();
     if (uiMsg == KeyEvents.KeyUp) then return KeyHandler( pInputStruct:GetKey() ); end
     return false;
 end
 
--- ===========================================================================
 -- Resize Handler
 function OnUpdateUI( type:number, tag:string, iData1:number, iData2:number, strData1:string )
     if type == SystemUpdateUI.ScreenResize then
@@ -945,7 +938,6 @@ function OnUpdateUI( type:number, tag:string, iData1:number, iData2:number, strD
     end
 end
 
--- ===========================================================================
 -- Called whenever CityPanel is refreshed
 function OnLiveCityDataChanged( data:table, isSelected:boolean)
     if (not isSelected) then
@@ -958,49 +950,42 @@ function OnLiveCityDataChanged( data:table, isSelected:boolean)
     end
 end
 
--- ===========================================================================
 function OnCityNameChanged( playerID: number, cityID : number )
     if (m_pCity and playerID == m_pCity:GetOwner() and cityID == m_pCity:GetID()) then
         Controls.OverviewSubheader:SetText(Locale.ToUpper(Locale.Lookup(m_pCity:GetName())));
     end
 end
 
--- ===========================================================================
 function OnLocalPlayerTurnEnd()
     if (GameConfiguration.IsHotseat()) then
         Close();
     end
 end
 
--- ===========================================================================
 function OnResearchCompleted( ePlayer:number )
     if m_pPlayer ~= nil and ePlayer == m_pPlayer:GetID() then
         Refresh();
     end
 end
 
--- ===========================================================================
 function OnPolicyChanged( ePlayer:number )
     if m_pPlayer ~= nil and ePlayer == m_pPlayer:GetID() then
         Refresh();
     end
 end
 
--- ===========================================================================
 function Resize()
     local screenX, screenY:number = UIManager:GetScreenSizeVal();
     Controls.OverviewSlide:SetSizeY(screenY);
     Controls.PanelScrollPanel:SetSizeY(screenY-120);
 end
 
--- ===========================================================================
 function OnUpdateUI( type:number, tag:string, iData1:number, iData2:number, strData1:string )
     if type == SystemUpdateUI.ScreenResize then
         Resize();
     end
 end
 
--- ===========================================================================
 function OnShowOverviewPanel( isShowing: boolean )
     if (isShowing) then
         m_isShowingPanel = true;
@@ -1026,7 +1011,6 @@ function OnShowOverviewPanel( isShowing: boolean )
     LuaEvents.CityPanel_SetOverViewState(m_isShowingPanel);
 end
 
--- ===========================================================================
 function ToggleOverviewTab(tabButton:table)
     if m_isShowingPanel and m_tabs.selectedControl == tabButton and m_pCity == UI.GetHeadSelectedCity() then
         OnCloseButtonClicked();
@@ -1040,17 +1024,14 @@ function ToggleOverviewTab(tabButton:table)
     end
 end
 
--- ===========================================================================
 function OnToggleCitizensTab()
     ToggleOverviewTab( Controls.HealthButton );
 end
 
--- ===========================================================================
 function OnToggleBuildingsTab()
     ToggleOverviewTab( Controls.BuildingsButton );
 end
 
--- ===========================================================================
 function OnToggleReligionTab()
     ToggleOverviewTab( Controls.ReligionButton );
 end

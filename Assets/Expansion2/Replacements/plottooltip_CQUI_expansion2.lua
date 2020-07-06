@@ -16,6 +16,7 @@ function GetDetails(data)
 
     --Civilization and city ownership line
     if (data.Owner ~= nil) then
+
         local szOwnerString;
 
         local pPlayerConfig = PlayerConfigurations[data.Owner];

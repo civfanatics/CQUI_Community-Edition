@@ -97,7 +97,6 @@ function GetData()
             end
         end
     end
-
     return kData;
 end
 

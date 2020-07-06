@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" File="LeaderIcon" xsi:noNamespaceSchemaLocation="..\..\..\..\..\..\CivTech\Libs\ForgeUI\ForgeUI_Assets\Controls.xsd">
+<Include File="LeaderIcon" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\..\..\..\..\CivTech\Libs\ForgeUI\ForgeUI_Assets\Controls.xsd">
 
     <Instance Name="LeaderIconTarget32">
         <Button ID="SelectButton" Size="auto,auto">

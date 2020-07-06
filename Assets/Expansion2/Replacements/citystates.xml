@@ -289,6 +289,7 @@
             <Image ID="AmbassadorIcon" Anchor="R,B" Offset="0,-5" Size="32,32" IconSize="32" Icon="ICON_GOVERNOR_THE_AMBASSADOR_FILL" />
         </Container>
     </Instance>
+
     <Instance Name="QuestInstance">
         <Container ID="Top" Anchor="L,C" Size="parent-15,auto">
             <Image Size="42,33" Texture="CityStateQuest42">

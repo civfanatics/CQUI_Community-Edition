@@ -110,12 +110,12 @@ function LeaderIcon:UpdateIconSimple(iconName: string, playerID: number, isUniqu
 end
 
 -- ===========================================================================
---	playerID, Index of the player to compare a relationship.    (May be self.)
+--	playerID, Index of the player to compare a relationship.  (May be self.)
 -- ===========================================================================
 function LeaderIcon:UpdateTeamAndRelationship( playerID: number)
 
     local localPlayerID	:number = Game.GetLocalPlayer();
-    if localPlayerID == PlayerTypes.NONE or playerID == PlayerTypes.OBSERVER then return; end  --    Local player is auto-play.
+    if localPlayerID == PlayerTypes.NONE or playerID == PlayerTypes.OBSERVER then return; end--  Local player is auto-play.
 
     -- Don't even attempt it, just hide the icon if this game mode doesn't have the capabilitiy.
     if GameCapabilities.HasCapability("CAPABILITY_DISPLAY_HUD_RIBBON_RELATIONSHIPS") == false then

@@ -120,7 +120,6 @@ function OnInputHandler( pInputStruct )
     if DefaultMessageHandler[uiMsg] ~= nil then
         return DefaultMessageHandler[uiMsg]( pInputStruct );
     end
-
     return false;
 end
 
@@ -160,7 +159,6 @@ function BulkHide( isHide:boolean, debugWho:string )
         UI.DataError("Request to bulk show past limit by "..debugWho..". Last bulk shown by "..m_lastBulkHider);
         m_bulkHideTracker = 0;
     end
-
     m_lastBulkHider = debugWho;
 
     -- Do the bulk hiding/showing
@@ -327,6 +325,7 @@ function OnRockBandMoviePopupClosed()  BulkHide(false, "RockBand" );        end
 function OnTutorialEndHide()           BulkHide( true, "TutorialEnd" );     end
 function OnWonderBuiltPopupShown()     BulkHide( true, "Wonder" );          end
 function OnWonderBuiltPopupClosed()    BulkHide(false, "Wonder" );          end
+
 
 -- ===========================================================================
 function OnShutdown()
