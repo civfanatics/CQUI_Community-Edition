@@ -81,8 +81,62 @@ function CityBanner.UpdateInfo(self, pCity : table )
             end
         end
     end
-
+    
     self:Resize();
+
+    -- #62 Infixo always show an original owner of the city if different than the current one
+    -- this piece of code is taken from CityBannerManager.lua to allow an extra line inside a tooltip
+    local playerID:number = pCity:GetOwner();
+    local pPlayer:table = Players[playerID];
+    if pPlayer == nil then return; end
+    
+    local tooltip:string, tooltipOrignal:string = "", "";
+
+    -- #62 Infixo check if this city was previously owned by someone else
+    local originalOwner:number = pCity:GetOriginalOwner();
+    --print("original info ext", originalOwner, playerID);
+    
+    if originalOwner ~= playerID then
+        if pCity:IsOriginalCapital() then
+            tooltipOrignal = Locale.Lookup("LOC_CQUI_CITY_BANNER_ORIGINAL_CAPITAL_TT", PlayerConfigurations[originalOwner]:GetCivilizationShortDescription());
+        else
+            tooltipOrignal = Locale.Lookup("LOC_CQUI_CITY_BANNER_ORIGINAL_CITY_TT",    PlayerConfigurations[originalOwner]:GetCivilizationShortDescription());
+        end
+    end
+    --print("..original owner", tooltipOrignal);
+    
+    if pPlayer:IsMajor() then
+        if pCity:IsOriginalCapital() and originalOwner == playerID then
+            -- Original capital
+            tooltip = Locale.Lookup("LOC_CITY_BANNER_ORIGINAL_CAPITAL_TT", PlayerConfigurations[playerID]:GetCivilizationShortDescription()); -- no need for original owner info
+        elseif pCity:IsCapital() then
+            -- New capital
+            tooltip = Locale.Lookup("LOC_CITY_BANNER_NEW_CAPITAL_TT",      PlayerConfigurations[playerID]:GetCivilizationShortDescription()) .. tooltipOrignal;
+        else
+            -- Other cities
+            tooltip = Locale.Lookup("LOC_CITY_BANNER_OTHER_CITY_TT",       PlayerConfigurations[playerID]:GetCivilizationShortDescription()) .. tooltipOrignal;
+        end
+        -- espionage info (added in XP2)
+        if g_bIsGatheringStorm and GameCapabilities.HasCapability("CAPABILITY_ESPIONAGE") then			
+            if Game.GetLocalPlayer() == playerID or HasEspionageView(playerID, pCity:GetID()) then
+                tooltip = tooltip .. Locale.Lookup("LOC_ESPIONAGE_VIEW_ENABLED_TT");
+            else
+                tooltip = tooltip .. Locale.Lookup("LOC_ESPIONAGE_VIEW_DISABLED_TT");
+            end
+        end
+
+    elseif pPlayer:IsFreeCities() then
+        tooltip = Locale.Lookup("LOC_CITY_BANNER_FREE_CITY_TT") .. tooltipOrignal;
+        
+    else -- city states
+        tooltip = Locale.Lookup("LOC_CITY_BANNER_CITY_STATE_TT") .. tooltipOrignal; -- just in case CS could capture capitals?
+        
+    end
+
+    -- update the tooltip
+    local instance:table = self.m_InfoIconIM:GetAllocatedInstance();
+    instance.Button:SetToolTipString(tooltip);
+    
 end
 
 -- ============================================================================
