@@ -515,7 +515,7 @@
 
   <Instance		Name="TextInfoInstance">
     <Stack		ID="Top"					StackGrowth="Bottom" StackPadding="4">
-      <Label	ID="Header"				Style="FontFlair14"		WrapWidth="350" SmallCapsType="EveryWord" SmallCaps="20" String="$Header$"/>y
+      <Label	ID="Header"				Style="FontFlair14"		WrapWidth="350" SmallCapsType="EveryWord" SmallCaps="20" String="$Header$"/>
       <Label	ID="Description"	Style="DawnText"	WrapWidth="350" String="$Description$"/>
     </Stack>
   </Instance>

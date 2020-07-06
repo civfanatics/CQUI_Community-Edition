@@ -186,7 +186,7 @@
             <Label        ID="PopulationNumber"       Anchor="C,C" Style="CityPanelNumLarge" WrapWidth="70" String="999" Align="Center" KerningAdjustment="-1" Offset="-1,0"/>
           </Image>
         </Button>
-      </Grid>
+      </GridButton>
     </SlideAnim>
   </AlphaAnim>
 </Context>
