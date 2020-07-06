@@ -439,11 +439,10 @@ function GetPercentGrowthColor( percent:number )
 end
 
 function GetColor( count:number )
-    if count > 0 then return "StatGoodCSGlow"; end
-    if count < 0 then return "StatBadCSGlow"; end
+    if count > 0 then return "StatGoodCSGlow" end
+    if count < 0 then return "StatBadCSGlow" end
     return "StatNormalCSGlow";
 end
-
 function GetOffset( count:number )
     if count > 0 then return 200; end
     if count < 0 then return 0; end
@@ -463,7 +462,6 @@ function CQUI_BuildBubbleInstance(icon, amount, labelLOC, instanceManager)
     kInstance.BubbleLabel:SetText( CQUI_SmartWrap(Locale.Lookup(labelLOC), 10) );
     kInstance.BubbleLabel:SetColor(UI.GetColorValueFromHexLiteral(0xffffffff));
 end
-
 function CQUI_BuildAmenityBubbleInstance(icon, amount, labelLOC)
     CQUI_BuildBubbleInstance(icon, amount, labelLOC, g_kAmenitiesIM);
 end
@@ -927,7 +925,7 @@ end
 
 function OnInputHandler( pInputStruct:table )
     local uiMsg = pInputStruct:GetMessageType();
-    if (uiMsg == KeyEvents.KeyUp) then return KeyHandler( pInputStruct:GetKey() ); end
+    if (uiMsg == KeyEvents.KeyUp) then return KeyHandler( pInputStruct:GetKey() ); end;
     return false;
 end
 

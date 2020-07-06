@@ -89,7 +89,7 @@
 
                 <Stack ID="SingleViewStack" Offset="1,80" StackGrowth="Bottom">
                     <Stack ID="SubMenu" Offset="1,0" StackGrowth="Bottom" StackPadding="-8">
-                        <!-- TODO: Remove SendAnEnvoyButton, using Back button
+                        <!-- TODO: REmove, using Back button
                         <GridButton ID="SendAnEnvoyButton" Size="parent-4,41" Style="CityStateSubMenuButton" String="LOC_CITY_STATES_SEND_AN_ENVOY"/>
                         -->
                         <GridButton ID="PeaceWarButton" Size="parent-4,41" Style="CityStateSubMenuButton" String="LOC_CITY_STATES_MAKE_PEACE" />

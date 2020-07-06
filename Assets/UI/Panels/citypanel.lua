@@ -310,12 +310,10 @@ function CQUI_SetGrowthTile(state)
     GameConfiguration.SetValue("CQUI_ShowCultureGrowth", state);
     LuaEvents.CQUI_SettingsUpdate();
 end
-
 -- Toggles the visibility of the tile growth overlay
 function CQUI_ToggleGrowthTile()
     CQUI_SetGrowthTile(not CQUI_growthTile);
 end
-
 function CQUI_SettingsUpdate()
     CQUI_growthTile = GameConfiguration.GetValue("CQUI_ShowCultureGrowth");
     if(g_growthPlotId ~= -1 and not CQUI_growthTile) then
@@ -328,7 +326,7 @@ function CQUI_SettingsUpdate()
 end
 
 -- ===========================================================================
---  Close
+--
 -- ===========================================================================
 function Close()
     Controls.CityPanelAlpha:SetToBeginning();

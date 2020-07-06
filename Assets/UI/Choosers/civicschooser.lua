@@ -5,7 +5,6 @@
 --
 -- ===========================================================================
 -- Include self contained additional tabs
--- The include statement with the "true" loads all files that start with CivicsTreeIconLoader_
 g_ExtraIconData = {};
 include("CivicsTreeIconLoader_", true);
 
@@ -159,7 +158,7 @@ end
 
 
 -- ===========================================================================
--- Add Available Civic
+--
 -- ===========================================================================
 function AddAvailableCivic( playerID:number, kData:table )
     local numUnlockables:number;
@@ -444,7 +443,6 @@ function OnGameDebugReturn(context:string, contextTable:table)
     end
 end
 
--- ===========================================================================
 function CQUI_OnSettingsUpdate()
     CQUI_AlwaysOpenTechTrees = GameConfiguration.GetValue("CQUI_AlwaysOpenTechTrees");
     CQUI_ShowTechCivicRecommendations = GameConfiguration.GetValue("CQUI_ShowTechCivicRecommendations") == 1

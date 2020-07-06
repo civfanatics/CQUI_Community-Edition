@@ -510,6 +510,9 @@
     </Container>
     <AlphaAnim ID="FadeTimerAnim" Begin="0" End="1" Speed="3" Cycle="Once" Stopped="1" Speed="4" />
 
+
+
+
     <Instance Name="TextInfoInstance">
         <Stack ID="Top" StackGrowth="Bottom" StackPadding="4">
             <Label ID="Header" Style="FontFlair14" WrapWidth="350" SmallCapsType="EveryWord" SmallCaps="20" String="$Header$" />
