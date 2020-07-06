@@ -116,23 +116,23 @@ function LeaderIcon:UpdateIconSimple(iconName: string, playerID: number, isUniqu
 end
 
 -- ===========================================================================
---	playerID, Index of the player to compare a relationship.    (May be self.)
+--  playerID, Index of the player to compare a relationship.    (May be self.)
 -- ===========================================================================
 function LeaderIcon:UpdateTeamAndRelationship( playerID: number)
     
     if playerID < 0 then 
         UI.DataError("Invalid playerID="..tostring(playerID).." to check against for UpdateTeamAndRelationship().");
         return; 
-    end	
+    end
     
-    local localPlayerID	:number = Game.GetLocalPlayer();
+    local localPlayerID :number = Game.GetLocalPlayer();
     if localPlayerID < 0 then return; end  --  Local player is auto-play.
 
-    local pPlayer		:table = Players[playerID];
-    local pPlayerConfig	:table = PlayerConfigurations[playerID];	
-    local isHuman		:boolean = pPlayerConfig:IsHuman();
-    local isSelf		:boolean = (playerID == localPlayerID);
-    local isMet			:boolean = Players[localPlayerID]:GetDiplomacy():HasMet(playerID);
+    local pPlayer       :table = Players[playerID];
+    local pPlayerConfig :table = PlayerConfigurations[playerID];
+    local isHuman       :boolean = pPlayerConfig:IsHuman();
+    local isSelf        :boolean = (playerID == localPlayerID);
+    local isMet         :boolean = Players[localPlayerID]:GetDiplomacy():HasMet(playerID);
 
     -- Team Ribbon
     local isTeamRibbonHidden:boolean = true;
@@ -150,9 +150,9 @@ function LeaderIcon:UpdateTeamAndRelationship( playerID: number)
 
     -- Relationship status (Humans don't show anything, unless we are at war)
     local eRelationship :number = pPlayer:GetDiplomaticAI():GetDiplomaticStateIndex(localPlayerID);
-    local relationType	:string = GameInfo.DiplomaticStates[eRelationship].StateType;
-    local isValid		:boolean= (isHuman and Relationship.IsValidWithHuman( relationType )) or (not isHuman and Relationship.IsValidWithAI( relationType ));
-    if isValid then		
+    local relationType  :string = GameInfo.DiplomaticStates[eRelationship].StateType;
+    local isValid       :boolean= (isHuman and Relationship.IsValidWithHuman( relationType )) or (not isHuman and Relationship.IsValidWithAI( relationType ));
+    if isValid then
         self.Controls.Relationship:SetVisState(eRelationship);
         
         -- CQUI Extended relationship tooltip
@@ -160,7 +160,7 @@ function LeaderIcon:UpdateTeamAndRelationship( playerID: number)
         self.Controls.Relationship:SetToolTipString(extendedRelationshipTooltip);
         
         -- if (GameInfo.DiplomaticStates[eRelationship].Hash ~= DiplomaticStates.NEUTRAL) then
-        -- 	 self.Controls.Relationship:SetToolTipString(Locale.Lookup(GameInfo.DiplomaticStates[eRelationship].Name));
+        --     self.Controls.Relationship:SetToolTipString(Locale.Lookup(GameInfo.DiplomaticStates[eRelationship].Name));
         -- end
     end
     self.Controls.Relationship:SetHide( not isValid );

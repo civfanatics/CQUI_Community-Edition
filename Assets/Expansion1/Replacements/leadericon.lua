@@ -3,11 +3,11 @@ include("TeamSupport");
 include("DiplomacyRibbonSupport");
 
 -- ===========================================================================
---	Class Table
+--  Class Table
 -- ===========================================================================
 LeaderIcon = {
     playerID = -1,
-    TEAM_RIBBON_PREFIX	= "ICON_TEAM_RIBBON_"
+    TEAM_RIBBON_PREFIX  = "ICON_TEAM_RIBBON_"
 }
 
 
@@ -18,7 +18,7 @@ function LeaderIcon:GetInstance(instanceManager:table, uiNewParent:table)
 end
 
 -- ===========================================================================
---	Essentially the "new"
+--  Essentially the "new"
 -- ===========================================================================
 function LeaderIcon:AttachInstance( instance:table )
     if instance == nil then
@@ -110,11 +110,11 @@ function LeaderIcon:UpdateIconSimple(iconName: string, playerID: number, isUniqu
 end
 
 -- ===========================================================================
---	playerID, Index of the player to compare a relationship.  (May be self.)
+--  playerID, Index of the player to compare a relationship.  (May be self.)
 -- ===========================================================================
 function LeaderIcon:UpdateTeamAndRelationship( playerID: number)
 
-    local localPlayerID	:number = Game.GetLocalPlayer();
+    local localPlayerID :number = Game.GetLocalPlayer();
     if localPlayerID == PlayerTypes.NONE or playerID == PlayerTypes.OBSERVER then return; end--  Local player is auto-play.
 
     -- Don't even attempt it, just hide the icon if this game mode doesn't have the capabilitiy.
@@ -127,13 +127,13 @@ function LeaderIcon:UpdateTeamAndRelationship( playerID: number)
     if playerID < 0 then 
         UI.DataError("Invalid playerID="..tostring(playerID).." to check against for UpdateTeamAndRelationship().");
         return; 
-    end	
+    end
 
-    local pPlayer		:table = Players[playerID];
-    local pPlayerConfig	:table = PlayerConfigurations[playerID];	
-    local isHuman		:boolean = pPlayerConfig:IsHuman();
-    local isSelf		:boolean = (playerID == localPlayerID);
-    local isMet			:boolean = Players[localPlayerID]:GetDiplomacy():HasMet(playerID);
+    local pPlayer       :table = Players[playerID];
+    local pPlayerConfig :table = PlayerConfigurations[playerID];
+    local isHuman       :boolean = pPlayerConfig:IsHuman();
+    local isSelf        :boolean = (playerID == localPlayerID);
+    local isMet         :boolean = Players[localPlayerID]:GetDiplomacy():HasMet(playerID);
 
     -- Team Ribbon
     local isTeamRibbonHidden:boolean = true;
@@ -179,7 +179,7 @@ function LeaderIcon:UpdateTeamAndRelationship( playerID: number)
 end
 
 -- ===========================================================================
---	Resets the view of attached controls
+--  Resets the view of attached controls
 -- ===========================================================================
 function LeaderIcon:Reset()
     if self.Controls == nil then
@@ -203,14 +203,14 @@ function LeaderIcon:GetToolTipString(playerID:number)
     local pPlayerConfig:table = PlayerConfigurations[playerID];
 
     if pPlayerConfig and pPlayerConfig:GetLeaderTypeName() then
-        local isHuman		:boolean = pPlayerConfig:IsHuman();
-        local leaderDesc	:string = pPlayerConfig:GetLeaderName();
-        local civDesc		:string = pPlayerConfig:GetCivilizationDescription();
-        local localPlayerID	:number = Game.GetLocalPlayer();
+        local isHuman       :boolean = pPlayerConfig:IsHuman();
+        local leaderDesc    :string = pPlayerConfig:GetLeaderName();
+        local civDesc       :string = pPlayerConfig:GetCivilizationDescription();
+        local localPlayerID :number = Game.GetLocalPlayer();
         
         if localPlayerID==PlayerTypes.NONE or localPlayerID==PlayerTypes.OBSERVER  then
             return "";
-        end		
+        end
 
         if GameConfiguration.IsAnyMultiplayer() and isHuman then
             if (playerID ~= localPlayerID and not Players[localPlayerID]:GetDiplomacy():HasMet(playerID)) then

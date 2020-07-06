@@ -9,13 +9,13 @@ include( "Civ6Common" );
 include( "CQUICommon.lua" );
 
 -- ===========================================================================
---	CONSTANTS
+--  CONSTANTS
 -- ===========================================================================
-local TIME_UNTIL_UPDATE:number = 0.1;	-- time to wait before attempting to release delayshow popups.
+local TIME_UNTIL_UPDATE:number = 0.1;  -- time to wait before attempting to release delayshow popups.
 
 
 -- ===========================================================================
---	VARIABLES
+--  VARIABLES
 -- ===========================================================================
 
 local DefaultMessageHandler = {};
@@ -24,18 +24,18 @@ local m_lastBulkHider:string = "first call";
 g_uiAddins = {};
 
 local m_PauseId;
-local m_PauseId		:number = Input.GetActionId("PauseMenu");
+local m_PauseId     :number = Input.GetActionId("PauseMenu");
 local m_QuicksaveId;
 local m_QuicksaveId :number = Input.GetActionId("QuickSave");
 
 local m_HexColoringReligion : number = UILens.CreateLensLayerHash("Hex_Coloring_Religion");
 local m_CulturalIdentityLens: number = UILens.CreateLensLayerHash("Cultural_Identity_Lens");
-local m_TouristTokens		: number = UILens.CreateLensLayerHash("Tourist_Tokens");
-local m_activeLocalPlayer	: number = -1;
-local m_timeUntilPopupCheck	: number = 0;
+local m_TouristTokens       : number = UILens.CreateLensLayerHash("Tourist_Tokens");
+local m_activeLocalPlayer   : number = -1;
+local m_timeUntilPopupCheck : number = 0;
 
 -- ===========================================================================
---	FUNCTIONS
+--  FUNCTIONS
 -- ===========================================================================
 
 --CQUI Functions
@@ -48,14 +48,14 @@ function CQUI_RequestUIAddin( request: string ) --Returns the first context to m
 end
 
 -- ===========================================================================
---	Open up the TopOptionsMenu with the utmost priority.
+--  Open up the TopOptionsMenu with the utmost priority.
 -- ===========================================================================
 function OpenInGameOptionsMenu()
     LuaEvents.InGame_OpenInGameOptionsMenu();
 end
 
 -- ===========================================================================
---	LUA Event
+--  LUA Event
 -- ===========================================================================
 function OnTutorialToggleInGameOptionsMenu()
     if Controls.TopOptionsMenu:IsHidden() then
@@ -83,7 +83,7 @@ DefaultMessageHandler[KeyEvents.KeyUp] =
                 OpenInGameOptionsMenu();
                 return true;
             end
-            return false;	-- Already open, let it handle it.
+            return false;  -- Already open, let it handle it.
         elseif( uiKey == Keys.B and pInputStruct:IsShiftDown() and pInputStruct:IsAltDown() and (not UI.IsFinalRelease()) ) then
             -- DEBUG: Force unhiding
             local msg:string =    "***PLAYER Force Bulk unhiding SHIFT+ALT+B ***";
@@ -147,7 +147,7 @@ end
 
 
 -- ===========================================================================
---	Hide (or Show) all the contexts part of the BULK group.
+--  Hide (or Show) all the contexts part of the BULK group.
 -- ===========================================================================
 function BulkHide( isHide:boolean, debugWho:string )
 
@@ -182,7 +182,7 @@ end
 
 
 -- ===========================================================================
---	Hotkey Event
+--  Hotkey Event
 -- ===========================================================================
 function OnInputActionTriggered( actionId )
     if actionId == m_PauseId then
@@ -207,9 +207,9 @@ function OnInputActionTriggered( actionId )
 end
 
 -- ===========================================================================
---	Gamecore Event
---	Called once per layer that is turned on when a new lens is activated,
---	or when a player explicitly turns off the layer from the "player" lens.
+--  Gamecore Event
+--  Called once per layer that is turned on when a new lens is activated,
+--  or when a player explicitly turns off the layer from the "player" lens.
 -- ===========================================================================
 function OnLensLayerOn( layerHash:number )
     if layerHash == m_HexColoringReligion or layerHash == m_CulturalIdentityLens or
@@ -219,9 +219,9 @@ function OnLensLayerOn( layerHash:number )
 end
 
 -- ===========================================================================
---	Gamecore Event
---	Called once per layer that is turned on when a new lens is deactivated,
---	or when a player explicitly turns off the layer from the "player" lens.
+--  Gamecore Event
+--  Called once per layer that is turned on when a new lens is deactivated,
+--  or when a player explicitly turns off the layer from the "player" lens.
 -- ===========================================================================
 function OnLensLayerOff( layerHash:number )
     if layerHash == m_HexColoringReligion or layerHash == m_CulturalIdentityLens or
@@ -231,14 +231,14 @@ function OnLensLayerOff( layerHash:number )
 end
 
 -- ===========================================================================
---	EVENT
+--  EVENT
 -- ===========================================================================
 function OnTurnBegin()
     m_activeLocalPlayer = Game.GetLocalPlayer();
 end
 
 -- ===========================================================================
---	EVENT
+--  EVENT
 -- ===========================================================================
 function OnTurnEnd()
     m_activeLocalPlayer = -1;
@@ -255,9 +255,9 @@ function RestartRefreshRequest()
 end
 
 -- ===========================================================================
---	EVENT
---	Gamecore is done processing events; this may fire multiple times as a
---	turn begins, as well as after player actions.
+--  EVENT
+--  Gamecore is done processing events; this may fire multiple times as a
+--  turn begins, as well as after player actions.
 -- ===========================================================================
 function OnGameCoreEventPlaybackComplete()
     -- Gate using this based on whether or not it's firing for a local player
@@ -266,7 +266,7 @@ function OnGameCoreEventPlaybackComplete()
 end
 
 -- ===========================================================================
---	UI Manager Callback
+--  UI Manager Callback
 -- ===========================================================================
 function OnPopupQueueChange( isQueuing:boolean )
     if m_timeUntilPopupCheck <= 0 then
@@ -275,7 +275,7 @@ function OnPopupQueueChange( isQueuing:boolean )
 end
 
 -- ===========================================================================
---	Event
+--  Event
 -- ===========================================================================
 function OnUIIdle()
     -- If a countdown to check hasn't started, kick one off.
@@ -292,14 +292,14 @@ function IsAbleToShowDelayedPopups()
 end
 
 -- ===========================================================================
---	UI Callback
+--  UI Callback
 -- ===========================================================================
 function OnRefreshAttemptPopupRelease( delta:number )
     m_timeUntilPopupCheck = m_timeUntilPopupCheck - delta;
     if m_timeUntilPopupCheck <= 0 then
         -- Only release delayed popups if a bulk hide operation isn't currently happening.
         if IsAbleToShowDelayedPopups() then
-            UIManager:ShowDelayedPopups();		-- Show any popups that had been added to Forge waiting to be shown
+            UIManager:ShowDelayedPopups();    -- Show any popups that had been added to Forge waiting to be shown
         end
         ContextPtr:ClearRefreshHandler();
     else
@@ -333,7 +333,7 @@ function OnShutdown()
 end
 
 -- ===========================================================================
---	Cannot use LateInitialize patterns as this context is attached via C++
+--  Cannot use LateInitialize patterns as this context is attached via C++
 -- ===========================================================================
 function Initialize()
 
@@ -371,7 +371,7 @@ function Initialize()
     LuaEvents.EndGameMenu_Shown.Add( OnEndGameMenuShown );
     LuaEvents.EndGameMenu_Closed.Add( OnEndGameMenuClosed );
     LuaEvents.FullscreenMap_Shown.Add( OnFullscreenMapShown );
-    LuaEvents.FullscreenMap_Closed.Add(	OnFullscreenMapClosed );
+    LuaEvents.FullscreenMap_Closed.Add( OnFullscreenMapClosed );
     LuaEvents.ProjectBuiltPopup_Shown.Add( OnProjectBuiltShown );
     LuaEvents.ProjectBuiltPopup_Closed.Add( OnProjectBuiltClosed );
     LuaEvents.NaturalDisasterPopup_Shown.Add( OnDisasterRevealPopupShown );

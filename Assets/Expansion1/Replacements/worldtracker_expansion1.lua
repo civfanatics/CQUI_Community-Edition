@@ -9,14 +9,14 @@ include("WorldTracker");
 include("AllianceResearchSupport");
 
 -- ===========================================================================
---	CACHE BASE FUNCTIONS
+--  CACHE BASE FUNCTIONS
 -- ===========================================================================
 BASE_UpdateResearchPanel = UpdateResearchPanel;
 BASE_RealizeCurrentResearch = RealizeCurrentResearch;
 BASE_ShouldUpdateResearchPanel = ShouldUpdateResearchPanel;
 
 -- ===========================================================================
---	OVERRIDE BASE FUNCTIONS
+--  OVERRIDE BASE FUNCTIONS
 -- ===========================================================================
 function UpdateResearchPanel( isHideResearch:boolean )
     CalculateAllianceResearchBonus();
