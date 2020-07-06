@@ -18,8 +18,8 @@
 
 
     <!--
-      ...:::{ MAIN PLAYER PANEL }:::...
-      An instance of a panel that displays what actions and reports a player can see.
+        ...:::{ MAIN PLAYER PANEL }:::...
+        An instance of a panel that displays what actions and reports a player can see.
     -->
     <Instance Name="PlayerPanel">
         <!-- The background of the panel, enclosing all contents -->

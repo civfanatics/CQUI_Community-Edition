@@ -532,7 +532,7 @@
 
     <!--The fade-to-black stuff -->
     <Container ID="BlackFade" Hidden="1">
-        <!-- ==== BEGIN CQUI CUSTOMIZATION  ==================================================================================== -->
+        <!-- ==== BEGIN CQUI CUSTOMIZATION  ====================================================================================   -->
         <!-- CQUI: Commented line is the unmodifed code -->
         <!-- <AlphaAnim ID="BlackFadeAnim" Begin="0" End="1" Cycle="Once" Stopped="1" Speed="4"> -->
         <AlphaAnim ID="BlackFadeAnim" Begin="0" End="1" Speed="3" Cycle="Once" Stopped="1" Speed="4">
@@ -544,7 +544,7 @@
     <!-- CQUI: Commented line is the unmodifed code -->
     <!-- <AlphaAnim ID="FadeTimerAnim" Begin="0" End="1" Cycle="Once" Stopped="1" Speed="4"/> -->
     <AlphaAnim ID="FadeTimerAnim" Begin="0" End="1" Speed="3" Cycle="Once" Stopped="1" Speed="4"/>
-    <!-- ==== END CQUI CUSTOMIZATION ==================================================================================== -->
+    <!-- ==== END CQUI CUSTOMIZATION ====================================================================================    -->
 
 
 
