@@ -279,7 +279,7 @@
                   <Stack                              StackGrowth="Right">
                     <Image  ID="DominantReligionSymbol"       Anchor="L,T" Offset="0,0" Size="22,22"  Hidden="1" />
                     <Label  ID="DominantReligionName"         Anchor="L,T" Offset="2,7"                 Style="CityPanelText"     String="Other Religion Instance" />
-                  </Stack>                                                               >
+                  </Stack>
                 </Grid>
                 <Stack	ID="ReligionBeliefsStack"		Anchor="R,T" Offset="0,42" StackPadding="2"/>
               </Grid>
