@@ -19,7 +19,6 @@ BASE_CQUI_CityBanner_Initialize = CityBanner.Initialize;
 BASE_CQUI_CityBanner_Uninitialize = CityBanner.Uninitialize;
 BASE_CQUI_CityBanner_UpdateInfo = CityBanner.UpdateInfo;
 BASE_CQUI_CityBanner_UpdatePopulation = CityBanner.UpdatePopulation;
-BASE_CQUI_CityBanner_UpdateRangeStrike = CityBanner.UpdateRangeStrike;
 BASE_CQUI_CityBanner_UpdateStats = CityBanner.UpdateStats;
 
 -- ============================================================================

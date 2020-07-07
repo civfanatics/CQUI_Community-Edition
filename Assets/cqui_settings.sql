@@ -36,6 +36,8 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ("CQUI_ShowGenericBuilderLens", 1), -- Shows generic hexes (white tiles) when in builder lens
         ("CQUI_AutoExpandUnitActions", 1), -- Automatically reveals the secondary unit actions normally hidden inside an expando
         ("CQUI_BlockOnCityAttack", 1), -- Block turn from ending if you have a city that can attack
+        ("CQUI_RelocateCityStrike", 1), -- Relocate the City Strike button to above the city health and defense bars
+        ("CQUI_RelocateEncampmentStrike", 0), -- Relocate the Encampment Strike button to above the encampment health and defense bars
         ("CQUI_ProductionQueue", 1), -- A production queue appears next to the production panel, allowing multiple constructions to be queued at once
         ("CQUI_ShowCultureGrowth", 1), -- Shows cultural growth overlay in cityview
         ("CQUI_ShowPolicyReminder", 1),

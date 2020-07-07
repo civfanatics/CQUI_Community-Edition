@@ -3,6 +3,7 @@
 -- This is what should go in the citybannermanager_CQUI file, the specific-to-basegame things go the _basegame file
 -- ===========================================================================
 include( "CityBannerManager" );
+include( "Civ6Common" ); -- IsExpansion1Active/IsExpansion2Active
 include( "CQUICommon.lua" );
 
 -- ===========================================================================
@@ -13,6 +14,7 @@ BASE_CQUI_OnGameDebugReturn = OnGameDebugReturn;
 BASE_CQUI_OnInterfaceModeChanged = OnInterfaceModeChanged;
 BASE_CQUI_OnShutdown = OnShutdown;
 BASE_CQUI_Reload = Reload;
+BASE_CQUI_CityBanner_UpdateRangeStrike = CityBanner.UpdateRangeStrike;
 
 -- ===========================================================================
 --  CONSTANTS
@@ -35,6 +37,11 @@ local CQUI_WorkIconAlpha      = 0.60;
 local CQUI_SmartWorkIcon      = true;
 local CQUI_SmartWorkIconSize  = 64;
 local CQUI_SmartWorkIconAlpha = 0.45;
+
+local CQUI_CityRangeStrikeTopYOffset          = 10;
+local CQUI_CityRangeStrikeBottomYOffset       = -6;
+local CQUI_EncampmentRangeStrikeTopYOffset    = 10;
+local CQUI_EncampmentRangeStrikeBottomYOffset = -4;
 
 -- ===========================================================================
 -- CQUI Members
@@ -84,6 +91,8 @@ function CQUI_OnSettingsInitialized()
     CQUI_ShowCitizenIconsOnCityHover   = GameConfiguration.GetValue("CQUI_ShowCitizenIconsOnCityHover");
     CQUI_ShowCityManageAreaOnCityHover = GameConfiguration.GetValue("CQUI_ShowCityManageAreaOnCityHover");
     CQUI_ShowCityManageAreaInScreen    = GameConfiguration.GetValue("CQUI_ShowCityMangeAreaInScreen");
+    CQUI_RelocateCityStrike            = GameConfiguration.GetValue("CQUI_RelocateCityStrike");
+    CQUI_RelocateEncampmentStrike      = GameConfiguration.GetValue("CQUI_RelocateEncampmentStrike");
 end
 
 -- ===========================================================================
@@ -195,6 +204,35 @@ function Reload()
                 local cityID:number = city:GetID();
                 RefreshBanner(playerID, cityID) -- CQUI : refresh the banner info
             end
+        end
+    end
+end
+
+-- ============================================================================
+-- Move the CityStrike icon and button to the top of the City bar; similar to the Sukritact Simple UI Mod (which puts it on the right)
+function CityBanner.UpdateRangeStrike(self)
+    print_debug("CityBannerManager_CQUI: CityBanner.UpdateRangeStrike ENTRY");
+    BASE_CQUI_CityBanner_UpdateRangeStrike(self);
+
+    local banner = self.m_Instance;
+    if (banner == nil) then
+        return;
+    end
+
+    if (self.m_Type == BANNERTYPE_CITY_CENTER) then
+        if (CQUI_RelocateCityStrike == true) then
+            -- instance, rotation, offsetY, anchor
+            CQUI_SetCityStrikeButtonLocation(banner, 180, CQUI_CityRangeStrikeTopYOffset, "C,T");
+        else
+            CQUI_SetCityStrikeButtonLocation(banner, 0, CQUI_CityRangeStrikeBottomYOffset, "C,B");
+        end
+    end
+
+    if (self.m_Type == BANNERTYPE_ENCAMPMENT) then
+        if (CQUI_RelocateEncampmentStrike == true) then
+            CQUI_SetCityStrikeButtonLocation(banner, 180, CQUI_EncampmentRangeStrikeTopYOffset, "C,T");
+        else
+            CQUI_SetCityStrikeButtonLocation(banner, 0, CQUI_EncampmentRangeStrikeBottomYOffset, "C,B");
         end
     end
 end
@@ -332,6 +370,7 @@ function OnDistrictAddedToMap( playerID, districtID, cityID, districtX, district
             end
         elseif (miniBanner ~= nil and pDistrict:IsComplete()) then
             miniBanner:UpdateStats();
+            miniBanner:UpdateRangeStrike();
         end
     end -- else not city center
 end
@@ -874,6 +913,20 @@ function IsCQUI_SmartBanner_Unmanaged_CitizenEnabled()
     return (CQUI_SmartBanner and CQUI_SmartBanner_Unmanaged_Citizen);
 end
 
+-- ===========================================================================
+function CQUI_SetCityStrikeButtonLocation(cityBannerInstance, rotate, offsetY, anchor)
+    cityStrikeImage = nil;
+    if (IsExpansion1Active() or IsExpansion2Active()) then
+        cityStrikeImage = cityBannerInstance.CityStrike;
+    else
+        -- Basegame calls this CityAttackContainer
+        cityStrikeImage = cityBannerInstance.CityAttackContainer;
+    end
+
+    cityStrikeImage:Rotate(rotate);
+    cityStrikeImage:SetOffsetVal(0, offsetY);
+    cityStrikeImage:SetAnchor(anchor);
+end
 
 -- ===========================================================================
 -- Game Engine EVENT
