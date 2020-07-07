@@ -819,6 +819,7 @@ function CQUI_OnCityRangeStrikeButtonClick( playerID, cityID )
         LuaEvents.CQUI_Strike_Exit();
         return;
     end
+
     -- Enter the range city mode on click (not on hover of a button, the old workaround)
     LuaEvents.CQUI_Strike_Enter();
     -- Allow to switch between different city range attack (clicking on the range button of one
