@@ -814,6 +814,12 @@ function CQUI_OnCityRangeStrikeButtonClick( playerID, cityID )
         return;
     end
 
+    -- allow to leave the strike range mode on 2nd click
+    if UI.GetInterfaceMode() == InterfaceModeTypes.CITY_RANGE_ATTACK then
+        UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
+        LuaEvents.CQUI_Strike_Exit();
+        return;
+    end
     -- Enter the range city mode on click (not on hover of a button, the old workaround)
     LuaEvents.CQUI_Strike_Enter();
     -- Allow to switch between different city range attack (clicking on the range button of one
@@ -823,6 +829,33 @@ function CQUI_OnCityRangeStrikeButtonClick( playerID, cityID )
     UI.DeselectAll();
     UI.SelectCity( pCity );
     UI.SetInterfaceMode(InterfaceModeTypes.CITY_RANGE_ATTACK);
+end
+
+-- ===========================================================================
+-- Common handler for the District Strike Button
+function OnDistrictRangeStrikeButtonClick( playerID, districtID )
+    print_debug("CityBannerManager_CQUI: OnDistrictRangeStrikeButtonClick ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID));
+    local pPlayer = Players[playerID];
+    if (pPlayer == nil) then
+        return;
+    end
+
+    local pDistrict = pPlayer:GetDistricts():FindID(districtID);
+    if (pDistrict == nil) then
+        return;
+    end;
+
+    -- allow to leave the strike range mode on 2nd click
+    if UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_RANGE_ATTACK then
+        UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
+        return;
+    end
+    
+    UI.DeselectAll();
+    UI.SelectDistrict(pDistrict);
+    -- CQUI (Azurency) : Look at the district plot
+    UI.LookAtPlot(pDistrict:GetX(), pDistrict:GetY());
+    UI.SetInterfaceMode(InterfaceModeTypes.DISTRICT_RANGE_ATTACK);
 end
 
 -- ===========================================================================

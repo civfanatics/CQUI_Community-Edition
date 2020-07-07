@@ -234,26 +234,6 @@ function OnCityStrikeButtonClick( playerID, cityID )
 end
 
 -- ===========================================================================
-function OnDistrictRangeStrikeButtonClick( playerID, districtID )
-    print_debug("CityBannerManager_CQUI_Expansions: OnDistrictRangeStrikeButtonClick ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID));
-    local pPlayer = Players[playerID];
-    if (pPlayer == nil) then
-        return;
-    end
-
-    local pDistrict = pPlayer:GetDistricts():FindID(districtID);
-    if (pDistrict == nil) then
-        return;
-    end;
-
-    UI.DeselectAll();
-    UI.SelectDistrict(pDistrict);
-    -- CQUI (Azurency) : Look at the district plot
-    UI.LookAtPlot(pDistrict:GetX(), pDistrict:GetY());
-    UI.SetInterfaceMode(InterfaceModeTypes.DISTRICT_RANGE_ATTACK);
-end
-
--- ===========================================================================
 -- #59 Infixo overwritten because changes are deep inside it
 function CityBanner:UpdateReligion()
     --print("FUN CityBanner:UpdateReligion()");
