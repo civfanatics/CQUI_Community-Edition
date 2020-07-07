@@ -268,7 +268,7 @@ function CityBanner.UpdateName( self )
                     if (districtType == iRoyalNavy)       then self.m_Instance.CityBuiltDistrictRoyalNavy:SetHide(false);      end
                     if (districtType == iSpaceport)       then self.m_Instance.CityBuiltDistrictSpaceport:SetHide(false);      end
                     if (districtType == iStreetCarnival)  then self.m_Instance.CityBuiltDistrictStreetCarnival:SetHide(false); end
-                    if (districtType == iTheater)         then self.m_Instance.CityBuiltDistrictTheatre:SetHide(false);        end
+                    if (districtType == iTheater)         then self.m_Instance.CityBuiltDistrictTheater:SetHide(false);        end
                 end -- if isBuilt
             end -- for loop
         end -- if CQUI_SmartBanner_Districts
