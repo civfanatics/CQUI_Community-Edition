@@ -3,7 +3,6 @@
 -- This is what should go in the citybannermanager_CQUI file, the specific-to-basegame things go the _basegame file
 -- ===========================================================================
 include( "CityBannerManager" );
-include( "Civ6Common" ); -- IsExpansion1Active/IsExpansion2Active
 include( "CQUICommon.lua" );
 
 -- ===========================================================================
@@ -916,7 +915,7 @@ end
 -- ===========================================================================
 function CQUI_SetCityStrikeButtonLocation(cityBannerInstance, rotate, offsetY, anchor)
     cityStrikeImage = nil;
-    if (IsExpansion1Active() or IsExpansion2Active()) then
+    if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
         cityStrikeImage = cityBannerInstance.CityStrike;
     else
         -- Basegame calls this CityAttackContainer
