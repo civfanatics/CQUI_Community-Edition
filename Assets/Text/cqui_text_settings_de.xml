@@ -30,6 +30,19 @@
     <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK_TOOLTIP" Language="de_DE">
       <Text>Der "Nächste Runde"-Button ist blockiert, solange eine Stadtverteidigung möglich ist.</Text>
     </Row>
+    <!-- Relocate City Strike and Encampment Strike button translations done via Google Translate -->
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="de_DE">
+      <Text>City Strike-Schaltfläche verschieben</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP" Language="de_DE">
+      <Text>Aktivieren Sie diese Option, um den City Strike-Button über den Gesundheits- und Verteidigungsbalken zu verschieben</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" Language="de_DE">
+      <Text>Verschieben Sie die Schaltfläche "Streik im Lager"</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="de_DE">
+      <Text>Aktivieren Sie diese Option, um die Schaltfläche "Streik des Lagers" über den Gesundheits- und Verteidigungsbalken zu verschieben</Text>
+    </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="de_DE">
       <Text>Zeilenhöhe i.d. Produktwahlliste</Text>
     </Row>

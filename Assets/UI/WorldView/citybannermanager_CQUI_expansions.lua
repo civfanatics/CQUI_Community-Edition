@@ -19,7 +19,6 @@ BASE_CQUI_CityBanner_Initialize = CityBanner.Initialize;
 BASE_CQUI_CityBanner_Uninitialize = CityBanner.Uninitialize;
 BASE_CQUI_CityBanner_UpdateInfo = CityBanner.UpdateInfo;
 BASE_CQUI_CityBanner_UpdatePopulation = CityBanner.UpdatePopulation;
-BASE_CQUI_CityBanner_UpdateRangeStrike = CityBanner.UpdateRangeStrike;
 BASE_CQUI_CityBanner_UpdateStats = CityBanner.UpdateStats;
 
 -- ============================================================================
@@ -232,26 +231,6 @@ end
 function OnCityStrikeButtonClick( playerID, cityID )
     print_debug("CityBannerManager_CQUI_Expansions: OnCityStrikeButtonClick ENTRY playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
     CQUI_OnCityRangeStrikeButtonClick(playerID, cityID);
-end
-
--- ===========================================================================
-function OnDistrictRangeStrikeButtonClick( playerID, districtID )
-    print_debug("CityBannerManager_CQUI_Expansions: OnDistrictRangeStrikeButtonClick ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID));
-    local pPlayer = Players[playerID];
-    if (pPlayer == nil) then
-        return;
-    end
-
-    local pDistrict = pPlayer:GetDistricts():FindID(districtID);
-    if (pDistrict == nil) then
-        return;
-    end;
-
-    UI.DeselectAll();
-    UI.SelectDistrict(pDistrict);
-    -- CQUI (Azurency) : Look at the district plot
-    UI.LookAtPlot(pDistrict:GetX(), pDistrict:GetY());
-    UI.SetInterfaceMode(InterfaceModeTypes.DISTRICT_RANGE_ATTACK);
 end
 
 -- ===========================================================================

@@ -30,6 +30,19 @@
     <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK_TOOLTIP" Language="it_IT">
       <Text>Abilita se vuoi che il pulsante "Fine Turno" sia bloccato se una città può attaccare.</Text>
     </Row>
+    <!-- Relocate City Strike and Encampment Strike button translations done via Google Translate -->
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="it_IT">
+      <Text>Riposiziona il pulsante City Strike</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP" Language="it_IT">
+      <Text>Abilita questo per riposizionare il pulsante City Strike sopra le barre di salute e difesa</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" Language="it_IT">
+      <Text>Riposizionare il pulsante Colpo Encampment</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="it_IT">
+      <Text>Abilita questo per riposizionare il pulsante Colpo Encampment sopra le barre di salute e difesa</Text>
+    </Row>    
     <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="it_IT">
       <Text>Altezza elemento da produrre</Text>
     </Row>

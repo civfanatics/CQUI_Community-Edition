@@ -30,6 +30,19 @@
     <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK_TOOLTIP" Language="ja_JP">
       <Text>都市砲撃できる場合はターンを終了できなくする。</Text>
     </Row>
+    <!-- Relocate City Strike and Encampment Strike button translations done via Google Translate -->
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="ja_JP">
+      <Text>City Strikeボタンを再配置する</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP" Language="ja_JP">
+      <Text>これを有効にして、シティストライクボタンをヘルスバーと防御バーの上に再配置します。</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" Language="ja_JP">
+      <Text>陣営攻撃ボタンを再配置</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="ja_JP">
+      <Text>これを有効にして、エンキャンプメントストライクボタンをヘルスバーと防御バーの上に再配置します</Text>
+    </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="ja_JP">
       <Text>生産アイテムの縦幅</Text>
     </Row>

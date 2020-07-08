@@ -30,6 +30,18 @@
     <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK_TOOLTIP" Language="en_US">
       <Text>Enable this if you want "End Turn" to be block if a city can attack.</Text>
     </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="en_US">
+      <Text>Relocate City Strike button</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP" Language="en_US">
+      <Text>Enable this to relocate the City Strike button above health and defense bars</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" Language="en_US">
+      <Text>Relocate Encampment Strike button</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="en_US">
+      <Text>Enable this to relocate the Encampment Strike button above health and defense bars</Text>
+    </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="en_US">
       <Text>Production item height</Text>
     </Row>
