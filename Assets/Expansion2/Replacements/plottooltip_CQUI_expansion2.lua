@@ -5,6 +5,10 @@ include("PlotToolTip_Expansion2");
 
 include("plottooltip_CQUI.lua");
 
+local LL = Locale.Lookup;
+--CQUI Use this table to set up a better order of listing the yields... ie Food before Production
+local cquiYieldsOrder:table = { "YIELD_FOOD", "YIELD_PRODUCTION", "YIELD_GOLD", "YIELD_SCIENCE", "YIELD_CULTURE", "YIELD_FAITH" };
+
 -- ===========================================================================
 --  CQUI modified GetDetails functiton
 --  Re-arrrange the tooltip informations (https://github.com/CQUI-Org/cqui/issues/232)
@@ -12,9 +16,15 @@ include("plottooltip_CQUI.lua");
 --  This builds the tool-tip using table.insert as the mechanism for each line
 -- ===========================================================================
 function GetDetails(data)
-    local details = {};
+    --for k,v in pairs(data) do print(k,v); end -- debug
+    local details:table = {};
+    local localPlayerID:number = Game.GetLocalPlayer();
+    local localPlayer:table = Players[localPlayerID];
+    local iTourism:number = 0; -- #75
+    
+    ------------------------------------------------------------------------------
+    -- Civilization, city ownership line and player related data
 
-    --Civilization and city ownership line
     if (data.Owner ~= nil) then
 
         local szOwnerString;
@@ -33,17 +43,22 @@ function GetDetails(data)
             szOwnerString = szOwnerString .. " (" .. Locale.Lookup(pPlayerConfig:GetPlayerName()) .. ")";
         end
 
-        --CQUI Remove City Owner if it's a city state as civ name is the same as city owner name
-        local szOwnerString2 = Locale.Lookup("LOC_TOOLTIP_CITY_OWNER",szOwnerString, data.OwningCityName);
-        if (pPlayer:IsMajor() == false) then
-            local cutoff1, cutoff2 = string.find(szOwnerString2,"(",1,true);
-            szOwnerString2 = string.sub(szOwnerString2,1,cutoff1-1);
+        if pPlayer:IsMajor() then
+            szOwnerString = LL("LOC_TOOLTIP_CITY_OWNER", szOwnerString, data.OwningCityName); -- vanilla game
+        else
+            -- CQUI Remove City Owner if it's a city state as civ name is the same as city owner name
+            szOwnerString = LL("LOC_HUD_CITY_OWNER", szOwnerString);
         end
-
-        table.insert(details,szOwnerString2);
+        table.insert(details, szOwnerString);
+        
+        -- #75 Infixo tourism
+        iTourism = pPlayer:GetCulture():GetTourismAt(data.Index);
+        --print("..plot tourism at", data.Index, iTourism); -- debug
     end
 
-    -- Next line: the terrain (with feature if it has one)
+    ------------------------------------------------------------------------------
+    -- TERRAIN AND FEATURE
+    
     local szTerrainString;
 
     if (data.IsLake) then
@@ -54,7 +69,6 @@ function GetDetails(data)
 
     if (data.FeatureType ~= nil) then
         local szFeatureString = Locale.Lookup(GameInfo.Features[data.FeatureType].Name);
-        local localPlayer = Players[Game.GetLocalPlayer()];
         local addCivicName = GameInfo.Features[data.FeatureType].AddCivic;
         
         if (localPlayer ~= nil and addCivicName ~= nil) then
@@ -66,11 +80,9 @@ function GetDetails(data)
                 else
                     szAdditionalString = Locale.Lookup("LOC_TOOLTIP_PLOT_WOODS_SECONDARY");
                 end
-
                 szFeatureString = szFeatureString .. " " .. szAdditionalString;
             end
         end
-
         szTerrainString = szTerrainString.."/ ".. szFeatureString;
     end
 
@@ -90,7 +102,6 @@ function GetDetails(data)
         elseif (data.Active) then
             szVolcanoString = szVolcanoString .. " " .. Locale.Lookup("LOC_VOLCANO_ACTIVE_STRING");
         end
-
         table.insert(details, szVolcanoString);
     end
 
@@ -110,22 +121,22 @@ function GetDetails(data)
         table.insert(details, data.NationalPark);
     end
 
+    ------------------------------------------------------------------------------
+    -- RESOURCE
     -- Add Resource Information if there exists one
     if (data.ResourceType ~= nil) then
         --if it's a resource that requires a tech to improve, let the player know that in the tooltip
         local resourceType = data.ResourceType;
         local resource = GameInfo.Resources[resourceType];
         local resourceHash = GameInfo.Resources[resourceType].Hash;
+        
         local resourceColor;
-
-        if (resource.ResourceClassType ~= nil) then
-            if (resource.ResourceClassType == "RESOURCECLASS_BONUS") then
-                resourceColor = "GoldDark";
-            elseif (resource.ResourceClassType == "RESOURCECLASS_LUXURY") then
-                resourceColor = "Civ6Purple";
-            elseif (resource.ResourceClassType == "RESOURCECLASS_STRATEGIC") then
-                resourceColor = "Civ6Red";
-            end
+        if (resource.ResourceClassType == "RESOURCECLASS_BONUS") then
+            resourceColor = "GoldDark";
+        elseif (resource.ResourceClassType == "RESOURCECLASS_LUXURY") then
+            resourceColor = "Civ6Purple";
+        elseif (resource.ResourceClassType == "RESOURCECLASS_STRATEGIC") then
+            resourceColor = "Civ6Red";
         end
 
         --Color code the resource text if they have a color. For example, antiquity sites don't have a color
@@ -156,8 +167,8 @@ function GetDetails(data)
                         end
                     end
                 end
-
                 valid_feature = not has_feature or valid_feature;
+                
                 local has_terrain = false;
                 for inner_row in GameInfo.Improvement_ValidTerrains() do
                     if (inner_row.ImprovementType == improvementType) then
@@ -167,7 +178,6 @@ function GetDetails(data)
                         end
                     end
                 end
-
                 valid_terrain = not has_terrain or valid_terrain;
 
                 -- If terrain is coast, then only sea-things are valid... otherwise only land
@@ -189,11 +199,10 @@ function GetDetails(data)
                     resourceTechType = GameInfo.Improvements[improvementType].PrereqTech;
                     break; -- for loop
                 end
-            end
+            end -- if
         end -- for loop
 
-        -- Only show the resource if the player has the acquired the tech to make it visible
-        local localPlayer = Players[Game.GetLocalPlayer()];
+        -- Only show the resource if the player has acquired the tech to make it visible
         if (localPlayer ~= nil) then
             local playerResources = localPlayer:GetResources();
             if (playerResources:IsResourceVisible(resourceHash)) then
@@ -207,11 +216,56 @@ function GetDetails(data)
 
                 table.insert(details, resourceString);
             end
+		elseif m_isWorldBuilder then
+			if (resourceTechType ~= nil and valid_feature == true and valid_terrain == true) then
+				local techType = GameInfo.Technologies[resourceTechType];
+				if (techType ~= nil) then
+					resourceString = resourceString .. "( " .. Locale.Lookup("LOC_TOOLTIP_REQUIRES") .. " " .. Locale.Lookup(techType.Name) .. ")[ENDCOLOR]";
+				end
+			end
+			table.insert(details, resourceString);
         end
+        
+        -- info about the resource being extracted
+        local function ValidImprovement(imprType:string, resourceType:string)
+            for row in GameInfo.Improvement_ValidResources() do
+                if row.ResourceType == resourceType and row.ImprovementType == imprType then return true; end
+            end
+            return false;
+        end
+        if (localPlayer ~= nil) then
+            local playerResources = localPlayer:GetResources();
+            if(playerResources:IsResourceVisible(resourceHash)) then
+                local resourceTechType = resource.PrereqTech;
+                if (resourceTechType ~= nil) then
+                    local playerTechs = localPlayer:GetTechs();
+                    local techType = GameInfo.Technologies[resourceTechType];
+                    if (techType ~= nil and playerTechs:HasTech(techType.Index)) then
+                        -- check if improved
+                        if (data.DistrictType ~= nil and not data.DistrictPillaged) or (data.ImprovementType ~= nil and not data.ImprovementPillaged and ValidImprovement(data.ImprovementType, resourceType)) then 
+                            local kConsumption:table = GameInfo.Resource_Consumption[data.ResourceType];    
+                            if (kConsumption ~= nil and kConsumption.Accumulate) then
+                                local iExtraction = kConsumption.ImprovedExtractionRate; -- TODO: there is also BaseExtractionRate but not used currently
+                                if (iExtraction > 0) then
+                                    local resourceIcon:string = "[ICON_" .. data.ResourceType .. "]";
+                                    table.insert(details, LL("LOC_RESOURCE_ACCUMULATION_BUILD_IMPROVEMENT", iExtraction, resourceIcon, "[COLOR:Civ6Red]"..LL(resource.Name).."[ENDCOLOR]")); -- {1_Amount} {2_Icon} {3_ResourceName} per turn
+                                end
+                            end
+                        else
+                            if data.Owner == localPlayerID then
+                                table.insert(details, LL("LOC_CQUI_TOOLTIP_PLOT_IMPROVE_RESOURCE"));
+                            end
+                        end -- if improved
+                    end -- has tech
+                end
+            end -- visible
+        end
+        
     end -- if ResourceType is not nil
 
     table.insert(details, "------------------");
 
+    ------------------------------------------------------------------------------
     -- ROUTE TILE - CQUI Modified Doesn't display movement cost if route movement exists
     local szMoveString;
     if (data.IsRoute and not data.Impassable) then
@@ -222,7 +276,6 @@ function GetDetails(data)
             else
                 szMoveString = Locale.Lookup("LOC_TOOLTIP_ROUTE_MOVEMENT", routeInfo.MovementCost, routeInfo.Name);
             end
-
             szMoveString = szMoveString.. "[ICON_Movement]";
         end
     elseif (not data.Impassable and data.MovementCost > 0) then
@@ -254,11 +307,13 @@ function GetDetails(data)
                 break;
             end
         end
-
         if (strAppealDescriptor) then
             table.insert(details, Locale.Lookup("LOC_TOOLTIP_APPEAL", strAppealDescriptor, data.Appeal));
         end
     end
+
+    -- #75 Infixo tourism
+    if iTourism > 0 then table.insert(details, string.format("%s: %+d[ICON_Tourism]", Locale.Lookup("LOC_TOP_PANEL_TOURISM"), iTourism)); end
 
     -- Do not include ('none') continent line unless continent plot. #35955
     if (data.Continent ~= nil) then
@@ -277,125 +332,54 @@ function GetDetails(data)
         end
     end
 
-    --CQUI Use this table to set up a better order of listing the yields... ie Food before Production
-    local CQUIYields = {};
+    ------------------------------------------------------------------------------
+    -- YIELDS
+    local function ShowYields(details:table, yields:table)
+        --for k,v in pairs(yields) do print(k,v); end -- debug
+        for _,yieldType in ipairs(cquiYieldsOrder) do
+            if yields[yieldType] ~= nil then
+                local yield:table = GameInfo.Yields[yieldType];
+                table.insert(details, string.format("%d%s%s", yields[yieldType], yield.IconString, LL(yield.Name)));
+            end
+        end
+    end
 
     -- Fill in the next set of info based on whether it's a city, district, or other tile
-    -- CITY TILE
     if (data.IsCity == true and data.DistrictType ~= nil) then
+        -- CITY TILE
         table.insert(details, "------------------");
-        table.insert(details, Locale.Lookup(GameInfo.Districts[data.DistrictType].Name))
+        table.insert(details, Locale.Lookup(GameInfo.Districts[data.DistrictType].Name));
+        ShowYields(details, data.Yields);
 
-        for yieldType, v in pairs(data.Yields) do
-            local yield = GameInfo.Yields[yieldType].Name;
-            local yieldicon = GameInfo.Yields[yieldType].IconString;
-            local str = tostring(v) .. Locale.Lookup(yieldicon) .. Locale.Lookup(yield);
-            table.insert(CQUIYields,1,str);
+    elseif(data.DistrictID ~= -1 and data.DistrictType ~= nil and not GameInfo.Districts[data.DistrictType].InternalOnly) then
+        -- DISTRICT TILE (ignore 'Wonder' districts)
+        -- Plot yields (ie. from Specialists)
+        if (data.Yields ~= nil) then
+            if (table.count(data.Yields) > 0) then
+                table.insert(details, "------------------");
+                table.insert(details, Locale.Lookup("LOC_PEDIA_CONCEPTS_PAGE_CITIES_9_CHAPTER_CONTENT_TITLE")); -- "Specialists", text lock :'()
+            end
+            ShowYields(details, data.Yields);
         end
 
-        for i, v in ipairs(CQUIYields) do
-            table.insert(details,v);
+        -- Inherent district yields
+        local sDistrictName :string = Locale.Lookup(Locale.Lookup(GameInfo.Districts[data.DistrictType].Name));
+        if (data.DistrictPillaged) then
+            sDistrictName = sDistrictName .. " " .. Locale.Lookup("LOC_TOOLTIP_PLOT_PILLAGED_TEXT");
+        elseif (not data.DistrictComplete) then
+            sDistrictName = sDistrictName .. " " .. Locale.Lookup("LOC_TOOLTIP_PLOT_CONSTRUCTION_TEXT");
         end
 
-        if (data.ResourceType ~= nil and data.DistrictType ~= nil) then
-            local localPlayer = Players[Game.GetLocalPlayer()];
-            if (localPlayer ~= nil) then
-                local playerResources = localPlayer:GetResources();
-                if (playerResources:IsResourceVisible(resourceHash)) then
-                    local resourceTechType = GameInfo.Resources[data.ResourceType].PrereqTech;
-                    if (resourceTechType ~= nil) then
-                        local playerTechs   = localPlayer:GetTechs();
-                        local techType = GameInfo.Technologies[resourceTechType];
-                        if (techType ~= nil and playerTechs:HasTech(techType.Index)) then
-                            local kConsumption:table = GameInfo.Resource_Consumption[data.ResourceType];    
-                            if (kConsumption ~= nil) then
-                                if (kConsumption.Accumulate) then
-                                    local iExtraction = kConsumption.ImprovedExtractionRate;
-                                    if (iExtraction > 0) then
-                                        local resourceName:string = GameInfo.Resources[data.ResourceType].Name;
-                                        local resourceIcon:string = "[ICON_" .. data.ResourceType .. "]";
-                                        table.insert(details, Locale.Lookup("LOC_RESOURCE_ACCUMULATION_EXISTING_IMPROVEMENT", iExtraction, resourceIcon, resourceName));
-                                    end
-                                end
-                            end
-                        end
-                    end -- resourceTechType ~= nil
+        table.insert(details, "------------------");
+        table.insert(details, sDistrictName);
 
-                    table.insert(details, resourceString);
-                end -- isResourceVisible
-            end -- localPlayer ~= nil
-        end -- data.ResourceType and data.DistrictType are not nil
-
-    -- DISTRICT TILE
-    elseif (data.DistrictID ~= -1 and data.DistrictType ~= nil) then
-        if (not GameInfo.Districts[data.DistrictType].InternalOnly) then  --Ignore 'Wonder' districts
-            -- Plot yields (ie. from Specialists)
-            if (data.Yields ~= nil) then
-                if (table.count(data.Yields) > 0) then
-                    table.insert(details, "------------------");
-                    table.insert(details, Locale.Lookup("LOC_PEDIA_CONCEPTS_PAGE_CITIES_9_CHAPTER_CONTENT_TITLE")); -- "Specialists", text lock :'()
-                end
-
-                for yieldType, v in pairs(data.Yields) do
-                    local yield = GameInfo.Yields[yieldType].Name;
-                    local yieldicon = GameInfo.Yields[yieldType].IconString;
-                    local str = tostring(v) .. Locale.Lookup(yieldicon) .. Locale.Lookup(yield);
-                    table.insert(details, str);
-                end
-            end
-
-            -- Inherent district yields
-            local sDistrictName :string = Locale.Lookup(Locale.Lookup(GameInfo.Districts[data.DistrictType].Name));
-            if (data.DistrictPillaged) then
-                sDistrictName = sDistrictName .. " " .. Locale.Lookup("LOC_TOOLTIP_PLOT_PILLAGED_TEXT");
-            elseif (not data.DistrictComplete) then
-                sDistrictName = sDistrictName .. " " .. Locale.Lookup("LOC_TOOLTIP_PLOT_CONSTRUCTION_TEXT");
-            end
-
-            table.insert(details, "------------------");
-            table.insert(details, sDistrictName);
-
-            -- List the yields from this district tile
-            if (data.DistrictYields ~= nil) then
-                for yieldType, v in pairs(data.DistrictYields) do
-                    local yield = GameInfo.Yields[yieldType].Name;
-                    local yieldicon = GameInfo.Yields[yieldType].IconString;
-                    local str = tostring(v) .. Locale.Lookup(yieldicon) .. Locale.Lookup(yield);
-                    table.insert(details, str);
-                end
-            end
-
-            -- If there exists a resource under this district tile then show its info (if the player has that tech)
-            if (data.ResourceType ~= nil and data.DistrictType ~= nil) then
-                local localPlayer = Players[Game.GetLocalPlayer()];
-                if (localPlayer ~= nil) then
-                    local playerResources = localPlayer:GetResources();
-                    if (playerResources:IsResourceVisible(resourceHash)) then
-                        local resourceTechType = GameInfo.Resources[data.ResourceType].PrereqTech;
-                        if (resourceTechType ~= nil) then
-                            local playerTechs = localPlayer:GetTechs();
-                            local techType = GameInfo.Technologies[resourceTechType];
-                            if (techType ~= nil and playerTechs:HasTech(techType.Index)) then
-                                local kConsumption:table = GameInfo.Resource_Consumption[data.ResourceType];        
-                                if (kConsumption ~= nil) then
-                                    if (kConsumption.Accumulate) then
-                                        local iExtraction = kConsumption.ImprovedExtractionRate;
-                                        if (iExtraction > 0) then
-                                            local resourceName:string = GameInfo.Resources[data.ResourceType].Name;
-                                            local resourceIcon:string = "[ICON_" .. data.ResourceType .. "]";
-                                            table.insert(details, Locale.Lookup("LOC_RESOURCE_ACCUMULATION_EXISTING_IMPROVEMENT", iExtraction, resourceIcon, resourceName));
-                                        end
-                                    end
-                                end
-                            end
-                        end
-                    end
-                end
-            end
+        -- List the yields from this district tile
+        if (data.DistrictYields ~= nil) then
+            ShowYields(details, data.DistrictYields);
         end
 
-    -- OTHER TILE (Not city, not district)
     else
+        -- OTHER TILE (Not city, not district)
         table.insert(details, "------------------");
         if (data.ImprovementType ~= nil) then
             local improvementStr = Locale.Lookup(GameInfo.Improvements[data.ImprovementType].Name);
@@ -404,50 +388,9 @@ function GetDetails(data)
             end
             table.insert(details, improvementStr)
         end
+        ShowYields(details, data.Yields);
 
-        for yieldType, v in pairs(data.Yields) do
-            local yield = GameInfo.Yields[yieldType].Name;
-            local yieldicon = GameInfo.Yields[yieldType].IconString;
-            local str = tostring(v) .. Locale.Lookup(yieldicon) .. Locale.Lookup(yield);
-            if (yieldType == "YIELD_FOOD" or yieldType == "YIELD_PRODUCTION") then
-                table.insert(CQUIYields,1,str);
-            else
-                table.insert(CQUIYields,str);
-            end
-        end
-
-        -- list the tile yields
-        for i, v in ipairs(CQUIYields) do
-            table.insert(details,v);
-        end
-
-        -- if there's a strategic resource and there's an improvement over it show the per-turn accumulation
-        if (data.ResourceType ~= nil and data.ImprovementType ~= nil) then
-            local localPlayer = Players[Game.GetLocalPlayer()];
-
-            if (localPlayer ~= nil) then
-                local playerResources = localPlayer:GetResources();
-                if (playerResources:IsResourceVisible(resourceHash)) then
-                    local resourceTechType = GameInfo.Resources[data.ResourceType].PrereqTech;
-                    if (resourceTechType ~= nil) then
-                        local playerTechs   = localPlayer:GetTechs();
-                        local techType = GameInfo.Technologies[resourceTechType];
-                        if (techType ~= nil and playerTechs:HasTech(techType.Index)) then
-                            local kConsumption:table = GameInfo.Resource_Consumption[data.ResourceType];    
-                            if (kConsumption ~= nil and kConsumption.Accumulate) then
-                                local iExtraction = kConsumption.ImprovedExtractionRate;
-                                if (iExtraction > 0) then
-                                    local resourceName:string = GameInfo.Resources[data.ResourceType].Name;
-                                    local resourceIcon:string = "[ICON_" .. data.ResourceType .. "]";
-                                    table.insert(details, Locale.Lookup("LOC_RESOURCE_ACCUMULATION_EXISTING_IMPROVEMENT", iExtraction, resourceIcon, resourceName));
-                                end
-                            end
-                        end
-                    end
-                end
-            end
-        end
-    end
+    end -- city / district / normal
 
     -- if tile is impassable, add that line
     if (data.Impassable == true) then
@@ -500,7 +443,7 @@ function GetDetails(data)
     end
 
     -- Show number of civilians working here
-    if (data.Owner == Game.GetLocalPlayer() and data.Workers > 0) then
+    if (data.Owner == localPlayerID and data.Workers > 0) then
         table.insert(details, Locale.Lookup("LOC_TOOLTIP_PLOT_WORKED_TEXT", data.Workers));
     end
 
