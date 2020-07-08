@@ -94,6 +94,7 @@
                                 <Label ID="CityBuiltDistrictStreetCarnival" Hidden="1" Style="FontNormal20" String="[ICON_DISTRICT_ENTERTAINMENT_COMPLEX]"/>
                                 <Label ID="CityBuiltDistrictTheater" Hidden="1" Style="FontNormal20" String="[ICON_DISTRICT_THEATER]"/>
                             </Stack>
+                            <Image ID="CQUI_DistrictAvailable" Anchor="L,C" Offset="-2,0" Icon="ICON_STAT_DISTRICTS" Size="24,24" ToolTip="LOC_HUD_DISTRICTS" Hidden="true" />
                             <Label ID="CityQuestIcon" Anchor="L,C" Style="FontNormal20" />
                             <Label ID="CityName" Anchor="L,C" Style="HeaderSmallCaps" String="BALTIMORE" />
                             <Image ID="ReligionBannerIconContainer" Anchor="L,C" Size="26,26" Texture="Banner_ProductionCircle" Color="255,255,255,200" Hidden="1">

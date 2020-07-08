@@ -217,6 +217,7 @@ function CityBanner.UpdateName( self )
         self.m_Instance.CityBuiltDistrictSpaceport:SetHide(true);
         self.m_Instance.CityBuiltDistrictStreetCarnival:SetHide(true);
         self.m_Instance.CityBuiltDistrictTheater:SetHide(true);
+        self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
     end
 
     local pCityDistricts:table  = pCity:GetDistricts();
@@ -271,6 +272,15 @@ function CityBanner.UpdateName( self )
                     if (districtType == iTheater)         then self.m_Instance.CityBuiltDistrictTheater:SetHide(false);        end
                 end -- if isBuilt
             end -- for loop
+            -- Infixo: 2020-07-08 district available flag and tooltip
+            local iDistrictsNum:number         = pCityDistricts:GetNumZonedDistrictsRequiringPopulation();
+            local iDistrictsPossibleNum:number = pCityDistricts:GetNumAllowedDistrictsRequiringPopulation();
+            if iDistrictsPossibleNum > iDistrictsNum then
+                self.m_Instance.CQUI_DistrictAvailable:SetHide(false);
+                self.m_Instance.CQUI_DistrictAvailable:SetToolTipString( string.format("%s %d / %d", Locale.Lookup("LOC_HUD_DISTRICTS"), iDistrictsNum, iDistrictsPossibleNum) );
+            else
+                self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
+            end
         end -- if CQUI_SmartBanner_Districts
     end -- if CQUI_SmartBanner and there's a district to show
 
