@@ -30,6 +30,19 @@
     <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK_TOOLTIP" Language="pl_PL">
       <Text>Włącz tę opcję jeśli chcesz by "Zakończ Turę" było zablokowane gdy miasto może atakować.</Text>
     </Row>
+    <!-- Relocate City Strike and Encampment Strike button translations done via Google Translate -->
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="pl_PL">
+      <Text>Zmień położenie przycisku City Strike</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP" Language="pl_PL">
+      <Text>Włącz tę opcję, aby przenieść przycisk Strajku Miasta powyżej pasków zdrowia i obrony</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" Language="pl_PL">
+      <Text>Zmień położenie przycisku obozowania obozowiska</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="pl_PL">
+      <Text>Włącz tę opcję, aby przenieść przycisk Obozowisko powyżej pasków zdrowia i obrony</Text>
+    </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="pl_PL">
       <Text>Wysokość elementu produkcji</Text>
     </Row>

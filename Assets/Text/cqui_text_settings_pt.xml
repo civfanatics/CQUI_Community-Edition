@@ -30,6 +30,19 @@
     <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK_TOOLTIP" Language="pt_BR">
       <Text>Habilite isso se você quer bloquear "Final de Turno" se uma cidade pode atacar.</Text>
     </Row>
+    <!-- Relocate City Strike and Encampment Strike button translations done via Google Translate -->
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="pt_BR">
+      <Text>Reposicionar botão Strike City</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP" Language="pt_BR">
+      <Text>Habilite isso para realocar o botão City Strike acima das barras de saúde e defesa</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" Language="pt_BR">
+      <Text>Reposicionar botão de ataque de acampamento</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="pt_BR">
+      <Text>Habilite isso para realocar o botão Ataque ao acampamento acima das barras de saúde e defesa</Text>
+    </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="pt_BR">
       <Text>Altura dos itens de produção</Text>
     </Row>

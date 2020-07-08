@@ -27,6 +27,19 @@
     <Row Tag="LOC_CQUI_CITYVIEW" Language="fr_FR">
       <Text>Vue des Villes</Text>
     </Row>
+    <!-- Relocate City Strike and Encampment Strike button translations done via Google Translate -->
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="fr_FR">
+      <Text>Déplacer le bouton City Strike</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP" Language="fr_FR">
+      <Text>Activez cette option pour déplacer le bouton City Strike au-dessus des barres de santé et de défense</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" Language="fr_FR">
+      <Text>Bouton Déplacer la grève du campement</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="fr_FR">
+      <Text>Activez cette option pour déplacer le bouton Encampment Strike au-dessus des barres de santé et de défense</Text>
+    </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="fr_FR">
       <!-- TODO -->
       <Text>Production item height</Text>
