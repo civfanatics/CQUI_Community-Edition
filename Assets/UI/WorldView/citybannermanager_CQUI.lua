@@ -89,7 +89,6 @@ function CQUI_OnSettingsInitialized()
 
     CQUI_ShowCitizenIconsOnCityHover   = GameConfiguration.GetValue("CQUI_ShowCitizenIconsOnCityHover");
     CQUI_ShowCityManageAreaOnCityHover = GameConfiguration.GetValue("CQUI_ShowCityManageAreaOnCityHover");
-    CQUI_ShowCityManageAreaInScreen    = GameConfiguration.GetValue("CQUI_ShowCityMangeAreaInScreen");
     CQUI_RelocateCityStrike            = GameConfiguration.GetValue("CQUI_RelocateCityStrike");
     CQUI_RelocateEncampmentStrike      = GameConfiguration.GetValue("CQUI_RelocateEncampmentStrike");
 end

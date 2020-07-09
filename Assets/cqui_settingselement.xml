@@ -72,13 +72,6 @@
                                 <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
                                     <GridButton ID="ProductionQueueCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_CITYVIEW_PRODUCTIONQUEUE" />
                                 </Stack>
-                                <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
-                                    <Label String="0" Style="ShellOptionText" Anchor="L,C" ID="ProductionItemHeightText" Offset="3,0" />
-                                    <Label Anchor="L,C" Style="ShellOptionText" String="LOC_CQUI_CITYVIEW_ITEMHEIGHT"/>
-                                </Stack>
-                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
-                                    <Slider Style="SliderControl" Anchor="R,C" Size="300,13" Offset="5,0" SpaceForScroll="0" ID="ProductionItemHeightSlider" Steps="104" />
-                                </Stack>
                                 <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
                                     <GridButton ID="ShowCultureGrowthCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_CITYVIEW_SHOWCULTUREGROWTH" />
                                 </Stack>
@@ -90,12 +83,6 @@
                                 </Stack>
                                 <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
                                     <GridButton ID="ShowCityManageAreaOnHoverCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEONHOVER" />
-                                </Stack>
-                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
-                                    <GridButton ID="ShowCityManageAreaInScreenCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEINSCREEN" />
-                                </Stack>
-                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
-                                    <GridButton ID="BlockOnCityAttackCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK" />
                                 </Stack>
                                 <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
                                     <GridButton ID="RelocateCityStrikeCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" />
@@ -408,12 +395,6 @@
                             <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
                                 <GridButton ID="AutoapplyScoutLensCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS"/>
                             </Stack>
-                            <!--<Stack Anchor="R,T" StackGrowth="Left" Padding="5">
-            <GridButton ID="ShowNothingToDoInBuilderLens" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_SHOWNOTHINGTODO_BUILDER"/>
-          </Stack>
-          <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
-            <GridButton ID="ShowGenericInBuilderLens" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_SHOWGENERIC_BUILDER"/>
-          </Stack>-->
                         </Stack>
                     </Container>
                     <Container ID="TraderScreenOption" Size="parent,parent" Hidden="1">

@@ -37,9 +37,6 @@
     <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="ko_KR">
       <Text>이 옵션을 사용하면 상태 및 방어 막대 위의 야영지 스트라이크 버튼을 재배치하십시오.</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="ko_KR">
-      <Text>도시 생산창 아이템 항목 높이</Text>
-    </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_PRODUCTIONQUEUE" Language="ko_KR">
       <Text>생산 대기열 활성화</Text>
     </Row>

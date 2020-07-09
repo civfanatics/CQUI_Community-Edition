@@ -24,12 +24,6 @@
     <Row Tag="LOC_CQUI_CITYVIEW" Language="es_ES">
       <Text>Vista de ciudad</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK" Language="es_ES">
-      <Text>Bloquea turno para ataques de ciudad</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK_TOOLTIP" Language="es_ES">
-      <Text>Activar para bloquear "Finalizar Turno" si una ciudad puede atacar.</Text>
-    </Row>
     <!-- Relocate City Strike and Encampment Strike button translations done via Google Translate -->
     <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="es_ES">
       <Text>Botón Reubicar City Strike</Text>
@@ -42,9 +36,6 @@
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="es_ES">
       <Text>Habilite esto para reubicar el botón de Golpe de campamento sobre las barras de salud y defensa</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="es_ES">
-      <Text>Altura de elementos de producción</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_PRODUCTIONQUEUE" Language="es_ES">
       <Text>Activa cola de producción</Text>

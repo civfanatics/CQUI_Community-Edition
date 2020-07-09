@@ -354,7 +354,6 @@ function Initialize()
     PopulateCheckBox(Controls.SmartbannerPopulationCheckbox, "CQUI_Smartbanner_Population", Locale.Lookup("LOC_CQUI_CITYVIEW_SMARTBANNER_POPULATION_TOOLTIP"));
     PopulateCheckBox(Controls.SmartbannerCulturalCheckbox, "CQUI_Smartbanner_Cultural", Locale.Lookup("LOC_CQUI_CITYVIEW_SMARTBANNER_CULTURAL_TOOLTIP"));
     PopulateCheckBox(Controls.ToggleYieldsOnLoadCheckbox, "CQUI_ToggleYieldsOnLoad");
-    PopulateCheckBox(Controls.BlockOnCityAttackCheckbox, "CQUI_BlockOnCityAttack", Locale.Lookup("LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK_TOOLTIP"));
     PopulateCheckBox(Controls.RelocateCityStrikeCheckbox, "CQUI_RelocateCityStrike", Locale.Lookup("LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP"));
     PopulateCheckBox(Controls.RelocateEncampmentStrikeCheckbox, "CQUI_RelocateEncampmentStrike", Locale.Lookup("LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP"));
     PopulateCheckBox(Controls.TechVisualCheckbox, "CQUI_TechPopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_TECHVISUAL_TOOLTIP"));
@@ -367,20 +366,15 @@ function Initialize()
     PopulateCheckBox(Controls.AutoapplyArchaeologistLensCheckbox, "CQUI_AutoapplyArchaeologistLens");
     PopulateCheckBox(Controls.AutoapplyBuilderLensCheckbox, "CQUI_AutoapplyBuilderLens");
     PopulateCheckBox(Controls.AutoapplyScoutLensCheckbox, "CQUI_AutoapplyScoutLens");
-    -- TODO (2020-05): These items were commented prior to May 2020 patch
-    -- PopulateCheckBox(Controls.ShowNothingToDoInBuilderLens, "CQUI_ShowNothingToDoBuilderLens", Locale.Lookup("LOC_CQUI_LENSES_SHOWNOTHINGTODO_BUILDER_TOOLTIP"));
-    -- PopulateCheckBox(Controls.ShowGenericInBuilderLens, "CQUI_ShowGenericBuilderLens", Locale.Lookup("LOC_CQUI_LENSES_SHOWGENERIC_BUILDER_TOOLTIP"));
 
     PopulateCheckBox(Controls.ShowYieldsOnCityHoverCheckbox, "CQUI_ShowYieldsOnCityHover", Locale.Lookup("LOC_CQUI_CITYVIEW_SHOWYIELDSONCITYHOVER_TOOLTIP"));
     PopulateCheckBox(Controls.ShowCitizenIconsOnHoverCheckbox, "CQUI_ShowCitizenIconsOnCityHover", Locale.Lookup("LOC_CQUI_CITYVIEW_SHOWCITIZENICONSONHOVER_TOOLTIP"));
     PopulateCheckBox(Controls.ShowCityManageAreaOnHoverCheckbox, "CQUI_ShowCityManageAreaOnCityHover", Locale.Lookup("LOC_CQUI_CITYVIEW_SHOWCITYMANAGEONHOVER_TOOLTIP"));
-    PopulateCheckBox(Controls.ShowCityManageAreaInScreenCheckbox, "CQUI_ShowCityMangeAreaInScreen", Locale.Lookup("LOC_CQUI_CITYVIEW_SHOWCITYMANAGEINSCREEN_TOOLTIP"));
     PopulateCheckBox(Controls.ShowUnitPathsCheckbox, "CQUI_ShowUnitPaths");
     PopulateCheckBox(Controls.AutoExpandUnitActionsCheckbox, "CQUI_AutoExpandUnitActions");
     PopulateCheckBox(Controls.AlwaysOpenTechTreesCheckbox, "CQUI_AlwaysOpenTechTrees");
     PopulateCheckBox(Controls.SmartWorkIconCheckbox, "CQUI_SmartWorkIcon", Locale.Lookup("LOC_CQUI_CITYVIEW_SMARTWORKICON_TOOLTIP"));
     PopulateCheckBox(Controls.ShowPolicyReminderCheckbox, "CQUI_ShowPolicyReminder", Locale.Lookup("LOC_CQUI_GENERAL_SHOWPRD_TOOLTIP"));
-    PopulateSlider(Controls.ProductionItemHeightSlider, Controls.ProductionItemHeightText, "CQUI_ProductionItemHeight", ProductionItemHeightConverter);
     PopulateSlider(Controls.WorkIconSizeSlider, Controls.WorkIconSizeText, "CQUI_WorkIconSize", WorkIconSizeConverter);
     PopulateSlider(Controls.SmartWorkIconSizeSlider, Controls.SmartWorkIconSizeText, "CQUI_SmartWorkIconSize", WorkIconSizeConverter);
     PopulateSlider(Controls.WorkIconAlphaSlider, Controls.WorkIconAlphaText, "CQUI_WorkIconAlpha", WorkIconAlphaConverter);

@@ -37,9 +37,6 @@
     <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="zh_Hans_CN">
       <Text>启用此选项可将“营地攻击”按钮移至健康和防御栏上方。</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="zh_Hans_CN">
-      <Text>生产项目横幅的高度</Text>
-    </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_PRODUCTIONQUEUE" Language="zh_Hans_CN">
       <Text>启用生产队列</Text>
     </Row>

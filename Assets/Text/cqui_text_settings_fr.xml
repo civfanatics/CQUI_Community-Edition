@@ -40,10 +40,6 @@
     <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="fr_FR">
       <Text>Activez cette option pour déplacer le bouton Encampment Strike au-dessus des barres de santé et de défense</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="fr_FR">
-      <!-- TODO -->
-      <Text>Production item height</Text>
-    </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_PRODUCTIONQUEUE" Language="fr_FR">
       <Text>Activer la queue de production</Text>
     </Row>
