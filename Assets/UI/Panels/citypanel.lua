@@ -184,28 +184,30 @@ function CQUI_OnInterfaceModeChanged( eOldMode:number, eNewMode:number )
             if g_pCity == nil then
                 UI.GetHeadSelectedCity();
             end
-            if g_pCity == nil then
+
+            if g_pCity ~= nil then
+                local newGrowthPlot:number = g_pCity:GetCulture():GetNextPlot();  --show the growth tile if the district or wonder can be placed there
+                if (newGrowthPlot ~= -1) then
+                    if (eNewMode == InterfaceModeTypes.DISTRICT_PLACEMENT) then
+                        local districtHash:number = UI.GetInterfaceModeParameter(CityOperationTypes.PARAM_DISTRICT_TYPE);
+                        local district:table      = GameInfo.Districts[districtHash];
+                        local kPlot   :table      = Map.GetPlotByIndex(newGrowthPlot);
+                        if kPlot:CanHaveDistrict(district.Index, m_pPlayer, g_pCity:GetID()) then
+                            DisplayGrowthTile();
+                        end
+                    elseif (eNewMode == InterfaceModeTypes.BUILDING_PLACEMENT) then
+                        local buildingHash :number = UI.GetInterfaceModeParameter(CityOperationTypes.PARAM_BUILDING_TYPE);
+                        local building = GameInfo.Buildings[buildingHash];
+                        local kPlot       :table          = Map.GetPlotByIndex(newGrowthPlot);
+                        if kPlot:CanHaveWonder(building.Index, m_pPlayer, g_pCity:GetID()) then
+                            DisplayGrowthTile();
+                        end
+                    end
+                end
+            else
                 print("-- CQUI CityPanel.lua: g_pCity is nil");
             end
 
-            local newGrowthPlot:number = g_pCity:GetCulture():GetNextPlot();  --show the growth tile if the district or wonder can be placed there
-            if (newGrowthPlot ~= -1) then
-                if (eNewMode == InterfaceModeTypes.DISTRICT_PLACEMENT) then
-                    local districtHash:number = UI.GetInterfaceModeParameter(CityOperationTypes.PARAM_DISTRICT_TYPE);
-                    local district:table      = GameInfo.Districts[districtHash];
-                    local kPlot   :table      = Map.GetPlotByIndex(newGrowthPlot);
-                    if kPlot:CanHaveDistrict(district.Index, m_pPlayer, g_pCity:GetID()) then
-                        DisplayGrowthTile();
-                    end
-                elseif (eNewMode == InterfaceModeTypes.BUILDING_PLACEMENT) then
-                    local buildingHash :number = UI.GetInterfaceModeParameter(CityOperationTypes.PARAM_BUILDING_TYPE);
-                    local building = GameInfo.Buildings[buildingHash];
-                    local kPlot       :table          = Map.GetPlotByIndex(newGrowthPlot);
-                    if kPlot:CanHaveWonder(building.Index, m_pPlayer, g_pCity:GetID()) then
-                        DisplayGrowthTile();
-                    end
-                end
-            end
         elseif (eNewMode ~= InterfaceModeTypes.CITY_MANAGEMENT) then
             if (CQUI_wonderMode) then
                 LuaEvents.CQUI_CityviewEnable();

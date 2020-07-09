@@ -125,27 +125,6 @@ end
 -- CQUI Extension Functions (Common to basegame and expansions)
 -- Functions that enhance the unmodified versions
 -- ===========================================================================
-function OnCityBannerClick( playerID, cityID )
-    print_debug("CityBannerManager_CQUI: OnCityBannerClick ENTRY  playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
-    BASE_CQUI_OnCityBannerClick(playerID, cityID);
-
-    local pPlayer = Players[playerID];
-    if (pPlayer == nil) then
-        return;
-    end
-
-    if (pPlayer:GetID() == localPlayerID) then
-        UI.SetInterfaceMode(InterfaceModeTypes.CITY_MANAGEMENT);
-    elseif (localPlayerID == PlayerTypes.OBSERVER
-            or localPlayerID == PlayerTypes.NONE
-            or pPlayer:GetDiplomacy():HasMet(localPlayerID)) then
-        LuaEvents.CQUI_CityviewDisable(); -- Make sure the cityview is disable
-    end
-
-    return;
-end
-
--- ============================================================================
 function OnGameDebugReturn( context:string, contextTable:table )
     print_debug("CityBannerManager_CQUI: OnGameDebugReturn ENTRY context:"..tostring(context).." contextTable:"..tostring(contextTable));
     if (context == "CityBannerManager") then
@@ -239,6 +218,62 @@ end
 -- ============================================================================
 -- CQUI Replacement Functions (Common to both basegame and expansions)
 -- ============================================================================
+function OnCityBannerClick( playerID, cityID )
+    print_debug("CityBannerManager_CQUI: OnCityBannerClick ENTRY  playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
+    local pPlayer = Players[playerID];
+    if (pPlayer == nil) then
+        return;
+    end
+
+    local pCity = pPlayer:GetCities():FindID(cityID);
+    if (pCity == nil) then
+        return;
+    end
+
+    if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
+        if (pPlayer:IsFreeCities()) then
+            UI.LookAtPlotScreenPosition( pCity:GetX(), pCity:GetY(), 0.5, 0.5 );
+            return;
+        end
+    end
+    
+    local localPlayerID;
+    if (WorldBuilder.IsActive()) then
+        localPlayerID = playerID;   -- If WorldBuilder is active, allow the user to select the city
+    else
+        localPlayerID = Game.GetLocalPlayer();
+    end
+
+    if (pPlayer:GetID() == localPlayerID) then
+        UI.SelectCity( pCity );
+        UI.SetCycleAdvanceTimer(0);     -- Cancel any auto-advance timer
+         UI.SetInterfaceMode(InterfaceModeTypes.CITY_MANAGEMENT);
+    elseif(localPlayerID == PlayerTypes.OBSERVER 
+            or localPlayerID == PlayerTypes.NONE 
+            or pPlayer:GetDiplomacy():HasMet(localPlayerID)) then
+        LuaEvents.CQUI_CityviewDisable(); -- Make sure the cityview is disable
+        local pPlayerConfig :table      = PlayerConfigurations[playerID];
+        local isMinorCiv    :boolean    = pPlayerConfig:GetCivilizationLevelTypeID() ~= CivilizationLevelTypes.CIVILIZATION_LEVEL_FULL_CIV;
+        --print("clicked player " .. playerID .. " city.  IsMinor?: ",isMinorCiv);
+
+        if UI.GetInterfaceMode() == InterfaceModeTypes.MAKE_TRADE_ROUTE then
+            local plotID = Map.GetPlotIndex(pCity:GetX(), pCity:GetY());
+            LuaEvents.CityBannerManager_MakeTradeRouteDestination( plotID );    
+        else        
+            if isMinorCiv then
+                if UI.GetInterfaceMode() ~= InterfaceModeTypes.SELECTION then
+                    UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
+                end
+                LuaEvents.CityBannerManager_RaiseMinorCivPanel( playerID ); -- Go directly to a city-state
+            else
+                LuaEvents.CityBannerManager_TalkToLeader( playerID );
+            end
+        end
+        
+    end
+end
+
+
 function CityBanner.SetHealthBarColor( self )
     -- The basegame file has a minor bug where if percent is exactly 0.40, then no color is set.
     print_debug("CityBannerManager_CQUI: CityBanner.SetHealthBarColor ENTRY");
