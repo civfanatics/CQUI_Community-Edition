@@ -187,10 +187,11 @@ function CityBanner.UpdateStats(self)
         if (localPlayerID == iCityOwner and self.CQUI_DistrictBuiltIM ~= nil) then
             -- On first call into UpdateStats, CQUI_DistrictBuiltIM may not be instantiated yet
             -- However this is called often enough that it's not a problem
-            -- Update the built districts 
             self.CQUI_DistrictBuiltIM:ResetInstances(); -- CQUI : Reset CQUI_DistrictBuiltIM
+            self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
             local pCityDistricts:table = pCity:GetDistricts();
             if (IsCQUI_SmartBanner_DistrictsEnabled()) then
+                -- Update the built districts 
                 for i, district in pCityDistricts:Members() do
                     local districtType = district:GetType();
                     local districtInfo:table = GameInfo.Districts[districtType];
@@ -200,6 +201,15 @@ function CityBanner.UpdateStats(self)
                         and districtInfo.DistrictType ~= "DISTRICT_CITY_CENTER") then
                         SetDetailIcon(self.CQUI_DistrictBuiltIM:GetInstance(), "ICON_"..districtInfo.DistrictType);
                     end
+                end
+                -- Infixo: 2020-06-08 district available flag and tooltip
+                local iDistrictsNum:number         = pCityDistricts:GetNumZonedDistrictsRequiringPopulation();
+                local iDistrictsPossibleNum:number = pCityDistricts:GetNumAllowedDistrictsRequiringPopulation();
+                if iDistrictsPossibleNum > iDistrictsNum then
+                    self.m_Instance.CQUI_DistrictAvailable:SetHide(false);
+                    self.m_Instance.CQUI_DistrictAvailable:SetToolTipString( string.format("%s %d / %d", Locale.Lookup("LOC_HUD_DISTRICTS"), iDistrictsNum, iDistrictsPossibleNum) );
+                else
+                    self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
                 end
             end
         end
