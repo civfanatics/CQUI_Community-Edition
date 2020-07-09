@@ -246,13 +246,13 @@ function OnCityBannerClick( playerID, cityID )
     if (pPlayer:GetID() == localPlayerID) then
         UI.SelectCity( pCity );
         UI.SetCycleAdvanceTimer(0);     -- Cancel any auto-advance timer
-         UI.SetInterfaceMode(InterfaceModeTypes.CITY_MANAGEMENT);
-    elseif(localPlayerID == PlayerTypes.OBSERVER 
+        UI.SetInterfaceMode(InterfaceModeTypes.CITY_MANAGEMENT);
+    elseif (localPlayerID == PlayerTypes.OBSERVER 
             or localPlayerID == PlayerTypes.NONE 
             or pPlayer:GetDiplomacy():HasMet(localPlayerID)) then
         LuaEvents.CQUI_CityviewDisable(); -- Make sure the cityview is disable
-        local pPlayerConfig :table      = PlayerConfigurations[playerID];
-        local isMinorCiv    :boolean    = pPlayerConfig:GetCivilizationLevelTypeID() ~= CivilizationLevelTypes.CIVILIZATION_LEVEL_FULL_CIV;
+        local pPlayerConfig :table   = PlayerConfigurations[playerID];
+        local isMinorCiv    :boolean = pPlayerConfig:GetCivilizationLevelTypeID() ~= CivilizationLevelTypes.CIVILIZATION_LEVEL_FULL_CIV;
         --print("clicked player " .. playerID .. " city.  IsMinor?: ",isMinorCiv);
 
         if UI.GetInterfaceMode() == InterfaceModeTypes.MAKE_TRADE_ROUTE then
@@ -272,10 +272,10 @@ function OnCityBannerClick( playerID, cityID )
     end
 end
 
-
+-- ===========================================================================
 function CityBanner.SetHealthBarColor( self )
     -- The basegame file has a minor bug where if percent is exactly 0.40, then no color is set.
-    print_debug("CityBannerManager_CQUI: CityBanner.SetHealthBarColor ENTRY");
+    -- print_debug("CityBannerManager_CQUI: CityBanner.SetHealthBarColor ENTRY");
     if (self.m_Instance.CityHealthBar == nil) then
         -- This normal behaviour in the case of missile silo and aerodrome minibanners
         return;
@@ -471,7 +471,7 @@ end
 -- CQUI Custom Functions (Common to basegame and expansions)
 -- ===========================================================================
 function CQUI_GetHousingString(pCity, cqui_HousingFromImprovementsCalc)
-    print_debug("CityBannerManager_CQUI: CQUI_GetHousingString ENTRY");
+    -- print_debug("CityBannerManager_CQUI: CQUI_GetHousingString ENTRY");
     -- TODO: Consider unifying what this looks like on the basegame and the expansions
     --       Basegame puts Turns left until Pop increase on left with housing value in brackets next to it
     local pCityGrowth   :table  = pCity:GetGrowth();
@@ -505,7 +505,7 @@ end
 -- ===========================================================================
 -- CQUI calculate real housing from improvements
 function CQUI_GetRealHousingFromImprovementsValue(pCity, localPlayerID)
-    print_debug("CityBannerManager_CQUI: CQUI_GetRealHousingFromImprovementsValue ENTRY  pCity:"..tostring(pCity).." localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
+    -- print_debug("CityBannerManager_CQUI: CQUI_GetRealHousingFromImprovementsValue ENTRY  pCity:"..tostring(pCity).." localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
     local pCityID :number = pCity:GetID();
     if (CQUI_HousingUpdated[localPlayerID] == nil or CQUI_HousingUpdated[localPlayerID][pCityID] ~= true) then
         CQUI_RealHousingFromImprovements(pCity, localPlayerID, pCityID);
@@ -554,7 +554,7 @@ function CQUI_RealHousingFromImprovements(pCity, localPlayerID, pCityID)
     --       The basegame function doesn't include the half-value (e.g. as Non-Maya, 3 farms is 1.5, but basegame returns only 1).
     --       Basegame also appears to consider the Maya as +1 Housing in addition to the 0.5 for each farm (so, 1.5 for each Mayan farm)
     --       In basegame, when Maya have 2 farms, pCity:GetGrowth():GetHousingFromImprovements() will return a value of 3
-    print_debug("CityBannerManager_CQUI: CQUI_RealHousingFromImprovements ENTRY  pCity:"..tostring(pCity).." localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
+    -- print_debug("CityBannerManager_CQUI: CQUI_RealHousingFromImprovements ENTRY  pCity:"..tostring(pCity).." localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
 
     local cityX:number, cityY:number = pCity:GetX(), pCity:GetY();
     local iNumHousing:number = 0; 
@@ -618,7 +618,7 @@ end
 -- ===========================================================================
 -- When a banner is moused over, display the relevant yields and next culture plot
 function CQUI_OnBannerMouseOver(playerID: number, cityID: number)
-    print_debug("CityBannerManager_CQUI: CQUI_OnBannerMouseOver ENTRY playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
+    -- print_debug("CityBannerManager_CQUI: CQUI_OnBannerMouseOver ENTRY playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
     if (CQUI_ShowYieldsOnCityHover == false) then
         return;
     end
@@ -742,7 +742,7 @@ end
 -- ===========================================================================
 -- When a banner is moused over, and the mouse leaves the banner, remove display of the relevant yields and next culture plot
 function CQUI_OnBannerMouseExit(playerID: number, cityID: number)
-    print_debug("CityBannerManager_CQUI: CQUI_OnBannerMouseExit ENTRY playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
+    -- print_debug("CityBannerManager_CQUI: CQUI_OnBannerMouseExit ENTRY playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
     if (not CQUI_Hovering) then
         return;
     end
@@ -908,7 +908,7 @@ end
 
 -- ===========================================================================
 function CQUI_UpdateSuzerainIcon( pPlayer:table, bannerInstance )
-    print_debug("CityBannerManager_CQUI: CQUI_UpdateSuzerainIcon ENTRY");
+    -- print_debug("CityBannerManager_CQUI: CQUI_UpdateSuzerainIcon ENTRY");
     if (bannerInstance == nil) then
         return;
     end

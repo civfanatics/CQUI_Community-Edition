@@ -173,6 +173,7 @@ LuaEvents.CQUI_CityviewHide.Add(CQUI_HideCityInterface);
 LuaEvents.CQUI_Strike_Enter.Add (function() CQUI_usingStrikeButton = true; end)
 LuaEvents.CQUI_Strike_Exit.Add (function() CQUI_usingStrikeButton = false; end)
 
+-- ===========================================================================
 function CQUI_OnInterfaceModeChanged( eOldMode:number, eNewMode:number )
     if (eNewMode == InterfaceModeTypes.CITY_RANGE_ATTACK or eNewMode == InterfaceModeTypes.DISTRICT_RANGE_ATTACK or CQUI_usingStrikeButton) then
         LuaEvents.CQUI_CityviewHide(); -- AZURENCY : always hide the cityview if new mode is CITY_RANGE_ATTACK
@@ -205,9 +206,8 @@ function CQUI_OnInterfaceModeChanged( eOldMode:number, eNewMode:number )
                     end
                 end
             else
-                print("-- CQUI CityPanel.lua: g_pCity is nil");
+                print("-- CQUI CityPanel.lua CQUI_OnInterfaceModeChanged: g_pCity is nil");
             end
-
         elseif (eNewMode ~= InterfaceModeTypes.CITY_MANAGEMENT) then
             if (CQUI_wonderMode) then
                 LuaEvents.CQUI_CityviewEnable();
