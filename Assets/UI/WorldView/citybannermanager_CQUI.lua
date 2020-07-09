@@ -8,7 +8,6 @@ include( "CQUICommon.lua" );
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
-BASE_CQUI_OnCityBannerClick = OnCityBannerClick;
 BASE_CQUI_OnGameDebugReturn = OnGameDebugReturn;
 BASE_CQUI_OnInterfaceModeChanged = OnInterfaceModeChanged;
 BASE_CQUI_OnShutdown = OnShutdown;
