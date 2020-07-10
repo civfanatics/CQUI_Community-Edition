@@ -115,15 +115,25 @@ function SetDesiredLens(desiredLens)
     if UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT or UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT then
         return;
     end
+
     m_desiredLens = desiredLens;
     if m_isShowingPanel then
         if m_desiredLens == "CityManagement" then
-            UILens.SetActive("Default");
-            LuaEvents.CQUI_RefreshCitizenManagement(m_pCity:GetID());
-            UILens.SetActive("Appeal");
+            if (m_pCity == nil) then
+                Refresh();
+            end
+
+            if (m_pCity ~= nil) then
+                UILens.SetActive("Default");
+                LuaEvents.CQUI_RefreshCitizenManagement(m_pCity:GetID());
+                UILens.SetActive("Appeal");
+            else
+                print("CQUI: CityPanelOverview SetDesiredLens m_pCity is nil!");
+            end
         else
             UILens.SetActive(m_desiredLens);
         end
+
         ContextPtr:SetUpdate(EnsureDesiredLens);
     else
         UILens.SetActive(m_desiredLens);
