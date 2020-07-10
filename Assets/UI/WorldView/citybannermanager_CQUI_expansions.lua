@@ -171,6 +171,21 @@ function CityBanner.UpdatePopulation(self, isLocalPlayer:boolean, pCity:table, p
     else
         populationInstance.CQUI_CityHousing:SetHide(true);
     end
+
+    if (IsCQUI_SmartBanner_CulturalEnabled()) then
+        -- Show the turns left until border expansion to the left of the population
+        local pCityCulture = pCity:GetCulture();
+        local turnsUntilBorderGrowth = pCityCulture:GetTurnsUntilExpansion();
+        populationInstance.CityCultureTurnsLeft:SetText(turnsUntilBorderGrowth);
+        populationInstance.CityCultureTurnsLeft:SetHide(false);
+
+        local popTooltip = populationInstance.FillMeter:GetToolTipString();
+        -- The Locale.Lookup for Border Growth requires the value be included... but doesn't then put that value in the string itself, apparently.
+        popTooltip = popTooltip .. "[NEWLINE] [ICON_Culture]" ..tostring(turnsUntilBorderGrowth).. " " .. Locale.Lookup("LOC_HUD_CITY_TURNS_UNTIL_BORDER_GROWTH", turnsUntilBorderGrowth);
+        populationInstance.FillMeter:SetToolTipString(popTooltip);
+    else
+        populationInstance.CityCultureTurnsLeft:SetHide(true);
+    end
 end
 
 -- ============================================================================
