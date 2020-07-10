@@ -1,3 +1,6 @@
+-- TEMP
+print("***** ModLens_Archaeologist.lua Loaded");
+
 local LENS_NAME = "ML_ARCHAEOLOGIST"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 

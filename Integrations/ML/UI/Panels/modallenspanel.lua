@@ -9,7 +9,18 @@ include( "CQUICommon.lua" );
 -- ===========================================================================
 
 g_ModLensModalPanel = {} -- Populated by ModLens_*.lua scripts
-include( "ModLens_", true )
+--include( "ModLens_", true )
+-- Need to do these individually, instead of using the include("ModLens_", true), because it appears on Linux ModLens_Builder_Config_Default.lua would get loaded before ModLens_Builder.lua (when ModLens_Builder.lua includes _Builder_Config_Default).
+-- Casing also matters for these filenames with Linux: these ModLens_ files are checked in to the repo with the casing seen below.
+include("ModLens_Archaeologist.lua");
+include("ModLens_Barbarian.lua");
+include("ModLens_Builder.lua"); -- includes ModLens_Builder_Config_Default.lua
+include("ModLens_CitizenManagement.lua");
+include("ModLens_CityOverlap.lua");
+include("ModLens_Naturalist.lua");
+include("ModLens_Resource.lua");
+include("ModLens_Scout.lua");
+include("ModLens_Wonder.lua");
 
 -- ===========================================================================
 -- Members

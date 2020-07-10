@@ -1,3 +1,6 @@
+-- TEMP
+print("***** ModLens_Barbarian.lua Loaded");
+
 local LENS_NAME = "ML_BARBARIAN"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 
