@@ -31,7 +31,7 @@ g_ModLenses_Builder_Priority = {
 }
 
 -- Import config files for builder lens
-include("ModLens_Builder_Config_", true)
+include("ModLens_Builder_Config_Default.lua");
 
 local LENS_NAME = "ML_BUILDER"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
