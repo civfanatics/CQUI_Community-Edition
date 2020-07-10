@@ -1,3 +1,5 @@
+-- TEMP
+print("***** ModLens_Scout.lua Loaded");
 local LENS_NAME = "ML_SCOUT"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 

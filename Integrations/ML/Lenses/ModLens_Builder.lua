@@ -1,3 +1,5 @@
+-- TEMP
+print("***** ModLens_Builder.lua Loaded");
 include("LensSupport")
 
 local m_NothingColor        = UI.GetColorValue("COLOR_NOTHING_BUILDER_LENS")
@@ -31,6 +33,7 @@ g_ModLenses_Builder_Priority = {
 }
 
 -- Import config files for builder lens
+print("***** ModLens_Builder:  Calling include statement for ModLens_Builder_Config_Default");
 include("ModLens_Builder_Config_Default.lua");
 
 local LENS_NAME = "ML_BUILDER"

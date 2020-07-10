@@ -1,3 +1,4 @@
+print("***** ModLens_CitizenManagement.lua Loaded");
 local LENS_NAME = "CQUI_CITIZEN_MANAGEMENT"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 

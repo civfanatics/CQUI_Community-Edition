@@ -1,3 +1,4 @@
+print("***** ModLens_Wonder.lua Loaded");
 include("LensSupport")
 
 local LENS_NAME = "ML_WONDER"

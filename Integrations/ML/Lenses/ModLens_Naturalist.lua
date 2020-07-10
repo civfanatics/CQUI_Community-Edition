@@ -1,3 +1,4 @@
+print("***** ModLens_Naturalist.lua Loaded");
 include("LensSupport")
 
 local LENS_NAME = "ML_NATURALIST"

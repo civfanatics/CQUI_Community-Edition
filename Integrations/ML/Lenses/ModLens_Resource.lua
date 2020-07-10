@@ -1,3 +1,4 @@
+print("***** ModLens_Resource.lua Loaded");
 include("LensSupport")
 
 local PANEL_OFFSET_Y:number = 32

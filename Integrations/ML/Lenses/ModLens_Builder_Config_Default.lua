@@ -1,3 +1,4 @@
+print("***** ModLens_Builder_Config_Default.lua Loaded");
 include("LensSupport")
 
 -- ===========================================================================

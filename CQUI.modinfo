@@ -616,6 +616,14 @@
             </Properties>
         </ReplaceUIScript>
 
+        <ReplaceUIScript id="CQUI_Expansion1_WorldTracker" criteria="Expansion1AndBeyond">
+            <Properties>
+                <LoadOrder>150</LoadOrder>
+                <LuaContext>WorldTracker</LuaContext>
+                <LuaReplace>Assets/Expansion1/Replacements/worldtracker_expansion1.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
         <ReplaceUIScript id="CQUI_CitySupport">
             <Properties>
                 <LuaContext>CitySupport</LuaContext>
