@@ -52,6 +52,7 @@ function CityBanner.UpdateInfo(self, pCity : table )
     if (pCity == nil) then
         return;
     end
+    local playerID:number = pCity:GetOwner();
 
     --CQUI : Unlocked citizen check
     if (playerID == Game.GetLocalPlayer() and IsCQUI_SmartBanner_Unmanaged_CitizenEnabled()) then
@@ -85,7 +86,6 @@ function CityBanner.UpdateInfo(self, pCity : table )
 
     -- #62 Infixo always show an original owner of the city if different than the current one
     -- this piece of code is taken from CityBannerManager.lua to allow an extra line inside a tooltip
-    local playerID:number = pCity:GetOwner();
     local pPlayer:table = Players[playerID];
     if pPlayer == nil then return; end
     
