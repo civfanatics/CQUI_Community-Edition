@@ -235,9 +235,23 @@ function DefaultKeyUpHandler( uiKey:number )
     end
 
     if (uiKey == Keys.S) then
-      local bCanStartAirAttack = UnitManager.CanStartOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.AIR_ATTACK, nil, true);
+      local bCanStartAirAttack = selectedUnit and UnitManager.CanStartOperation(selectedUnit, UnitOperationTypes.AIR_ATTACK, nil, true);
       if (bCanStartAirAttack) then
-        UI.SetInterfaceMode(InterfaceModeTypes.AIR_ATTACK);
+        -- Valid plot search code based on OnInterfaceModeChange_Air_Attack in WorldInput.lua
+        local tResults = UnitManager.GetOperationTargets(selectedUnit, UnitOperationTypes.AIR_ATTACK );
+        local tPlots = tResults[UnitOperationResults.PLOTS];
+        local bTargetAvailable = false;
+        if (tPlots ~= nil) then
+          for i,modifier in ipairs(tResults[UnitOperationResults.MODIFIERS]) do
+            if (modifier == UnitOperationResults.MODIFIER_IS_TARGET) then
+              bTargetAvailable = true;
+              break;
+            end
+          end 
+          if (bTargetAvailable) then
+            UI.SetInterfaceMode(InterfaceModeTypes.AIR_ATTACK);
+          end
+        end
         cquiHandledKey = true;
       end
     end
@@ -290,7 +304,7 @@ function DefaultKeyUpHandler( uiKey:number )
   end
 
   if (uiKey == Keys.N) then
-    local bCanStartWmdStrike = UnitManager.CanStartOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.WMD_STRIKE, nil, true);
+    local bCanStartWmdStrike = selectedUnit and UnitManager.CanStartOperation(selectedUnit, UnitOperationTypes.WMD_STRIKE, nil, true);
     if (unitType == "UNIT_BUILDER") then
       CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_MINE"].Hash);
       cquiHandledKey = true;
@@ -336,24 +350,41 @@ function DefaultKeyUpHandler( uiKey:number )
   end
 
   if (uiKey == Keys.R) then
-    local bCanStartRebase = UnitManager.CanStartOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.REBASE, nil, true);
-    local bCanBuildRailroad = UnitManager.CanStartOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.BUILD_ROUTE, nil, true);
+    local bCanStartRebase = selectedUnit and UnitManager.CanStartOperation(selectedUnit, UnitOperationTypes.REBASE, nil, true);
+    local bCanBuildRailroad = selectedUnit and UnitManager.CanStartOperation(selectedUnit, UnitOperationTypes.BUILD_ROUTE, nil, true);
     if (bCanBuildRailroad) then
       -- Build Road/Rail is a UnitOperation
-      UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), GameInfo.UnitOperations["UNITOPERATION_BUILD_ROUTE"].Hash);
+      UnitManager.RequestOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_BUILD_ROUTE"].Hash);
       cquiHandledKey = true;
     elseif (bCanStartRebase) then
-      -- TODO: Prevent interface mode change if no valid target in range
-      UI.SetInterfaceMode(InterfaceModeTypes.REBASE);
+      -- Valid plot search code based on OnInterfaceModeChange_ReBase in WorldInput.lua
+      local tResults = UnitManager.GetOperationTargets(selectedUnit, UnitOperationTypes.REBASE );
+      local tValidPlots = tResults[UnitOperationResults.PLOTS];
+      if (tValidPlots ~= nil and table.count(tValidPlots) > 0) then
+        UI.SetInterfaceMode(InterfaceModeTypes.REBASE);
+      end
       cquiHandledKey = true;
     end
   end
 
   if (uiKey == Keys.S and CQUI_isAltDown == true) then
-    local bCanStartAirAttack = UnitManager.CanStartOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.AIR_ATTACK, nil, true);
+    local bCanStartAirAttack = selectedUnit and UnitManager.CanStartOperation(selectedUnit, UnitOperationTypes.AIR_ATTACK, nil, true);
     if (bCanStartAirAttack) then
-      -- TODO: Prevent interface mode change if no valid target in range
-      UI.SetInterfaceMode(InterfaceModeTypes.AIR_ATTACK);
+      -- Valid plot search code based on OnInterfaceModeChange_Air_Attack in WorldInput.lua
+      local tResults = UnitManager.GetOperationTargets(selectedUnit, UnitOperationTypes.AIR_ATTACK );
+      local tPlots = tResults[UnitOperationResults.PLOTS];
+      local bTargetAvailable = false;
+      if (tPlots ~= nil) then
+        for i,modifier in ipairs(tResults[UnitOperationResults.MODIFIERS]) do
+          if (modifier == UnitOperationResults.MODIFIER_IS_TARGET) then
+            bTargetAvailable = true;
+            break;
+          end
+        end
+        if (bTargetAvailable) then
+          UI.SetInterfaceMode(InterfaceModeTypes.AIR_ATTACK);
+        end
+      end
       cquiHandledKey = true;
     end
   end
