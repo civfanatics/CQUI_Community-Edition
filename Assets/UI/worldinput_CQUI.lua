@@ -315,8 +315,10 @@ function DefaultKeyUpHandler( uiKey:number )
       else
         tParameters[UnitOperationTypes.PARAM_WMD_TYPE] = GameInfo.WMDs["WMD_NUCLEAR_DEVICE"].Index;
       end
-      -- TODO: Prevent setting interface mode if no items in stock
-      UI.SetInterfaceMode(InterfaceModeTypes.WMD_STRIKE, tParameters);
+      local nWmdCount = Players[Game.GetLocalPlayer()]:GetWMDs():GetWeaponCount(tParameters[UnitOperationTypes.PARAM_WMD_TYPE]);
+      if (nWmdCount > 0) then
+        UI.SetInterfaceMode(InterfaceModeTypes.WMD_STRIKE, tParameters);
+      end
       cquiHandledKey = true;
     end
   end
