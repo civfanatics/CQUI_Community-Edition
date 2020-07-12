@@ -1,3 +1,6 @@
+-- TEMP
+print("*** CQUI worldtracker_expansion1.lua loaded");
+
 --[[
 -- Created by Tyler Berry, Aug 14 2017
 -- Copyright (c) Firaxis Games

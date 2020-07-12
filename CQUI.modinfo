@@ -891,7 +891,7 @@
                 <LoadOrder>101</LoadOrder>
             </Properties>
             <Items>
-                <File>Integrations/ML/DLC/Expansion1/UI/Replacements/MinimapPanel.xml</File>
+                <File>Integrations/ML/DLC/Expansion1/UI/Replacements/minimappanel.xml</File>
             </Items>
         </ImportFiles>
 
@@ -900,7 +900,7 @@
                 <LoadOrder>102</LoadOrder>
             </Properties>
             <Items>
-                <File>Integrations/ML/DLC/Expansion2/UI/Replacements/MinimapPanel.xml</File>
+                <File>Integrations/ML/DLC/Expansion2/UI/Replacements/minimappanel.xml</File>
             </Items>
         </ImportFiles>
 
