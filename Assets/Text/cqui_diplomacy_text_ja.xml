@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData>
+    <LocalizedText>
+        <Replace Tag="LOC_IDS_DEAL_TERMS" Language="ja_JP">
+            <Text>取引条項</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_TRADE" Language="ja_JP">
+            <Text>[COLOR_Red]取引[ENDCOLOR]</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_SUZERAIN" Language="ja_JP">
+            <Text>[COLOR_Civ6Blue]輸入[ENDCOLOR]</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_UNTRADEABLE" Language="ja_JP">
+            <Text>取引不可</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_DUPLICATE" Language="ja_JP">
+            <Text>両国所持</Text>
+        </Replace>
+    </LocalizedText>
+</GameData>

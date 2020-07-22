@@ -277,11 +277,11 @@ function CQUI_renderCityButton(pCity : table, player : table, targetContainer : 
 
     if pCity:IsOccupied() then
         if pCity:GetOwner() == otherPlayer:GetID() then -- Cede
-            button.IconText:SetText(button.IconText:GetText() .. '[COLOR_Civ6Green] - ' .. Locale.Lookup("LOC_IDS_DEAL_CEDE") .. '[ENDCOLOR]'); 
+            button.IconText:SetText('[COLOR_Civ6Green]' .. Locale.Lookup("LOC_DIPLOMACY_DEAL_CEDE_CITY", cityData.CityName) .. '[ENDCOLOR]'); 
             button.SelectButton:SetTextureOffsetVal(0, 50);
         else -- Return
             if pCity:GetOriginalOwner() == otherPlayer:GetID() then
-                button.IconText:SetText(button.IconText:GetText() .. '[COLOR_Civ6Red] - ' .. Locale.Lookup("LOC_IDS_DEAL_RETURN") .. '[ENDCOLOR]'); 
+                button.IconText:SetText('[COLOR_Civ6Red]' .. Locale.Lookup("LOC_DIPLOMACY_DEAL_RETURN_CITY", cityData.CityName) .. '[ENDCOLOR]'); 
                 button.SelectButton:SetTextureOffsetVal(0, 50);
             end
         end

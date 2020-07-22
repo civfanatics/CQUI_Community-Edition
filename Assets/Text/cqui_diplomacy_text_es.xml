@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData>
+    <LocalizedText>
+        <Replace Tag="LOC_IDS_DEAL_TERMS" Language="es_ES">
+            <Text>Términos de la oferta</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_TRADE" Language="es_ES">
+            <Text>[COLOR_Red]Comercio[ENDCOLOR] con</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_SUZERAIN" Language="es_ES">
+            <Text>[COLOR_Civ6Blue]Suzerain[ENDCOLOR] de</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_UNTRADEABLE" Language="es_ES">
+            <Text>No Intercambiable</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_DUPLICATE" Language="es_ES">
+            <Text>Duplicado</Text>
+        </Replace>
+    </LocalizedText>
+</GameData>
