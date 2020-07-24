@@ -206,6 +206,7 @@ function CityBanner.UpdateStats(self)
             self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
             local pCityDistricts:table = pCity:GetDistricts();
             if (IsCQUI_SmartBanner_DistrictsEnabled()) then
+                local districtToolTipString = Locale.Lookup("LOC_HUD_DISTRICTS")..":";
                 -- Update the built districts 
                 for i, district in pCityDistricts:Members() do
                     local districtType = district:GetType();
@@ -215,10 +216,21 @@ function CityBanner.UpdateStats(self)
                         and districtInfo.DistrictType ~= "DISTRICT_WONDER"
                         and districtInfo.DistrictType ~= "DISTRICT_CITY_CENTER") then
                         SetDetailIcon(self.CQUI_DistrictBuiltIM:GetInstance(), "ICON_"..districtInfo.DistrictType);
+                        districtToolTipString = districtToolTipString .. "[NEWLINE] - " .. Locale.Lookup(districtInfo.Name);
                     end
                 end
+
+                -- Calculate the CQUI_Districts StackContainer size, Padding based on number of districts, and set the tool string for the container that hosts it
+                local iDistrictsNum:number = pCityDistricts:GetNumZonedDistrictsRequiringPopulation();
+                -- -12 was the default before this dynamic calculation
+                local districtIconPadding = 8 + iDistrictsNum;
+                if districtIconPadding < 12 then districtIconPadding = 12; end
+                if districtIconPadding > 20 then districtIconPadding = 20; end
+                self.m_Instance.CQUI_Districts:SetStackPadding(districtIconPadding * -1);
+                self.m_Instance.CQUI_Districts:CalculateSize();
+                self.m_Instance.CQUI_DistrictsContainer:SetToolTipString(districtToolTipString);
+
                 -- Infixo: 2020-06-08 district available flag and tooltip
-                local iDistrictsNum:number         = pCityDistricts:GetNumZonedDistrictsRequiringPopulation();
                 local iDistrictsPossibleNum:number = pCityDistricts:GetNumAllowedDistrictsRequiringPopulation();
                 if iDistrictsPossibleNum > iDistrictsNum then
                     self.m_Instance.CQUI_DistrictAvailable:SetHide(false);
