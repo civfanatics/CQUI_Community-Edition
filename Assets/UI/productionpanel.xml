@@ -354,10 +354,7 @@
                     <Container Size="32,32" Anchor="L,C">
                         <!-- CQUI (Azurency) : HACK for the icon size : Added a group that clip the texture to scale it with Fill in the image and then corrected the offset -->
                         <Group Size="40, 40" Clip="1" Anchor="L,C" Offset="3,-1">
-                            <Image ID="FlagBaseOutline" Size="164,164" Offset="0,0" Texture="UnitFlagCivilian" Anchor="T,L" StretchMode="Fill" Sampler="Linear" />
-                            <Image ID="FlagBase" Size="164,164" Offset="-123,0" Texture="UnitFlagCivilian" Anchor="T,L" StretchMode="Fill" Sampler="Linear" />
-                            <Image ID="FlagBaseLighten" Size="164,164" Offset="-123,-41" Texture="UnitFlagCivilian" Anchor="T,L" StretchMode="Fill" Sampler="Linear" />
-                            <Image ID="FlagBaseDarken" Size="164,164" Offset="-123,-82" Texture="UnitFlagCivilian" Anchor="T,L" StretchMode="Fill" Sampler="Linear" />
+                            <Image ID="FlagBase" Size="82,82" Texture="UnitFlagCivilian_Combo" Anchor="T,L" StretchMode="Fill" Sampler="Linear" />
                             <Image ID="Icon" Size="26,26" Texture="Units32" Anchor="C,C" Offset="1,1" />
                         </Group>
                     </Container>
@@ -404,10 +401,7 @@
                             <Container Size="32,32" Anchor="L,C" Offset="-4,-2">
                                 <!-- CQUI (Azurency) : HACK for the icon size : Added a group that clip the texture to scale it with Fill in the image and then corrected the offset -->
                                 <Group Size="40, 40" Clip="1" Anchor="L,C" Offset="3,-1">
-                                    <Image ID="CorpsFlagBaseOutline" Size="164,164" Offset="0,0" Texture="UnitFlagBase" Anchor="T,L" StretchMode="Fill" Sampler="Linear"/>
-                                    <Image ID="CorpsFlagBase" Size="164,164" Offset="-123,0" Texture="UnitFlagBase" Anchor="T,L" StretchMode="Fill" Sampler="Linear"/>
-                                    <Image ID="CorpsFlagBaseLighten" Size="164,164" Offset="-123,-41" Texture="UnitFlagBase" Anchor="T,L" StretchMode="Fill" Sampler="Linear"/>
-                                    <Image ID="CorpsFlagBaseDarken" Size="164,164" Offset="-123,-82" Texture="UnitFlagBase" Anchor="T,L" StretchMode="Fill" Sampler="Linear"/>
+                                    <Image ID="CorpsFlagBase" Size="82,82" Texture="UnitFlagBase_Combo" Anchor="T,L" StretchMode="Fill" Sampler="Linear"/>
                                     <Image ID="CorpsIcon" Size="26,26" Texture="Units32" Anchor="C,C" />
                                 </Group>
                             </Container>
@@ -443,10 +437,7 @@
                             <Container Size="32,32" Anchor="L,C" Offset="-4,-2">
                                 <!-- CQUI (Azurency) : HACK for the icon size : Added a group that clip the texture to scale it with Fill in the image and then corrected the offset -->
                                 <Group Size="40, 40" Clip="1" Anchor="L,C" Offset="3,-1">
-                                    <Image ID="ArmyFlagBaseOutline" Size="164,164" Offset="0,0" Texture="UnitFlagBase" Anchor="T,L" StretchMode="Fill" Sampler="Linear"/>
-                                    <Image ID="ArmyFlagBase" Size="164,164" Offset="-123,0" Texture="UnitFlagBase" Anchor="T,L" StretchMode="Fill" Sampler="Linear"/>
-                                    <Image ID="ArmyFlagBaseLighten" Size="164,164" Offset="-123,-41" Texture="UnitFlagBase" Anchor="T,L" StretchMode="Fill" Sampler="Linear"/>
-                                    <Image ID="ArmyFlagBaseDarken" Size="164,164" Offset="-123,-82" Texture="UnitFlagBase" Anchor="T,L" StretchMode="Fill" Sampler="Linear"/>
+                                    <Image ID="ArmyFlagBase" Size="82,82" Texture="UnitFlagBase_Combo" Anchor="T,L" StretchMode="Fill" Sampler="Linear"/>
                                     <Image ID="ArmyIcon" Size="26,26" Texture="Units32" Anchor="C,C" />
                                     <!--<Label String="[ICON_Army]" Anchor="C,T" Offset="0,8"/>-->
                                 </Group>
@@ -485,10 +476,7 @@
                     <Container Size="32,32" Anchor="L,C">
                         <!-- CQUI (Azurency) : HACK for the icon size : Added a group that clip the texture to scale it with Fill in the image and then corrected the offset -->
                         <Group Size="40, 40" Clip="1" Anchor="L,C" Offset="3,-1">
-                            <Image ID="FlagBaseOutline" Size="164,164" Offset="0,0" Texture="UnitFlagBase" Anchor="T,L" StretchMode="Fill" Sampler="Linear"/>
-                            <Image ID="FlagBase" Size="164,164" Offset="-123,0" Texture="UnitFlagBase" Anchor="T,L" StretchMode="Fill" Sampler="Linear"/>
-                            <Image ID="FlagBaseLighten" Size="164,164" Offset="-123,-41" Texture="UnitFlagBase" Anchor="T,L" StretchMode="Fill" Sampler="Linear"/>
-                            <Image ID="FlagBaseDarken" Size="164,164" Offset="-123,-82" Texture="UnitFlagBase" Anchor="T,L" StretchMode="Fill" Sampler="Linear"/>
+                            <Image ID="FlagBase" Size="82,82" Texture="UnitFlagBase_Combo" Anchor="T,L" StretchMode="Fill" Sampler="Linear"/>
                             <Image ID="Icon" Size="26,26" Texture="Units32" Anchor="C,C" Offset="1,1" />
                         </Group>
                     </Container>
