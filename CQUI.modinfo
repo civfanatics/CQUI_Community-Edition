@@ -718,55 +718,9 @@
             </Items>
         </ImportFiles>
 
-        <!-- ============================== UNITREPORT ============================== -->
-        <!-- UnitReport was commented out prior to May 2020 patch -->
-        <!--
-      <ImportFiles id="UNITREPORT_IMPORT_FILES">
-      <Properties>
-        <LoadOrder>-10</LoadOrder>
-        <Context>InGame</Context>
-      </Properties>
-      <Items>
-        <File>Integrations/URS/reportscreen.lua</File>
-        <File>Integrations/URS/reportscreen.xml</File>
-        <File>Integrations/URS/unitpromotionpopup.lua</File>
-      </Items>
-    </ImportFiles>
-    <ImportFiles id="UNITREPORT_EXPANSION1_IMPORT_FILES" criteria="Expansion1">
-      <Properties>
-        <LoadOrder>100</LoadOrder>
-        <Context>InGame</Context>
-      </Properties>
-      <Items>
-        <File Priority="1">Integrations/URS/Expansion1/Replacements/reportscreen_expansion1.lua</File>
-        <File Priority="2">Integrations/URS/Expansion1/Replacements/reportscreen.xml</File>
-      </Items>
-    </ImportFiles>
-    <LocalizedText id="UNITREPORT_TEXT">
-      <Items>
-        <File>Integrations/URS/Text/urs_text.xml</File>
-        <File>Integrations/URS/Text/urs_text_de.xml</File>
-        <File>Integrations/URS/Text/urs_text_es.xml</File>
-        <File>Integrations/URS/Text/urs_text_fr.xml</File>
-        <File>Integrations/URS/Text/urs_text_it.xml</File>
-        <File>Integrations/URS/Text/urs_text_ja.xml</File>
-        <File>Integrations/URS/Text/urs_text_ko.xml</File>
-        <File>Integrations/URS/Text/urs_text_pl.xml</File>
-        <File>Integrations/URS/Text/urs_text_pt.xml</File>
-        <File>Integrations/URS/Text/urs_text_ru.xml</File>
-        <File>Integrations/URS/Text/urs_text_zh.xml</File>
-      </Items>
-    </LocalizedText>
-    -->
-
         <!-- ============================== Improved Diplomacy Screen (IDS) ============================== -->
-        <!-- The IDS_IMPORT_FILES were commented out prior to May 2020 patch -->
-        <!-- <ImportFiles id="IDS_IMPORT_FILES">
-      <Items>
-        <File>Integrations/IDS/diplomacydealview.lua</File>
-        <File>Integrations/IDS/diplomacydealview.xml</File>
-      </Items>
-    </ImportFiles>-->
+        <!-- The text files from Improved Diplomacy Screen are still in use -->
+        <!-- A different change later will relocate these to a CQUI Folder and repair the load errors observed in Modding.log -->
         <LocalizedText id="IDS_TEXT">
             <Items>
                 <File>Integrations/IDS/Text/ids_text.xml</File>
@@ -965,8 +919,6 @@
         <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
         <File>Assets/Expansion2/CityBanners/cityreligioninstances.xml</File>
 
-        <File>Integrations/URS/Expansion1/Replacements/reportscreen_expansion1.lua</File>
-        <File>Integrations/URS/Expansion1/Replacements/reportscreen.xml</File>
         <File>Assets/Text/Gossip_Text.xml</File>
         <File>Assets/Text/Gossip_Text_de.xml</File>
         <File>Assets/Text/Gossip_Text_ja.xml</File>
@@ -1087,20 +1039,6 @@
         <File>Integrations/BTS/Text/bts_text_pt.xml</File>
         <File>Integrations/BTS/Text/bts_text_ru.xml</File>
         <File>Integrations/BTS/Text/bts_text_zh.xml</File>
-        <File>Integrations/URS/reportscreen.lua</File>
-        <File>Integrations/URS/reportscreen.xml</File>
-        <File>Integrations/URS/unitpromotionpopup.lua</File>
-        <File>Integrations/URS/Text/urs_text.xml</File>
-        <File>Integrations/URS/Text/urs_text_de.xml</File>
-        <File>Integrations/URS/Text/urs_text_es.xml</File>
-        <File>Integrations/URS/Text/urs_text_fr.xml</File>
-        <File>Integrations/URS/Text/urs_text_it.xml</File>
-        <File>Integrations/URS/Text/urs_text_ja.xml</File>
-        <File>Integrations/URS/Text/urs_text_ko.xml</File>
-        <File>Integrations/URS/Text/urs_text_pl.xml</File>
-        <File>Integrations/URS/Text/urs_text_pt.xml</File>
-        <File>Integrations/URS/Text/urs_text_ru.xml</File>
-        <File>Integrations/URS/Text/urs_text_zh.xml</File>
         <File>Integrations/IDS/Text/ids_text.xml</File>
         <File>Integrations/IDS/Text/ids_text_de.xml</File>
         <File>Integrations/IDS/Text/ids_text_es.xml</File>
@@ -1156,9 +1094,5 @@
         <File>Integrations/BES/Text/bes_text_ja.xml</File>
         <File>Integrations/BES/Text/bes_text_pt.xml</File>
         <File>Integrations/BES/Text/bes_text_ru.xml</File>
-
-        <!-- These two files were commented out Before May 2020 Patch -->
-        <!--<File>Integrations/IDS/diplomacydealview.lua</File>
-        <File>Integrations/IDS/diplomacydealview.xml</File>-->
     </Files>
 </Mod>
