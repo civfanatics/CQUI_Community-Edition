@@ -14,6 +14,10 @@ local COLOR_ICON_BONUS_OFF:number = UI.GetColorValueFromHexLiteral(0xff606060);
 function AddCityStateRow( kCityState:table )
     local kInst = BASE_AddCityStateRow(kCityState);
 
+    -- Also truncate the name if necessary for the Suzerain label
+    kInst.Suzerain:SetText(CQUI_TruncateSuzerainName(kCityState.SuzerainName));
+
+    -- Determine the 2nd place (or first-place tie), produce text for Tooltip on the EnvoyCount label
     local envoyTable:table = {};
     -- Iterate through all players that have influenced this city state
     local localPlayerID = Game.GetLocalPlayer();
