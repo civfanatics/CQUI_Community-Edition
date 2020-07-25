@@ -285,6 +285,15 @@
                             </Grid>
                             <Stack ID="OtherReligions" Offset="0,0" StackPadding="4" />
                             <Container Size="1,1" />
+                            <!-- Lens Key -->
+                            <Grid ID="KeyPanel" Anchor="C,T" Offset="0,0" Size="195,auto" AutoSizePadding="0,10" Texture="Controls_PanelBlue" SliceCorner="25,28" SliceSize="33,18" SliceTextureSize="83,75">
+                                <Line Start="20,16" End="174,16" Color="55,95,126,255" Width="2" />
+                                <Label Anchor="C,T" Offset="0,20" Style="FontFlair16" SmallCaps="20" String="LOC_TREE_KEY" Color0="78,119,151,255" Color1="0,0,0,0" Color2="25,65,96,255" />
+                                <Line Start="20,40" End="174,40" Color="55,95,126,255" Width="2" />
+                                <ScrollPanel ID="KeyScrollPanel" Offset="16,54" Size="150,204" Style="ScrollPanelWithRightBar">
+                                    <Stack ID="KeyStack" StackGrowth="Down" StackPadding="6"/>
+                                </ScrollPanel>
+                            </Grid>
                         </Stack>
                     </Grid>
 
@@ -483,6 +492,14 @@
         <Button ID="Button" Offset="0,2" Anchor="L,C" Size="44,44" Texture="LaunchBar_Hook_ButtonMedium" Style="ButtonNormalText" ToolTip="LOC_HUD_CITY_OVERVIEW_BUILDINGS_TOOLTIP">
             <Image ID="Icon" Offset="0,0" Texture="Stats32" Size="32,32" Anchor="C,C" Icon="ICON_BUILDINGS" />
         </Button>
+    </Instance>
+
+    <Instance Name="KeyEntry">
+        <Image ID="KeyColorImage" Size="32,36" Texture="Controls_KeySwatchHex">
+            <Stack ID="KeyInfoStack" StackGrowth="Down" Anchor="L,C" Offset="38,0">
+                <Label ID="KeyLabel" Style="FontNormal14" String="LOC_HUD_UNIT_PANEL_TOOLTIP_NO_WATER" WrapWidth="110"/>
+            </Stack>
+        </Image>
     </Instance>
 
 </Context>
