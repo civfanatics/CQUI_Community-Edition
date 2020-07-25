@@ -156,8 +156,6 @@
                 <File>Assets/UI/Panels/statusmessagepanel.xml</File>
                 <File>Assets/UI/Panels/unitpanel_CQUI_basegame.lua</File>
                 <File>Assets/UI/Panels/unitpanel_CQUI.lua</File>
-                <File>Assets/UI/PartialScreens/citystates.lua</File>
-                <File>Assets/UI/PartialScreens/citystates.xml</File>
                 <File>Assets/UI/Popups/greatpeoplepopup.lua</File>
                 <File>Assets/UI/Popups/greatpeoplepopup.xml</File>
                 <File>Assets/UI/Popups/techciviccompletedpopup.lua</File>
@@ -192,7 +190,6 @@
                 <File>Assets/Expansion1/CityBanners/citybannerinstances.xml</File>
                 <File>Assets/Expansion1/CityBanners/cityreligioninstances.xml</File>
                 <File>Assets/Expansion1/Replacements/citypaneloverview_expansion1_CQUI.lua</File>
-                <File>Assets/Expansion1/Replacements/citystates.xml</File>
                 <File>Assets/Expansion1/Replacements/citysupport_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/diplomacyactionview_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/diplomacyribbon_CQUI_expansion1.lua</File>
@@ -229,7 +226,6 @@
             </Properties>
             <Items>
                 <File>Assets/Expansion2/Replacements/citypaneloverview_expansion2_CQUI.lua</File>
-                <File>Assets/Expansion2/Replacements/citystates.xml</File>
                 <File>Assets/Expansion2/Replacements/citysupport_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/civicstree_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/diplomacyactionview_CQUI_expansion2.lua</File>
@@ -248,6 +244,18 @@
                 <File>Assets/Expansion2/CityBanners/citybannermanager_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
                 <File>Assets/Expansion2/CityBanners/cityreligioninstances.xml</File>
+            </Items>
+        </ImportFiles>
+
+        <!-- ============================== CQUI Late-Loading Files ============================== -->
+        <ImportFiles id="CQUI_LATE_LOAD">
+            <Properties>
+                <LoadOrder>250</LoadOrder>
+                <Context>InGame</Context>
+            </Properties>
+            <Items>
+                <File>Assets/UI/PartialScreens/citystates_CQUI_basegame.lua</File>
+                <File>Assets/UI/PartialScreens/citystates_CQUI.lua</File>
             </Items>
         </ImportFiles>
 
@@ -318,6 +326,15 @@
         </ModArt>
 
         <!-- ============================== ReplaceUIScript Declarations ============================== -->
+        <ReplaceUIScript id="CQUI_CityStates">
+            <Properties>
+                <!-- Load late, so it can use the modified version of mod file, like CIVITAS -->
+                <LoadOrder>250</LoadOrder>
+                <LuaContext>CityStates</LuaContext>
+                <LuaReplace>Assets/UI/PartialScreens/citystates_CQUI_basegame.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
         <ReplaceUIScript id="CQUI_DiplomacyActionView">
             <Properties>
                 <LuaContext>DiplomacyActionView</LuaContext>
@@ -928,7 +945,6 @@
         <File>Assets/Expansion1/CityBanners/cityreligioninstances.xml</File>
         <File>Assets/Expansion1/Replacements/citypanelculture_CQUI.lua</File>
         <File>Assets/Expansion1/Replacements/citypaneloverview_expansion1_CQUI.lua</File>
-        <File>Assets/Expansion1/Replacements/citystates.xml</File>
         <File>Assets/Expansion1/Replacements/citysupport_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/diplomacyactionview_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/diplomacyribbon_CQUI_expansion1.lua</File>
@@ -945,7 +961,6 @@
 
         <!-- EXP 2 -->
         <File>Assets/Expansion2/Replacements/citypaneloverview_expansion2_CQUI.lua</File>
-        <File>Assets/Expansion2/Replacements/citystates.xml</File>
         <File>Assets/Expansion2/Replacements/citysupport_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/civicstree_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/diplomacyactionview_CQUI_expansion2.lua</File>
@@ -1046,8 +1061,8 @@
         <File>Assets/UI/Panels/statusmessagepanel.xml</File>
         <File>Assets/UI/Panels/unitpanel_CQUI_basegame.lua</File>
         <File>Assets/UI/Panels/unitpanel_CQUI.lua</File>
-        <File>Assets/UI/PartialScreens/citystates.lua</File>
-        <File>Assets/UI/PartialScreens/citystates.xml</File>
+        <File>Assets/UI/PartialScreens/citystates_CQUI_basegame.lua</File>
+        <File>Assets/UI/PartialScreens/citystates_CQUI.lua</File>
         <File>Assets/UI/Popups/greatpeoplepopup.lua</File>
         <File>Assets/UI/Popups/greatpeoplepopup.xml</File>
         <File>Assets/UI/Popups/policyreminderpopup.lua</File>
