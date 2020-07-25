@@ -156,7 +156,8 @@
                 <File>Assets/UI/Panels/statusmessagepanel.xml</File>
                 <File>Assets/UI/Panels/unitpanel_CQUI_basegame.lua</File>
                 <File>Assets/UI/Panels/unitpanel_CQUI.lua</File>
-                <File>Assets/UI/PartialScreens/citystates.lua</File>
+                <File>Assets/UI/PartialScreens/citystates_CQUI_basegame.lua</File>
+                <File>Assets/UI/PartialScreens/citystates_CQUI.lua</File>
                 <File>Assets/UI/PartialScreens/citystates.xml</File>
                 <File>Assets/UI/Popups/greatpeoplepopup.lua</File>
                 <File>Assets/UI/Popups/greatpeoplepopup.xml</File>
@@ -180,6 +181,31 @@
             </Items>
         </ImportFiles>
 
+        <!-- ============================== CQUI Expansion 1 Files (LoadOrder Migration) ============================== -->
+        <!-- Previously, CQUI applied LoadOrder values of 100, 150, and 200 to Exp1, Exp1AndBeyond, and Exp2 files, respectively -->
+        <!-- These numbers appeared arbitrary and are not in line with the behavior of the Firaxis Expansion files -->
+        <!-- Moving everything at once may create issues, so the load order values will be moved in small batches to make for easier troubleshooting -->
+        <ImportFiles id="CQUI_EXP1_IMPORT_FILES_LOFIX" criteria="Expansion1">
+            <Properties>
+                <LoadOrder>1</LoadOrder>
+                <Context>InGame</Context>
+            </Properties>
+            <Items>
+                <File>Assets/Expansion1/Replacements/citystates.xml</File>
+            </Items>
+        </ImportFiles>
+
+        <!-- ============================== CQUI Expansion 2 Files (LoadOrder Migration) ============================== -->
+        <ImportFiles id="CQUI_EXP2_IMPORT_FILES_LOFIX" criteria="Expansion2">
+            <Properties>
+                <LoadOrder>3</LoadOrder>
+                <Context>InGame</Context>
+            </Properties>
+            <Items>
+                <File>Assets/Expansion2/Replacements/citystates.xml</File>
+            </Items>
+        </ImportFiles>
+
         <!-- ============================== CQUI Expansion 1 (Rise and Fall) files ============================== -->
         <ImportFiles id="CQUI_EXP1_IMPORT_FILES" criteria="Expansion1">
             <Properties>
@@ -192,7 +218,6 @@
                 <File>Assets/Expansion1/CityBanners/citybannerinstances.xml</File>
                 <File>Assets/Expansion1/CityBanners/cityreligioninstances.xml</File>
                 <File>Assets/Expansion1/Replacements/citypaneloverview_expansion1_CQUI.lua</File>
-                <File>Assets/Expansion1/Replacements/citystates.xml</File>
                 <File>Assets/Expansion1/Replacements/citysupport_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/diplomacyactionview_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/diplomacyribbon_CQUI_expansion1.lua</File>
@@ -229,7 +254,6 @@
             </Properties>
             <Items>
                 <File>Assets/Expansion2/Replacements/citypaneloverview_expansion2_CQUI.lua</File>
-                <File>Assets/Expansion2/Replacements/citystates.xml</File>
                 <File>Assets/Expansion2/Replacements/citysupport_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/civicstree_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/diplomacyactionview_CQUI_expansion2.lua</File>
@@ -318,6 +342,15 @@
         </ModArt>
 
         <!-- ============================== ReplaceUIScript Declarations ============================== -->
+        <ReplaceUIScript id="CQUI_CityStates">
+            <Properties>
+                <!-- This extends the functionality of citystates.lua, so let anyting that replaces it load first -->
+                <LoadOrder>200</LoadOrder>
+                <LuaContext>CityStates</LuaContext>
+                <LuaReplace>Assets/UI/PartialScreens/citystates_CQUI_basegame.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
         <ReplaceUIScript id="CQUI_DiplomacyActionView">
             <Properties>
                 <LuaContext>DiplomacyActionView</LuaContext>
@@ -1046,7 +1079,8 @@
         <File>Assets/UI/Panels/statusmessagepanel.xml</File>
         <File>Assets/UI/Panels/unitpanel_CQUI_basegame.lua</File>
         <File>Assets/UI/Panels/unitpanel_CQUI.lua</File>
-        <File>Assets/UI/PartialScreens/citystates.lua</File>
+        <File>Assets/UI/PartialScreens/citystates_CQUI_basegame.lua</File>
+        <File>Assets/UI/PartialScreens/citystates_CQUI.lua</File>
         <File>Assets/UI/PartialScreens/citystates.xml</File>
         <File>Assets/UI/Popups/greatpeoplepopup.lua</File>
         <File>Assets/UI/Popups/greatpeoplepopup.xml</File>
