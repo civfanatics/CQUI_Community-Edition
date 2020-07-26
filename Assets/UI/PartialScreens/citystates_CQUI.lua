@@ -14,9 +14,6 @@ local COLOR_ICON_BONUS_OFF:number = UI.GetColorValueFromHexLiteral(0xff606060);
 function AddCityStateRow( kCityState:table )
     local kInst = BASE_AddCityStateRow(kCityState);
 
-    -- Also truncate the name if necessary for the Suzerain label
-    kInst.Suzerain:SetText(CQUI_TruncateSuzerainName(kCityState.SuzerainName));
-
     -- Determine the 2nd place (or first-place tie), produce text for Tooltip on the EnvoyCount label
     local envoyTable:table = {};
     -- Iterate through all players that have influenced this city state
@@ -89,22 +86,11 @@ function AddCityStateRow( kCityState:table )
             -- -- CQUI Note: SecondHighestLabel needs to be localized, but is hard coded for now
             kInst.SecondHighestLabel:SetText("2nd");
             kInst.SecondHighestName:SetColor(secondHighestIsPlayer and kCityState.ColorSecondary or COLOR_ICON_BONUS_OFF);
-            kInst.SecondHighestName:SetText(CQUI_TruncateSuzerainName(secondHighestName));
+            kInst.SecondHighestName:SetText(secondHighestName);
             kInst.SecondHighestEnvoys:SetColor(secondHighestIsPlayer and kCityState.ColorSecondary or COLOR_ICON_BONUS_OFF);
             kInst.SecondHighestEnvoys:SetText(secondHighestEnvoys);
         end
     end
 
     return kInst;
-end
-
--- ===========================================================================
---  CQUI Custom Functions
--- ===========================================================================
-function CQUI_TruncateSuzerainName( name:string )
-    if (name:len() >= 12) then
-        return string.sub(name, 0, 10) .. "...";
-    else
-        return name;
-    end
 end

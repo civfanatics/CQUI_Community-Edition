@@ -227,7 +227,7 @@
                 <Label ID="SecondHighestLabel" Anchor="L,T" Offset="3,0" Style="FontNormal12" />
                 <Label ID="SuzerainLabel" Anchor="L,B" Offset="32,14" Style="FontNormal12" String="LOC_CITY_STATES_SUZERAIN" />
                 <Label ID="Suzerain" Anchor="L,B" Offset="32,2" Style="FontNormal12" String="LOC_CITY_STATES_NONE" TruncateWidth="70" />
-                <Label ID="SecondHighestName" Anchor="L,T" Offset="32,0" Style="FontNormal12" />
+                <Label ID="SecondHighestName" Anchor="L,T" Offset="32,0" Style="FontNormal12" TruncateWidth="60" />
                 <Label ID="SecondHighestEnvoys" Anchor="R,T" Offset="4,0" Style="FontNormal12" />
             </Container>
 
