@@ -156,7 +156,8 @@
                 <File>Assets/UI/Panels/statusmessagepanel.xml</File>
                 <File>Assets/UI/Panels/unitpanel_CQUI_basegame.lua</File>
                 <File>Assets/UI/Panels/unitpanel_CQUI.lua</File>
-                <File>Assets/UI/PartialScreens/citystates.lua</File>
+                <File>Assets/UI/PartialScreens/citystates_CQUI_basegame.lua</File>
+                <File>Assets/UI/PartialScreens/citystates_CQUI.lua</File>
                 <File>Assets/UI/PartialScreens/citystates.xml</File>
                 <File>Assets/UI/Popups/greatpeoplepopup.lua</File>
                 <File>Assets/UI/Popups/greatpeoplepopup.xml</File>
@@ -318,6 +319,15 @@
         </ModArt>
 
         <!-- ============================== ReplaceUIScript Declarations ============================== -->
+        <ReplaceUIScript id="CQUI_CityStates">
+            <Properties>
+                <!-- This extends the functionality of citystates.lua for vanilla and both expansions, so LoadOrder should be  -->
+                <LoadOrder>200</LoadOrder>
+                <LuaContext>CityStates</LuaContext>
+                <LuaReplace>Assets/UI/PartialScreens/citystates_CQUI_basegame.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
         <ReplaceUIScript id="CQUI_DiplomacyActionView">
             <Properties>
                 <LuaContext>DiplomacyActionView</LuaContext>
@@ -1046,7 +1056,8 @@
         <File>Assets/UI/Panels/statusmessagepanel.xml</File>
         <File>Assets/UI/Panels/unitpanel_CQUI_basegame.lua</File>
         <File>Assets/UI/Panels/unitpanel_CQUI.lua</File>
-        <File>Assets/UI/PartialScreens/citystates.lua</File>
+        <File>Assets/UI/PartialScreens/citystates_CQUI_basegame.lua</File>
+        <File>Assets/UI/PartialScreens/citystates_CQUI.lua</File>
         <File>Assets/UI/PartialScreens/citystates.xml</File>
         <File>Assets/UI/Popups/greatpeoplepopup.lua</File>
         <File>Assets/UI/Popups/greatpeoplepopup.xml</File>
