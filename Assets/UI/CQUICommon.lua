@@ -231,6 +231,38 @@ function CQUI_TrimGossipMessage(str:string)
 end
 
 -- ===========================================================================
+-- The values set during the Game Setup can be retrieved from the GameConfiguration.GetValue() method
+-- just like any of the other values we add with the SQL files.
+-- The GameConfiguration.SetValue is not available until --after-- LoadGameViewStateDone event has occurred,
+-- meaning the SetValue is -not- available during Initialize, which is when CQUI_SettingsInitialized is called.
+-- Calling SetValue before LoadGameViewStateDone will fail silently, there is no visible error in the Lua log when this happens
+-- That failure is some sort of exception as it causes the entire stack to be destroyed, so if for example, there is a loop
+-- calling something that includes SetValue, it will simply fail that first time and no subsequent calls are made.
+function CQUI_GetSettingValueFromGameSetup(GameConfigId, GameSetupConfigId)
+    local retVal = 0; -- default to false
+    if (GameSetupConfigId == nil) then
+        GameSetupConfigId = GameConfigId .. "_GameSetup";
+    end
+
+    print("CQUI_GetSettingValueFromGameSetup ENTRY: GameConfigId:"..tostring(GameConfigId).."  GameSetupConfigId:"..tostring(GameSetupConfigId));
+    local gameSetupValue = GameConfiguration.GetValue(GameSetupConfigId);
+
+    if (gameSetupValue ~= nil) then
+        if (gameSetupValue == true) then
+            retVal = 1;
+        end
+    else
+        print("** ERROR: CQUI_GetValueFromGameSetup: Cannot find Game Setup Config Id: "..GameSetupConfigId);
+    end
+
+    GameConfiguration.SetValue(GameConfigId, retVal);
+    print("CQUI_GetValueFromGameSetup set '" ..GameConfigId.. "' to: " ..tostring(retVal));
+
+    return retVal;
+end
+
+
+-- ===========================================================================
 function Initialize()
     print_debug("INITIALZE: CQUICommon.lua");
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);

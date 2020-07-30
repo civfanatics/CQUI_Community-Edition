@@ -72,15 +72,19 @@ local CQUI_CitizenManagement   = UILens.CreateLensLayerHash("Citizen_Management"
 
 -- ===========================================================================
 function CQUI_OnSettingsInitialized()
+    print("*********** CityBannerManager_CQUI: CQUI_OnSettingsInitialized ENTRY")
     print_debug("CityBannerManager_CQUI: CQUI_OnSettingsInitialized ENTRY")
     CQUI_ShowYieldsOnCityHover  = GameConfiguration.GetValue("CQUI_ShowYieldsOnCityHover");
-    CQUI_SmartBanner            = GameConfiguration.GetValue("CQUI_Smartbanner");
+
+    -- CQUI_SmartBanner            = GameConfiguration.GetValue("CQUI_Smartbanner");
+    CQUI_SmartBanner            = CQUI_GetSettingValueFromGameSetup("CQUI_Smartbanner");
     CQUI_SmartBanner_Districts  = CQUI_SmartBanner and GameConfiguration.GetValue("CQUI_Smartbanner_Districts");
     CQUI_SmartBanner_Population = CQUI_SmartBanner and GameConfiguration.GetValue("CQUI_Smartbanner_Population");
     CQUI_SmartBanner_Cultural   = CQUI_SmartBanner and GameConfiguration.GetValue("CQUI_Smartbanner_Cultural");
     CQUI_SmartBanner_Unmanaged_Citizen = CQUI_SmartBanner and GameConfiguration.GetValue("CQUI_Smartbanner_UnlockedCitizen");
 
     CQUI_WorkIconSize       = GameConfiguration.GetValue("CQUI_WorkIconSize");
+    print("****$$ CQUI_WorkIconSize is: "..tostring(CQUI_WorkIconSize));
     CQUI_WorkIconAlpha      = GameConfiguration.GetValue("CQUI_WorkIconAlpha") / 100;
     CQUI_SmartWorkIcon      = GameConfiguration.GetValue("CQUI_SmartWorkIcon");
     CQUI_SmartWorkIconSize  = GameConfiguration.GetValue("CQUI_SmartWorkIconSize");
@@ -88,12 +92,18 @@ function CQUI_OnSettingsInitialized()
 
     CQUI_ShowCitizenIconsOnCityHover   = GameConfiguration.GetValue("CQUI_ShowCitizenIconsOnCityHover");
     CQUI_ShowCityManageAreaOnCityHover = GameConfiguration.GetValue("CQUI_ShowCityManageAreaOnCityHover");
-    CQUI_RelocateCityStrike            = GameConfiguration.GetValue("CQUI_RelocateCityStrike");
-    CQUI_RelocateEncampmentStrike      = GameConfiguration.GetValue("CQUI_RelocateEncampmentStrike");
+    -- CQUI_RelocateCityStrike            = GameConfiguration.GetValue("CQUI_RelocateCityStrike");
+    -- CQUI_RelocateEncampmentStrike      = GameConfiguration.GetValue("CQUI_RelocateEncampmentStrike");
+
+    CQUI_RelocateCityStrike            = CQUI_GetSettingValueFromGameSetup("CQUI_RelocateCityStrike");
+    CQUI_RelocateEncampmentStrike      = CQUI_GetSettingValueFromGameSetup("CQUI_RelocateEncampmentStrike");
+
+    print("*********** CityBannerManager_CQUI: CQUI_SmartBanner is:"..tostring(CQUI_SmartBanner))
 end
 
 -- ===========================================================================
 function CQUI_OnSettingsUpdate()
+    print("*********** CityBannerManager_CQUI: CQUI_OnSettingsUpdate ENTRY")
     print_debug("CityBannerManager_CQUI: CQUI_OnSettingsUpdate ENTRY")
     CQUI_OnSettingsInitialized();
     Reload();
@@ -1015,9 +1025,10 @@ function Initialize_CQUI()
     LuaEvents.CQUI_CityLostTileToCultureBomb.Add(CQUI_OnCityLostTileToCultureBomb);    -- CQUI update close to a culture bomb cities data and real housing from improvements
     LuaEvents.CQUI_CityRangeStrike.Add(CQUI_OnCityRangeStrikeButtonClick); -- AZURENCY : to acces it in the actionpannel on the city range attack button
     LuaEvents.CQUI_DistrictRangeStrike.Add(OnDistrictRangeStrikeButtonClick); -- AZURENCY : to acces it in the actionpannel on the district range attack button
-    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);
+    --LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
 
+    Events.LoadGameViewStateDone.Add(CQUI_OnSettingsInitialized);
     Events.CityRemovedFromMap.Add(CQUI_OnCityRemovedFromMap);    -- CQUI erase real housing from improvements data everywhere when a city removed from map
     Events.CitySelectionChanged.Add(CQUI_OnBannerMouseExit);
     Events.CityWorkerChanged.Add(OnCityWorkerChanged);
