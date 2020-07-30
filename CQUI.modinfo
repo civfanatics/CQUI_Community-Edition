@@ -150,7 +150,6 @@
                 <File>Assets/UI/Panels/citypanel.xml</File>
                 <File>Assets/UI/Panels/citypaneloverview.lua</File>
                 <File>Assets/UI/Panels/citypaneloverview.xml</File>
-                <File>Assets/UI/Panels/notificationpanel_CQUI_basegame.lua</File>
                 <File>Assets/UI/Panels/notificationpanel_CQUI.lua</File>
                 <File>Assets/UI/Panels/statusmessagepanel.lua</File>
                 <File>Assets/UI/Panels/statusmessagepanel.xml</File>
@@ -371,13 +370,6 @@
                 <LoadOrder>200</LoadOrder>
                 <LuaContext>DiplomacyRibbon</LuaContext>
                 <LuaReplace>Assets/Expansion2/Replacements/diplomacyribbon_CQUI_expansion2.lua</LuaReplace>
-            </Properties>
-        </ReplaceUIScript>
-
-        <ReplaceUIScript id="CQUI_NotificationPanel">
-            <Properties>
-                <LuaContext>NotificationPanel</LuaContext>
-                <LuaReplace>Assets/UI/Panels/notificationpanel_CQUI_basegame.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
 
@@ -1001,7 +993,6 @@
         <File>Assets/UI/Panels/citypanel.xml</File>
         <File>Assets/UI/Panels/citypaneloverview.lua</File>
         <File>Assets/UI/Panels/citypaneloverview.xml</File>
-        <File>Assets/UI/Panels/notificationpanel_CQUI_basegame.lua</File>
         <File>Assets/UI/Panels/notificationpanel_CQUI.lua</File>
         <File>Assets/UI/Panels/productionpanel_CQUI.lua</File>
         <File>Assets/UI/Panels/statusmessagepanel.lua</File>
