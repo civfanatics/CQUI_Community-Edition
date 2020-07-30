@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData>
+    <LocalizedText>
+        <Replace Tag="LOC_IDS_DEAL_TERMS" Language="ru_RU">
+            <Text>Условия сделки</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_TRADE" Language="ru_RU">
+            <Text>[COLOR_Red]Торговля[ENDCOLOR] c</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_SUZERAIN" Language="ru_RU">
+            <Text>[COLOR_Civ6Blue]Сюзерен[ENDCOLOR]</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_UNTRADEABLE" Language="ru_RU">
+            <Text>Не может торговать</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_DUPLICATE" Language="ru_RU">
+            <Text>Дублировать</Text>
+        </Replace>
+    </LocalizedText>
+</GameData>

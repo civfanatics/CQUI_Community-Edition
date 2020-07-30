@@ -95,7 +95,7 @@
         |100        |Scenario Updates
                      Often applied at the very end of everything else. Called out as its own phase.|
         |125        |Unofficial changes to Scenario updates.|
-    -->
+        -->
 
         <!-- The LoadOrder of this file needs to be after the Database Schema changes, but before everything else in the mod -->
         <ImportFiles id="CQUI_IMPORT_COMMON_FILES">
@@ -282,6 +282,17 @@
                 <File>Assets/Text/cqui_text_settings_pt.xml</File>
                 <File>Assets/Text/cqui_text_settings_ru.xml</File>
                 <File>Assets/Text/cqui_text_settings_zh.xml</File>
+                <File>Assets/Text/cqui_diplomacy_text.xml</File>
+                <File>Assets/Text/cqui_diplomacy_text_de.xml</File>
+                <File>Assets/Text/cqui_diplomacy_text_es.xml</File>
+                <File>Assets/Text/cqui_diplomacy_text_fr.xml</File>
+                <File>Assets/Text/cqui_diplomacy_text_it.xml</File>
+                <File>Assets/Text/cqui_diplomacy_text_ja.xml</File>
+                <File>Assets/Text/cqui_diplomacy_text_ko.xml</File>
+                <File>Assets/Text/cqui_diplomacy_text_pl.xml</File>
+                <File>Assets/Text/cqui_diplomacy_text_pt.xml</File>
+                <File>Assets/Text/cqui_diplomacy_text_ru.xml</File>
+                <File>Assets/Text/cqui_diplomacy_text_zh.xml</File>
             </Items>
         </LocalizedText>
 
@@ -720,25 +731,6 @@
             </Items>
         </ImportFiles>
 
-        <!-- ============================== Improved Diplomacy Screen (IDS) ============================== -->
-        <!-- The text files from Improved Diplomacy Screen are still in use -->
-        <!-- A different change later will relocate these to a CQUI Folder and repair the load errors observed in Modding.log -->
-        <LocalizedText id="IDS_TEXT">
-            <Items>
-                <File>Integrations/IDS/Text/ids_text.xml</File>
-                <File>Integrations/IDS/Text/ids_text_de.xml</File>
-                <File>Integrations/IDS/Text/ids_text_es.xml</File>
-                <File>Integrations/IDS/Text/ids_text_fr.xml</File>
-                <File>Integrations/IDS/Text/ids_text_it.xml</File>
-                <File>Integrations/IDS/Text/ids_text_ja.xml</File>
-                <File>Integrations/IDS/Text/ids_text_ko.xml</File>
-                <File>Integrations/IDS/Text/ids_text_pl.xml</File>
-                <File>Integrations/IDS/Text/ids_text_pt.xml</File>
-                <File>Integrations/IDS/Text/ids_text_ru.xml</File>
-                <File>Integrations/IDS/Text/ids_text_zh.xml</File>
-            </Items>
-        </LocalizedText>
-
         <!-- ============================== Better Espionoge Screen (BES) ============================== -->
         <ImportFiles id="BES_IMPORT_FILES">
             <Items>
@@ -952,10 +944,23 @@
         <File>Assets/Text/cqui_text_settings_pt.xml</File>
         <File>Assets/Text/cqui_text_settings_ru.xml</File>
         <File>Assets/Text/cqui_text_settings_zh.xml</File>
+        <File>Assets/Text/cqui_diplomacy_text.xml</File>
+        <File>Assets/Text/cqui_diplomacy_text_de.xml</File>
+        <File>Assets/Text/cqui_diplomacy_text_es.xml</File>
+        <File>Assets/Text/cqui_diplomacy_text_fr.xml</File>
+        <File>Assets/Text/cqui_diplomacy_text_it.xml</File>
+        <File>Assets/Text/cqui_diplomacy_text_ja.xml</File>
+        <File>Assets/Text/cqui_diplomacy_text_ko.xml</File>
+        <File>Assets/Text/cqui_diplomacy_text_pl.xml</File>
+        <File>Assets/Text/cqui_diplomacy_text_pt.xml</File>
+        <File>Assets/Text/cqui_diplomacy_text_ru.xml</File>
+        <File>Assets/Text/cqui_diplomacy_text_zh.xml</File>
+
         <File>Assets/Texture/CQUI_GreatPeople_Background_Bottom.dds</File>
         <File>Assets/Texture/CQUI_GreatPeople_Background_Repeat_Bottom.dds</File>
         <File>Assets/Texture/CQUI_GreatPeople_Background_Repeat_Top.dds</File>
         <File>Assets/Texture/CQUI_GreatPeople_Background_Top.dds</File>
+
         <File>Assets/UI/actionpanel.lua</File>
         <File>Assets/UI/citysupport_CQUI_basegame.lua</File>
         <File>Assets/UI/citysupport_CQUI.lua</File>
@@ -1023,6 +1028,7 @@
         <File>Assets/UI/WorldView/districtploticonmanager_CQUI.lua</File>
         <File>Assets/UI/WorldView/plotinfo_CQUI.lua</File>
         <File>Assets/UI/WorldView/plotinfo.xml</File>
+
         <File>Integrations/BTS/UI/tradeoverview.xml</File>
         <File>Integrations/BTS/UI/tradeoverview.lua</File>
         <File>Integrations/BTS/UI/tradesupport.lua</File>
@@ -1041,17 +1047,6 @@
         <File>Integrations/BTS/Text/bts_text_pt.xml</File>
         <File>Integrations/BTS/Text/bts_text_ru.xml</File>
         <File>Integrations/BTS/Text/bts_text_zh.xml</File>
-        <File>Integrations/IDS/Text/ids_text.xml</File>
-        <File>Integrations/IDS/Text/ids_text_de.xml</File>
-        <File>Integrations/IDS/Text/ids_text_es.xml</File>
-        <File>Integrations/IDS/Text/ids_text_fr.xml</File>
-        <File>Integrations/IDS/Text/ids_text_it.xml</File>
-        <File>Integrations/IDS/Text/ids_text_ja.xml</File>
-        <File>Integrations/IDS/Text/ids_text_ko.xml</File>
-        <File>Integrations/IDS/Text/ids_text_pl.xml</File>
-        <File>Integrations/IDS/Text/ids_text_pt.xml</File>
-        <File>Integrations/IDS/Text/ids_text_ru.xml</File>
-        <File>Integrations/IDS/Text/ids_text_zh.xml</File>
         <File>Integrations/ML/Text/morelenses_text.xml</File>
         <File>Integrations/ML/Text/morelenses_text_de.xml</File>
         <File>Integrations/ML/Text/morelenses_text_es.xml</File>
