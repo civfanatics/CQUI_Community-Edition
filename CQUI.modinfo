@@ -150,7 +150,7 @@
                 <File>Assets/UI/Panels/citypanel.xml</File>
                 <File>Assets/UI/Panels/citypaneloverview.lua</File>
                 <File>Assets/UI/Panels/citypaneloverview.xml</File>
-                <File>Assets/UI/Panels/notificationpanel_CQUI.lua</File>
+                <File>Assets/UI/Panels/NotificationPanel_CQUI.lua</File>
                 <File>Assets/UI/Panels/statusmessagepanel.lua</File>
                 <File>Assets/UI/Panels/statusmessagepanel.xml</File>
                 <File>Assets/UI/Panels/unitpanel_CQUI_basegame.lua</File>
@@ -998,7 +998,8 @@
         <File>Assets/UI/Panels/citypanel.xml</File>
         <File>Assets/UI/Panels/citypaneloverview.lua</File>
         <File>Assets/UI/Panels/citypaneloverview.xml</File>
-        <File>Assets/UI/Panels/notificationpanel_CQUI.lua</File>
+        <!-- Note: Casing must match the style in Firaxis' NotificationPanel.lua in order to properly be included. -->
+        <File>Assets/UI/Panels/NotificationPanel_CQUI.lua</File>
         <File>Assets/UI/Panels/productionpanel_CQUI.lua</File>
         <File>Assets/UI/Panels/statusmessagepanel.lua</File>
         <File>Assets/UI/Panels/statusmessagepanel.xml</File>

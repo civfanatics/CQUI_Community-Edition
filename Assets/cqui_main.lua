@@ -3,6 +3,6 @@
 --include("CQUICommon.lua");
 
 function Initialize()
-    print("CQUI Loaded! Update for v1.0.2.39 (2020-06-21)");
+    print("CQUI Loaded! Update for v1.0.3.31 (2020-07-24)");
 end
 Initialize();
