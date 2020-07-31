@@ -335,8 +335,8 @@ function AddDisabledOffensiveOperation(operation:table, result:table, targetCity
 end
 
 -- ===========================================================================
-function AddAvailableOffensiveOperation(operation:table, result:table, targetCityPlot:table)
-  local missionInstance:table = AddOffensiveOperation(operation, result, targetCityPlot);
+function AddAvailableOffensiveOperation(operation:table, result:table, pTargetPlot:table)
+  local missionInstance:table = AddOffensiveOperation(operation, result, pTargetPlot);
 
   -- Update mission details
   missionInstance.MissionDetails:SetText(GetFormattedOperationDetailText(operation, m_spy, m_city));
@@ -347,7 +347,7 @@ function AddAvailableOffensiveOperation(operation:table, result:table, targetCit
 
   -- If this is the mission choose set callback to open up mission briefing
   if m_currentChooserMode == EspionageChooserModes.MISSION_CHOOSER then
-    missionInstance.MissionButton:RegisterCallback( Mouse.eLClick, function() OnMissionSelected(operation, missionInstance); end );
+    missionInstance.MissionButton:RegisterCallback( Mouse.eLClick, function() OnMissionSelected(operation, missionInstance, pTargetPlot); end );
   end
 
   -- While in DESTINATION_CHOOSER mode we don't want the buttons to act
@@ -370,8 +370,8 @@ function OnCounterspySelected(districtPlot:table)
 end
 
 -- ===========================================================================
-function OnMissionSelected(operation:table, instance:table)
-  LuaEvents.EspionageChooser_ShowMissionBriefing(operation.Hash, m_spy:GetID());
+function OnMissionSelected(operation:table, instance:table, pTargetPlot:table)
+  LuaEvents.EspionageChooser_ShowMissionBriefing(operation.Hash, m_spy:GetID(), pTargetPlot);
 
   -- Hide all selection borders before selecting another
   for i=1, m_MissionStackIM.m_iCount, 1 do

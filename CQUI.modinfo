@@ -95,7 +95,7 @@
         |100        |Scenario Updates
                      Often applied at the very end of everything else. Called out as its own phase.|
         |125        |Unofficial changes to Scenario updates.|
-    -->
+        -->
 
         <!-- The LoadOrder of this file needs to be after the Database Schema changes, but before everything else in the mod -->
         <ImportFiles id="CQUI_IMPORT_COMMON_FILES">
@@ -150,13 +150,13 @@
                 <File>Assets/UI/Panels/citypanel.xml</File>
                 <File>Assets/UI/Panels/citypaneloverview.lua</File>
                 <File>Assets/UI/Panels/citypaneloverview.xml</File>
-                <File>Assets/UI/Panels/notificationpanel_CQUI_basegame.lua</File>
                 <File>Assets/UI/Panels/notificationpanel_CQUI.lua</File>
                 <File>Assets/UI/Panels/statusmessagepanel.lua</File>
                 <File>Assets/UI/Panels/statusmessagepanel.xml</File>
                 <File>Assets/UI/Panels/unitpanel_CQUI_basegame.lua</File>
                 <File>Assets/UI/Panels/unitpanel_CQUI.lua</File>
-                <File>Assets/UI/PartialScreens/citystates.lua</File>
+                <File>Assets/UI/PartialScreens/citystates_CQUI_basegame.lua</File>
+                <File>Assets/UI/PartialScreens/citystates_CQUI.lua</File>
                 <File>Assets/UI/PartialScreens/citystates.xml</File>
                 <File>Assets/UI/Popups/greatpeoplepopup.lua</File>
                 <File>Assets/UI/Popups/greatpeoplepopup.xml</File>
@@ -198,7 +198,6 @@
                 <File>Assets/Expansion1/Replacements/diplomacyribbon_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/governmentscreen_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/launchbar_CQUI_expansion1.lua</File>
-                <File>Assets/Expansion1/Replacements/notificationpanel_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/partialscreenhooks_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/techtree_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/toppanel_CQUI_expansion1.lua</File>
@@ -240,7 +239,6 @@
                 <File>Assets/Expansion2/Replacements/governmentscreen_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/ingame.lua</File>
                 <File>Assets/Expansion2/Replacements/launchbar_CQUI_expansion2.lua</File>
-                <File>Assets/Expansion2/Replacements/notificationpanel_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/partialscreenhooks_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/plottooltip_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/techtree_CQUI_expansion2.lua</File>
@@ -331,6 +329,15 @@
         </ModArt>
 
         <!-- ============================== ReplaceUIScript Declarations ============================== -->
+        <ReplaceUIScript id="CQUI_CityStates">
+            <Properties>
+                <!-- This extends the functionality of citystates.lua for vanilla and both expansions, so LoadOrder should be  -->
+                <LoadOrder>200</LoadOrder>
+                <LuaContext>CityStates</LuaContext>
+                <LuaReplace>Assets/UI/PartialScreens/citystates_CQUI_basegame.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
         <ReplaceUIScript id="CQUI_DiplomacyActionView">
             <Properties>
                 <LuaContext>DiplomacyActionView</LuaContext>
@@ -374,29 +381,6 @@
                 <LoadOrder>200</LoadOrder>
                 <LuaContext>DiplomacyRibbon</LuaContext>
                 <LuaReplace>Assets/Expansion2/Replacements/diplomacyribbon_CQUI_expansion2.lua</LuaReplace>
-            </Properties>
-        </ReplaceUIScript>
-
-        <ReplaceUIScript id="CQUI_NotificationPanel">
-            <Properties>
-                <LuaContext>NotificationPanel</LuaContext>
-                <LuaReplace>Assets/UI/Panels/notificationpanel_CQUI_basegame.lua</LuaReplace>
-            </Properties>
-        </ReplaceUIScript>
-
-        <ReplaceUIScript id="CQUI_NotificationPanel_EXP1" criteria="Expansion1">
-            <Properties>
-                <LoadOrder>100</LoadOrder>
-                <LuaContext>NotificationPanel</LuaContext>
-                <LuaReplace>Assets/Expansion1/Replacements/notificationpanel_CQUI_expansion1.lua</LuaReplace>
-            </Properties>
-        </ReplaceUIScript>
-
-        <ReplaceUIScript id="CQUI_NotificationPanel_EXP2" criteria="Expansion2">
-            <Properties>
-                <LoadOrder>200</LoadOrder>
-                <LuaContext>NotificationPanel</LuaContext>
-                <LuaReplace>Assets/Expansion2/Replacements/notificationpanel_CQUI_expansion2.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
 
@@ -900,7 +884,6 @@
         <File>Assets/Expansion1/Replacements/leadericon.lua</File>
         <File>Assets/Expansion1/Replacements/leadericon.xml</File>
         <File>Assets/Expansion1/Replacements/launchbar_CQUI_expansion1.lua</File>
-        <File>Assets/Expansion1/Replacements/notificationpanel_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/partialscreenhooks_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/techtree_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/toppanel_CQUI_expansion1.lua</File>
@@ -920,7 +903,6 @@
         <File>Assets/Expansion2/Replacements/governmentscreen_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/ingame.lua</File>
         <File>Assets/Expansion2/Replacements/launchbar_CQUI_expansion2.lua</File>
-        <File>Assets/Expansion2/Replacements/notificationpanel_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/partialscreenhooks_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/plottooltip_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/techtree_CQUI_expansion2.lua</File>
@@ -1016,14 +998,14 @@
         <File>Assets/UI/Panels/citypanel.xml</File>
         <File>Assets/UI/Panels/citypaneloverview.lua</File>
         <File>Assets/UI/Panels/citypaneloverview.xml</File>
-        <File>Assets/UI/Panels/notificationpanel_CQUI_basegame.lua</File>
         <File>Assets/UI/Panels/notificationpanel_CQUI.lua</File>
         <File>Assets/UI/Panels/productionpanel_CQUI.lua</File>
         <File>Assets/UI/Panels/statusmessagepanel.lua</File>
         <File>Assets/UI/Panels/statusmessagepanel.xml</File>
         <File>Assets/UI/Panels/unitpanel_CQUI_basegame.lua</File>
         <File>Assets/UI/Panels/unitpanel_CQUI.lua</File>
-        <File>Assets/UI/PartialScreens/citystates.lua</File>
+        <File>Assets/UI/PartialScreens/citystates_CQUI_basegame.lua</File>
+        <File>Assets/UI/PartialScreens/citystates_CQUI.lua</File>
         <File>Assets/UI/PartialScreens/citystates.xml</File>
         <File>Assets/UI/Popups/greatpeoplepopup.lua</File>
         <File>Assets/UI/Popups/greatpeoplepopup.xml</File>

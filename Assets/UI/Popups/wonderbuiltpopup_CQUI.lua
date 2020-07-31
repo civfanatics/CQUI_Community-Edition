@@ -234,8 +234,7 @@ function ShowPopup( kData:table )
 
     UI.LookAtPlot(locX, locY);
 
-    Controls.ReplayButton:SetEnabled(UI.GetWorldRenderView() == WorldRenderView.VIEW_3D);
-    Controls.ReplayButton:SetHide(not UI.IsWorldRenderViewAvailable(WorldRenderView.VIEW_3D));
+    Controls.ReplayButton:SetHide(UI.GetWorldRenderView() ~= WorldRenderView.VIEW_3D);
 end
 
 -- ===========================================================================
