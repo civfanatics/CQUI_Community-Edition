@@ -208,17 +208,23 @@ function CityBanner.UpdateStats(self)
             if (IsCQUI_SmartBanner_DistrictsEnabled()) then
                 local districtToolTipString = Locale.Lookup("LOC_HUD_DISTRICTS")..":";
                 local districtCount = 0;
+                local neighborhoodAdded = false;
                 -- Update the built districts 
                 for i, district in pCityDistricts:Members() do
                     local districtType = district:GetType();
                     local districtInfo:table = GameInfo.Districts[districtType];
                     local isBuilt = pCityDistricts:HasDistrict(districtInfo.Index, true);
+                    -- If the district is built, is not the City Center, is not a Wonder, and a Neighborhood Icon has already been shown...
                     if (isBuilt == true
                         and districtInfo.DistrictType ~= "DISTRICT_WONDER"
-                        and districtInfo.DistrictType ~= "DISTRICT_CITY_CENTER") then
+                        and districtInfo.DistrictType ~= "DISTRICT_CITY_CENTER"
+                        and (districtInfo.DistrictType ~= "DISTRICT_NEIGHBORHOOD" or neighborhoodAdded == false)) then
                         SetDetailIcon(self.CQUI_DistrictBuiltIM:GetInstance(), "ICON_"..districtInfo.DistrictType);
                         districtToolTipString = districtToolTipString .. "[NEWLINE] - " .. Locale.Lookup(districtInfo.Name);
                         districtCount = districtCount + 1;
+                        if (districtInfo.DistrictType == "DISTRICT_NEIGHBORHOOD") then
+                            neighborhoodAdded = true;
+                        end
                     end
                 end
 

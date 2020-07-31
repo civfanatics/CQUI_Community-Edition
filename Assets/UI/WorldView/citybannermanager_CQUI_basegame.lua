@@ -175,49 +175,33 @@ function CityBanner.UpdateName( self )
 
     -- Update district icons
     -- districtType:number == Index
-    -- TODO: Can we do the same thing the expansions to, instead of manually maintaining this list?
-    local iAcropolis      = CQUI_GetDistrictIndexSafe("DISTRICT_ACROPOLIS");
-    local iAqueduct       = CQUI_GetDistrictIndexSafe("DISTRICT_AQUEDUCT");
-    local iAerodrome      = CQUI_GetDistrictIndexSafe("DISTRICT_AERODROME");
-    local iBath           = CQUI_GetDistrictIndexSafe("DISTRICT_BATH");
-    local iCampus         = CQUI_GetDistrictIndexSafe("DISTRICT_CAMPUS");
-    local iCommerce       = CQUI_GetDistrictIndexSafe("DISTRICT_COMMERCIAL_HUB");
-    local iEncampment     = CQUI_GetDistrictIndexSafe("DISTRICT_ENCAMPMENT");
-    local iEntComplex     = CQUI_GetDistrictIndexSafe("DISTRICT_ENTERTAINMENT_COMPLEX");
-    local iHansa          = CQUI_GetDistrictIndexSafe("DISTRICT_HANSA");
-    local iHarbor         = CQUI_GetDistrictIndexSafe("DISTRICT_HARBOR");
-    local iHolySite       = CQUI_GetDistrictIndexSafe("DISTRICT_HOLY_SITE");
-    local iIndustrial     = CQUI_GetDistrictIndexSafe("DISTRICT_INDUSTRIAL_ZONE");
-    local iLavra          = CQUI_GetDistrictIndexSafe("DISTRICT_LAVRA");
-    local iMbanza         = CQUI_GetDistrictIndexSafe("DISTRICT_MBANZA");
-    local iNeighborhood   = CQUI_GetDistrictIndexSafe("DISTRICT_NEIGHBORHOOD");
-    local iRoyalNavy      = CQUI_GetDistrictIndexSafe("DISTRICT_ROYAL_NAVY_DOCKYARD");
-    local iSpaceport      = CQUI_GetDistrictIndexSafe("DISTRICT_SPACEPORT");
-    local iStreetCarnival = CQUI_GetDistrictIndexSafe("DISTRICT_STREET_CARNIVAL");
-    local iTheater        = CQUI_GetDistrictIndexSafe("DISTRICT_THEATER");
+    local districts = {};
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_ACROPOLIS")]             = { Instance = self.m_Instance.CityBuiltDistrictAcropolis };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_AQUEDUCT")]              = { Instance = self.m_Instance.CityBuiltDistrictAerodrome };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_AERODROME")]             = { Instance = self.m_Instance.CityBuiltDistrictAqueduct };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_BATH")]                  = { Instance = self.m_Instance.CityBuiltDistrictBath };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_CAMPUS")]                = { Instance = self.m_Instance.CityBuiltDistrictCampus };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_COMMERCIAL_HUB")]        = { Instance = self.m_Instance.CityBuiltDistrictCommercial };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_ENCAMPMENT")]            = { Instance = self.m_Instance.CityBuiltDistrictEncampment };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_ENTERTAINMENT_COMPLEX")] = { Instance = self.m_Instance.CityBuiltDistrictEntertainment };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_HANSA")]                 = { Instance = self.m_Instance.CityBuiltDistrictHansa };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_HARBOR")]                = { Instance = self.m_Instance.CityBuiltDistrictHarbor };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_HOLY_SITE")]             = { Instance = self.m_Instance.CityBuiltDistrictHoly };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_INDUSTRIAL_ZONE")]       = { Instance = self.m_Instance.CityBuiltDistrictIndustrial };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_LAVRA")]                 = { Instance = self.m_Instance.CityBuiltDistrictLavra };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_MBANZA")]                = { Instance = self.m_Instance.CityBuiltDistrictMbanza };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_NEIGHBORHOOD")]          = { Instance = self.m_Instance.CityBuiltDistrictNeighborhood };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_ROYAL_NAVY_DOCKYARD")]   = { Instance = self.m_Instance.CityBuiltDistrictRoyalNavy };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_SPACEPORT")]             = { Instance = self.m_Instance.CityBuiltDistrictSpaceport };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_STREET_CARNIVAL")]       = { Instance = self.m_Instance.CityBuiltDistrictStreetCarnival };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_THEATER")]               = { Instance = self.m_Instance.CityBuiltDistrictTheater };
 
     if (self.m_Instance.CityBuiltDistrictAqueduct ~= nil) then
-        self.m_Instance.CityUnlockedCitizen:SetHide(true);
-        self.m_Instance.CityBuiltDistrictAcropolis:SetHide(true);
-        self.m_Instance.CityBuiltDistrictAerodrome:SetHide(true);
-        self.m_Instance.CityBuiltDistrictAqueduct:SetHide(true);
-        self.m_Instance.CityBuiltDistrictBath:SetHide(true);
-        self.m_Instance.CityBuiltDistrictCampus:SetHide(true);
-        self.m_Instance.CityBuiltDistrictCommercial:SetHide(true);
-        self.m_Instance.CityBuiltDistrictEncampment:SetHide(true);
-        self.m_Instance.CityBuiltDistrictEntertainment:SetHide(true);
-        self.m_Instance.CityBuiltDistrictHansa:SetHide(true);
-        self.m_Instance.CityBuiltDistrictHarbor:SetHide(true);
-        self.m_Instance.CityBuiltDistrictHoly:SetHide(true);
-        self.m_Instance.CityBuiltDistrictIndustrial:SetHide(true);
-        self.m_Instance.CityBuiltDistrictLavra:SetHide(true);
-        self.m_Instance.CityBuiltDistrictMbanza:SetHide(true);
-        self.m_Instance.CityBuiltDistrictNeighborhood:SetHide(true);
-        self.m_Instance.CityBuiltDistrictRoyalNavy:SetHide(true);
-        self.m_Instance.CityBuiltDistrictSpaceport:SetHide(true);
-        self.m_Instance.CityBuiltDistrictStreetCarnival:SetHide(true);
-        self.m_Instance.CityBuiltDistrictTheater:SetHide(true);
         self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
+        for k,v in pairs(districts) do
+            print("k: "..tostring(k).."  v:"..tostring(v))
+            districts[k].Instance:SetHide(true);
+        end
     end
 
     local pCityDistricts:table  = pCity:GetDistricts();
@@ -248,35 +232,21 @@ function CityBanner.UpdateName( self )
         if (IsCQUI_SmartBanner_DistrictsEnabled()) then
             local districtToolTipString = Locale.Lookup("LOC_HUD_DISTRICTS")..":";
             local districtsBuilt = 0;
+            local neighborhoodAdded = false;
             for i, district in pCityDistricts:Members() do
                 local districtType = district:GetType();
                 local districtInfo:table = GameInfo.Districts[districtType];
                 local isBuilt = pCityDistricts:HasDistrict(districtInfo.Index, true);
                 if (isBuilt) then
-                    local districtIconToUpdate = nil;
-                    if (districtType == iAcropolis)       then districtIconToUpdate = self.m_Instance.CityBuiltDistrictAcropolis;      end
-                    if (districtType == iAerodrome)       then districtIconToUpdate = self.m_Instance.CityBuiltDistrictAerodrome;      end
-                    if (districtType == iAqueduct)        then districtIconToUpdate = self.m_Instance.CityBuiltDistrictAqueduct;       end
-                    if (districtType == iBath)            then districtIconToUpdate = self.m_Instance.CityBuiltDistrictBath;           end
-                    if (districtType == iCampus)          then districtIconToUpdate = self.m_Instance.CityBuiltDistrictCampus;         end
-                    if (districtType == iCommerce)        then districtIconToUpdate = self.m_Instance.CityBuiltDistrictCommercial;     end
-                    if (districtType == iEncampment)      then districtIconToUpdate = self.m_Instance.CityBuiltDistrictEncampment;     end
-                    if (districtType == iEntComplex)      then districtIconToUpdate = self.m_Instance.CityBuiltDistrictEntertainment;  end
-                    if (districtType == iHansa)           then districtIconToUpdate = self.m_Instance.CityBuiltDistrictHansa;          end
-                    if (districtType == iHarbor)          then districtIconToUpdate = self.m_Instance.CityBuiltDistrictHarbor;         end
-                    if (districtType == iHolySite)        then districtIconToUpdate = self.m_Instance.CityBuiltDistrictHoly;           end
-                    if (districtType == iIndustrial)      then districtIconToUpdate = self.m_Instance.CityBuiltDistrictIndustrial;     end
-                    if (districtType == iLavra)           then districtIconToUpdate = self.m_Instance.CityBuiltDistrictLavra;          end
-                    if (districtType == iMbanza)          then districtIconToUpdate = self.m_Instance.CityBuiltDistrictMbanza;         end
-                    if (districtType == iNeighborhood)    then districtIconToUpdate = self.m_Instance.CityBuiltDistrictNeighborhood;   end
-                    if (districtType == iRoyalNavy)       then districtIconToUpdate = self.m_Instance.CityBuiltDistrictRoyalNavy;      end
-                    if (districtType == iSpaceport)       then districtIconToUpdate = self.m_Instance.CityBuiltDistrictSpaceport;      end
-                    if (districtType == iStreetCarnival)  then districtIconToUpdate = self.m_Instance.CityBuiltDistrictStreetCarnival; end
-                    if (districtType == iTheater)         then districtIconToUpdate = self.m_Instance.CityBuiltDistrictTheater;        end
-                    if (districtIconToUpdate ~= nil) then
+                    -- Items in the districts table are populated above; it does not include City Center or 
+                    if (districts[districtType] ~= nil
+                        and (districts[districtType].Instance ~= self.m_Instance.CityBuiltDistrictNeighborhood or neighborhoodAdded == false)) then
                         districtToolTipString = districtToolTipString .. "[NEWLINE] - " .. Locale.Lookup(districtInfo.Name);
                         districtsBuilt = districtsBuilt + 1;
-                        districtIconToUpdate:SetHide(false);
+                        districts[districtType].Instance:SetHide(false);
+                        if (districts[districtType].Instance == self.m_Instance.CityBuiltDistrictNeighborhood) then
+                            neighborhoodAdded = true;
+                        end
                     end
                 end -- if isBuilt
             end -- for loop
@@ -284,9 +254,9 @@ function CityBanner.UpdateName( self )
             -- Determine the overlap of the district icons based on the number built
             -- Note: GetNumZonedDistrictsRequiringPopulation does not include Aqueducts or Neighborhoods
             -- The padding value was -12 before this dynamic calculation was introduced
-            local districtIconPadding = 8 + districtsBuilt;
-            if districtIconPadding < 12 then districtIconPadding = 12; end
-            if districtIconPadding > 20 then districtIconPadding = 20; end
+            local districtIconPadding = 6 + districtsBuilt;
+            if districtIconPadding < 10 then districtIconPadding = 10; end
+            if districtIconPadding > 16 then districtIconPadding = 16; end
             self.m_Instance.CQUI_Districts:SetStackPadding(districtIconPadding * -1);
             self.m_Instance.CQUI_Districts:CalculateSize();
             self.m_Instance.CQUI_DistrictsContainer:SetToolTipString(districtToolTipString);
