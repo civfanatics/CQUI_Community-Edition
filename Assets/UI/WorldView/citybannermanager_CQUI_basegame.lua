@@ -258,11 +258,11 @@ function CityBanner.UpdateName( self )
             if districtIconPadding < 10 then districtIconPadding = 10; end
             if districtIconPadding > 16 then districtIconPadding = 16; end
             self.m_Instance.CQUI_Districts:SetStackPadding(districtIconPadding * -1);
-            self.m_Instance.CQUI_Districts:CalculateSize();
+            self.m_Instance.CQUI_Districts:CalculateSize();  -- Sets the correct banner width with the padding update
             self.m_Instance.CQUI_DistrictsContainer:SetToolTipString(districtToolTipString);
 
             -- Infixo: 2020-07-08 district available flag and tooltip
-            local iDistrictsNum:number = pCityDistricts:GetNumZonedDistrictsRequiringPopulation();
+            local iDistrictsNum:number         = pCityDistricts:GetNumZonedDistrictsRequiringPopulation();
             local iDistrictsPossibleNum:number = pCityDistricts:GetNumAllowedDistrictsRequiringPopulation();
             if iDistrictsPossibleNum > iDistrictsNum then
                 self.m_Instance.CQUI_DistrictAvailable:SetHide(false);
