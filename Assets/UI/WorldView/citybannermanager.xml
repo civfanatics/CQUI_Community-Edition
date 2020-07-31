@@ -73,7 +73,7 @@
                             <Label ID="CityAmenitiesInsufficientIcon" Anchor="L,C" Style="FontNormal20" String="[ICON_AmenitiesInsufficient]"/>
                             <Label ID="CityUnlockedCitizen" Hidden="1" Anchor="L,C" Offset="0,2" String="[ICON_EXCLAMATION]"/>
                             <Container ID="CQUI_DistrictsContainer" Anchor="C,C" Size="auto,parent" >
-                                <Stack ID="CQUI_Districts" Anchor="L,C" Offset="0,0" StackGrowth="Right" Padding="-15">
+                                <Stack ID="CQUI_Districts" Anchor="L,C" Offset="0,0" StackGrowth="Right" Padding="-12">
                                     <Label ID="CityBuiltDistrictAcropolis" Hidden="1" Style="FontNormal20" String="[ICON_DISTRICT_ACROPOLIS]"/>
                                     <Label ID="CityBuiltDistrictAerodrome" Hidden="1" Style="FontNormal20" String="[ICON_DISTRICT_AERODROME]"/>
                                     <Label ID="CityBuiltDistrictAqueduct" Hidden="1" Style="FontNormal20" String="[ICON_DISTRICT_AQUEDUCT]"/>

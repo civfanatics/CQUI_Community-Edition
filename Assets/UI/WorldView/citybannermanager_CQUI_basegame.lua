@@ -247,6 +247,7 @@ function CityBanner.UpdateName( self )
 
         if (IsCQUI_SmartBanner_DistrictsEnabled()) then
             local districtToolTipString = Locale.Lookup("LOC_HUD_DISTRICTS")..":";
+            local districtsBuilt = 0;
             for i, district in pCityDistricts:Members() do
                 local districtType = district:GetType();
                 local districtInfo:table = GameInfo.Districts[districtType];
@@ -274,15 +275,16 @@ function CityBanner.UpdateName( self )
                     if (districtType == iTheater)         then districtIconToUpdate = self.m_Instance.CityBuiltDistrictTheater;        end
                     if (districtIconToUpdate ~= nil) then
                         districtToolTipString = districtToolTipString .. "[NEWLINE] - " .. Locale.Lookup(districtInfo.Name);
+                        districtsBuilt = districtsBuilt + 1;
                         districtIconToUpdate:SetHide(false);
                     end
                 end -- if isBuilt
             end -- for loop
 
-            -- Calculate the CQUI_Districts StackContainer size, Padding based on number of districts, and set the tool string for the container that hosts it
-            local iDistrictsNum:number = pCityDistricts:GetNumZonedDistrictsRequiringPopulation();
-            -- -12 was the default before this dynamic calculation
-            local districtIconPadding = 8 + iDistrictsNum;
+            -- Determine the overlap of the district icons based on the number built
+            -- Note: GetNumZonedDistrictsRequiringPopulation does not include Aqueducts or Neighborhoods
+            -- The padding value was -12 before this dynamic calculation was introduced
+            local districtIconPadding = 8 + districtsBuilt;
             if districtIconPadding < 12 then districtIconPadding = 12; end
             if districtIconPadding > 20 then districtIconPadding = 20; end
             self.m_Instance.CQUI_Districts:SetStackPadding(districtIconPadding * -1);
@@ -290,6 +292,7 @@ function CityBanner.UpdateName( self )
             self.m_Instance.CQUI_DistrictsContainer:SetToolTipString(districtToolTipString);
 
             -- Infixo: 2020-07-08 district available flag and tooltip
+            local iDistrictsNum:number = pCityDistricts:GetNumZonedDistrictsRequiringPopulation();
             local iDistrictsPossibleNum:number = pCityDistricts:GetNumAllowedDistrictsRequiringPopulation();
             if iDistrictsPossibleNum > iDistrictsNum then
                 self.m_Instance.CQUI_DistrictAvailable:SetHide(false);

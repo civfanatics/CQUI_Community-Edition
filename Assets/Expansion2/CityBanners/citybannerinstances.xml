@@ -53,9 +53,9 @@
 
                     <!-- CONTENTS -->
                     <Stack ID="ContentStack" Anchor="C,C" StackGrowth="Right" Padding="10">
-                        <Stack ID="CityInfoStack" Anchor="L,C" StackGrowth="Right" Padding="2"/>
+                        <Stack ID="CityInfoStack" Anchor="L,C" StackGrowth="Right" Padding="2" />
                         <Container ID="CQUI_DistrictsContainer" Anchor="C,C" Size="auto,parent" Offset="-6,0">
-                            <Stack ID="CQUI_Districts" Anchor="L,C" StackGrowth="Right" Padding="-15"/>
+                            <Stack ID="CQUI_Districts" Anchor="L,C" StackGrowth="Right" Padding="-12"/>
                         </Container>
                         <Image ID="CQUI_DistrictAvailable" Anchor="L,C" Offset="-8,0" Icon="ICON_STAT_DISTRICTS" Size="24,24" ToolTip="LOC_HUD_DISTRICTS" Hidden="true" /> <!--Texture="Stats22"-->
                         <Label ID="CityName" Anchor="L,C" Style="FontFlair16" FontStyle="Shadow" Color0="255,255,255,255" Color1="0,0,0,20" SmallCaps="18" SmallCapsType="EveryWord" />
