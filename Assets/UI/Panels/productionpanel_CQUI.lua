@@ -615,31 +615,6 @@ end
 
 -- ===========================================================================
 function Initialize()
-<<<<<<< HEAD
-  print("ProductionPanel_CQUI Initialize ENTRY");
-  -- ProductionPanel.lua does not implement a LateInitialize function
-  Events.InterfaceModeChanged.Remove( BASE_OnInterfaceModeChanged );
-  Events.InterfaceModeChanged.Add( OnInterfaceModeChanged );
-  Events.CityMadePurchase.Add( function() Refresh(); end);
-
-  LuaEvents.CityBannerManager_ProductionToggle.Remove( BASE_OnCityBannerManagerProductionToggle );
-  LuaEvents.CityBannerManager_ProductionToggle.Add( OnCityBannerManagerProductionToggle );
-
-  LuaEvents.NotificationPanel_ChooseProduction.Remove( BASE_OnNotificationPanelChooseProduction );
-  LuaEvents.NotificationPanel_ChooseProduction.Add( OnNotificationPanelChooseProduction );
-
-  LuaEvents.CityBannerManager_ProductionToggle.Remove( BASE_OnCityBannerManagerProductionToggle );
-  LuaEvents.CityBannerManager_ProductionToggle.Add( OnCityBannerManagerProductionToggle );
-
-  Controls.CloseButton:ClearCallback(Mouse.eLClick);
-  Controls.CloseButton:RegisterCallback(Mouse.eLClick, OnClose);
-  Controls.CQUI_ShowManagerButton:RegisterCallback(Mouse.eLClick, CQUI_ToogleManager);
-  
-  LuaEvents.CQUI_ProductionPanel_CityviewEnable.Add( CQUI_OnCityviewEnabled);
-  LuaEvents.CQUI_ProductionPanel_CityviewDisable.Add( CQUI_OnCityviewDisabled);
-  LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
-  LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
-=======
     Events.InterfaceModeChanged.Remove( BASE_OnInterfaceModeChanged );
     Events.InterfaceModeChanged.Add( OnInterfaceModeChanged );
     Events.CityMadePurchase.Add( function() Refresh(); end);
@@ -661,6 +636,5 @@ function Initialize()
     LuaEvents.CQUI_ProductionPanel_CityviewDisable.Add( CQUI_OnCityviewDisabled);
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
->>>>>>> master
 end
 Initialize();

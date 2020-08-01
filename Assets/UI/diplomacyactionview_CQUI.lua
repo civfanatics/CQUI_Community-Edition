@@ -119,36 +119,6 @@ function OnActivateIntelRelationshipPanel(relationshipInstance : table)
         BASE_OnActivateIntelRelationshipPanel(intelSubPanel);
         return
     end
-<<<<<<< HEAD
-  end
-
-  local reasonsTotalScoreText = Locale.Lookup("{1_Score : number +#,###.##;-#,###.##}", reasonsTotalScore);
-  if (reasonsTotalScore > 0) then
-    reasonsTotalScoreText = "[COLOR_Civ6Green]" .. reasonsTotalScoreText .. "[ENDCOLOR]";
-  elseif (reasonsTotalScore < 0) then
-    reasonsTotalScoreText = "[COLOR_Civ6Red]" .. reasonsTotalScoreText .. "[ENDCOLOR]";
-  else
-    reasonsTotalScoreText = "[COLOR_Grey]" .. reasonsTotalScoreText .. "[ENDCOLOR]";
-  end
-
-  if (hasReasonEntries) then
-    intelSubPanel.RelationshipReasonsTotal:SetHide(false);
-    intelSubPanel.RelationshipReasonsTotalScorePerTurn:SetText(reasonsTotalScoreText);
-  else
-    intelSubPanel.RelationshipReasonsTotal:SetHide(true);
-  end
-
-  BASE_OnActivateIntelRelationshipPanel(intelSubPanel);
-end
-
-function LateInitialize()
-    print("DiplomacyActionView_CQUI LateInitialize ENTRY");
-    BASE_CQUI_LateInitialize();
-
-    LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
-    LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
-end
-=======
 
     -- Get the selected player's Diplomactic AI
     local selectedPlayerDiplomaticAI = ms_SelectedPlayer:GetDiplomaticAI();
@@ -204,4 +174,3 @@ end
 
     BASE_OnActivateIntelRelationshipPanel(intelSubPanel);
 end
->>>>>>> master

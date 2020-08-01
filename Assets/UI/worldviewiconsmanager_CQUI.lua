@@ -54,11 +54,7 @@ end
 --  CQUI modified SetResourceIcon functiton : Improved resource icon dimming/hiding
 -- ===========================================================================
 function SetResourceIcon( pInstance:table, pPlot, type, state)
-<<<<<<< HEAD
-  BASE_CQUI_SetResourceIcon(pInstance, pPlot, type, state);
-=======
     BASE_SetResourceIcon(pInstance, pPlot, type, state);
->>>>>>> master
 
     local resourceInfo = GameInfo.Resources[type];
     if (pPlot and resourceInfo ~= nil) then

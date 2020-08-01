@@ -76,23 +76,6 @@ end
 function GetUnitActionsTable( pUnit )
     local actionsTable = BASE_CQUI_GetUnitActionsTable(pUnit);
 
-<<<<<<< HEAD
-  -- Update the Farm Tool Tip to show 1.5 Housing if the player is Maya
-  if HasTrait("TRAIT_CIVILIZATION_MAYAB", Game.GetLocalPlayer()) then
-    local iconCount = #actionsTable["BUILD"];
-    for i = 1, iconCount do
-      if (actionsTable["BUILD"][i]["IconId"] == "ICON_IMPROVEMENT_FARM") then
-        if housingStr ~= "" then
-          local housingStrBefore = Locale.Lookup("LOC_OPERATION_BUILD_IMPROVEMENT_HOUSING", 0.5);
-          -- print_debug isn't working in this file, so for now just comment out the print statements
-          -- print("housingStrBefore is (before adding escape chars): "..housingStrBefore);
-          -- Lua parses characters that are found in regex ([],+, etc) so we need to escape those in our string we're looking to replace
-          -- Using gsub("%p", "%%%1") will replace all of the punctuation characters (which includes [], +, )
-          -- See https://www.lua.org/pil/20.2.html
-          housingStrBefore = housingStrBefore:gsub("%p", "%%%1")
-          local housingStrAfter = Locale.Lookup("LOC_OPERATION_BUILD_IMPROVEMENT_HOUSING", 1.5);
-          local updatedHelpString, replacedCount = actionsTable["BUILD"][i]["helpString"]:gsub(housingStrBefore, housingStrAfter);
-=======
     -- Update the Farm Tool Tip to show 1.5 Housing if the player is Maya
     if HasTrait("TRAIT_CIVILIZATION_MAYAB", Game.GetLocalPlayer()) then
         local iconCount = #actionsTable["BUILD"];
@@ -108,7 +91,6 @@ function GetUnitActionsTable( pUnit )
                     housingStrBefore = housingStrBefore:gsub("%p", "%%%1")
                     local housingStrAfter = Locale.Lookup("LOC_OPERATION_BUILD_IMPROVEMENT_HOUSING", 1.5);
                     local updatedHelpString, replacedCount = actionsTable["BUILD"][i]["helpString"]:gsub(housingStrBefore, housingStrAfter);
->>>>>>> master
 
                     -- print("housingStrBefore is (after adding escape chars): "..housingStrBefore);
                     -- print("housingStrAfter is: "..housingStrAfter);
@@ -125,17 +107,5 @@ function GetUnitActionsTable( pUnit )
         end
     end
 
-<<<<<<< HEAD
-  return actionsTable;
-end
-
-function LateInitialize()
-    print("UnitPanel_CQUI LateInitialize ENTRY");
-    BASE_CQUI_LateInitialize();
-    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
-    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
-end
-=======
     return actionsTable;
 end
->>>>>>> master

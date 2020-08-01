@@ -157,25 +157,6 @@ end
 
 -- ===========================================================================
 function LateInitialize()
-<<<<<<< HEAD
-  print("CivicsTree_CQUI LateInitialize ENTRY");
-  BASE_CQUI_LateInitialize();
-
-  LuaEvents.CivicsPanel_RaiseCivicsTree.Remove(BASE_CQUI_OnOpen);
-  LuaEvents.LaunchBar_RaiseCivicsTree.Remove(BASE_CQUI_OnOpen);
-  LuaEvents.CivicsChooser_RaiseCivicsTree.Add(OnOpen);
-  LuaEvents.LaunchBar_RaiseCivicsTree.Add(OnOpen);
-  Events.CivicCompleted.Remove(BASE_CQUI_OnCivicComplete);
-  Events.CivicCompleted.Add(OnCivicComplete);
-  Events.LocalPlayerTurnBegin.Remove(BASE_CQUI_OnLocalPlayerTurnBegin);
-  Events.LocalPlayerTurnBegin.Add(OnLocalPlayerTurnBegin);
-  
-  -- CQUI add exceptions to the 50% notifications by putting civics into the CQUI_halfwayNotified table
-  CQUI_halfwayNotified["LOC_CIVIC_CODE_OF_LAWS_NAME"] = true;
-
-  LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
-  LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
-=======
     BASE_CQUI_LateInitialize();
 
     LuaEvents.CivicsPanel_RaiseCivicsTree.Remove(BASE_CQUI_OnOpen);
@@ -192,5 +173,4 @@ function LateInitialize()
 
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
->>>>>>> master
 end

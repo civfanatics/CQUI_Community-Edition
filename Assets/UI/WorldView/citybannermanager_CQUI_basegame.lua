@@ -4,8 +4,6 @@
 -- Functions and objects common to basegame and expansions
 include("citybannermanager_CQUI.lua");
 
-<<<<<<< HEAD
-=======
 -- #59 Infixo they are local and not visible in this file
 local m_isReligionLensActive:boolean = false;
 local m_HexColoringReligion:number = UILens.CreateLensLayerHash("Hex_Coloring_Religion");
@@ -16,17 +14,12 @@ local DATA_FIELD_RELIGION_INFO_INSTANCE :string = "m_ReligionInfoInst";
 local RELIGION_POP_CHART_TOOLTIP_HEADER :string = Locale.Lookup("LOC_CITY_BANNER_FOLLOWER_PRESSURE_TOOLTIP_HEADER");
 local COLOR_RELIGION_DEFAULT            :number = UI.GetColorValueFromHexLiteral(0x02000000);
 
->>>>>>> master
 -- ===========================================================================
 -- Cached Base Functions (Basegame only)
 -- ===========================================================================
 BASE_CQUI_CityBanner_Initialize = CityBanner.Initialize;
 BASE_CQUI_CityBanner_UpdateProduction = CityBanner.UpdateProduction;
-<<<<<<< HEAD
-BASE_CQUI_CityBanner_UpdateStats = CityBanner.UpdateStats; -- Basegame only!  Not Expansion 1/2
-=======
 BASE_CQUI_CityBanner_UpdateStats = CityBanner.UpdateStats;
->>>>>>> master
 
 -- ===========================================================================
 -- CQUI Basegame Extension Functions
@@ -224,10 +217,7 @@ function CityBanner.UpdateName( self )
         self.m_Instance.CityBuiltDistrictSpaceport:SetHide(true);
         self.m_Instance.CityBuiltDistrictStreetCarnival:SetHide(true);
         self.m_Instance.CityBuiltDistrictTheater:SetHide(true);
-<<<<<<< HEAD
-=======
         self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
->>>>>>> master
     end
 
     local pCityDistricts:table  = pCity:GetDistricts();
@@ -246,11 +236,7 @@ function CityBanner.UpdateName( self )
                 if tPlots ~= nil and (table.count(tPlots) > 0) then
                     for i,plotId in pairs(tPlots) do
                         local kPlot :table = Map.GetPlotByIndex(plotId);
-<<<<<<< HEAD
-                        if(tMaxUnits[i] >= 1 and tUnits[i] >= 1 and tLockedUnits[i] <= 0) then
-=======
                         if (tMaxUnits[i] >= 1 and tUnits[i] >= 1 and tLockedUnits[i] <= 0) then
->>>>>>> master
                             self.m_Instance.CityUnlockedCitizen:SetHide(false);
                         end
                     end
@@ -283,11 +269,6 @@ function CityBanner.UpdateName( self )
                     if (districtType == iRoyalNavy)       then self.m_Instance.CityBuiltDistrictRoyalNavy:SetHide(false);      end
                     if (districtType == iSpaceport)       then self.m_Instance.CityBuiltDistrictSpaceport:SetHide(false);      end
                     if (districtType == iStreetCarnival)  then self.m_Instance.CityBuiltDistrictStreetCarnival:SetHide(false); end
-<<<<<<< HEAD
-                    if (districtType == iTheater)         then self.m_Instance.CityBuiltDistrictTheatre:SetHide(false);        end
-                end -- if isBuilt
-            end -- for loop
-=======
                     if (districtType == iTheater)         then self.m_Instance.CityBuiltDistrictTheater:SetHide(false);        end
                 end -- if isBuilt
             end -- for loop
@@ -300,7 +281,6 @@ function CityBanner.UpdateName( self )
             else
                 self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
             end
->>>>>>> master
         end -- if CQUI_SmartBanner_Districts
     end -- if CQUI_SmartBanner and there's a district to show
 
@@ -358,8 +338,6 @@ function OnCityRangeStrikeButtonClick( playerID, cityID )
 end
 
 -- ===========================================================================
-<<<<<<< HEAD
-=======
 function CQUI_OnLensLayerOn( layerNum:number )
     --print("FUN OnLensLayerOn", layerNum);
     if layerNum == m_HexColoringReligion then
@@ -659,7 +637,6 @@ end
 
 
 -- ===========================================================================
->>>>>>> master
 -- CQUI Custom Functions (Common to basegame only)
 -- ===========================================================================
 function CQUI_GetDistrictIndexSafe(sDistrict)
@@ -673,14 +650,6 @@ end
 -- ===========================================================================
 -- CQUI Initialize Function
 -- ===========================================================================
-<<<<<<< HEAD
-function Initialize()
-    print_debug("CityBannerManager_CQUI_basegame: Initialize CQUI CityBannerManager");
-    -- LuaEvents are initialized in the common file
-    LateInitialize();
-end
-Initialize();
-=======
 function Initialize_CQUI_basegame()
     print_debug("CityBannerManager_CQUI_basegame: Initialize CQUI CityBannerManager");
     -- Events are initialized in the common file
@@ -688,4 +657,3 @@ function Initialize_CQUI_basegame()
     Events.LensLayerOn.Add(CQUI_OnLensLayerOn);
 end
 Initialize_CQUI_basegame();
->>>>>>> master

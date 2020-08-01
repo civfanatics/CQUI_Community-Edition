@@ -198,15 +198,8 @@ end
 
 -- ===========================================================================
 function Initialize()
-<<<<<<< HEAD
-  -- PlotInfo does not implement a LateInitialize method
-  print("PlotInfo_CQUI Initialize ENTRY");
-  Events.DistrictAddedToMap.Remove(BASE_OnDistrictAddedToMap);
-  Events.DistrictAddedToMap.Add(OnDistrictAddedToMap);
-=======
     Events.DistrictAddedToMap.Remove(BASE_OnDistrictAddedToMap);
     Events.DistrictAddedToMap.Add(OnDistrictAddedToMap);
->>>>>>> master
 
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);

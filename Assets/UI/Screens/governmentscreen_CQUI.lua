@@ -128,12 +128,7 @@ end
 
 -- ===========================================================================
 function LateInitialization()
-<<<<<<< HEAD
-  print("GovernmentScreen_CQUI LateInitialization ENTRY");
-  BASE_CQUI_LateInitialization();
-=======
     BASE_CQUI_LateInitialization();
->>>>>>> master
 
     LuaEvents.LaunchBar_GovernmentOpenMyGovernment.Remove(BASE_CQUI_OnOpenGovernmentScreenMyGovernment);
     LuaEvents.LaunchBar_GovernmentOpenMyGovernment.Add(OnOpenGovernmentScreenMyGovernment);

@@ -4,8 +4,6 @@
 -- Functions and objects common to basegame and expansions
 include( "citybannermanager_CQUI.lua");
 
-<<<<<<< HEAD
-=======
 -- #59 Infixo they are local and not visible in this file
 local m_isReligionLensActive:boolean = false;
 local m_HexColoringReligion:number = UILens.CreateLensLayerHash("Hex_Coloring_Religion");
@@ -14,7 +12,6 @@ local DATA_FIELD_RELIGION_FOLLOWER_LIST_IM:string = "m_FollowerListIM";
 local DATA_FIELD_RELIGION_POP_CHART_IM        :string = "m_PopChartIM";
 local RELIGION_POP_CHART_TOOLTIP_HEADER        :string = Locale.Lookup("LOC_CITY_BANNER_FOLLOWER_PRESSURE_TOOLTIP_HEADER");
 
->>>>>>> master
 -- ===========================================================================
 -- Cached Base Functions (Expansions only)
 -- ===========================================================================
@@ -22,10 +19,6 @@ BASE_CQUI_CityBanner_Initialize = CityBanner.Initialize;
 BASE_CQUI_CityBanner_Uninitialize = CityBanner.Uninitialize;
 BASE_CQUI_CityBanner_UpdateInfo = CityBanner.UpdateInfo;
 BASE_CQUI_CityBanner_UpdatePopulation = CityBanner.UpdatePopulation;
-<<<<<<< HEAD
-BASE_CQUI_CityBanner_UpdateRangeStrike = CityBanner.UpdateRangeStrike;
-=======
->>>>>>> master
 BASE_CQUI_CityBanner_UpdateStats = CityBanner.UpdateStats;
 
 -- ============================================================================
@@ -59,10 +52,7 @@ function CityBanner.UpdateInfo(self, pCity : table )
     if (pCity == nil) then
         return;
     end
-<<<<<<< HEAD
-=======
     local playerID:number = pCity:GetOwner();
->>>>>>> master
 
     --CQUI : Unlocked citizen check
     if (playerID == Game.GetLocalPlayer() and IsCQUI_SmartBanner_Unmanaged_CitizenEnabled()) then
@@ -91,10 +81,6 @@ function CityBanner.UpdateInfo(self, pCity : table )
             end
         end
     end
-<<<<<<< HEAD
-
-    self:Resize();
-=======
     
     self:Resize();
 
@@ -150,7 +136,6 @@ function CityBanner.UpdateInfo(self, pCity : table )
     local instance:table = self.m_InfoIconIM:GetAllocatedInstance();
     instance.Button:SetToolTipString(tooltip);
     
->>>>>>> master
 end
 
 -- ============================================================================
@@ -186,8 +171,6 @@ function CityBanner.UpdatePopulation(self, isLocalPlayer:boolean, pCity:table, p
     else
         populationInstance.CQUI_CityHousing:SetHide(true);
     end
-<<<<<<< HEAD
-=======
 
     if (IsCQUI_SmartBanner_CulturalEnabled()) then
         -- Show the turns left until border expansion to the left of the population
@@ -203,7 +186,6 @@ function CityBanner.UpdatePopulation(self, isLocalPlayer:boolean, pCity:table, p
     else
         populationInstance.CityCultureTurnsLeft:SetHide(true);
     end
->>>>>>> master
 end
 
 -- ============================================================================
@@ -220,35 +202,21 @@ function CityBanner.UpdateStats(self)
         if (localPlayerID == iCityOwner and self.CQUI_DistrictBuiltIM ~= nil) then
             -- On first call into UpdateStats, CQUI_DistrictBuiltIM may not be instantiated yet
             -- However this is called often enough that it's not a problem
-<<<<<<< HEAD
-            -- Update the built districts 
-            self.CQUI_DistrictBuiltIM:ResetInstances(); -- CQUI : Reset CQUI_DistrictBuiltIM
-            local pCityDistricts:table = pCity:GetDistricts();
-            if (IsCQUI_SmartBanner_DistrictsEnabled()) then
-=======
             self.CQUI_DistrictBuiltIM:ResetInstances(); -- CQUI : Reset CQUI_DistrictBuiltIM
             self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
             local pCityDistricts:table = pCity:GetDistricts();
             if (IsCQUI_SmartBanner_DistrictsEnabled()) then
                 -- Update the built districts 
->>>>>>> master
                 for i, district in pCityDistricts:Members() do
                     local districtType = district:GetType();
                     local districtInfo:table = GameInfo.Districts[districtType];
                     local isBuilt = pCityDistricts:HasDistrict(districtInfo.Index, true);
                     if (isBuilt == true
-<<<<<<< HEAD
-                        --and districtInfo.Index ~= 0 -- duplicated, this is the city center
-                        --and districtInfo.DistrictType ~= "DISTRICT_GOVERNMENT"
-=======
->>>>>>> master
                         and districtInfo.DistrictType ~= "DISTRICT_WONDER"
                         and districtInfo.DistrictType ~= "DISTRICT_CITY_CENTER") then
                         SetDetailIcon(self.CQUI_DistrictBuiltIM:GetInstance(), "ICON_"..districtInfo.DistrictType);
                     end
                 end
-<<<<<<< HEAD
-=======
                 -- Infixo: 2020-06-08 district available flag and tooltip
                 local iDistrictsNum:number         = pCityDistricts:GetNumZonedDistrictsRequiringPopulation();
                 local iDistrictsPossibleNum:number = pCityDistricts:GetNumAllowedDistrictsRequiringPopulation();
@@ -258,14 +226,11 @@ function CityBanner.UpdateStats(self)
                 else
                     self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
                 end
->>>>>>> master
             end
         end
     end
 end
 
-<<<<<<< HEAD
-=======
 -- ===========================================================================
 function CQUI_OnLensLayerOn( layerNum:number )
     --print("FUN OnLensLayerOn", layerNum);
@@ -285,7 +250,6 @@ function CQUI_OnLensLayerOff( layerNum:number )
 end
 
 
->>>>>>> master
 -- ============================================================================
 -- CQUI Replacement Functions
 -- ============================================================================
@@ -295,25 +259,6 @@ function OnCityStrikeButtonClick( playerID, cityID )
 end
 
 -- ===========================================================================
-<<<<<<< HEAD
-function OnDistrictRangeStrikeButtonClick( playerID, districtID )
-    print_debug("CityBannerManager_CQUI_Expansions: OnDistrictRangeStrikeButtonClick ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID));
-    local pPlayer = Players[playerID];
-    if (pPlayer == nil) then
-        return;
-    end
-
-    local pDistrict = pPlayer:GetDistricts():FindID(districtID);
-    if (pDistrict == nil) then
-        return;
-    end;
-
-    UI.DeselectAll();
-    UI.SelectDistrict(pDistrict);
-    -- CQUI (Azurency) : Look at the district plot
-    UI.LookAtPlot(pDistrict:GetX(), pDistrict:GetY());
-    UI.SetInterfaceMode(InterfaceModeTypes.DISTRICT_RANGE_ATTACK);
-=======
 -- #59 Infixo overwritten because changes are deep inside it
 function CityBanner:UpdateReligion()
     --print("FUN CityBanner:UpdateReligion()");
@@ -565,7 +510,6 @@ function CityBanner:UpdateReligion()
 
         religionInfo.ReligionInfoContainer:SetHide(false);
     end
->>>>>>> master
 end
 
 -- ===========================================================================
@@ -573,11 +517,7 @@ end
 -- ===========================================================================
 function Initialize_CQUI_expansions()
     print_debug("CityBannerManager_CQUI_Expansions: Initialize CQUI CityBannerManager")
-<<<<<<< HEAD
-    -- Events are initialized in the common file
-=======
     Events.LensLayerOff.Add(CQUI_OnLensLayerOff);
     Events.LensLayerOn.Add(CQUI_OnLensLayerOn);
->>>>>>> master
 end
 Initialize_CQUI_expansions();

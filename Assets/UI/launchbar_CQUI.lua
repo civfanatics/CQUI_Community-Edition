@@ -215,14 +215,7 @@ end
 -- ===========================================================================
 -- CQUI: Initialize Function
 -- ===========================================================================
-<<<<<<< HEAD
-function LateInitialize()
-  print("LaunchBar_CQUI LateInitialize ENTRY");
-  BASE_CQUI_LateInitialize();
-  Controls.LaunchExtraShow:RegisterCallback( Mouse.eLClick, OnToggleExtras );
-=======
 function Initialize()
->>>>>>> master
 
     Controls.LaunchExtraShow:RegisterCallback( Mouse.eLClick, OnToggleExtras );
     Controls.LaunchExtraShow:SetHide(true); -- will be enabled only if any entries will be registered

@@ -47,20 +47,6 @@ end
 
 -- ===========================================================================
 function Initialize()
-<<<<<<< HEAD
-  print("CityPanelCulture_CQUI Initialize ENTRY");
-  -- CityPanelCulture does not define LateInitialize
-  LuaEvents.CityPanelTabRefresh.Remove(BASE_CQUI_OnRefresh);
-	Events.GovernorAssigned.Remove( BASE_CQUI_OnRefresh );
-	Events.GovernorChanged.Remove( BASE_CQUI_OnRefresh );
-	Events.CitySelectionChanged.Remove( BASE_CQUI_OnRefresh );
-  Events.CityLoyaltyChanged.Remove( BASE_CQUI_OnRefresh );
-  LuaEvents.CityPanelTabRefresh.Add(OnRefresh);
-	Events.GovernorAssigned.Add( OnRefresh );
-	Events.GovernorChanged.Add( OnRefresh );
-	Events.CitySelectionChanged.Add( OnRefresh );
-  Events.CityLoyaltyChanged.Add( OnRefresh );
-=======
     LuaEvents.CityPanelTabRefresh.Remove(BASE_CQUI_OnRefresh);
     Events.GovernorAssigned.Remove( BASE_CQUI_OnRefresh );
     Events.GovernorChanged.Remove( BASE_CQUI_OnRefresh );
@@ -71,7 +57,6 @@ function Initialize()
     Events.GovernorChanged.Add( OnRefresh );
     Events.CitySelectionChanged.Add( OnRefresh );
     Events.CityLoyaltyChanged.Add( OnRefresh );
->>>>>>> master
 
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);

@@ -267,14 +267,7 @@ end
 
 -- ===========================================================================
 function Initialize()
-<<<<<<< HEAD
-  print("WonderBuildPopup_CQUI Initialize ENTRY");
-  -- WonderBuiltPopup does not define a LateInitialize
-
-  if GameConfiguration.IsAnyMultiplayer() then return; end	-- Do not use if a multiplayer mode.
-=======
     if GameConfiguration.IsAnyMultiplayer() then return; end -- Do not use if a multiplayer mode.
->>>>>>> master
 
     Events.WonderCompleted.Remove( BASE_CQUI_OnWonderCompleted );
     Events.WonderCompleted.Add( OnWonderCompleted );

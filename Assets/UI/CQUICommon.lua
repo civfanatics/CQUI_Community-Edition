@@ -15,11 +15,7 @@ g_bIsGatheringStorm = Modding and Modding.IsModActive("4873eb62-8ccc-4574-b784-d
 -- ===========================================================================
 --  VARIABLES
 -- ===========================================================================
-<<<<<<< HEAD
-CQUI_ShowDebugPrint = true;
-=======
 CQUI_ShowDebugPrint = false;
->>>>>>> master
 
 -- ===========================================================================
 --CQUI setting control support functions
@@ -32,21 +28,12 @@ end
 
 -- ===========================================================================
 function CQUI_OnSettingsUpdate()
-<<<<<<< HEAD
-  print_debug("ENTRY: CQUICommon - CQUI_OnSettingsUpdate");
-  if (GameInfo.CQUI_Settings ~= nil and GameInfo.CQUI_Settings["CQUI_ShowDebugPrint"] ~= nil) then
-    CQUI_ShowDebugPrint = ( GameInfo.CQUI_Settings["CQUI_ShowDebugPrint"].Value == 1 );
-  else
-    CQUI_ShowDebugPrint = GameConfiguration.GetValue("CQUI_ShowDebugPrint");
-  end
-=======
     print_debug("ENTRY: CQUICommon - CQUI_OnSettingsUpdate");
     if (GameInfo.CQUI_Settings ~= nil and GameInfo.CQUI_Settings["CQUI_ShowDebugPrint"] ~= nil) then
         CQUI_ShowDebugPrint = ( GameInfo.CQUI_Settings["CQUI_ShowDebugPrint"].Value == 1 );
     else
         CQUI_ShowDebugPrint = GameConfiguration.GetValue("CQUI_ShowDebugPrint");
     end
->>>>>>> master
 end
 
 -- ===========================================================================
@@ -58,13 +45,6 @@ end
 
 -- ===========================================================================
 -- Companion functions to RegisterControl
-<<<<<<< HEAD
-function UpdateComboBox(control, setting_name, values)
-  -- TODO (2020-05) - is this required?
-end
-
-=======
->>>>>>> master
 -- ===========================================================================
 function UpdateCheckbox(control, setting_name)
     print_debug("ENTRY: CQUICommon - UpdateCheckbox");
@@ -251,14 +231,8 @@ function CQUI_TrimGossipMessage(str:string)
 end
 
 -- ===========================================================================
-<<<<<<< HEAD
--- Faux Initialize function, don't really need one for this file as it's a support file for various CQUI things
-if (CQUI_CommonLoadedOnce == nil) then
-    CQUI_CommonLoadedOnce = true;
-=======
 function Initialize()
     print_debug("INITIALZE: CQUICommon.lua");
->>>>>>> master
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 end

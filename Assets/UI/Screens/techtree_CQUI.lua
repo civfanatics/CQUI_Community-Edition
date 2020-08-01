@@ -156,27 +156,6 @@ function SetCurrentNode( hash:number )
 end
 
 function LateInitialize()
-<<<<<<< HEAD
-  print("TechTree_CQUI LateInitialize ENTRY");
-  BASE_CQUI_LateInitialize();
-
-  LuaEvents.LaunchBar_RaiseTechTree.Remove(BASE_CQUI_OnOpen);
-  LuaEvents.ResearchChooser_RaiseTechTree.Remove(BASE_CQUI_OnOpen);
-  LuaEvents.LaunchBar_RaiseTechTree.Add(OnOpen);
-  LuaEvents.ResearchChooser_RaiseTechTree.Add(OnOpen);
-  Events.LocalPlayerTurnBegin.Remove(BASE_CQUI_OnLocalPlayerTurnBegin);
-  Events.LocalPlayerTurnBegin.Add(OnLocalPlayerTurnBegin);
-  Events.ResearchCompleted.Remove(BASE_CQUI_OnResearchComplete);
-  Events.ResearchCompleted.Add(OnResearchComplete);
-
-  -- CQUI add exceptions to the 50% notifications by putting techs into the CQUI_halfwayNotified table
-  CQUI_halfwayNotified["LOC_TECH_POTTERY_NAME"] = true;
-  CQUI_halfwayNotified["LOC_TECH_MINING_NAME"] = true;
-  CQUI_halfwayNotified["LOC_TECH_ANIMAL_HUSBANDRY_NAME"] = true;
-
-  LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
-  LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
-=======
     BASE_CQUI_LateInitialize();
 
     LuaEvents.LaunchBar_RaiseTechTree.Remove(BASE_CQUI_OnOpen);
@@ -195,5 +174,4 @@ function LateInitialize()
 
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
->>>>>>> master
 end

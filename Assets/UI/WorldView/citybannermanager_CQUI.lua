@@ -8,18 +8,11 @@ include( "CQUICommon.lua" );
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
-<<<<<<< HEAD
-BASE_CQUI_OnCityBannerClick = OnCityBannerClick;
-=======
->>>>>>> master
 BASE_CQUI_OnGameDebugReturn = OnGameDebugReturn;
 BASE_CQUI_OnInterfaceModeChanged = OnInterfaceModeChanged;
 BASE_CQUI_OnShutdown = OnShutdown;
 BASE_CQUI_Reload = Reload;
-<<<<<<< HEAD
-=======
 BASE_CQUI_CityBanner_UpdateRangeStrike = CityBanner.UpdateRangeStrike;
->>>>>>> master
 
 -- ===========================================================================
 --  CONSTANTS
@@ -43,14 +36,11 @@ local CQUI_SmartWorkIcon      = true;
 local CQUI_SmartWorkIconSize  = 64;
 local CQUI_SmartWorkIconAlpha = 0.45;
 
-<<<<<<< HEAD
-=======
 local CQUI_CityRangeStrikeTopYOffset          = 10;
 local CQUI_CityRangeStrikeBottomYOffset       = -6;
 local CQUI_EncampmentRangeStrikeTopYOffset    = 10;
 local CQUI_EncampmentRangeStrikeBottomYOffset = -4;
 
->>>>>>> master
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
@@ -98,12 +88,8 @@ function CQUI_OnSettingsInitialized()
 
     CQUI_ShowCitizenIconsOnCityHover   = GameConfiguration.GetValue("CQUI_ShowCitizenIconsOnCityHover");
     CQUI_ShowCityManageAreaOnCityHover = GameConfiguration.GetValue("CQUI_ShowCityManageAreaOnCityHover");
-<<<<<<< HEAD
-    CQUI_ShowCityManageAreaInScreen    = GameConfiguration.GetValue("CQUI_ShowCityMangeAreaInScreen");
-=======
     CQUI_RelocateCityStrike            = GameConfiguration.GetValue("CQUI_RelocateCityStrike");
     CQUI_RelocateEncampmentStrike      = GameConfiguration.GetValue("CQUI_RelocateEncampmentStrike");
->>>>>>> master
 end
 
 -- ===========================================================================
@@ -137,30 +123,6 @@ end
 -- CQUI Extension Functions (Common to basegame and expansions)
 -- Functions that enhance the unmodified versions
 -- ===========================================================================
-<<<<<<< HEAD
-function OnCityBannerClick( playerID, cityID )
-    print_debug("CityBannerManager_CQUI: OnCityBannerClick ENTRY  playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
-    BASE_CQUI_OnCityBannerClick(playerID, cityID);
-
-    local pPlayer = Players[playerID];
-    if (pPlayer == nil) then
-        return;
-    end
-
-    if (pPlayer:GetID() == localPlayerID) then
-        UI.SetInterfaceMode(InterfaceModeTypes.CITY_MANAGEMENT);
-    elseif (localPlayerID == PlayerTypes.OBSERVER
-            or localPlayerID == PlayerTypes.NONE
-            or pPlayer:GetDiplomacy():HasMet(localPlayerID)) then
-        LuaEvents.CQUI_CityviewDisable(); -- Make sure the cityview is disable
-    end
-
-    return;
-end
-
--- ============================================================================
-=======
->>>>>>> master
 function OnGameDebugReturn( context:string, contextTable:table )
     print_debug("CityBannerManager_CQUI: OnGameDebugReturn ENTRY context:"..tostring(context).." contextTable:"..tostring(contextTable));
     if (context == "CityBannerManager") then
@@ -223,13 +185,6 @@ function Reload()
 end
 
 -- ============================================================================
-<<<<<<< HEAD
--- CQUI Replacement Functions (Common to both basegame and expansions)
--- ============================================================================
-function CityBanner.SetHealthBarColor( self )
-    -- The basegame file has a minor bug where if percent is exactly 0.40, then no color is set.
-    print_debug("CityBannerManager_CQUI: CityBanner.SetHealthBarColor ENTRY");
-=======
 -- Move the CityStrike icon and button to the top of the City bar; similar to the Sukritact Simple UI Mod (which puts it on the right)
 function CityBanner.UpdateRangeStrike(self)
     print_debug("CityBannerManager_CQUI: CityBanner.UpdateRangeStrike ENTRY");
@@ -320,7 +275,6 @@ end
 function CityBanner.SetHealthBarColor( self )
     -- The basegame file has a minor bug where if percent is exactly 0.40, then no color is set.
     -- print_debug("CityBannerManager_CQUI: CityBanner.SetHealthBarColor ENTRY");
->>>>>>> master
     if (self.m_Instance.CityHealthBar == nil) then
         -- This normal behaviour in the case of missile silo and aerodrome minibanners
         return;
@@ -448,10 +402,7 @@ function OnDistrictAddedToMap( playerID, districtID, cityID, districtX, district
             end
         elseif (miniBanner ~= nil and pDistrict:IsComplete()) then
             miniBanner:UpdateStats();
-<<<<<<< HEAD
-=======
             miniBanner:UpdateRangeStrike();
->>>>>>> master
         end
     end -- else not city center
 end
@@ -519,11 +470,7 @@ end
 -- CQUI Custom Functions (Common to basegame and expansions)
 -- ===========================================================================
 function CQUI_GetHousingString(pCity, cqui_HousingFromImprovementsCalc)
-<<<<<<< HEAD
-    print_debug("CityBannerManager_CQUI: CQUI_GetHousingString ENTRY");
-=======
     -- print_debug("CityBannerManager_CQUI: CQUI_GetHousingString ENTRY");
->>>>>>> master
     -- TODO: Consider unifying what this looks like on the basegame and the expansions
     --       Basegame puts Turns left until Pop increase on left with housing value in brackets next to it
     local pCityGrowth   :table  = pCity:GetGrowth();
@@ -557,11 +504,7 @@ end
 -- ===========================================================================
 -- CQUI calculate real housing from improvements
 function CQUI_GetRealHousingFromImprovementsValue(pCity, localPlayerID)
-<<<<<<< HEAD
-    print_debug("CityBannerManager_CQUI: CQUI_GetRealHousingFromImprovementsValue ENTRY  pCity:"..tostring(pCity).." localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
-=======
     -- print_debug("CityBannerManager_CQUI: CQUI_GetRealHousingFromImprovementsValue ENTRY  pCity:"..tostring(pCity).." localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
->>>>>>> master
     local pCityID :number = pCity:GetID();
     if (CQUI_HousingUpdated[localPlayerID] == nil or CQUI_HousingUpdated[localPlayerID][pCityID] ~= true) then
         CQUI_RealHousingFromImprovements(pCity, localPlayerID, pCityID);
@@ -610,11 +553,7 @@ function CQUI_RealHousingFromImprovements(pCity, localPlayerID, pCityID)
     --       The basegame function doesn't include the half-value (e.g. as Non-Maya, 3 farms is 1.5, but basegame returns only 1).
     --       Basegame also appears to consider the Maya as +1 Housing in addition to the 0.5 for each farm (so, 1.5 for each Mayan farm)
     --       In basegame, when Maya have 2 farms, pCity:GetGrowth():GetHousingFromImprovements() will return a value of 3
-<<<<<<< HEAD
-    print_debug("CityBannerManager_CQUI: CQUI_RealHousingFromImprovements ENTRY  pCity:"..tostring(pCity).." localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
-=======
     -- print_debug("CityBannerManager_CQUI: CQUI_RealHousingFromImprovements ENTRY  pCity:"..tostring(pCity).." localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
->>>>>>> master
 
     local cityX:number, cityY:number = pCity:GetX(), pCity:GetY();
     local iNumHousing:number = 0; 
@@ -678,11 +617,7 @@ end
 -- ===========================================================================
 -- When a banner is moused over, display the relevant yields and next culture plot
 function CQUI_OnBannerMouseOver(playerID: number, cityID: number)
-<<<<<<< HEAD
-    print_debug("CityBannerManager_CQUI: CQUI_OnBannerMouseOver ENTRY playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
-=======
     -- print_debug("CityBannerManager_CQUI: CQUI_OnBannerMouseOver ENTRY playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
->>>>>>> master
     if (CQUI_ShowYieldsOnCityHover == false) then
         return;
     end
@@ -806,11 +741,7 @@ end
 -- ===========================================================================
 -- When a banner is moused over, and the mouse leaves the banner, remove display of the relevant yields and next culture plot
 function CQUI_OnBannerMouseExit(playerID: number, cityID: number)
-<<<<<<< HEAD
-    print_debug("CityBannerManager_CQUI: CQUI_OnBannerMouseExit ENTRY playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
-=======
     -- print_debug("CityBannerManager_CQUI: CQUI_OnBannerMouseExit ENTRY playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
->>>>>>> master
     if (not CQUI_Hovering) then
         return;
     end
@@ -915,8 +846,6 @@ function CQUI_OnCityRangeStrikeButtonClick( playerID, cityID )
         return;
     end
 
-<<<<<<< HEAD
-=======
     -- allow to leave the strike range mode on 2nd click
     if UI.GetInterfaceMode() == InterfaceModeTypes.CITY_RANGE_ATTACK then
         UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
@@ -924,7 +853,6 @@ function CQUI_OnCityRangeStrikeButtonClick( playerID, cityID )
         return;
     end
 
->>>>>>> master
     -- Enter the range city mode on click (not on hover of a button, the old workaround)
     LuaEvents.CQUI_Strike_Enter();
     -- Allow to switch between different city range attack (clicking on the range button of one
@@ -937,8 +865,6 @@ function CQUI_OnCityRangeStrikeButtonClick( playerID, cityID )
 end
 
 -- ===========================================================================
-<<<<<<< HEAD
-=======
 -- Common handler for the District Strike Button
 function OnDistrictRangeStrikeButtonClick( playerID, districtID )
     print_debug("CityBannerManager_CQUI: OnDistrictRangeStrikeButtonClick ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID));
@@ -966,7 +892,6 @@ function OnDistrictRangeStrikeButtonClick( playerID, districtID )
 end
 
 -- ===========================================================================
->>>>>>> master
 function CQUI_OnInfluenceGiven()
     print_debug("CityBannerManager_CQUI: CQUI_OnInfluenceGiven ENTRY");
     for i, pPlayer in ipairs(PlayerManager.GetAliveMinors()) do
@@ -982,11 +907,7 @@ end
 
 -- ===========================================================================
 function CQUI_UpdateSuzerainIcon( pPlayer:table, bannerInstance )
-<<<<<<< HEAD
-    print_debug("CityBannerManager_CQUI: CQUI_UpdateSuzerainIcon ENTRY");
-=======
     -- print_debug("CityBannerManager_CQUI: CQUI_UpdateSuzerainIcon ENTRY");
->>>>>>> master
     if (bannerInstance == nil) then
         return;
     end
@@ -1058,8 +979,6 @@ function IsCQUI_SmartBanner_Unmanaged_CitizenEnabled()
     return (CQUI_SmartBanner and CQUI_SmartBanner_Unmanaged_Citizen);
 end
 
-<<<<<<< HEAD
-=======
 -- ===========================================================================
 function CQUI_SetCityStrikeButtonLocation(cityBannerInstance, rotate, offsetY, anchor)
     cityStrikeImage = nil;
@@ -1074,7 +993,6 @@ function CQUI_SetCityStrikeButtonLocation(cityBannerInstance, rotate, offsetY, a
     cityStrikeImage:SetOffsetVal(0, offsetY);
     cityStrikeImage:SetAnchor(anchor);
 end
->>>>>>> master
 
 -- ===========================================================================
 -- Game Engine EVENT

@@ -28,43 +28,6 @@
 */
 
 INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
-<<<<<<< HEAD
-  VALUES  ("CQUI_AlwaysOpenTechTrees", 0), -- Always opens the full tech trees instead of the civic/research picker panels
-      ("CQUI_AutoapplyArchaeologistLens", 1), -- Automatically activates the archaeologist lens when selecting a archaeologist
-      ("CQUI_AutoapplyBuilderLens", 1), -- Automatically activates the builder lens when selecting a builder
-      ("CQUI_AutoapplyScoutLens", 1), -- Automatically activates the scout lens when selecting a scout
-      ("CQUI_ShowNothingToDoBuilderLens", 1), -- Shows nothing to do hexes (red tiles) when in builder lens
-      ("CQUI_ShowGenericBuilderLens", 1), -- Shows generic hexes (white tiles) when in builder lens
-      ("CQUI_AutoExpandUnitActions", 1), -- Automatically reveals the secondary unit actions normally hidden inside an expando
-      ("CQUI_BlockOnCityAttack", 1), -- Block turn from ending if you have a city that can attack
-      ("CQUI_ProductionQueue", 1), -- A production queue appears next to the production panel, allowing multiple constructions to be queued at once
-      ("CQUI_ShowCultureGrowth", 1), -- Shows cultural growth overlay in cityview
-      ("CQUI_ShowPolicyReminder", 1),
-      ("CQUI_ShowLuxuries", 1), -- Luxury resources will show in the top-bar next to strategic resources
-      ("CQUI_ShowUnitPaths", 1), -- Shows unit paths on hover and selection
-      ("CQUI_ShowYieldsOnCityHover", 1), -- Shows city management info like citizens, tile yields, and tile growth on hover
-      ("CQUI_Smartbanner", 1), -- Additional informations such as districts will show in the city banner
-      ("CQUI_Smartbanner_UnlockedCitizen", 0), -- Shows if city have Unmanaged citizens in the banner
-      ("CQUI_Smartbanner_Districts", 1), -- Shows city districts in the banner
-      ("CQUI_Smartbanner_Population", 1), -- Shows turns to city population growth in the banner
-      ("CQUI_Smartbanner_Cultural", 1), -- Shows turns to city cultural growth in the banner
-      ("CQUI_SmartWorkIcon", 1), -- Applies a different size/transparency to citizen icons if they're currently being worked
-      ("CQUI_TechPopupVisual", 0), -- Popups will be displayed when you discover a new tech or civic (this is the normal behavior for the unmoded game)
-      ("CQUI_TechPopupAudio", 1), -- Play the voiceovers when you discover a new tech or civic (this is the normal behavior for the unmoded game)
-      ("CQUI_WonderBuiltPopupVisual", 1), -- Wonder movies will be displayed when you complete a wonder (this is the normal behavior for the unmoded game)
-      ("CQUI_WonderBuiltPopupAudio", 1), -- Wonder quote audio will be played when you complete a wonder (this is the normal behavior for the unmoded game)
-      ("CQUI_ToggleYieldsOnLoad", 1), -- Toggles yields immediately on load
-      ('CQUI_ShowCitizenIconsOnCityHover', 0), -- Shows citizen icons when hovering over city banner
-      ('CQUI_ShowCityManageAreaOnCityHover', 1), -- Shows citizen management area when hovering over city banner
-      ('CQUI_ShowCityMangeAreaInScreen', 1), -- Shows citizen management area when in city screen
-      ('CQUI_TraderAddDivider', 1), -- Adds a divider between groups in TradeOverview panel
-      ('CQUI_TraderShowSortOrder', 0), -- Adds a divider between groups in TradeOverview panel
-      ('CQUI_ShowProductionRecommendations', 0), -- Shows the advisor recommendation in the city produciton panel
-      ('CQUI_ShowTechCivicRecommendations', 1), -- Shows the advisor recommendation in the techs/civics tree/panel
-      ('CQUI_ShowImprovementsRecommendations', 0), -- Shows the advisor recommendation for the builder improvements
-      ('CQUI_ShowCityDetailAdvisor', 0), -- Shows the advisor recommendation in the city detail panel
-      ('CQUI_ShowDebugPrint', 1); -- Shows print in the console
-=======
     VALUES  ("CQUI_AlwaysOpenTechTrees", 0), -- Always opens the full tech trees instead of the civic/research picker panels
         ("CQUI_AutoapplyArchaeologistLens", 1), -- Automatically activates the archaeologist lens when selecting a archaeologist
         ("CQUI_AutoapplyBuilderLens", 1), -- Automatically activates the builder lens when selecting a builder
@@ -98,7 +61,6 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ('CQUI_ShowImprovementsRecommendations', 0), -- Shows the advisor recommendation for the builder improvements
         ('CQUI_ShowCityDetailAdvisor', 0), -- Shows the advisor recommendation in the city detail panel
         ('CQUI_ShowDebugPrint', 0); -- Shows print in the console
->>>>>>> master
 /*
     ┌────────────────────────────────────────────────────────────────────────────────────────────┐
     │                                    Combobox settings                                       │

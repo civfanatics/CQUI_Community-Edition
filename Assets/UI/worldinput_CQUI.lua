@@ -29,12 +29,9 @@ function CQUI_OnSettingsUpdate()
     CQUI_hotkeyMode = GameConfiguration.GetValue("CQUI_BindingsMode");
 end
 
-<<<<<<< HEAD
-=======
 LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
 LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
 
->>>>>>> master
 -- ===========================================================================
 -- CQUI Base Extension Functions
 -- Each of these functions call the Base Function found in WorldInput.lua
@@ -763,16 +760,6 @@ function LateInitialize()
   print_debug("WorldInput_CQUI LateInitialize ENTRY");
   BASE_CQUI_LateInitialize();
 
-<<<<<<< HEAD
-  LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
-  LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
-
-  -- CQUI Events
-  LuaEvents.CQUI_WorldInput_CityviewEnable.Add( function() CQUI_cityview = true; end );
-  LuaEvents.CQUI_WorldInput_CityviewDisable.Add( function() CQUI_cityview = false; end );
-  LuaEvents.CQUI_showUnitPath.Add(RealizeMovementPath);
-  LuaEvents.CQUI_clearUnitPath.Add(ClearMovementPath);
-=======
 -- ===========================================================================
 function Initialize()
     print_debug("** Function Entry: Initialize (CQUI Hook)");
@@ -782,5 +769,4 @@ function Initialize()
     LuaEvents.CQUI_WorldInput_CityviewDisable.Add( function() CQUI_cityview = false; end );
     LuaEvents.CQUI_showUnitPath.Add(RealizeMovementPath);
     LuaEvents.CQUI_clearUnitPath.Add(ClearMovementPath);
->>>>>>> master
 end

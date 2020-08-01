@@ -346,13 +346,7 @@ function OnUnitPromotionChanged( playerID : number, unitID : number )
 end
 
 -- ===========================================================================
-<<<<<<< HEAD
-function LateInitialize()
-    print("UnitFlagManager_CQUI LateInitialize ENTRY");
-    BASE_CQUI_LateInitialize();
-=======
 function Initialize()
->>>>>>> master
     ContextPtr:SetRefreshHandler(CQUI_Refresh);
 
     Events.DiplomacyMakePeace.Add(OnDiplomacyWarStateChange);
