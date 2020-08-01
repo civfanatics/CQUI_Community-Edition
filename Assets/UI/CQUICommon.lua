@@ -48,7 +48,7 @@ end
 -- ===========================================================================
 function UpdateCheckbox(control, setting_name)
     print_debug("ENTRY: CQUICommon - UpdateCheckbox");
-    local value = GameConfiguration.GetValue(setting_name);
+    local value = CQUI_LoadSettingValue(setting_name);
     if (value == nil) then
         return;
     end
@@ -59,7 +59,7 @@ end
 -- ===========================================================================
 function UpdateSlider( control, setting_name, data_converter)
     print_debug("ENTRY: CQUICommon - UpdateSlider");
-    local value = GameConfiguration.GetValue(setting_name);
+    local value = CQUI_LoadSettingValue(setting_name);
     if (value == nil) then
         return;
     end
@@ -72,7 +72,7 @@ end
 function PopulateComboBox(control, values, setting_name, tooltip)
     print_debug("ENTRY: CQUICommon - PopulateComboBox");
     control:ClearEntries();
-    local current_value = GameConfiguration.GetValue(setting_name);
+    local current_value = CQUI_LoadSettingValue(setting_name);
     if (current_value == nil) then
         --LY Checks if this setting has a default state defined in the database
         if (GameInfo.CQUI_Settings[setting_name]) then
@@ -117,7 +117,7 @@ end
 --Used to populate checkboxes
 function PopulateCheckBox(control, setting_name, tooltip)
     print_debug("ENTRY: CQUICommon - PopulateCheckBox");
-    local current_value = GameConfiguration.GetValue(setting_name);
+    local current_value = CQUI_LoadSettingValue(setting_name);
     if (current_value == nil) then
         --LY Checks if this setting has a default state defined in the database
         if (GameInfo.CQUI_Settings[setting_name]) then
@@ -161,7 +161,7 @@ function PopulateSlider(control, label, setting_name, data_converter, tooltip)
     print_debug("ENTRY: CQUICommon - PopulateSlider");
     --This is necessary because RegisterSliderCallback fires twice when releasing the mouse cursor for some reason
     local hasScrolled = false;
-    local current_value = GameConfiguration.GetValue(setting_name);
+    local current_value = CQUI_LoadSettingValue(setting_name);
     if (current_value == nil) then
         --LY Checks if this setting has a default state defined in the database
         if (GameInfo.CQUI_Settings[setting_name]) then
@@ -238,27 +238,28 @@ end
 -- Calling SetValue before LoadGameViewStateDone will fail silently, there is no visible error in the Lua log when this happens
 -- That failure is some sort of exception as it causes the entire stack to be destroyed, so if for example, there is a loop
 -- calling something that includes SetValue, it will simply fail that first time and no subsequent calls are made.
-function CQUI_GetSettingValueFromGameSetup(GameConfigId, GameSetupConfigId)
-    local retVal = 0; -- default to false
-    if (GameSetupConfigId == nil) then
-        GameSetupConfigId = GameConfigId .. "_GameSetup";
+function CQUI_LoadSettingValue(SettingName, GameSetupSettingName)
+    if (GameSetupSettingName == nil) then
+        GameSetupSettingName = SettingName .. "_GameSetup";
     end
 
-    print("CQUI_GetSettingValueFromGameSetup ENTRY: GameConfigId:"..tostring(GameConfigId).."  GameSetupConfigId:"..tostring(GameSetupConfigId));
-    local gameSetupValue = GameConfiguration.GetValue(GameSetupConfigId);
-
+    -- TEMP Print
+    print("CQUI_GetSettingValueFromGameSetup ENTRY: SettingName:"..tostring(SettingName).."  GameSetupSettingName:"..tostring(GameSetupSettingName));
+    local gameSetupValue = GameConfiguration.GetValue(GameSetupSettingName);
     if (gameSetupValue ~= nil) then
-        if (gameSetupValue == true) then
-            retVal = 1;
-        end
+        -- Set the value of the SettingName (the calling functions do this if this method returns nil)
+        GameConfiguration.SetValue(SettingName, gameSetupValue);
     else
-        print("** ERROR: CQUI_GetValueFromGameSetup: Cannot find Game Setup Config Id: "..GameSetupConfigId);
+        -- TEMP Print
+        print("** WARNING: CQUI_GetValueFromGameSetup: Cannot find Game Setup Config Id: "..GameSetupSettingName);
+
+        -- If this is nil, that's fine, let the calling functions handle that scenario
+        gameSetupValue = GameConfiguration.GetValue(SettingName);
     end
 
-    GameConfiguration.SetValue(GameConfigId, retVal);
-    print("CQUI_GetValueFromGameSetup set '" ..GameConfigId.. "' to: " ..tostring(retVal));
-
-    return retVal;
+    -- TEMP Print
+    print("CQUI_GetValueFromGameSetup set '" ..SettingName.. "' to: " ..tostring(gameSetupValue));
+    return gameSetupValue;
 end
 
 

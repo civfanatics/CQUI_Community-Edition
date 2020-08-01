@@ -6,16 +6,28 @@ INSERT OR REPLACE INTO Parameters
     (ParameterId, Name, Description, Domain, DefaultValue, ConfigurationGroup, ConfigurationId, NameArrayConfigurationId, GroupId, SortIndex, ReadOnly)
 VALUES
     ('ID_CQUI_OPTION_DUMMYLINE',
-     '--------------------',
+     '',
      NULL,
      'text',
-     '[COLOR_LIGHTBLUE]CQUI OPTIONS ------------------[ENDCOLOR]',
+     '[NEWLINE]',
      'Game',
      'ID_CQUI_OPTION_DUMMYLINE',
      NULL, -- Config Id
      'AdvancedOptions',
+     4999, -- SortIndex
+     1),
+    ('ID_CQUI_OPTION_DUMMYLINE2',
+     '',
+     NULL,
+     'text',
+     '[COLOR_LIGHTBLUE][ICON_PressureDownLarge] CQUI OPTIONS [ICON_PressureDownLarge]',
+     'Game',
+     'ID_CQUI_OPTION_DUMMYLINE2',
+     NULL, -- Config Id
+     'AdvancedOptions',
      5000, -- SortIndex
-     1); -- Readonly
+     1);
+
 
 INSERT OR REPLACE INTO Parameters
         (ParameterId, Name, Description, Domain, DefaultValue, ConfigurationGroup, ConfigurationId, NameArrayConfigurationId, GroupId, SortIndex)
