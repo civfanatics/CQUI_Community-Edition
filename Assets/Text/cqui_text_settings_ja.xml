@@ -24,14 +24,18 @@
     <Row Tag="LOC_CQUI_CITYVIEW" Language="ja_JP">
       <Text>都市画面</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK" Language="ja_JP">
-      <Text>都市砲撃が可能な場合はターン終了不可</Text>
+    <!-- Relocate City Strike and Encampment Strike button translations done via Google Translate -->
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="ja_JP">
+      <Text>City Strikeボタンを再配置する</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK_TOOLTIP" Language="ja_JP">
-      <Text>都市砲撃できる場合はターンを終了できなくする。</Text>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP" Language="ja_JP">
+      <Text>これを有効にして、シティストライクボタンをヘルスバーと防御バーの上に再配置します。</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="ja_JP">
-      <Text>生産アイテムの縦幅</Text>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" Language="ja_JP">
+      <Text>陣営攻撃ボタンを再配置</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="ja_JP">
+      <Text>これを有効にして、エンキャンプメントストライクボタンをヘルスバーと防御バーの上に再配置します</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_PRODUCTIONQUEUE" Language="ja_JP">
       <Text>生産キューを有効化</Text>
@@ -59,12 +63,6 @@
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEONHOVER_TOOLTIP" Language="ja_JP">
       <Text>都市バナーのマウスオーバーで市民管理エリアを表示する</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEINSCREEN" Language="ja_JP">
-      <Text>都市画面に市民管理エリアを表示</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEINSCREEN_TOOLTIP" Language="ja_JP">
-      <Text>都市画面に市民管理エリアを表示する</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_HEADER" Language="ja_JP">
       <Text>都市バナー</Text>
@@ -155,18 +153,6 @@
     </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS" Language="ja_JP">
       <Text>斥候レンズを自動適用</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWNOTHINGTODO_BUILDER" Language="ja_JP">
-      <Text>改善できないタイルを表示する</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWNOTHINGTODO_BUILDER_TOOLTIP" Language="ja_JP">
-      <Text>労働者レンズを選択したとき、改善できないタイルを赤色で表示する</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWGENERIC_BUILDER" Language="ja_JP">
-      <Text>一般的なタイルを表示する</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWGENERIC_BUILDER_TOOLTIP" Language="ja_JP">
-      <Text>労働者レンズを選択したとき、一般的なタイルを白色で表示する</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS" Language="ja_JP">
       <Text>ポップアップ</Text>

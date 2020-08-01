@@ -24,14 +24,18 @@
     <Row Tag="LOC_CQUI_CITYVIEW" Language="de_DE">
       <Text>Stadtansicht</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK" Language="de_DE">
-      <Text>Erzwinge Stadtverteid. für Rundenende</Text>
+    <!-- Relocate City Strike and Encampment Strike button translations done via Google Translate -->
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="de_DE">
+      <Text>City Strike-Schaltfläche verschieben</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK_TOOLTIP" Language="de_DE">
-      <Text>Der "Nächste Runde"-Button ist blockiert, solange eine Stadtverteidigung möglich ist.</Text>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP" Language="de_DE">
+      <Text>Aktivieren Sie diese Option, um den City Strike-Button über den Gesundheits- und Verteidigungsbalken zu verschieben</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="de_DE">
-      <Text>Zeilenhöhe i.d. Produktwahlliste</Text>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" Language="de_DE">
+      <Text>Verschieben Sie die Schaltfläche "Streik im Lager"</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="de_DE">
+      <Text>Aktivieren Sie diese Option, um die Schaltfläche "Streik des Lagers" über den Gesundheits- und Verteidigungsbalken zu verschieben</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_PRODUCTIONQUEUE" Language="de_DE">
       <Text>Produktionsliste einschalten</Text>
@@ -59,12 +63,6 @@
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEONHOVER_TOOLTIP" Language="de_DE">
       <Text>Zeige die Gebiete, an denen Einwohner arbeiten, wenn die Maus über dem Stadtbanner steht.</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEINSCREEN" Language="de_DE">
-      <Text>Zeige Stadtgebiet im Stadtbildschirm</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEINSCREEN_TOOLTIP" Language="de_DE">
-      <Text>Zeige Stadtgebiet, wenn der Stadtbildschirm geöffnet wird.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_HEADER" Language="de_DE">
       <Text>Smartbanner</Text>
@@ -155,18 +153,6 @@
     </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS" Language="de_DE">
       <Text>Automat. Späher-Linse</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWNOTHINGTODO_BUILDER" Language="de_DE">
-      <Text>Zeigt untätige in Handwerker-Linse</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWNOTHINGTODO_BUILDER_TOOLTIP" Language="de_DE">
-      <Text>Zeigt untätige Hex-Felder (rot) in Handwerker-Linse</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWGENERIC_BUILDER" Language="de_DE">
-      <Text>Normale Anzeige in Handwerker-Linse</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWGENERIC_BUILDER_TOOLTIP" Language="de_DE">
-      <Text>Zeige normale Felder (weiß) in Handwerker-Linse</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS" Language="de_DE">
       <Text>Popups</Text>

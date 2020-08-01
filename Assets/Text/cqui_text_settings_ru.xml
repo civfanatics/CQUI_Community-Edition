@@ -24,14 +24,18 @@
     <Row Tag="LOC_CQUI_CITYVIEW" Language="ru_RU">
       <Text>Обзор города</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK" Language="ru_RU">
-      <Text>Не завершать ход, когда город атакован</Text>
+    <!-- Relocate City Strike and Encampment Strike button translations done via Google Translate -->
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="ru_RU">
+      <Text>Кнопка Смена места жительства Attack Город</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK_TOOLTIP" Language="ru_RU">
-      <Text>Предотвращает завершение хода, когда город может атаковать</Text>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP" Language="ru_RU">
+      <Text>Включите это, чтобы переместить кнопку City Attack поверх панелей здоровья и защиты.</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="ru_RU">
-      <Text>Высота строки элемента производства</Text>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" Language="ru_RU">
+      <Text>Переместить кнопку атаки Лагерь</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="ru_RU">
+      <Text>Включите это, чтобы переместить кнопку Удар по лагерю над панелями здоровья и защиты</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_PRODUCTIONQUEUE" Language="ru_RU">
       <Text>Очередь производства</Text>

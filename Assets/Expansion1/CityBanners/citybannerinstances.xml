@@ -55,7 +55,8 @@
           <!-- CONTENTS -->
           <Stack ID="ContentStack" Anchor="C,C" StackGrowth="Right" Padding="10" >
             <Stack ID="CityInfoStack" Anchor="L,C" StackGrowth="Right" Padding="2" />
-            <Stack ID="CQUI_Districts" Anchor="L,C" Offset="0,1" StackGrowth="Right" Padding="-12" />
+            <Stack ID="CQUI_Districts" Anchor="L,C" Offset="-6,0" StackGrowth="Right" Padding="-12" />
+            <Image ID="CQUI_DistrictAvailable" Anchor="L,C" Offset="-8,0" Icon="ICON_STAT_DISTRICTS" Size="24,24" ToolTip="LOC_HUD_DISTRICTS" Hidden="true" /> <!--Texture="Stats22"-->
             <Label ID="CityName" Anchor="L,C" Style="HeaderSmallCaps" />
             <Stack ID="CityStatusStack" Anchor="R,C" StackGrowth="Right" Padding="2"/>
           </Stack>
@@ -108,7 +109,7 @@
       <TextureBar ID="FillMeter" Anchor="C,C" Size="32,32" Direction="Up" Speed="0" Texture="XP1_GovernorsCityBannerFill32">
         <Image ID="UnknownGovernor" Anchor="C,C" Size="32,32" Texture="XP1_Governors_Unknown32"/>
         <TextureBar ID="SlotMeter" Anchor="C,C" Size="32,32" Direction="Down" Speed="0" Texture="XP1_GovernorsCityBannerSlot32"/>
-        <Label ID="TurnsLeft" Anchor="C,T" Offset="10,-2" Style="StrongSmall2"/>
+        <Label ID="TurnsLeft" Anchor="C,T" Offset="10,-3" Style="StrongSmall2"/>
         <Label ID="NumOfAmbassadors" Anchor="C,C" Offset="0,0" Style="FontFlair20"/>
       </TextureBar>
     </Button>
@@ -121,7 +122,7 @@
         <Image ID="Icon" Anchor="C,C" Size="32,32" Texture="Buildings32" Color="145,145,145,255"/>
         <TextureBar ID="FillMeter" Anchor="C,C" Size="32,32" Direction="Up" Speed="0" Texture="XP1_Banner_MeterFillProduction"/>
         <TextureBar ID="IconMeter" Anchor="C,C" Size="32,32" Direction="Up" Speed="0" Texture="Buildings32"/>
-        <Label ID="TurnsLeft" Anchor="C,T" Offset="10,-2" Style="StrongSmall2"/>
+        <Label ID="TurnsLeft" Anchor="C,T" Offset="10,-5" Style="StrongSmall2"/>
       </Image>
     </Button>
   </Instance>
@@ -131,8 +132,9 @@
       <TextureBar ID="FillMeter" Anchor="C,C" Size="28,28" Direction="Up" Speed="0" Texture="XP1_Banner_MeterFill">
         <TextureBar ID="SlotMeter" Anchor="C,C" Size="28,28" Direction="Down" Speed="0" Texture="XP1_Banner_MeterSlot"/>
         <Label ID="CityPopulation" Anchor="C,C" String="999" Style="FontFlair20" FontStyle="stroke" Color0="225,225,225,255" Color1="35,35,35,178" />
-        <Label ID="CityPopTurnsLeft" Anchor="C,T" Offset="10,-2" Style="StrongSmall2"/>
-        <Label ID="CQUI_CityHousing" Anchor="R,B" Offset="0,-5" Style="FontNormal10" FontStyle="stroke" Hidden="1"/>
+        <Label ID="CityPopTurnsLeft" Anchor="C,T" Offset="12,-5" Style="StrongSmall2" FontStyle="stroke" />
+        <Label ID="CQUI_CityHousing" Anchor="C,B" Offset="12,-5" Style="StrongSmall2" FontStyle="stroke" Hidden="1"/>
+        <Label ID="CityCultureTurnsLeft" Anchor="C,B" Offset="-12,-5" Style="StrongSmall2" FontStyle="stroke" Color="204,109,197,255" Hidden="1"/>
       </TextureBar>
     </Button>
   </Instance>

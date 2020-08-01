@@ -24,8 +24,18 @@
     <Row Tag="LOC_CQUI_CITYVIEW" Language="ko_KR">
       <Text>도시 화면</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="ko_KR">
-      <Text>도시 생산창 아이템 항목 높이</Text>
+    <!-- Relocate City Strike and Encampment Strike button translations done via Google Translate -->
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="ko_KR">
+      <Text>도시 스트라이크 버튼 재배치</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP" Language="ko_KR">
+      <Text>이 옵션을 사용하면 체력 및 방어 막대 위의 City Strike 버튼을 재배치합니다</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" Language="ko_KR">
+      <Text>야영 스트라이크 재배치 버튼</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="ko_KR">
+      <Text>이 옵션을 사용하면 상태 및 방어 막대 위의 야영지 스트라이크 버튼을 재배치하십시오.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_PRODUCTIONQUEUE" Language="ko_KR">
       <Text>생산 대기열 활성화</Text>

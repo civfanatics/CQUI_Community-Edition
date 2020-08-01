@@ -24,14 +24,18 @@
     <Row Tag="LOC_CQUI_CITYVIEW" Language="pt_BR">
       <Text>Visão da Cidade</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK" Language="pt_BR">
-      <Text>Bloquear final de turno para ataque da cidade</Text>
+    <!-- Relocate City Strike and Encampment Strike button translations done via Google Translate -->
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="pt_BR">
+      <Text>Reposicionar botão Strike City</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK_TOOLTIP" Language="pt_BR">
-      <Text>Habilite isso se você quer bloquear "Final de Turno" se uma cidade pode atacar.</Text>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP" Language="pt_BR">
+      <Text>Habilite isso para realocar o botão City Strike acima das barras de saúde e defesa</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="pt_BR">
-      <Text>Altura dos itens de produção</Text>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" Language="pt_BR">
+      <Text>Reposicionar botão de ataque de acampamento</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="pt_BR">
+      <Text>Habilite isso para realocar o botão Ataque ao acampamento acima das barras de saúde e defesa</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_PRODUCTIONQUEUE" Language="pt_BR">
       <Text>Habilidar fila de produção</Text>
@@ -59,12 +63,6 @@
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEONHOVER_TOOLTIP" Language="pt_BR">
       <Text>Exibe a área de gerenciamento de cidadãos quando passar o mouse sobre o banner da cidade</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEINSCREEN" Language="pt_BR">
-      <Text>Exibe área de gerenciamento da cidade na tela</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEINSCREEN_TOOLTIP" Language="pt_BR">
-      <Text>Exibe a área de gerenciamento de cidadãos na tela da cidade</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_HEADER" Language="pt_BR">
       <Text>Insígnias Inteligentes</Text>
@@ -155,18 +153,6 @@
     </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS" Language="pt_BR">
       <Text>Lente de Batedor aplicada automaticamente</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWNOTHINGTODO_BUILDER" Language="pt_BR">
-      <Text>Não mostre nada para fazer nas lentes de construtor</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWNOTHINGTODO_BUILDER_TOOLTIP" Language="pt_BR">
-      <Text>Não mostrar nada para fazer nos hexágonos (lotes vermelhos) quando nas lentes de construtor</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWGENERIC_BUILDER" Language="pt_BR">
-      <Text>Mostrar genéricos nas lentes de construtores</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWGENERIC_BUILDER_TOOLTIP" Language="pt_BR">
-      <Text>Mostra hexágonos genéricos (lotes brancos) quando em lentes de construtor</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS" Language="pt_BR">
       <Text>Popups</Text>

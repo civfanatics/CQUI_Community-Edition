@@ -11,6 +11,7 @@ BASE_CQUI_GetCityData = GetCityData;
 -- These functions extend the unmodifed versions
 -- ===========================================================================
 function GetCityData( pCity:table )
+<<<<<<< HEAD
   -- call the base function, extend the return data we give back
   local data = BASE_CQUI_GetCityData(pCity);
 
@@ -27,4 +28,22 @@ function GetCityData( pCity:table )
   data.["FoodGainNextTurn"] = foodSurplus * pCityGrowth:GetOverallGrowthModifier();
 
   return data;
+=======
+    -- call the base function, extend the return data we give back
+    local data = BASE_CQUI_GetCityData(pCity);
+
+    -- Extend the table returned by the base function and return that
+    local productionInfo :table = GetCurrentProductionInfoOfCity( pCity, SIZE_PRODUCTION_ICON );
+    data["ProductionProgress"] = productionInfo.Progress;
+    data["ProductionCost"] = productionInfo.Cost;
+
+    local pCityGrowth :table = pCity:GetGrowth();
+    local foodSurplus :number = pCityGrowth:GetFoodSurplus();
+
+    data.["CurrentFood"] =  pCityGrowth:GetFood();
+    data.["RequiredFood"] = pCityGrowth:GetGrowthThreshold();
+    data.["FoodGainNextTurn"] = foodSurplus * pCityGrowth:GetOverallGrowthModifier();
+
+    return data;
+>>>>>>> master
 end

@@ -25,22 +25,22 @@ local CQUI_DragStarted = false;
 local CITY_CENTER_DISTRICT_INDEX = GameInfo.Districts["DISTRICT_CITY_CENTER"].Index;
 
 function CQUI_OnSettingsUpdate()
-  CQUI_WorkIconSize = GameConfiguration.GetValue("CQUI_WorkIconSize");
-  CQUI_WorkIconAlpha = GameConfiguration.GetValue("CQUI_WorkIconAlpha") / 100;
-  CQUI_SmartWorkIcon = GameConfiguration.GetValue("CQUI_SmartWorkIcon");
-  CQUI_SmartWorkIconSize = GameConfiguration.GetValue("CQUI_SmartWorkIconSize");
-  CQUI_SmartWorkIconAlpha = GameConfiguration.GetValue("CQUI_SmartWorkIconAlpha") / 100;
+    CQUI_WorkIconSize = GameConfiguration.GetValue("CQUI_WorkIconSize");
+    CQUI_WorkIconAlpha = GameConfiguration.GetValue("CQUI_WorkIconAlpha") / 100;
+    CQUI_SmartWorkIcon = GameConfiguration.GetValue("CQUI_SmartWorkIcon");
+    CQUI_SmartWorkIconSize = GameConfiguration.GetValue("CQUI_SmartWorkIconSize");
+    CQUI_SmartWorkIconAlpha = GameConfiguration.GetValue("CQUI_SmartWorkIconAlpha") / 100;
 end
 
 -- ===========================================================================
 -- CQUI update citizens, data and real housing for both cities when swap tiles
 -- ===========================================================================
 function CQUI_UpdateCitiesCitizensWhenSwapTiles(pCity)
-  CityManager.RequestCommand(pCity, CityCommandTypes.SET_FOCUS, nil);
+    CityManager.RequestCommand(pCity, CityCommandTypes.SET_FOCUS, nil);
 
-  local PlayerID = Game.GetLocalPlayer();
-  local pCityID = pCity:GetID();
-  LuaEvents.CQUI_CityInfoUpdated(PlayerID, pCityID);
+    local PlayerID = Game.GetLocalPlayer();
+    local pCityID = pCity:GetID();
+    LuaEvents.CQUI_CityInfoUpdated(PlayerID, pCityID);
 end
 
 -- ===========================================================================
@@ -48,33 +48,33 @@ end
 -- we use it only to update real housing for a city that loses a 3rd radius tile to a city that is founded within 4 tiles
 -- ===========================================================================
 function CQUI_UpdateCloseCitiesCitizensWhenCityFounded(playerID, cityID)
-  local kCity = CityManager.GetCity(playerID, cityID);
-  local m_pCity:table = Players[playerID]:GetCities();
-  for i, pCity in m_pCity:Members() do
-    if Map.GetPlotDistance( kCity:GetX(), kCity:GetY(), pCity:GetX(), pCity:GetY() ) == 4 then
-      CityManager.RequestCommand(pCity, CityCommandTypes.SET_FOCUS, nil);
+    local kCity = CityManager.GetCity(playerID, cityID);
+    local m_pCity:table = Players[playerID]:GetCities();
+    for i, pCity in m_pCity:Members() do
+        if Map.GetPlotDistance( kCity:GetX(), kCity:GetY(), pCity:GetX(), pCity:GetY() ) == 4 then
+            CityManager.RequestCommand(pCity, CityCommandTypes.SET_FOCUS, nil);
 
-      local pCityID = pCity:GetID();
-      LuaEvents.CQUI_CityInfoUpdated(playerID, pCityID);
+            local pCityID = pCity:GetID();
+            LuaEvents.CQUI_CityInfoUpdated(playerID, pCityID);
+        end
     end
-  end
 end
 
 --Takes a table with duplicates and returns a new table without duplicates. Credit to vogomatix at stask exchange for the code
 function CQUI_RemoveDuplicates(i:table)
-  local hash = {};
-  local o = {};
-  for _,v in ipairs(i) do
-    if (not hash[v]) then
-        o[#o+1] = v;
-        hash[v] = true;
+    local hash = {};
+    local o = {};
+    for _,v in ipairs(i) do
+        if (not hash[v]) then
+            o[#o+1] = v;
+            hash[v] = true;
+        end
     end
-  end
-  return o;
+    return o;
 end
 
 function CQUI_StartDragMap()
-  CQUI_DragStarted = true;
+    CQUI_DragStarted = true;
 end
 
 -- ===========================================================================
@@ -82,15 +82,15 @@ end
 --  Update citizens, data and real housing for both cities
 -- ===========================================================================
 function OnClickSwapTile( plotId:number )
-  local result = BASE_OnClickSwapTile(plotId);
+    local result = BASE_OnClickSwapTile(plotId);
 
-  local pSelectedCity :table = UI.GetHeadSelectedCity();
-  local kPlot :table = Map.GetPlotByIndex(plotId);
-  local pCity = Cities.GetPlotPurchaseCity(kPlot);  -- CQUI a city that was a previous tile owner
-  CQUI_UpdateCitiesCitizensWhenSwapTiles(pSelectedCity);  -- CQUI update citizens and data for a city that is a new tile owner
-  CQUI_UpdateCitiesCitizensWhenSwapTiles(pCity);  -- CQUI update citizens and data for a city that was a previous tile owner
-  
-  return result;
+    local pSelectedCity :table = UI.GetHeadSelectedCity();
+    local kPlot :table = Map.GetPlotByIndex(plotId);
+    local pCity = Cities.GetPlotPurchaseCity(kPlot);  -- CQUI a city that was a previous tile owner
+    CQUI_UpdateCitiesCitizensWhenSwapTiles(pSelectedCity);  -- CQUI update citizens and data for a city that is a new tile owner
+    CQUI_UpdateCitiesCitizensWhenSwapTiles(pCity);  -- CQUI update citizens and data for a city that was a previous tile owner
+    
+    return result;
 end
 
 -- ===========================================================================
@@ -99,70 +99,70 @@ end
 --  Update the city data
 -- ===========================================================================
 function OnClickPurchasePlot( plotId:number )
-  -- CQUI (Azurency) : if we're dragging, don't purchase
-  if CQUI_DragStarted then
-    CQUI_DragStarted = false;
-    return;
-  end
+    -- CQUI (Azurency) : if we're dragging, don't purchase
+    if CQUI_DragStarted then
+        CQUI_DragStarted = false;
+        return;
+    end
 
-  local result = BASE_OnClickPurchasePlot(plotId);
+    local result = BASE_OnClickPurchasePlot(plotId);
 
-  OnClickCitizen();  -- CQUI : update selected city citizens and data
+    OnClickCitizen();  -- CQUI : update selected city citizens and data
 
-  return result;
+    return result;
 end
 
 -- ===========================================================================
 --  CQUI modified ShowCitizens function : Customize the citizen icon and Hide the city center icon
 -- ===========================================================================
 function ShowCitizens()
-  BASE_ShowCitizens();
+    BASE_ShowCitizens();
 
-  local pSelectedCity :table = UI.GetHeadSelectedCity();
-  if pSelectedCity == nil then
-    -- Add error message here
-    return;
-  end
-
-  local tParameters :table = {};
-  tParameters[CityCommandTypes.PARAM_MANAGE_CITIZEN] = UI.GetInterfaceModeParameter(CityCommandTypes.PARAM_MANAGE_CITIZEN);
-
-  local tResults  :table = CityManager.GetCommandTargets( pSelectedCity, CityCommandTypes.MANAGE, tParameters );
-  if tResults == nil then
-    -- Add error message here
-    return;
-  end
-
-  local tPlots :table = tResults[CityCommandResults.PLOTS];
-  local tUnits :table = tResults[CityCommandResults.CITIZENS];
-  if tPlots ~= nil and (table.count(tPlots) > 0) then
-    for i,plotId in pairs(tPlots) do
-      local kPlot :table = Map.GetPlotByIndex(plotId);
-      local index :number = kPlot:GetIndex();
-      local pInstance :table = GetInstanceAt( index );
-
-      if pInstance ~= nil then
-        local isCityCenterPlot = kPlot:GetDistrictType() == CITY_CENTER_DISTRICT_INDEX;
-        pInstance.CitizenButton:SetHide(isCityCenterPlot);
-        pInstance.CitizenButton:SetDisabled(isCityCenterPlot);
-
-        local numUnits:number = tUnits[i];
-
-        --CQUI Citizen buttons tweaks
-        if(CQUI_SmartWorkIcon and numUnits >= 1) then
-          pInstance.CitizenButton:SetSizeVal(CQUI_SmartWorkIconSize, CQUI_SmartWorkIconSize);
-          pInstance.CitizenButton:SetAlpha(CQUI_SmartWorkIconAlpha);
-        else
-          pInstance.CitizenButton:SetSizeVal(CQUI_WorkIconSize, CQUI_WorkIconSize);
-          pInstance.CitizenButton:SetAlpha(CQUI_WorkIconAlpha);
-        end
-
-        if(numUnits >= 1) then
-          pInstance.CitizenButton:SetTextureOffsetVal(0, 256);
-        end
-      end
+    local pSelectedCity :table = UI.GetHeadSelectedCity();
+    if pSelectedCity == nil then
+        -- Add error message here
+        return;
     end
-  end
+
+    local tParameters :table = {};
+    tParameters[CityCommandTypes.PARAM_MANAGE_CITIZEN] = UI.GetInterfaceModeParameter(CityCommandTypes.PARAM_MANAGE_CITIZEN);
+
+    local tResults  :table = CityManager.GetCommandTargets( pSelectedCity, CityCommandTypes.MANAGE, tParameters );
+    if tResults == nil then
+        -- Add error message here
+        return;
+    end
+
+    local tPlots :table = tResults[CityCommandResults.PLOTS];
+    local tUnits :table = tResults[CityCommandResults.CITIZENS];
+    if tPlots ~= nil and (table.count(tPlots) > 0) then
+        for i,plotId in pairs(tPlots) do
+            local kPlot :table = Map.GetPlotByIndex(plotId);
+            local index :number = kPlot:GetIndex();
+            local pInstance :table = GetInstanceAt( index );
+
+            if pInstance ~= nil then
+                local isCityCenterPlot = kPlot:GetDistrictType() == CITY_CENTER_DISTRICT_INDEX;
+                pInstance.CitizenButton:SetHide(isCityCenterPlot);
+                pInstance.CitizenButton:SetDisabled(isCityCenterPlot);
+
+                local numUnits:number = tUnits[i];
+
+                --CQUI Citizen buttons tweaks
+                if (CQUI_SmartWorkIcon and numUnits >= 1) then
+                    pInstance.CitizenButton:SetSizeVal(CQUI_SmartWorkIconSize, CQUI_SmartWorkIconSize);
+                    pInstance.CitizenButton:SetAlpha(CQUI_SmartWorkIconAlpha);
+                else
+                    pInstance.CitizenButton:SetSizeVal(CQUI_WorkIconSize, CQUI_WorkIconSize);
+                    pInstance.CitizenButton:SetAlpha(CQUI_WorkIconAlpha);
+                end
+
+                if (numUnits >= 1) then
+                    pInstance.CitizenButton:SetTextureOffsetVal(0, 256);
+                end
+            end
+        end
+    end
 end
 
 -- ===========================================================================
@@ -171,18 +171,18 @@ end
 --  we use it only to update real housing for a city that loses a 3rd radius tile to a city that is founded within 4 tiles
 -- ===========================================================================
 function OnDistrictAddedToMap( playerID: number, districtID : number, cityID :number, districtX : number, districtY : number, districtType:number )
-  BASE_OnDistrictAddedToMap(playerID, districtID, cityID, districtX, districtY, districtType);
-  
-  if districtType == CITY_CENTER_DISTRICT_INDEX and playerID == Game.GetLocalPlayer() then
-    CQUI_UpdateCloseCitiesCitizensWhenCityFounded(playerID, cityID);
-  end
+    BASE_OnDistrictAddedToMap(playerID, districtID, cityID, districtX, districtY, districtType);
+    
+    if districtType == CITY_CENTER_DISTRICT_INDEX and playerID == Game.GetLocalPlayer() then
+        CQUI_UpdateCloseCitiesCitizensWhenCityFounded(playerID, cityID);
+    end
 end
 
 -- ===========================================================================
 --  CQUI modified AggregateLensHexes function : Remove duplicate entry
 -- ===========================================================================
 function AggregateLensHexes(keys:table)
-  return CQUI_RemoveDuplicates(BASE_AggregateLensHexes(keys));
+    return CQUI_RemoveDuplicates(BASE_AggregateLensHexes(keys));
 end
 
 -- ===========================================================================
@@ -190,22 +190,27 @@ end
 --  Don't change the tilt if in building or district placement
 -- ===========================================================================
 function RealizeTilt()
-  if UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT or UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT then
-    return;
-  end
-  BASE_RealizeTilt();
+    if UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT or UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT then
+        return;
+    end
+    BASE_RealizeTilt();
 end
 
 -- ===========================================================================
 function Initialize()
+<<<<<<< HEAD
   -- PlotInfo does not implement a LateInitialize method
   print("PlotInfo_CQUI Initialize ENTRY");
   Events.DistrictAddedToMap.Remove(BASE_OnDistrictAddedToMap);
   Events.DistrictAddedToMap.Add(OnDistrictAddedToMap);
+=======
+    Events.DistrictAddedToMap.Remove(BASE_OnDistrictAddedToMap);
+    Events.DistrictAddedToMap.Add(OnDistrictAddedToMap);
+>>>>>>> master
 
-  LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
-  LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
-  LuaEvents.CQUI_StartDragMap.Add(CQUI_StartDragMap);
-  LuaEvents.CQUI_RefreshPurchasePlots.Add(RefreshPurchasePlots);
+    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
+    LuaEvents.CQUI_StartDragMap.Add(CQUI_StartDragMap);
+    LuaEvents.CQUI_RefreshPurchasePlots.Add(RefreshPurchasePlots);
 end
 Initialize();

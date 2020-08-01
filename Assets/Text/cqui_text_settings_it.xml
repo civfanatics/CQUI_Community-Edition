@@ -24,15 +24,19 @@
     <Row Tag="LOC_CQUI_CITYVIEW" Language="it_IT">
       <Text>Vista Cittadina</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK" Language="it_IT">
-      <Text>Blocca fine turno per attacchi cittadini</Text>
+    <!-- Relocate City Strike and Encampment Strike button translations done via Google Translate -->
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="it_IT">
+      <Text>Riposiziona il pulsante City Strike</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK_TOOLTIP" Language="it_IT">
-      <Text>Abilita se vuoi che il pulsante "Fine Turno" sia bloccato se una città può attaccare.</Text>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP" Language="it_IT">
+      <Text>Abilita questo per riposizionare il pulsante City Strike sopra le barre di salute e difesa</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="it_IT">
-      <Text>Altezza elemento da produrre</Text>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" Language="it_IT">
+      <Text>Riposizionare il pulsante Colpo Encampment</Text>
     </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="it_IT">
+      <Text>Abilita questo per riposizionare il pulsante Colpo Encampment sopra le barre di salute e difesa</Text>
+    </Row>    
     <Row Tag="LOC_CQUI_CITYVIEW_PRODUCTIONQUEUE" Language="it_IT">
       <Text>Abilita coda di produzione</Text>
     </Row>
@@ -59,12 +63,6 @@
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEONHOVER_TOOLTIP" Language="it_IT">
       <Text>Mostra l'area di gestione dei cittadini al passaggio del mouse sul banner della città</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEINSCREEN" Language="it_IT">
-      <Text>Area gestione cittadini nella vista della città</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEINSCREEN_TOOLTIP" Language="it_IT">
-      <Text>Mostra l'area di gestione dei cittadini nella vista della città</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_HEADER" Language="it_IT">
       <Text>Banner Smart</Text>
@@ -155,18 +153,6 @@
     </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS" Language="it_IT">
       <Text>Lente Scout in automatico</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWNOTHINGTODO_BUILDER" Language="it_IT">
-      <Text>Mostra nessuna azione nella Lente Costruttore</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWNOTHINGTODO_BUILDER_TOOLTIP" Language="it_IT">
-      <Text>Mostra gli esagoni su cui non c'è niente da migliorare (caselle rosse) nella Lente Costruttore</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWGENERIC_BUILDER" Language="it_IT">
-      <Text>Mostra generici nella Lente Costruttore</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWGENERIC_BUILDER_TOOLTIP" Language="it_IT">
-      <Text>Mostra gli esagoni generici (caselle bianche) nella Lente Costruttore</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS" Language="it_IT">
       <Text>Popup</Text>
