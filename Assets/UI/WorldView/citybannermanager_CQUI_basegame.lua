@@ -176,30 +176,29 @@ function CityBanner.UpdateName( self )
     -- Update district icons
     -- districtType:number == Index
     local districts = {};
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_ACROPOLIS")]             = { Instance = self.m_Instance.CityBuiltDistrictAcropolis };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_AQUEDUCT")]              = { Instance = self.m_Instance.CityBuiltDistrictAerodrome };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_AERODROME")]             = { Instance = self.m_Instance.CityBuiltDistrictAqueduct };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_BATH")]                  = { Instance = self.m_Instance.CityBuiltDistrictBath };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_CAMPUS")]                = { Instance = self.m_Instance.CityBuiltDistrictCampus };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_COMMERCIAL_HUB")]        = { Instance = self.m_Instance.CityBuiltDistrictCommercial };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_ENCAMPMENT")]            = { Instance = self.m_Instance.CityBuiltDistrictEncampment };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_ENTERTAINMENT_COMPLEX")] = { Instance = self.m_Instance.CityBuiltDistrictEntertainment };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_HANSA")]                 = { Instance = self.m_Instance.CityBuiltDistrictHansa };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_HARBOR")]                = { Instance = self.m_Instance.CityBuiltDistrictHarbor };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_HOLY_SITE")]             = { Instance = self.m_Instance.CityBuiltDistrictHoly };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_INDUSTRIAL_ZONE")]       = { Instance = self.m_Instance.CityBuiltDistrictIndustrial };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_LAVRA")]                 = { Instance = self.m_Instance.CityBuiltDistrictLavra };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_MBANZA")]                = { Instance = self.m_Instance.CityBuiltDistrictMbanza };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_NEIGHBORHOOD")]          = { Instance = self.m_Instance.CityBuiltDistrictNeighborhood };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_ROYAL_NAVY_DOCKYARD")]   = { Instance = self.m_Instance.CityBuiltDistrictRoyalNavy };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_SPACEPORT")]             = { Instance = self.m_Instance.CityBuiltDistrictSpaceport };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_STREET_CARNIVAL")]       = { Instance = self.m_Instance.CityBuiltDistrictStreetCarnival };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_THEATER")]               = { Instance = self.m_Instance.CityBuiltDistrictTheater };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_ACROPOLIS")]             = { Icon = "[ICON_DISTRICT_ACROPOLIS]", Instance = self.m_Instance.CityBuiltDistrictAcropolis };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_AQUEDUCT")]              = { Icon = "[ICON_DISTRICT_AQUEDUCT]", Instance = self.m_Instance.CityBuiltDistrictAerodrome };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_AERODROME")]             = { Icon = "[ICON_DISTRICT_AERODROME]", Instance = self.m_Instance.CityBuiltDistrictAqueduct };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_BATH")]                  = { Icon = "[ICON_DISTRICT_BATH]", Instance = self.m_Instance.CityBuiltDistrictBath };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_CAMPUS")]                = { Icon = "[ICON_DISTRICT_CAMPUS]", Instance = self.m_Instance.CityBuiltDistrictCampus };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_COMMERCIAL_HUB")]        = { Icon = "[ICON_DISTRICT_COMMERCIAL_HUB]", Instance = self.m_Instance.CityBuiltDistrictCommercial };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_ENCAMPMENT")]            = { Icon = "[ICON_DISTRICT_ENCAMPMENT]", Instance = self.m_Instance.CityBuiltDistrictEncampment };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_ENTERTAINMENT_COMPLEX")] = { Icon = "[ICON_DISTRICT_ENTERTAINMENT_COMPLEX]", Instance = self.m_Instance.CityBuiltDistrictEntertainment };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_HANSA")]                 = { Icon = "[ICON_DISTRICT_HANSA]", Instance = self.m_Instance.CityBuiltDistrictHansa };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_HARBOR")]                = { Icon = "[ICON_DISTRICT_HARBOR]", Instance = self.m_Instance.CityBuiltDistrictHarbor };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_HOLY_SITE")]             = { Icon = "[ICON_DISTRICT_HOLY_SITE]", Instance = self.m_Instance.CityBuiltDistrictHoly };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_INDUSTRIAL_ZONE")]       = { Icon = "[ICON_DISTRICT_INDUSTRIAL_ZONE]", Instance = self.m_Instance.CityBuiltDistrictIndustrial };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_LAVRA")]                 = { Icon = "[ICON_DISTRICT_LAVRA]", Instance = self.m_Instance.CityBuiltDistrictLavra };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_MBANZA")]                = { Icon = "[ICON_DISTRICT_MBANZA]", Instance = self.m_Instance.CityBuiltDistrictMbanza };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_NEIGHBORHOOD")]          = { Icon = "[ICON_DISTRICT_NEIGHBORHOOD]", Instance = self.m_Instance.CityBuiltDistrictNeighborhood };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_ROYAL_NAVY_DOCKYARD")]   = { Icon = "[ICON_DISTRICT_ROYAL_NAVY_DOCKYARD]", Instance = self.m_Instance.CityBuiltDistrictRoyalNavy };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_SPACEPORT")]             = { Icon = "[ICON_DISTRICT_SPACEPORT]", Instance = self.m_Instance.CityBuiltDistrictSpaceport };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_STREET_CARNIVAL")]       = { Icon = "[ICON_DISTRICT_STREET_CARNIVAL]", Instance = self.m_Instance.CityBuiltDistrictStreetCarnival };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_THEATER")]               = { Icon = "[ICON_DISTRICT_THEATER]", Instance = self.m_Instance.CityBuiltDistrictTheater };
 
     if (self.m_Instance.CityBuiltDistrictAqueduct ~= nil) then
         self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
         for k,v in pairs(districts) do
-            print("k: "..tostring(k).."  v:"..tostring(v))
             districts[k].Instance:SetHide(true);
         end
     end
@@ -230,7 +229,7 @@ function CityBanner.UpdateName( self )
         -- End Unlocked Citizen Check
 
         if (IsCQUI_SmartBanner_DistrictsEnabled()) then
-            local districtToolTipString = Locale.Lookup("LOC_HUD_DISTRICTS")..":";
+            local districtTooltipString = "";
             local districtsBuilt = 0;
             local neighborhoodAdded = false;
             for i, district in pCityDistricts:Members() do
@@ -240,8 +239,8 @@ function CityBanner.UpdateName( self )
                 if (isBuilt) then
                     -- Items in the districts table are populated above; it does not include City Center or 
                     if (districts[districtType] ~= nil
-                        and (districts[districtType].Instance ~= self.m_Instance.CityBuiltDistrictNeighborhood or neighborhoodAdded == false)) then
-                        districtToolTipString = districtToolTipString .. "[NEWLINE] - " .. Locale.Lookup(districtInfo.Name);
+                       and (districts[districtType].Instance ~= self.m_Instance.CityBuiltDistrictNeighborhood or neighborhoodAdded == false)) then
+                        districtTooltipString = districtTooltipString .. districts[districtType].Icon .. " " .. Locale.Lookup(districtInfo.Name) .. "[NEWLINE]";
                         districtsBuilt = districtsBuilt + 1;
                         districts[districtType].Instance:SetHide(false);
                         if (districts[districtType].Instance == self.m_Instance.CityBuiltDistrictNeighborhood) then
@@ -251,6 +250,9 @@ function CityBanner.UpdateName( self )
                 end -- if isBuilt
             end -- for loop
 
+            -- Trim the trailing [NEWLINE]
+            districtTooltipString = string.sub(districtTooltipString, 1, string.len(districtTooltipString) - 9);
+
             -- Determine the overlap of the district icons based on the number built
             -- Note: GetNumZonedDistrictsRequiringPopulation does not include Aqueducts or Neighborhoods
             -- The padding value was -12 before this dynamic calculation was introduced
@@ -259,7 +261,7 @@ function CityBanner.UpdateName( self )
             if districtIconPadding > 16 then districtIconPadding = 16; end
             self.m_Instance.CQUI_Districts:SetStackPadding(districtIconPadding * -1);
             self.m_Instance.CQUI_Districts:CalculateSize();  -- Sets the correct banner width with the padding update
-            self.m_Instance.CQUI_DistrictsContainer:SetToolTipString(districtToolTipString);
+            self.m_Instance.CQUI_DistrictsContainer:SetToolTipString(districtTooltipString);
 
             -- Infixo: 2020-07-08 district available flag and tooltip
             local iDistrictsNum:number         = pCityDistricts:GetNumZonedDistrictsRequiringPopulation();

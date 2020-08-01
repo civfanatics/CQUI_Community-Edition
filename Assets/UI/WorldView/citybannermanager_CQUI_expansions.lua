@@ -206,7 +206,7 @@ function CityBanner.UpdateStats(self)
             self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
             local pCityDistricts:table = pCity:GetDistricts();
             if (IsCQUI_SmartBanner_DistrictsEnabled()) then
-                local districtToolTipString = Locale.Lookup("LOC_HUD_DISTRICTS")..":";
+                local districtTooltipString = "";
                 local districtCount = 0;
                 local neighborhoodAdded = false;
                 -- Update the built districts 
@@ -216,17 +216,20 @@ function CityBanner.UpdateStats(self)
                     local isBuilt = pCityDistricts:HasDistrict(districtInfo.Index, true);
                     -- If the district is built, is not the City Center, is not a Wonder, and a Neighborhood Icon has already been shown...
                     if (isBuilt == true
-                        and districtInfo.DistrictType ~= "DISTRICT_WONDER"
-                        and districtInfo.DistrictType ~= "DISTRICT_CITY_CENTER"
-                        and (districtInfo.DistrictType ~= "DISTRICT_NEIGHBORHOOD" or neighborhoodAdded == false)) then
+                       and districtInfo.DistrictType ~= "DISTRICT_WONDER"
+                       and districtInfo.DistrictType ~= "DISTRICT_CITY_CENTER"
+                       and (districtInfo.DistrictType ~= "DISTRICT_NEIGHBORHOOD" or neighborhoodAdded == false)) then
                         SetDetailIcon(self.CQUI_DistrictBuiltIM:GetInstance(), "ICON_"..districtInfo.DistrictType);
-                        districtToolTipString = districtToolTipString .. "[NEWLINE] - " .. Locale.Lookup(districtInfo.Name);
+                        districtTooltipString = districtTooltipString .. "[ICON_".. districtInfo.DistrictType .. "] ".. Locale.Lookup(districtInfo.Name) .. "[NEWLINE]";
                         districtCount = districtCount + 1;
                         if (districtInfo.DistrictType == "DISTRICT_NEIGHBORHOOD") then
                             neighborhoodAdded = true;
                         end
                     end
                 end
+
+                -- Trim the trailing [NEWLINE]
+                districtTooltipString = string.sub(districtTooltipString, 1, string.len(districtTooltipString) - 9);
 
                 -- Determine the overlap of the district icons based on the number built
                 -- Note: GetNumZonedDistrictsRequiringPopulation does not include Aqueducts or Neighborhoods
@@ -236,7 +239,7 @@ function CityBanner.UpdateStats(self)
                 if districtIconPadding > 20 then districtIconPadding = 20; end
                 self.m_Instance.CQUI_Districts:SetStackPadding(districtIconPadding * -1);
                 self.m_Instance.CQUI_Districts:CalculateSize(); -- Sets the correct banner width with the padding update
-                self.m_Instance.CQUI_DistrictsContainer:SetToolTipString(districtToolTipString);
+                self.m_Instance.CQUI_DistrictsContainer:SetToolTipString(districtTooltipString);
 
                 -- Infixo: 2020-06-08 district available flag and tooltip
                 local iDistrictsNum:number         = pCityDistricts:GetNumZonedDistrictsRequiringPopulation();
