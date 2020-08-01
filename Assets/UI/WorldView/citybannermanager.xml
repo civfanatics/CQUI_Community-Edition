@@ -89,6 +89,7 @@
                                     <Label ID="CityBuiltDistrictLavra" Hidden="1" Style="FontNormal20" String="[ICON_DISTRICT_LAVRA]"/>
                                     <Label ID="CityBuiltDistrictMbanza" Hidden="1" Style="FontNormal20" String="[ICON_DISTRICT_MBANZA]"/>
                                     <Label ID="CityBuiltDistrictNeighborhood" Hidden="1" Style="FontNormal20" String="[ICON_DISTRICT_NEIGHBORHOOD]"/>
+                                    <Label ID="CityBuiltDistrictObservatory" Hidden="1" Style="FontNormal20" String="[ICON_DISTRICT_OBSERVATORY]"/>
                                     <Label ID="CityBuiltDistrictRoyalNavy" Hidden="1" Style="FontNormal20" String="[ICON_DISTRICT_ROYAL_NAVY_DOCKYARD]"/>
                                     <Label ID="CityBuiltDistrictSpaceport" Hidden="1" Style="FontNormal20" String="[ICON_DISTRICT_SPACEPORT]"/>
                                     <!-- ICON_DISTRICT_STREET_CARNIVAL does not actually show anything, so use the Entertainment Complex icon -->

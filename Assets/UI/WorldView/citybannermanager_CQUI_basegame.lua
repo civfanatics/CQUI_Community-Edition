@@ -172,13 +172,13 @@ function CityBanner.UpdateName( self )
     else
         self.m_Instance.CityUnderSiegeIcon:SetHide(true);
     end
-
+    
     -- Update district icons
     -- districtType:number == Index
     local districts = {};
     districts[CQUI_GetDistrictIndexSafe("DISTRICT_ACROPOLIS")]             = { Icon = "[ICON_DISTRICT_ACROPOLIS]", Instance = self.m_Instance.CityBuiltDistrictAcropolis };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_AQUEDUCT")]              = { Icon = "[ICON_DISTRICT_AQUEDUCT]", Instance = self.m_Instance.CityBuiltDistrictAerodrome };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_AERODROME")]             = { Icon = "[ICON_DISTRICT_AERODROME]", Instance = self.m_Instance.CityBuiltDistrictAqueduct };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_AQUEDUCT")]              = { Icon = "[ICON_DISTRICT_AQUEDUCT]", Instance = self.m_Instance.CityBuiltDistrictAqueduct };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_AERODROME")]             = { Icon = "[ICON_DISTRICT_AERODROME]", Instance = self.m_Instance.CityBuiltDistrictAerodrome };
     districts[CQUI_GetDistrictIndexSafe("DISTRICT_BATH")]                  = { Icon = "[ICON_DISTRICT_BATH]", Instance = self.m_Instance.CityBuiltDistrictBath };
     districts[CQUI_GetDistrictIndexSafe("DISTRICT_CAMPUS")]                = { Icon = "[ICON_DISTRICT_CAMPUS]", Instance = self.m_Instance.CityBuiltDistrictCampus };
     districts[CQUI_GetDistrictIndexSafe("DISTRICT_COMMERCIAL_HUB")]        = { Icon = "[ICON_DISTRICT_COMMERCIAL_HUB]", Instance = self.m_Instance.CityBuiltDistrictCommercial };
@@ -191,9 +191,10 @@ function CityBanner.UpdateName( self )
     districts[CQUI_GetDistrictIndexSafe("DISTRICT_LAVRA")]                 = { Icon = "[ICON_DISTRICT_LAVRA]", Instance = self.m_Instance.CityBuiltDistrictLavra };
     districts[CQUI_GetDistrictIndexSafe("DISTRICT_MBANZA")]                = { Icon = "[ICON_DISTRICT_MBANZA]", Instance = self.m_Instance.CityBuiltDistrictMbanza };
     districts[CQUI_GetDistrictIndexSafe("DISTRICT_NEIGHBORHOOD")]          = { Icon = "[ICON_DISTRICT_NEIGHBORHOOD]", Instance = self.m_Instance.CityBuiltDistrictNeighborhood };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_OBSERVATORY")]           = { Icon = "[ICON_DISTRICT_OBSERVATORY]", Instance = self.m_Instance.CityBuiltDistrictObservatory };
     districts[CQUI_GetDistrictIndexSafe("DISTRICT_ROYAL_NAVY_DOCKYARD")]   = { Icon = "[ICON_DISTRICT_ROYAL_NAVY_DOCKYARD]", Instance = self.m_Instance.CityBuiltDistrictRoyalNavy };
     districts[CQUI_GetDistrictIndexSafe("DISTRICT_SPACEPORT")]             = { Icon = "[ICON_DISTRICT_SPACEPORT]", Instance = self.m_Instance.CityBuiltDistrictSpaceport };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_STREET_CARNIVAL")]       = { Icon = "[ICON_DISTRICT_STREET_CARNIVAL]", Instance = self.m_Instance.CityBuiltDistrictStreetCarnival };
+    districts[CQUI_GetDistrictIndexSafe("DISTRICT_STREET_CARNIVAL")]       = { Icon = "[ICON_DISTRICT_ENTERTAINMENT_COMPLEX]", Instance = self.m_Instance.CityBuiltDistrictStreetCarnival }; -- Icon uses Entertainment Complex (see XML)
     districts[CQUI_GetDistrictIndexSafe("DISTRICT_THEATER")]               = { Icon = "[ICON_DISTRICT_THEATER]", Instance = self.m_Instance.CityBuiltDistrictTheater };
 
     if (self.m_Instance.CityBuiltDistrictAqueduct ~= nil) then
