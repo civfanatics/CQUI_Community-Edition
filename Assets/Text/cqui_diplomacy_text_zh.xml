@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData>
+    <LocalizedText>
+        <!-- SIMPLIFY-CHINESE -->
+        <Replace Tag="LOC_IDS_DEAL_TERMS" Language="zh_Hans_CN">
+            <Text>交易条款</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_TRADE" Language="zh_Hans_CN">
+            <Text>[COLOR_Red]贸易[ENDCOLOR]</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_SUZERAIN" Language="zh_Hans_CN">
+            <Text>[COLOR_Civ6Blue]宗主國[ENDCOLOR]</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_UNTRADEABLE" Language="zh_Hans_CN">
+            <Text>不能交易</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_DUPLICATE" Language="zh_Hans_CN">
+            <Text>不能交易</Text>
+        </Replace>
+    </LocalizedText>
+</GameData>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData>
+    <LocalizedText>
+        <Replace Tag="LOC_IDS_DEAL_TERMS" Language="ko_KR">
+            <Text>거래 조건</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_TRADE" Language="ko_KR">
+            <Text>[COLOR_Red]거래[ENDCOLOR]</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_SUZERAIN" Language="ko_KR">
+            <Text>[COLOR_Civ6Blue]수즈레인의[ENDCOLOR]</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_UNTRADEABLE" Language="ko_KR">
+            <Text>거래 할 수없는</Text>
+        </Replace>
+        <Replace Tag="LOC_IDS_DEAL_DUPLICATE" Language="ko_KR">
+            <Text>중복</Text>
+        </Replace>
+    </LocalizedText>
+</GameData>

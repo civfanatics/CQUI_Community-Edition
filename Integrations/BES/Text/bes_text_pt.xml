@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameData>
-  <BaseGameText>
-    <Row Tag="LOC_ESPIONAGECHOOSER_FILTER_ALL" Language="pt_BR">
+  <LocalizedText>
+    <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_ALL" Language="pt_BR">
       <Text>Todos</Text>
-    </Row>
-    <Row Tag="LOC_ESPIONAGECHOOSER_FILTER_SHOW_CITIES" Language="pt_BR">
+    </Replace>
+    <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_SHOW_CITIES" Language="pt_BR">
       <Text>Mostrar cidades</Text>
-    </Row>
-  </BaseGameText>
+    </Replace>
+  </LocalizedText>
 </GameData>

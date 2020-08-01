@@ -8,5 +8,5 @@
     <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_SHOW_CITIES" Language="de_DE">
       <Text>Zeige Städte</Text>
     </Replace>
-  <LocalizedText>
+  </LocalizedText>
 </GameData>
