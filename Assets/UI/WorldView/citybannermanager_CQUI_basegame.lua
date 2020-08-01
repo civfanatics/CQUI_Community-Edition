@@ -258,8 +258,8 @@ function CityBanner.UpdateName( self )
             -- Note: GetNumZonedDistrictsRequiringPopulation does not include Aqueducts or Neighborhoods
             -- The padding value was -12 before this dynamic calculation was introduced
             local districtIconPadding = 6 + districtsBuilt;
-            if districtIconPadding < 10 then districtIconPadding = 10; end
-            if districtIconPadding > 16 then districtIconPadding = 16; end
+            if districtIconPadding < 8 then districtIconPadding = 8; end
+            if districtIconPadding > 14 then districtIconPadding = 14; end
             self.m_Instance.CQUI_Districts:SetStackPadding(districtIconPadding * -1);
             self.m_Instance.CQUI_Districts:CalculateSize();  -- Sets the correct banner width with the padding update
             self.m_Instance.CQUI_DistrictsContainer:SetToolTipString(districtTooltipString);
