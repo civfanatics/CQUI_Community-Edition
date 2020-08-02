@@ -179,6 +179,9 @@
                 <File>Assets/UI/WorldView/plotinfo.xml</File>
             </Items>
         </ImportFiles>
+		<UpdateIcons id="CQUI_BASE_UPDATE_ICONS">
+			<File>Assets/UI/Icons/FontIcons_CQUI.xml</File>
+		</UpdateIcons>
 
         <!-- ============================== CQUI Expansion 1 (Rise and Fall) files ============================== -->
         <ImportFiles id="CQUI_EXP1_IMPORT_FILES" criteria="Expansion1">
@@ -250,6 +253,10 @@
                 <File>Assets/Expansion2/CityBanners/cityreligioninstances.xml</File>
             </Items>
         </ImportFiles>
+		<UpdateIcons id="CQUI_EXP2_UPDATE_ICONS" criteria="Expansion2">
+			<Properties><LoadOrder>200</LoadOrder></Properties>
+			<File>Assets/Expansion2/Data/Expansion2_Icons_FontIcons_CQUI.xml</File>
+		</UpdateIcons>
 
         <!-- ============================== CQUI specific LOCs ============================== -->
         <LocalizedText id="CQUI_TEXT">
@@ -912,6 +919,7 @@
         <File>Assets/Expansion2/CityBanners/citybannermanager_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
         <File>Assets/Expansion2/CityBanners/cityreligioninstances.xml</File>
+		<File>Assets/Expansion2/Data/Expansion2_Icons_FontIcons_CQUI.xml</File>
 
         <File>Assets/Text/Gossip_Text.xml</File>
         <File>Assets/Text/Gossip_Text_de.xml</File>
@@ -960,7 +968,8 @@
         <File>Assets/Texture/CQUI_GreatPeople_Background_Repeat_Bottom.dds</File>
         <File>Assets/Texture/CQUI_GreatPeople_Background_Repeat_Top.dds</File>
         <File>Assets/Texture/CQUI_GreatPeople_Background_Top.dds</File>
-
+        
+        <!-- BASE -->
         <File>Assets/UI/actionpanel.lua</File>
         <File>Assets/UI/citysupport_CQUI_basegame.lua</File>
         <File>Assets/UI/citysupport_CQUI.lua</File>
@@ -1028,7 +1037,9 @@
         <File>Assets/UI/WorldView/districtploticonmanager_CQUI.lua</File>
         <File>Assets/UI/WorldView/plotinfo_CQUI.lua</File>
         <File>Assets/UI/WorldView/plotinfo.xml</File>
-
+		<File>Assets/UI/Icons/FontIcons_CQUI.xml</File>
+        
+        <!-- Integrations -->
         <File>Integrations/BTS/UI/tradeoverview.xml</File>
         <File>Integrations/BTS/UI/tradeoverview.lua</File>
         <File>Integrations/BTS/UI/tradesupport.lua</File>
