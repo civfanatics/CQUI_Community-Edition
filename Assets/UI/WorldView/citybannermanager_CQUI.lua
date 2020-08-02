@@ -913,36 +913,35 @@ end
 
 -- ===========================================================================
 function CQUI_UpdateSuzerainIcon( pPlayer:table, bannerInstance )
-    -- print_debug("CityBannerManager_CQUI: CQUI_UpdateSuzerainIcon ENTRY");
+    print("******************************* CityBannerManager_CQUI: CQUI_UpdateSuzerainIcon ENTRY");
     if (bannerInstance == nil) then
+        print("******************************* CityBannerManager_CQUI: CQUI_UpdateSuzerainIcon -- bannerInstance is nil, returning");
         return;
     end
 
     local pPlayerInfluence :table  = pPlayer:GetInfluence();
     local suzerainID       :number = pPlayerInfluence:GetSuzerain();
+    print("******************************* CityBannerManager_CQUI: CQUI_UpdateSuzerainIcon -- suzerainId is:"..tostring(suzerainID));
+
     if (suzerainID ~= -1) then
         local pPlayerConfig :table  = PlayerConfigurations[suzerainID];
-        local leader        :string = pPlayerConfig:GetLeaderTypeName();
-        if (GameInfo.CivilizationLeaders[leader] == nil) then
-            UI.DataError("Banners found a leader \""..leader.."\" which is not/no longer in the game; icon may be whack.");
-        else
-            local suzerainTooltip = Locale.Lookup("LOC_CITY_STATES_SUZERAIN_LIST") .. " ";
-            if (pPlayer:GetDiplomacy():HasMet(suzerainID)) then
-                bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetIcon("ICON_" .. leader);
-                if (suzerainID == Game.GetLocalPlayer()) then
-                    bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup("LOC_CITY_STATES_YOU"));
-                else
-                    bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup(pPlayerConfig:GetPlayerName()));
-                end
+        local civType        :string = pPlayerConfig:GetCivilizationTypeName();
+        local suzerainTooltip = Locale.Lookup("LOC_CITY_STATES_SUZERAIN_LIST") .. " ";
+        if (pPlayer:GetDiplomacy():HasMet(suzerainID)) then
+            bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetIcon("ICON_" .. civType);
+            if (suzerainID == Game.GetLocalPlayer()) then
+                bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup("LOC_CITY_STATES_YOU"));
             else
-                bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetIcon("ICON_LEADER_DEFAULT");
-                bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup("LOC_DIPLOPANEL_UNMET_PLAYER"));
+                bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup(pPlayerConfig:GetPlayerName()));
             end
-
-            bannerInstance:Resize();
-            bannerInstance.m_Instance.CQUI_CivSuzerain:SetOffsetX(bannerInstance.m_Instance.ContentStack:GetSizeX()/2 - 5);
-            bannerInstance.m_Instance.CQUI_CivSuzerain:SetHide(false);
+        else
+            bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetIcon("ICON_LEADER_DEFAULT");
+            bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup("LOC_DIPLOPANEL_UNMET_PLAYER"));
         end
+
+        bannerInstance:Resize();
+        --bannerInstance.m_Instance.CQUI_CivSuzerain:SetOffsetX(bannerInstance.m_Instance.ContentStack:GetSizeX()/2 - 5);
+        bannerInstance.m_Instance.CQUI_CivSuzerain:SetHide(false);
     else
         bannerInstance.m_Instance.CQUI_CivSuzerain:SetHide(true);
     end
