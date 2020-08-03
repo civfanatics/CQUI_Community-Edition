@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    CQUI - fixes for districts' font icons
+    Author: Infixo
+    2020-08-02: Created
+-->
+
+<GameInfo>
+    <IconDefinitions>
+        <Replace Name="DISTRICT_LAVRA"           Atlas="ICON_ATLAS_FONT_ICON_BASELINE_4" Index="180"/> <!-- 181 is used in the vanilla game, which points to Neighborhood -->
+        <Replace Name="DISTRICT_STREET_CARNIVAL" Atlas="ICON_ATLAS_FONT_ICON_BASELINE_4" Index="188"/> <!-- missing in the vanilla game -->
+    </IconDefinitions>
+</GameInfo>
