@@ -128,7 +128,6 @@
                 <File>Assets/UI/launchbar_CQUI_basegame.lua</File>
                 <File>Assets/UI/launchbar_CQUI.lua</File>
                 <File>Assets/UI/launchbar.xml</File>
-                <File>Assets/UI/leadericon.lua</File>
                 <File>Assets/UI/partialscreenhooks_CQUI_basegame.lua</File>
                 <File>Assets/UI/partialscreenhooks_CQUI.lua</File>
                 <File>Assets/UI/partialscreenhooks.xml</File>
@@ -219,8 +218,6 @@
             <Items>
                 <File>Assets/UI/WorldView/citybannermanager_CQUI_expansions.lua</File>
                 <File>Assets/Expansion1/Replacements/citypanelculture_CQUI.lua</File>
-                <File>Assets/Expansion1/Replacements/leadericon.lua</File>
-                <File>Assets/Expansion1/Replacements/leadericon.xml</File>
                 <File>Assets/Expansion1/Replacements/worldtracker_expansion1.lua</File>
             </Items>
         </ImportFiles>
@@ -889,8 +886,6 @@
         <File>Assets/Expansion1/Replacements/diplomacyactionview_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/diplomacyribbon_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/governmentscreen_CQUI_expansion1.lua</File>
-        <File>Assets/Expansion1/Replacements/leadericon.lua</File>
-        <File>Assets/Expansion1/Replacements/leadericon.xml</File>
         <File>Assets/Expansion1/Replacements/launchbar_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/partialscreenhooks_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/techtree_CQUI_expansion1.lua</File>
@@ -986,7 +981,6 @@
         <File>Assets/UI/launchbar_CQUI_basegame.lua</File>
         <File>Assets/UI/launchbar_CQUI.lua</File>
         <File>Assets/UI/launchbar.xml</File>
-        <File>Assets/UI/leadericon.lua</File>
         <File>Assets/UI/partialscreenhooks_CQUI_basegame.lua</File>
         <File>Assets/UI/partialscreenhooks_CQUI.lua</File>
         <File>Assets/UI/partialscreenhooks.xml</File>
