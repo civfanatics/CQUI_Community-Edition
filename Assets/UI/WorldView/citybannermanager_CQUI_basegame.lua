@@ -263,7 +263,9 @@ function CityBanner.UpdateName( self )
             self.m_Instance.CQUI_Districts:SetStackPadding(districtIconPadding * -1);
             self.m_Instance.CQUI_Districts:CalculateSize();  -- Sets the correct banner width with the padding update
             self.m_Instance.CQUI_DistrictsContainer:SetToolTipString(districtTooltipString);
+        end
 
+        if (IsCQUI_SmartBanner_DistrictsAvailableEnabled())
             -- Infixo: 2020-07-08 district available flag and tooltip
             local iDistrictsNum:number         = pCityDistricts:GetNumZonedDistrictsRequiringPopulation();
             local iDistrictsPossibleNum:number = pCityDistricts:GetNumAllowedDistrictsRequiringPopulation();
@@ -309,7 +311,7 @@ function CityBanner.UpdateName( self )
     local pPlayerConfig :table = PlayerConfigurations[owner];
     local isMinorCiv :boolean = pPlayerConfig:GetCivilizationLevelTypeID() ~= CivilizationLevelTypes.CIVILIZATION_LEVEL_FULL_CIV;
     if (isMinorCiv) then
-        CQUI_UpdateSuzerainIcon(pPlayer, self);
+        CQUI_UpdateSuzerainIcon_Basegame(pPlayer, self);
     end
 
     self.m_Instance.CityQuestIcon:SetToolTipString(questTooltip);
@@ -626,8 +628,6 @@ function CityBanner.UpdateReligion( self )
     end
 end
 
-
-
 -- ===========================================================================
 -- CQUI Custom Functions (Common to basegame only)
 -- ===========================================================================
@@ -636,6 +636,40 @@ function CQUI_GetDistrictIndexSafe(sDistrict)
         return -1;
     else 
         return GameInfo.Districts[sDistrict].Index;
+    end
+end
+
+-- ===========================================================================
+function CQUI_UpdateSuzerainIcon_Basegame( pPlayer:table, bannerInstance )
+    if (bannerInstance == nil) then
+        return;
+    end
+
+    local pPlayerInfluence :table  = pPlayer:GetInfluence();
+    local suzerainID       :number = pPlayerInfluence:GetSuzerain();
+    if (suzerainID ~= -1 and IsCQUI_ShowSuzerainInCityStateBannerEnabled()) then
+        local pPlayerConfig :table  = PlayerConfigurations[suzerainID];
+        local backColor, frontColor = UI.GetPlayerColors( suzerainID );
+        --local civType        :string = pPlayerConfig:GetCivilizationTypeName();
+        local civType        :string = pPlayerConfig:GetLeaderTypeName();
+        local suzerainTooltip = Locale.Lookup("LOC_CITY_STATES_SUZERAIN_LIST") .. " ";
+        if (pPlayer:GetDiplomacy():HasMet(suzerainID)) then
+            --bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetColor(frontColor);
+            bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetIcon("ICON_" .. civType);
+            if (suzerainID == Game.GetLocalPlayer()) then
+                bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup("LOC_CITY_STATES_YOU"));
+            else
+                bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup(pPlayerConfig:GetPlayerName()));
+            end
+        else
+            bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetIcon("ICON_LEADER_DEFAULT");
+            bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup("LOC_DIPLOPANEL_UNMET_PLAYER"));
+        end
+
+        bannerInstance.m_Instance.CQUI_CivSuzerain:SetHide(false);
+        bannerInstance:Resize();
+    else
+        bannerInstance.m_Instance.CQUI_CivSuzerain:SetHide(true);
     end
 end
 

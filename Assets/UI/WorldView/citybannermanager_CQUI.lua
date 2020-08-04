@@ -72,19 +72,18 @@ local CQUI_CitizenManagement   = UILens.CreateLensLayerHash("Citizen_Management"
 
 -- ===========================================================================
 function CQUI_OnSettingsInitialized()
-    print("*********** CityBannerManager_CQUI: CQUI_OnSettingsInitialized ENTRY")
     print_debug("CityBannerManager_CQUI: CQUI_OnSettingsInitialized ENTRY")
-    CQUI_ShowYieldsOnCityHover  = GameConfiguration.GetValue("CQUI_ShowYieldsOnCityHover");
+    CQUI_ShowYieldsOnCityHover         = GameConfiguration.GetValue("CQUI_ShowYieldsOnCityHover");
+    CQUI_ShowSuzerainInCityStateBanner = GameConfiguration.GetValue("CQUI_ShowSuzerainInCityStateBanner");
 
-    -- CQUI_SmartBanner            = GameConfiguration.GetValue("CQUI_Smartbanner");
     CQUI_SmartBanner            = GameConfiguration.GetValue("CQUI_Smartbanner");
     CQUI_SmartBanner_Districts  = CQUI_SmartBanner and GameConfiguration.GetValue("CQUI_Smartbanner_Districts");
     CQUI_SmartBanner_Population = CQUI_SmartBanner and GameConfiguration.GetValue("CQUI_Smartbanner_Population");
     CQUI_SmartBanner_Cultural   = CQUI_SmartBanner and GameConfiguration.GetValue("CQUI_Smartbanner_Cultural");
-    CQUI_SmartBanner_Unmanaged_Citizen = CQUI_SmartBanner and GameConfiguration.GetValue("CQUI_Smartbanner_UnlockedCitizen");
+    CQUI_SmartBanner_Unmanaged_Citizen  = CQUI_SmartBanner and GameConfiguration.GetValue("CQUI_Smartbanner_UnlockedCitizen");
+    CQUI_SmartBanner_DistrictsAvailable = CQUI_SmartBanner and GameConfiguration.GetValue("CQUI_Smartbanner_DistrictsAvailable");
 
     CQUI_WorkIconSize       = GameConfiguration.GetValue("CQUI_WorkIconSize");
-    print("****$$ CQUI_WorkIconSize is: "..tostring(CQUI_WorkIconSize));
     CQUI_WorkIconAlpha      = GameConfiguration.GetValue("CQUI_WorkIconAlpha") / 100;
     CQUI_SmartWorkIcon      = GameConfiguration.GetValue("CQUI_SmartWorkIcon");
     CQUI_SmartWorkIconSize  = GameConfiguration.GetValue("CQUI_SmartWorkIconSize");
@@ -94,12 +93,10 @@ function CQUI_OnSettingsInitialized()
     CQUI_ShowCityManageAreaOnCityHover = GameConfiguration.GetValue("CQUI_ShowCityManageAreaOnCityHover");
     CQUI_RelocateCityStrike            = GameConfiguration.GetValue("CQUI_RelocateCityStrike");
     CQUI_RelocateEncampmentStrike      = GameConfiguration.GetValue("CQUI_RelocateEncampmentStrike");
-
 end
 
 -- ===========================================================================
 function CQUI_OnSettingsUpdate()
-    print("*********** CityBannerManager_CQUI: CQUI_OnSettingsUpdate ENTRY")
     print_debug("CityBannerManager_CQUI: CQUI_OnSettingsUpdate ENTRY")
     CQUI_OnSettingsInitialized();
     Reload();
@@ -906,44 +903,14 @@ function CQUI_OnInfluenceGiven()
         if (pPlayer:GetCities():GetCapitalCity() ~= nil) then
             local iCapital = pPlayer:GetCities():GetCapitalCity():GetID();
             local bannerInstance = GetCityBanner(iPlayer, iCapital);
-            CQUI_UpdateSuzerainIcon(pPlayer, bannerInstance);
-        end
-    end
-end
-
--- ===========================================================================
-function CQUI_UpdateSuzerainIcon( pPlayer:table, bannerInstance )
-    print("******************************* CityBannerManager_CQUI: CQUI_UpdateSuzerainIcon ENTRY");
-    if (bannerInstance == nil) then
-        print("******************************* CityBannerManager_CQUI: CQUI_UpdateSuzerainIcon -- bannerInstance is nil, returning");
-        return;
-    end
-
-    local pPlayerInfluence :table  = pPlayer:GetInfluence();
-    local suzerainID       :number = pPlayerInfluence:GetSuzerain();
-    print("******************************* CityBannerManager_CQUI: CQUI_UpdateSuzerainIcon -- suzerainId is:"..tostring(suzerainID));
-
-    if (suzerainID ~= -1) then
-        local pPlayerConfig :table  = PlayerConfigurations[suzerainID];
-        local civType        :string = pPlayerConfig:GetCivilizationTypeName();
-        local suzerainTooltip = Locale.Lookup("LOC_CITY_STATES_SUZERAIN_LIST") .. " ";
-        if (pPlayer:GetDiplomacy():HasMet(suzerainID)) then
-            bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetIcon("ICON_" .. civType);
-            if (suzerainID == Game.GetLocalPlayer()) then
-                bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup("LOC_CITY_STATES_YOU"));
-            else
-                bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup(pPlayerConfig:GetPlayerName()));
+            if (IsCQUI_ShowSuzerainInCityStateBannerEnabled()) then
+                if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
+                    bannerInstance:UpdateInfo(bannerInstance:GetCity());
+                else
+                    CQUI_UpdateSuzerainIcon_Basegame(pPlayer, bannerInstance);
+                end
             end
-        else
-            bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetIcon("ICON_LEADER_DEFAULT");
-            bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup("LOC_DIPLOPANEL_UNMET_PLAYER"));
         end
-
-        bannerInstance:Resize();
-        --bannerInstance.m_Instance.CQUI_CivSuzerain:SetOffsetX(bannerInstance.m_Instance.ContentStack:GetSizeX()/2 - 5);
-        bannerInstance.m_Instance.CQUI_CivSuzerain:SetHide(false);
-    else
-        bannerInstance.m_Instance.CQUI_CivSuzerain:SetHide(true);
     end
 end
 
@@ -982,6 +949,16 @@ end
 -- ===========================================================================
 function IsCQUI_SmartBanner_Unmanaged_CitizenEnabled()
     return (CQUI_SmartBanner and CQUI_SmartBanner_Unmanaged_Citizen);
+end
+
+-- ===========================================================================
+function IsCQUI_SmartBanner_DistrictsAvailableEnabled()
+    return (CQUI_SmartBanner and CQUI_SmartBanner_DistrictsAvailable);
+end
+
+-- ===========================================================================
+function IsCQUI_ShowSuzerainInCityStateBannerEnabled()
+    return (CQUI_SmartBanner and CQUI_ShowSuzerainInCityStateBanner);
 end
 
 -- ===========================================================================

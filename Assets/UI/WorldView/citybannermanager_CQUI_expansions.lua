@@ -12,8 +12,8 @@ local m_isReligionLensActive:boolean = false;
 local m_HexColoringReligion:number = UILens.CreateLensLayerHash("Hex_Coloring_Religion");
 local DATA_FIELD_RELIGION_ICONS_IM:string = "m_IconsIM";
 local DATA_FIELD_RELIGION_FOLLOWER_LIST_IM:string = "m_FollowerListIM";
-local DATA_FIELD_RELIGION_POP_CHART_IM        :string = "m_PopChartIM";
-local RELIGION_POP_CHART_TOOLTIP_HEADER        :string = Locale.Lookup("LOC_CITY_BANNER_FOLLOWER_PRESSURE_TOOLTIP_HEADER");
+local DATA_FIELD_RELIGION_POP_CHART_IM:string = "m_PopChartIM";
+local RELIGION_POP_CHART_TOOLTIP_HEADER:string = Locale.Lookup("LOC_CITY_BANNER_FOLLOWER_PRESSURE_TOOLTIP_HEADER");
 
 -- ===========================================================================
 -- Cached Base Functions (Expansions only)
@@ -84,8 +84,6 @@ function CityBanner.UpdateInfo(self, pCity : table )
             end
         end
     end
-    
-    self:Resize();
 
     -- #62 Infixo always show an original owner of the city if different than the current one
     -- this piece of code is taken from CityBannerManager.lua to allow an extra line inside a tooltip
@@ -98,7 +96,6 @@ function CityBanner.UpdateInfo(self, pCity : table )
 
     -- #62 Infixo check if this city was previously owned by someone else
     local originalOwner:number = pCity:GetOriginalOwner();
-    --print("original info ext", originalOwner, playerID);
     
     if originalOwner ~= playerID then
         if pCity:IsOriginalCapital() then
@@ -107,8 +104,7 @@ function CityBanner.UpdateInfo(self, pCity : table )
             tooltipOrignal = Locale.Lookup("LOC_CQUI_CITY_BANNER_ORIGINAL_CITY_TT",    PlayerConfigurations[originalOwner]:GetCivilizationShortDescription());
         end
     end
-    --print("..original owner", tooltipOrignal);
-    
+
     if pPlayer:IsMajor() then
         if pCity:IsOriginalCapital() and originalOwner == playerID then
             -- Original capital
@@ -121,7 +117,7 @@ function CityBanner.UpdateInfo(self, pCity : table )
             tooltip = Locale.Lookup("LOC_CITY_BANNER_OTHER_CITY_TT",       PlayerConfigurations[playerID]:GetCivilizationShortDescription()) .. tooltipOrignal;
         end
         -- espionage info (added in XP2)
-        if g_bIsGatheringStorm and GameCapabilities.HasCapability("CAPABILITY_ESPIONAGE") then            
+        if g_bIsGatheringStorm and GameCapabilities.HasCapability("CAPABILITY_ESPIONAGE") then
             if Game.GetLocalPlayer() == playerID or HasEspionageView(playerID, pCity:GetID()) then
                 tooltip = tooltip .. Locale.Lookup("LOC_ESPIONAGE_VIEW_ENABLED_TT");
             else
@@ -129,18 +125,20 @@ function CityBanner.UpdateInfo(self, pCity : table )
             end
         end
     elseif pPlayer:IsMinor() then
-        CQUI_UpdateSuzerainIcon_Expansions(pPlayer, self.m_InfoIconIM );
+        if (IsCQUI_ShowSuzerainInCityStateBannerEnabled()) then
+            CQUI_UpdateSuzerainIcon_Expansions(pPlayer, self.m_InfoIconIM );
+        end
     elseif pPlayer:IsFreeCities() then
         tooltip = Locale.Lookup("LOC_CITY_BANNER_FREE_CITY_TT") .. tooltipOrignal;
     else -- city states
         tooltip = Locale.Lookup("LOC_CITY_BANNER_CITY_STATE_TT") .. tooltipOrignal; -- just in case CS could capture capitals?
-        
     end
 
-    -- update the tooltip
-    local instance:table = self.m_InfoIconIM:GetAllocatedInstance();
-    instance.Button:SetToolTipString(tooltip);
-    
+    -- update the city icon tooltip
+    local cityIconInstance:table = self.m_InfoIconIM:GetAllocatedInstance();
+    cityIconInstance.Button:SetToolTipString(tooltip);
+
+    self:Resize();
 end
 
 -- ===========================================================================
@@ -151,31 +149,17 @@ function CQUI_UpdateSuzerainIcon_Expansions( pPlayer:table, infoIconIM )
 
     local pPlayerInfluence :table  = pPlayer:GetInfluence();
     local suzerainID       :number = pPlayerInfluence:GetSuzerain();
-
     if (suzerainID ~= -1) then
         local pPlayerConfig :table  = PlayerConfigurations[suzerainID];
         local civType       :string = pPlayerConfig:GetCivilizationTypeName();
         local backColor, frontColor = UI.GetPlayerColors( suzerainID );
-
         local suzerainTooltip = Locale.Lookup("LOC_CITY_STATES_SUZERAIN_LIST") .. " ";
-        local existingInst = infoIconIM:GetAllocatedInstance();
-        print("--------------- existingInst.Icon:GetSizeX():"..tostring(existingInst.Icon:GetSizeX()))
         local suzerainInstance:table = infoIconIM:GetInstance();
         if (pPlayer:GetDiplomacy():HasMet(suzerainID)) then
-            print("============== suzerainInstance.Button.GetAlpha:"..tostring(suzerainInstance.Button:GetAlpha().."  suzerainInstance.Button.GetSizeVal:"..tostring(suzerainInstance.Button:GetSizeX())..","..tostring(suzerainInstance.Button:GetSizeY())))
-            --suzerainBGInstance.Icon:SetIcon("ICON_MAP_PIN_CIRCLE");
-            m4atemp=suzerainInstance
-            --suzerainBGInstance.Button:SetTexture("Banner_ProductionCircle");
-            --suzerainBGInstance.Icon:SetSizeVal(31,31);
-            --suzerainBGInstance.Icon:SetColor(backColor);
             suzerainInstance.Icon:SetIcon("ICON_" .. civType);
             suzerainInstance.Button:SetTexture("Banner_ProductionCircle");
             suzerainInstance.Icon:SetColor(frontColor);
-            --suzerainInstance.Button:SetSizeVal(28,28);
-            suzerainInstance.Button:SetColor(backColor);
-            suzerainInstance.Icon:SetSizeVal(26,26);
-            --suzerainInstance.Icon:SetOffsetVal(-1,0);
-            --suzerainInstance.Button:SetOffsetVal(24,0);
+            suzerainInstance.Icon:SetSizeVal(28,28);
             if (suzerainID == Game.GetLocalPlayer()) then
                 suzerainInstance.Icon:SetToolTipString(suzerainTooltip .. Locale.Lookup("LOC_CITY_STATES_YOU"));
             else
@@ -185,9 +169,6 @@ function CQUI_UpdateSuzerainIcon_Expansions( pPlayer:table, infoIconIM )
             suzerainInstance.Icon:SetIcon("ICON_LEADER_DEFAULT");
             suzerainInstance.Icon:SetToolTipString(suzerainTooltip .. Locale.Lookup("LOC_DIPLOPANEL_UNMET_PLAYER"));
         end
-
-        suzerainInstance.m_InstanceManager.m_ParentControl:DoAutoSize()
-
     end
 end
 
@@ -246,26 +227,12 @@ function CityBanner.UpdateStats(self)
     --print_debug("CityBannerManager_CQUI_Expansions: CityBanner.UpdateStats ENTRY");
     BASE_CQUI_CityBanner_UpdateStats(self);
 
-    if (IsBannerTypeCityCenter(self.m_Type) == false) then
-        --temp
-        return;
-    end
-
-    -- If this is a banner for a minor civ, update the Suzerain Icon
-    local pCity      :table  = self:GetCity();
-    local iCityOwner :number = pCity:GetOwner();
-    local pPlayer    :table = Players[iCityOwner];
-    local pPlayerConfig :table = PlayerConfigurations[iCityOwner];
-    local isMinorCiv :boolean = pPlayerConfig:GetCivilizationLevelTypeID() ~= CivilizationLevelTypes.CIVILIZATION_LEVEL_FULL_CIV;
-    -- if (isMinorCiv) then
-    --     CQUI_UpdateSuzerainIcon(pPlayer, self);
-    --     --return;
-    -- end
-
-    -- If this is a CityCenter banner 
     local pDistrict:table = self:GetDistrict();
-    if (pDistrict ~= nil) then
+    if (pDistrict ~= nil and IsBannerTypeCityCenter(self.m_Type)) then
         local localPlayerID:number = Game.GetLocalPlayer();
+        local pCity        :table  = self:GetCity();
+        local iCityOwner   :number = pCity:GetOwner();
+
         if (localPlayerID == iCityOwner and self.CQUI_DistrictBuiltIM ~= nil) then
             -- On first call into UpdateStats, CQUI_DistrictBuiltIM may not be instantiated yet
             -- However this is called often enough that it's not a problem
@@ -307,7 +274,9 @@ function CityBanner.UpdateStats(self)
                 self.m_Instance.CQUI_Districts:SetStackPadding(districtIconPadding * -1);
                 self.m_Instance.CQUI_Districts:CalculateSize(); -- Sets the correct banner width with the padding update
                 self.m_Instance.CQUI_DistrictsContainer:SetToolTipString(districtTooltipString);
+            end
 
+            if (IsCQUI_SmartBanner_DistrictsAvailableEnabled()) then
                 -- Infixo: 2020-06-08 district available flag and tooltip
                 local iDistrictsNum:number         = pCityDistricts:GetNumZonedDistrictsRequiringPopulation();
                 local iDistrictsPossibleNum:number = pCityDistricts:GetNumAllowedDistrictsRequiringPopulation();

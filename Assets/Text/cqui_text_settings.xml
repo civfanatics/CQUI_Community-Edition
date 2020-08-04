@@ -84,6 +84,18 @@
     <Replace Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_CULTURAL_TOOLTIP" Language="en_US">
       <Text>Show the number of turns left to cultural growth.</Text>
     </Replace>
+    <Replace Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_DISTRICTS_AVAILABLE" Language="en_US">
+      <Text>Districts Available</Text>
+    </Replace>
+    <Replace Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_DISTRICTS_AVAILABLE_TOOLTIP" Language="en_US">
+      <Text>Show an icon indicating districts can be built in the city.</Text>
+    </Replace>
+    <Replace Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="en_US">
+      <Text>Suzerain in CityState Banner</Text>
+    </Replace>
+    <Replace Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="en_US">
+      <Text>Show the Civilization Icon of the Suzerain of a City State in the City State Banner</Text>
+    </Replace>
     <Replace Tag="LOC_CQUI_CITYVIEW_SMARTWORKICON" Language="en_US">
       <Text>Smart Work Icons</Text>
     </Replace>
