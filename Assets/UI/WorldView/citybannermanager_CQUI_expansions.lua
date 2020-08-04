@@ -4,9 +4,6 @@
 -- Functions and objects common to basegame and expansions
 include( "citybannermanager_CQUI.lua");
 
--- TEMP
-m4atemp = nil;
-
 -- #59 Infixo they are local and not visible in this file
 local m_isReligionLensActive:boolean = false;
 local m_HexColoringReligion:number = UILens.CreateLensLayerHash("Hex_Coloring_Religion");
@@ -134,7 +131,7 @@ function CityBanner.UpdateInfo(self, pCity : table )
         tooltip = Locale.Lookup("LOC_CITY_BANNER_CITY_STATE_TT") .. tooltipOrignal; -- just in case CS could capture capitals?
     end
 
-    -- update the city icon tooltip
+    -- update the tooltip
     local cityIconInstance:table = self.m_InfoIconIM:GetAllocatedInstance();
     cityIconInstance.Button:SetToolTipString(tooltip);
 
@@ -224,7 +221,7 @@ end
 
 -- ============================================================================
 function CityBanner.UpdateStats(self)
-    --print_debug("CityBannerManager_CQUI_Expansions: CityBanner.UpdateStats ENTRY");
+    print_debug("CityBannerManager_CQUI_Expansions: CityBanner.UpdateStats ENTRY");
     BASE_CQUI_CityBanner_UpdateStats(self);
 
     local pDistrict:table = self:GetDistrict();

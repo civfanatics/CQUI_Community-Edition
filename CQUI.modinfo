@@ -52,30 +52,9 @@
             <LeaderPlayable>Players:Expansion1_Players::LEADER_CHANDRAGUPTA,Players:Expansion1_Players::LEADER_GENGHIS_KHAN,Players:Expansion1_Players::LEADER_LAUTARO,Players:Expansion1_Players::LEADER_POUNDMAKER,Players:Expansion1_Players::LEADER_ROBERT_THE_BRUCE,Players:Expansion1_Players::LEADER_SEONDEOK,Players:Expansion1_Players::LEADER_SHAKA,Players:Expansion1_Players::LEADER_TAMAR,Players:Expansion1_Players::LEADER_WILHELMINA</LeaderPlayable>
             <LeaderPlayable>Players:Expansion2_Players::LEADER_CHANDRAGUPTA,Players:Expansion2_Players::LEADER_GENGHIS_KHAN,Players:Expansion2_Players::LEADER_LAUTARO,Players:Expansion2_Players::LEADER_POUNDMAKER,Players:Expansion2_Players::LEADER_ROBERT_THE_BRUCE,Players:Expansion2_Players::LEADER_SEONDEOK,Players:Expansion2_Players::LEADER_SHAKA,Players:Expansion2_Players::LEADER_TAMAR,Players:Expansion2_Players::LEADER_WILHELMINA</LeaderPlayable>
         </Criteria>
-        <!-- This can be set by the settings delcarations in the SQL file
-             see the cqui_settings_gamesetup.sql and cqui_smartbanner.sql files
-        <Criteria id="CQUI_OPTION_SMARTBANNER_TOGGLE">
-            <ConfigurationValueMatches>
-                <Group>Game</Group>
-                <ConfigurationId>CQUI_OPTION_SMARTBANNER</ConfigurationId>
-                <Value>1</Value>
-            </ConfigurationValueMatches>
-        </Criteria> -->
     </ActionCriteria>
 
     <!-- ============================== CQUI specific settings ============================== -->
-    <FrontEndActions>
-        <LocalizedText id="CQUI_FrontEnd_ImportLocalizedText">
-            <File>Assets/Text/cqui_text_settings.xml</File>
-        </LocalizedText>
-        <UpdateDatabase id="CQUI_FrontEnd_Settings">
-            <Properties>
-                <LoadOrder>2</LoadOrder>
-            </Properties>
-            <File>Assets/cqui_settings_gamesetup.sql</File>
-        </UpdateDatabase>
-    </FrontEndActions>
-
     <InGameActions>
         <UpdateDatabase id="CQUI_Settings">
             <Properties>
@@ -96,16 +75,6 @@
                 <File>Assets/cqui_settings_local.sql</File>
             </Items>
         </UpdateDatabase>
-        <!-- See note above
-        <UpdateDatabase id="CQUI_OPTION_SMARTBANNER_ENABLED">
-            <Criteria>CQUI_OPTION_SMARTBANNER</Criteria>
-            <Properties>
-                <LoadOrder>-5</LoadOrder>
-            </Properties>
-            <Items>
-                <File>Assets/Settings/cqui_smartbanner.sql</File>
-            </Items>
-        </UpdateDatabase> -->
         <!-- LoadOrder 0 is default, we need this to load first -->
         <!-- 0 is where most actions are applied.  -100 is for Schema changes, and just ensuring early loads are caught -->
         <!-- This table can be found in the Documentation included with the SDK.  It exists as a poorly formatted markdown table. -->
@@ -340,7 +309,7 @@
             </Properties>
             <Items>
                 <File>Assets/cqui_settingselement.xml</File>
-                <!-- <File>Assets/cqui_settingselement.lua</File> -->                <!-- implied load -->
+                <!-- <File>Assets/cqui_settingselement.lua</File> --> <!-- implied load -->
                 <File>Assets/cqui_toplayer.xml</File>
                 <File>Assets/UI/Popups/policyreminderpopup.xml</File>
                 <!--the lua files are taken as implied-->
@@ -894,8 +863,6 @@
         <File>CQUI.dep</File>
         <File>Assets/cqui_databaseschema.sql</File>
         <File>Assets/cqui_settings.sql</File>
-        <File>Assets/cqui_settings_gamesetup.sql</File>
-        <File>Assets/Settings/cqui_smartbanner.sql</File>
         <File>Assets/cqui_settings_local.sql</File>
         <File>Assets/cqui_settingselement.lua</File>
         <File>Assets/cqui_settingselement.xml</File>

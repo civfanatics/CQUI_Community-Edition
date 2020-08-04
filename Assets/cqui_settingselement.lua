@@ -306,12 +306,6 @@ end
 
 -- ===========================================================================
 function Initialize()
-    Events.LoadGameViewStateDone.Add(Late_Initialize);
-end
-
-function Late_Initialize()
--- TEMP print
-    print("############# cqui_settingselement.lua Late_Initialize");
     print_debug("ENTRY: CQUI_SettingsElement Initialize")
     ContextPtr:SetHide(true);
     --Adding/binding tabs...
