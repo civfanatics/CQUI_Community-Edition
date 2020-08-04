@@ -63,7 +63,6 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ('CQUI_ShowImprovementsRecommendations', 0), -- Shows the advisor recommendation for the builder improvements
         ('CQUI_ShowCityDetailAdvisor', 0), -- Shows the advisor recommendation in the city detail panel
         ('CQUI_ShowDebugPrint', 0); -- Shows print in the console
-
 /*
     ┌────────────────────────────────────────────────────────────────────────────────────────────┐
     │                                    Combobox settings                                       │
