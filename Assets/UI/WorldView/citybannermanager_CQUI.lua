@@ -941,8 +941,6 @@ function CQUI_UpdateSuzerainIcon( pPlayer:table, bannerInstance )
         bannerInstance.m_Instance.CQUI_CivSuzerain:SetHide(false);
         bannerInstance:Resize();
     else
-        -- TEMP
-
         bannerInstance.m_Instance.CQUI_CivSuzerain:SetHide(true);
     end
 end
