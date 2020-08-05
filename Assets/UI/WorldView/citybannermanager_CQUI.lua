@@ -910,17 +910,12 @@ function CQUI_OnInfluenceGiven()
     end
 end
 
-
--- TEMP
-m4atemp = nil;
 -- ===========================================================================
 function CQUI_UpdateSuzerainIcon( pPlayer:table, bannerInstance )
     print_debug("CityBannerManager_CQUI: CQUI_UpdateSuzerainIcon ENTRY  pPlayer:"..tostring(pPlayer).."  bannerInstance:"..tostring(bannerInstance));
     if (bannerInstance == nil) then
         return;
     end
-
-    m4atemp = bannerInstance;
 
     local pPlayerInfluence :table  = pPlayer:GetInfluence();
     local suzerainID       :number = pPlayerInfluence:GetSuzerain();
