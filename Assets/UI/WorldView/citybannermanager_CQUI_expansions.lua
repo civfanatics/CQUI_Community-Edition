@@ -122,9 +122,7 @@ function CityBanner.UpdateInfo(self, pCity : table )
             end
         end
     elseif pPlayer:IsMinor() then
-        if (IsCQUI_ShowSuzerainInCityStateBannerEnabled()) then
-            CQUI_UpdateSuzerainIcon_Expansions(pPlayer, self.m_InfoIconIM );
-        end
+        CQUI_UpdateSuzerainIcon(pPlayer, self);
     elseif pPlayer:IsFreeCities() then
         tooltip = Locale.Lookup("LOC_CITY_BANNER_FREE_CITY_TT") .. tooltipOrignal;
     else -- city states
@@ -136,37 +134,6 @@ function CityBanner.UpdateInfo(self, pCity : table )
     cityIconInstance.Button:SetToolTipString(tooltip);
 
     self:Resize();
-end
-
--- ===========================================================================
-function CQUI_UpdateSuzerainIcon_Expansions( pPlayer:table, infoIconIM )
-    if (infoIconIM == nil) then
-        return;
-    end
-
-    local pPlayerInfluence :table  = pPlayer:GetInfluence();
-    local suzerainID       :number = pPlayerInfluence:GetSuzerain();
-    if (suzerainID ~= -1) then
-        local pPlayerConfig :table  = PlayerConfigurations[suzerainID];
-        local civType       :string = pPlayerConfig:GetCivilizationTypeName();
-        local backColor, frontColor = UI.GetPlayerColors( suzerainID );
-        local suzerainTooltip = Locale.Lookup("LOC_CITY_STATES_SUZERAIN_LIST") .. " ";
-        local suzerainInstance:table = infoIconIM:GetInstance();
-        if (pPlayer:GetDiplomacy():HasMet(suzerainID)) then
-            suzerainInstance.Icon:SetIcon("ICON_" .. civType);
-            suzerainInstance.Button:SetTexture("Banner_ProductionCircle");
-            suzerainInstance.Icon:SetColor(frontColor);
-            suzerainInstance.Icon:SetSizeVal(28,28);
-            if (suzerainID == Game.GetLocalPlayer()) then
-                suzerainInstance.Icon:SetToolTipString(suzerainTooltip .. Locale.Lookup("LOC_CITY_STATES_YOU"));
-            else
-                suzerainInstance.Icon:SetToolTipString(suzerainTooltip .. Locale.Lookup(pPlayerConfig:GetPlayerName()));
-            end
-        else
-            suzerainInstance.Icon:SetIcon("ICON_LEADER_DEFAULT");
-            suzerainInstance.Icon:SetToolTipString(suzerainTooltip .. Locale.Lookup("LOC_DIPLOPANEL_UNMET_PLAYER"));
-        end
-    end
 end
 
 -- ============================================================================

@@ -198,6 +198,7 @@ function CityBanner.UpdateName( self )
     districts[CQUI_GetDistrictIndexSafe("DISTRICT_THEATER")]               = { Icon = "[ICON_DISTRICT_THEATER]", Instance = self.m_Instance.CityBuiltDistrictTheater };
 
     if (self.m_Instance.CityBuiltDistrictAqueduct ~= nil) then
+        self.m_Instance.CQUI_DistrictsContainer:SetHide(true);
         self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
         for k,v in pairs(districts) do
             districts[k].Instance:SetHide(true);
@@ -260,12 +261,13 @@ function CityBanner.UpdateName( self )
             local districtIconPadding = 6 + districtsBuilt;
             if districtIconPadding < 8 then districtIconPadding = 8; end
             if districtIconPadding > 14 then districtIconPadding = 14; end
+            self.m_Instance.CQUI_DistrictsContainer:SetHide(false);
             self.m_Instance.CQUI_Districts:SetStackPadding(districtIconPadding * -1);
             self.m_Instance.CQUI_Districts:CalculateSize();  -- Sets the correct banner width with the padding update
             self.m_Instance.CQUI_DistrictsContainer:SetToolTipString(districtTooltipString);
         end
 
-        if (IsCQUI_SmartBanner_DistrictsAvailableEnabled())
+        if (IsCQUI_SmartBanner_DistrictsAvailableEnabled()) then
             -- Infixo: 2020-07-08 district available flag and tooltip
             local iDistrictsNum:number         = pCityDistricts:GetNumZonedDistrictsRequiringPopulation();
             local iDistrictsPossibleNum:number = pCityDistricts:GetNumAllowedDistrictsRequiringPopulation();
@@ -275,7 +277,7 @@ function CityBanner.UpdateName( self )
             else
                 self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
             end
-        end -- if CQUI_SmartBanner_Districts
+        end
     end -- if CQUI_SmartBanner and there's a district to show
 
     -- Update insufficient housing icon
@@ -311,7 +313,7 @@ function CityBanner.UpdateName( self )
     local pPlayerConfig :table = PlayerConfigurations[owner];
     local isMinorCiv :boolean = pPlayerConfig:GetCivilizationLevelTypeID() ~= CivilizationLevelTypes.CIVILIZATION_LEVEL_FULL_CIV;
     if (isMinorCiv) then
-        CQUI_UpdateSuzerainIcon_Basegame(pPlayer, self);
+        CQUI_UpdateSuzerainIcon(pPlayer, self);
     end
 
     self.m_Instance.CityQuestIcon:SetToolTipString(questTooltip);
@@ -636,40 +638,6 @@ function CQUI_GetDistrictIndexSafe(sDistrict)
         return -1;
     else 
         return GameInfo.Districts[sDistrict].Index;
-    end
-end
-
--- ===========================================================================
-function CQUI_UpdateSuzerainIcon_Basegame( pPlayer:table, bannerInstance )
-    if (bannerInstance == nil) then
-        return;
-    end
-
-    local pPlayerInfluence :table  = pPlayer:GetInfluence();
-    local suzerainID       :number = pPlayerInfluence:GetSuzerain();
-    if (suzerainID ~= -1 and IsCQUI_ShowSuzerainInCityStateBannerEnabled()) then
-        local pPlayerConfig :table  = PlayerConfigurations[suzerainID];
-        local backColor, frontColor = UI.GetPlayerColors( suzerainID );
-        --local civType        :string = pPlayerConfig:GetCivilizationTypeName();
-        local civType        :string = pPlayerConfig:GetLeaderTypeName();
-        local suzerainTooltip = Locale.Lookup("LOC_CITY_STATES_SUZERAIN_LIST") .. " ";
-        if (pPlayer:GetDiplomacy():HasMet(suzerainID)) then
-            --bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetColor(frontColor);
-            bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetIcon("ICON_" .. civType);
-            if (suzerainID == Game.GetLocalPlayer()) then
-                bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup("LOC_CITY_STATES_YOU"));
-            else
-                bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup(pPlayerConfig:GetPlayerName()));
-            end
-        else
-            bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetIcon("ICON_LEADER_DEFAULT");
-            bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup("LOC_DIPLOPANEL_UNMET_PLAYER"));
-        end
-
-        bannerInstance.m_Instance.CQUI_CivSuzerain:SetHide(false);
-        bannerInstance:Resize();
-    else
-        bannerInstance.m_Instance.CQUI_CivSuzerain:SetHide(true);
     end
 end
 

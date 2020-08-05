@@ -3,10 +3,17 @@
     CQUI - fixes for districts' font icons
     Author: Infixo
     2020-08-02: Created
+    2020-08-04: Extended for CityState Banner Suzerain icon (the_m4a)
 -->
 
 <GameInfo>
+    <IconTextureAtlases>
+        <!-- Solid circle with fuzzed edges for blending; used as backing for Suzerain Icon in the City State Banners -->
+        <!-- Note: 44 was the smallest of this style, and did not have a Firaxis-defined IconDefinition  -->
+        <Row Name="ICON_ATLAS_CIRCLE_BACKING_44" IconSize="44" IconsPerRow="1" IconsPerColumn="1" Filename="CircleBacking44.dds"/>
+    </IconTextureAtlases>
     <IconDefinitions>
+        <Replace Name="ICON_CIRCLE_BACKING_44"   Atlas="ICON_ATLAS_CIRCLE_BACKING_44" Index="0"/>
         <Replace Name="DISTRICT_LAVRA"           Atlas="ICON_ATLAS_FONT_ICON_BASELINE_4" Index="180"/> <!-- 181 is used in the vanilla game, which points to Neighborhood -->
         <Replace Name="DISTRICT_STREET_CARNIVAL" Atlas="ICON_ATLAS_FONT_ICON_BASELINE_4" Index="188"/> <!-- missing in the vanilla game -->
     </IconDefinitions>

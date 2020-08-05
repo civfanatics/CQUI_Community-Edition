@@ -194,9 +194,9 @@
                             <Label ID="CityOccupiedIcon" Anchor="L,C" Style="FontNormal20" String="[ICON_Occupied]" ConsumeMouse="1" ToolTip="LOC_HUD_CITY_GROWTH_OCCUPIED"/>
                             <Label ID="CityQuestIcon" Anchor="L,C" Style="FontNormal20"/>
                             <!-- CQUI: Show Suzerain in CS banner -->
-                            <Container ID="CQUI_CivSuzerain" Anchor="C,C" Offset="0,0" Size="34,34" Hidden="1">
-                                <Image Size="27,27" Offset="1,0" Anchor="C,C" Texture="Banner_ProductionCircle">
-                                    <Image ID="CQUI_CivSuzerainIcon" Size="26,26" Texture="Leaders45" Anchor="L,T" Offset="1,0" />
+                            <Container ID="CQUI_CivSuzerain" Anchor="C,C" Size="34,34" Hidden="1">
+                                <Image ID="CQUI_CivSuzerainIconBackground" Size="26,26" Anchor="C,C" Icon="ICON_CIRCLE_BACKING_44" >
+                                    <Image ID="CQUI_CivSuzerainIcon" Size="26,26" Anchor="C,C" />
                                 </Image>
                             </Container>
                             <Label ID="CityName" Anchor="L,C" Style="HeaderSmallCaps" String="BALTIMORE" />

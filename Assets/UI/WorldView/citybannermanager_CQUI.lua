@@ -59,12 +59,14 @@ local CQUI_ShowCitizenIconsOnCityHover   = false;
 local CQUI_ShowCityManageAreaOnCityHover = true;
 local CQUI_CityManageAreaShown           = false;
 local CQUI_CityManageAreaShouldShow      = false;
+local CQUI_ShowSuzerainInCityStateBanner = true;
 
-local CQUI_SmartBanner                   = true;
-local CQUI_SmartBanner_Unmanaged_Citizen = false;
-local CQUI_SmartBanner_Districts         = true;
-local CQUI_SmartBanner_Population        = true;
-local CQUI_SmartBanner_Cultural          = true;
+local CQUI_SmartBanner                    = true;
+local CQUI_SmartBanner_Unmanaged_Citizen  = false;
+local CQUI_SmartBanner_Districts          = true;
+local CQUI_SmartBanner_Population         = true;
+local CQUI_SmartBanner_Cultural           = true;
+local CQUI_SmartBanner_DistrictsAvailable = true;
 
 local CQUI_CityMaxBuyPlotRange = tonumber(GlobalParameters.CITY_MAX_BUY_PLOT_RANGE);
 local CQUI_CityYields          = UILens.CreateLensLayerHash("City_Yields");
@@ -903,14 +905,45 @@ function CQUI_OnInfluenceGiven()
         if (pPlayer:GetCities():GetCapitalCity() ~= nil) then
             local iCapital = pPlayer:GetCities():GetCapitalCity():GetID();
             local bannerInstance = GetCityBanner(iPlayer, iCapital);
-            if (IsCQUI_ShowSuzerainInCityStateBannerEnabled()) then
-                if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
-                    bannerInstance:UpdateInfo(bannerInstance:GetCity());
-                else
-                    CQUI_UpdateSuzerainIcon_Basegame(pPlayer, bannerInstance);
-                end
-            end
+            CQUI_UpdateSuzerainIcon(pPlayer, bannerInstance);
         end
+    end
+end
+
+-- ===========================================================================
+function CQUI_UpdateSuzerainIcon( pPlayer:table, bannerInstance:CityBanner )
+    print_debug("CityBannerManager_CQUI: CQUI_UpdateSuzerainIcon ENTRY  pPlayer:"..tostring(pPlayer).."  bannerInstance:"..tostring(bannerInstance));
+    if (bannerInstance == nil) then
+        return;
+    end
+
+    local pPlayerInfluence :table  = pPlayer:GetInfluence();
+    local suzerainID       :number = pPlayerInfluence:GetSuzerain();
+    if (suzerainID ~= -1 and IsCQUI_ShowSuzerainInCityStateBannerEnabled()) then
+        local pPlayerConfig :table  = PlayerConfigurations[suzerainID];
+        local civType       :string = pPlayerConfig:GetCivilizationTypeName();
+        local backColor, frontColor = UI.GetPlayerColors(suzerainID);
+        local suzerainTooltip = Locale.Lookup("LOC_CITY_STATES_SUZERAIN_LIST") .. " ";
+        if (pPlayer:GetDiplomacy():HasMet(suzerainID)) then
+            bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetIcon("ICON_" .. civType);
+            bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetColor(frontColor);
+            bannerInstance.m_Instance.CQUI_CivSuzerainIconBackground:SetColor(backColor);
+            if (suzerainID == Game.GetLocalPlayer()) then
+                bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup("LOC_CITY_STATES_YOU"));
+            else
+                bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup(pPlayerConfig:GetPlayerName()));
+            end
+        else
+            bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetIcon("ICON_LEADER_DEFAULT");
+            bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup("LOC_DIPLOPANEL_UNMET_PLAYER"));
+        end
+
+        bannerInstance.m_Instance.CQUI_CivSuzerain:SetHide(false);
+        bannerInstance:Resize();
+    else
+        -- TEMP
+
+        bannerInstance.m_Instance.CQUI_CivSuzerain:SetHide(true);
     end
 end
 
