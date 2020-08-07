@@ -199,6 +199,6 @@ Firaxis for eventually delivering mod tools and steam workshop.
 
 The lovely folks over at Civfanatics for their guides, knowledge, tools, and resources. 
 
-The even lovelier folks contibuting on GitHub and over at /r/civ for their input and testing. 
+The even lovelier folks contributing on GitHub and over at /r/civ for their input and testing. 
 
 The, arguably, lovely folks back at the Steam Workshop :p
