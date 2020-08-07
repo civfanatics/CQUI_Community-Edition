@@ -198,6 +198,7 @@
                 <File>Assets/Expansion1/CityBanners/cityreligioninstances.xml</File>
                 <File>Assets/Expansion1/Replacements/citypaneloverview_expansion1_CQUI.lua</File>
                 <File>Assets/Expansion1/Replacements/citystates.xml</File>
+                <File>Assets/Expansion1/Replacements/citystates_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/citysupport_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/diplomacyactionview_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/diplomacyribbon_CQUI_expansion1.lua</File>
@@ -233,6 +234,7 @@
             <Items>
                 <File>Assets/Expansion2/Replacements/citypaneloverview_expansion2_CQUI.lua</File>
                 <File>Assets/Expansion2/Replacements/citystates.xml</File>
+                <File>Assets/Expansion2/Replacements/citystates_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/citysupport_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/civicstree_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/diplomacyactionview_CQUI_expansion2.lua</File>
@@ -338,10 +340,28 @@
         <!-- ============================== ReplaceUIScript Declarations ============================== -->
         <ReplaceUIScript id="CQUI_CityStates">
             <Properties>
-                <!-- This extends the functionality of citystates.lua for vanilla and both expansions, so LoadOrder should be  -->
-                <LoadOrder>200</LoadOrder>
+                <!-- Later than usual load to ensure function extensions are loaded (e.g. CIVITAS City States Expanded loads at 201) -->
+                <LoadOrder>230</LoadOrder>
                 <LuaContext>CityStates</LuaContext>
                 <LuaReplace>Assets/UI/PartialScreens/citystates_CQUI_basegame.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
+        <ReplaceUIScript id="CQUI_CityStates_EXP1"  criteria="Expansion1">
+            <Properties>
+                <!-- Later than usual load to ensure function extensions are loaded -->
+                <LoadOrder>240</LoadOrder>
+                <LuaContext>CityStates</LuaContext>
+                <LuaReplace>Assets/Expansion1/Replacements/citystates_CQUI_expansion1.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
+        <ReplaceUIScript id="CQUI_CityStates_EXP2"  criteria="Expansion2">
+            <Properties>
+                <!-- Later than usual load to ensure function extensions are loaded -->
+                <LoadOrder>250</LoadOrder>
+                <LuaContext>CityStates</LuaContext>
+                <LuaReplace>Assets/Expansion2/Replacements/citystates_CQUI_expansion2.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
 
@@ -884,6 +904,7 @@
         <File>Assets/Expansion1/Replacements/citypanelculture_CQUI.lua</File>
         <File>Assets/Expansion1/Replacements/citypaneloverview_expansion1_CQUI.lua</File>
         <File>Assets/Expansion1/Replacements/citystates.xml</File>
+        <File>Assets/Expansion1/Replacements/citystates_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/citysupport_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/diplomacyactionview_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/diplomacyribbon_CQUI_expansion1.lua</File>
@@ -899,6 +920,7 @@
         <!-- EXP 2 -->
         <File>Assets/Expansion2/Replacements/citypaneloverview_expansion2_CQUI.lua</File>
         <File>Assets/Expansion2/Replacements/citystates.xml</File>
+        <File>Assets/Expansion2/Replacements/citystates_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/citysupport_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/civicstree_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/diplomacyactionview_CQUI_expansion2.lua</File>

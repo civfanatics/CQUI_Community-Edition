@@ -1,7 +1,7 @@
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
-BASE_AddCityStateRow = AddCityStateRow;
+BASE_CQUI_AddCityStateRow = AddCityStateRow;
 
 -- ===========================================================================
 --  CONSTANTS
@@ -12,7 +12,7 @@ local COLOR_ICON_BONUS_OFF:number = UI.GetColorValueFromHexLiteral(0xff606060);
 --  CQUI Function Extensions
 -- ===========================================================================
 function AddCityStateRow( kCityState:table )
-    local kInst = BASE_AddCityStateRow(kCityState);
+    local kInst = BASE_CQUI_AddCityStateRow(kCityState);
 
     -- Determine the 2nd place (or first-place tie), produce text for Tooltip on the EnvoyCount label
     local envoyTable:table = {};
