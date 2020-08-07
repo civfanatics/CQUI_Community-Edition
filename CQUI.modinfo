@@ -145,6 +145,8 @@
                 <File>Assets/UI/worldviewiconsmanager_CQUI.lua</File>
                 <File>Assets/UI/Choosers/civicschooser.lua</File>
                 <File>Assets/UI/Choosers/researchchooser.lua</File>
+                <File>Assets/UI/Civilopedia/civilopediasupport_CQUI.lua</File>
+                <File>Assets/UI/Civilopedia/civilopediascreen.lua</File>
                 <File>Assets/UI/Panels/citypanel.lua</File>
                 <File>Assets/UI/Panels/citypanel.xml</File>
                 <File>Assets/UI/Panels/citypaneloverview.lua</File>
@@ -998,6 +1000,8 @@
         <File>Assets/UI/worldviewiconsmanager_CQUI.lua</File>
         <File>Assets/UI/Choosers/civicschooser.lua</File>
         <File>Assets/UI/Choosers/researchchooser.lua</File>
+        <File>Assets/UI/Civilopedia/civilopediasupport_CQUI.lua</File>
+        <File>Assets/UI/Civilopedia/civilopediascreen.lua</File>
         <File>Assets/UI/Panels/citypanel.lua</File>
         <File>Assets/UI/Panels/citypanel.xml</File>
         <File>Assets/UI/Panels/citypaneloverview.lua</File>
