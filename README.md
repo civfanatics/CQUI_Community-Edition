@@ -5,7 +5,7 @@ CQUI is a UI mod that replaces parts of the original Civ 6 UI, with the intentio
 
 This repository is the official repository of the [CQUI steam mod](http://steamcommunity.com/sharedfiles/filedetails/?id=2115302648).
 
-![cquiscreens](https://user-images.githubusercontent.com/8012430/31862026-75c5822e-b737-11e7-9ac3-afe993e26eb6.jpg)
+![CQUIReadmeScreen](https://user-images.githubusercontent.com/8787640/89616678-a6b97c80-d83d-11ea-8822-06e005c4ce8e.png)
 
 ## Installation
 
@@ -21,17 +21,25 @@ Mac : /Users/[user]/Library/Application Support/Sid Meier's Civilization VI/Mods
 Linux : ~/.local/share/aspyr-media/Sid Meier's Civilization VI/Mods
 ```
 
+### Customizing Settings
+See CQUI_Settings_Local section later in this document.
+
 ## Key Features
 
 - Civ V Style Cityview _- [image](https://camo.githubusercontent.com/e39306c882c0f9b95494ea391cee0baa838d3072/687474703a2f2f692e696d6775722e636f6d2f583571427a6a612e6a7067)_
   - Production panel elements compressed and reordered _- [image](http://i.imgur.com/DpZ0kcn.png)_
+- Toggle-able "Smart" City Banners showing useful info in the banner and in tooltips _- [image](https://i.imgur.com/Xdt33Nw.gif)_
+  - Built Districts (with full list in tooltip)
+  - Population-required Districts available for building icon (with tooltip showing built and available)
+  - Original City Founder (if City was captured)
+  - Turns before population increase, turns before border expansion, and housing available
 - Great Person panel revamped _- [image](https://user-images.githubusercontent.com/8012430/31862025-75a4cb88-b737-11e7-9b0f-57129f114f59.jpg)_
   - No more side scrolling
   - Adapts to the screen height
 - Policy Reminder Popup _- [image](https://user-images.githubusercontent.com/8012430/31861779-17cd1758-b733-11e7-8b16-b4422999c8af.png)_
-- Improved amenities city details screen (Clean Icons) _- [image](http://i.imgur.com/UA1NrR5.png)_
+- Improved amenities city details screen (Clean Icons) _- [image](https://i.imgur.com/UA1NrR5.png)_
+- City State Envoy list also shows 2nd place Suzerain and tooltip lists all Envoys sent to that City State _- [image](https://user-images.githubusercontent.com/8787640/89607786-33594000-d828-11ea-9252-def0707c5bea.png)_
 - "My Government" tab removed from Government panel _- [image](http://i.imgur.com/168ThOx.jpg)_
-- Diplomatic banner shows the scores of the civilizations _- [image](https://user-images.githubusercontent.com/8012430/31861834-15a1db7a-b734-11e7-91dc-22daaa09653b.png)_
 - Leaderheads expanded tooltips _- [image](https://user-images.githubusercontent.com/8012430/31861835-17537960-b734-11e7-8ae4-08e7e3f19cc4.png)_
 - Map Pinning system enhanced _- [image](http://i.imgur.com/M11tac6.png)_
   - New pins
@@ -39,8 +47,7 @@ Linux : ~/.local/share/aspyr-media/Sid Meier's Civilization VI/Mods
   - Right click in pinlist to quickly delete pins
   - Enter key now bound to finalizing a pin in pin creation menu
 - Tech/Civic Tree and Civilopedia now autofocus the search bar
-- Civilopedia remembers the last visited page
-- Dedicated mod settings menu _- [image](https://user-images.githubusercontent.com/8012430/31861832-13bb16d2-b734-11e7-9524-b7292881f7af.png)_
+- Dedicated mod settings menu _- [image](https://user-images.githubusercontent.com/8787640/89606291-67cafd00-d824-11ea-91b2-25b1fdab39d6.png)_
   - Civic/Tech popups can be disabled. Optionally, the voiceover can still be kept even without the popup.
   - Recommendation UI can be enabled/disabled
   - Minimap size can be changed
@@ -50,11 +57,11 @@ Linux : ~/.local/share/aspyr-media/Sid Meier's Civilization VI/Mods
 - Improved resource icons are dimmed to emphasize unutilized resources _- [image](http://i.imgur.com/m32xtQr.png)_
 - Civ V keybinding options
   - Classic, a faithful recreation of the Civ V binding scheme
-  - Enhanced, Civ V binding scheme with WASD assigned to camera control, Q/E assigned to city/unit cycling, and Shift assigned to shifting focus between city and unit selection modes
+  - Enhanced, Civ V binding scheme with WASD assigned to camera control, Q/E assigned to city/unit cycling
 - Unit actions like sell/delete are no longer hidden behind an expando _- [image](http://i.imgur.com/x1xZtyY.png)_
 - Unit XP bars are twice as tall _- [image](http://i.imgur.com/TeWR0VA.png)_
 - Growth/Amenities/Bordergrowth info baked into city banners _- [image](http://i.imgur.com/8CUJSB6.png)_
-- "Smart Banner" Toggleable option to display a green icon indicating non-locked citizens and district icons indicating built districts _- [image](http://i.imgur.com/XLVP92n.png)_
+
 - Luxury resources are displayed in the top bar alongside strategic resources _-[ image](http://i.imgur.com/ebYO8l4.png)_
 - Right clicking the action panel (bottom right button) instantly ends turn even when things like production/research/unit moves have not been decided
 
@@ -63,23 +70,23 @@ Linux : ~/.local/share/aspyr-media/Sid Meier's Civilization VI/Mods
 Over the time, some other UI mods were integrated into CQUI.
 
 ### Improved Deal Screen
-Mod by mironos, from the [steam workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=884220740). It's a totally revamped diplomatic deals screen, with an improved and expanded layout, easier to read and navigate offer area, color-coded icons, and more in-depth information.
+Mod originally by mironos (on the Steam Workshop), now incorporated into and maintained as part of CQUI.  A totally revamped diplomatic deals screen, with an improved and expanded layout, easier to read and navigate offer area, color-coded icons, and more in-depth information.
 
-![improveddealscreen](https://user-images.githubusercontent.com/8012430/31861685-d060611e-b731-11e7-99ae-e79072d0aa83.jpg)
+![improveddealscreen](https://user-images.githubusercontent.com/8787640/89608067-e6299e00-d828-11ea-8b13-c46943717751.png)
 
 - All resources a civilization has access to are now listed, including those acquired via trade with other civs and those imported from city states, to avoid trading for resources you already have
-- Resource icons have been color-coded and custom sorted _- [image](https://i.imgur.com/PytRc3E.jpg)_
+- Resource icons have been color-coded and custom sorted
   - Resources you have direct access to are sorted by decreasing quantity
   - Resources you only have 1 of are considered scarce, and are given a red font
   - Resources that both you and your trading partner already have are color-coded with a tan button
   - Resources that you own but that can't be traded (typically, those that are imported from elsewhere) are listed for reference, but cannot be selected
 - Cities are now sorted alphabetically
-- City details are displayed right on the city buttons for easy reference _- [image](https://i.imgur.com/mSiRY2w.jpg)_
-- Additional city information has been added the city tooltips
+- City details are displayed right on the city buttons for easy reference
+- Additional city information has been added the city tooltips _- [image](https://user-images.githubusercontent.com/8787640/89608240-74058900-d829-11ea-82d9-36797f04068c.png)_
 - When negotiating peace treaties, currently occupied cities are highlighted and sorted to the top
 - Great works buttons include a 'type' icon
 - All great works with a creator now display that creator
-- Artifacts include civ icons so you can tell at a glance what nation or city state the artifact originated from. It also the displays artifact's era.
+- Artifacts include civ leader names so you can tell at a glance what nation or city state the artifact originated from, as well as the artifact's era.
 
 ### Better Trade Screen
 Mod by [astog](https://github.com/astog), you can find it [on github](https://github.com/astog/BTS). The goal of this mod is to improve the trade screens in Civilization VI and help manage and monitor running trade routes.
@@ -160,13 +167,38 @@ Mod by FinalFreak16, from the [steam workshop](https://steamcommunity.com/shared
 
 - Each message has its own icon to categorize each entry and make it easier to see what happened at a glance
 
+## Maintaining CQUI Settings in New Games using CQUI_Settings_Local.sql
+CQUI will maintain your configured settings for every saved game without issue, however, Firaxis has not made maintaining configured settings easy to do when creating a new game.  The CQUI_Settings_Local.sql file can be used to maintain these settings.
+
+CQUI_Settings_Local.sql is a copy of the CQUI_Settings.sql file found in the mod's root folder.  CQUI_Settings.sql contains all of the _default_ settings for CQUI, the settings that are applied at the start of every new game if CQUI_Settings_Local.sql is not in place.
+
+CQUI_Settings_Local.sql loads after CQUI_Settings.sql, meaning it will replace/update any of those default values to the value you prefer.
+
+The version of CQUI_Settings_Local.sql packaged with this mod has all of the lines "commented" out, meaning that Civ VI will not load that setting.  Remove the double-minus sign ( -- ) from the beginning of a line to "uncomment" it, and save the SQL file.
+
+**NOTE:** When subscribing to the CQUI mod on the Steam Workshop, the copy of CQUI_Settings_Local.sql located in the mod's root directory [SteamFolder]/SteamApps/Workshop/Content/289070/2115302648 is overwritten every time a new update for CQUI is pushed to the Steam Workshop.  **Save a copy of this file elsewhere on your machine so you can restore settings whenever the Workshop version is updated.**
+
+### New (August 2020): CQUI_Settings_Local.sql located in Mod's _Parent_ Folder
+It was discovered recently that files in the mod's _parent_ folder can ben referenced, and those files are _not_ updated when new versions are pushed to the Steam Workshop.  With that in mind, CQUI will now also look for CQUI_Settings_Local.sql in the _parent folder of where CQUI.modinfo is located_.
+
+#### Example: CQUI From Steam Workshop Subscription
+Place CQUI_Settings_Local.sql in the [SteamFolder]/SteamApps/Workshop/Content/289070 folder
+
+![image](https://user-images.githubusercontent.com/8787640/89610046-6dc5db80-d82e-11ea-87f5-a8f440d81a1f.png)
+
+#### Example: CQUI Downloaded and Placed in Civ VI Mods Folder
+Place CQUI_Settings_Local.sql in the "Mods" folder:
+
+![image](https://user-images.githubusercontent.com/8787640/89610526-94384680-d82f-11ea-83a9-4d55540f2055.png)
+
+
 ## Credits
-@Vans163 for his original QUI mod, @Chaorace for the Chao's QUI, @Sparrow for this reborn as a Community QUI, @alexeyOnGitHub, @alimulhuda, @astog, Aristos/@ricanuck, @JHCD, Greg Miller, Ace, Divine Yuri, @ZhouYzzz, @deggesim, @e1ectron, @sejbr, @frytom, @maxap, @lctrs, @wbqd, @jacks0nX, @RatchetJ, @Frozen-In-Ice, @zgavin, @olegbl, @Proustldee, @kblease, @bolbass, @SpaceOgre, @OfekA, @zeyangl, @Remolten, @bestekov, @cpinter, @paavohuhtala, @perseghini, @benjaminjackman, @velit, @the-m4a, @MarkusKV, @apskim, @8h42
+@Vans163 for his original QUI mod, @Chaorace for the Chao's QUI, @alexeyOnGitHub, @alimulhuda, @the-m4a, @Infixo, @Sparrow, @astog, Aristos/@ricanuck, @JHCD, Greg Miller, Ace, Divine Yuri, @ZhouYzzz, @deggesim, @e1ectron, @sejbr, @frytom, @maxap, @lctrs, @wbqd, @jacks0nX, @RatchetJ, @Frozen-In-Ice, @zgavin, @olegbl, @Proustldee, @kblease, @bolbass, @SpaceOgre, @OfekA, @zeyangl, @Remolten, @bestekov, @cpinter, @paavohuhtala, @perseghini, @benjaminjackman, @velit, @MarkusKV, @apskim, @8h42
 
 Firaxis for eventually delivering mod tools and steam workshop. 
 
 The lovely folks over at Civfanatics for their guides, knowledge, tools, and resources. 
 
-The even lovelier folks over at /r/civ for their input and testing. 
+The even lovelier folks contibuting on GitHub and over at /r/civ for their input and testing. 
 
 The, arguably, lovely folks back at the Steam Workshop :p
