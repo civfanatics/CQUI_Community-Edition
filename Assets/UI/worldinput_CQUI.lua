@@ -22,6 +22,7 @@ local CQUI_cityview     :boolean = false;
 local CQUI_hotkeyMode   :number  = CQUI_HOTKEYMODE_ENHANCED;
 local CQUI_isShiftDown  :boolean = false;
 local CQUI_isAltDown    :boolean = false;
+local CQUI_ActiveLensSaved :boolean = false;
 
 function CQUI_OnSettingsUpdate()
     CQUI_hotkeyMode = GameConfiguration.GetValue("CQUI_BindingsMode");
@@ -379,26 +380,28 @@ function RealizeMovementPath(showQueuedPath:boolean, unitID:number)
     print_debug("** Function Entry: RealizeMovementPath (CQUI Hook) -- showQueuedPath: "..tostring(showQueuedPath).." unitID"..tostring(unitID));
     -- Largely the same as the base RealizeMovementPath, save for the additional unitID parameter
     -- The unitID allows CQUI to show the movement path when a unit is hovered over (base game returns because no unit is actually selected)
+    -- Note: Adding the "show movement path on hover" mechanism means that this function cannot be extended and therefore must be replaced entirely
     
     if not UI.IsMovementPathOn() or UI.IsGameCoreBusy() then
         return;
     end
 
-    -- CQUI (Azurency) : Check if in CITY_MANAGEMENT or STRIKE modes
+    -- BEGIN CQUI changes from basegame RealizeMovementPath (1st of 2 in this function)
     CQUI_im = UI.GetInterfaceMode();
     if (CQUI_im == InterfaceModeTypes.CITY_MANAGEMENT or CQUI_im == InterfaceModeTypes.CITY_RANGE_ATTACK or CQUI_im == InterfaceModeTypes.DISTRICT_RANGE_ATTACK) then
         return;
     end
 
-    -- Bail if no selected unit
-    -- CQUI: If unitID is not null (as happens when hovering option is enabled), then that will be used instead
+    -- CQUI: If unitID is *not* null (as happens when hovering option is enabled), then that will be used instead
     local kUnit :table = nil;
     if unitID then
         kUnit = Players[Game.GetLocalPlayer()]:GetUnits():FindID(unitID);
     else
         kUnit = UI.GetHeadSelectedUnit();
     end
+    -- END CQUI changes from basegame RealizeMovementPath (1 of 2)
 
+    -- Bail if no selected unit
     if kUnit == nil then
         UILens.SetActive("Default");
         m_cachedPathUnit = nil;
@@ -431,6 +434,13 @@ function RealizeMovementPath(showQueuedPath:boolean, unitID:number)
 
     -- Only update if a new unit or new plot from the previous update.
     if m_cachedPathUnit ~= kUnit or m_cachedPathPlotId  ~= endPlotId then
+        -- BEGIN CQUI changes from basegame RealizeMovementPath (2nd of 2 in this function)
+        if (CQUI_im == InterfaceModeTypes.VIEW_MODAL_LENS) then
+            -- Save the currently displayed lens so that when it's either determined that the mouse is no longer hovering on a unit OR the unit movement path lens does not need to be shown, the current one can be retored
+            CQUI_SaveActiveLens();
+        end
+        -- END CQUI changes from basegame RealizeMovementPath (2 of 2)
+
         UILens.ClearLayerHexes( g_MovementPath );
         UILens.ClearLayerHexes( g_Numbers );
         UILens.ClearLayerHexes( g_AttackRange );
@@ -443,8 +453,8 @@ function RealizeMovementPath(showQueuedPath:boolean, unitID:number)
         m_cachedPathPlotId  = endPlotId;
 
         -- Obtain ordered list of plots.
-        local variations  : table = {};  -- 2 to 3 values
-        local eLocalPlayer  : number = Game.GetLocalPlayer();
+        local variations   : table = {};  -- 2 to 3 values
+        local eLocalPlayer : number = Game.GetLocalPlayer();
 
         --check for unit position swap first
         local startPlotId :number = Map.GetPlot(kUnit:GetX(),kUnit:GetY()):GetIndex();
@@ -526,8 +536,8 @@ function RealizeMovementPath(showQueuedPath:boolean, unitID:number)
             end
 
             -- If any plots are in Fog Of War (FOW) then switch to the FOW movement lens.
-            local lensNameBase      :string = "MovementGood";
-            local movePostfix      :string = "";
+            local lensNameBase :string = "MovementGood";
+            local movePostfix  :string = "";
             local isPathHaveRestriction,restrictedPlotId = IsPlotPathRestrictedForUnit( pathInfo.plots, pathInfo.turns, kUnit );
 
             if showQueuedPath then
@@ -680,6 +690,9 @@ function ClearMovementPath()
     end
     m_cachedPathUnit = nil;
     m_cachedPathPlotId = -1;
+
+    -- If RealizeMovementPath was called while a lens was showing, it will have called SaveActiveLens... this will restore it if that was the case.
+    CQUI_RestoreActiveLensIfSaved();
 end
 
 -- ===========================================================================
@@ -739,6 +752,18 @@ end
 -- CQUI: Unique Functions
 -- These functions are unique to CQUI, do not exist in the Base WorldInput.lua
 -- ===========================================================================
+function CQUI_SaveActiveLens()
+    CQUI_ActiveLensSaved = true;
+    UILens.SaveActiveLens();
+end
+
+-- ===========================================================================
+function CQUI_RestoreActiveLensIfSaved()
+    if (CQUI_ActiveLensSaved == true) then
+        CQUI_ActiveLensSaved = false;
+        UILens.RestoreActiveLens();
+    end
+end
 
 -- ===========================================================================
 function CQUI_BuildImprovement (unit, improvementHash: number)
