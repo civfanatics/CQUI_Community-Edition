@@ -5,7 +5,7 @@
         <AffectsSavedGames>0</AffectsSavedGames>
         <Name>Community Quick User Interface</Name>
         <Teaser>CQUI</Teaser>
-        <Description>The Community Quick User Interface MOD, CivFanatics Version: Updated May 2020.</Description>
+        <Description>The Community Quick User Interface MOD, 2020 CivFanatics Version</Description>
         <CompatibleVersions>1.2,2.0</CompatibleVersions>
     </Properties>
 
@@ -69,10 +69,25 @@
         <UpdateDatabase id="CQUI_Settings_Local">
             <Properties>
                 <Name>CQUI Settings Local</Name>
-                <LoadOrder>-10</LoadOrder>
+                <LoadOrder>-11</LoadOrder>
             </Properties>
             <Items>
                 <File>Assets/cqui_settings_local.sql</File>
+            </Items>
+        </UpdateDatabase>
+        <!-- This is a "hack", however it is one that allows users to skirt the issue of their settings_local file being updated every time we push new updates -->
+        <!-- We are allowed to reference files in the parent folder to the .modinfo file, if the file exists then the game will load it up just fine. -->
+        <!-- However, these files in the parent folder are *not* uploaded to the Steam Workshop and do *not* appear in the [SteamPath]\SteamApps\Workshop\Content\289070 folder (the Civ6 Workshop Mods folder) of users that subscribe -->
+        <!-- Therefore, by placing this here, we can allow users to place a cqui_settings_local.sql file in the 289070 folder that allows them to have their customized mod settings be applied to every new game -->
+        <!-- without fear that those settings would be overwritten whenever a new version of the mod is uploaded to the workshop. -->
+        <!-- This "ParentFolder" version will load after and overwrite settings of the version found in the CQUI Mod root folder. -->
+        <UpdateDatabase id="CQUI_Settings_Local_ParentFolder">
+            <Properties>
+                <Name>CQUI Settings Local (Parent Folder)</Name>
+                <LoadOrder>-10</LoadOrder>
+            </Properties>
+            <Items>
+                <File>../cqui_settings_local.sql</File>
             </Items>
         </UpdateDatabase>
         <!-- LoadOrder 0 is default, we need this to load first -->
@@ -862,6 +877,8 @@
 
     <!-- Complete File Manifest -->
     <Files>
+        <!-- See note before the UpdateDatabase section above -->
+        <File>../cqui_settings_local.sql</File>
         <File>CQUI.dep</File>
         <File>Assets/cqui_databaseschema.sql</File>
         <File>Assets/cqui_settings.sql</File>
