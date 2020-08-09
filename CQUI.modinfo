@@ -168,7 +168,7 @@
                 <File>Assets/UI/Panels/citypaneloverview.xml</File>
                 <!-- Note: Casing must match the style in Firaxis' NotificationPanel.lua in order to properly be included. -->
                 <File>Assets/UI/Panels/NotificationPanel_CQUI.lua</File>
-                <File>Assets/UI/Panels/statusmessagepanel.lua</File>
+                <File>Assets/UI/Panels/statusmessagepanel_CQUI.lua</File>
                 <File>Assets/UI/Panels/statusmessagepanel.xml</File>
                 <File>Assets/UI/Panels/unitpanel_CQUI_basegame.lua</File>
                 <File>Assets/UI/Panels/unitpanel_CQUI.lua</File>
@@ -724,6 +724,13 @@
             </Properties>
         </ReplaceUIScript>
 
+        <ReplaceUIScript id="CQUI_StatusMessagePanel">
+            <Properties>
+                <LuaContext>StatusMessagePanel </LuaContext>
+                <LuaReplace>Assets/UI/Panels/statusmessagepanel_CQUI.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
         <!-- ============================== Mod integrations ======================================== -->
         <!-- ============================== Better Trade Screen (BTS) ============================== -->
         <LocalizedText id="BTS_TEXT">
@@ -1025,7 +1032,7 @@
         <File>Assets/UI/Panels/citypaneloverview.xml</File>
         <File>Assets/UI/Panels/NotificationPanel_CQUI.lua</File>
         <File>Assets/UI/Panels/productionpanel_CQUI.lua</File>
-        <File>Assets/UI/Panels/statusmessagepanel.lua</File>
+        <File>Assets/UI/Panels/statusmessagepanel_CQUI.lua</File>
         <File>Assets/UI/Panels/statusmessagepanel.xml</File>
         <File>Assets/UI/Panels/unitpanel_CQUI_basegame.lua</File>
         <File>Assets/UI/Panels/unitpanel_CQUI.lua</File>
