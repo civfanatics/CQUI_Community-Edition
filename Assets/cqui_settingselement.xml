@@ -44,6 +44,9 @@
                             <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
                                 <GridButton ID="ToggleYieldsOnLoadCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_GENERAL_TOGGLEYIELDSONLOAD" />
                             </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <GridButton ID="ShowSuzerainInCityStateBanner" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" />
+                            </Stack>
                         </Stack>
                     </Container>
                     <Container ID="PopupsOptions" Size="parent,parent" Hidden="1">
@@ -109,6 +112,9 @@
                                     </Stack>
                                     <Stack Anchor="R,T" StackGrowth="Left" Offset="0,5">
                                         <GridButton ID="SmartbannerCulturalCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_PEDIA_CITYSTATES_PAGEGROUP_CULTURAL_NAME" />
+                                    </Stack>
+                                    <Stack Anchor="R,T" StackGrowth="Left" Offset="0,5">
+                                        <GridButton ID="SmartbannerDistrictsAvailableCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_CITYVIEW_SMARTBANNER_DISTRICTS_AVAILABLE" />
                                     </Stack>
                                 </Stack>
                                 <Stack Anchor="C,C" StackGrowth="Left">
