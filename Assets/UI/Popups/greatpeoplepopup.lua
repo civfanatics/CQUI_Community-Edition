@@ -23,7 +23,7 @@ local SIZE_ACTION_ICON         :number = 38;
 local m_TopPanelConsideredHeight :number = 0;
 local m_greatPersonPanelIM       :table  = InstanceManager:new("PanelInstance",           "Content", Controls.PeopleStack);
 local m_greatPersonRowIM         :table  = InstanceManager:new("PastRecruitmentInstance", "Content",    Controls.RecruitedStack);
-local m_uiGreatPeople            :table;
+local m_kGreatPeople             :table;
 local m_kData                    :table;
 local m_activeBiographyID        :number = -1; -- Only allow one open at a time (or very quick exceed font allocation)
 local m_activeRecruitInfoID      :number = -1; -- Only allow one open at a time (or very quick exceed font allocation)
@@ -156,7 +156,7 @@ function ViewCurrent( data:table )
         return;
     end
 
-    m_uiGreatPeople = {};
+    m_kGreatPeople = {};
     m_greatPersonPanelIM:ResetInstances();
     Controls.PeopleScroller:SetHide(false);
     Controls.RecruitedArea:SetHide(true);
@@ -167,15 +167,22 @@ function ViewCurrent( data:table )
     local CQUI_isPreferedRecruitScrollSizeComputed:boolean = false;
 
     for i, kPerson:table in ipairs(data.Timeline) do
-        
         local instance  :table = m_greatPersonPanelIM:GetInstance();
         local classData :table = GameInfo.GreatPersonClasses[kPerson.ClassID];
         local individualData :table = GameInfo.GreatPersonIndividuals[kPerson.IndividualID];
-        local classText :string = "";
 
         if (kPerson.ClassID ~= nil) then
-            classText = Locale.Lookup(classData.Name);
+            local portrait:string = "ICON_GENERIC_" .. classData.GreatPersonClassType;
+            portrait = portrait:gsub("_CLASS","_INDIVIDUAL");
+            instance.Portrait:SetIcon(portrait);
+            instance.CircleFlare:SetHide(false);
+
+            local classText:string = Locale.Lookup(classData.Name);
             instance.ClassName:SetText(classText);
+            instance.ClassName:SetHide(false);
+        else
+            instance.CircleFlare:SetHide(true);
+            instance.ClassName:SetHide(true);
         end
         
         if kPerson.IndividualID ~= nil then
@@ -188,13 +195,6 @@ function ViewCurrent( data:table )
             instance.EraName:SetText( eraName );
         end
 
-    -- Grab the generic icons for each great person class type
-        if (kPerson.ClassID ~= nil) and (kPerson.IndividualID ~= nil) then
-            portrait = "ICON_GENERIC_" .. classData.GreatPersonClassType .. "_" .. individualData.Gender;
-            portrait = portrait:gsub("_CLASS","_INDIVIDUAL");
-            instance.Portrait:SetIcon(portrait);
-        end
-        
         if instance["m_EffectsIM"] ~= nil then
             instance["m_EffectsIM"]:ResetInstances();
         else
@@ -251,14 +251,19 @@ function ViewCurrent( data:table )
         end
 
         if kPerson.IndividualID ~= nil and kPerson.ClassID ~= nil then
-
         -- Buy via gold
             if (HasCapability("CAPABILITY_GREAT_PEOPLE_RECRUIT_WITH_GOLD") and (not kPerson.CanRecruit and not kPerson.CanReject and kPerson.PatronizeWithGoldCost ~= nil and kPerson.PatronizeWithGoldCost < 1000000)) then
-                instance.GoldButton:SetText(kPerson.PatronizeWithGoldCost .. "[ICON_Gold]");
+                if (kPerson.CanPatronizeWithGold) then
+                    instance.GoldButton:SetText("[COLOR_GoldMetal]" .. kPerson.PatronizeWithGoldCost .. "[ENDCOLOR][ICON_Gold]");
+                    instance.GoldButton:SetDisabled(false);
+                else
+                    instance.GoldButton:SetText("[COLOR_GoldMetalDark]" .. kPerson.PatronizeWithGoldCost .. "[ENDCOLOR][ICON_Gold]");
+                    instance.GoldButton:SetDisabled(true);
+                end
+
                 instance.GoldButton:SetToolTipString(GetPatronizeWithGoldTT(kPerson));
                 instance.GoldButton:SetVoid1(kPerson.IndividualID);
                 instance.GoldButton:RegisterCallback(Mouse.eLClick, OnGoldButtonClick);
-                instance.GoldButton:SetDisabled(not kPerson.CanPatronizeWithGold);
                 instance.GoldButton:SetHide(false);
             else
                 instance.GoldButton:SetHide(true);
@@ -266,11 +271,17 @@ function ViewCurrent( data:table )
 
         -- Buy via Faith
             if (HasCapability("CAPABILITY_GREAT_PEOPLE_RECRUIT_WITH_FAITH") and (not kPerson.CanRecruit and not kPerson.CanReject and kPerson.PatronizeWithFaithCost ~= nil and kPerson.PatronizeWithFaithCost < 1000000)) then
-                instance.FaithButton:SetText(kPerson.PatronizeWithFaithCost .. "[ICON_Faith]");
+                if ((kPerson.CanPatronizeWithFaith) and not IsReadOnly()) then
+                    instance.FaithButton:SetText("[COLOR_Faith]" .. kPerson.PatronizeWithFaithCost .. "[ENDCOLOR][ICON_Faith]");
+                    instance.FaithButton:SetDisabled(false);
+                else
+                    instance.FaithButton:SetText("[COLOR_FaithDark]" .. kPerson.PatronizeWithFaithCost .. "[ENDCOLOR][ICON_Faith]");
+                    instance.FaithButton:SetDisabled(true);
+                end
+
                 instance.FaithButton:SetToolTipString(GetPatronizeWithFaithTT(kPerson));
                 instance.FaithButton:SetVoid1(kPerson.IndividualID);
                 instance.FaithButton:RegisterCallback(Mouse.eLClick, OnFaithButtonClick);
-                instance.FaithButton:SetDisabled(not kPerson.CanPatronizeWithFaith);
                 instance.FaithButton:SetHide(false);
             else
                 instance.FaithButton:SetHide(true);
@@ -302,11 +313,12 @@ function ViewCurrent( data:table )
             end
 
         -- If Recruit or Reject buttons are shown hide the minimized recruit stack
-            if not instance.RejectButton:IsHidden() or not instance.RecruitButton:IsHidden() then
-                instance.RecruitMinimizedStack:SetHide(true);
-            else
-                instance.RecruitMinimizedStack:SetHide(false);
-            end
+        -- CQUI: Do not hide the "Minimized Recruit" Stack (which lists the progress of all of the civs for that Great Person)
+            -- if not instance.RejectButton:IsHidden() or not instance.RecruitButton:IsHidden() then
+            --    instance.RecruitMinimizedStack:SetHide(true);
+            -- else
+            --    instance.RecruitMinimizedStack:SetHide(false);
+            -- end
             
         -- Recruiting standings
         -- Let's sort the table first by points total, then by the lower player id (to push yours toward the top of the list for readability)
@@ -323,7 +335,7 @@ function ViewCurrent( data:table )
                     end 
                     end);
 
-            for i, kPlayerPoints in ipairs(recruitTable) do        
+            for i, kPlayerPoints in ipairs(recruitTable) do
                 if (kPlayerPoints.PlayerID == Game.GetLocalPlayer()) then
                     FillRecruitInstance(instance.LocalPlayerRecruitInstance, kPlayerPoints, kPerson, classData);
                 else
@@ -336,9 +348,11 @@ function ViewCurrent( data:table )
 
                 local recruitExtendedInst:table = instance["m_RecruitExtendedIM"]:GetInstance();
                 FillRecruitInstance(recruitExtendedInst, kPlayerPoints, kPerson, classData);
-
             end
-            if not CQUI_isPreferedRecruitScrollSizeComputed then CQUI_isPreferedRecruitScrollSizeComputed = true; end
+
+            if not CQUI_isPreferedRecruitScrollSizeComputed then
+                CQUI_isPreferedRecruitScrollSizeComputed = true;
+            end
 
             if (kPerson.EarnConditions ~= nil and kPerson.EarnConditions ~= "") then
                 instance.RecruitInfo:SetText("[COLOR_Civ6Red]" .. Locale.Lookup("LOC_GREAT_PEOPLE_CANNOT_EARN_PERSON") .. "[ENDCOLOR]");
@@ -365,10 +379,10 @@ function ViewCurrent( data:table )
             instance.RecruitInfoBackButton:SetVoid1( kPerson.IndividualID );
             instance.RecruitInfoBackButton:RegisterCallback( Mouse.eLClick, OnRecruitInfoClick );
 
-            m_uiGreatPeople[kPerson.IndividualID] = instance; -- Store instance for later look up
+            m_kGreatPeople[kPerson.IndividualID] = instance; -- Store instance for later look up
         end
 
-        local noneAvailable :boolean = (kPerson.ClassID == nil);
+        local noneAvailable :boolean = (kPerson.IndividualID == nil);
         instance.ClassName:SetHide( noneAvailable );
         instance.TitleLine:SetHide( noneAvailable );
         instance.IndividualName:SetHide( noneAvailable );
@@ -443,7 +457,10 @@ function FillRecruitInstance(instance:table, playerPoints:table, personData:tabl
     -- CQUI Points Per Turn and Turns Left -- Add the turn icon into the text
     -- recruitTurnsLeft gets +0.5 so that's rounded up
     local recruitTurnsLeft = Round((personData.RecruitCost-playerPoints.PointsTotal)/playerPoints.PointsPerTurn + 0.5,0);
-    if (recruitTurnsLeft == math.huge) then recruitTurnsLeft = "∞"; end
+    if (recruitTurnsLeft == math.huge) then
+        recruitTurnsLeft = "∞";
+    end
+
     instance.Amount:SetText( "(+" .. tostring(Round(playerPoints.PointsPerTurn,1)) .. ") " .. tostring(recruitTurnsLeft) .. "[ICON_Turn]");
 
 
@@ -624,7 +641,7 @@ function OnRecruitInfoClick( individualID )
         OnRecruitInfoClick( m_activeRecruitInfoID );
     end
     
-    local instance:table= m_uiGreatPeople[individualID];
+    local instance:table= m_kGreatPeople[individualID];
     if instance == nil then
         print("WARNING: Was unable to find instance for individual \""..tostring(individualID).."\"");
         return;
@@ -656,7 +673,7 @@ function OnBiographyClick( individualID )
         OnBiographyClick( m_activeBiographyID );
     end
 
-    local instance:table= m_uiGreatPeople[individualID];
+    local instance:table= m_kGreatPeople[individualID];
     if instance == nil then
         print("WARNING: Was unable to find instance for individual \""..tostring(individualID).."\"");
         return;
@@ -1048,6 +1065,13 @@ function OnPreviousRecruitedClick()
     Controls.SelectPreviouslyRecruited:SetHide( false );
     Controls.ButtonPreviouslyRecruited:SetSelected( true );
     Refresh();
+end
+
+-- ===========================================================================
+-- FOR OVERRIDE
+-- ===========================================================================
+function IsReadOnly()
+    return false;
 end
 
 -- =======================================================================================
