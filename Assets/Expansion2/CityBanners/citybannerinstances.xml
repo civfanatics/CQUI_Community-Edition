@@ -52,8 +52,8 @@
                         </Container>
                         <!-- CQUI: Show Suzerain in CS banner -->
                         <Container ID="CQUI_CivSuzerain" Anchor="C,C" Offset="-10,0" Size="28,34" Hidden="1">
-                            <Image ID="CQUI_CivSuzerainIconBackground" Size="22,22" Anchor="C,C" Icon="ICON_CIRCLE_BACKING_44" >
-                                <Image ID="CQUI_CivSuzerainIcon" Size="22,22" Anchor="C,C" />
+                            <Image ID="CQUI_CivSuzerainIconBackground" Size="22,22" Anchor="C,C" Texture="CircleBacking22" >
+                                <Image ID="CQUI_CivSuzerainIcon" Size="22,22" Anchor="C,C" IconSize="22"/>
                             </Image>
                         </Container>
                         <Image ID="CQUI_DistrictAvailable" Anchor="L,C" Offset="-8,0" Icon="ICON_STAT_DISTRICTS" Size="24,24" ToolTip="LOC_HUD_DISTRICTS" Hidden="true" /> <!--Texture="Stats22"-->

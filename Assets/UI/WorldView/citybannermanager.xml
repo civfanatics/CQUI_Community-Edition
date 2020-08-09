@@ -195,8 +195,8 @@
                             <Label ID="CityQuestIcon" Anchor="L,C" Style="FontNormal20"/>
                             <!-- CQUI: Show Suzerain in CS banner -->
                             <Container ID="CQUI_CivSuzerain" Anchor="C,C" Size="34,34" Hidden="1">
-                                <Image ID="CQUI_CivSuzerainIconBackground" Size="26,26" Anchor="C,C" Icon="ICON_CIRCLE_BACKING_44" >
-                                    <Image ID="CQUI_CivSuzerainIcon" Size="26,26" Anchor="C,C" />
+                                <Image ID="CQUI_CivSuzerainIconBackground" Size="22,22" Anchor="C,C" Texture="CircleBacking22" >
+                                    <Image ID="CQUI_CivSuzerainIcon" Size="22,22" Anchor="C,C" IconSize="22"/>
                                 </Image>
                             </Container>
                             <Label ID="CityName" Anchor="L,C" Style="HeaderSmallCaps" String="BALTIMORE" />
