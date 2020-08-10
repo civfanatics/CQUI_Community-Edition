@@ -355,8 +355,7 @@
 
         <ReplaceUIScript id="CQUI_CityStates_EXP2"  criteria="Expansion2">
             <Properties>
-                <!-- Later than usual load to ensure function extensions are loaded -->
-                <LoadOrder>250</LoadOrder>
+                <LoadOrder>200</LoadOrder>
                 <LuaContext>CityStates</LuaContext>
                 <LuaReplace>Assets/Expansion2/Replacements/citystates_CQUI_expansion2.lua</LuaReplace>
             </Properties>
