@@ -340,8 +340,6 @@
         <!-- ============================== ReplaceUIScript Declarations ============================== -->
         <ReplaceUIScript id="CQUI_CityStates">
             <Properties>
-                <!-- Later than usual load to ensure function extensions are loaded (e.g. CIVITAS City States Expanded loads at 201) -->
-                <LoadOrder>230</LoadOrder>
                 <LuaContext>CityStates</LuaContext>
                 <LuaReplace>Assets/UI/PartialScreens/citystates_CQUI_basegame.lua</LuaReplace>
             </Properties>
@@ -349,8 +347,7 @@
 
         <ReplaceUIScript id="CQUI_CityStates_EXP1"  criteria="Expansion1">
             <Properties>
-                <!-- Later than usual load to ensure function extensions are loaded -->
-                <LoadOrder>240</LoadOrder>
+                <LoadOrder>100</LoadOrder>
                 <LuaContext>CityStates</LuaContext>
                 <LuaReplace>Assets/Expansion1/Replacements/citystates_CQUI_expansion1.lua</LuaReplace>
             </Properties>
