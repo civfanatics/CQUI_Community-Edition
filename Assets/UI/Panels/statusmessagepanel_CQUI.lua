@@ -30,21 +30,28 @@ LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
 -- ===========================================================================
 function OnStatusMessage( message:string, displayTime:number, type:number, subType:number )
 -- If gossip, trim or ignore and then send on to base game for handling
-
---temp
-print("** OnStatusMessage ENTRY, message: "..message)
+-- temp
+print("**** OnStatusMessage Entry, message: "..tostring(message));
+-- if (type == ReportingStatusTypes.GOSSIP) then
+--         local trimmed = CQUI_TrimGossipMessage(message);
+--         print("***** trimmed: "..tostring(trimmed));
+--         if (trimmed ~= nil) then
+--             if (CQUI_IsGossipMessageIgnored(trimmed)) then
+--                 return; --If the message is supposed to be ignored, give up!
+--             elseif (CQUI_trimGossip) then
+--                 message = trimmed
+--             end
+--         end
+--     end
 
 if (type == ReportingStatusTypes.GOSSIP) then
-        local trimmed = CQUI_TrimGossipMessage(message);
-        print("***** trimmed: "..tostring(trimmed));
-        if (trimmed ~= nil) then
-            if (CQUI_IsGossipMessageIgnored(trimmed)) then
-                return; --If the message is supposed to be ignored, give up!
-            elseif (CQUI_trimGossip) then
-                message = trimmed
-            end
-        end
+    if (CQUI_IsGossipMessageIgnored(message)) then
+        -- temp print
+        print("************** ignoring message: "..message);
+        return; --If the message is supposed to be ignored, give up!
     end
+end
+
 
     BASE_CQUI_OnStatusMessage(message, displayTime, type, subType);
 end
@@ -52,14 +59,20 @@ end
 -- ===========================================================================
 function CQUI_IsGossipMessageIgnored(str)
 -- Returns true if the given message is disabled in settings
+
+--temp print
+print("****** CQUI_IsGossipMessageIgnored ENTRY, str = "..tostring(str));
     if (str == nil) then
         -- str will be nil if the last word from the gossip source string can't be found in message.
         -- Generally means the incoming message wasn't gossip at all
         return false;
     end
-
+print ("22222222222222222");
     str = string.gsub(str, "%s", "") -- remove spaces to normalize the string
+print("3333333333333 str = "..tostring(str));
     for _, message in ipairs(CQUI_ignoredMessages) do
+        --temp print
+        print("********* cqui_ignoredmessage: "..message)
         message = string.gsub(message, "%s", "") -- remove spaces to normalize the ignored message
         partsToMatch = Split(message, "%[%]") -- Split the ignored messages into its different parts
         local stringToMatch = "^" -- We'll build a string to match with the differents parts
@@ -301,7 +314,7 @@ function CQUI_DebugTest()
                 local type = pInputStruct:IsShiftDown() and ReportingStatusTypes.DEFAULT or ReportingStatusTypes.GOSSIP ;
                 local subType = DB.MakeHash("GOSSIP_MAKE_DOW");
                 if key == Keys.F then
-                    OnStatusMessage(Locale.Lookup("LOC_GOSSIP_EMBASSY", "[]", "[]", "[]", "[]", "[]", "[]"), 10, type, subType);
+                    OnStatusMessage(Locale.Lookup("LOC_GOSSIP_EMBASSY", "AAA", "BBB", "CCC", "DDD", "EEE", "FFF"), 10, type, subType);
                     return true;
                 end
 
