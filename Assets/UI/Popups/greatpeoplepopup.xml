@@ -9,9 +9,12 @@
             <!-- CQUI : new textures that adapt the height -->
             <Image ID="CQUI_ContentWoodPaneling" Size="214,parent" Texture="CQUI_GreatPeople_Background_Repeat_Top.dds" StretchMode="Tile"/>
             <Image ID="WoodPaneling" Size="214,547" Texture="CQUI_GreatPeople_Background_Top.dds" StretchMode="TileX"/>
-            <!-- CQUI : Size should be se programmaticly (Offet : 78 peoplestack + 42 buttons) -->
+            <!-- This is the darker "paneling", which is actually just the vertical lines as BottomWoodPaneling sits on top of it -->
+            <!-- Size should be set programmatically (OffsetY : 78 peoplestack + 42 buttons) -->
             <Image ID="CQUI_RecruitWoodPaneling" Anchor="L,B" Offset="0,0" Size="214,parent" Texture="CQUI_GreatPeople_Background_Repeat_Bottom.dds" StretchMode="Tile"/>
-            <Image ID="CQUI_BottomWoodPaneling" Size="214,80" Texture="CQUI_GreatPeople_Background_Bottom.dds" StretchMode="TileX" Anchor="L,B" />
+            <!-- This image is the bottom of the paneling outline (curved corner and horizontal line) -->
+            <!-- At 40px tall, it has 5px gap between the bottom horizontal line and the PeopleScroller scroll bar, must be at least 40px in height -->
+            <Image ID="CQUI_BottomWoodPaneling" Size="214,40" Texture="CQUI_GreatPeople_Background_Bottom.dds" StretchMode="TileX" Anchor="L,B" />
 
 
 
