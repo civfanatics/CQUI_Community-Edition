@@ -22,8 +22,7 @@ BASE_CQUI_AddUpgradeResourceCost = AddUpgradeResourceCost;
 
 -- ===========================================================================
 function AddUpgradeResourceCost( pUnit:table )
-	local toolTipString:string = BASE_CQUI_AddUpgradeResourceCost( pUnit );
-    
+    local toolTipString:string = BASE_CQUI_AddUpgradeResourceCost( pUnit );
     -- Check again if the operation can occur, this time for real.
     -- we already did that in the parent function, so it should return the same results now
     local _, tResults = UnitManager.CanStartCommand( pUnit, UnitCommandTypes.UPGRADE, false, true);
@@ -33,18 +32,37 @@ function AddUpgradeResourceCost( pUnit:table )
         local upgradeToUnit:table = GameInfo.Units[tResults[UnitCommandResults.UNIT_TYPE]];
         --print("AURC: proper upgrade-to unit", upgradeToUnit.UnitType, upgradeToUnit.Name);
         -- upgrade to unit name
-        toolTipString = toolTipString.."[NEWLINE]"..Locale.Lookup(upgradeToUnit.Name).." [ICON_GoingTo]";
+        local currentUnit = GameInfo.Units[pUnit:GetUnitType()];
+        local curUnitToolTipString = Locale.Lookup(currentUnit.Name).." [ICON_GoingTo] ";
+        local upgUnitToolTipString = Locale.Lookup(upgradeToUnit.Name).." [ICON_GoingTo] ";
         -- gold
-        toolTipString = toolTipString.." "..Locale.Lookup("LOC_TOOLTIP_BASE_COST", upgradeToUnit.Maintenance, "[ICON_Gold]", "LOC_YIELD_GOLD_NAME"); -- Base Cost: {1_Amount} {2_YieldIcon} {3_YieldName}
+        curUnitToolTipString = curUnitToolTipString..Locale.Lookup("LOC_TOOLTIP_BASE_COST", currentUnit.Maintenance, "[ICON_Gold]", "LOC_YIELD_GOLD_NAME"); -- Base Cost: {1_Amount} {2_YieldIcon} {3_YieldName}
+        upgUnitToolTipString = upgUnitToolTipString..Locale.Lookup("LOC_TOOLTIP_BASE_COST", upgradeToUnit.Maintenance, "[ICON_Gold]", "LOC_YIELD_GOLD_NAME"); -- Base Cost: {1_Amount} {2_YieldIcon} {3_YieldName}
         -- resources
-        local unitInfoXP2:table = GameInfo.Units_XP2[ upgradeToUnit.UnitType ];
-        if unitInfoXP2 ~= nil and unitInfoXP2.ResourceMaintenanceType ~= nil then
-            local resourceName:string = Locale.Lookup(GameInfo.Resources[ unitInfoXP2.ResourceMaintenanceType ].Name);
-            local resourceIcon = "[ICON_" .. GameInfo.Resources[unitInfoXP2.ResourceMaintenanceType].ResourceType .. "]";
-            toolTipString = toolTipString.." "..Locale.Lookup("LOC_UNIT_PRODUCTION_FUEL_CONSUMPTION", unitInfoXP2.ResourceMaintenanceAmount, resourceIcon, resourceName); -- Consumes: {1_Amount} {2_Icon} {3_FuelName} per turn.
-        end -- unit info xp2
-        return toolTipString;
+        curUnitToolTipString = curUnitToolTipString..(CQUI_GetUnitResourceRequirements(currentUnit));
+        upgUnitToolTipString = upgUnitToolTipString..(CQUI_GetUnitResourceRequirements(upgradeToUnit));
+        -- combine into the tooltip
+        local dashedlinelen = string.len(curUnitToolTipString);
+        if (string.len(upgUnitToolTipString) > string.len(upgUnitToolTipString)) then
+            dashedlinelen = string.len(upgUnitToolTipString);
+        end
+
+        toolTipString = toolTipString.."[NEWLINE]"..string.rep("-", dashedlinelen);
+        toolTipString = toolTipString.."[NEWLINE]"..curUnitToolTipString.."[NEWLINE]"..upgUnitToolTipString;
     end -- if tResults
-    
-	return toolTipString;
+
+    return toolTipString;
+end
+
+-- ===========================================================================
+function CQUI_GetUnitResourceRequirements ( pUnit:table )
+    local retVal = "";
+    local unitInfoXP2:table = GameInfo.Units_XP2[ pUnit.UnitType ];
+    if unitInfoXP2 ~= nil and unitInfoXP2.ResourceMaintenanceType ~= nil then
+        local resourceName:string = Locale.Lookup(GameInfo.Resources[ unitInfoXP2.ResourceMaintenanceType ].Name);
+        local resourceIcon = "[ICON_" .. GameInfo.Resources[unitInfoXP2.ResourceMaintenanceType].ResourceType .. "]";
+        retVal = " "..Locale.Lookup("LOC_UNIT_PRODUCTION_FUEL_CONSUMPTION", unitInfoXP2.ResourceMaintenanceAmount, resourceIcon, resourceName); -- Consumes: {1_Amount} {2_Icon} {3_FuelName} per turn.
+    end -- unit info xp2
+
+    return retVal;
 end
