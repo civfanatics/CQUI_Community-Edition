@@ -42,12 +42,6 @@ function AddUpgradeResourceCost( pUnit:table )
         curUnitToolTipString = curUnitToolTipString..(CQUI_GetUnitResourceRequirements(currentUnit));
         upgUnitToolTipString = upgUnitToolTipString..(CQUI_GetUnitResourceRequirements(upgradeToUnit));
         -- combine into the tooltip
-        local dashedlinelen = string.len(curUnitToolTipString);
-        if (string.len(upgUnitToolTipString) > string.len(upgUnitToolTipString)) then
-            dashedlinelen = string.len(upgUnitToolTipString);
-        end
-
-        toolTipString = toolTipString.."[NEWLINE]"..string.rep("-", dashedlinelen);
         toolTipString = toolTipString.."[NEWLINE]"..curUnitToolTipString.."[NEWLINE]"..upgUnitToolTipString;
     end -- if tResults
 
