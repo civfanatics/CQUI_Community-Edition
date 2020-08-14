@@ -7,15 +7,11 @@ include( "CQUICommon.lua" );
 -- ===========================================================================
 BASE_CQUI_OnStatusMessage = OnStatusMessage;
 
-
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
 local CQUI_trimGossip = true;
 local CQUI_ignoredMessages = {};
-
--- temp
-m4atemp = nil;
 
 function CQUI_OnSettingsUpdate()
     CQUI_trimGossip = GameConfiguration.GetValue("CQUI_TrimGossip");
@@ -30,28 +26,16 @@ LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
 -- ===========================================================================
 function OnStatusMessage( message:string, displayTime:number, type:number, subType:number )
 -- If gossip, trim or ignore and then send on to base game for handling
--- temp
-print("**** OnStatusMessage Entry, message: "..tostring(message));
--- if (type == ReportingStatusTypes.GOSSIP) then
---         local trimmed = CQUI_TrimGossipMessage(message);
---         print("***** trimmed: "..tostring(trimmed));
---         if (trimmed ~= nil) then
---             if (CQUI_IsGossipMessageIgnored(trimmed)) then
---                 return; --If the message is supposed to be ignored, give up!
---             elseif (CQUI_trimGossip) then
---                 message = trimmed
---             end
---         end
---     end
-
 if (type == ReportingStatusTypes.GOSSIP) then
-    if (CQUI_IsGossipMessageIgnored(message)) then
-        -- temp print
-        print("************** ignoring message: "..message);
-        return; --If the message is supposed to be ignored, give up!
+        local trimmed = CQUI_TrimGossipMessage(message);
+        if (trimmed ~= nil) then
+            if (CQUI_IsGossipMessageIgnored(trimmed)) then
+                return; --If the message is supposed to be ignored, give up!
+            elseif (CQUI_trimGossip) then
+                message = trimmed;
+            end
+        end
     end
-end
-
 
     BASE_CQUI_OnStatusMessage(message, displayTime, type, subType);
 end
@@ -59,38 +43,30 @@ end
 -- ===========================================================================
 function CQUI_IsGossipMessageIgnored(str)
 -- Returns true if the given message is disabled in settings
-
---temp print
-print("****** CQUI_IsGossipMessageIgnored ENTRY, str = "..tostring(str));
     if (str == nil) then
         -- str will be nil if the last word from the gossip source string can't be found in message.
         -- Generally means the incoming message wasn't gossip at all
         return false;
     end
-print ("22222222222222222");
-    str = string.gsub(str, "%s", "") -- remove spaces to normalize the string
-print("3333333333333 str = "..tostring(str));
+
+    str = string.gsub(str, "%s", ""); -- remove spaces to normalize the string
     for _, message in ipairs(CQUI_ignoredMessages) do
-        --temp print
-        print("********* cqui_ignoredmessage: "..message)
-        message = string.gsub(message, "%s", "") -- remove spaces to normalize the ignored message
-        partsToMatch = Split(message, "%[%]") -- Split the ignored messages into its different parts
-        local stringToMatch = "^" -- We'll build a string to match with the differents parts
+        message = string.gsub(message, "%s", ""); -- remove spaces to normalize the ignored message
+        partsToMatch = Split(message, "%[%]"); -- Split the ignored messages into its different parts
+        local stringToMatch = "^"; -- We'll build a string to match with the differents parts
         for _, part in ipairs(partsToMatch) do
-            part = string.gsub(part, "%p", "%%%1") -- Escape all the magic character that each part can contain (to avoid being considered as part of the pattern)
-            stringToMatch = stringToMatch .. part .. ".*"
+            part = string.gsub(part, "%p", "%%%1"); -- Escape all the magic character that each part can contain (to avoid being considered as part of the pattern)
+            stringToMatch = stringToMatch .. part .. ".*";
         end
 
-        stringToMatch = stringToMatch .. "$"
+        stringToMatch = stringToMatch .. "$";
 
-        -- temp
-        print("************ stringToMatch: "..stringToMatch)
-        if string.find(str, stringToMatch) then -- If the str match the strToMatch, return true
-            return true
+        if (string.find(str, stringToMatch)) then -- If the str match the strToMatch, return true
+            return true;
         end
     end
 
-    return false
+    return false;
 end
 
 -- ===========================================================================
@@ -291,38 +267,5 @@ function CQUI_GetIgnoredGossipMessages()
         ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_WONDER_STARTED", "[]", "[]", "[]", "[]", "[]", "[]");
     end
 
-    -- temp
-    m4atemp = ignored;
-
     return ignored;
-end
-
-function CQUI_DebugTest()
--- LOC_GOSSIP_EMBASSY disabled by default
--- LOC_GOSSIP_EMBASSY not trimmed = A new building has appeared in the capital of X: a permanent embassy from Y.
--- LOC_GOSSIP_EMBASSY trimmed = New embassy established in X from Y.
--- LOC_GOSSIP_DENOUNCED enabled by default
--- LOC_GOSSIP_DENOUNCED not trimmed = X has/have deounced the evil deeds of Y
--- LOC_GOSSIP_DENOUNCED trimmed = X denounced Y
-    OnStatusMessage("Use 'F' to attempt to generate the CQUI-disabled-by-default message regarding an Embassy.", 10, ReportingStatusTypes.DEFAULT );
-    OnStatusMessage("Use 'G' to attempt to generate the CQUI-enabled-by-default message regarding a player being denounced.", 10, ReportingStatusTypes.DEFAULT );
-    ContextPtr:SetInputHandler( 
-        function( pInputStruct ) 
-            local uiMsg = pInputStruct:GetMessageType();
-            if uiMsg == KeyEvents.KeyUp then 
-                local key = pInputStruct:GetKey();
-                local type = pInputStruct:IsShiftDown() and ReportingStatusTypes.DEFAULT or ReportingStatusTypes.GOSSIP ;
-                local subType = DB.MakeHash("GOSSIP_MAKE_DOW");
-                if key == Keys.F then
-                    OnStatusMessage(Locale.Lookup("LOC_GOSSIP_EMBASSY", "AAA", "BBB", "CCC", "DDD", "EEE", "FFF"), 10, type, subType);
-                    return true;
-                end
-
-                if key == Keys.G then
-                    OnStatusMessage(Locale.Lookup("LOC_GOSSIP_DENOUNCED", "AAA", "BBB", "CCC", "DDD", "EEE", "FFF"), 10, type, subType );
-                    return true;
-                end
-            end	
-            return false;
-        end, true);
 end
