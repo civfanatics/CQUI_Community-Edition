@@ -46,6 +46,7 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ("CQUI_Smartbanner_Districts", 1), -- Shows city districts in the banner
         ("CQUI_Smartbanner_Population", 1), -- Shows turns to city population growth in the banner
         ("CQUI_Smartbanner_Cultural", 1), -- Shows turns to city cultural growth in the banner
+        ("CQUI_Smartbanner_DistrictsAvailable", 1), -- Shows that districts are available to be built
         ("CQUI_SmartWorkIcon", 1), -- Applies a different size/transparency to citizen icons if they're currently being worked
         ("CQUI_TechPopupVisual", 0), -- Popups will be displayed when you discover a new tech or civic (this is the normal behavior for the unmoded game)
         ("CQUI_TechPopupAudio", 1), -- Play the voiceovers when you discover a new tech or civic (this is the normal behavior for the unmoded game)
@@ -58,6 +59,7 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ('CQUI_TraderShowSortOrder', 0), -- Adds a divider between groups in TradeOverview panel
         ('CQUI_ShowProductionRecommendations', 0), -- Shows the advisor recommendation in the city produciton panel
         ('CQUI_ShowTechCivicRecommendations', 1), -- Shows the advisor recommendation in the techs/civics tree/panel
+        ('CQUI_ShowSuzerainInCityStateBanner', 1), -- Show the Icon of the Suzerain Civilization in the CityState Banner
         ('CQUI_ShowImprovementsRecommendations', 0), -- Shows the advisor recommendation for the builder improvements
         ('CQUI_ShowCityDetailAdvisor', 0), -- Shows the advisor recommendation in the city detail panel
         ('CQUI_ShowDebugPrint', 0); -- Shows print in the console

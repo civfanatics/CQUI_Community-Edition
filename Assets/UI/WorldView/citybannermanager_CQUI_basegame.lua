@@ -198,6 +198,7 @@ function CityBanner.UpdateName( self )
     districts[CQUI_GetDistrictIndexSafe("DISTRICT_THEATER")]               = { Icon = "[ICON_DISTRICT_THEATER]", Instance = self.m_Instance.CityBuiltDistrictTheater };
 
     if (self.m_Instance.CityBuiltDistrictAqueduct ~= nil) then
+        self.m_Instance.CQUI_DistrictsContainer:SetHide(true);
         self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
         for k,v in pairs(districts) do
             districts[k].Instance:SetHide(true);
@@ -260,10 +261,13 @@ function CityBanner.UpdateName( self )
             local districtIconPadding = 6 + districtsBuilt;
             if districtIconPadding < 8 then districtIconPadding = 8; end
             if districtIconPadding > 14 then districtIconPadding = 14; end
+            self.m_Instance.CQUI_DistrictsContainer:SetHide(false);
             self.m_Instance.CQUI_Districts:SetStackPadding(districtIconPadding * -1);
             self.m_Instance.CQUI_Districts:CalculateSize();  -- Sets the correct banner width with the padding update
             self.m_Instance.CQUI_DistrictsContainer:SetToolTipString(districtTooltipString);
+        end
 
+        if (IsCQUI_SmartBanner_DistrictsAvailableEnabled()) then
             -- Infixo: 2020-07-08 district available flag and tooltip
             local iDistrictsNum:number         = pCityDistricts:GetNumZonedDistrictsRequiringPopulation();
             local iDistrictsPossibleNum:number = pCityDistricts:GetNumAllowedDistrictsRequiringPopulation();
@@ -273,7 +277,7 @@ function CityBanner.UpdateName( self )
             else
                 self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
             end
-        end -- if CQUI_SmartBanner_Districts
+        end
     end -- if CQUI_SmartBanner and there's a district to show
 
     -- Update insufficient housing icon
@@ -625,8 +629,6 @@ function CityBanner.UpdateReligion( self )
         religionInfoInst.ReligionInfoContainer:SetHide(false);
     end
 end
-
-
 
 -- ===========================================================================
 -- CQUI Custom Functions (Common to basegame only)
