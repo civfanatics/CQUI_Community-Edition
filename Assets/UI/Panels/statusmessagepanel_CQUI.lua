@@ -1,11 +1,20 @@
 include("StatusMessagePanel");
-include( "supportfunctions.lua" );
-include( "CQUICommon.lua" );
+include("supportfunctions.lua");
+include("CQUICommon.lua");
 
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
 BASE_CQUI_OnStatusMessage = OnStatusMessage;
+
+-- ===========================================================================
+--    CONSTANTS
+-- ===========================================================================
+local DEFAULT_TIME_TO_DISPLAY :number = 10; -- Seconds to display the message
+
+-- CQUI CONSTANTS Trying to make the different messages have unique colors
+local CQUI_STATUS_MESSAGE_CIVIC            :number = 3;        -- Number to distinguish civic messages
+local CQUI_STATUS_MESSAGE_TECHS            :number = 4;        -- Number to distinguish tech messages
 
 -- ===========================================================================
 -- CQUI Members
@@ -18,15 +27,12 @@ function CQUI_OnSettingsUpdate()
     CQUI_ignoredMessages = CQUI_GetIgnoredGossipMessages();
 end
 
-LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
-LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
-
 -- ===========================================================================
 -- CQUI Function Extensions
 -- ===========================================================================
 function OnStatusMessage( message:string, displayTime:number, type:number, subType:number )
 -- If gossip, trim or ignore and then send on to base game for handling
-if (type == ReportingStatusTypes.GOSSIP) then
+    if (type == ReportingStatusTypes.GOSSIP) then
         local trimmed = CQUI_TrimGossipMessage(message);
         if (trimmed ~= nil) then
             if (CQUI_IsGossipMessageIgnored(trimmed)) then
@@ -35,9 +41,20 @@ if (type == ReportingStatusTypes.GOSSIP) then
                 message = trimmed;
             end
         end
+    elseif (type == CQUI_STATUS_MESSAGE_CIVIC) then
+        message = "[ICON_CULTURE]"..message;
+        type = ReportingStatusTypes.DEFAULT;
+    elseif (type == CQUI_STATUS_MESSAGE_TECHS) then
+        message = "[ICON_SCIENCE]"..message;
+        type = ReportingStatusTypes.DEFAULT;
     end
 
-    BASE_CQUI_OnStatusMessage(message, displayTime, type, subType);
+    local timeToDisplay:number = DEFAULT_TIME_TO_DISPLAY;
+    if (displayTime and (displayTime > 0)) then
+        timeToDisplay = displayTime;
+    end
+
+    BASE_CQUI_OnStatusMessage(message, timeToDisplay, type, subType);
 end
 
 -- ===========================================================================
@@ -60,13 +77,17 @@ function CQUI_IsGossipMessageIgnored(str)
         end
 
         stringToMatch = stringToMatch .. "$";
-
         if (string.find(str, stringToMatch)) then -- If the str match the strToMatch, return true
             return true;
         end
     end
 
     return false;
+end
+
+-- ===========================================================================
+function CQUI_OnStatusMessage(str:string, fDisplayTime:number, messageType:number)
+    OnStatusMessage(str, fDisplayTime, messageType, nil);
 end
 
 -- ===========================================================================
@@ -269,3 +290,39 @@ function CQUI_GetIgnoredGossipMessages()
 
     return ignored;
 end
+
+-- ===========================================================================
+function CQUI_DebugTest()
+    OnStatusMessage("Press F, G, or H to generate CQUI notifications.", 7, ReportingStatusTypes.DEFAULT );
+    ContextPtr:SetInputHandler( 
+        function( pInputStruct ) 
+            local uiMsg = pInputStruct:GetMessageType();
+            if uiMsg == KeyEvents.KeyUp then 
+                local key = pInputStruct:GetKey();
+                if key == Keys.F then
+                    OnStatusMessage("CQUI civic status message", 10, CQUI_STATUS_MESSAGE_CIVIC, nil);
+                    return true;
+                end
+
+                if key == Keys.G then
+                    OnStatusMessage("CQUI techs status message", 10, CQUI_STATUS_MESSAGE_TECHS, nil);
+                    return true;
+                end
+
+                if key == Keys.H then
+                    OnStatusMessage("CQUI default status message", 10, ReportingStatusTypes.DEFAULT, subType );
+                    return true;
+                end
+            end
+
+            return false;
+        end, true);
+end
+
+-- ===========================================================================
+function Initialize()
+    LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
+    LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
+    LuaEvents.CQUI_AddStatusMessage.Add( CQUI_OnStatusMessage );
+end
+Initialize();
