@@ -742,7 +742,7 @@
 
         <ReplaceUIScript id="CQUI_StatusMessagePanel">
             <Properties>
-                <LuaContext>StatusMessagePanel </LuaContext>
+                <LuaContext>StatusMessagePanel</LuaContext>
                 <LuaReplace>Assets/UI/Panels/statusmessagepanel_CQUI.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
