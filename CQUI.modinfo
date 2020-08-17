@@ -158,8 +158,8 @@
                 <File>Assets/UI/worldtracker.lua</File>
                 <File>Assets/UI/worldtracker.xml</File>
                 <File>Assets/UI/worldviewiconsmanager_CQUI.lua</File>
-                <File>Assets/UI/Choosers/civicschooser.lua</File>
-                <File>Assets/UI/Choosers/researchchooser.lua</File>
+                <File>Assets/UI/Choosers/civicschooser_CQUI.lua</File>
+                <File>Assets/UI/Choosers/researchchooser_CQUI.lua</File>
                 <File>Assets/UI/Civilopedia/civilopediasupport_CQUI.lua</File>
                 <File>Assets/UI/Civilopedia/civilopediascreen.lua</File>
                 <File>Assets/UI/Panels/citypanel.lua</File>
@@ -373,6 +373,22 @@
                 <LoadOrder>200</LoadOrder>
                 <LuaContext>CityStates</LuaContext>
                 <LuaReplace>Assets/Expansion2/Replacements/citystates_CQUI_expansion2.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
+        <ReplaceUIScript id="CQUI_CivicsChooser">
+            <Properties>
+                <LuaContext>CivicsChooser</LuaContext>
+                <LuaReplace>Assets/UI/Choosers/civicschooser_CQUI.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
+        <ReplaceUIScript id="CQUI_ResearchChooser">
+            <Properties>
+                <!-- Always load at 200, which will load it after the firaxis expansions that ReplaceUIScript for ResearchChooser -->
+                <LoadOrder>200</LoadOrder>
+                <LuaContext>ResearchChooser</LuaContext>
+                <LuaReplace>Assets/UI/Choosers/researchchooser_CQUI.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
 
@@ -1033,8 +1049,8 @@
         <File>Assets/UI/worldtracker.lua</File>
         <File>Assets/UI/worldtracker.xml</File>
         <File>Assets/UI/worldviewiconsmanager_CQUI.lua</File>
-        <File>Assets/UI/Choosers/civicschooser.lua</File>
-        <File>Assets/UI/Choosers/researchchooser.lua</File>
+        <File>Assets/UI/Choosers/civicschooser_CQUI.lua</File>
+        <File>Assets/UI/Choosers/researchchooser_CQUI.lua</File>
         <File>Assets/UI/Civilopedia/civilopediasupport_CQUI.lua</File>
         <File>Assets/UI/Civilopedia/civilopediascreen.lua</File>
         <File>Assets/UI/Panels/citypanel.lua</File>
