@@ -51,9 +51,9 @@ function Initialize()
     LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
 
     -- Map the LuaEvent to our instance of OnOpenPanel
-    LuaEvents.ActionPanel_OpenChooseCivic.Remove(BASE_CQUI_OnOpenPanel);
-    LuaEvents.ActionPanel_OpenChooseCivic.Add(OnOpenPanel);
-    LuaEvents.WorldTracker_OpenChooseCivic.Remove(BASE_CQUI_OnOpenPanel);
-    LuaEvents.WorldTracker_OpenChooseCivic.Add(OnOpenPanel);
+    LuaEvents.ActionPanel_OpenChooseResearch.Remove(BASE_CQUI_OnOpenPanel);
+    LuaEvents.ActionPanel_OpenChooseResearch.Add(OnOpenPanel);
+    LuaEvents.WorldTracker_OpenChooseResearch.Remove(BASE_CQUI_OnOpenPanel);
+    LuaEvents.WorldTracker_OpenChooseResearch.Add(OnOpenPanel);
 end
 Initialize();
