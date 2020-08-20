@@ -417,6 +417,7 @@ function UpdateOtherPlayerText(otherPlayerSays)
         CQUI_IconOnlyIM:ResetInstances();
         CQUI_IconAndTextForCitiesIM:ResetInstances();
         CQUI_IconAndTextForGreatWorkIM:ResetInstances();
+        CQUI_MinimizedSectionIM:ResetInstances();
 
         PopulateSignatureArea(g_LocalPlayer, Controls.PlayerCivIcon, Controls.PlayerLeaderName, Controls.PlayerCivName);  -- Expansion 2 added global variable for local and other player
         PopulateSignatureArea(g_OtherPlayer, Controls.OtherPlayerCivIcon, Controls.OtherPlayerLeaderName, Controls.OtherPlayerCivName);
@@ -524,11 +525,13 @@ function PopulateAvailableCities(player : table, iconList : table)
     local pForDeal = DealManager.GetWorkingDeal(DealDirection.OUTGOING, g_LocalPlayer:GetID(), g_OtherPlayer:GetID());
     -- Note: damanged cities do not appear in this list
     local possibleItems = DealManager.GetPossibleDealItems(player:GetID(), GetOtherPlayer(player):GetID(), DealItemTypes.CITIES, pForDeal);
-    local uiMinimizedSection:table = CQUI_MinimizedSectionIM:GetInstance(iconList.List);
 
     if (pForDeal ~= nil) then
         CQUI_IconAndTextForCitiesIM:ReleaseInstanceByParent(iconList.ListStack);
+        CQUI_MinimizedSectionIM:ReleaseInstanceByParent(iconList.List);
     end
+
+    local uiMinimizedSection:table = CQUI_MinimizedSectionIM:GetInstance(iconList.List);
 
     -- Todo: Possible to show the untradable (damaged) cities?
     if (possibleItems ~= nil) then
@@ -581,7 +584,7 @@ function PopulateAvailableCities(player : table, iconList : table)
 
             -- pCity should never be nil here, if it is print a warning so the scenario can be reproduced
             if pCity ~= nil then
-                local icon = CQUI_RenderCityButton(pCity, player, iconList.ListStack)
+                local icon = CQUI_RenderCityButton(pCity, player, iconList.ListStack);
                 local uiMinimizedIcon = CQUI_IconOnlyIM:GetInstance(uiMinimizedSection.MinimizedSectionStack);
                 SetIconToSize(uiMinimizedIcon.Icon, "ICON_BUILDINGS", 45);
                 uiMinimizedIcon.AmountText:SetHide(true);
@@ -619,11 +622,13 @@ function PopulateAvailableGreatWorks(player : table, iconList : table)
     local iAvailableItemCount = 0;
     local pForDeal = DealManager.GetWorkingDeal(DealDirection.OUTGOING, g_LocalPlayer:GetID(), g_OtherPlayer:GetID());
     local possibleItems = DealManager.GetPossibleDealItems(player:GetID(), GetOtherPlayer(player):GetID(), DealItemTypes.GREATWORK, pForDeal);
-    local uiMinimizedSection : table = CQUI_MinimizedSectionIM:GetInstance(iconList.List);
 
     if (pForDeal ~= nil) then
         CQUI_IconAndTextForGreatWorkIM:ReleaseInstanceByParent(iconList.ListStack);
+        CQUI_MinimizedSectionIM:ReleaseInstanceByParent(iconList.List);
     end
+
+    local uiMinimizedSection:table = CQUI_MinimizedSectionIM:GetInstance(iconList.List);
 
     -- CQUI : Sort by great work type
     local sort_func = function( a,b ) return a.ForTypeDescriptionID < b.ForTypeDescriptionID end;
