@@ -157,7 +157,7 @@
                 <File>Assets/UI/worldinput_CQUI.lua</File>
                 <File>Assets/UI/worldtracker.lua</File>
                 <File>Assets/UI/worldtracker.xml</File>
-                <File>Assets/UI/worldviewiconsmanager_CQUI.lua</File>
+                <File>Assets/UI/WorldViewIconsManager_CQUI.lua</File>
                 <File>Assets/UI/Choosers/civicschooser.lua</File>
                 <File>Assets/UI/Choosers/researchchooser.lua</File>
                 <File>Assets/UI/Civilopedia/civilopediasupport_CQUI.lua</File>
@@ -471,7 +471,7 @@
         <ReplaceUIScript id="CQUI_WorldViewIconsManager">
             <Properties>
                 <LuaContext>WorldViewIconsManager</LuaContext>
-                <LuaReplace>Assets/UI/worldviewiconsmanager_CQUI.lua</LuaReplace>
+                <LuaReplace>Assets/UI/WorldViewIconsManager_CQUI.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
 
@@ -1032,7 +1032,7 @@
         <File>Assets/UI/worldinput_CQUI.lua</File>
         <File>Assets/UI/worldtracker.lua</File>
         <File>Assets/UI/worldtracker.xml</File>
-        <File>Assets/UI/worldviewiconsmanager_CQUI.lua</File>
+        <File>Assets/UI/WorldViewIconsManager_CQUI.lua</File>
         <File>Assets/UI/Choosers/civicschooser.lua</File>
         <File>Assets/UI/Choosers/researchchooser.lua</File>
         <File>Assets/UI/Civilopedia/civilopediasupport_CQUI.lua</File>
