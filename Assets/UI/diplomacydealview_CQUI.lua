@@ -18,7 +18,7 @@ local CQUI_MinimizedSectionIM = InstanceManager:new( "MinimizedSection", "Minimi
 local CQUI_SIZE_SLOT_TYPE_ICON = 20;
 
 -- ===========================================================================
---  CQUI PopulateSignatureArea functiton
+--  CQUI PopulateSignatureArea function
 --  Populate the icon and leader name for the given player
 -- ===========================================================================
 function PopulateSignatureArea(player:table, iconControl, leaderControl, civControl)
@@ -64,7 +64,7 @@ function PopulateSignatureArea(player:table, iconControl, leaderControl, civCont
 end
 
 -- ===========================================================================
---  CQUI GetImportedResources functiton
+--  CQUI GetImportedResources function
 --  from the Improved Deal Screen by Mironos
 -- ===========================================================================
 function CQUI_GetImportedResources(playerID)
@@ -182,7 +182,7 @@ function CQUI_GetImportedResources(playerID)
 end
 
 -- ===========================================================================
---  CQUI MatchesPartnerResource functiton
+--  CQUI MatchesPartnerResource function
 --  from the Improved Deal Screen by Mironos
 -- ===========================================================================
 function MatchesPartnerResource(partnerResourceTable, targetResourceType)
@@ -197,7 +197,7 @@ function MatchesPartnerResource(partnerResourceTable, targetResourceType)
 end
 
 -- ===========================================================================
---  CQUI CQUI_RenderResourceButton functiton
+--  CQUI CQUI_RenderResourceButton function
 --  Render the correct resource button
 -- ===========================================================================
 function CQUI_RenderResourceButton(resource, resourceCategory, iconList, howAcquired)
@@ -264,7 +264,7 @@ function CQUI_RenderResourceButton(resource, resourceCategory, iconList, howAcqu
 end
 
 -- ===========================================================================
---  CQUI CQUI_RenderCityButton functiton
+--  CQUI CQUI_RenderCityButton function
 --  Render the city button with all the details
 -- ===========================================================================
 function CQUI_RenderCityButton(pCity : table, player : table, targetContainer : table)
@@ -398,7 +398,7 @@ function CQUI_MakeCityToolTip(pCity:table, player:table)
 end
 
 -- ===========================================================================
---  CQUI modified UpdateOtherPlayerText functiton
+--  CQUI modified UpdateOtherPlayerText function
 --  Small Hack, because modifing OnShow is not called, this function is called first after player variable are set and only in the original OnShow()
 --  Populate the signature of each civilization in the trade screen
 -- ===========================================================================
@@ -425,7 +425,7 @@ function UpdateOtherPlayerText(otherPlayerSays)
 end
 
 -- ===========================================================================
---  CQUI modified PopulateAvailableResources functiton
+--  CQUI modified PopulateAvailableResources function
 --  Resources are sorted by quantity
 -- ===========================================================================
 function PopulateAvailableResources(player : table, iconList : table, className : string)
@@ -518,7 +518,7 @@ function PopulateAvailableResources(player : table, iconList : table, className 
 end
 
 -- ===========================================================================
---  CQUI modified PopulateAvailableCities functiton
+--  CQUI modified PopulateAvailableCities function
 -- ===========================================================================
 function PopulateAvailableCities(player : table, iconList : table)
     local iAvailableItemCount = 0;
@@ -616,7 +616,7 @@ function PopulateAvailableCities(player : table, iconList : table)
 end
 
 -- ===========================================================================
---  CQUI modified PopulateAvailableGreatWorks functiton
+--  CQUI modified PopulateAvailableGreatWorks function
 -- ===========================================================================
 function PopulateAvailableGreatWorks(player : table, iconList : table)
     local iAvailableItemCount = 0;
