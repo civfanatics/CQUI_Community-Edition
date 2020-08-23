@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    CQUI - fixes for districts' font icons
+    Author: Infixo
+    2020-08-02: Created
+-->
+
+<GameInfo>
+    <IconDefinitions>
+        <Replace Name="DISTRICT_COTHON"         Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_DISTRICTS_BASELINE_4" Index="2"/> <!-- ICON_DISTRICT_COTHON is used in the vanilla game -->
+        <Replace Name="DISTRICT_SUGUBA"         Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_DISTRICTS_BASELINE_4" Index="3"/> <!-- ICON_DISTRICT_SUGUBA is used in the vanilla game -->
+        <Replace Name="DISTRICT_WALLED_QUARTER" Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_DISTRICTS_BASELINE_4" Index="4"/> <!-- ICON_DISTRICT_WALLED_QUARTER is used in the vanilla game -->
+    </IconDefinitions>
+</GameInfo>

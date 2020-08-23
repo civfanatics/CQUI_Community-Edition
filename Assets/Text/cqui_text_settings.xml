@@ -24,14 +24,17 @@
     <Row Tag="LOC_CQUI_CITYVIEW" Language="en_US">
       <Text>City View</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK" Language="en_US">
-      <Text>Block end turn for city attack</Text>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="en_US">
+      <Text>Relocate City Strike button</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_BLOCKONCITYATTACK_TOOLTIP" Language="en_US">
-      <Text>Enable this if you want "End Turn" to be block if a city can attack.</Text>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP" Language="en_US">
+      <Text>Enable this to relocate the City Strike button above health and defense bars</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="en_US">
-      <Text>Production item height</Text>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" Language="en_US">
+      <Text>Relocate Encampment Strike button</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="en_US">
+      <Text>Enable this to relocate the Encampment Strike button above health and defense bars</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_PRODUCTIONQUEUE" Language="en_US">
       <Text>Enable production queue</Text>
@@ -60,12 +63,6 @@
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEONHOVER_TOOLTIP" Language="en_US">
       <Text>Shows citizen managament area when hovering over city banner</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEINSCREEN" Language="en_US">
-      <Text>Show city management area in screen</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEINSCREEN_TOOLTIP" Language="en_US">
-      <Text>Shows citizen managament area when in city screen</Text>
-    </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_HEADER" Language="en_US">
       <Text>Smartbanners</Text>
     </Row>
@@ -86,6 +83,18 @@
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_CULTURAL_TOOLTIP" Language="en_US">
       <Text>Show the number of turns left to cultural growth.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_DISTRICTS_AVAILABLE" Language="en_US">
+      <Text>Districts Available</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_DISTRICTS_AVAILABLE_TOOLTIP" Language="en_US">
+      <Text>Show an icon indicating districts can be built in the city.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="en_US">
+      <Text>Suzerain in CityState Banner</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="en_US">
+      <Text>Show the Civilization Icon of the Suzerain of a City State in the City State Banner</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTWORKICON" Language="en_US">
       <Text>Smart Work Icons</Text>
@@ -155,18 +164,6 @@
     </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS" Language="en_US">
       <Text>Autoapply scout lens</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWNOTHINGTODO_BUILDER" Language="en_US">
-      <Text>Show nothing to do in builder lens</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWNOTHINGTODO_BUILDER_TOOLTIP" Language="en_US">
-      <Text>Shows nothing to do hexes (red tiles) when in builder lens</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWGENERIC_BUILDER" Language="en_US">
-      <Text>Show generic in builder lens</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_SHOWGENERIC_BUILDER_TOOLTIP" Language="en_US">
-      <Text>Shows generic hexes (white tiles) when in builder lens</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS" Language="en_US">
       <Text>Popups</Text>

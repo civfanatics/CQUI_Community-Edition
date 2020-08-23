@@ -24,8 +24,18 @@
     <Row Tag="LOC_CQUI_CITYVIEW" Language="zh_Hans_CN">
       <Text>城市视图</Text>
     </Row>
-    <Row Tag="LOC_CQUI_CITYVIEW_ITEMHEIGHT" Language="zh_Hans_CN">
-      <Text>生产项目横幅的高度</Text>
+    <!-- Relocate City Strike and Encampment Strike button translations done via Google Translate -->
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="zh_Hans_CN">
+      <Text>移居城市攻击图标</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP" Language="zh_Hans_CN">
+      <Text>启用此选项可将“城市攻击”按钮移到健康和防御面板上方</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" Language="zh_Hans_CN">
+      <Text>移居营地攻击图标</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="zh_Hans_CN">
+      <Text>启用此选项可将“营地攻击”按钮移至健康和防御栏上方。</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_PRODUCTIONQUEUE" Language="zh_Hans_CN">
       <Text>启用生产队列</Text>
