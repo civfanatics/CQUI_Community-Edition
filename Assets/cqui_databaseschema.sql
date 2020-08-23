@@ -7,8 +7,7 @@
 CREATE TABLE 'CQUI_Bindings' (
     'Action' TEXT NOT NULL,
     'Keys' TEXT NOT NULL,
-    'keyMod' INTEGER,
-    'keyMain' INTEGER,
+    'ActionDesc' TEXT NOT NULL,
     PRIMARY KEY('Action')
 );
 

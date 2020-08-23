@@ -14,17 +14,19 @@ BASE_CQUI_OnUserRequestClose       = OnUserRequestClose;
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
-local CQUI_HOTKEYMODE_ENHANCED    = 2;
 local CQUI_HOTKEYMODE_CLASSIC     = 1;
 local CQUI_HOTKEYMODE_STANDARD    = 0;
 
 local CQUI_cityview     :boolean = false;
-local CQUI_hotkeyMode   :number  = CQUI_HOTKEYMODE_ENHANCED;
+local CQUI_hotkeyMode   :number  = CQUI_HOTKEYMODE_CLASSIC;
 local CQUI_isShiftDown  :boolean = false;
 local CQUI_isAltDown    :boolean = false;
 
 function CQUI_OnSettingsUpdate()
     CQUI_hotkeyMode = GameConfiguration.GetValue("CQUI_BindingsMode");
+    if CQUI_hotkeyMode > CQUI_HOTKEYMODE_CLASSIC then
+        CQUI_hotkeyMode = CQUI_HOTKEYMODE_CLASSIC
+    end
 end
 
 LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
