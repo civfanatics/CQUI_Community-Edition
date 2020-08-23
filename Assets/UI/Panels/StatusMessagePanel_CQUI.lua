@@ -13,8 +13,8 @@ BASE_CQUI_OnStatusMessage = OnStatusMessage;
 local DEFAULT_TIME_TO_DISPLAY :number = 10; -- Seconds to display the message
 
 -- CQUI CONSTANTS Trying to make the different messages have unique colors
-local CQUI_STATUS_MESSAGE_CIVIC            :number = 3;        -- Number to distinguish civic messages
-local CQUI_STATUS_MESSAGE_TECHS            :number = 4;        -- Number to distinguish tech messages
+local CQUI_STATUS_MESSAGE_CIVIC            :number = 3; -- Number to distinguish civic messages
+local CQUI_STATUS_MESSAGE_TECHS            :number = 4; -- Number to distinguish tech messages
 
 -- ===========================================================================
 -- CQUI Members
