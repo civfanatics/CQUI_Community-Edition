@@ -1,11 +1,11 @@
+include("StatusMessagePanel");
+include("supportfunctions.lua");
+include("CQUICommon.lua");
+
 -- ===========================================================================
--- Status Message Manager
--- Non-interactive messages that appear in the upper-center of the screen.
+-- Cached Base Functions
 -- ===========================================================================
-include( "InstanceManager" );
-include( "SupportFunctions" );
-include( "Civ6Common" );
-include( "CQUICommon.lua" );
+BASE_CQUI_OnStatusMessage = OnStatusMessage;
 
 -- ===========================================================================
 --    CONSTANTS
@@ -13,31 +13,12 @@ include( "CQUICommon.lua" );
 local DEFAULT_TIME_TO_DISPLAY :number = 10; -- Seconds to display the message
 
 -- CQUI CONSTANTS Trying to make the different messages have unique colors
-local CQUI_STATUS_MESSAGE_CIVIC            :number = 3;        -- Number to distinguish civic messages
-local CQUI_STATUS_MESSAGE_TECHS            :number = 4;        -- Number to distinguish tech messages
-
--- Figure out eventually what colors are used by the actual civic and tech trees
-local CQUI_CIVIC_COLOR                                             = 0xDFFF33CC;
-local CQUI_TECHS_COLOR                                             = 0xDFFF6600;
-local CQUI_BASIC_COLOR                                             = 0xFFFFFFFF;
-
+local CQUI_STATUS_MESSAGE_CIVIC            :number = 3; -- Number to distinguish civic messages
+local CQUI_STATUS_MESSAGE_TECHS            :number = 4; -- Number to distinguish tech messages
 
 -- ===========================================================================
---    VARIABLES
+-- CQUI Members
 -- ===========================================================================
-
-local m_statusIM:table = InstanceManager:new( "StatusMessageInstance", "Root", Controls.StackOfMessages );
-local m_gossipIM:table = InstanceManager:new( "GossipMessageInstance", "Root", Controls.StackOfMessages );
-
-local PlayerConnectedChatStr    :string = Locale.Lookup( "LOC_MP_PLAYER_CONNECTED_CHAT" );
-local PlayerDisconnectedChatStr :string = Locale.Lookup( "LOC_MP_PLAYER_DISCONNECTED_CHAT" );
-local PlayerKickedChatStr       :string = Locale.Lookup( "LOC_MP_PLAYER_KICKED_CHAT" );
-
-local CQUI_messageType:number = 0;
-
-local m_kMessages:table = {};
-
---CQUI Members
 local CQUI_trimGossip = true;
 local CQUI_ignoredMessages = {};
 
@@ -46,17 +27,73 @@ function CQUI_OnSettingsUpdate()
     CQUI_ignoredMessages = CQUI_GetIgnoredGossipMessages();
 end
 
-LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
-LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
+-- ===========================================================================
+-- CQUI Function Extensions
+-- ===========================================================================
+function OnStatusMessage( message:string, displayTime:number, type:number, subType:number )
+-- If gossip, trim or ignore and then send on to base game for handling
+    if (type == ReportingStatusTypes.GOSSIP) then
+        local trimmed = CQUI_TrimGossipMessage(message);
+        if (trimmed ~= nil) then
+            if (CQUI_IsGossipMessageIgnored(trimmed)) then
+                return; --If the message is supposed to be ignored, give up!
+            elseif (CQUI_trimGossip) then
+                message = trimmed;
+            end
+        end
+    elseif (type == CQUI_STATUS_MESSAGE_CIVIC) then
+        message = "[ICON_CULTURE]"..message;
+        type = ReportingStatusTypes.DEFAULT;
+    elseif (type == CQUI_STATUS_MESSAGE_TECHS) then
+        message = "[ICON_SCIENCE]"..message;
+        type = ReportingStatusTypes.DEFAULT;
+    end
+
+    local timeToDisplay:number = DEFAULT_TIME_TO_DISPLAY;
+    if (displayTime and (displayTime > 0)) then
+        timeToDisplay = displayTime;
+    end
+
+    BASE_CQUI_OnStatusMessage(message, timeToDisplay, type, subType);
+end
 
 -- ===========================================================================
---  FUNCTIONS
--- ===========================================================================
+function CQUI_IsGossipMessageIgnored(str)
+-- Returns true if the given message is disabled in settings
+    if (str == nil) then
+        -- str will be nil if the last word from the gossip source string can't be found in message.
+        -- Generally means the incoming message wasn't gossip at all
+        return false;
+    end
+
+    str = string.gsub(str, "%s", ""); -- remove spaces to normalize the string
+    for _, message in ipairs(CQUI_ignoredMessages) do
+        message = string.gsub(message, "%s", ""); -- remove spaces to normalize the ignored message
+        partsToMatch = Split(message, "%[%]"); -- Split the ignored messages into its different parts
+        local stringToMatch = "^"; -- We'll build a string to match with the differents parts
+        for _, part in ipairs(partsToMatch) do
+            part = string.gsub(part, "%p", "%%%1"); -- Escape all the magic character that each part can contain (to avoid being considered as part of the pattern)
+            stringToMatch = stringToMatch .. part .. ".*";
+        end
+
+        stringToMatch = stringToMatch .. "$";
+        if (string.find(str, stringToMatch)) then -- If the str match the strToMatch, return true
+            return true;
+        end
+    end
+
+    return false;
+end
 
 -- ===========================================================================
+function CQUI_OnStatusMessage(str:string, fDisplayTime:number, messageType:number)
+    OnStatusMessage(str, fDisplayTime, messageType, nil);
+end
+
 -- ===========================================================================
--- Gets a list of ignored gossip messages based on current settings
-function CQUI_GetIgnoredGossipMessages() --Yeah... as far as I can tell there's no way to get these programatically, so I just made a script that grepped these from the LOC files
+function CQUI_GetIgnoredGossipMessages()
+    -- Gets a list of ignored gossip messages based on current settings
+    -- Yeah... as far as I can tell there's no way to get these programatically, so I just made a script that grepped these from the LOC files
     local ignored :table = {};
     if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_AGENDA_KUDOS") == false) then
         ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_AGENDA_KUDOS", "[]", "[]", "[]", "[]", "[]", "[]");
@@ -250,166 +287,42 @@ function CQUI_GetIgnoredGossipMessages() --Yeah... as far as I can tell there's 
     if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_WONDER_STARTED") == false) then
         ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_WONDER_STARTED", "[]", "[]", "[]", "[]", "[]", "[]");
     end
+
     return ignored;
 end
 
--- Returns true if the given message is disabled in settings
-function CQUI_IsGossipMessageIgnored(str)
-    if (str == nil) then return false; end --str will be nil if the last word from the gossip source string can't be found in message. Generally means the incoming message wasn't gossip at all
-    str = string.gsub(str, "%s", "") -- remove spaces to normalize the string
-    for _, message in ipairs(CQUI_ignoredMessages) do
-        message = string.gsub(message, "%s", "") -- remove spaces to normalize the ignored message
-        partsToMatch = Split(message, "%[%]") -- Split the ignored messages into its different parts
-        local stringToMatch = "^" -- We'll build a string to match with the differents parts
-        for _, part in ipairs(partsToMatch) do
-            part = string.gsub(part, "%p", "%%%1") -- Escape all the magic character that each part can contain (to avoid being considered as part of the pattern)
-            stringToMatch = stringToMatch .. part .. ".*"
-        end
-        stringToMatch = stringToMatch .. "$"
-        if string.find(str, stringToMatch) then -- If the str match the strToMatch, return true
-            return true
-        end
-    end
-    return false
-end
+-- ===========================================================================
+function CQUI_DebugTest()
+    OnStatusMessage("Press F, G, or H to generate CQUI notifications.", 7, ReportingStatusTypes.DEFAULT );
+    ContextPtr:SetInputHandler( 
+        function( pInputStruct ) 
+            local uiMsg = pInputStruct:GetMessageType();
+            if uiMsg == KeyEvents.KeyUp then 
+                local key = pInputStruct:GetKey();
+                if key == Keys.F then
+                    OnStatusMessage("CQUI civic status message", 10, CQUI_STATUS_MESSAGE_CIVIC, nil);
+                    return true;
+                end
 
-function OnStatusMessage( str:string, fDisplayTime:number, type:number )
-    if (type == ReportingStatusTypes.DEFAULT or type == ReportingStatusTypes.GOSSIP) then -- A type we handle?
-        if (type == ReportingStatusTypes.GOSSIP) then
-            local trimmed = CQUI_TrimGossipMessage(str);
-            if (trimmed ~= nil) then
-                if (CQUI_IsGossipMessageIgnored(trimmed)) then
-                    return; --If the message is supposed to be ignored, give up!
-                elseif (CQUI_trimGossip) then
-                    str = trimmed
+                if key == Keys.G then
+                    OnStatusMessage("CQUI techs status message", 10, CQUI_STATUS_MESSAGE_TECHS, nil);
+                    return true;
+                end
+
+                if key == Keys.H then
+                    OnStatusMessage("CQUI default status message", 10, ReportingStatusTypes.DEFAULT, subType );
+                    return true;
                 end
             end
-        end
 
-        local kTypeEntry :table = m_kMessages[type];
-        if (kTypeEntry == nil) then
-            -- New type
-            m_kMessages[type] = {
-                InstanceManager = nil,
-                MessageInstances= {}
-            };
-            kTypeEntry = m_kMessages[type];
-
-            -- Link to the instance manager and the stack the UI displays in
-            if (type == ReportingStatusTypes.GOSSIP) then
-                kTypeEntry.InstanceManager    = m_gossipIM;
-            else
-                kTypeEntry.InstanceManager    = m_statusIM;
-            end
-        end
-
-        local pInstance:table = kTypeEntry.InstanceManager:GetInstance();
-        table.insert( kTypeEntry.MessageInstances, pInstance );
-
-        local timeToDisplay:number = (fDisplayTime > 0) and fDisplayTime or DEFAULT_TIME_TO_DISPLAY;
-
-        -- CQUI Figuring out how to change the color of the status message
-        if CQUI_messageType == CQUI_STATUS_MESSAGE_CIVIC then
-            pInstance.StatusGrid:SetColor(CQUI_CIVIC_COLOR);
-        elseif CQUI_messageType == CQUI_STATUS_MESSAGE_TECHS then
-            pInstance.StatusGrid:SetColor(CQUI_TECHS_COLOR);
-        elseif type == ReportingStatusTypes.DEFAULT then
-            pInstance.StatusGrid:SetColor(CQUI_BASIC_COLOR);
-        end
-
-        pInstance.StatusLabel:SetText( str );
-        pInstance.Anim:SetEndPauseTime( timeToDisplay );
-        pInstance.Anim:RegisterEndCallback( function() OnEndAnim(kTypeEntry,pInstance) end );
-        pInstance.StatusButton:RegisterCallback( Mouse.eLClick, function() OnMessageClicked(kTypeEntry,pInstance) end );
-        pInstance.Anim:SetToBeginning();
-        pInstance.Anim:Play();
-
-        Controls.StackOfMessages:CalculateSize();
-        Controls.StackOfMessages:ReprocessAnchoring();
-    end
-end
-
--- ===========================================================================
-function OnEndAnim( kTypeEntry:table, pInstance:table )
-    RemoveMessage( kTypeEntry, pInstance );
-end
-
--- ===========================================================================
-function OnMessageClicked( kTypeEntry:table, pInstance:table )
-    RemoveMessage( kTypeEntry, pInstance );
-end
-
--- ===========================================================================
-function RemoveMessage( kTypeEntry:table, pInstance:table )
-    pInstance.Anim:ClearEndCallback();
-    Controls.StackOfMessages:CalculateSize();
-    Controls.StackOfMessages:ReprocessAnchoring();
-    kTypeEntry.InstanceManager:ReleaseInstance( pInstance );
-end
-
-----------------------------------------------------------------
-function OnMultplayerPlayerConnected( playerID )
-    if ( ContextPtr:IsHidden() == false and GameConfiguration.IsNetworkMultiplayer() ) then
-        local pPlayerConfig = PlayerConfigurations[playerID];
-        local statusMessage = Locale.Lookup(pPlayerConfig:GetPlayerName()) .. " " .. PlayerConnectedChatStr;
-        OnStatusMessage( statusMessage, DEFAULT_TIME_TO_DISPLAY, ReportingStatusTypes.DEFAULT );
-    end
-end
-
-----------------------------------------------------------------
-function OnMultiplayerPrePlayerDisconnected( playerID )
-    if ( ContextPtr:IsHidden() == false and GameConfiguration.IsNetworkMultiplayer() ) then
-        local pPlayerConfig = PlayerConfigurations[playerID];
-        local statusMessage = Locale.Lookup(pPlayerConfig:GetPlayerName());
-        if (Network.IsPlayerKicked(playerID)) then
-            statusMessage = statusMessage .. " " .. PlayerKickedChatStr;
-        else
-            statusMessage = statusMessage .. " " .. PlayerDisconnectedChatStr;
-        end
-        OnStatusMessage(statusMessage, DEFAULT_TIME_TO_DISPLAY, ReportingStatusTypes.DEFAULT);
-    end
-end
-
--- ===========================================================================
---    Testing: When on the "G" and "D" keys generate messages.
--- ===========================================================================
-function Test()
-    OnStatusMessage("Testing out A message", 10, ReportingStatusTypes.GOSSIP );
-    OnStatusMessage("Testing out BB message", 10, ReportingStatusTypes.GOSSIP );
-    ContextPtr:SetInputHandler(
-        function( pInputStruct )
-            local uiMsg = pInputStruct:GetMessageType();
-            if uiMsg == KeyEvents.KeyUp then
-                local key = pInputStruct:GetKey();
-                if key == Keys.D then OnStatusMessage("Testing out status message ajsdkl akds dk dkdkj dkdkd ajksaksdkjkjd dkadkj f djkdkjdkj dak sdkjdjkal dkd kd dk adkj dkkadj kdjd kdkjd jkd jd dkj djkd dkdkdjdkdkjdkd djkd dkd dkjd kdjdkj d", 10, ReportingStatusTypes.DEFAULT ); return true; end
-                if key == Keys.G then OnStatusMessage("Testing out gossip message", 10, ReportingStatusTypes.GOSSIP ); return true; end
-            end
             return false;
         end, true);
 end
 
-function CQUI_OnStatusMessage(str:string, fDisplayTime:number, thisType:number)
-
-    if thisType == CQUI_STATUS_MESSAGE_CIVIC then
-        CQUI_messageType = CQUI_STATUS_MESSAGE_CIVIC;
-    elseif thisType == CQUI_STATUS_MESSAGE_TECHS then
-        CQUI_messageType = CQUI_STATUS_MESSAGE_TECHS;
-    else
-        CQUI_messageType = 0;
-    end
-
-    OnStatusMessage(str, fDisplayTime, ReportingStatusTypes.DEFAULT);
-    CQUI_messageType = 0;
-end
-
 -- ===========================================================================
 function Initialize()
-    Events.StatusMessage.Add( OnStatusMessage );
-    Events.MultiplayerPlayerConnected.Add( OnMultplayerPlayerConnected );
-    Events.MultiplayerPrePlayerDisconnected.Add( OnMultiplayerPrePlayerDisconnected );
-
-    -- CQUI
+    LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
+    LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
     LuaEvents.CQUI_AddStatusMessage.Add( CQUI_OnStatusMessage );
-    --Test();
 end
 Initialize();
