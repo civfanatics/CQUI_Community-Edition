@@ -155,7 +155,8 @@
                 <File>Assets/UI/unitflagmanager.xml</File>
                 <File>Assets/UI/worldinput_CQUI_basegame.lua</File>
                 <File>Assets/UI/worldinput_CQUI.lua</File>
-                <File>Assets/UI/worldtracker.lua</File>
+                <File>Assets/UI/WorldTracker_CQUI.lua</File>
+                <File>Assets/UI/WorldTracker_CQUI_Basegame.lua</File>
                 <File>Assets/UI/worldtracker.xml</File>
                 <File>Assets/UI/worldviewiconsmanager_CQUI.lua</File>
                 <File>Assets/UI/Choosers/civicschooser.lua</File>
@@ -236,7 +237,7 @@
             <Items>
                 <File>Assets/UI/WorldView/citybannermanager_CQUI_expansions.lua</File>
                 <File>Assets/Expansion1/Replacements/citypanelculture_CQUI.lua</File>
-                <File>Assets/Expansion1/Replacements/worldtracker_expansion1.lua</File>
+                <File>Assets/Expansion1/Replacements/WorldTracker_CQUI_Expansion1.lua</File>
             </Items>
         </ImportFiles>
 
@@ -740,6 +741,20 @@
             </Properties>
         </ReplaceUIScript>
 
+        <ReplaceUIScript id="CQUI_WorldTracker">
+            <Properties>
+                <LuaContext>WorldTracker</LuaContext>
+                <LuaReplace>Assets/UI/WorldTracker_CQUI_Basegame.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
+        <ReplaceUIScript id="CQUI_WorldTracker_EXP1" criteria="Expansion1AndBeyond">
+            <Properties>
+                <LoadOrder>100</LoadOrder>
+                <LuaContext>WorldTracker</LuaContext>
+                <LuaReplace>Assets/Expansion1/Replacements/WorldTracker_CQUI_Expansion1.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
         <!-- ============================== Mod integrations ======================================== -->
         <!-- ============================== Better Trade Screen (BTS) ============================== -->
         <LocalizedText id="BTS_TEXT">
@@ -928,7 +943,7 @@
         <File>Assets/Expansion1/Replacements/toppanel_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/unitpanel_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/worldinput_CQUI_expansion1.lua</File>
-        <File>Assets/Expansion1/Replacements/worldtracker_expansion1.lua</File>
+        <File>Assets/Expansion1/Replacements/WorldTracker_CQUI_Expansion1.lua</File>
 
         <!-- EXP 2 -->
         <File>Assets/Expansion2/Replacements/citypaneloverview_expansion2_CQUI.lua</File>
@@ -1030,7 +1045,8 @@
         <File>Assets/UI/unitflagmanager.xml</File>
         <File>Assets/UI/worldinput_CQUI_basegame.lua</File>
         <File>Assets/UI/worldinput_CQUI.lua</File>
-        <File>Assets/UI/worldtracker.lua</File>
+        <File>Assets/UI/WorldTracker_CQUI.lua</File>
+        <File>Assets/UI/WorldTracker_CQUI_Basegame.lua</File>
         <File>Assets/UI/worldtracker.xml</File>
         <File>Assets/UI/worldviewiconsmanager_CQUI.lua</File>
         <File>Assets/UI/Choosers/civicschooser.lua</File>
