@@ -75,8 +75,6 @@ function DefaultKeyDownHandler( uiKey:number )
     BASE_CQUI_DefaultKeyDownHandler( uiKey );
 
     --CQUI Keybinds
-    local keyPanChanged :boolean = false;
-
     if uiKey == Keys.VK_SHIFT then
         print_debug("CQUI_isShiftDown = true");
         CQUI_isShiftDown = true;
@@ -85,34 +83,6 @@ function DefaultKeyDownHandler( uiKey:number )
     if uiKey == Keys.VK_ALT then
         print_debug("CQUI_isAltDown = true");
         CQUI_isAltDown = true;
-    end
-
-    if not CQUI_isAltDown and not CQUI_isShiftDown and CQUI_hotkeyMode == CQUI_HOTKEYMODE_ENHANCED then
-        if (uiKey == Keys.W) then
-            keyPanChanged = true;
-            m_isUPpressed = true;
-        end
-
-        if (uiKey == Keys.D) then
-            keyPanChanged = true;
-            m_isRIGHTpressed = true;
-        end
-
-        if (uiKey == Keys.S) then
-            keyPanChanged = true;
-            m_isDOWNpressed = true;
-        end
-
-        if (uiKey == Keys.A) then
-            keyPanChanged = true;
-            m_isLEFTpressed = true;
-        end
-    end
-
-    if (keyPanChanged == true) then
-        -- Base game file uses m_edgePanX and m_edgePanY... but those values do not ever appear change from 0, so just send 0.
-        ProcessPan(0, 0);
-        return true;
     end
 
     -- Allow other handlers of KeyDown events to capture input, if any exist after World Input
@@ -136,7 +106,6 @@ function DefaultKeyUpHandler( uiKey:number )
         return BASE_CQUI_DefaultKeyUpHandler(uiKey);
     end
 
-    local keyPanChanged  :boolean = false;
     local cquiHandledKey :boolean = false;
 
     local selectedUnit = UI.GetHeadSelectedUnit();
@@ -148,108 +117,6 @@ function DefaultKeyUpHandler( uiKey:number )
     end
 
     --CQUI Keybinds
-    if CQUI_hotkeyMode == CQUI_HOTKEYMODE_ENHANCED then
-        if (uiKey == Keys.W) then
-            m_isUPpressed = false;
-            keyPanChanged = true;
-        end
-
-        if (uiKey == Keys.D) then
-            m_isRIGHTpressed = false;
-            keyPanChanged = true;
-        end
-
-        if (not CQUI_isAltDown and uiKey == Keys.S) then
-            m_isDOWNpressed = false;
-            keyPanChanged = true;
-        end
-
-        if (uiKey == Keys.A) then
-            m_isLEFTpressed = false;
-            keyPanChanged = true;
-        end
-
-        if (uiKey == Keys.E) then
-            if (CQUI_isAltDown == true) then
-                -- Behave as if just "E" was pressed, send the unit exploring
-                -- Calling this using UnitOperationTypes doesn't work as Automate_Explore hash does not appear among the GameInfo.OperationTypes
-                UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), GameInfo.UnitOperations["UNITOPERATION_AUTOMATE_EXPLORE"].Hash);
-                cquiHandledKey = true;
-            elseif (CQUI_cityview) then
-                LuaEvents.CQUI_GoNextCity();
-                cquiHandledKey = true;
-            else
-                UI.SelectNextReadyUnit();
-                cquiHandledKey = true;
-            end
-        end
-
-        if (uiKey == Keys.Q) then
-            if (CQUI_isAltDown == true and unitType == "UNIT_BUILDER" ) then
-                -- Do nothing, this case is handled later on in this function
-            elseif (CQUI_cityview) then
-                LuaEvents.CQUI_GoPrevCity();
-                cquiHandledKey = true;
-            else
-                UI.SelectPrevReadyUnit();
-                cquiHandledKey = true;
-            end
-        end
-
-        -- TODO: Not a huge fan of the Shift key being used to do things when the Shift key should just be a modifier.
-        --       Taking it out for now and will address with Issue #40
-        -- if (uiKey == Keys.VK_SHIFT and ContextPtr:LookUpControl("/InGame/TechTree"):IsHidden() and ContextPtr:LookUpControl("/InGame/CivicsTree"):IsHidden()) then
-        --   cquiHandledKey = true;
-        --   if (CQUI_cityview) then
-        --     UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
-        --     UI.SelectNextReadyUnit();
-        --   else
-        --     LuaEvents.CQUI_GoNextCity();
-        --   end
-        -- end
-
-        if (keyPanChanged == true) then
-            -- Base game file uses m_edgePanX and m_edgePanY... but I do not see evidence where these are assigned to, except for the initial 0.
-            ProcessPan(0, 0);
-            cquiHandledKey = true;
-        end
-    else -- CQUI_hotkeyMode == CQUI_HOTKEYMODE_CLASSIC  (Classic binds that overlap with enhanced binds)
-        if (uiKey == Keys.Q) then
-            if (unitType == "UNIT_BUILDER") then
-                CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_QUARRY"].Hash);
-                cquiHandledKey = true;
-            end
-        end
-
-        if (uiKey == Keys.S) then
-            local bCanStartAirAttack = selectedUnit and UnitManager.CanStartOperation(selectedUnit, UnitOperationTypes.AIR_ATTACK, nil, true);
-            if (bCanStartAirAttack) then
-                -- Valid plot search code based on OnInterfaceModeChange_Air_Attack in WorldInput.lua
-                local tResults = UnitManager.GetOperationTargets(selectedUnit, UnitOperationTypes.AIR_ATTACK );
-                local tPlots = tResults[UnitOperationResults.PLOTS];
-                local bTargetAvailable = false;
-                if (tPlots ~= nil) then
-                    for i,modifier in ipairs(tResults[UnitOperationResults.MODIFIERS]) do
-                        if (modifier == UnitOperationResults.MODIFIER_IS_TARGET) then
-                            bTargetAvailable = true;
-                            break;
-                        end
-                    end 
-                    if (bTargetAvailable) then
-                        UI.SetInterfaceMode(InterfaceModeTypes.AIR_ATTACK);
-                    end
-                end
-                cquiHandledKey = true;
-            end
-        end
-    end -- Classic binds that overlap with enhanced binds
-
-        -- Focus Capital hotkey
-    if (uiKey == Keys.VK_HOME) then
-        UI.SelectCity(Players[Game.GetLocalPlayer()]:GetCities():GetCapitalCity());
-        cquiHandledKey = true;
-    end
-
     if (uiKey == Keys.VK_BACK) then
         if (unitType ~= nil) then
             UnitManager.RequestCommand(UI.GetHeadSelectedUnit(), UnitCommandTypes.CANCEL);
@@ -332,7 +199,7 @@ function DefaultKeyUpHandler( uiKey:number )
     end
 
     if (uiKey == Keys.Q) then
-        if (CQUI_isAltDown == true and unitType == "UNIT_BUILDER" ) then
+        if (unitType == "UNIT_BUILDER" ) then
             CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_QUARRY"].Hash);
             cquiHandledKey = true;
         end
@@ -345,34 +212,12 @@ function DefaultKeyUpHandler( uiKey:number )
             -- Build Road/Rail is a UnitOperation
             UnitManager.RequestOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_BUILD_ROUTE"].Hash);
             cquiHandledKey = true;
-        elseif (bCanStartRebase) then
+        elseif (bCanStartRebase and CQUI_isAltDown) then
             -- Valid plot search code based on OnInterfaceModeChange_ReBase in WorldInput.lua
             local tResults = UnitManager.GetOperationTargets(selectedUnit, UnitOperationTypes.REBASE );
             local tValidPlots = tResults[UnitOperationResults.PLOTS];
             if (tValidPlots ~= nil and table.count(tValidPlots) > 0) then
                 UI.SetInterfaceMode(InterfaceModeTypes.REBASE);
-            end
-            cquiHandledKey = true;
-        end
-    end
-
-    if (uiKey == Keys.S and CQUI_isAltDown == true) then
-        local bCanStartAirAttack = selectedUnit and UnitManager.CanStartOperation(selectedUnit, UnitOperationTypes.AIR_ATTACK, nil, true);
-        if (bCanStartAirAttack) then
-            -- Valid plot search code based on OnInterfaceModeChange_Air_Attack in WorldInput.lua
-            local tResults = UnitManager.GetOperationTargets(selectedUnit, UnitOperationTypes.AIR_ATTACK );
-            local tPlots = tResults[UnitOperationResults.PLOTS];
-            local bTargetAvailable = false;
-            if (tPlots ~= nil) then
-                for i,modifier in ipairs(tResults[UnitOperationResults.MODIFIERS]) do
-                    if (modifier == UnitOperationResults.MODIFIER_IS_TARGET) then
-                        bTargetAvailable = true;
-                        break;
-                    end
-                end
-                if (bTargetAvailable) then
-                    UI.SetInterfaceMode(InterfaceModeTypes.AIR_ATTACK);
-                end
             end
             cquiHandledKey = true;
         end
