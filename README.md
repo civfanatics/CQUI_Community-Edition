@@ -57,7 +57,6 @@ See CQUI_Settings_Local section later in this document.
 - Improved resource icons are dimmed to emphasize unutilized resources _- [image](http://i.imgur.com/m32xtQr.png)_
 - Civ V keybinding options
   - Classic, a faithful recreation of the Civ V binding scheme
-  - Enhanced, Civ V binding scheme with WASD assigned to camera control, Q/E assigned to city/unit cycling
 - Unit actions like sell/delete are no longer hidden behind an expando _- [image](http://i.imgur.com/x1xZtyY.png)_
 - Unit XP bars are twice as tall _- [image](http://i.imgur.com/TeWR0VA.png)_
 - Growth/Amenities/Bordergrowth info baked into city banners _- [image](http://i.imgur.com/8CUJSB6.png)_

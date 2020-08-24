@@ -285,6 +285,9 @@
     <Row Tag="LOC_CQUI_BUILD_RAILROAD" Language="en_US">
       <Text>Build Railroad</Text>
     </Row>
+    <Row Tag="LOC_CQUI_BUILD_MINE" Language="en_US">
+      <Text>Build Mine</Text>
+    </Row>
     <Row Tag="LOC_CQUI_NUKE" Language="en_US">
       <Text>WMD Strike: Nuclear Device</Text>
     </Row>

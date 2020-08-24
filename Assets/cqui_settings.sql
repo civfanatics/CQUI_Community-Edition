@@ -180,7 +180,7 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
 
 INSERT OR REPLACE INTO CQUI_Bindings -- Don't touch this line!
     VALUES
-        ("CANCEL_COMMAND", "Backspace", "LOC_CQUI_CANCEL_COMMAND"),
+        ("CANCEL_COMMAND", "VK_BACK", "LOC_CQUI_CANCEL_COMMAND"),
         ("REMOVE_HARVEST", "Alt+C", "LOC_CQUI_REMOVE_HARVEST"),
         ("BUILD_FISHING", "F", "LOC_CQUI_BUILD_FISHING"),
         ("BUILD_FORT", "F", "LOC_CQUI_BUILD_FORT"),
@@ -192,6 +192,7 @@ INSERT OR REPLACE INTO CQUI_Bindings -- Don't touch this line!
         ("BUILD_PLANTATION", "P", "LOC_CQUI_BUILD_PLANTATION"),
         ("BUILD_QUARRY", "Q", "LOC_CQUI_BUILD_QUARRY"),
         ("BUILD_RAILROAD", "R", "LOC_CQUI_BUILD_RAILROAD"),
+        ("BUILD_MINE", "N", "LOC_CQUI_BUILD_MINE"),
         ("NUKE", "N", "LOC_CQUI_NUKE"),
         ("THERMO_NUKE", "Alt+N", "LOC_CQUI_THERMO_NUKE"),
         ("REBASE", "Alt+R", "LOC_CQUI_REBASE"),
