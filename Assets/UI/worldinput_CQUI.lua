@@ -241,6 +241,7 @@ function DefaultKeyUpHandler( uiKey:number )
         if (tValidPlots ~= nil and table.count(tValidPlots) > 0) then
             UI.SetInterfaceMode(InterfaceModeTypes.REBASE);
         end
+
         cquiHandledKey = true;
     end
 
@@ -681,6 +682,7 @@ function Initialize()
                 newKeyMapping["Key"] = Locale.ToUpper(token);
             end
         end
+
         table.insert(CQUI_keyMaps, newKeyMapping);
     end
 
