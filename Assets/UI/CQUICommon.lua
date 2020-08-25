@@ -73,7 +73,19 @@ function PopulateComboBox(control, values, setting_name, tooltip)
     print_debug("ENTRY: CQUICommon - PopulateComboBox");
     control:ClearEntries();
     local current_value = GameConfiguration.GetValue(setting_name);
-    if (current_value == nil) then
+
+    -- Validate the Value retrieved is legal
+    local isLegalValue = false;
+    if (current_value ~= nil) then
+        for _, v in ipairs(values) do
+            if (v[2] == current_value) then
+                isLegalValue = true;
+                break;
+            end
+        end
+    end
+
+    if (current_value == nil or isLegalValue == false) then
         --LY Checks if this setting has a default state defined in the database
         if (GameInfo.CQUI_Settings[setting_name]) then
             --reads the default value from the database. Set them in Settings.sql
