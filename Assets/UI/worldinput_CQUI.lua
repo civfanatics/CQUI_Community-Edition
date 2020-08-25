@@ -14,21 +14,36 @@ BASE_CQUI_OnUserRequestClose       = OnUserRequestClose;
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
-local CQUI_HOTKEYMODE_ENHANCED    = 2;
 local CQUI_HOTKEYMODE_CLASSIC     = 1;
 local CQUI_HOTKEYMODE_STANDARD    = 0;
 
 local CQUI_cityview     :boolean = false;
-local CQUI_hotkeyMode   :number  = CQUI_HOTKEYMODE_ENHANCED;
+local CQUI_hotkeyMode   :number  = CQUI_HOTKEYMODE_CLASSIC;
 local CQUI_isShiftDown  :boolean = false;
 local CQUI_isAltDown    :boolean = false;
 
+local CQUI_keyMaps      :table = {};
+
 function CQUI_OnSettingsUpdate()
     CQUI_hotkeyMode = GameConfiguration.GetValue("CQUI_BindingsMode");
+    if CQUI_hotkeyMode > CQUI_HOTKEYMODE_CLASSIC then
+        CQUI_hotkeyMode = CQUI_HOTKEYMODE_CLASSIC
+    end
 end
 
 LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
 LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
+
+-- ===========================================================================
+function CQUI_GetActionFromKey( uiKey:number )
+    local action :table = {};
+    for i, keymap in ipairs(CQUI_keyMaps) do
+        if (keymap["Alt"] == CQUI_isAltDown) and (keymap["Shift"] == CQUI_isShiftDown) and (Keys[keymap["Key"]] == uiKey) then
+            action[keymap["Action"]] = true;
+        end
+    end
+    return action;
+end
 
 -- ===========================================================================
 -- CQUI Base Extension Functions
@@ -75,8 +90,6 @@ function DefaultKeyDownHandler( uiKey:number )
     BASE_CQUI_DefaultKeyDownHandler( uiKey );
 
     --CQUI Keybinds
-    local keyPanChanged :boolean = false;
-
     if uiKey == Keys.VK_SHIFT then
         print_debug("CQUI_isShiftDown = true");
         CQUI_isShiftDown = true;
@@ -85,34 +98,6 @@ function DefaultKeyDownHandler( uiKey:number )
     if uiKey == Keys.VK_ALT then
         print_debug("CQUI_isAltDown = true");
         CQUI_isAltDown = true;
-    end
-
-    if CQUI_hotkeyMode == CQUI_HOTKEYMODE_ENHANCED then
-        if (uiKey == Keys.W) then
-            keyPanChanged = true;
-            m_isUPpressed = true;
-        end
-
-        if (uiKey == Keys.D) then
-            keyPanChanged = true;
-            m_isRIGHTpressed = true;
-        end
-
-        if (uiKey == Keys.S) then
-            keyPanChanged = true;
-            m_isDOWNpressed = true;
-        end
-
-        if (uiKey == Keys.A) then
-            keyPanChanged = true;
-            m_isLEFTpressed = true;
-        end
-    end
-
-    if (keyPanChanged == true) then
-        -- Base game file uses m_edgePanX and m_edgePanY... but those values do not ever appear change from 0, so just send 0.
-        ProcessPan(0, 0);
-        return true;
     end
 
     -- Allow other handlers of KeyDown events to capture input, if any exist after World Input
@@ -136,7 +121,7 @@ function DefaultKeyUpHandler( uiKey:number )
         return BASE_CQUI_DefaultKeyUpHandler(uiKey);
     end
 
-    local keyPanChanged  :boolean = false;
+    local action :table = CQUI_GetActionFromKey(uiKey);
     local cquiHandledKey :boolean = false;
 
     local selectedUnit = UI.GetHeadSelectedUnit();
@@ -148,104 +133,14 @@ function DefaultKeyUpHandler( uiKey:number )
     end
 
     --CQUI Keybinds
-    if CQUI_hotkeyMode == CQUI_HOTKEYMODE_ENHANCED then
-        if (uiKey == Keys.W) then
-            m_isUPpressed = false;
-            keyPanChanged = true;
-        end
-
-        if (uiKey == Keys.D) then
-            m_isRIGHTpressed = false;
-            keyPanChanged = true;
-        end
-
-        if (uiKey == Keys.S) then
-            m_isDOWNpressed = false;
-            keyPanChanged = true;
-        end
-
-        if (uiKey == Keys.A) then
-            m_isLEFTpressed = false;
-            keyPanChanged = true;
-        end
-
-        if (uiKey == Keys.E) then
-            if (CQUI_isAltDown == true) then
-                -- Behave as if just "E" was pressed, send the unit exploring
-                -- Calling this using UnitOperationTypes doesn't work as Automate_Explore hash does not appear among the GameInfo.OperationTypes
-                UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), GameInfo.UnitOperations["UNITOPERATION_AUTOMATE_EXPLORE"].Hash);
-                cquiHandledKey = true;
-            elseif (CQUI_cityview) then
-                LuaEvents.CQUI_GoNextCity();
-                cquiHandledKey = true;
-            else
-                UI.SelectNextReadyUnit();
-                cquiHandledKey = true;
-            end
-        end
-
-        if (uiKey == Keys.Q) then
-            if (CQUI_isAltDown == true and unitType == "UNIT_BUILDER" ) then
-                -- Do nothing, this case is handled later on in this function
-            elseif (CQUI_cityview) then
-                LuaEvents.CQUI_GoPrevCity();
-                cquiHandledKey = true;
-            else
-                UI.SelectPrevReadyUnit();
-                cquiHandledKey = true;
-            end
-        end
-
-        -- TODO: Not a huge fan of the Shift key being used to do things when the Shift key should just be a modifier.
-        --       Taking it out for now and will address with Issue #40
-        -- if (uiKey == Keys.VK_SHIFT and ContextPtr:LookUpControl("/InGame/TechTree"):IsHidden() and ContextPtr:LookUpControl("/InGame/CivicsTree"):IsHidden()) then
-        --   cquiHandledKey = true;
-        --   if (CQUI_cityview) then
-        --     UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
-        --     UI.SelectNextReadyUnit();
-        --   else
-        --     LuaEvents.CQUI_GoNextCity();
-        --   end
-        -- end
-
-        if (keyPanChanged == true) then
-            -- Base game file uses m_edgePanX and m_edgePanY... but I do not see evidence where these are assigned to, except for the initial 0.
-            ProcessPan(0, 0);
-            cquiHandledKey = true;
-        end
-    else -- CQUI_hotkeyMode == CQUI_HOTKEYMODE_CLASSIC  (Classic binds that overlap with enhanced binds)
-        if (uiKey == Keys.Q) then
-            if (unitType == "UNIT_BUILDER") then
-                CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_QUARRY"].Hash);
-                cquiHandledKey = true;
-            end
-        end
-
-        -- TODO: AIR_ATTACK requires a separate set of parameters be passed to it, pointing at the object to attack
-        --       Similar to how the CQUI_BuildImprovement generates an object based on where the Builder/Engineer unit happens to be.
-        -- Logged on GitHub as Issue #40
-        -- if (uiKey == Keys.S) then
-            -- if (formationClass == "FORMATION_CLASS_AIR") then
-            -- UnitManager.RequestCommand(UI.GetHeadSelectedUnit(), UnitOperationTypes.AIR_ATTACK);
-            --  cquiHandledKey = true;
-            -- end
-        -- end
-    end -- Classic binds that overlap with enhanced binds
-
-        -- Focus Capital hotkey
-    if (uiKey == Keys.VK_HOME) then
-        UI.SelectCity(Players[Game.GetLocalPlayer()]:GetCities():GetCapitalCity());
-        cquiHandledKey = true;
-    end
-
-    if (uiKey == Keys.VK_BACK) then
+    if (action["CANCEL_COMMAND"]) then
         if (unitType ~= nil) then
             UnitManager.RequestCommand(UI.GetHeadSelectedUnit(), UnitCommandTypes.CANCEL);
             cquiHandledKey = true;
         end
     end
 
-    if (uiKey == Keys.C and CQUI_isAltDown == true) then
+    if (action["REMOVE_HARVEST"]) then
         if (unitType == "UNIT_BUILDER") or (unitType == "UNIT_MILITARY_ENGINEER") then
             UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.HARVEST_RESOURCE);
             UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.REMOVE_FEATURE);
@@ -253,46 +148,54 @@ function DefaultKeyUpHandler( uiKey:number )
         end
     end
 
-    if (uiKey == Keys.F) then
-        if (unitType == "UNIT_BUILDER") then
-            CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_FISHING_BOATS"].Hash);
-            cquiHandledKey = true;
-        elseif (unitType == "UNIT_MILITARY_ENGINEER") then
-            CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_FORT"].Hash);
-            cquiHandledKey = true;
-        end
+    if (action["BUILD_FISHING"] and unitType == "UNIT_BUILDER") then
+        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_FISHING_BOATS"].Hash);
+        cquiHandledKey = true;
     end
 
-    if (uiKey == Keys.H and unitType == "UNIT_BUILDER") then
+    if (action["BUILD_FORT"] and unitType == "UNIT_MILITARY_ENGINEER") then
+        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_FORT"].Hash);
+        cquiHandledKey = true;
+    end
+
+    if (action["BUILD_CAMP"] and unitType == "UNIT_BUILDER") then
         CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_CAMP"].Hash);
         cquiHandledKey = true;
     end
 
-    if (uiKey == Keys.I and unitType == "UNIT_BUILDER") then
+    if (action["BUILD_FARM"] and unitType == "UNIT_BUILDER") then
         CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_FARM"].Hash);
         cquiHandledKey = true;
     end
 
-    if (uiKey == Keys.L and unitType == "UNIT_BUILDER") then
+    if (action["BUILD_MILL"] and unitType == "UNIT_BUILDER") then
         CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_LUMBER_MILL"].Hash);
         cquiHandledKey = true;
     end
 
-    if (uiKey == Keys.N) then
-        -- See TODO note Below
-        -- cquiHandledKey = true;
-        if (unitType == "UNIT_BUILDER") then
-            CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_MINE"].Hash);
+    if (action["BUILD_MINE"] and unitType == "UNIT_BUILDER") then
+        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_MINE"].Hash);
+        cquiHandledKey = true;
+    end
+    
+    if (action["NUKE"] or action["THERMO_NUKE"]) then
+        local bCanStartWmdStrike = selectedUnit and UnitManager.CanStartOperation(selectedUnit, UnitOperationTypes.WMD_STRIKE, nil, true);
+        if (bCanStartWmdStrike) then
+            local tParameters = {};
+            if (action["THERMO_NUKE"]) then
+                tParameters[UnitOperationTypes.PARAM_WMD_TYPE] = GameInfo.WMDs["WMD_THERMONUCLEAR_DEVICE"].Index;
+            else
+                tParameters[UnitOperationTypes.PARAM_WMD_TYPE] = GameInfo.WMDs["WMD_NUCLEAR_DEVICE"].Index;
+            end
+            local nWmdCount = Players[Game.GetLocalPlayer()]:GetWMDs():GetWeaponCount(tParameters[UnitOperationTypes.PARAM_WMD_TYPE]);
+            if (nWmdCount > 0) then
+                UI.SetInterfaceMode(InterfaceModeTypes.WMD_STRIKE, tParameters);
+            end
             cquiHandledKey = true;
-        else
-            -- TODO: WMD_STRIKE requires a separate set of parameters be passed to it, pointing at the object to attack
-            --       Similar to how the CQUI_BuildImprovement generates an object based on where the Builder/Engineer unit happens to be.
-            -- Logged on GitHub as Issue #40
-            -- UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.WMD_STRIKE);
         end
     end
 
-    if (uiKey == Keys.O) then
+    if (action["BUILD_OIL"]) then
         if (unitType == "UNIT_BUILDER") then
             CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_OIL_WELL"].Hash);
             CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_OFFSHORE_OIL_RIG"].Hash);
@@ -300,49 +203,47 @@ function DefaultKeyUpHandler( uiKey:number )
         end
     end
 
-    if (uiKey == Keys.P) then
-        if (CQUI_isShiftDown) then
-            PlaceMapPin();
-            cquiHandledKey = true;
-        else
-            if (unitType == "UNIT_BUILDER") then
-                CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_PASTURE"].Hash);
-                CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_PLANTATION"].Hash);
-                cquiHandledKey = true;
-            end
-        end
+    if (action["PLACE_PIN"]) then
+        -- Reset Shift handling since letting go of shift while in the
+        -- dialog will result in this function not recieving the signal
+        CQUI_isShiftDown = false;
+        PlaceMapPin();
+        cquiHandledKey = true;
     end
 
-    if (uiKey == Keys.Q) then
-        if (CQUI_isAltDown == true and unitType == "UNIT_BUILDER" ) then
-            CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_QUARRY"].Hash);
-            cquiHandledKey = true;
-        end
+    if (action["BUILD_PASTURE"] and unitType == "UNIT_BUILDER") then
+        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_PASTURE"].Hash);
+        cquiHandledKey = true;
     end
 
-    if (uiKey == Keys.R) then
-        if (unitType == "UNIT_MILITARY_ENGINEER") then
-            -- Build Road/Rail is a UnitOperation
-            CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.UnitOperations["UNITOPERATION_BUILD_ROUTE"].Hash);
-            cquiHandledKey = true;
-            -- TODO: Rebase requires a separate set of parameters be passed to it, pointing at the location to move to
-            --       Similar to how the CQUI_BuildImprovement generates an object based on where the Builder/Engineer unit happens to be.
-            -- Logged on GitHub as Issue #40
-        -- elseif (formationClass == "FORMATION_CLASS_AIR") then
-            -- UnitManager.RequestOperation(UI.GetHeadSelectedUnit(), UnitOperationTypes.REBASE);
-            -- cquiHandledKey = true;
-        end
+    if (action["BUILD_PLANTATION"] and unitType == "UNIT_BUILDER") then
+        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_PLANTATION"].Hash);
+        cquiHandledKey = true;
     end
 
-    -- TODO: AIR_ATTACK requires a separate set of parameters be passed to it, pointing at the object to attack
-    --       Similar to how the CQUI_BuildImprovement generates an object based on where the Builder/Engineer unit happens to be.
-    -- Logged on GitHub as Issue #40
-    -- if (uiKey == Keys.S and CQUI_isAltDown == true) then
-        -- if (formationClass == "FORMATION_CLASS_AIR") then
-        --   UnitManager.RequestCommand(UI.GetHeadSelectedUnit(), UnitOperationTypes.AIR_ATTACK);
-        --   cquiHandledKey = true;
-        -- end
-    -- end
+    if (action["BUILD_QUARRY"] and unitType == "UNIT_BUILDER") then
+        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_QUARRY"].Hash);
+        cquiHandledKey = true;
+    end
+
+    local bCanBuildRailroad = selectedUnit and UnitManager.CanStartOperation(selectedUnit, UnitOperationTypes.BUILD_ROUTE, nil, true);
+    if (action["BUILD_RAILROAD"] and bCanBuildRailroad) then
+        -- Build Road/Rail is a UnitOperation
+        UnitManager.RequestOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_BUILD_ROUTE"].Hash);
+        cquiHandledKey = true;
+    end
+
+    local bCanStartRebase = selectedUnit and UnitManager.CanStartOperation(selectedUnit, UnitOperationTypes.REBASE, nil, true);
+    if (action["REBASE"] and bCanStartRebase) then
+        -- Valid plot search code based on OnInterfaceModeChange_ReBase in WorldInput.lua
+        local tResults = UnitManager.GetOperationTargets(selectedUnit, UnitOperationTypes.REBASE );
+        local tValidPlots = tResults[UnitOperationResults.PLOTS];
+        if (tValidPlots ~= nil and table.count(tValidPlots) > 0) then
+            UI.SetInterfaceMode(InterfaceModeTypes.REBASE);
+        end
+
+        cquiHandledKey = true;
+    end
 
     if uiKey == Keys.VK_SHIFT then
         -- We need to let the base function also handle the Shift Up action
@@ -760,6 +661,30 @@ end
 -- ===========================================================================
 function Initialize()
     print_debug("** Function Entry: Initialize (CQUI Hook)");
+
+    -- Pre-process the SQL key binding data
+    CQUI_keyMaps = {};
+    for currentBinding in GameInfo.CQUI_Bindings() do
+        local newKeyMapping :table = {};
+        newKeyMapping["Action"] = currentBinding["Action"];
+        newKeyMapping["Alt"] = false;
+        newKeyMapping["Shift"] = false;
+        newKeyMapping["Control"] = false;
+        local keyValue :string = currentBinding["Keys"] .. '+';
+        for token in keyValue:gmatch("(.-)+") do
+            if (token == "Alt") then
+                newKeyMapping["Alt"] = true;
+            elseif (token == "Shift") then
+                newKeyMapping["Shift"] = true;
+            elseif (token == "Control") then
+                newKeyMapping["Control"] = true;
+            else
+                newKeyMapping["Key"] = Locale.ToUpper(token);
+            end
+        end
+
+        table.insert(CQUI_keyMaps, newKeyMapping);
+    end
 
     -- CQUI Events from end of Initialize
     LuaEvents.CQUI_WorldInput_CityviewEnable.Add( function() CQUI_cityview = true; end );
