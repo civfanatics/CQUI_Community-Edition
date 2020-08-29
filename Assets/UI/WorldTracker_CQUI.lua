@@ -1,6 +1,14 @@
 include("ToolTipHelper");
 include("CQUICommon.lua");
 
+-- CQUI/Infixo Load a proper base file
+-- CivBattleRoyale file could be loaded also here - need to find proper conditions to trigger it
+if g_bIsRiseAndFall or g_bIsGatheringStorm then
+    include("WorldTracker_Expansion1");
+else
+    include("WorldTracker");
+end
+
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
@@ -137,9 +145,6 @@ end
 -- ===========================================================================
 -- CQUI Replacement Functions
 -- ===========================================================================
-function RealizeEmptyMessage()
-    -- Do nothing, base game refers to an Empty Panel that is not defined by CQUI
-end
 
 -- ===========================================================================
 -- CQUI Custom Functions
