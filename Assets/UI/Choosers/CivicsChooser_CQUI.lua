@@ -16,7 +16,7 @@ local CQUI_ShowTechCivicRecommendations = false;
 function CQUI_OnSettingsUpdate()
     -- CQUI_AlwaysOpenTechTrees is a checkbox, so it has a value of true or false
     CQUI_AlwaysOpenTechTrees = GameConfiguration.GetValue("CQUI_AlwaysOpenTechTrees");
-    -- CQUI_ShowTechCivicRecommendations is a ComboBox, so it has a vlaue of 0 or 1
+    -- CQUI_ShowTechCivicRecommendations is a ComboBox, so it has a value of 0 or 1
     CQUI_ShowTechCivicRecommendations = GameConfiguration.GetValue("CQUI_ShowTechCivicRecommendations") == 1;
 end
 

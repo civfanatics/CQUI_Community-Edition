@@ -1,9 +1,27 @@
-include("ResearchChooser");
+
+-- CQUI/Infixo choose a proper base file to load
+include("CQUICommon");
+if g_bIsGatheringStorm or g_bIsRiseAndFall then
+    include("ResearchChooser_Expansion1"); -- XP2 reuses XP1 file
+else
+    include("ResearchChooser");
+end
 
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
+
+-- CQUI/Infixo
+-- Unfortunately some trick is needed here because Firaxis' version from XP1 does NOT return kControlInstance as Base version does.
+-- It means that we have to call the version from Base file first and perform XP1 things here. We cannot go back to XP1 as it would call the base version again.
+-- Shame on you, Firaxis, for not following your own rules!
+
 BASE_CQUI_AddAvailableResearch = AddAvailableResearch;
+
+if g_bIsGatheringStorm or g_bIsRiseAndFall then
+    BASE_CQUI_AddAvailableResearch = BASE_AddAvailableResearch;
+end
+
 BASE_CQUI_OnOpenPanel = OnOpenPanel;
 
 -- ===========================================================================
@@ -16,16 +34,31 @@ local CQUI_ShowTechCivicRecommendations = false;
 function CQUI_OnSettingsUpdate()
     -- CQUI_AlwaysOpenTechTrees is a checkbox, so it has a value of true or false
     CQUI_AlwaysOpenTechTrees = GameConfiguration.GetValue("CQUI_AlwaysOpenTechTrees");
-    -- CQUI_ShowTechCivicRecommendations is a ComboBox, so it has a vlaue of 0 or 1
+    -- CQUI_ShowTechCivicRecommendations is a ComboBox, so it has a value of 0 or 1
     CQUI_ShowTechCivicRecommendations = GameConfiguration.GetValue("CQUI_ShowTechCivicRecommendations") == 1;
 end
 
 -- ===========================================================================
 -- CQUI Function Extensions
 -- ===========================================================================
+
 function AddAvailableResearch( playerID:number, kData:table )
     -- unlike the CivicsChooser, ResearchChooser returns the control instance, which is nice
     local kControlInstance = BASE_CQUI_AddAvailableResearch(playerID, kData);
+
+    -- CQUI/Infixo this part is copied from XP1 replacement file
+    if g_bIsGatheringStorm or g_bIsRiseAndFall then
+        if kData then
+            local techID = GameInfo.Technologies[kData.TechType].Index;
+            if AllyHasOrIsResearchingTech(techID) then
+                kControlInstance.AllianceIcon:SetToolTipString(GetAllianceIconToolTip());
+                kControlInstance.AllianceIcon:SetColor(GetAllianceIconColor());
+                kControlInstance.Alliance:SetHide(false);
+            else
+                kControlInstance.Alliance:SetHide(true);
+            end
+        end
+    end
 
     -- If the user wants to hide the Civic and/or Tech recommendations, then find the RecommendedIcon and hide it
     if (CQUI_ShowTechCivicRecommendations == false) then
