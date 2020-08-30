@@ -1,18 +1,14 @@
 -- TODO (2020-05): Custom localizations are temporarily disabled due to reloads breaking them at the moment. Localizations are complete, so remember to enable them once Firaxis fixes this!
 include( "Civ6Common" );
 include( "CQUICommon.lua" );
+include("InstanceManager");
 
 -- ============================================================================
 -- VARIABLE DECLARATIONS
 -- ============================================================================
 --Add new options tabs to this in Initialize function
 local m_tabs;
-
-local bindings_options = {
-    {"LOC_CQUI_BINDINGS_STANDARD", 0},
-    {"LOC_CQUI_BINDINGS_CLASSIC" , 1},
-    {"LOC_CQUI_BINDINGS_ENHANCED", 2}
-};
+local _KeyBindingActions = InstanceManager:new("KeyBindingAction", "Root", Controls.KeyBindingsStack);
 
 local resource_icon_style_options = {
     {"LOC_CQUI_GENERAL_SOLID"      , 0},
@@ -335,7 +331,17 @@ function Initialize()
     Controls.ConfirmButton:RegisterCallback(Mouse.eLClick, Close);
 
     --Populating/binding comboboxes...
-    PopulateComboBox(Controls.BindingsPullDown, bindings_options, "CQUI_BindingsMode", Locale.Lookup("LOC_CQUI_BINDINGS_DROPDOWN_TOOLTIP"));
+    PopulateComboBox(Controls.BindingsPullDown, boolean_options, "CQUI_BindingsMode");
+    _KeyBindingActions:ResetInstances();
+    for currentBinding in GameInfo.CQUI_Bindings() do
+        local entry = _KeyBindingActions:GetInstance();
+        entry.ActionName:SetText(Locale.Lookup(currentBinding["ActionDesc"]));
+        entry.Binding:SetText(currentBinding["Keys"]);
+    end
+    Controls.KeyBindingsStack:CalculateSize();
+    Controls.KeyBindingsScrollPanel:CalculateSize();
+    UpdateKeyBindingsDisplay();
+
     PopulateComboBox(Controls.ResourceIconStyle, resource_icon_style_options, "CQUI_ResourceDimmingStyle", Locale.Lookup("LOC_CQUI_GENERAL_RESOURCEDIMMINGSTYLE_TOOLTIP"));
     PopulateComboBox(Controls.ProductionRecommendationsPullDown, boolean_options, "CQUI_ShowProductionRecommendations");
     PopulateComboBox(Controls.TechRecommendationsPullDown, boolean_options, "CQUI_ShowTechCivicRecommendations");
@@ -399,6 +405,7 @@ function Initialize()
     );
     LuaEvents.CQUI_SettingsUpdate.Add(ToggleSmartbannerCheckboxes);
     LuaEvents.CQUI_SettingsUpdate.Add(ToggleSmartWorkIconSettings);
+    LuaEvents.CQUI_SettingsUpdate.Add(UpdateKeyBindingsDisplay);
 
     LuaEvents.CQUI_SettingsInitialized(); --Tell other elements that the settings have been initialized and it's safe to try accessing settings now
 end
@@ -417,4 +424,11 @@ function ToggleSmartWorkIconSettings()
     Controls.CityViewStack:ReprocessAnchoring();
 end
 
+-- ===========================================================================
+function UpdateKeyBindingsDisplay()
+    local selected = (GameConfiguration.GetValue("CQUI_BindingsMode") ~= 0);
+    Controls.KeyBindingsScrollPanel:SetHide(not selected);
+end
+
 Initialize();
+

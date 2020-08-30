@@ -74,7 +74,7 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
 */
 
 INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
-    VALUES  ("CQUI_BindingsMode", 2), -- Set of keybindings used │ 0=Civ6 default │ 1=keybinds from Civ5 │ 2=Civ5 with additions such as WASD camera control |
+    VALUES  ("CQUI_BindingsMode", 1), -- Set of keybindings used │ 0=Civ6 default │ 1=keybinds from Civ5 |
         ("CQUI_ResourceDimmingStyle", 1); -- Affects the way resource icons look when they have been improved  | 0=No Change | 1=Transparent | 2=Hidden |
 
 /*
@@ -168,3 +168,31 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ("CQUI_LOC_GOSSIP_WMD_BUILT", 1),
         ("CQUI_LOC_GOSSIP_WMD_STRIKE", 1),
         ("CQUI_LOC_GOSSIP_WONDER_STARTED", 1);
+
+/*
+    ┌────────────────────────────────────────────────────────────────────────────────────────────┐
+    │                                    Key Binding Information                                 │
+    ├────────────────────────────────────────────────────────────────────────────────────────────┤
+    │These settings control the key bindings used when CQUI_BindingsMode is not 0                │
+    └────────────────────────────────────────────────────────────────────────────────────────────┘
+*/
+
+INSERT OR REPLACE INTO CQUI_Bindings -- Don't touch this line!
+    VALUES
+        ("CANCEL_COMMAND", "VK_BACK", "LOC_CQUI_CANCEL_COMMAND"),
+        ("REMOVE_HARVEST", "Alt+C", "LOC_CQUI_REMOVE_HARVEST"),
+        ("BUILD_FISHING", "F", "LOC_CQUI_BUILD_FISHING"),
+        ("BUILD_FORT", "F", "LOC_CQUI_BUILD_FORT"),
+        ("BUILD_CAMP", "H", "LOC_CQUI_BUILD_CAMP"),
+        ("BUILD_FARM", "I", "LOC_CQUI_BUILD_FARM"),
+        ("BUILD_MILL", "L", "LOC_CQUI_BUILD_MILL"),
+        ("BUILD_OIL", "O", "LOC_CQUI_BUILD_OIL"),
+        ("BUILD_PASTURE", "P", "LOC_CQUI_BUILD_PASTURE"),
+        ("BUILD_PLANTATION", "P", "LOC_CQUI_BUILD_PLANTATION"),
+        ("BUILD_QUARRY", "Q", "LOC_CQUI_BUILD_QUARRY"),
+        ("BUILD_RAILROAD", "R", "LOC_CQUI_BUILD_RAILROAD"),
+        ("BUILD_MINE", "N", "LOC_CQUI_BUILD_MINE"),
+        ("NUKE", "N", "LOC_CQUI_NUKE"),
+        ("THERMO_NUKE", "Alt+N", "LOC_CQUI_THERMO_NUKE"),
+        ("REBASE", "Alt+R", "LOC_CQUI_REBASE"),
+        ("PLACE_PIN", "Shift+P", "LOC_CQUI_PLACE_PIN");
