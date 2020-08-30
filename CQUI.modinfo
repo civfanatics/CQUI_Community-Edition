@@ -154,7 +154,7 @@
                 <File>Assets/UI/worldinput_CQUI_basegame.lua</File>
                 <File>Assets/UI/worldinput_CQUI.lua</File>
                 <File>Assets/UI/WorldTracker_CQUI.lua</File>
-                <File>Assets/UI/worldviewiconsmanager_CQUI.lua</File>
+                <File>Assets/UI/WorldViewIconsManager_CQUI.lua</File>
                 <File>Assets/UI/Choosers/CivicsChooser_CQUI.lua</File>
                 <File>Assets/UI/Choosers/ResearchChooser_CQUI.lua</File>
                 <File>Assets/UI/Civilopedia/civilopediasupport_CQUI.lua</File>
@@ -495,7 +495,7 @@
         <ReplaceUIScript id="CQUI_WorldViewIconsManager">
             <Properties>
                 <LuaContext>WorldViewIconsManager</LuaContext>
-                <LuaReplace>Assets/UI/worldviewiconsmanager_CQUI.lua</LuaReplace>
+                <LuaReplace>Assets/UI/WorldViewIconsManager_CQUI.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
 
@@ -1057,7 +1057,7 @@
         <File>Assets/UI/worldinput_CQUI_basegame.lua</File>
         <File>Assets/UI/worldinput_CQUI.lua</File>
         <File>Assets/UI/WorldTracker_CQUI.lua</File>
-        <File>Assets/UI/worldviewiconsmanager_CQUI.lua</File>
+        <File>Assets/UI/WorldViewIconsManager_CQUI.lua</File>
         <File>Assets/UI/Choosers/CivicsChooser_CQUI.lua</File>
         <File>Assets/UI/Choosers/ResearchChooser_CQUI.lua</File>
         <File>Assets/UI/Civilopedia/civilopediasupport_CQUI.lua</File>
