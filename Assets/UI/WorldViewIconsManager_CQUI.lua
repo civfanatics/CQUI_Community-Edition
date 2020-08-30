@@ -115,7 +115,7 @@ end
 
 -- ===========================================================================
 function CQUI_OnImprovementChanged(locationX, locationY, isAdded)
-    print_debug("CQUI_OnImprovementChanged ENTRY. x:"..locationX.."  y:"..locationY);
+    -- print_debug("CQUI_OnImprovementChanged ENTRY. x:"..locationX.."  y:"..locationY);
 
     local plot = Map.GetPlot(locationX, locationY);
     local resourceType = plot:GetResourceType();
