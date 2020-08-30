@@ -9,6 +9,7 @@ include( "SupportFunctions" );      -- Round(), Clamp()
 include( "TabSupport" );
 include( "CitySupport" );
 include( "EspionageViewManager" );
+include( "CQUICommon.lua" );
 
 -- ===========================================================================
 --  CONSTANTS
@@ -597,37 +598,13 @@ function ViewPanelAmenities( data:table )
 end
 
 -- ===========================================================================
-
-
--- Author: Infixo, code from Better Report Screen
--- 2020-06-09 new idea for calculations - calculate only a correction and apply to the game function
--- please note that another condition was added - a tile must be within workable distance - this is how the game's engine works
-local iCityMaxBuyPlotRange:number = tonumber(GlobalParameters.CITY_MAX_BUY_PLOT_RANGE);
-function GetRealHousingFromImprovements(pCity:table)
-	local cityX:number, cityY:number = pCity:GetX(), pCity:GetY();
-	--local centerIndex:number = Map.GetPlotIndex(pCity:GetLocation());
-	local iNumHousing:number = 0; -- we'll add data from Housing field in Improvements divided by TilesRequired which is usually 2
-	-- check all plots in the city
-	for _,plotIndex in ipairs(Map.GetCityPlots():GetPurchasedPlots(pCity)) do
-		local pPlot:table = Map.GetPlotByIndex(plotIndex);
-		--print(centerIndex, plotIndex, Map.GetPlotDistance(cityX,cityY, pPlot:GetX(), pPlot:GetY()));
-		if pPlot and pPlot:GetImprovementType() > -1 and not pPlot:IsImprovementPillaged() and Map.GetPlotDistance(cityX, cityY, pPlot:GetX(), pPlot:GetY()) <= iCityMaxBuyPlotRange then
-			local imprInfo:table = GameInfo.Improvements[ pPlot:GetImprovementType() ];
-			iNumHousing = iNumHousing + imprInfo.Housing / imprInfo.TilesRequired; -- well, we can always add 0, right?
-		end
-	end
-	return pCity:GetGrowth():GetHousingFromImprovements() + Round(iNumHousing-math.floor(iNumHousing),1);
-end
-
-
-
 function ViewPanelHousing( data:table )
     --print("ViewPanelHousing");
 
     -- CQUI get real housing from improvements value
     local selectedCity  = UI.GetHeadSelectedCity();
     local selectedCityID = selectedCity:GetID();
-    local CQUI_HousingFromImprovements = GetRealHousingFromImprovements(data.City);
+    local CQUI_HousingFromImprovements = CQUI_GetRealHousingFromImprovements(data.City);
     
     -- Only show the advisor bubbles during the tutorial
     -- AZURENCY : or show the advisor if the setting is enabled

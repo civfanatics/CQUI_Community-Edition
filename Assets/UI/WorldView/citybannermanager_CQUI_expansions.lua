@@ -154,7 +154,7 @@ function CityBanner.UpdatePopulation(self, isLocalPlayer:boolean, pCity:table, p
 
     -- CQUI : housing left
     if (IsCQUI_SmartBanner_PopulationEnabled()) then
-        local cqui_HousingFromImprovementsCalc = CQUI_GetRealHousingFromImprovementsValue(pCity, localPlayerID);
+        local cqui_HousingFromImprovementsCalc = CQUI_GetRealHousingFromImprovements(pCity);
         if (cqui_HousingFromImprovementsCalc ~= nil) then    -- CQUI real housing from improvements fix to show correct values when waiting for the next turn
             local housingText, housingLeft = CQUI_GetHousingString(pCity, cqui_HousingFromImprovementsCalc, true);
             populationInstance.CQUI_CityHousing:SetText(housingText);

@@ -85,8 +85,7 @@ function CityBanner.UpdateStats(self)
     end
 
     if (IsCQUI_SmartBanner_PopulationEnabled()) then
-        -- TODO: This logic in this if statement appears in all 3 of the citybannermanager files, can be put into single common file
-        local cqui_HousingFromImprovementsCalc = CQUI_GetRealHousingFromImprovementsValue(pCity, localPlayerID)
+        local cqui_HousingFromImprovementsCalc = CQUI_GetRealHousingFromImprovements(pCity);
         if (cqui_HousingFromImprovementsCalc ~= nil) then
             -- Basegame text includes the number of turns remaining before city growth
             local currentPopulation :number  = pCity:GetPopulation();

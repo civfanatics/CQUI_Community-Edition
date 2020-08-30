@@ -14,6 +14,7 @@ include( "PortraitSupport" );
 include( "ToolTipHelper" );
 include( "GameCapabilities" );
 include( "MapUtilities" );
+include( "CQUICommon.lua" );
 -- ===========================================================================
 --  DEBUG
 --  Toggle these for temporary debugging help.
@@ -324,28 +325,6 @@ function CQUI_SettingsUpdate()
         DisplayGrowthTile();
     end
 end
-
-
--- Author: Infixo, code from Better Report Screen
--- 2020-06-09 new idea for calculations - calculate only a correction and apply to the game function
--- please note that another condition was added - a tile must be within workable distance - this is how the game's engine works
-local iCityMaxBuyPlotRange:number = tonumber(GlobalParameters.CITY_MAX_BUY_PLOT_RANGE);
-function GetRealHousingFromImprovements(pCity:table)
-	local cityX:number, cityY:number = pCity:GetX(), pCity:GetY();
-	--local centerIndex:number = Map.GetPlotIndex(pCity:GetLocation());
-	local iNumHousing:number = 0; -- we'll add data from Housing field in Improvements divided by TilesRequired which is usually 2
-	-- check all plots in the city
-	for _,plotIndex in ipairs(Map.GetCityPlots():GetPurchasedPlots(pCity)) do
-		local pPlot:table = Map.GetPlotByIndex(plotIndex);
-		--print(centerIndex, plotIndex, Map.GetPlotDistance(cityX,cityY, pPlot:GetX(), pPlot:GetY()));
-		if pPlot and pPlot:GetImprovementType() > -1 and not pPlot:IsImprovementPillaged() and Map.GetPlotDistance(cityX, cityY, pPlot:GetX(), pPlot:GetY()) <= iCityMaxBuyPlotRange then
-			local imprInfo:table = GameInfo.Improvements[ pPlot:GetImprovementType() ];
-			iNumHousing = iNumHousing + imprInfo.Housing / imprInfo.TilesRequired; -- well, we can always add 0, right?
-		end
-	end
-	return pCity:GetGrowth():GetHousingFromImprovements() + Round(iNumHousing-math.floor(iNumHousing),1);
-end
-
 
 -- ===========================================================================
 --
@@ -732,7 +711,7 @@ function ViewMain( data:table )
     colorName = GetPercentGrowthColor( data.HousingMultiplier );
     Controls.HousingNum:SetColorByName( colorName );
 
-    Controls.HousingMax:SetText( data.Housing - data.HousingFromImprovements + GetRealHousingFromImprovements(selectedCity) );    -- CQUI calculate real housing
+    Controls.HousingMax:SetText( data.Housing - data.HousingFromImprovements + CQUI_GetRealHousingFromImprovements(selectedCity) );    -- CQUI calculate real housing
     Controls.HousingLabels:SetOffsetX(PANEL_BUTTON_LOCATIONS[m_CurrentPanelLine].x - HOUSING_LABEL_OFFSET);
     Controls.HousingGrid:SetOffsetY(PANEL_INFOLINE_LOCATIONS[m_CurrentPanelLine]);
     Controls.HousingButton:SetOffsetX(PANEL_BUTTON_LOCATIONS[m_CurrentPanelLine].x);
