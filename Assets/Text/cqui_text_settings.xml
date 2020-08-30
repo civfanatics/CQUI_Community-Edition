@@ -249,5 +249,56 @@
     <Row Tag="LOC_CQUI_RECOMMENDATIONS_SHOWCITYDETAILADVISOR" Language="en_US">
       <Text>Show city detail advisor</Text>
     </Row>
+    <Row Tag="LOC_CQUI_CANCEL_COMMAND" Language="en_US">
+      <Text>Cancel Queued Unit Action</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_REMOVE_HARVEST" Language="en_US">
+      <Text>Remove Feature / Harvest Resource</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_FISHING" Language="en_US">
+      <Text>Build Fishing Boats</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_FORT" Language="en_US">
+      <Text>Build Fort</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_CAMP" Language="en_US">
+      <Text>Build Camp</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_FARM" Language="en_US">
+      <Text>Build Farm</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_MILL" Language="en_US">
+      <Text>Build Lumber Mill</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_OIL" Language="en_US">
+      <Text>Build Oil Rig / Oil Well</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_PASTURE" Language="en_US">
+      <Text>Build Pasture</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_PLANTATION" Language="en_US">
+      <Text>Build Plantation</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_QUARRY" Language="en_US">
+      <Text>Build Quarry</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_RAILROAD" Language="en_US">
+      <Text>Build Railroad</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_MINE" Language="en_US">
+      <Text>Build Mine</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_NUKE" Language="en_US">
+      <Text>WMD Strike: Nuclear Device</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_THERMO_NUKE" Language="en_US">
+      <Text>WMD Strike: Thermonuclear Device</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_REBASE" Language="en_US">
+      <Text>Rebase</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_PLACE_PIN" Language="en_US">
+      <Text>Place Pin</Text>
+    </Row>
   </LocalizedText>
 </GameData>
