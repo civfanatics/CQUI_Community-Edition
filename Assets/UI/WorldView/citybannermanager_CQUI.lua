@@ -106,7 +106,7 @@ function CQUI_Common_CityBanner_Initialize(self, playerID, cityID, districtID, b
     -- Defined in the respective basegame/expansion files
     BASE_CQUI_CityBanner_Initialize(self, playerID, cityID, districtID, bannerType, bannerStyle);
 
-    if (self.m_Instance.CityBannerButton == nil) then
+    if (self.m_Instance.CityNameButton == nil) then
         return;
     end
 
@@ -115,8 +115,10 @@ function CQUI_Common_CityBanner_Initialize(self, playerID, cityID, districtID, b
         and bannerStyle == BANNERSTYLE_LOCAL_TEAM 
         and playerID == Game.GetLocalPlayer()) then
         -- Register the callbacks 
-        self.m_Instance.CityBannerButton:RegisterCallback( Mouse.eMouseEnter, CQUI_OnBannerMouseOver );
-        self.m_Instance.CityBannerButton:RegisterCallback( Mouse.eMouseExit,  CQUI_OnBannerMouseExit );
+        self.m_Instance.CityNameButton:RegisterCallback( Mouse.eMouseEnter, CQUI_OnBannerMouseOver );
+        self.m_Instance.CityNameButton:RegisterCallback( Mouse.eMouseExit,  CQUI_OnBannerMouseExit );
+		self.m_Instance.CityNameButton:SetVoid1(playerID);
+		self.m_Instance.CityNameButton:SetVoid2(cityID);
     end
 end
 
@@ -956,7 +958,6 @@ function Initialize_CQUI()
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
 
-    Events.CityRemovedFromMap.Add(CQUI_OnCityRemovedFromMap);    -- CQUI erase real housing from improvements data everywhere when a city removed from map
     Events.CitySelectionChanged.Add(CQUI_OnBannerMouseExit);
     Events.CityWorkerChanged.Add(OnCityWorkerChanged);
     Events.InfluenceGiven.Add(CQUI_OnInfluenceGiven);
