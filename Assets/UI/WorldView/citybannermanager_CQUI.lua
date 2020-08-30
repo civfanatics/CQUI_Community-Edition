@@ -44,10 +44,6 @@ local CQUI_EncampmentRangeStrikeBottomYOffset = -4;
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
--- CQUI real housing from improvements tables
-local CQUI_HousingFromImprovementsTable = {};
-local CQUI_HousingUpdated               = {};
-
 local CQUI_PlotIM        = InstanceManager:new( "CQUI_WorkedPlotInstance", "Anchor", Controls.CQUI_WorkedPlotContainer );
 local CQUI_UIWorldMap    = {};
 local CQUI_YieldsOn      = false;
@@ -131,9 +127,6 @@ end
 function OnGameDebugReturn( context:string, contextTable:table )
     print_debug("CityBannerManager_CQUI: OnGameDebugReturn ENTRY context:"..tostring(context).." contextTable:"..tostring(contextTable));
     if (context == "CityBannerManager") then
-        -- CQUI cached values
-        CQUI_HousingFromImprovementsTable = contextTable["CQUI_HousingFromImprovementsTable"];
-        CQUI_HousingUpdated = contextTable["CQUI_HousingUpdated"];
         -- CQUI settings
         CQUI_OnSettingsUpdate();
     end
@@ -161,9 +154,6 @@ end
 -- ===========================================================================
 function OnShutdown()
     print_debug("CityBannerManager_CQUI: OnShutdown ENTRY");
-    -- CQUI values
-    LuaEvents.GameDebug_AddValue("CityBannerManager", "CQUI_HousingFromImprovementsTable", CQUI_HousingFromImprovementsTable);
-    LuaEvents.GameDebug_AddValue("CityBannerManager", "CQUI_HousingUpdated", CQUI_HousingUpdated);
     CQUI_PlotIM:DestroyInstances();
 
     BASE_CQUI_OnShutdown();
@@ -507,18 +497,6 @@ function CQUI_GetHousingString(pCity, cqui_HousingFromImprovementsCalc)
 end
 
 -- ===========================================================================
--- CQUI calculate real housing from improvements
-function CQUI_GetRealHousingFromImprovementsValue(pCity, localPlayerID)
-    -- print_debug("CityBannerManager_CQUI: CQUI_GetRealHousingFromImprovementsValue ENTRY  pCity:"..tostring(pCity).." localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
-    local pCityID :number = pCity:GetID();
-    if (CQUI_HousingUpdated[localPlayerID] == nil or CQUI_HousingUpdated[localPlayerID][pCityID] ~= true) then
-        CQUI_RealHousingFromImprovements(pCity, localPlayerID, pCityID);
-    end
-
-    return CQUI_HousingFromImprovementsTable[localPlayerID][pCityID];
-end
-
--- ===========================================================================
 function CQUI_GetInstanceObject(instanceObj)
     retobj = nil;
     -- in XP1 and later the instance objects are arrays, and we very typically just need the first
@@ -549,49 +527,6 @@ function CQUI_GetInstanceAt( plotIndex:number )
     end
 
     return pInstance;
-end
-
--- ===========================================================================
--- CQUI calculate real housing from improvements
-function CQUI_RealHousingFromImprovements(pCity, localPlayerID, pCityID)
-    -- NOTE: Housing Values from Improvements determined by adding integers, and halved once all housing has been calculated
-    --       The basegame function doesn't include the half-value (e.g. as Non-Maya, 3 farms is 1.5, but basegame returns only 1).
-    --       Basegame also appears to consider the Maya as +1 Housing in addition to the 0.5 for each farm (so, 1.5 for each Mayan farm)
-    --       In basegame, when Maya have 2 farms, pCity:GetGrowth():GetHousingFromImprovements() will return a value of 3
-    -- print_debug("CityBannerManager_CQUI: CQUI_RealHousingFromImprovements ENTRY  pCity:"..tostring(pCity).." localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
-
-    local cityX:number, cityY:number = pCity:GetX(), pCity:GetY();
-    local iNumHousing:number = 0; 
-    -- Add data from Housing field in Improvements divided by TilesRequired which is usually 2
-    -- Checks all of the plots available to the city and gathers the housing value from any improved
-    -- Logic for this calculation suggested by Infixio
-    for _, plotIndex in ipairs(Map.GetCityPlots():GetPurchasedPlots(pCity)) do
-        local pPlot:table = Map.GetPlotByIndex(plotIndex);
-        if (pPlot ~= nil 
-            and pPlot:GetImprovementType() > -1
-            and not pPlot:IsImprovementPillaged()
-            and Map.GetPlotDistance(cityX, cityY, pPlot:GetX(), pPlot:GetY()) <= CQUI_CityMaxBuyPlotRange) then
-            local imprInfo:table = GameInfo.Improvements[pPlot:GetImprovementType()];
-            iNumHousing = iNumHousing + (imprInfo.Housing / imprInfo.TilesRequired);
-        end
-    end
-
-    local baseHousingFromImprovements = pCity:GetGrowth():GetHousingFromImprovements();
-    -- This effectively adds any half values that may be missing
-    local realHousingValue = baseHousingFromImprovements + Round(iNumHousing - math.floor(iNumHousing), 1);
-    print_debug("CQUI_GetRealHousingFromImprovementsValue: BaseHousingFromImprovements: "..tostring(baseHousingFromImprovements).." iNumHousing: "..tostring(iNumHousing).."  Updated housing value: "..tostring(realHousingValue));
-
-    if CQUI_HousingFromImprovementsTable[localPlayerID] == nil then
-        CQUI_HousingFromImprovementsTable[localPlayerID] = {};
-    end
-
-    if CQUI_HousingUpdated[localPlayerID] == nil then
-        CQUI_HousingUpdated[localPlayerID] = {};
-    end
-
-    CQUI_HousingFromImprovementsTable[localPlayerID][pCityID] =  realHousingValue;
-    CQUI_HousingUpdated[localPlayerID][pCityID] = true;
-    LuaEvents.CQUI_RealHousingFromImprovementsCalculated(pCityID, realHousingValue);
 end
 
 -- ===========================================================================
@@ -824,16 +759,6 @@ function CQUI_OnCityLostTileToCultureBomb(localPlayerID, x, y)
             CQUI_OnCityInfoUpdated(localPlayerID, pCityID)
             CityManager.RequestCommand(pCity, CityCommandTypes.SET_FOCUS, nil);
         end
-    end
-end
--- ===========================================================================
--- CQUI erase real housing from improvements data everywhere when a city removed from map
-function CQUI_OnCityRemovedFromMap(localPlayerID, pCityID)
-    print_debug("CityBannerManager_CQUI: CQUI_OnCityRemovedFromMap ENTRY localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
-    if playerID == Game.GetLocalPlayer() then
-        CQUI_HousingFromImprovementsTable[localPlayerID][pCityID] = nil;
-        CQUI_HousingUpdated[localPlayerID][pCityID] = nil;
-        LuaEvents.CQUI_RealHousingFromImprovementsCalculated(pCityID, nil);
     end
 end
 
