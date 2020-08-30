@@ -88,8 +88,6 @@ local m_secondaryColor  :number = UI.GetColorValueFromHexLiteral(0xf00d1ace);
 local m_CurrentPanelLine:number = 0;
 local m_kTutorialDisabledControls :table = nil;
 
-local CQUI_HousingFromImprovementsTable :table = {};    -- CQUI real housing from improvements table
-local CQUI_ImprovementRemoved :table = {};    -- CQUI: a table we use to update real housing when improvement removed
 local CQUI_bSukUI:boolean = Modding.IsModActive("805cc499-c534-4e0a-bdce-32fb3c53ba38"); -- Sukritact's Simple UI Adjustments
  
 -- ====================CQUI Cityview==========================================
@@ -326,6 +324,28 @@ function CQUI_SettingsUpdate()
         DisplayGrowthTile();
     end
 end
+
+
+-- Author: Infixo, code from Better Report Screen
+-- 2020-06-09 new idea for calculations - calculate only a correction and apply to the game function
+-- please note that another condition was added - a tile must be within workable distance - this is how the game's engine works
+local iCityMaxBuyPlotRange:number = tonumber(GlobalParameters.CITY_MAX_BUY_PLOT_RANGE);
+function GetRealHousingFromImprovements(pCity:table)
+	local cityX:number, cityY:number = pCity:GetX(), pCity:GetY();
+	--local centerIndex:number = Map.GetPlotIndex(pCity:GetLocation());
+	local iNumHousing:number = 0; -- we'll add data from Housing field in Improvements divided by TilesRequired which is usually 2
+	-- check all plots in the city
+	for _,plotIndex in ipairs(Map.GetCityPlots():GetPurchasedPlots(pCity)) do
+		local pPlot:table = Map.GetPlotByIndex(plotIndex);
+		--print(centerIndex, plotIndex, Map.GetPlotDistance(cityX,cityY, pPlot:GetX(), pPlot:GetY()));
+		if pPlot and pPlot:GetImprovementType() > -1 and not pPlot:IsImprovementPillaged() and Map.GetPlotDistance(cityX, cityY, pPlot:GetX(), pPlot:GetY()) <= iCityMaxBuyPlotRange then
+			local imprInfo:table = GameInfo.Improvements[ pPlot:GetImprovementType() ];
+			iNumHousing = iNumHousing + imprInfo.Housing / imprInfo.TilesRequired; -- well, we can always add 0, right?
+		end
+	end
+	return pCity:GetGrowth():GetHousingFromImprovements() + Round(iNumHousing-math.floor(iNumHousing),1);
+end
+
 
 -- ===========================================================================
 --
@@ -708,23 +728,11 @@ function ViewMain( data:table )
 
     Controls.ReligionNum:SetText( data.ReligionFollowers );
 
-    -- CQUI get real housing from improvements value
-    local selectedCityID = selectedCity:GetID();
-    local CQUI_HousingFromImprovements = CQUI_HousingFromImprovementsTable[selectedCityID];
-
     Controls.HousingNum:SetText( data.Population );
     colorName = GetPercentGrowthColor( data.HousingMultiplier );
     Controls.HousingNum:SetColorByName( colorName );
 
-    local tblcount = 0;
-    for _ in pairs(CQUI_HousingFromImprovementsTable) do tblcount = tblcount + 1 end
-
-    -- TEMP M4A TODO: This if/then below seems to alleviate the issue where CQUI_HousingFromImprovements is nil, but doesn't explain why it may have been nil to begin with
-    if CQUI_HousingFromImprovements == nil then
-        CQUI_HousingFromImprovements = 0
-    end
-
-    Controls.HousingMax:SetText( data.Housing - data.HousingFromImprovements + CQUI_HousingFromImprovements );    -- CQUI calculate real housing
+    Controls.HousingMax:SetText( data.Housing - data.HousingFromImprovements + GetRealHousingFromImprovements(selectedCity) );    -- CQUI calculate real housing
     Controls.HousingLabels:SetOffsetX(PANEL_BUTTON_LOCATIONS[m_CurrentPanelLine].x - HOUSING_LABEL_OFFSET);
     Controls.HousingGrid:SetOffsetY(PANEL_INFOLINE_LOCATIONS[m_CurrentPanelLine]);
     Controls.HousingButton:SetOffsetX(PANEL_BUTTON_LOCATIONS[m_CurrentPanelLine].x);
@@ -1033,19 +1041,6 @@ function OnTileImproved(x, y)
             LuaEvents.CityPanel_LiveCityDataChanged( m_kData, true );
             --LuaEvents.UpdateBanner(Game.GetLocalPlayer(), g_pCity:GetID());
 
-            -- CQUI update city's real housing only if improvement adds housing or if it's removed
-            local plotID = plot:GetIndex();
-            if Map.GetPlotDistance(g_pCity:GetX(), g_pCity:GetY(), x, y) <= 3 then
-                local eImprovementType :number = plot:GetImprovementType();
-                if ( eImprovementType ~= -1 and GameInfo.Improvements[eImprovementType].Housing > 0 ) or CQUI_ImprovementRemoved[plotID] == true then
-                    local pCityID = g_pCity:GetID();
-                    LuaEvents.CQUI_CityInfoUpdated(PlayerID, pCityID);
-                end
-            end
-
-            if CQUI_ImprovementRemoved[plotID] == true then
-                CQUI_ImprovementRemoved[plotID] = nil;
-            end
         end
     end
 end
@@ -1572,26 +1567,6 @@ function CQUI_UpdateAllCitiesData(PlayerID)
     end
 end
 
--- ===========================================================================
--- CQUI add plot ID to a table when improvement removed. We use it to update real housing
-function CQUI_OnImprovementRemoved(x, y)
-    local plot :table = Map.GetPlot(x, y);
-    local PlayerID = Game.GetLocalPlayer();
-    g_pCity = Cities.GetPlotPurchaseCity(plot);
-
-    if g_pCity ~= nil then
-        if PlayerID == g_pCity:GetOwner() then
-            local plotID = plot:GetIndex();
-            CQUI_ImprovementRemoved[plotID] = true;
-        end
-    end
-end
-
--- ===========================================================================
--- CQUI get real housing from improvements
-function CQUI_HousingFromImprovementsTableInsert (pCityID, CQUI_HousingFromImprovements)
-    CQUI_HousingFromImprovementsTable[pCityID] = CQUI_HousingFromImprovements;
-end
 
 -- ===========================================================================
 --  CTOR
@@ -1690,9 +1665,7 @@ function Initialize()
     LuaEvents.CQUI_ToggleGrowthTile.Add( CQUI_ToggleGrowthTile );
     LuaEvents.CQUI_SettingsUpdate  .Add( CQUI_SettingsUpdate );
     LuaEvents.RefreshCityPanel     .Add( Refresh );
-    LuaEvents.CQUI_RealHousingFromImprovementsCalculated.Add(CQUI_HousingFromImprovementsTableInsert);    -- CQUI get real housing from improvements values
     LuaEvents.CQUI_AllCitiesInfoUpdatedOnTechCivicBoost .Add( CQUI_UpdateAllCitiesData );    -- CQUI update all cities data including real housing when tech/civic that adds housing is boosted and research is completed
-    Events.ImprovementRemovedFromMap.Add( CQUI_OnImprovementRemoved );    -- CQUI add plot ID to a table when improvement removed. We use it to update real housing
 
     -- Truncate possible static text overflows
     TruncateStringWithTooltip(Controls.BreakdownLabel, MAX_BEFORE_TRUNC_STATIC_LABELS, Controls.BreakdownLabel:GetText());

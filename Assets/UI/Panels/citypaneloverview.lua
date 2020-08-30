@@ -82,7 +82,6 @@ local m_tabs         = nil;
 local m_kEspionageViewManager = EspionageViewManager:CreateManager();
 
 --CQUI Members
-local CQUI_HousingFromImprovementsTable :table = {};    -- CQUI real housing from improvements table
 local CQUI_ShowCityDetailAdvisor :boolean = false;
 
 function CQUI_OnSettingsUpdate()
@@ -112,6 +111,7 @@ LuaEvents.CQUI_CityPanelOverview_CityviewDisable.Add( CQUI_OnCityviewDisabled);
 -- TODO: We need to do figure out why this is happening, having it reactivate the lens every frame does not play well
 --       with everywhere else that uses lenses, border growth, minimap panel, religious units, etc.
 function SetDesiredLens(desiredLens)
+    --print("SetDesiredLens", desiredLens)
     -- CQUI (Azurency) : Don't reset the lens if in district or building placement mode
     if UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT or UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT then
         return;
@@ -177,6 +177,7 @@ end
 
 -- ===========================================================================
 function OnSelectHealthTab()
+    --print("OnSelectHealthTab");
     HideAll();
     Controls.HealthButton:SetSelected(true);
     Controls.HealthIcon:SetColorByName("DarkBlue");
@@ -194,7 +195,7 @@ function OnSelectHealthTab()
             LuaEvents.ShowEnemyCityDetails( m_kData.Owner, m_kData.City:GetID() );
         end
     end
-
+    
     Controls.PanelAmenities:SetHide(false);
     Controls.PanelHousing:SetHide(false);
     Controls.PanelCitizensGrowth:SetHide(false);
@@ -202,6 +203,7 @@ end
 
 -- ===========================================================================
 function OnSelectBuildingsTab()
+    --print("OnSelectBuildingsTab");
     HideAll();
 
     Controls.BuildingsButton:SetSelected(true);
@@ -237,6 +239,7 @@ end
 
 -- ===========================================================================
 function ViewPanelBreakdown( data:table )
+    --print("ViewPanelBreakdown");
     Controls.DistrictsNum:SetText( data.DistrictsNum );
     Controls.DistrictsConstructed:SetText( Locale.Lookup("LOC_HUD_CITY_DISTRICTS_CONSTRUCTED", data.DistrictsNum) );
     Controls.DistrictsPossibleNum:SetText( data.DistrictsPossibleNum );
@@ -507,6 +510,7 @@ function CQUI_BuildHousingBubbleInstance(icon, amount, labelLOC)
 end
 
 function ViewPanelAmenities( data:table )
+    --print("ViewPanelAmenities");
     -- Only show the advisor bubbles during the tutorial
     -- AZURENCY : or show the advisor if the setting is enabled
     Controls.AmenitiesAdvisorBubble:SetHide( m_kEspionageViewManager:IsEspionageView() or (IsTutorialRunning() == false and CQUI_ShowCityDetailAdvisor == false ));
@@ -593,13 +597,38 @@ function ViewPanelAmenities( data:table )
 end
 
 -- ===========================================================================
+
+
+-- Author: Infixo, code from Better Report Screen
+-- 2020-06-09 new idea for calculations - calculate only a correction and apply to the game function
+-- please note that another condition was added - a tile must be within workable distance - this is how the game's engine works
+local iCityMaxBuyPlotRange:number = tonumber(GlobalParameters.CITY_MAX_BUY_PLOT_RANGE);
+function GetRealHousingFromImprovements(pCity:table)
+	local cityX:number, cityY:number = pCity:GetX(), pCity:GetY();
+	--local centerIndex:number = Map.GetPlotIndex(pCity:GetLocation());
+	local iNumHousing:number = 0; -- we'll add data from Housing field in Improvements divided by TilesRequired which is usually 2
+	-- check all plots in the city
+	for _,plotIndex in ipairs(Map.GetCityPlots():GetPurchasedPlots(pCity)) do
+		local pPlot:table = Map.GetPlotByIndex(plotIndex);
+		--print(centerIndex, plotIndex, Map.GetPlotDistance(cityX,cityY, pPlot:GetX(), pPlot:GetY()));
+		if pPlot and pPlot:GetImprovementType() > -1 and not pPlot:IsImprovementPillaged() and Map.GetPlotDistance(cityX, cityY, pPlot:GetX(), pPlot:GetY()) <= iCityMaxBuyPlotRange then
+			local imprInfo:table = GameInfo.Improvements[ pPlot:GetImprovementType() ];
+			iNumHousing = iNumHousing + imprInfo.Housing / imprInfo.TilesRequired; -- well, we can always add 0, right?
+		end
+	end
+	return pCity:GetGrowth():GetHousingFromImprovements() + Round(iNumHousing-math.floor(iNumHousing),1);
+end
+
+
+
 function ViewPanelHousing( data:table )
+    --print("ViewPanelHousing");
 
     -- CQUI get real housing from improvements value
     local selectedCity  = UI.GetHeadSelectedCity();
     local selectedCityID = selectedCity:GetID();
-    local CQUI_HousingFromImprovements = CQUI_HousingFromImprovementsTable[selectedCityID];
-
+    local CQUI_HousingFromImprovements = GetRealHousingFromImprovements(data.City);
+    
     -- Only show the advisor bubbles during the tutorial
     -- AZURENCY : or show the advisor if the setting is enabled
     Controls.HousingAdvisorBubble:SetHide( m_kEspionageViewManager:IsEspionageView() or (IsTutorialRunning() == false and CQUI_ShowCityDetailAdvisor == false ));
@@ -684,6 +713,7 @@ end
 
 -- ===========================================================================
 function ViewPanelCitizensGrowth( data:table )
+    --print("ViewPanelCitizensGrowth");
 
     Controls.FoodPerTurnNum:SetText( toPlusMinusString(data.FoodPerTurn) );
     Controls.FoodConsumption:SetText( toPlusMinusString(-(data.FoodPerTurn - data.FoodSurplus)) );
@@ -1086,11 +1116,6 @@ function OnHide()
     Controls.PauseDismissWindow:SetToBeginning();
 end
 
--- ===========================================================================
--- CQUI get real housing from improvements
-function CQUI_HousingFromImprovementsTableInsert (pCityID, CQUI_HousingFromImprovements)
-    CQUI_HousingFromImprovementsTable[pCityID] = CQUI_HousingFromImprovements;
-end
 
 -- ===========================================================================
 --  UI Callback
@@ -1105,6 +1130,7 @@ end
 
 -- ===========================================================================
 function LateInitialize()
+    --print("LateInitialize");
     Controls.Close:RegisterCallback(Mouse.eLClick, OnCloseButtonClicked);
     Controls.Close:RegisterCallback( Mouse.eMouseEnter, function() UI.PlaySound("Main_Menu_Mouse_Over"); end);
     Controls.PauseDismissWindow:RegisterEndCallback( OnHide );
@@ -1121,8 +1147,6 @@ function LateInitialize()
     LuaEvents.CityBannerManager_ShowEnemyCityOverview.Add( OnShowEnemyCityOverview );
     LuaEvents.CityBannerManager_CityPanelOverview.Add( OnToggleCitizensTab );
     LuaEvents.DiploScene_SceneOpened.Add(OnClose); --We don't want this UI open when we return from Diplomacy
-
-    LuaEvents.CQUI_RealHousingFromImprovementsCalculated.Add(CQUI_HousingFromImprovementsTableInsert);    -- CQUI get real housing from improvements values
 
     Events.SystemUpdateUI.Add( OnUpdateUI );
     Events.CityNameChanged.Add(OnCityNameChanged);
@@ -1145,7 +1169,6 @@ end
 function OnGameDebugReturn(context:string, contextTable:table)
     if context == RELOAD_CACHE_ID then
         m_isShowingPanel = contextTable["m_isShowingPanel"];
-        CQUI_HousingFromImprovementsTable = contextTable["CQUI_HousingFromImprovementsTable"];
         Refresh();
     end
 end
@@ -1153,7 +1176,6 @@ end
 -- ===========================================================================
 function OnShutdown()
     LuaEvents.GameDebug_AddValue(RELOAD_CACHE_ID, "m_isShowingPanel", m_isShowingPanel);
-    LuaEvents.GameDebug_AddValue(RELOAD_CACHE_ID, "CQUI_HousingFromImprovementsTable", CQUI_HousingFromImprovementsTable)
 end
 
 -- ===========================================================================
