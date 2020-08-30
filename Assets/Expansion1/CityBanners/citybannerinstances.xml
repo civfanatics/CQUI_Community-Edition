@@ -58,7 +58,9 @@
                             </Image>
                         </Container>
                         <Image ID="CQUI_DistrictAvailable" Anchor="L,C" Offset="-8,0" Icon="ICON_STAT_DISTRICTS" Size="24,24" ToolTip="LOC_HUD_DISTRICTS" Hidden="true" /> <!--Texture="Stats22"-->
-                        <Label ID="CityName" Anchor="L,C" Style="HeaderSmallCaps" />
+                        <Button ID="CityNameButton" Anchor="L,C" Hidden="0" Size="auto,parent">
+                            <Label ID="CityName" Anchor="L,C" Style="HeaderSmallCaps" />
+                        </Button>
                         <Stack ID="CityStatusStack" Anchor="R,C" StackGrowth="Right" Padding="2"/>
                     </Stack>
                 </Button>

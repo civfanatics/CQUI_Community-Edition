@@ -119,6 +119,10 @@ function CQUI_Common_CityBanner_Initialize(self, playerID, cityID, districtID, b
         self.m_Instance.CityNameButton:RegisterCallback( Mouse.eMouseExit,  CQUI_OnBannerMouseExit );
 		self.m_Instance.CityNameButton:SetVoid1(playerID);
 		self.m_Instance.CityNameButton:SetVoid2(cityID);
+        -- Re-register normal click as it gets hidden by a new button
+        self.m_Instance.CityNameButton:RegisterCallback( Mouse.eLClick, OnCityBannerClick );
+		self.m_Instance.CityNameButton:SetVoid1(playerID);
+		self.m_Instance.CityNameButton:SetVoid2(cityID);
     end
 end
 
