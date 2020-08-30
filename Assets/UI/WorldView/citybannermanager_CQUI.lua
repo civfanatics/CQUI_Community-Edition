@@ -956,7 +956,6 @@ function Initialize_CQUI()
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
 
-    Events.CityRemovedFromMap.Add(CQUI_OnCityRemovedFromMap);    -- CQUI erase real housing from improvements data everywhere when a city removed from map
     Events.CitySelectionChanged.Add(CQUI_OnBannerMouseExit);
     Events.CityWorkerChanged.Add(OnCityWorkerChanged);
     Events.InfluenceGiven.Add(CQUI_OnInfluenceGiven);
