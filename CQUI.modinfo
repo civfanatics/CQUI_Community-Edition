@@ -141,6 +141,7 @@
                 <File>Assets/UI/launchbar_CQUI_basegame.lua</File>
                 <File>Assets/UI/launchbar_CQUI.lua</File>
                 <File>Assets/UI/launchbar.xml</File>
+                <File>Assets/UI/MapPinManager_CQUI.lua</File>
                 <File>Assets/UI/partialscreenhooks_CQUI_basegame.lua</File>
                 <File>Assets/UI/partialscreenhooks_CQUI.lua</File>
                 <File>Assets/UI/partialscreenhooks.xml</File>
@@ -771,6 +772,13 @@
             </Properties>
         </ReplaceUIScript>
 
+        <ReplaceUIScript id="CQUI_MapPinManager">
+            <Properties>
+                <LuaContext>MapPinManager</LuaContext>
+                <LuaReplace>Assets/UI/MapPinManager_CQUI.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+        
         <!-- ============================== Mod integrations ======================================== -->
         <!-- ============================== Better Trade Screen (BTS) ============================== -->
         <LocalizedText id="BTS_TEXT">
@@ -1044,6 +1052,7 @@
         <File>Assets/UI/launchbar_CQUI_basegame.lua</File>
         <File>Assets/UI/launchbar_CQUI.lua</File>
         <File>Assets/UI/launchbar.xml</File>
+        <File>Assets/UI/MapPinManager_CQUI.lua</File>
         <File>Assets/UI/partialscreenhooks_CQUI_basegame.lua</File>
         <File>Assets/UI/partialscreenhooks_CQUI.lua</File>
         <File>Assets/UI/partialscreenhooks.xml</File>
