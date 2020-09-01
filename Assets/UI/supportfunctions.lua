@@ -223,10 +223,10 @@ function bitNot( value:number )
     return bitsTableToNumber(kBits);
  end
 
- -- ===========================================================================
+-- ===========================================================================
 --  Bitwise or (because LUA 5.2 support doesn't exist yet in Havok script)
 -- ===========================================================================
- local function bitOr( na:number, nb:number)
+ function bitOr( na:number, nb:number)
     local ka :table = numberToBitsTable(na);
     local kb :table = numberToBitsTable(nb);
 
@@ -238,6 +238,25 @@ function bitNot( value:number )
     local digits  :number = table.count(ka);
     for i:number = 1, digits, 1 do
         kResult[i] = (ka[i]==1 or kb[i]==1) and 1 or 0;
+    end
+    return bitsTableToNumber( kResult );
+end
+
+ -- ===========================================================================
+--  Bitwise and (because LUA 5.2 support doesn't exist yet in Havok script)
+-- ===========================================================================
+function bitAnd( na:number, nb:number)
+    local ka :table = numberToBitsTable(na);
+    local kb :table = numberToBitsTable(nb);
+
+    -- Make sure both are the same size; pad with 0's if necessary.
+    while table.count(ka) < table.count(kb) do ka[table.count(ka)+1] = 0; end
+    while table.count(kb) < table.count(ka) do kb[table.count(kb)+1] = 0; end
+
+    local kResult :table  = {};
+    local digits  :number = table.count(ka);
+    for i:number = 1, digits, 1 do
+        kResult[i] = (ka[i]==1 and kb[i]==1) and 1 or 0;
     end
     return bitsTableToNumber( kResult );
 end
