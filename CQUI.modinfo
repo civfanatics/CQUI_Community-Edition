@@ -66,15 +66,6 @@
                 <File>Assets/cqui_settings.sql</File>
             </Items>
         </UpdateDatabase>
-        <UpdateDatabase id="CQUI_Settings_Local">
-            <Properties>
-                <Name>CQUI Settings Local</Name>
-                <LoadOrder>-11</LoadOrder>
-            </Properties>
-            <Items>
-                <File>Assets/cqui_settings_local.sql</File>
-            </Items>
-        </UpdateDatabase>
         <!-- This is a "hack", however it is one that allows users to skirt the issue of their settings_local file being updated every time we push new updates -->
         <!-- We are allowed to reference files in the parent folder to the .modinfo file, if the file exists then the game will load it up just fine. -->
         <!-- However, these files in the parent folder are *not* uploaded to the Steam Workshop and do *not* appear in the [SteamPath]\SteamApps\Workshop\Content\289070 folder (the Civ6 Workshop Mods folder) of users that subscribe -->
@@ -937,7 +928,6 @@
         <File>CQUI.dep</File>
         <File>Assets/cqui_databaseschema.sql</File>
         <File>Assets/cqui_settings.sql</File>
-        <File>Assets/cqui_settings_local.sql</File>
         <File>Assets/cqui_settingselement.lua</File>
         <File>Assets/cqui_settingselement.xml</File>
         <File>Assets/cqui_main.lua</File>
