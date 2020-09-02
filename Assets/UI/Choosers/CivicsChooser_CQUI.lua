@@ -3,14 +3,15 @@ include("CivicsChooser");
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
-BASE_CQUI_View = View;
+BASE_CQUI_RealizeCurrentCivic = RealizeCurrentCivic; -- this function is in TechAndCivicSupport.lua
+--BASE_CQUI_View = View;
 BASE_CQUI_OnOpenPanel = OnOpenPanel;
 
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
 local CQUI_AlwaysOpenTechTrees = false; --Ignores events calling for this to open when true
-local CQUI_ShowTechCivicRecommendations = false;
+local CQUI_ShowTechCivicRecommendations = true; -- default is 1
 
 -- ===========================================================================
 function CQUI_OnSettingsUpdate()
@@ -23,6 +24,25 @@ end
 -- ===========================================================================
 -- CQUI Function Extensions
 -- ===========================================================================
+
+function RealizeCurrentCivic( playerID:number, kData:table, kControl:table, cachedModifiers:table )
+    BASE_CQUI_RealizeCurrentCivic(playerID, kData, kControl, cachedModifiers);
+    
+    if kControl == nil then
+        kControl = Controls;
+    end
+
+    if kData ~= nil then
+        -- Show/Hide Recommended Icon
+        -- CQUI : only if show tech civ enabled in settings
+        if kControl.RecommendedIcon and not CQUI_ShowTechCivicRecommendations then
+            kControl.RecommendedIcon:SetHide(true);
+        end
+    end
+end
+
+-- ===========================================================================
+--[[
 function View( playerID:number, kData:table )
     -- This function is called to show the panel from the side, which includes looping
     -- and creating all of the instances via AddAvailableCivic
@@ -53,7 +73,7 @@ function View( playerID:number, kData:table )
         end -- civicStack:GetChildren for loop
     end -- if CQUI_ShowTechCivicRecommendations is false
 end
-
+--]]
 -- ===========================================================================
 function OnOpenPanel()
     --CQUI: ignores command and opens the tech tree instead if AlwaysShowTechTrees is true

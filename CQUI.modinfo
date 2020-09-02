@@ -138,7 +138,6 @@
                 <File>Assets/UI/partialscreenhooks.xml</File>
                 <File>Assets/UI/productionpanel.xml</File>
                 <File>Assets/UI/supportfunctions.lua</File>
-                <File>Assets/UI/techandcivicsupport.lua</File>
                 <File>Assets/UI/toppanel_CQUI_basegame.lua</File>
                 <File>Assets/UI/toppanel_CQUI.lua</File>
                 <File>Assets/UI/unitflagmanager_CQUI.lua</File>
@@ -1040,7 +1039,6 @@
         <File>Assets/UI/partialscreenhooks.xml</File>
         <File>Assets/UI/productionpanel.xml</File>
         <File>Assets/UI/supportfunctions.lua</File>
-        <File>Assets/UI/techandcivicsupport.lua</File>
         <File>Assets/UI/toppanel_CQUI_basegame.lua</File>
         <File>Assets/UI/toppanel_CQUI.lua</File>
         <File>Assets/UI/unitflagmanager_CQUI.lua</File>
