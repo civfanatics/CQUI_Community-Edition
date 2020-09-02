@@ -168,10 +168,8 @@
                 <File>Assets/UI/Popups/greatpeoplepopup.xml</File>
                 <File>Assets/UI/Popups/techciviccompletedpopup.lua</File>
                 <File>Assets/UI/Popups/wonderbuiltpopup_CQUI.lua</File>
-                <File>Assets/UI/Screens/techtree_CQUI_basegame.lua</File>
-                <File>Assets/UI/Screens/techtree_CQUI.lua</File>
-                <File>Assets/UI/Screens/civicstree_CQUI_basegame.lua</File>
-                <File>Assets/UI/Screens/civicstree_CQUI.lua</File>
+                <File>Assets/UI/Screens/TechTree_CQUI.lua</File>
+                <File>Assets/UI/Screens/CivicsTree_CQUI.lua</File>
                 <File>Assets/UI/Screens/governmentscreen_CQUI_basegame.lua</File>
                 <File>Assets/UI/Screens/governmentscreen_CQUI.lua</File>
                 <File>Assets/UI/ToolTips/plottooltip_CQUI_basegame.lua</File>
@@ -208,7 +206,6 @@
                 <File>Assets/Expansion1/Replacements/governmentscreen_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/launchbar_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/partialscreenhooks_CQUI_expansion1.lua</File>
-                <File>Assets/Expansion1/Replacements/techtree_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/toppanel_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/unitpanel_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/worldinput_CQUI_expansion1.lua</File>
@@ -237,7 +234,6 @@
                 <File>Assets/Expansion2/Replacements/citypaneloverview_expansion2_CQUI.lua</File>
                 <File>Assets/Expansion2/Replacements/citystates.xml</File>
                 <File>Assets/Expansion2/Replacements/citystates_CQUI_expansion2.lua</File>
-                <File>Assets/Expansion2/Replacements/civicstree_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/diplomacyactionview_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/diplomacyactionview.xml</File>
                 <File>Assets/Expansion2/Replacements/diplomacydealview_CQUI_expansion2.lua</File>
@@ -247,7 +243,6 @@
                 <File>Assets/Expansion2/Replacements/launchbar_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/partialscreenhooks_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/plottooltip_CQUI_expansion2.lua</File>
-                <File>Assets/Expansion2/Replacements/techtree_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/toppanel_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/unitpanel_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/worldinput_CQUI_expansion2.lua</File>
@@ -577,7 +572,7 @@
         <ReplaceUIScript id="CQUI_TechTree">
             <Properties>
                 <LuaContext>TechTree</LuaContext>
-                <LuaReplace>Assets/UI/Screens/techtree_CQUI_basegame.lua</LuaReplace>
+                <LuaReplace>Assets/UI/Screens/TechTree_CQUI.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
 
@@ -585,7 +580,7 @@
             <Properties>
                 <LoadOrder>100</LoadOrder>
                 <LuaContext>TechTree</LuaContext>
-                <LuaReplace>Assets/Expansion1/Replacements/techtree_CQUI_expansion1.lua</LuaReplace>
+                <LuaReplace>Assets/UI/Screens/TechTree_CQUI.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
 
@@ -593,7 +588,7 @@
             <Properties>
                 <LoadOrder>200</LoadOrder>
                 <LuaContext>TechTree</LuaContext>
-                <LuaReplace>Assets/Expansion2/Replacements/techtree_CQUI_expansion2.lua</LuaReplace>
+                <LuaReplace>Assets/UI/Screens/TechTree_CQUI.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
 
@@ -615,7 +610,7 @@
         <ReplaceUIScript id="CQUI_CivicsTree">
             <Properties>
                 <LuaContext>CivicsTree</LuaContext>
-                <LuaReplace>Assets/UI/Screens/civicstree_CQUI_basegame.lua</LuaReplace>
+                <LuaReplace>Assets/UI/Screens/CivicsTree_CQUI.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
 
@@ -623,7 +618,7 @@
             <Properties>
                 <LoadOrder>200</LoadOrder>
                 <LuaContext>CivicsTree</LuaContext>
-                <LuaReplace>Assets/Expansion2/Replacements/civicstree_CQUI_expansion2.lua</LuaReplace>
+                <LuaReplace>Assets/UI/Screens/CivicsTree_CQUI.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
 
@@ -952,7 +947,6 @@
         <File>Assets/Expansion1/Replacements/governmentscreen_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/launchbar_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/partialscreenhooks_CQUI_expansion1.lua</File>
-        <File>Assets/Expansion1/Replacements/techtree_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/toppanel_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/unitpanel_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/worldinput_CQUI_expansion1.lua</File>
@@ -961,7 +955,6 @@
         <File>Assets/Expansion2/Replacements/citypaneloverview_expansion2_CQUI.lua</File>
         <File>Assets/Expansion2/Replacements/citystates.xml</File>
         <File>Assets/Expansion2/Replacements/citystates_CQUI_expansion2.lua</File>
-        <File>Assets/Expansion2/Replacements/civicstree_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/diplomacyactionview_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/diplomacyactionview.xml</File>
         <File>Assets/Expansion2/Replacements/diplomacydealview_CQUI_expansion2.lua</File>
@@ -971,7 +964,6 @@
         <File>Assets/Expansion2/Replacements/launchbar_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/partialscreenhooks_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/plottooltip_CQUI_expansion2.lua</File>
-        <File>Assets/Expansion2/Replacements/techtree_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/toppanel_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/unitpanel_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/worldinput_CQUI_expansion2.lua</File>
@@ -1080,12 +1072,10 @@
         <File>Assets/UI/Popups/policyreminderpopup.xml</File>
         <File>Assets/UI/Popups/techciviccompletedpopup.lua</File>
         <File>Assets/UI/Popups/wonderbuiltpopup_CQUI.lua</File>
-        <File>Assets/UI/Screens/civicstree_CQUI_basegame.lua</File>
-        <File>Assets/UI/Screens/civicstree_CQUI.lua</File>
+        <File>Assets/UI/Screens/CivicsTree_CQUI.lua</File>
         <File>Assets/UI/Screens/governmentscreen_CQUI_basegame.lua</File>
         <File>Assets/UI/Screens/governmentscreen_CQUI.lua</File>
-        <File>Assets/UI/Screens/techtree_CQUI_basegame.lua</File>
-        <File>Assets/UI/Screens/techtree_CQUI.lua</File>
+        <File>Assets/UI/Screens/TechTree_CQUI.lua</File>
         <File>Assets/UI/ToolTips/plottooltip_CQUI_basegame.lua</File>
         <File>Assets/UI/ToolTips/plottooltip_CQUI.lua</File>
         <File>Assets/UI/Utilities/extendedrelationship.lua</File>
