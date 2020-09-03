@@ -226,7 +226,7 @@ function bitNot( value:number )
 -- ===========================================================================
 --  Bitwise or (because LUA 5.2 support doesn't exist yet in Havok script)
 -- ===========================================================================
- function bitOr( na:number, nb:number)
+function bitOr( na:number, nb:number)
     local ka :table = numberToBitsTable(na);
     local kb :table = numberToBitsTable(nb);
 
@@ -260,7 +260,6 @@ function bitAnd( na:number, nb:number)
     end
     return bitsTableToNumber( kResult );
 end
-
 
 -- ===========================================================================
 -- Left shift (because LUA 5.2 support doesn't exist yet in Havok script)

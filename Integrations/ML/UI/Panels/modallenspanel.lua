@@ -27,6 +27,11 @@ local m_EmpireDetails : number = UILens.CreateLensLayerHash("Empire_Details");
 
 local m_KeyStackIM:table = InstanceManager:new( "KeyEntry", "KeyColorImage", Controls.KeyStack );
 
+-- ===========================================================================
+function print_debug(...)
+    print_debug_masked(g_CQUI_DebugMask_MoreLenses, ...)
+end
+
 --============================================================================
 function Close()
   --ContextPtr:SetHide(true);

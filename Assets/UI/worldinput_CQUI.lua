@@ -36,6 +36,11 @@ LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
 LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
 
 -- ===========================================================================
+function print_debug(...)
+    print_debug_masked(g_CQUI_DebugMask_World, ...)
+end
+
+-- ===========================================================================
 function CQUI_GetActionFromKey( uiKey:number )
     local action :table = {};
     for i, keymap in ipairs(CQUI_keyMaps) do

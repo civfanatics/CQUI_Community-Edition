@@ -42,6 +42,10 @@ local m_timeUntilPopupCheck : number = 0;
 --  FUNCTIONS
 -- ===========================================================================
 -- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
+function print_debug(...)
+    print_debug_masked(g_CQUI_DebugMask_InGame, ...)
+end
+
 --CQUI Functions
 function CQUI_RequestUIAddin( request: string ) --Returns the first context to match the request string. Returns nil if a matching context can't be found
     for _,v in ipairs(g_uiAddins) do

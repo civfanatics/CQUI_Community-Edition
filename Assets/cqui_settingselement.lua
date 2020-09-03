@@ -86,7 +86,9 @@ local WorkIconAlphaConverter = {
 -- ============================================================================
 -- FUNCTIONS
 -- ============================================================================
-
+function print_debug(...)
+    print_debug_masked(g_CQUI_DebugMask_CQUICommon, ...)
+end
 
 -- ===========================================================================
 -- Used to register a control to be updated whenever settings update (only necessary for controls that can be updated from multiple places)

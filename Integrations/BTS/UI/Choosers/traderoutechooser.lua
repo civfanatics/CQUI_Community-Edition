@@ -62,7 +62,11 @@ local opt_print = false
 -- ===========================================================================
 --  CQUI
 -- ===========================================================================
+function print_debug(...)
+    print_debug_masked(g_CQUI_DebugMask_Trade, ...)
+end
 
+-- ===========================================================================
 function CQUI_OnSettingsUpdate()
   showSortOrdersPermanently = GameConfiguration.GetValue("CQUI_TraderShowSortOrder");
 

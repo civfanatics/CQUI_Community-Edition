@@ -62,7 +62,8 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ('CQUI_ShowSuzerainInCityStateBanner', 1), -- Show the Icon of the Suzerain Civilization in the CityState Banner
         ('CQUI_ShowImprovementsRecommendations', 0), -- Shows the advisor recommendation for the builder improvements
         ('CQUI_ShowCityDetailAdvisor', 0), -- Shows the advisor recommendation in the city detail panel
-        ('CQUI_ShowDebugPrint', 0); -- Shows print in the console
+        ('CQUI_ShowDebugPrint', 0x0); -- Shows print in the console (Hexidecimal number)
+                                      -- 0xFF to enable all debug print, see CQUICommon.lua for other mask values
 /*
     ┌────────────────────────────────────────────────────────────────────────────────────────────┐
     │                                    Combobox settings                                       │

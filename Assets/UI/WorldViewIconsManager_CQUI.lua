@@ -19,6 +19,11 @@ local CQUI_RESOURCEICONSTYLE_HIDDEN = 2;
 local CQUI_ResourceIconStyle = CQUI_RESOURCEICONSTYLE_TRANSPARENT;
 
 -- ===========================================================================
+function print_debug(...)
+    print_debug_masked(g_CQUI_DebugMask_World, ...)
+end
+
+-- ===========================================================================
 function CQUI_GetSettingsValues()
     CQUI_ResourceIconStyle = GameConfiguration.GetValue("CQUI_ResourceDimmingStyle");
     if CQUI_ResourceIconStyle == nil then

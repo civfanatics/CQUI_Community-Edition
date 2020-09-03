@@ -6,6 +6,7 @@
 -- * CQUI_TrimGossipMessage
 -- * CQUI_GetRealHousingFromImprovements
 ------------------------------------------------------------------------------
+include("supportfunctions.lua"); -- bitwise Math
 
 -- ===========================================================================
 -- Expansions check
@@ -17,35 +18,46 @@
 g_bIsRiseAndFall    = Modding and Modding.IsModActive("1B28771A-C749-434B-9053-D1380C553DE9"); -- Rise & Fall
 g_bIsGatheringStorm = Modding and Modding.IsModActive("4873eb62-8ccc-4574-b784-dda455e74e68"); -- Gathering Storm
 
-
 -- ===========================================================================
 -- Debug support
 -- ===========================================================================
+-- Debug print controlled by a hexadecimal number representing a bit mask (100 in binary is 8 decimal, 1000 binary is 0x10 hex and 16 decimal... )
+-- For example, to enable debug print for settings and worldinput, the value to use is 0x5
+-- Use 0xFF to enable all debug print
+CQUI_ShowDebugPrint = 0x0;
+g_CQUI_DebugMask_CQUICommon  = 0x1;
+g_CQUI_DebugMask_InGame      = 0x2;
+g_CQUI_DebugMask_World       = 0x4;
+g_CQUI_DebugMask_CityBanners = 0x8;
+g_CQUI_DebugMask_Trade       = 0x10;
+g_CQUI_DebugMask_MoreLenses  = 0x20;
+g_CQUI_DebugMask_All         = 0xFF;
 
-CQUI_ShowDebugPrint = false;
-
-function print_debug(...)
-    if CQUI_ShowDebugPrint then
-        print(...);
+function print_debug_masked(mask:number, ...)
+    if bitAnd(CQUI_ShowDebugPrint, mask) ~= 0 then
+-- TEMP
+        local str = "[CQUI "..tostring(mask).."] " .. table.concat({...}, " ");
+--        local str = "[CQUI] " .. table.concat({...}, " ");
+        print(str);
     end
 end
 
+-- ===========================================================================
 function CQUI_OnSettingsUpdate()
-    print_debug("ENTRY: CQUICommon - CQUI_OnSettingsUpdate");
+    print_debug_masked(g_CQUI_DebugMask_CQUICommon, "ENTRY: CQUICommon - CQUI_OnSettingsUpdate");
     if (GameInfo.CQUI_Settings ~= nil and GameInfo.CQUI_Settings["CQUI_ShowDebugPrint"] ~= nil) then
-        CQUI_ShowDebugPrint = ( GameInfo.CQUI_Settings["CQUI_ShowDebugPrint"].Value == 1 );
+        CQUI_ShowDebugPrint = GameInfo.CQUI_Settings["CQUI_ShowDebugPrint"].Value;
     else
         CQUI_ShowDebugPrint = GameConfiguration.GetValue("CQUI_ShowDebugPrint");
     end
 end
-
 
 -- ===========================================================================
 -- Trims source information from gossip messages. Returns nil if the message couldn't be trimmed (this usually means the provided string wasn't a gossip message at all)
 -- ===========================================================================
 
 function CQUI_TrimGossipMessage(str:string)
-    print_debug("ENTRY: CQUICommon - CQUI_TrimGossipMessage - string: "..tostring(str));
+    print_debug_masked(g_CQUI_DebugMask_CQUICommon, "ENTRY: CQUICommon - CQUI_TrimGossipMessage - string: "..tostring(str));
     -- Get a sample of a gossip source string
     local sourceSample = Locale.Lookup("LOC_GOSSIP_SOURCE_DELEGATE", "XX", "Y", "Z");
 
@@ -98,7 +110,7 @@ end
 
 -- ===========================================================================
 function Initialize()
-    print_debug("INITIALIZE: CQUICommon.lua");
+    print_debug_masked(g_CQUI_DebugMask_CQUICommon, "CQUICommon: Initialize ENTRY"); 
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 end

@@ -37,6 +37,9 @@ local m_timeUntilPopupCheck : number = 0;
 -- ===========================================================================
 --  FUNCTIONS
 -- ===========================================================================
+function print_debug(...)
+    print_debug_masked(g_CQUI_DebugMask_InGame, ...)
+end
 
 --CQUI Functions
 function CQUI_RequestUIAddin( request: string ) --Returns the first context to match the request string. Returns nil if a matching context can't be found

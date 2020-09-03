@@ -69,6 +69,11 @@ local CQUI_CityYields          = UILens.CreateLensLayerHash("City_Yields");
 local CQUI_CitizenManagement   = UILens.CreateLensLayerHash("Citizen_Management");
 
 -- ===========================================================================
+function print_debug(...)
+    print_debug_masked(g_CQUI_DebugMask_CityBanners, ...)
+end
+
+-- ===========================================================================
 function CQUI_OnSettingsInitialized()
     print_debug("CityBannerManager_CQUI: CQUI_OnSettingsInitialized ENTRY")
     CQUI_ShowYieldsOnCityHover         = GameConfiguration.GetValue("CQUI_ShowYieldsOnCityHover");
