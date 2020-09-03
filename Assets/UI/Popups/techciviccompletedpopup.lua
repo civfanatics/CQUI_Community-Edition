@@ -270,6 +270,8 @@ end
 
 -- ===========================================================================
 function OnRefresh()
+-- TEMP
+print("********* OnRefresh entry");
     ContextPtr:ClearRequestRefresh();
     RealizeNextPopup();
 end
@@ -277,13 +279,17 @@ end
 
 -- ===========================================================================
 function RealizeNextPopup()
-
+-- TEMP
+print("********* RealizeNextPopup entry");
     -- Only change the current data if it's been cleared out (as this screen
     -- may be re-shown if it was queued back up when showing governments.)
     if m_kCurrentData == nil then
         if (table.count(m_kPopupData) < 1) then
             UI.DataError("Attempt to realize the next WorldBuiltPopup but there is no data.");
             Close();
+
+            -- TEMP
+print("********* RealizeNextPopup m_kCurrentData is nil");
         end
 
         for i, v in ipairs(m_kPopupData) do
@@ -294,22 +300,30 @@ function RealizeNextPopup()
     end
 
     m_isCivicData = (m_kCurrentData.tech == nil);
-    if m_isCivicData then
-        ShowCivicCompletedPopup(m_kCurrentData.player, m_kCurrentData.civic, m_kCurrentData.quote, m_kCurrentData.audio );
-    else
-        ShowTechCompletedPopup(m_kCurrentData.player, m_kCurrentData.tech, m_kCurrentData.quote, m_kCurrentData.audio );
+    if CQUI_TechPopupVisual then
+        if m_isCivicData then
+            ShowCivicCompletedPopup(m_kCurrentData.player, m_kCurrentData.civic, m_kCurrentData.quote, m_kCurrentData.audio );
+        else
+            ShowTechCompletedPopup(m_kCurrentData.player, m_kCurrentData.tech, m_kCurrentData.quote, m_kCurrentData.audio );
+        end
+    end
+
+    if not CQUI_TechPopupVisual then
+        UIManager:DequeuePopup(ContextPtr);
     end
 
     UI.PlaySound("Pause_Advisor_Speech");
     UI.PlaySound("Resume_TechCivic_Speech");
     if (m_kCurrentData and m_kCurrentData.audio and CQUI_TechPopupAudio) then
-            UI.PlaySound( m_kCurrentData.audio );
+        -- TEMP
+print("********* RealizeNextPopup should be playing audio here");
+        UI.PlaySound( m_kCurrentData.audio );
     end
 
     if not CQUI_TechPopupVisual then
         m_kPopupData = {};
         m_kCurrentData = nil;
-        UIManager:DequeuePopup(ContextPtr);
+        --UIManager:DequeuePopup(ContextPtr);
     end
 
     RefreshSize();
@@ -453,6 +467,8 @@ end
 --  LUA Event
 -- ===========================================================================
 function OnNotificationPanel_ShowTechDiscovered(ePlayer, techIndex:number, isByUser:boolean)
+    -- TEMP
+    print("************* OnNotificationPanel_ShowTechDiscovered")
     AddCompletedPopup( ePlayer, nil, techIndex, isByUser );
 end
 
