@@ -35,9 +35,7 @@ g_CQUI_DebugMask_All         = 0xFF;
 
 function print_debug_masked(mask:number, ...)
     if bitAnd(CQUI_ShowDebugPrint, mask) ~= 0 then
--- TEMP
-        local str = "[CQUI "..tostring(mask).."] " .. table.concat({...}, " ");
---        local str = "[CQUI] " .. table.concat({...}, " ");
+        local str = "[CQUI] " .. table.concat({...}, " ");
         print(str);
     end
 end
@@ -107,10 +105,9 @@ function CQUI_GetRealHousingFromImprovements(pCity:table)
     return pCity:GetGrowth():GetHousingFromImprovements() + Round(iNumHousing-math.floor(iNumHousing),1);
 end
 
-
 -- ===========================================================================
 function Initialize()
-    print_debug_masked(g_CQUI_DebugMask_CQUICommon, "CQUICommon: Initialize ENTRY"); 
+    print_debug_masked(g_CQUI_DebugMask_CQUICommon, "INITIALIZE: CQUICommon.lua"); 
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 end
