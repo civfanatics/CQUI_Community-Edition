@@ -27,8 +27,18 @@ local CQUI_TechPopupAudio  = true;
 function CQUI_OnSettingsUpdate()
     CQUI_TechPopupVisual = GameConfiguration.GetValue("CQUI_TechPopupVisual");
     CQUI_TechPopupAudio  = GameConfiguration.GetValue("CQUI_TechPopupAudio");
-end
 
+    if (CQUI_TechPopupVisual == false) then
+        -- From Civ6_styles FullScreenVignetteConsumer, ScreenAnimIn is the animiation that dims the background when the popup shows
+        -- Setting the ScreenAnimIn and top-level Grid control to hidden will avoid the issue of the popup
+        -- quickly appearing and disappearing (the time between UIManager:QueuePopup and UIManager:DequeuePopup)
+        Controls.ScreenAnimIn:SetHide(true);
+        Controls.PopupDrowShadowGrid:SetHide(true);
+    else
+        Controls.ScreenAnimIn:SetHide(false);
+        Controls.PopupDrowShadowGrid:SetHide(false);
+    end
+end
 
 -- ===========================================================================
 --  FUNCTIONS
@@ -270,8 +280,6 @@ end
 
 -- ===========================================================================
 function OnRefresh()
--- TEMP
-print("********* OnRefresh entry");
     ContextPtr:ClearRequestRefresh();
     RealizeNextPopup();
 end
@@ -279,17 +287,12 @@ end
 
 -- ===========================================================================
 function RealizeNextPopup()
--- TEMP
-print("********* RealizeNextPopup entry");
     -- Only change the current data if it's been cleared out (as this screen
     -- may be re-shown if it was queued back up when showing governments.)
     if m_kCurrentData == nil then
         if (table.count(m_kPopupData) < 1) then
             UI.DataError("Attempt to realize the next WorldBuiltPopup but there is no data.");
             Close();
-
-            -- TEMP
-print("********* RealizeNextPopup m_kCurrentData is nil");
         end
 
         for i, v in ipairs(m_kPopupData) do
@@ -315,15 +318,13 @@ print("********* RealizeNextPopup m_kCurrentData is nil");
     UI.PlaySound("Pause_Advisor_Speech");
     UI.PlaySound("Resume_TechCivic_Speech");
     if (m_kCurrentData and m_kCurrentData.audio and CQUI_TechPopupAudio) then
-        -- TEMP
-print("********* RealizeNextPopup should be playing audio here");
         UI.PlaySound( m_kCurrentData.audio );
     end
 
-    if not CQUI_TechPopupVisual then
+    if (CQUI_TechPopupVisual == false) then
         m_kPopupData = {};
         m_kCurrentData = nil;
-        --UIManager:DequeuePopup(ContextPtr);
+        UIManager:DequeuePopup(ContextPtr);
     end
 
     RefreshSize();
@@ -350,7 +351,6 @@ end
 --  Will attempt to close but will show more popups if there are more.
 -- ===========================================================================
 function TryClose()
-
     if m_kCurrentData==nil then
         UI.DataError("Attempting to TryClosing the techcivic completed popup but it appears to have no data in it.");
         Close();
@@ -467,8 +467,6 @@ end
 --  LUA Event
 -- ===========================================================================
 function OnNotificationPanel_ShowTechDiscovered(ePlayer, techIndex:number, isByUser:boolean)
-    -- TEMP
-    print("************* OnNotificationPanel_ShowTechDiscovered")
     AddCompletedPopup( ePlayer, nil, techIndex, isByUser );
 end
 
