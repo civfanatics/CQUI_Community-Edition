@@ -287,6 +287,7 @@ end
 
 -- ===========================================================================
 function RealizeNextPopup()
+
     -- Only change the current data if it's been cleared out (as this screen
     -- may be re-shown if it was queued back up when showing governments.)
     if m_kCurrentData == nil then
@@ -303,16 +304,10 @@ function RealizeNextPopup()
     end
 
     m_isCivicData = (m_kCurrentData.tech == nil);
-    if CQUI_TechPopupVisual then
-        if m_isCivicData then
-            ShowCivicCompletedPopup(m_kCurrentData.player, m_kCurrentData.civic, m_kCurrentData.quote, m_kCurrentData.audio );
-        else
-            ShowTechCompletedPopup(m_kCurrentData.player, m_kCurrentData.tech, m_kCurrentData.quote, m_kCurrentData.audio );
-        end
-    end
-
-    if not CQUI_TechPopupVisual then
-        UIManager:DequeuePopup(ContextPtr);
+    if m_isCivicData then
+        ShowCivicCompletedPopup(m_kCurrentData.player, m_kCurrentData.civic, m_kCurrentData.quote, m_kCurrentData.audio );
+    else
+        ShowTechCompletedPopup(m_kCurrentData.player, m_kCurrentData.tech, m_kCurrentData.quote, m_kCurrentData.audio );
     end
 
     UI.PlaySound("Pause_Advisor_Speech");
@@ -351,6 +346,7 @@ end
 --  Will attempt to close but will show more popups if there are more.
 -- ===========================================================================
 function TryClose()
+
     if m_kCurrentData==nil then
         UI.DataError("Attempting to TryClosing the techcivic completed popup but it appears to have no data in it.");
         Close();
