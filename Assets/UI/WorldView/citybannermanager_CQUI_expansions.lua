@@ -25,7 +25,7 @@ BASE_CQUI_CityBanner_UpdateStats = CityBanner.UpdateStats;
 -- CQUI Expansion Extension Functions
 -- ============================================================================
 function CityBanner.Initialize(self, playerID, cityID, districtID, bannerType, bannerStyle)
-    print_debug("CityBannerManager_CQUI_Expansions: CityBanner:Initialize ENTRY: playerID:"..tostring(playerID).." cityID:"..tostring(cityID).." districtID:"..tostring(districtID).." bannerType:"..tostring(bannerType).." bannerStyle:"..tostring(bannerStyle));
+    -- print_debug("CityBannerManager_CQUI_Expansions: CityBanner:Initialize ENTRY: playerID:"..tostring(playerID).." cityID:"..tostring(cityID).." districtID:"..tostring(districtID).." bannerType:"..tostring(bannerType).." bannerStyle:"..tostring(bannerStyle));
     CQUI_Common_CityBanner_Initialize(self, playerID, cityID, districtID, bannerType, bannerStyle);
 
     if (IsBannerTypeCityCenter(bannerType) and (self.CQUI_DistrictBuiltIM == nil)) then
@@ -35,7 +35,7 @@ end
 
 -- ============================================================================
 function CityBanner.Uninitialize(self)
-    print_debug("CityBannerManager_CQUI_Expansions: CityBanner.Uninitialize ENTRY");
+    -- print_debug("CityBannerManager_CQUI_Expansions: CityBanner.Uninitialize ENTRY");
     BASE_CQUI_CityBanner_Uninitialize(self);
 
     -- CQUI : Clear CQUI_DistrictBuiltIM
@@ -46,7 +46,7 @@ end
 
 -- ============================================================================
 function CityBanner.UpdateInfo(self, pCity : table )
-    print_debug("CityBannerManager_CQUI_Expansions: CityBanner.UpdateInfo ENTRY  pCity:"..tostring(pCity));
+    -- print_debug("CityBannerManager_CQUI_Expansions: CityBanner.UpdateInfo ENTRY  pCity:"..tostring(pCity));
     BASE_CQUI_CityBanner_UpdateInfo(self, pCity);
 
     if (pCity == nil) then
@@ -138,7 +138,7 @@ end
 
 -- ============================================================================
 function CityBanner.UpdatePopulation(self, isLocalPlayer:boolean, pCity:table, pCityGrowth:table)
-    print_debug("CityBannerManager_CQUI_Expansions: CityBanner:UpdatePopulation:  pCity: "..tostring(pCity).."  pCityGrowth:"..tostring(pCityGrowth));
+    -- print_debug("CityBannerManager_CQUI_Expansions: CityBanner:UpdatePopulation:  pCity: "..tostring(pCity).."  pCityGrowth:"..tostring(pCityGrowth));
     BASE_CQUI_CityBanner_UpdatePopulation(self, isLocalPlayer, pCity, pCityGrowth);
 
     if (isLocalPlayer == false) then
@@ -188,7 +188,7 @@ end
 
 -- ============================================================================
 function CityBanner.UpdateStats(self)
-    print_debug("CityBannerManager_CQUI_Expansions: CityBanner.UpdateStats ENTRY");
+    -- print_debug("CityBannerManager_CQUI_Expansions: CityBanner.UpdateStats ENTRY");
     BASE_CQUI_CityBanner_UpdateStats(self);
 
     local pDistrict:table = self:GetDistrict();
@@ -278,7 +278,7 @@ end
 -- CQUI Replacement Functions
 -- ============================================================================
 function OnCityStrikeButtonClick( playerID, cityID )
-    print_debug("CityBannerManager_CQUI_Expansions: OnCityStrikeButtonClick ENTRY playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
+    -- print_debug("CityBannerManager_CQUI_Expansions: OnCityStrikeButtonClick ENTRY playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
     CQUI_OnCityRangeStrikeButtonClick(playerID, cityID);
 end
 

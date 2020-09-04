@@ -91,7 +91,7 @@ local WorkIconAlphaConverter = {
 -- ===========================================================================
 -- Used to register a control to be updated whenever settings update (only necessary for controls that can be updated from multiple places)
 function RegisterControl(control, setting_name, update_function, extra_data)
-    print_debug("ENTRY: CQUICommon - RegisterControl");
+    -- print_debug("ENTRY: CQUICommon - RegisterControl");
     LuaEvents.CQUI_SettingsUpdate.Add(function() update_function(control, setting_name, extra_data); end);
 end
 
@@ -99,7 +99,7 @@ end
 -- Companion functions to RegisterControl
 -- ===========================================================================
 function UpdateCheckbox(control, setting_name)
-    print_debug("ENTRY: CQUICommon - UpdateCheckbox");
+    -- print_debug("ENTRY: CQUICommon - UpdateCheckbox");
     local value = GameConfiguration.GetValue(setting_name);
     if (value == nil) then
         return;
@@ -110,7 +110,7 @@ end
 
 -- ===========================================================================
 function UpdateSlider( control, setting_name, data_converter)
-    print_debug("ENTRY: CQUICommon - UpdateSlider");
+    -- print_debug("ENTRY: CQUICommon - UpdateSlider");
     local value = GameConfiguration.GetValue(setting_name);
     if (value == nil) then
         return;
@@ -122,7 +122,7 @@ end
 -- ===========================================================================
 --Used to populate combobox options
 function PopulateComboBox(control, values, setting_name, tooltip)
-    print_debug("ENTRY: CQUICommon - PopulateComboBox");
+    -- print_debug("ENTRY: CQUICommon - PopulateComboBox");
     control:ClearEntries();
     local current_value = GameConfiguration.GetValue(setting_name);
 
@@ -180,7 +180,7 @@ end
 
 --Used to populate checkboxes
 function PopulateCheckBox(control, setting_name, tooltip)
-    print_debug("ENTRY: CQUICommon - PopulateCheckBox");
+    -- print_debug("ENTRY: CQUICommon - PopulateCheckBox");
     local current_value = GameConfiguration.GetValue(setting_name);
     if (current_value == nil) then
         --LY Checks if this setting has a default state defined in the database
@@ -222,7 +222,7 @@ end
 --Used to populate sliders. data_converter is a table containing two functions: ToStep and ToValue, which describe how to hanlde converting from the incremental slider steps to a setting value, think of it as a less elegant inner class
 --Optional third function: ToString. When included, this function will handle how the value is converted to a display value, otherwise this defaults to using the value from ToValue
 function PopulateSlider(control, label, setting_name, data_converter, tooltip)
-    print_debug("ENTRY: CQUICommon - PopulateSlider");
+    -- print_debug("ENTRY: CQUICommon - PopulateSlider");
     --This is necessary because RegisterSliderCallback fires twice when releasing the mouse cursor for some reason
     local hasScrolled = false;
     local current_value = GameConfiguration.GetValue(setting_name);
@@ -271,7 +271,7 @@ end
 
 --Used to switch active panels/tabs in the settings panel
 function ShowTab(button, panel)
-    print_debug("CQUI_SettingsElement: ShowTab Function Entry");
+    -- print_debug("CQUI_SettingsElement: ShowTab Function Entry");
     -- Unfocus all tabs and hide panels
     for i, v in ipairs(m_tabs) do
         v[2]:SetHide(true);
