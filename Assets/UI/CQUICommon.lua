@@ -24,8 +24,7 @@ CQUI_ShowDebugPrint = false;
 
 function print_debug(...)
     if CQUI_ShowDebugPrint then
-        local str = "[CQUI] " .. table.concat({...}, " ");
-        print(str);
+        print("[CQUI]", ...);
     end
 end
 
