@@ -27,17 +27,6 @@ local CQUI_TechPopupAudio  = true;
 function CQUI_OnSettingsUpdate()
     CQUI_TechPopupVisual = GameConfiguration.GetValue("CQUI_TechPopupVisual");
     CQUI_TechPopupAudio  = GameConfiguration.GetValue("CQUI_TechPopupAudio");
-
-    if (CQUI_TechPopupVisual == false) then
-        -- From Civ6_styles FullScreenVignetteConsumer, ScreenAnimIn is the animiation that dims the background when the popup shows
-        -- Setting the ScreenAnimIn and top-level Grid control to hidden will avoid the issue of the popup
-        -- quickly appearing and disappearing (the time between UIManager:QueuePopup and UIManager:DequeuePopup)
-        Controls.ScreenAnimIn:SetHide(true);
-        Controls.PopupDrowShadowGrid:SetHide(true);
-    else
-        Controls.ScreenAnimIn:SetHide(false);
-        Controls.PopupDrowShadowGrid:SetHide(false);
-    end
 end
 
 -- ===========================================================================
@@ -213,8 +202,10 @@ end
 -- ===========================================================================
 function AddCompletedPopup( player:number, civic:number, tech:number, isByUser:boolean )
     local isNotBlockedByTutorial:boolean = (not m_isDisabledByTutorial);
-
-    if player == Game.GetLocalPlayer() and isNotBlockedByTutorial and (not GameConfiguration.IsNetworkMultiplayer()) then
+    if player == Game.GetLocalPlayer() 
+       and isNotBlockedByTutorial
+       and CQUI_TechPopupVisual
+       and (not GameConfiguration.IsNetworkMultiplayer()) then
 
         local results   :table;
         local civicType :string;
@@ -312,14 +303,9 @@ function RealizeNextPopup()
 
     UI.PlaySound("Pause_Advisor_Speech");
     UI.PlaySound("Resume_TechCivic_Speech");
+    -- We will only get here if CQUI_TechPopupVisual is true
     if (m_kCurrentData and m_kCurrentData.audio and CQUI_TechPopupAudio) then
         UI.PlaySound( m_kCurrentData.audio );
-    end
-
-    if (CQUI_TechPopupVisual == false) then
-        m_kPopupData = {};
-        m_kCurrentData = nil;
-        UIManager:DequeuePopup(ContextPtr);
     end
 
     RefreshSize();
