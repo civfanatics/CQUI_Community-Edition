@@ -946,6 +946,47 @@ function OnCityWorkerChanged(ownerPlayerID:number, cityID:number)
     end
 end
 
+function CQUI_OnDiplomacyDeclareWar(firstPlayerID, secondPlayerID)
+    --TEMP PRint
+    print("")
+    local localPlayerID = Game.GetLocalPlayer();
+    if (localPlayerID ~= nil) then
+        if (localPlayerID == firstPlayerID or localPlayerID == secondPlayerID) then
+            --blah
+        end
+    end
+end
+
+    function OnDiplomacyDeclareWar(firstPlayerID, secondPlayerID)
+        local localPlayerID = Game.GetLocalPlayer();
+        if (localPlayerID == nil) then
+            print_debug("OnDiplomacyDecalreWar: Game.GetLocalPlayer returned nil!")
+            return;
+        end
+
+        local pOtherPlayer = nil;
+        if (localPlayerID == firstPlayerID) then
+            pOtherPlayer = Players[secondPlayerID]; 
+        else
+            pOtherPlayer = Players[firstPlayerID];
+        end
+
+        if (pOtherPlayer:IsMinor()) then
+
+
+        end
+        
+        if (localPlayerID ~= nil) then
+            if (localPlayerID == firstPlayerID or localPlayerID == secondPlayerID) then
+                m_kEnvoyChanges = {}; -- Zero out any pending envoy choices
+            end
+        end
+        if not ContextPtr:IsHidden() then
+            Refresh();
+        end
+    end
+    
+
 -- ===========================================================================
 --  CQUI Initialize Function
 -- ===========================================================================
@@ -963,5 +1004,8 @@ function Initialize_CQUI()
     Events.CitySelectionChanged.Add(CQUI_OnBannerMouseExit);
     Events.CityWorkerChanged.Add(OnCityWorkerChanged);
     Events.InfluenceGiven.Add(CQUI_OnInfluenceGiven);
+
+    Events.DiplomacyDeclareWar.Add( CQUI_OnDiplomacyDeclareWar );
+	Events.DiplomacyMakePeace.Add( CQUI_OnDiplomacyMakePeace );
 end
 Initialize_CQUI();

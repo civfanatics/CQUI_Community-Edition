@@ -46,6 +46,11 @@
 
                     <!-- CONTENTS -->
                     <Stack ID="ContentStack" Anchor="C,C" StackGrowth="Right" Padding="10">
+                        <!-- <Container ID="CQUI_AtWarWithCS" Anchor="C,C" Offset="-10,0" Size="28,34" Hidden="1">
+                            <Image ID="CQUI_AtWarWithCSBackground" Size="22,22" Anchor="C,C" Texture="CircleBacking22" > -->
+                                <Image ID="CQUI_AtWarWithCSIcon" Size="22,22" Anchor="C,C" IconSize="22" Hidden="1"/>
+                            <!-- </Image>
+                        </Container> -->
                         <Stack ID="CityInfoStack" Anchor="L,C" StackGrowth="Right" Padding="2" />
                         <Container ID="CQUI_DistrictsContainer" Anchor="C,C" Size="auto,parent" Offset="-6,0">
                             <Stack ID="CQUI_Districts" Anchor="L,C" StackGrowth="Right" Padding="-12"/>
