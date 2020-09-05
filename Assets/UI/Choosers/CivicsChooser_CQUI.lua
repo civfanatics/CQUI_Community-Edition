@@ -3,8 +3,8 @@ include("CivicsChooser");
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
+BASE_CQUI_AddAvailableCivic = AddAvailableCivic;
 BASE_CQUI_RealizeCurrentCivic = RealizeCurrentCivic; -- this function is in TechAndCivicSupport.lua
---BASE_CQUI_View = View;
 BASE_CQUI_OnOpenPanel = OnOpenPanel;
 
 -- ===========================================================================
@@ -25,6 +25,38 @@ end
 -- CQUI Function Extensions
 -- ===========================================================================
 
+function AddAvailableCivic( playerID:number, kData:table )
+    BASE_CQUI_AddAvailableCivic(playerID, kData);
+
+    -- If the user wants to hide the Civic and/or Tech recommendations, then find the RecommendedIcon and hide it
+    if not CQUI_ShowTechCivicRecommendations then
+        
+        -- CivicsChooser does not return an item instance from AddAvailableCivic,
+        -- so we go and find the controls manually and hide the RecommendedIcon if necessary
+        -- The Control lives at <Instance>/TopContainer/Top/<UnNamedStack>/RecommendedIcon
+        -- Also, is there really no better way to do this?  I could not find a way to get an existing Instance Manager that is "Local" to the CivicsChooser.lua
+        for _, civicStackChild in pairs(Controls.CivicStack:GetChildren()) do
+            -- each civicStackChild is a Container with ID "TopContainer", which has 1 child, a GridButton with ID "Top"
+            gridButton = civicStackChild:GetChildren()[1];
+            for _, gridButtonChild in pairs(gridButton:GetChildren()) do
+                -- The RecommendedIcon is in a Stack control without an ID, which will be a child of the GridButton
+                if ((getmetatable(gridButtonChild).CTypeName == "StackControl") and (gridButtonChild:GetID() == "")) then
+                    for _, ctrl in pairs(gridButtonChild:GetChildren()) do
+                        -- Now locate the RecommendedIcon and hide it
+                        if (ctrl:GetID() == "RecommendedIcon") then
+                            ctrl:SetHide(true);
+                            break
+                        end
+                    end
+                    break -- no need to walk the gridButton child controls any further
+                end
+            end -- gridButton:GetChildren for loop
+        end -- civicStack:GetChildren for loop
+        
+    end -- not CQUI_ShowTechCivicRecommendations
+end
+
+-- ===========================================================================
 function RealizeCurrentCivic( playerID:number, kData:table, kControl:table, cachedModifiers:table )
     BASE_CQUI_RealizeCurrentCivic(playerID, kData, kControl, cachedModifiers);
     
@@ -42,42 +74,9 @@ function RealizeCurrentCivic( playerID:number, kData:table, kControl:table, cach
 end
 
 -- ===========================================================================
---[[
-function View( playerID:number, kData:table )
-    -- This function is called to show the panel from the side, which includes looping
-    -- and creating all of the instances via AddAvailableCivic
-    BASE_CQUI_View(playerID, kData);
-
-    -- CivicsChooser does not return an item instance from AddAvailableCivic,
-    -- so we go and find the controls manually and hide the RecommendedIcon if necessary
-    -- The Control lives at <Instance>/TopContainer/Top/<UnNamedStack>/RecommendedIcon
-    -- Also, is there really no better way to do this?  I could not find a way to get an existing Instance Manager that is "Local" to the CivicsChooser.lua
-    if (CQUI_ShowTechCivicRecommendations == false) then
-        for _, civicStackChild in pairs(Controls.CivicStack:GetChildren()) do
-            -- each civicStackChild is a Container with ID "TopContainer", which has 1 child, a GridButton with ID "Top"
-            gridButton = civicStackChild:GetChildren()[1];
-            for _, gridButtonChild in pairs(gridButton:GetChildren()) do
-                -- The RecommendedIcon is in a Stack control without an ID, which will be a child of the GridButton
-                if ((getmetatable(gridButtonChild).CTypeName == "StackControl") and (gridButtonChild:GetID() == "")) then
-                    for _, ctrl in pairs(gridButtonChild:GetChildren()) do
-                        -- Now locate the RecommendedIcon and hide it
-                        if (ctrl:GetID() == "RecommendedIcon") then
-                            ctrl:SetHide(true);
-                            break
-                        end
-                    end
-
-                    break -- no need to walk the gridButton child controls any further
-                end
-            end -- gridButton:GetChildren for loop
-        end -- civicStack:GetChildren for loop
-    end -- if CQUI_ShowTechCivicRecommendations is false
-end
---]]
--- ===========================================================================
 function OnOpenPanel()
     --CQUI: ignores command and opens the tech tree instead if AlwaysShowTechTrees is true
-    if (CQUI_AlwaysOpenTechTrees) then
+    if CQUI_AlwaysOpenTechTrees then
         LuaEvents.CivicsChooser_RaiseCivicsTree()
     else
         BASE_CQUI_OnOpenPanel();
@@ -87,7 +86,7 @@ end
 -- ===========================================================================
 --  CQUI Functions
 -- ===========================================================================
-function Initialize()
+function CQUI_Initialize()
     -- CQUI events
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
@@ -98,5 +97,4 @@ function Initialize()
     LuaEvents.WorldTracker_OpenChooseCivic.Remove(BASE_CQUI_OnOpenPanel);
     LuaEvents.WorldTracker_OpenChooseCivic.Add(OnOpenPanel);
 end
-Initialize();
-
+CQUI_Initialize();

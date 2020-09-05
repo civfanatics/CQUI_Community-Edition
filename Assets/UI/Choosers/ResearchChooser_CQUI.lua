@@ -87,16 +87,17 @@ end
 -- ===========================================================================
 function OnOpenPanel()
     --CQUI: ignores command and opens the tech tree instead if AlwaysShowTechTrees is true
-    if (CQUI_AlwaysOpenTechTrees) then
+    if CQUI_AlwaysOpenTechTrees then
         LuaEvents.ResearchChooser_RaiseTechTree()
     else
         BASE_CQUI_OnOpenPanel();
     end
 end
+
 -- ===========================================================================
 --  CQUI Functions
 -- ===========================================================================
-function Initialize()
+function CQUI_Initialize()
     -- CQUI events
     LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
     LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
@@ -107,4 +108,4 @@ function Initialize()
     LuaEvents.WorldTracker_OpenChooseResearch.Remove(BASE_CQUI_OnOpenPanel);
     LuaEvents.WorldTracker_OpenChooseResearch.Add(OnOpenPanel);
 end
-Initialize();
+CQUI_Initialize();
