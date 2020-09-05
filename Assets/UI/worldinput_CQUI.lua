@@ -69,8 +69,8 @@ end
 
 -- ===========================================================================
 function OnUnitSelectionChanged( playerID:number, unitID:number, hexI:number, hexJ:number, hexK:number, isSelected:boolean, isEditable:boolean )
-    local msg = "** Function Entry: OnUnitSelectionChanged (CQUI Hook).  playerId:"..tostring(playerID).." unitId:"..tostring(unitID).." hexI:"..tostring(hexI).." hexJ:"..tostring(hexJ).." hexK:"..tostring(hexK).." isSelected:"..tostring(isSelected).." isEditable:"..tostring(isEditable);
-    print_debug(msg);
+    -- local msg = "** Function Entry: OnUnitSelectionChanged (CQUI Hook).  playerId:"..tostring(playerID).." unitId:"..tostring(unitID).." hexI:"..tostring(hexI).." hexJ:"..tostring(hexJ).." hexK:"..tostring(hexK).." isSelected:"..tostring(isSelected).." isEditable:"..tostring(isEditable);
+    -- print_debug(msg);
     if playerID ~= Game.GetLocalPlayer() then
         return;
     end
@@ -86,18 +86,18 @@ end
 
 -- ===========================================================================
 function DefaultKeyDownHandler( uiKey:number )
-    print_debug("** Function Entry: DefaultKeyDownHandler (CQUI Hook).  uiKey: "..tostring(uiKey));
+    -- print_debug("** Function Entry: DefaultKeyDownHandler (CQUI Hook).  uiKey: "..tostring(uiKey));
     -- Note: This function always returns false, by design in Base game
     BASE_CQUI_DefaultKeyDownHandler( uiKey );
 
     --CQUI Keybinds
     if uiKey == Keys.VK_SHIFT then
-        print_debug("CQUI_isShiftDown = true");
+        -- print_debug("CQUI_isShiftDown = true");
         CQUI_isShiftDown = true;
     end
 
     if uiKey == Keys.VK_ALT then
-        print_debug("CQUI_isAltDown = true");
+        -- print_debug("CQUI_isAltDown = true");
         CQUI_isAltDown = true;
     end
 
@@ -107,7 +107,7 @@ end
 
 -- ===========================================================================
 function DefaultKeyUpHandler( uiKey:number )
-    print_debug("** Function Entry: DefaultKeyUpHandler (CQUI Hook) uiKey: "..tostring(uiKey));
+    -- print_debug("** Function Entry: DefaultKeyUpHandler (CQUI Hook) uiKey: "..tostring(uiKey));
 
     -- If set to Standard, just let the game do its thing
     if CQUI_hotkeyMode == CQUI_HOTKEYMODE_STANDARD then
@@ -257,7 +257,7 @@ function DefaultKeyUpHandler( uiKey:number )
     end
 
     if (cquiHandledKey == false) then
-        print_debug("** CQUI DefaultKeyUpHandler did not handle key: "..tostring(uiKey));
+        -- print_debug("** CQUI DefaultKeyUpHandler did not handle key: "..tostring(uiKey));
         cquiHandledKey = BASE_CQUI_DefaultKeyUpHandler(uiKey);
     end
 
@@ -266,7 +266,7 @@ end
 
 -- ===========================================================================
 function ClearAllCachedInputState()
-    print_debug("** Function Entry: ClearAllCachedInputState (CQUI Hook)");
+    -- print_debug("** Function Entry: ClearAllCachedInputState (CQUI Hook)");
     BASE_CQUI_ClearAllCachedInputState();
 
     CQUI_isShiftDown = false;
@@ -278,7 +278,7 @@ end
 -- These functions do not call the function of the same name found in base WorldInput.lua
 -- ===========================================================================
 function RealizeMovementPath(showQueuedPath:boolean, unitID:number)
-    print_debug("** Function Entry: RealizeMovementPath (CQUI Hook) -- showQueuedPath: "..tostring(showQueuedPath).." unitID"..tostring(unitID));
+    -- print_debug("** Function Entry: RealizeMovementPath (CQUI Hook) -- showQueuedPath: "..tostring(showQueuedPath).." unitID"..tostring(unitID));
     -- Largely the same as the base RealizeMovementPath, save for the additional unitID parameter
     -- The unitID allows CQUI to show the movement path when a unit is hovered over (base game returns because no unit is actually selected)
     -- Note: Adding the "show movement path on hover" mechanism means that this function cannot be extended and therefore must be replaced entirely
@@ -581,7 +581,7 @@ end
 
 -- ===========================================================================
 function ClearMovementPath()
-    print_debug("** Function Entry: ClearMovementPath (CQUI Hook)");
+    -- print_debug("** Function Entry: ClearMovementPath (CQUI Hook)");
     -- Replace base function because of the if statement around the UILens.ClearLayerHexes
     UILens.ClearLayerHexes( g_MovementPath );
     UILens.ClearLayerHexes( g_Numbers );
@@ -598,7 +598,7 @@ end
 
 -- ===========================================================================
 function OnInterfaceModeEnter_CityManagement( eNewMode:number )
-    print_debug("** Function Entry: OnInterfaceModeEnter_CityManagement (CQUI Hook)");
+    -- print_debug("** Function Entry: OnInterfaceModeEnter_CityManagement (CQUI Hook)");
     UIManager:SetUICursor(CursorTypes.RANGE_ATTACK);
     -- AZURENCY : fix the Appeal lens not being applied in city view
     -- UILens.SetActive("CityManagement");
@@ -606,7 +606,7 @@ end
 
 -- ===========================================================================
 function OnMouseBuildingPlacementCancel( pInputStruct:table )
-    print_debug("** Function Entry: OnMouseBuildingPlacementCancel (CQUI Hook)");
+    -- print_debug("** Function Entry: OnMouseBuildingPlacementCancel (CQUI Hook)");
     if IsCancelAllowed() then
         LuaEvents.CQUI_CityviewEnable();
         -- CQUI: Do not call ExitPlacementMode here
@@ -616,7 +616,7 @@ end
 
 -- ===========================================================================
 function OnMouseDistrictPlacementCancel( pInputStruct:table )
-    print_debug("** Function Entry: OnMouseDistrictPlacementCancel (CQUI Hook)");
+    -- print_debug("** Function Entry: OnMouseDistrictPlacementCancel (CQUI Hook)");
     if IsCancelAllowed() then
         LuaEvents.StoreHash(0);
         LuaEvents.CQUI_CityviewEnable();
@@ -627,7 +627,7 @@ end
 
 -- ===========================================================================
 function OnCycleUnitSelectionRequest()
-    print_debug("** Function Entry: OnCycleUnitSelectionRequest (CQUI Hook)");
+    -- print_debug("** Function Entry: OnCycleUnitSelectionRequest (CQUI Hook)");
     if (UI.GetInterfaceMode() ~= InterfaceModeTypes.CINEMATIC or m_isMouseButtonRDown) then
         -- AZURENCY : OnCycleUnitSelectionRequest is called by UI.SetCycleAdvanceTimer()
         -- in SelectedUnit.lua causing a conflict with the auto-cyling of unit
@@ -668,7 +668,7 @@ end
 
 -- ===========================================================================
 function CQUI_BuildImprovement (unit, improvementHash: number)
-    print_debug("** Function Entry: CQUI_BuildImprovement (CQUI Hook)");
+    -- print_debug("** Function Entry: CQUI_BuildImprovement (CQUI Hook)");
     if unit == nil then return end
 
     local tParameters = {};
@@ -685,7 +685,7 @@ end
 
 -- ===========================================================================
 function Initialize()
-    print_debug("** Function Entry: Initialize (CQUI Hook)");
+    print_debug("INITIALIZE: WorldInput_CQUI");
 
     -- Pre-process the SQL key binding data
     CQUI_keyMaps = {};
