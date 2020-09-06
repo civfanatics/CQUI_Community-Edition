@@ -834,14 +834,14 @@ function CQUI_OnInfluenceGiven()
         if (pPlayer:GetCities():GetCapitalCity() ~= nil) then
             local iCapital = pPlayer:GetCities():GetCapitalCity():GetID();
             local bannerInstance = GetCityBanner(iPlayer, iCapital);
-            CQUI_UpdateSuzerainIcon(pPlayer, bannerInstance);
+            CQUI_UpdateCityStateBannerSuzerain(pPlayer, bannerInstance);
         end
     end
 end
 
 -- ===========================================================================
-function CQUI_UpdateSuzerainIcon( pPlayer:table, bannerInstance )
-    print_debug("CityBannerManager_CQUI: CQUI_UpdateSuzerainIcon ENTRY  pPlayer:"..tostring(pPlayer).."  bannerInstance:"..tostring(bannerInstance));
+function CQUI_UpdateCityStateBannerSuzerain( pPlayer:table, bannerInstance )
+    print_debug("CityBannerManager_CQUI: CQUI_UpdateCityStateBannerSuzerain ENTRY  pPlayer:"..tostring(pPlayer).."  bannerInstance:"..tostring(bannerInstance));
     if (bannerInstance == nil) then
         return;
     end
@@ -873,6 +873,7 @@ function CQUI_UpdateSuzerainIcon( pPlayer:table, bannerInstance )
         bannerInstance.m_Instance.CQUI_CivSuzerain:SetHide(true);
     end
 end
+
 
 -- ===========================================================================
 -- Utility Functions for use by the Basegame and Expansions CityBannerManager files
@@ -937,6 +938,49 @@ function CQUI_SetCityStrikeButtonLocation(cityBannerInstance, rotate, offsetY, a
 end
 
 -- ===========================================================================
+function CQUI_UpdateCityStateBannerAtWarIcon( pCityState, bannerInstance )
+    -- TODO: Make this a configurable setting in the CQUI Settings
+    local localPlayerID = Game.GetLocalPlayer();
+    if (localPlayerID ~= nil 
+       and pCityState:GetDiplomacy() ~= nil
+       and pCityState:GetDiplomacy():IsAtWarWith(localPlayerID)) then
+        bannerInstance.m_Instance.CQUI_AtWarWithCSIcon:SetHide(false);
+    else
+        bannerInstance.m_Instance.CQUI_AtWarWithCSIcon:SetHide(true);
+    end
+end
+
+-- ===========================================================================
+function CQUI_OnDiplomacyDeclareWarMakePeace( firstPlayerID, secondPlayerID )
+    local localPlayerID = Game.GetLocalPlayer();
+    if (localPlayerID == nil) then
+        print_debug("CQUI_OnDiplomacyDeclareWarMakePeace: Game.GetLocalPlayer returned nil!")
+        return;
+    end
+
+    local pOtherPlayerID:number = nil;
+    if (localPlayerID == firstPlayerID) then
+        pOtherPlayerID = secondPlayerID;
+    elseif (localPlayerID == secondPlayerID) then
+        pOtherPlayerID = firstPlayerID;
+    else
+        -- Do nothing, return
+        print_debug("CQUI_OnDiplomacyDeclareWarMakePeace: Local Player is neither firstPlayerID ("..tostring(firstPlayerID)..") nor secondPlayerID ("..tostring(secondPlayerID)..")");
+        return;
+    end
+
+    pOtherPlayer = Players[pOtherPlayerID];
+    if (pOtherPlayer ~= nil and pOtherPlayer:IsMinor()) then
+        local pOtherPlayerCities = pOtherPlayer:GetCities();
+        for _,cityInstance in pOtherPlayerCities:Members() do
+            local bannerInstance = GetCityBanner(pOtherPlayerID, cityInstance:GetID());
+            CQUI_UpdateCityStateBannerAtWarIcon(pOtherPlayer, bannerInstance);
+            RefreshBanner(pOtherPlayerID, cityInstance:GetID())
+        end
+    end
+end
+
+-- ===========================================================================
 -- Game Engine EVENT
 -- ===========================================================================
 function OnCityWorkerChanged(ownerPlayerID:number, cityID:number)
@@ -946,46 +990,6 @@ function OnCityWorkerChanged(ownerPlayerID:number, cityID:number)
     end
 end
 
-function CQUI_OnDiplomacyDeclareWar(firstPlayerID, secondPlayerID)
-    --TEMP PRint
-    print("")
-    local localPlayerID = Game.GetLocalPlayer();
-    if (localPlayerID ~= nil) then
-        if (localPlayerID == firstPlayerID or localPlayerID == secondPlayerID) then
-            --blah
-        end
-    end
-end
-
-    function OnDiplomacyDeclareWar(firstPlayerID, secondPlayerID)
-        local localPlayerID = Game.GetLocalPlayer();
-        if (localPlayerID == nil) then
-            print_debug("OnDiplomacyDecalreWar: Game.GetLocalPlayer returned nil!")
-            return;
-        end
-
-        local pOtherPlayer = nil;
-        if (localPlayerID == firstPlayerID) then
-            pOtherPlayer = Players[secondPlayerID]; 
-        else
-            pOtherPlayer = Players[firstPlayerID];
-        end
-
-        if (pOtherPlayer:IsMinor()) then
-
-
-        end
-        
-        if (localPlayerID ~= nil) then
-            if (localPlayerID == firstPlayerID or localPlayerID == secondPlayerID) then
-                m_kEnvoyChanges = {}; -- Zero out any pending envoy choices
-            end
-        end
-        if not ContextPtr:IsHidden() then
-            Refresh();
-        end
-    end
-    
 
 -- ===========================================================================
 --  CQUI Initialize Function
@@ -1005,7 +1009,7 @@ function Initialize_CQUI()
     Events.CityWorkerChanged.Add(OnCityWorkerChanged);
     Events.InfluenceGiven.Add(CQUI_OnInfluenceGiven);
 
-    Events.DiplomacyDeclareWar.Add( CQUI_OnDiplomacyDeclareWar );
-	Events.DiplomacyMakePeace.Add( CQUI_OnDiplomacyMakePeace );
+    Events.DiplomacyDeclareWar.Add( CQUI_OnDiplomacyDeclareWarMakePeace );
+	Events.DiplomacyMakePeace.Add( CQUI_OnDiplomacyDeclareWarMakePeace );
 end
 Initialize_CQUI();
