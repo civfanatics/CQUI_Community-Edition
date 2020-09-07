@@ -12,10 +12,10 @@ end
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
-BASE_CQUI_OnCivicCompleted          = OnCivicCompleted;
-BASE_CQUI_UpdateCivicsPanel         = UpdateCivicsPanel;
-BASE_CQUI_OnResearchCompleted       = OnResearchCompleted;
-BASE_CQUI_UpdateResearchPanel       = UpdateResearchPanel;
+BASE_CQUI_OnCivicCompleted    = OnCivicCompleted;
+BASE_CQUI_UpdateCivicsPanel   = UpdateCivicsPanel;
+BASE_CQUI_OnResearchCompleted = OnResearchCompleted;
+BASE_CQUI_UpdateResearchPanel = UpdateResearchPanel;
 
 -- ===========================================================================
 -- Variables
@@ -29,9 +29,10 @@ local RESEARCH_PANEL_TEXTURE_NAME = "ResearchPanel_Frame";
 -- CQUI Extension Functions
 -- ===========================================================================
 function OnCivicCompleted( ePlayer:number, eCivic:number )
-    if ePlaye == Game.GetLocalPlayer() then
+    if ePlayer == Game.GetLocalPlayer() then
         m_lastCivicCompletedID = eCivic;
     end
+
     BASE_CQUI_OnCivicCompleted(ePlayer, eCivic);
 end
 
@@ -43,7 +44,6 @@ function UpdateCivicsPanel(hideCivics:boolean)
     -- CQUI extension to add a tooltip showing the details of the current civic
     local localPlayer :number = Game.GetLocalPlayer();
     if (localPlayer ~= -1 and not hideCivics and not IsCivicsHidden()) then
-        --print("UpdateCivicsPanel tooltip");
         local iCivic:number = Players[localPlayer]:GetCulture():GetProgressingCivic();
         if iCivic == -1 then
             iCivic = m_lastCivicCompletedID;
@@ -61,9 +61,10 @@ end
 
 -- ===========================================================================
 function OnResearchCompleted( ePlayer:number, eTech:number )
-	if ePlayer == Game.GetLocalPlayer() then
-		m_lastResearchCompletedID = eTech;
-	end
+    if ePlayer == Game.GetLocalPlayer() then
+        m_lastResearchCompletedID = eTech;
+    end
+
     BASE_CQUI_OnResearchCompleted(ePlayer, eTech);
 end
 
@@ -71,12 +72,10 @@ end
 function UpdateResearchPanel( isHideResearch:boolean )
     --print("UpdateResearchPanel");
     BASE_CQUI_UpdateResearchPanel(isHideResearch);
-    --print("UpdateResearchPanel after BASE");
-    
+
     -- CQUI extension to add a tooltip showing the details of the current tech
     local localPlayer :number = Game.GetLocalPlayer();
     if (localPlayer ~= -1 and not isHideResearch and not IsResearchHidden()) then
-        --print("UpdateResearchPanel tooltip");
         local iTech:number = Players[localPlayer]:GetTechs():GetResearchingTech();
         if iTech == -1 then
             iTech = m_lastResearchCompletedID;
@@ -91,10 +90,6 @@ function UpdateResearchPanel( isHideResearch:boolean )
         end
     end
 end
-
--- ===========================================================================
--- CQUI Replacement Functions
--- ===========================================================================
 
 -- ===========================================================================
 -- CQUI Custom Functions
