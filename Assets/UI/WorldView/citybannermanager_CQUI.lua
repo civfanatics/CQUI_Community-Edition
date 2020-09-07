@@ -56,6 +56,7 @@ local CQUI_ShowCityManageAreaOnCityHover = true;
 local CQUI_CityManageAreaShown           = false;
 local CQUI_CityManageAreaShouldShow      = false;
 local CQUI_ShowSuzerainInCityStateBanner = true;
+local CQUI_ShowWarIconInCityStateBanner = true;
 
 local CQUI_SmartBanner                    = true;
 local CQUI_SmartBanner_Unmanaged_Citizen  = false;
@@ -73,6 +74,7 @@ function CQUI_OnSettingsInitialized()
     -- print_debug("CityBannerManager_CQUI: CQUI_OnSettingsInitialized ENTRY")
     CQUI_ShowYieldsOnCityHover         = GameConfiguration.GetValue("CQUI_ShowYieldsOnCityHover");
     CQUI_ShowSuzerainInCityStateBanner = GameConfiguration.GetValue("CQUI_ShowSuzerainInCityStateBanner");
+    CQUI_ShowWarIconInCityStateBanner  = GameConfiguration.GetValue("CQUI_ShowWarIconInCityStateBanner");
 
     CQUI_SmartBanner            = GameConfiguration.GetValue("CQUI_Smartbanner");
     CQUI_SmartBanner_Districts  = CQUI_SmartBanner and GameConfiguration.GetValue("CQUI_Smartbanner_Districts");
@@ -922,6 +924,10 @@ function IsCQUI_ShowSuzerainInCityStateBannerEnabled()
     return (CQUI_SmartBanner and CQUI_ShowSuzerainInCityStateBanner);
 end
 
+function IsCQUI_ShowWarIconInCityStateBannerEnabled()
+    return (CQUI_SmartBanner and CQUI_ShowWarIconInCityStateBanner);
+end
+
 -- ===========================================================================
 function CQUI_SetCityStrikeButtonLocation(cityBannerInstance, rotate, offsetY, anchor)
     cityStrikeImage = nil;
@@ -939,12 +945,15 @@ end
 
 -- ===========================================================================
 function CQUI_UpdateCityStateBannerAtWarIcon( pCityState, bannerInstance )
-    -- TODO: Make this a configurable setting in the CQUI Settings
-    local localPlayerID = Game.GetLocalPlayer();
-    if (localPlayerID ~= nil 
-       and pCityState:GetDiplomacy() ~= nil
-       and pCityState:GetDiplomacy():IsAtWarWith(localPlayerID)) then
-        bannerInstance.m_Instance.CQUI_AtWarWithCSIcon:SetHide(false);
+    if (IsCQUI_ShowWarIconInCityStateBannerEnabled()) then
+        local localPlayerID = Game.GetLocalPlayer();
+        if (localPlayerID ~= nil 
+        and pCityState:GetDiplomacy() ~= nil
+        and pCityState:GetDiplomacy():IsAtWarWith(localPlayerID)) then
+            bannerInstance.m_Instance.CQUI_AtWarWithCSIcon:SetHide(false);
+        else
+            bannerInstance.m_Instance.CQUI_AtWarWithCSIcon:SetHide(true);
+        end
     else
         bannerInstance.m_Instance.CQUI_AtWarWithCSIcon:SetHide(true);
     end
@@ -1010,6 +1019,6 @@ function Initialize_CQUI()
     Events.InfluenceGiven.Add(CQUI_OnInfluenceGiven);
 
     Events.DiplomacyDeclareWar.Add( CQUI_OnDiplomacyDeclareWarMakePeace );
-	Events.DiplomacyMakePeace.Add( CQUI_OnDiplomacyDeclareWarMakePeace );
+    Events.DiplomacyMakePeace.Add( CQUI_OnDiplomacyDeclareWarMakePeace );
 end
 Initialize_CQUI();
