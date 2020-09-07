@@ -194,7 +194,7 @@
                             </Label>
                             <Label ID="CityUnderSiegeIcon" Anchor="L,C" Style="FontNormal20" String="[ICON_UnderSiege]" ConsumeMouse="1" ToolTip="LOC_HUD_REPORTS_STATUS_UNDER_SEIGE"/>
                             <Label ID="CityOccupiedIcon" Anchor="L,C" Style="FontNormal20" String="[ICON_Occupied]" ConsumeMouse="1" ToolTip="LOC_HUD_CITY_GROWTH_OCCUPIED"/>
-                            <Image ID="CQUI_AtWarWithCSIcon" Size="22,22" Anchor="L,C" Icon="ICON_RELATIONSHIP_WAR" ToolTip="LOC_DIPLO_STATE_WAR_NAME" Hidden="1"/>
+                            <Image ID="CQUI_AtWarWithCSIcon" Size="22,22" Anchor="C,C" Icon="ICON_RELATIONSHIP_WAR" ToolTip="LOC_DIPLO_STATE_WAR_NAME" Hidden="1"/>
                             <Label ID="CityQuestIcon" Anchor="L,C" Style="FontNormal20"/>
                             <!-- CQUI: Show Suzerain in CS banner -->
                             <Container ID="CQUI_CivSuzerain" Anchor="C,C" Size="34,34" Hidden="1">
