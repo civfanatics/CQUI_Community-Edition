@@ -1147,20 +1147,20 @@ function Open()
   -- Select last route if one exists
   local lastRoute:table = GetLastRouteForTrader(selectedUnitID);
   if lastRoute ~= nil then
-    print_debug("Last route for trader " .. selectedUnitID .. ": " .. GetTradeRouteString(lastRoute));
+    -- print_debug("Last route for trader " .. selectedUnitID .. ": " .. GetTradeRouteString(lastRoute));
     originCity = Cities.GetCityInPlot(selectedUnit:GetX(), selectedUnit:GetY());
 
     -- Don't select the route, if trader was transferred
     if lastRoute.OriginCityID ~= originCity:GetID() then
-      print_debug("Trader was transferred. Not selecting the last route")
+      -- print_debug("Trader was transferred. Not selecting the last route")
     elseif IsRoutePossible(originCity:GetOwner(), originCity:GetID(), lastRoute.DestinationCityPlayer, DestinationCityID) then
       local destinationPlayer:table = Players[lastRoute.DestinationCityPlayer];
       m_destinationCity = destinationPlayer:GetCities():FindID(lastRoute.DestinationCityID);
     else
-      print_debug("Route is no longer valid.");
+      -- print_debug("Route is no longer valid.");
     end
   else
-    print_debug("No last route was found for trader " .. selectedUnitID);
+    -- print_debug("No last route was found for trader " .. selectedUnitID);
   end
 
   Refresh();

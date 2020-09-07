@@ -26,7 +26,7 @@ BASE_CQUI_CityBanner_UpdateStats = CityBanner.UpdateStats;
 -- ===========================================================================
 --function CityBanner.Initialize( self : CityBanner, playerID: number, cityID : number, districtID : number, bannerType : number, bannerStyle : number)
 function CityBanner.Initialize( self, playerID, cityID, districtID, bannerType, bannerStyle)
-    print_debug("CityBannerManager_CQUI_basegame: CityBanner:Initialize ENTRY: playerID:"..tostring(playerID).." cityID:"..tostring(cityID).." districtID:"..tostring(districtID).." bannerType:"..tostring(bannerType).." bannerStyle:"..tostring(bannerStyle));
+    -- print_debug("CityBannerManager_CQUI_basegame: CityBanner:Initialize ENTRY: playerID:"..tostring(playerID).." cityID:"..tostring(cityID).." districtID:"..tostring(districtID).." bannerType:"..tostring(bannerType).." bannerStyle:"..tostring(bannerStyle));
     CQUI_Common_CityBanner_Initialize(self, playerID, cityID, districtID, bannerType, bannerStyle);
 end
 
@@ -34,7 +34,7 @@ end
 function CityBanner.UpdateProduction(self)
     -- Single line difference between this and the base version that allows the icon of that
     -- which is being built to appear in the CityBanner
-    print_debug("CityBannerManager_CQUI_basegame: CityBanner.UpdateProduction ENTRY");
+    -- print_debug("CityBannerManager_CQUI_basegame: CityBanner.UpdateProduction ENTRY");
     BASE_CQUI_CityBanner_UpdateProduction(self);
 
     local localPlayerID :number = Game.GetLocalPlayer();
@@ -55,7 +55,7 @@ end
 -- ===========================================================================
 function CityBanner.UpdateStats(self)
     -- Most of the logic here is basegame only, XP1/XP2 do this work in the CityBanner.UpdatePopulation function
-    print_debug("CityBannerManager_CQUI_basegame: CityBanner.UpdateStats ENTRY");
+    -- print_debug("CityBannerManager_CQUI_basegame: CityBanner.UpdateStats ENTRY");
     BASE_CQUI_CityBanner_UpdateStats(self);
 
     -- CQUI get real housing from improvements value (do this regardless of whether or not the banners will be updated)
@@ -127,7 +127,7 @@ end
 -- Functions that override the unmodified versions in the game
 -- ===========================================================================
 function CityBanner.UpdateName( self )
-    print_debug("CityBannerManager_CQUI_basegame: CityBanner.UpdateName ENTRY");
+    -- print_debug("CityBannerManager_CQUI_basegame: CityBanner.UpdateName ENTRY");
 
     if (IsBannerTypeCityCenter(self.m_Type) == false) then
         return;
@@ -326,7 +326,7 @@ end
 -- ===========================================================================
 -- Basegame and Expansions call this two different things (OnCityRangeStrikeButtonClick and OnCityStrikeButtonClick, respectively)
 function OnCityRangeStrikeButtonClick( playerID, cityID )
-    print_debug("CityBannerManager_CQUI_basegame: OnCityRangeStrikeButtonClick ENTRY");
+    -- print_debug("CityBannerManager_CQUI_basegame: OnCityRangeStrikeButtonClick ENTRY");
 
     -- Call the common code for handling the City Strike button
     CQUI_OnCityRangeStrikeButtonClick(playerID, cityID);
