@@ -167,10 +167,10 @@
       <Text>Alterna o popup que aparece sempre que uma nova tecnologia ou cívico é alcançado</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO" Language="pt_BR">
-      <Text>Popup Tech/Cívico audio</Text>
+      <Text>Reproduzir áudio com pop-ups Tech/Civic</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO_TOOLTIP" Language="pt_BR">
-      <Text>Alterna o áudio de popup que é reproduzido sempre que uma nova tecnologia ou cívico é alcançado. É totalmente independente do componente visual e pode ser reproduzido mesmo quando não há popup vísivel</Text>
+      <Text>Alternar para reproduzir automaticamente a narração de áudio quando aparecerem pop-ups tech/Civic</Text>
     </Row>
     <Row Tag="LOC_CQUI_SETTINGS_REMINDER" Language="pt_BR">
       <Text>Lembre-se: as configurações do CQUI são anexadas aos saves individuais![NEWLINE]Se você quiser alterar uma configuração por padrão, por favor leia as informações[NEWLINE]no arquivo cqui_settings.sql dentro de [MOD INSTALL DIRECTORY]/CQUI/Assets directory</Text>

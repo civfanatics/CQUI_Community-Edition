@@ -178,10 +178,10 @@
       <Text>Toggles the popup that appears whenever a new tech or civic is achieved</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO" Language="en_US">
-      <Text>Auto-play Tech/Civic popup audio</Text>
+      <Text>Play audio with Tech/Civic popup</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO_TOOLTIP" Language="en_US">
-      <Text>Toggles automatically playing the audio voiceover when the Tech/Civic popup appears after completing a tech or civic</Text>
+      <Text>Toggle to automatically play the audio voiceover when the Tech/Civic popup appears</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTVISUAL" Language="en_US">
       <Text>Wonder popup movie</Text>
