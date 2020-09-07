@@ -17,21 +17,19 @@
 g_bIsRiseAndFall    = Modding and Modding.IsModActive("1B28771A-C749-434B-9053-D1380C553DE9"); -- Rise & Fall
 g_bIsGatheringStorm = Modding and Modding.IsModActive("4873eb62-8ccc-4574-b784-dda455e74e68"); -- Gathering Storm
 
-
 -- ===========================================================================
 -- Debug support
 -- ===========================================================================
-
 CQUI_ShowDebugPrint = false;
 
 function print_debug(...)
     if CQUI_ShowDebugPrint then
-        print(...);
+        print("[CQUI]", ...);
     end
 end
 
+-- ===========================================================================
 function CQUI_OnSettingsUpdate()
-    print_debug("ENTRY: CQUICommon - CQUI_OnSettingsUpdate");
     if (GameInfo.CQUI_Settings ~= nil and GameInfo.CQUI_Settings["CQUI_ShowDebugPrint"] ~= nil) then
         CQUI_ShowDebugPrint = ( GameInfo.CQUI_Settings["CQUI_ShowDebugPrint"].Value == 1 );
     else
@@ -39,13 +37,12 @@ function CQUI_OnSettingsUpdate()
     end
 end
 
-
 -- ===========================================================================
 -- Trims source information from gossip messages. Returns nil if the message couldn't be trimmed (this usually means the provided string wasn't a gossip message at all)
 -- ===========================================================================
 
 function CQUI_TrimGossipMessage(str:string)
-    print_debug("ENTRY: CQUICommon - CQUI_TrimGossipMessage - string: "..tostring(str));
+    -- print_debug("ENTRY: CQUICommon - CQUI_TrimGossipMessage - string: "..tostring(str));
     -- Get a sample of a gossip source string
     local sourceSample = Locale.Lookup("LOC_GOSSIP_SOURCE_DELEGATE", "XX", "Y", "Z");
 
@@ -98,7 +95,7 @@ end
 
 -- ===========================================================================
 function Initialize()
-    print_debug("INITIALIZE: CQUICommon.lua");
+    -- print_debug("INITIALIZE: CQUICommon.lua");
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 end

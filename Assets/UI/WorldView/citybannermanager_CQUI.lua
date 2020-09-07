@@ -70,7 +70,7 @@ local CQUI_CitizenManagement   = UILens.CreateLensLayerHash("Citizen_Management"
 
 -- ===========================================================================
 function CQUI_OnSettingsInitialized()
-    print_debug("CityBannerManager_CQUI: CQUI_OnSettingsInitialized ENTRY")
+    -- print_debug("CityBannerManager_CQUI: CQUI_OnSettingsInitialized ENTRY")
     CQUI_ShowYieldsOnCityHover         = GameConfiguration.GetValue("CQUI_ShowYieldsOnCityHover");
     CQUI_ShowSuzerainInCityStateBanner = GameConfiguration.GetValue("CQUI_ShowSuzerainInCityStateBanner");
 
@@ -95,7 +95,7 @@ end
 
 -- ===========================================================================
 function CQUI_OnSettingsUpdate()
-    print_debug("CityBannerManager_CQUI: CQUI_OnSettingsUpdate ENTRY")
+    -- print_debug("CityBannerManager_CQUI: CQUI_OnSettingsUpdate ENTRY")
     CQUI_OnSettingsInitialized();
     Reload();
 end
@@ -129,7 +129,7 @@ end
 -- Functions that enhance the unmodified versions
 -- ===========================================================================
 function OnGameDebugReturn( context:string, contextTable:table )
-    print_debug("CityBannerManager_CQUI: OnGameDebugReturn ENTRY context:"..tostring(context).." contextTable:"..tostring(contextTable));
+    -- print_debug("CityBannerManager_CQUI: OnGameDebugReturn ENTRY context:"..tostring(context).." contextTable:"..tostring(contextTable));
     if (context == "CityBannerManager") then
         -- CQUI settings
         CQUI_OnSettingsUpdate();
@@ -140,7 +140,7 @@ end
 
 -- ===========================================================================
 function OnInterfaceModeChanged( oldMode:number, newMode:number )
-    print_debug("CityBannerManager_CQUI: OnInterfaceModeChanged ENTRY");
+    -- print_debug("CityBannerManager_CQUI: OnInterfaceModeChanged ENTRY");
     BASE_CQUI_OnInterfaceModeChanged(oldMode, newMode);
 
     if (newMode == InterfaceModeTypes.DISTRICT_PLACEMENT) then
@@ -151,13 +151,13 @@ end
 
 -- ===========================================================================
 function OnProductionClick( playerID, cityID )
-    print_debug("CityBannerManager_CQUI: OnProductionClick ENTRY");
+    -- print_debug("CityBannerManager_CQUI: OnProductionClick ENTRY");
     OnCityBannerClick( playerID, cityID);
 end
 
 -- ===========================================================================
 function OnShutdown()
-    print_debug("CityBannerManager_CQUI: OnShutdown ENTRY");
+    -- print_debug("CityBannerManager_CQUI: OnShutdown ENTRY");
     CQUI_PlotIM:DestroyInstances();
 
     BASE_CQUI_OnShutdown();
@@ -165,7 +165,7 @@ end
 
 -- ===========================================================================
 function Reload()
-    print_debug("CityBannerManager_CQUI: Reload ENTRY");
+    -- print_debug("CityBannerManager_CQUI: Reload ENTRY");
     BASE_CQUI_Reload();
 
     local pLocalPlayerVis:table = PlayersVisibility[Game.GetLocalPlayer()];
@@ -186,7 +186,7 @@ end
 -- ============================================================================
 -- Move the CityStrike icon and button to the top of the City bar; similar to the Sukritact Simple UI Mod (which puts it on the right)
 function CityBanner.UpdateRangeStrike(self)
-    print_debug("CityBannerManager_CQUI: CityBanner.UpdateRangeStrike ENTRY");
+    -- print_debug("CityBannerManager_CQUI: CityBanner.UpdateRangeStrike ENTRY");
     BASE_CQUI_CityBanner_UpdateRangeStrike(self);
 
     local banner = self.m_Instance;
@@ -216,7 +216,7 @@ end
 -- CQUI Replacement Functions (Common to both basegame and expansions)
 -- ============================================================================
 function OnCityBannerClick( playerID, cityID )
-    print_debug("CityBannerManager_CQUI: OnCityBannerClick ENTRY  playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
+    -- print_debug("CityBannerManager_CQUI: OnCityBannerClick ENTRY  playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
     local pPlayer = Players[playerID];
     if (pPlayer == nil) then
         return;
@@ -291,7 +291,7 @@ end
 
 -- ===========================================================================
 function OnDistrictAddedToMap( playerID, districtID, cityID, districtX, districtY, districtType, percentComplete )
-    print_debug("CityBannerManager_CQUI: OnDistrictAddedToMap ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID).." cityID:"..tostring(cityID).." districtXY:"..tostring(districtX)..","..tostring(districtY).." districtType:"..tostring(districtType).." pctComplete:"..tostring(percentComplete));
+    -- print_debug("CityBannerManager_CQUI: OnDistrictAddedToMap ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID).." cityID:"..tostring(cityID).." districtXY:"..tostring(districtX)..","..tostring(districtY).." districtType:"..tostring(districtType).." pctComplete:"..tostring(percentComplete));
 
     local locX = districtX;
     local locY = districtY;
@@ -408,7 +408,7 @@ end
 
 -- ===========================================================================
 function OnImprovementAddedToMap(locX, locY, eImprovementType, eOwner)
-    print_debug("CityBannerManager_CQUI: OnImprovementAddedToMap ENTRY locXY:"..tostring(locX)..","..tostring(locY).." eImprovementType:"..tostring(eImprovementType).." eOwner:"..tostring(eOwner));
+    -- print_debug("CityBannerManager_CQUI: OnImprovementAddedToMap ENTRY locXY:"..tostring(locX)..","..tostring(locY).." eImprovementType:"..tostring(eImprovementType).." eOwner:"..tostring(eOwner));
     if eImprovementType == -1 then
         UI.DataError("Received -1 eImprovementType for ("..tostring(locX)..","..tostring(locY)..") and owner "..tostring(eOwner));
         return;
@@ -550,7 +550,7 @@ end
 -- ===========================================================================
 -- CQUI update all cities real housing from improvements
 function CQUI_OnAllCitiesInfoUpdated(localPlayerID)
-    print_debug("CityBannerManager_CQUI: CQUI_OnCityInfoUpdated ENTRY localPlayerID:"..tostring(localPlayerID));
+    -- print_debug("CityBannerManager_CQUI: CQUI_OnCityInfoUpdated ENTRY localPlayerID:"..tostring(localPlayerID));
     local m_pCity:table = Players[localPlayerID]:GetCities();
     for i, pCity in m_pCity:Members() do
         local pCityID = pCity:GetID();
@@ -748,14 +748,14 @@ end
 -- ===========================================================================
 -- CQUI update city's real housing from improvements
 function CQUI_OnCityInfoUpdated(localPlayerID, pCityID)
-    print_debug("CityBannerManager_CQUI: CQUI_OnCityInfoUpdated ENTRY localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
+    -- print_debug("CityBannerManager_CQUI: CQUI_OnCityInfoUpdated ENTRY localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
     CQUI_HousingUpdated[localPlayerID][pCityID] = nil;
 end
 
 -- ===========================================================================
 -- CQUI update close to a culture bomb cities data and real housing from improvements
 function CQUI_OnCityLostTileToCultureBomb(localPlayerID, x, y)
-    print_debug("CityBannerManager_CQUI: CQUI_OnCityLostTileToCultureBomb ENTRY localPlayerID:"..tostring(localPlayerID).." LocationXY:"..tostring(x)..","..tostring(y));
+    -- print_debug("CityBannerManager_CQUI: CQUI_OnCityLostTileToCultureBomb ENTRY localPlayerID:"..tostring(localPlayerID).." LocationXY:"..tostring(x)..","..tostring(y));
     local m_pCity:table = Players[localPlayerID]:GetCities();
     for i, pCity in m_pCity:Members() do
         if Map.GetPlotDistance( pCity:GetX(), pCity:GetY(), x, y ) <= 4 then
@@ -769,7 +769,7 @@ end
 -- ===========================================================================
 -- Common handler for the City Strike Button (Vanilla and the expansions have 2 different functions for this)
 function CQUI_OnCityRangeStrikeButtonClick( playerID, cityID )
-    print_debug("CityBannerManager_CQUI: CQUI_OnCityRangeStrikeButtonClick ENTRY localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
+    -- print_debug("CityBannerManager_CQUI: CQUI_OnCityRangeStrikeButtonClick ENTRY localPlayerID:"..tostring(localPlayerID).." pCityID:"..tostring(pCityID));
     local pPlayer = Players[playerID];
     if (pPlayer == nil) then
         return;
@@ -801,7 +801,7 @@ end
 -- ===========================================================================
 -- Common handler for the District Strike Button
 function OnDistrictRangeStrikeButtonClick( playerID, districtID )
-    print_debug("CityBannerManager_CQUI: OnDistrictRangeStrikeButtonClick ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID));
+    -- print_debug("CityBannerManager_CQUI: OnDistrictRangeStrikeButtonClick ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID));
     local pPlayer = Players[playerID];
     if (pPlayer == nil) then
         return;
@@ -827,7 +827,7 @@ end
 
 -- ===========================================================================
 function CQUI_OnInfluenceGiven()
-    print_debug("CityBannerManager_CQUI: CQUI_OnInfluenceGiven ENTRY");
+    -- print_debug("CityBannerManager_CQUI: CQUI_OnInfluenceGiven ENTRY");
     for i, pPlayer in ipairs(PlayerManager.GetAliveMinors()) do
         local iPlayer = pPlayer:GetID();
         -- AZURENCY : check if there's a CapitalCity
@@ -841,7 +841,7 @@ end
 
 -- ===========================================================================
 function CQUI_UpdateCityStateBannerSuzerain( pPlayer:table, bannerInstance )
-    print_debug("CityBannerManager_CQUI: CQUI_UpdateCityStateBannerSuzerain ENTRY  pPlayer:"..tostring(pPlayer).."  bannerInstance:"..tostring(bannerInstance));
+    -- print_debug("CityBannerManager_CQUI: CQUI_UpdateCityStateBannerSuzerain ENTRY  pPlayer:"..tostring(pPlayer).."  bannerInstance:"..tostring(bannerInstance));
     if (bannerInstance == nil) then
         return;
     end
@@ -984,7 +984,7 @@ end
 -- Game Engine EVENT
 -- ===========================================================================
 function OnCityWorkerChanged(ownerPlayerID:number, cityID:number)
-    print_debug("CityBannerManager_CQUI: OnCityWorkerChanged ENTRY ownerPlayerID:"..tostring(ownerPlayerID).." cityID:"..tostring(cityID));
+    -- print_debug("CityBannerManager_CQUI: OnCityWorkerChanged ENTRY ownerPlayerID:"..tostring(ownerPlayerID).." cityID:"..tostring(cityID));
     if (Game.GetLocalPlayer() == ownerPlayerID) then
         RefreshBanner( ownerPlayerID, cityID )
     end

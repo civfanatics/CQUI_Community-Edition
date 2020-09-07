@@ -204,7 +204,7 @@ function ShowModLensKey(lensName:string)
     Controls.KeyPanel:SetHide(false);
     Controls.KeyScrollPanel:CalculateSize();
   else
-    print_debug("ERROR [ModalLensPanel]: " .. lensName .. " has no g_ModLensModalPanel entry")
+    -- print_debug("ERROR [ModalLensPanel]: " .. lensName .. " has no g_ModLensModalPanel entry")
   end
 end
 
