@@ -1,3 +1,9 @@
+-- CQUI Modification Summary:
+-- Allow for the disabling of the Tech/Civic popup, and control whether the audio voiceover is automatically played when showing the popup.
+-- Firaxis' design of this file makes it difficult/impossible to just extend functions and also implement the ability to control
+-- automatically playing that audio quote when the popup appears.
+-- CQUI Modifications are marked in the file with BEGIN/END comments
+
 -- Copyright 2016-2018, Firaxis Games
 
 -- ===========================================================================
@@ -18,9 +24,7 @@ local m_kPopupData           :table  = {};
 local m_isCivicData          :boolean= false;
 local m_quote_audio          :table;
 
--- ===========================================================================
--- CQUI Members
--- ===========================================================================
+-- === BEGIN CQUI CHANGES ====================================================
 local CQUI_TechPopupVisual = true;
 local CQUI_TechPopupAudio  = true;
 
@@ -28,6 +32,7 @@ function CQUI_OnSettingsUpdate()
     CQUI_TechPopupVisual = GameConfiguration.GetValue("CQUI_TechPopupVisual");
     CQUI_TechPopupAudio  = GameConfiguration.GetValue("CQUI_TechPopupAudio");
 end
+-- === END CQUI CHANGES ======================================================
 
 -- ===========================================================================
 --  FUNCTIONS
@@ -204,7 +209,10 @@ function AddCompletedPopup( player:number, civic:number, tech:number, isByUser:b
     local isNotBlockedByTutorial:boolean = (not m_isDisabledByTutorial);
     if player == Game.GetLocalPlayer() 
        and isNotBlockedByTutorial
+    -- === BEGIN CQUI CHANGES ====================================================
+    -- CQUI: Do the work for the popup only if enabled
        and CQUI_TechPopupVisual
+    -- === END CQUI CHANGES ======================================================
        and (not GameConfiguration.IsNetworkMultiplayer()) then
 
         local results   :table;
@@ -303,8 +311,10 @@ function RealizeNextPopup()
 
     UI.PlaySound("Pause_Advisor_Speech");
     UI.PlaySound("Resume_TechCivic_Speech");
-    -- We will only get here if CQUI_TechPopupVisual is true
+    -- === BEGIN CQUI CHANGES ====================================================
+    -- We will only get here if CQUI_TechPopupVisual is true, only play Audio if desired
     if (m_kCurrentData and m_kCurrentData.audio and CQUI_TechPopupAudio) then
+    -- === END CQUI CHANGES ======================================================
         UI.PlaySound( m_kCurrentData.audio );
     end
 
@@ -481,8 +491,9 @@ function Initialize()
     -- Game Events
     Events.LocalPlayerTurnEnd.Add( OnLocalPlayerTurnEnd );
 
-    -- CQUI
+    -- === BEGIN CQUI CHANGES ====================================================
     LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
     LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
+    -- === END CQUI CHANGES ======================================================
 end
 Initialize();
