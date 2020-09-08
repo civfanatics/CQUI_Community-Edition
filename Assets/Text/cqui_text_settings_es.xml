@@ -155,10 +155,10 @@
       <Text>Activa la ventana que aparece siempre que nuevas tecnologías o principios sean descubiertos</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO" Language="es_ES">
-      <Text>Audio de Tecnología/Principio</Text>
+      <Text>Reproduce audio con tech/civic pop-up</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO_TOOLTIP" Language="es_ES">
-      <Text>Reproduce el audio siempre que nuevas tecnologías o principios sean descubiertos. Es independiente del contenido visual y puede reproducirse aunque éste esté desactivado</Text>
+      <Text>Reproduce automáticamente voces de audio cuando se muestra la ventana emergente Tech/Civic</Text>
     </Row>
     <Row Tag="LOC_CQUI_SETTINGS_REMINDER" Language="es_ES">
       <Text>Recuerda: ¡la configuración CQUI está ligada a guardados individuales![NEWLINE]Para cambiar la configuración por defecto, lee el fichero cqui_settings.sql en el directorio [MOD INSTALL DIRECTORY]/CQUI/Assets</Text>

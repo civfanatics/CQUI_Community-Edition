@@ -167,10 +167,10 @@
       <Text>Zeige das Popup an, das erscheint, wenn eine neue Technologie oder Ausrichtung abgeschlossen wurde</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO" Language="de_DE">
-      <Text>Audio bei Technol./Ausr.</Text>
+      <Text>Spielen Sie Audio mit Technol./Ausr. Popup</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO_TOOLTIP" Language="de_DE">
-      <Text>Spiele das Popup-Audio bei Abschluss einer neuen Technologie oder Ausrichtung ab. Kann unabhängig von der visuellen Popup-Komponente ein- und ausgeschaltet werden.</Text>
+      <Text>Automatische Wiedergabe von Audio-Voiceovers, wenn das Technol./Ausr. popup angezeigt wird</Text>
     </Row>
     <Row Tag="LOC_CQUI_SETTINGS_REMINDER" Language="de_DE">
       <Text>Merke: CQUI Einstellungen werden im individuellen Savegame gespeichert![NEWLINE]Wenn Du die Einstellungen dauerhaft ändern möchtest, dann befolge bitte die Anweisungen [NEWLINE]in der Datei cqui_settings.sql im Verzeichnis [MOD INSTALL DIRECTORY]/CQUI/Assets.</Text>

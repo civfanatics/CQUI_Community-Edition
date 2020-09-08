@@ -167,10 +167,10 @@
       <Text>Attiva/disattiva i popup di completamento di una tecnologica o un progresso civico</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO" Language="it_IT">
-      <Text>Audio Scienza/Progressi Civici</Text>
+      <Text>Riprodurre l'audio con il popup tecnico/civico</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO_TOOLTIP" Language="it_IT">
-      <Text>Attiva/disattiva l'audio dei popup di completamento di una tecnologica o un progresso civico. Impostazione indipindente dall'opzione di visualizzazione dei popup, l'audio suona anche in caso di popup non visibili.</Text>
+      <Text>Riprodurre automaticamente l'audio quando viene visualizzata la finestra pop-up Tech/Civic</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTVISUAL" Language="it_IT">
       <Text>Video meraviglie</Text>

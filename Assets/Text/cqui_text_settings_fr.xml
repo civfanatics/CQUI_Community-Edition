@@ -142,20 +142,17 @@
       <Text>Toujours ouvrir l'arbre au lieu de popups</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHVISUAL" Language="fr_FR">
-      <!-- TODO -->
-      <Text>Tech/Civic popup visual</Text>
+      <Text>Afficher le popup tech/civic</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHVISUAL_TOOLTIP" Language="fr_FR">
-      <!-- TODO -->
-      <Text>Toggles the popup that appears whenever a new tech or civic is achieved</Text>
+      <Text>Affiche le popup qui apparaît chaque fois qu’une nouvelle technologie ou une nouvelle civic est atteinte</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO" Language="fr_FR">
-      <!-- TODO -->
-      <Text>Tech/Civic popup audio</Text>
+      <Text>Lire l’audio avec la fenêtre pop-up tech/civic</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO_TOOLTIP" Language="fr_FR">
       <!-- TODO -->
-      <Text>Toggles the popup audio that plays whenever a new tech or civic is achieved. Is fully independent of the visual component and can play even when there is no visible popup</Text>
+      <Text>Lire automatiquement l’audio lorsque la fenêtre contextuelle Tech/Civic s’affiche</Text>
     </Row>
     <Row Tag="LOC_CQUI_SETTINGS_REMINDER" Language="fr_FR">
       <Text>N'oubliez pas : les paramètres CQUI sont liés à des sauvegardes individuelles![NEWLINE]Si vous souhaitez modifier un paramètre par défaut, éditez le fichier CQUI_Settings.sql dans le répertoire [MOD INSTALL DIRECTORY]/CQUI/Assets</Text>

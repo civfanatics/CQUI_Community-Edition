@@ -167,10 +167,10 @@
       <Text>技術や社会制度の研究完了時にポップアップを表示する</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO" Language="ja_JP">
-      <Text>技術 / 社会制度の音声を再生する</Text>
+      <Text>テクノロジー/市民ポップアップでオーディオを再生</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO_TOOLTIP" Language="ja_JP">
-      <Text>技術や社会制度の研究完了時に音声を再生する[NEWLINE]ポップアップの設定とは無関係</Text>
+      <Text>技術/市民ポップアップウィンドウが表示されると、オーディオが自動的に再生されます。</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTVISUAL" Language="ja_JP">
       <Text>遺産の動画を再生する</Text>
