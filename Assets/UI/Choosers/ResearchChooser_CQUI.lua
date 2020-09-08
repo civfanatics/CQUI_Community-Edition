@@ -22,13 +22,14 @@ if g_bIsGatheringStorm or g_bIsRiseAndFall then
     BASE_CQUI_AddAvailableResearch = BASE_AddAvailableResearch;
 end
 
+BASE_CQUI_RealizeCurrentResearch = RealizeCurrentResearch; -- this function is in TechAndCivicSupport.lua, also extended in XP1 file
 BASE_CQUI_OnOpenPanel = OnOpenPanel;
 
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
 local CQUI_AlwaysOpenTechTrees = false; --Ignores events calling for this to open when true
-local CQUI_ShowTechCivicRecommendations = false;
+local CQUI_ShowTechCivicRecommendations = true; -- default is 1
 
 -- ===========================================================================
 function CQUI_OnSettingsUpdate()
@@ -61,24 +62,42 @@ function AddAvailableResearch( playerID:number, kData:table )
     end
 
     -- If the user wants to hide the Civic and/or Tech recommendations, then find the RecommendedIcon and hide it
-    if (CQUI_ShowTechCivicRecommendations == false) then
+    if not CQUI_ShowTechCivicRecommendations then
         kControlInstance.RecommendedIcon:SetHide(true);
+    end
+end
+
+-- ===========================================================================
+function RealizeCurrentResearch( playerID:number, kData:table, kControl:table )
+    BASE_CQUI_RealizeCurrentResearch(playerID, kData, kControl);
+    
+    if kControl == nil then
+        kControl = Controls;
+    end
+
+    if kData ~= nil then
+        -- Show/Hide Recommended Icon
+        -- CQUI : only if show tech civ enabled in settings
+        if kControl.RecommendedIcon and not CQUI_ShowTechCivicRecommendations then
+            kControl.RecommendedIcon:SetHide(true);
+        end
     end
 end
 
 -- ===========================================================================
 function OnOpenPanel()
     --CQUI: ignores command and opens the tech tree instead if AlwaysShowTechTrees is true
-    if (CQUI_AlwaysOpenTechTrees) then
+    if CQUI_AlwaysOpenTechTrees then
         LuaEvents.ResearchChooser_RaiseTechTree()
     else
         BASE_CQUI_OnOpenPanel();
     end
 end
+
 -- ===========================================================================
 --  CQUI Functions
 -- ===========================================================================
-function Initialize()
+function CQUI_Initialize()
     -- CQUI events
     LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
     LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
@@ -89,4 +108,4 @@ function Initialize()
     LuaEvents.WorldTracker_OpenChooseResearch.Remove(BASE_CQUI_OnOpenPanel);
     LuaEvents.WorldTracker_OpenChooseResearch.Add(OnOpenPanel);
 end
-Initialize();
+CQUI_Initialize();

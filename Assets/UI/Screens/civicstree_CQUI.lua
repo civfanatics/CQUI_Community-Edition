@@ -1,3 +1,14 @@
+
+-- CQUI/Infixo choose a proper base file to load
+include("CQUICommon");
+
+if g_bIsGatheringStorm then
+    include("CivicsTree_Expansion2");
+else
+    include("CivicsTree"); -- base & XP1
+end
+
+
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
