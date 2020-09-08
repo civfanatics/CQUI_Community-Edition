@@ -1,3 +1,16 @@
+
+-- CQUI/Infixo choose a proper base file to load
+include("CQUICommon");
+
+if g_bIsGatheringStorm then
+    include("TechTree_Expansion2"); -- XP2
+elseif g_bIsRiseAndFall then
+    include("TechTree_Expansion1"); -- XP1
+else
+    include("TechTree"); -- base
+end
+
+
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
