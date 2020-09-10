@@ -346,6 +346,7 @@ function TryClose()
     if m_kCurrentData==nil then
         UI.DataError("Attempting to TryClosing the techcivic completed popup but it appears to have no data in it.");
         Close();
+		return;
     end
 
     if m_kCurrentData.civicType and string.len(m_kCurrentData.civicType)>0 then
@@ -360,6 +361,7 @@ function TryClose()
         RealizeNextPopup();
         return;
     end
+    
     Close();
 end
 
