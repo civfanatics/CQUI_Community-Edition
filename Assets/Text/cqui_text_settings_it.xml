@@ -238,5 +238,17 @@
     <Row Tag="LOC_CQUI_RECOMMENDATIONS_SHOWCITYDETAILADVISOR" Language="it_IT">
       <Text>Mostra il consigliere cittadino</Text>
     </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="it_IT">
+      <Text>Suzerain in CityState Banner</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="it_IT">
+      <Text>Mostra l'icona della civiltà del Suzerain di uno Stato della Città nello Stendardo dello Stato della Città</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="it_IT">
+      <Text>Icona guerra in CityState Banner</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="it_IT">
+      <Text>Quando sei in guerra con una città, mostra l'icona di guerra nella bandiera della città di quella città</Text>
+    </Row>
   </LocalizedText>
 </GameData>

@@ -226,5 +226,17 @@
     <Row Tag="LOC_CQUI_RECOMMENDATIONS_SHOWCITYDETAILADVISOR" Language="de_DE">
       <Text>Zeige Stadt-Ratgeber</Text>
     </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="de_DE">
+    <Text>Suzerain in CityState Banner</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="de_DE">
+        <Text>Zeige die Zivilisationsikone des Suzerains eines Stadtstaates im Stadtstaat Banner</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="de_DE">
+        <Text>Kriegssymbol in CityState Banner</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="de_DE">
+        <Text>Wenn Sie sich im Krieg mit einem Stadtstaat befinden, zeigen Sie die Kriegsikone im Stadtbanner dieses Stadtstaates</Text>
+    </Row>
   </LocalizedText>
 </GameData>

@@ -172,6 +172,17 @@
     <Row Tag="LOC_CQUI_UNITS_AUTOEXPANDUNITACTIONS" Language="pl_PL">
       <Text>Rozwijaj listę akcji w panelu jednostki</Text>
     </Row>
-
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="pl_PL">
+      <Text>Suzerain w Banner CityState</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="pl_PL">
+      <Text>Pokaż ikonę cywilizacji Suzerain państwa miejskiego na sztandarze państwa miejskiego</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="pl_PL">
+      <Text>Ikona wojny w bannerie CityState</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="pl_PL">
+      <Text>Będąc w stanie wojny z państwem miejskim, pokaż ikonę wojny w sztandarze miasta tego państwa miasta</Text>
+    </Row>
   </LocalizedText>
 </GameData>
