@@ -122,7 +122,8 @@ function CityBanner.UpdateInfo(self, pCity : table )
             end
         end
     elseif pPlayer:IsMinor() then
-        CQUI_UpdateSuzerainIcon(pPlayer, self);
+        CQUI_UpdateCityStateBannerSuzerain(pPlayer, self);
+        CQUI_UpdateCityStateBannerAtWarIcon(pPlayer, self);
     elseif pPlayer:IsFreeCities() then
         tooltip = Locale.Lookup("LOC_CITY_BANNER_FREE_CITY_TT") .. tooltipOrignal;
     else -- city states

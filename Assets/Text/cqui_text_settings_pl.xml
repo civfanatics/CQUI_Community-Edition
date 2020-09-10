@@ -143,7 +143,7 @@
       <Text>Automatycznie włącz filtr zwiadowcy</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS" Language="pl_PL">
-      <Text>Popup'y</Text>
+      <Text>Wyskakujące okna</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_ALWAYSOPENTECHTREES" Language="pl_PL">
       <Text>Zawsze otwieraj drzewo technologii</Text>
@@ -161,7 +161,7 @@
       <Text>Przełącza odtwarzanie cytatu w wyskakującym okienku ukończenia Technologii/Idei</Text>
     </Row>
     <Row Tag="LOC_CQUI_SETTINGS_REMINDER" Language="pl_PL">
-      <Text>Pamiętaj: Ustawienia CQUI są przypisane do poszczególnych zapisów gry![NEWLINE]Jeśli chcesz zmienić ustawienia na stałe, zmień je w pliku[NEWLINE] CQUI_Settings.sql znajdującym się w katalogu [KATALOG INSTALACJI MODU]/CQUI/Assets</Text>
+      <Text>Pamiętaj: Ustawienia CQUI są przypisane do poszczególnych zapisów gry![NEWLINE]Jeśli chcesz zmienić ustawienia na stałe, zmień je w pliku[NEWLINE] cqui_settings_local.sql znajdującym się w katalogu instalacyjnym modów (NIE w katalogu modu).</Text>
     </Row>
     <Row Tag="LOC_CQUI_UNITS" Language="pl_PL">
       <Text>Jednostki</Text>
@@ -172,6 +172,17 @@
     <Row Tag="LOC_CQUI_UNITS_AUTOEXPANDUNITACTIONS" Language="pl_PL">
       <Text>Rozwijaj listę akcji w panelu jednostki</Text>
     </Row>
-
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="pl_PL">
+      <Text>Ikona cywilizacji suzerena w sztandarze państwa-miasta</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="pl_PL">
+      <Text>Pokaż ikonę cywilizacji suzerena państwa-miasta na sztandarze tego państwa-miasta</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="pl_PL">
+      <Text>Ikona wojny w sztandarze państwa-miasta </Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="pl_PL">
+      <Text>Będąc w stanie wojny z państwem-miastem, pokaż ikonę wojny w sztandarze tego państwa-miasta</Text>
+    </Row>
   </LocalizedText>
 </GameData>

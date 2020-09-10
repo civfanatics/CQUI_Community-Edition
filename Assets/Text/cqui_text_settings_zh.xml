@@ -172,6 +172,17 @@
     <Row Tag="LOC_CQUI_UNITS_AUTOEXPANDUNITACTIONS" Language="zh_Hans_CN">
       <Text>自动展开单位的指令面板</Text>
     </Row>
-
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="zh_Hans">
+      <Text>城市州横幅中的苏泽兰</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="zh_Hans">
+      <Text>在城市国家旗帜中展示一个城市国家苏塞兰的文明图标</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="zh_Hans">
+      <Text>城市国家旗帜中的战争图标</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="zh_Hans">
+      <Text>当与城市州开战时， 在该城邦的城市旗帜中展示战争图标</Text>
+    </Row>
   </LocalizedText>
 </GameData>

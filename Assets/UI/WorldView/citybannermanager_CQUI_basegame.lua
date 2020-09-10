@@ -312,7 +312,8 @@ function CityBanner.UpdateName( self )
     local pPlayerConfig :table = PlayerConfigurations[owner];
     local isMinorCiv :boolean = pPlayerConfig:GetCivilizationLevelTypeID() ~= CivilizationLevelTypes.CIVILIZATION_LEVEL_FULL_CIV;
     if (isMinorCiv) then
-        CQUI_UpdateSuzerainIcon(pPlayer, self);
+        CQUI_UpdateCityStateBannerSuzerain(pPlayer, self);
+        CQUI_UpdateCityStateBannerAtWarIcon(pPlayer, self);
     end
 
     self.m_Instance.CityQuestIcon:SetToolTipString(questTooltip);

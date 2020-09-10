@@ -45,22 +45,24 @@
                     </AlphaAnim>
 
                     <!-- CONTENTS -->
-                    <Stack ID="ContentStack" Anchor="C,C" StackGrowth="Right" Padding="10">
-                        <Stack ID="CityInfoStack" Anchor="L,C" StackGrowth="Right" Padding="2" />
-                        <Container ID="CQUI_DistrictsContainer" Anchor="C,C" Size="auto,parent" Offset="-6,0">
-                            <Stack ID="CQUI_Districts" Anchor="L,C" StackGrowth="Right" Padding="-12"/>
-                        </Container>
+                    <Stack ID="ContentStack" Anchor="C,C" StackGrowth="Right" StackPadding="2">
+                        <Image ID="CQUI_AtWarWithCSIcon" Size="22,22" Anchor="L,C" Icon="ICON_RELATIONSHIP_WAR" ToolTip="LOC_DIPLO_STATE_WAR_NAME" Hidden="1"/>
+                        <Stack ID="CityInfoStack" Anchor="L,C" StackGrowth="Right" StackPadding="2"/>
                         <!-- CQUI: Show Suzerain in CS banner -->
-                        <Container ID="CQUI_CivSuzerain" Anchor="C,C" Offset="-10,0" Size="28,34" Hidden="1">
-                            <Image ID="CQUI_CivSuzerainIconBackground" Size="22,22" Anchor="C,C" Texture="CircleBacking22" >
+                        <Container ID="CQUI_CivSuzerain" Anchor="C,C" Size="auto,auto" AutoSizePadding="2,0" Hidden="1">
+                            <Image ID="CQUI_CivSuzerainIconBackground" Size="22,22" Anchor="C,C" Texture="CircleBacking22">
                                 <Image ID="CQUI_CivSuzerainIcon" Size="22,22" Anchor="C,C" IconSize="22"/>
                             </Image>
                         </Container>
-                        <Image ID="CQUI_DistrictAvailable" Anchor="L,C" Offset="-8,0" Icon="ICON_STAT_DISTRICTS" Size="24,24" ToolTip="LOC_HUD_DISTRICTS" Hidden="true" /> <!--Texture="Stats22"-->
-                        <Button ID="CityNameButton" Anchor="L,C" Hidden="0" Size="auto,parent">
-                            <Label ID="CityName" Anchor="L,C" Style="FontFlair16" FontStyle="Shadow" Color0="255,255,255,255" Color1="0,0,0,20" SmallCaps="18" SmallCapsType="EveryWord" />
+
+                        <Container ID="CQUI_DistrictsContainer" Anchor="C,C" Size="auto,parent" Padding="2" Offset="2,0">
+                            <Stack ID="CQUI_Districts" Anchor="C,C" StackGrowth="Right" Padding="-12"/>
+                        </Container>
+                        <Image ID="CQUI_DistrictAvailable" Anchor="C,C" Icon="ICON_STAT_DISTRICTS" Size="24,24" ToolTip="LOC_HUD_DISTRICTS" Hidden="true" /> <!--Texture="Stats22"-->
+                        <Button ID="CityNameButton" Anchor="L,C" Hidden="0" Size="auto,parent" AutoSizePadding="4,0" >
+                            <Label ID="CityName" Anchor="L,C" Offset="4,0" Style="FontFlair16" FontStyle="Shadow" Color0="255,255,255,255" Color1="0,0,0,20" SmallCaps="18" SmallCapsType="EveryWord" />
                         </Button>
-                        <Stack ID="CityStatusStack" Anchor="R,C" StackGrowth="Right" Padding="2"/>
+                        <Stack ID="CityStatusStack" Anchor="R,C" StackGrowth="Right" StackPadding="4"/>
                     </Stack>
                 </Button>
 

@@ -96,6 +96,12 @@
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="en_US">
       <Text>Show the Civilization Icon of the Suzerain of a City State in the City State Banner</Text>
     </Row>
+    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="en_US">
+      <Text>War Icon in CityState Banner</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="en_US">
+      <Text>When at war with a City State, show the War Icon in the city banner of that city state</Text>
+    </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTWORKICON" Language="en_US">
       <Text>Smart Work Icons</Text>
     </Row>
