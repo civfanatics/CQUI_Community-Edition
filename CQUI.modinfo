@@ -165,7 +165,7 @@
                 <File>Assets/UI/PartialScreens/citystates.xml</File>
                 <File>Assets/UI/Popups/greatpeoplepopup.lua</File>
                 <File>Assets/UI/Popups/greatpeoplepopup.xml</File>
-                <File>Assets/UI/Popups/TechCivicCompletedPopup.lua</File>
+                <File>Assets/UI/Popups/techciviccompletedpopup.lua</File>
                 <File>Assets/UI/Popups/wonderbuiltpopup_CQUI.lua</File>
                 <File>Assets/UI/Screens/TechTree_CQUI.lua</File>
                 <File>Assets/UI/Screens/CivicsTree_CQUI.lua</File>
@@ -1068,7 +1068,7 @@
         <File>Assets/UI/Popups/greatpeoplepopup.xml</File>
         <File>Assets/UI/Popups/policyreminderpopup.lua</File>
         <File>Assets/UI/Popups/policyreminderpopup.xml</File>
-        <File>Assets/UI/Popups/TechCivicCompletedPopup.lua</File>
+        <File>Assets/UI/Popups/techciviccompletedpopup.lua</File>
         <File>Assets/UI/Popups/wonderbuiltpopup_CQUI.lua</File>
         <File>Assets/UI/Screens/CivicsTree_CQUI.lua</File>
         <File>Assets/UI/Screens/governmentscreen_CQUI_basegame.lua</File>
