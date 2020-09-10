@@ -48,7 +48,7 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ("CQUI_Smartbanner_Cultural", 1), -- Shows turns to city cultural growth in the banner
         ("CQUI_Smartbanner_DistrictsAvailable", 1), -- Shows that districts are available to be built
         ("CQUI_SmartWorkIcon", 1), -- Applies a different size/transparency to citizen icons if they're currently being worked
-        ("CQUI_TechPopupVisual", 0), -- Popups will be displayed when you discover a new tech or civic (this is the normal behavior for the unmoded game)
+        ("CQUI_TechPopupVisual", 1), -- Popups will be displayed when you discover a new tech or civic (this is the normal behavior for the unmoded game)
         ("CQUI_TechPopupAudio", 1), -- Automatically play the voiceovers when you discover a new tech or civic (this is the normal behavior for the unmoded game)
         ("CQUI_WonderBuiltPopupVisual", 1), -- Wonder movies will be displayed when you complete a wonder (this is the normal behavior for the unmoded game)
         ("CQUI_WonderBuiltPopupAudio", 1), -- Wonder quote audio will be played when you complete a wonder (this is the normal behavior for the unmoded game)
