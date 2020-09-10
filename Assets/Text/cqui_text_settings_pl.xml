@@ -155,10 +155,10 @@
       <Text>Przełącza wyskakiwanie popup'u który informuje o zakończeniu badania bądź kodeksu prawnego</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO" Language="pl_PL">
-      <Text>Dzwięk zakończenia Badania/Kodeksu</Text>
+      <Text>Odtwarzanie cytatu w okienku ukończenia Technologii/Idei</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO_TOOLTIP" Language="pl_PL">
-      <Text>Przełącza odtwarzanie dzwięku po zakończeniu badania bądź kodeksu prawnego. Jest całkowicie niezależny od popup'u i może być odtwarzany nawet gdy wizualny popup jest wyłączony</Text>
+      <Text>Przełącza odtwarzanie cytatu w wyskakującym okienku ukończenia Technologii/Idei</Text>
     </Row>
     <Row Tag="LOC_CQUI_SETTINGS_REMINDER" Language="pl_PL">
       <Text>Pamiętaj: Ustawienia CQUI są przypisane do poszczególnych zapisów gry![NEWLINE]Jeśli chcesz zmienić ustawienia na stałe, zmień je w pliku[NEWLINE] CQUI_Settings.sql znajdującym się w katalogu [KATALOG INSTALACJI MODU]/CQUI/Assets</Text>

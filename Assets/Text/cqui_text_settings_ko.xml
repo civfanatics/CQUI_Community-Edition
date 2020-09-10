@@ -155,10 +155,10 @@
       <Text>새로운 과학 기술을 완료하거나 사회 제도를 완성했을 때 나타나는 팝업의 표시 여부를 결정합니다.</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO" Language="ko_KR">
-      <Text>과학 기술/사회 제도 인용문 재생</Text>
+      <Text>기술/시빅 팝업으로 오디오 재생</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO_TOOLTIP" Language="ko_KR">
-      <Text>새로운 과학 기술을 완료하거나 사회 제도를 완성했을 때 재생되는 인용문의 재생 여부를 결정합니다. 팝업창 표시를 꺼도 재생할 수 있습니다.</Text>
+      <Text>기술/시빅 팝업이 표시될 때 오디오 음성 해설을 자동으로 재생하려면 전환</Text>
     </Row>
     <Row Tag="LOC_CQUI_SETTINGS_REMINDER" Language="ko_KR">
       <Text>주의: CQUI 설정은 개별 게임 세이브에 저장됩니다![NEWLINE]설정 기본값을 변경하려면 [MOD INSTALL DIRECTORY]/CQUI/Assets 디렉토리의 CQUI_Settings.sql 파일을 수정하십시오.</Text>
