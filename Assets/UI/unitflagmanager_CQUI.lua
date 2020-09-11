@@ -12,6 +12,11 @@ BASE_CQUI_OnUnitSelectionChanged = OnUnitSelectionChanged;
 BASE_CQUI_OnPlayerTurnActivated = OnPlayerTurnActivated;
 BASE_CQUI_OnUnitPromotionChanged = OnUnitPromotionChanged;
 BASE_CQUI_UpdateFlagType = UnitFlag.UpdateFlagType;
+BASE_CQUI_OnLensLayerOn = OnLensLayerOn;
+BASE_CQUI_OnLensLayerOff = OnLensLayerOff;
+
+local m_HexColoringReligion:number = UILens.CreateLensLayerHash("Hex_Coloring_Religion");
+local m_IsReligionLensOn:boolean = false;
 
 -- ===========================================================================
 -- CQUI Members
@@ -156,6 +161,7 @@ for promoType,promoData in pairs(tReligionPromosMap) do
     promoData.Name = Locale.Lookup( GameInfo.UnitPromotions[ promoType ].Name );
 end
 
+-- ===========================================================================
 function GetReligionPromotions(pUnit:table)
     local sPromos:string, sTT:string = "", "";
     for _,promoID in ipairs(pUnit:GetExperience():GetPromotions()) do
@@ -169,7 +175,7 @@ function GetReligionPromotions(pUnit:table)
     return sPromos, sTT;
 end
 
-
+-- ===========================================================================
 function UnitFlag.UpdatePromotions( self )
     self.m_Instance.Promotion_Flag:SetHide(true);
     local pUnit : table = self:GetUnit();
@@ -340,6 +346,73 @@ function OnUnitPromotionChanged( playerID : number, unitID : number )
                 -- AZURENCY : request a refresh on the next frame (to update the promotion flag and remove + sign)
                 ContextPtr:RequestRefresh()
             end
+        end
+    end
+end
+
+-- ===========================================================================
+--  CQUI modified OnLensLayerOn function
+--  If Religion Lens is enabled, call Refresh so non-religious units can be dimmed
+-- ===========================================================================
+function OnLensLayerOn( layerNum:number )
+    BASE_CQUI_OnLensLayerOn(layerNum);
+
+    if (layerNum == m_HexColoringReligion) then
+        m_IsReligionLensOn = true;
+        -- Call Refresh, which will cycle through all of the units visible to the current player
+        -- OnUnitVisibilityChanged will be called for every unit the player can see, where the
+        -- icon can be dimmed due to the religion lens being selected.
+        Refresh();
+    end
+end
+
+-- ===========================================================================
+--  CQUI modified OnLensLayerOff function
+--  If Religion Lens is disabled, call Refresh so non-religious units can be restored
+-- ===========================================================================
+function OnLensLayerOff( layerNum:number )
+    BASE_CQUI_OnLensLayerOff(layerNum);
+
+    if (layerNum == m_HexColoringReligion) then
+        m_IsReligionLensOn = false;
+        Refresh();
+    end
+end
+
+-- ===========================================================================
+--  CQUI modified OnUnitVisibilityChanged function
+--  Override basegame OnUnitVisibilityChanged to dim non-religious icons when the religion lens is displayed
+-- ===========================================================================
+function OnUnitVisibilityChanged( playerID: number, unitID : number, eVisibility : number )
+    -- print("***** OnUnitVisibilityChanged playerID:"..tostring(playerID).."  unitID:"..tostring(unitID).."  evis:"..tostring(eVisibility));
+    local flagInstance = GetUnitFlag( playerID, unitID );
+    if (flagInstance ~= nil) then
+        flagInstance:SetFogState( eVisibility );
+        flagInstance:UpdatePosition();
+
+        -- ===== CQUI Changes: Dim non-religion units if religious lens is on =====
+        if m_IsReligionLensOn then
+            if (flagInstance.m_Style ~= FLAGSTYLE_RELIGION) then
+                -- FLAGSTYLE_RELIGION is a Global constant in UnitFlagManager.lua
+                -- Dim the flag and health for non-religious units; if dimmed already (no moves, sleeping), dim more to distinguish
+                local alphaValue = 0.65;
+                if flagInstance.m_IsDimmed then
+                    alphaValue = 0.35;
+                end
+
+                flagInstance.m_Instance.FlagRoot:SetToEnd();
+                flagInstance.m_Instance.FlagRoot:SetAlpha(alphaValue);
+                flagInstance.m_Instance.HealthBar:SetAlpha(alphaValue);
+            end
+        else
+            -- Let the built-in logic determine if this should be dimmed because it's a unit without remaining moves, etc.
+            flagInstance:UpdateDimmedState();
+        end
+        -- ===== END CQUI Changes =================================================
+
+        local pUnit : table = flagInstance:GetUnit();
+        if (pUnit ~= nil) then
+            UpdateIconStack(pUnit:GetX(), pUnit:GetY());
         end
     end
 end
