@@ -81,6 +81,12 @@
                 <File>../cqui_settings_local.sql</File>
             </Items>
         </UpdateDatabase>
+        <UpdateDatabase id="CQUI_Database">
+            <Properties><LoadOrder>1</LoadOrder></Properties>
+            <Items>
+                <File>Assets/cqui_data.sql</File>
+            </Items>
+        </UpdateDatabase>
         <!-- LoadOrder 0 is default, we need this to load first -->
         <!-- 0 is where most actions are applied.  -100 is for Schema changes, and just ensuring early loads are caught -->
         <!-- This table can be found in the Documentation included with the SDK.  It exists as a poorly formatted markdown table. -->
@@ -921,6 +927,7 @@
         <File>../cqui_settings_local.sql</File>
         <File>CQUI.dep</File>
         <File>Assets/cqui_databaseschema.sql</File>
+        <File>Assets/cqui_data.sql</File>
         <File>Assets/cqui_settings.sql</File>
         <File>Assets/cqui_settingselement.lua</File>
         <File>Assets/cqui_settingselement.xml</File>

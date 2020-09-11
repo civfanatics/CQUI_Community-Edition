@@ -1,5 +1,8 @@
 -- Given the issues observed with including this file, print out a confirmation that has loaded to make for easier debugging
 print("NotificationPanel_CQUI.lua: File loaded");
+
+local LL = Locale.Lookup;
+
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
@@ -116,3 +119,66 @@ function RegisterHandlers()
     g_notificationHandlers[NotificationTypes.CIVIC_BOOST].Activate = OnCivicBoostActivateNotification;
     g_notificationHandlers[NotificationTypes.TECH_BOOST].Activate = OnTechBoostActivateNotification;
 end
+
+
+-- CUSTOM NOTIFICATIONS
+-- 2020-09-11 Infixo
+-- Potential notifications to be added:
+-- city border expands
+-- populations grows
+-- trade deal expired
+-- goody hut reward
+--[[
+USER_DEFINED_1 - used by BlackDeathScenario and CivRoyaleScenario
+USER_DEFINED_2 - used by BlackDeathScenario and CivRoyaleScenario
+USER_DEFINED_3 - used by BlackDeathScenario and CivRoyaleScenario
+USER_DEFINED_4 - used by BlackDeathScenario and CivRoyaleScenario
+USER_DEFINED_5 - used in CivRoyaleScenario
+USER_DEFINED_6 - used in CivRoyaleScenario => Goody Hut
+USER_DEFINED_7 - free => City Border Expands
+USER_DEFINED_8 - free => Population Grows
+USER_DEFINED_9 - free => Trade Deal Expired
+--]]
+
+
+-- NotificationManager.SendNotification(iNotifyPlayer, notificationData.Type, msgString, sumString, pPlot:GetX(), pPlot:GetY());
+
+-- ===========================================================================
+function OnGoodyHutReward(ePlayer:number, iUnitID:number, eRewardType:number, eRewardSubType:number)
+    --print("OnGoodyHutReward",ePlayer,iUnitID,eRewardType,eRewardSubType);
+	--local pUnit :object = UnitManager.GetUnit(ePlayer, iUnitID);
+    -- decode it
+    -- eRewardType    - use .Hash on GameInfo.GoodyHuts
+    -- eRewardSubType - use DB.MakeHash() on GameInfo.GoodyHutSubTypes.SubTypeGoodyHut
+    local infoGoodyHut:table = GameInfo.GoodyHuts[eRewardType];
+    --print("reward", infoGoodyHut.GoodyHutType);
+    local infoSubType:table = nil;
+    for row in GameInfo.GoodyHutSubTypes() do
+        if DB.MakeHash(row.SubTypeGoodyHut) == eRewardSubType then
+            infoSubType = row;
+            --print("subtype", infoSubType.SubTypeGoodyHut);
+            break
+        end
+    end
+    -- compose a message
+    -- "LOC_NOTIFICATION_DISCOVER_GOODY_HUT_MESSAGE" <Text>Tribal Village Discovered</Text>
+    -- "LOC_NOTIFICATION_DISCOVER_GOODY_HUT_SUMMARY" <Text>You have found a village inhabited by a friendly tribe.</Text>
+    local sReward:string = "Warning! Unknown reward type!";
+    if infoSubType then
+        sReward = infoSubType.SubTypeGoodyHut;
+        --[[
+        if infoSubType.Description then
+            sReward = LL(infoSubType.Description);
+        else
+            sReward = "Warning! Missing reward description!"
+        end
+        --]]
+    end
+    -- send it
+    NotificationManager.SendNotification(
+        ePlayer,
+        GameInfo.Notifications.NOTIFICATION_DISCOVER_GOODY_HUT.Hash,
+        LL("LOC_NOTIFICATION_DISCOVER_GOODY_HUT_MESSAGE"),
+        LL("LOC_NOTIFICATION_DISCOVER_GOODY_HUT_SUMMARY").."[NEWLINE]"..sReward);
+end
+Events.GoodyHutReward.Add( OnGoodyHutReward );
