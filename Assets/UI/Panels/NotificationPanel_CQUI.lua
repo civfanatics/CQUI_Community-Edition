@@ -143,38 +143,102 @@ USER_DEFINED_9 - free => Trade Deal Expired
 
 -- NotificationManager.SendNotification(iNotifyPlayer, notificationData.Type, msgString, sumString, pPlot:GetX(), pPlot:GetY());
 
+-- debug routine - prints a table (no recursion)
+function dshowtable(tTable:table)
+	if tTable == nil then print("dshowtable: table is nil"); return; end
+	for k,v in pairs(tTable) do
+		print(k, type(v), tostring(v));
+	end
+end
+
 -- ===========================================================================
+
+-- prepare reward descriptions in advance, to simplify the process later
+-- default behavior - read Description and fill it with Amount param from the Modifier
+g_RewardExceptions = {
+    -- base
+    GOODYHUT_GRANT_SCOUT      = "desc", -- direct description
+    GOODYHUT_GRANT_UPGRADE    = "desc",
+    GOODYHUT_GRANT_EXPERIENCE = "exp", -- experience
+    GOODYHUT_HEAL             = "desc",
+    GOODYHUT_GRANT_BUILDER    = "unit", -- unit granted
+    GOODYHUT_GRANT_TRADER     = "unit",
+    GOODYHUT_GRANT_SETTLER    = "unit",
+    -- xp2
+    GOODYHUT_GOVERNOR_TITLE   = "desc",
+    GOODYHUT_RESOURCES        = "res", -- resources <Text>[COLOR_FLOAT_MILITARY]+{1_Num} [ICON_{2_Icon}] {3_Resources}[ENDCOLOR]</Text>
+    -- gran colombia maya
+    METEOR_GRANT_GOODIES      = "desc",
+}
+--dshowtable(g_RewardExceptions);
+
+g_RewardDescriptions = {}; -- this is a global variable, so other mods can add its own rewards and hook descriptions in here
+
+function Initialize_RewardDescriptions()
+    --print("Initialize_RewardDescriptions");
+    -- helper to get arguments from modifiers
+    local function GetModifierParam(sModifierID:string, sName:string)
+        for row in GameInfo.ModifierArguments() do
+            if row.ModifierId == sModifierID and row.Name == sName then
+                return row.Value;
+            end
+        end
+        print("Warning! No argument", sName, "in modifier", sModifierID);
+        return "0";
+    end
+    -- decode a single reward
+    local function DecodeRewardDescription(sSubType:string, sDescription:string, sModifierID:string)
+        --print("DecodeRewardDescription",sSubType,sDescription,sModifierID);
+        if sDescription == nil or sDescription == "" then
+            return "Warning! Unkown description for goody sub type".. tostring(sSubType);
+        end
+        if g_RewardExceptions[sSubType] then
+            -- unique decode
+            if g_RewardExceptions[sSubType] == "desc" then
+                return LL(sDescription);
+            elseif g_RewardExceptions[sSubType] == "exp" then
+                return string.format("+%d%s %s", tonumber(GetModifierParam(sModifierID, "Amount")), LL("LOC_HUD_UNIT_PANEL_XP"), LL(sDescription));
+            elseif g_RewardExceptions[sSubType] == "unit" then
+                local iNum:number  = tonumber(GetModifierParam(sModifierID, "Amount"));
+                local sType:string = GetModifierParam(sModifierID, "UnitType");
+                local infoUnit:table = GameInfo.Units[sType];
+                if infoUnit == nil then
+                    return "Warning! Cannot decode"..sSubType;
+                end
+                return LL(sDescription, iNum, LL(infoUnit.Name));
+            elseif g_RewardExceptions[sSubType] == "res" then
+                local iNum:number = tonumber(GetModifierParam(sModifierID, "Amount"));
+                return LL("LOC_GOODYHUT_STRATEGIC_RESOURCES_DESCRIPTION", iNum);
+            end
+        else
+            -- default decode
+            local iNum:number = tonumber(GetModifierParam(sModifierID, "Amount"));
+            return LL(sDescription, iNum);
+        end
+    end
+    -- decode all rewards
+    for row in GameInfo.GoodyHutSubTypes() do
+        local eRewardSubType:number = DB.MakeHash(row.SubTypeGoodyHut);
+        local sRewardDescription:string = DecodeRewardDescription(row.SubTypeGoodyHut, row.Description, row.ModifierID);
+        --print("DECODED", row.SubTypeGoodyHut, sRewardDescription);
+        g_RewardDescriptions[ eRewardSubType ] = sRewardDescription;
+    end
+    --dshowtable(g_RewardDescriptions); -- debug
+end
+
 function OnGoodyHutReward(ePlayer:number, iUnitID:number, eRewardType:number, eRewardSubType:number)
-    --print("OnGoodyHutReward",ePlayer,iUnitID,eRewardType,eRewardSubType);
-	--local pUnit :object = UnitManager.GetUnit(ePlayer, iUnitID);
-    -- decode it
     -- eRewardType    - use .Hash on GameInfo.GoodyHuts
     -- eRewardSubType - use DB.MakeHash() on GameInfo.GoodyHutSubTypes.SubTypeGoodyHut
-    local infoGoodyHut:table = GameInfo.GoodyHuts[eRewardType];
-    --print("reward", infoGoodyHut.GoodyHutType);
-    local infoSubType:table = nil;
-    for row in GameInfo.GoodyHutSubTypes() do
-        if DB.MakeHash(row.SubTypeGoodyHut) == eRewardSubType then
-            infoSubType = row;
-            --print("subtype", infoSubType.SubTypeGoodyHut);
-            break
-        end
+    print("OnGoodyHutReward",ePlayer,iUnitID,eRewardType,eRewardSubType);
+    -- get a reward description
+    local sReward:string = g_RewardDescriptions[eRewardSubType];
+    if sReward == nil then
+        sReward = "Warning! Unknown reward type!";
     end
-    -- compose a message
+    print("reward", sReward);
+    -- compose a notification and send it
     -- "LOC_NOTIFICATION_DISCOVER_GOODY_HUT_MESSAGE" <Text>Tribal Village Discovered</Text>
     -- "LOC_NOTIFICATION_DISCOVER_GOODY_HUT_SUMMARY" <Text>You have found a village inhabited by a friendly tribe.</Text>
-    local sReward:string = "Warning! Unknown reward type!";
-    if infoSubType then
-        sReward = infoSubType.SubTypeGoodyHut;
-        --[[
-        if infoSubType.Description then
-            sReward = LL(infoSubType.Description);
-        else
-            sReward = "Warning! Missing reward description!"
-        end
-        --]]
-    end
-    -- send it
     NotificationManager.SendNotification(
         ePlayer,
         GameInfo.Notifications.NOTIFICATION_DISCOVER_GOODY_HUT.Hash,
@@ -182,3 +246,5 @@ function OnGoodyHutReward(ePlayer:number, iUnitID:number, eRewardType:number, eR
         LL("LOC_NOTIFICATION_DISCOVER_GOODY_HUT_SUMMARY").."[NEWLINE]"..sReward);
 end
 Events.GoodyHutReward.Add( OnGoodyHutReward );
+
+Initialize_RewardDescriptions();
