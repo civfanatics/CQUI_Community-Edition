@@ -63,6 +63,7 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ('CQUI_ShowWarIconInCityStateBanner', 1), -- When at war with a City State, show the War Icon in the banner of that City State
         ('CQUI_ShowImprovementsRecommendations', 0), -- Shows the advisor recommendation for the builder improvements
         ('CQUI_ShowCityDetailAdvisor', 0), -- Shows the advisor recommendation in the city detail panel
+        ('CQUI_ReligionLensUnitFlagStyle', 1), -- When Religion Lens is on, update Flags of non-religious units.  Values of 0 (Solid, unmodified gae), 1 (Transparent), or 2 (Hidden) are acceptable
         ('CQUI_ShowDebugPrint', 0); -- Shows print in the console
 /*
     ┌────────────────────────────────────────────────────────────────────────────────────────────┐
