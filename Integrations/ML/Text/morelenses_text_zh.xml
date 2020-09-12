@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameData>
   <LocalizedText>
-    <!-- SIMPLIFY-CHINESE -->
+    <!-- SIMPLIFIED-CHINESE -->
 
     <!-- Builder Lens -->
     <Replace Tag="LOC_HUD_BUILDER_LENS" Language="zh_Hans_CN">
@@ -12,6 +12,9 @@
     </Replace>
     <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_IMP" Language="zh_Hans_CN">
       <Text>资源/可掠夺/可使用特殊能力</Text>
+    </Replace>
+    <Replace Tag="LOC_TOOLTIP_RECOMFEATURE_LENS_HILL" Language="zh_Hans_CN">
+      <Text>推荐改良的地块</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_HILL" Language="zh_Hans_CN">
       <Text>丘陵</Text>
@@ -34,26 +37,36 @@
       <Text>高亮显示可被考古学家发掘的地块</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_ARCHAEOLOGIST_LENS_ARTIFACT" Language="zh_Hans_CN">
-      <Text>考古现场</Text>
+      <Text>历史古迹</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_ARCHAEOLOGIST_LENS_SHIPWRECK" Language="zh_Hans_CN">
-      <Text>船只残骸</Text>
+      <Text>海难遗址</Text>
     </Replace>
 
     <!-- City Overlap Lens -->
-    <Replace Tag="LOC_HUD_CITYOVERLAP6_LENS" Language="zh_Hans_CN">
-      <Text>6格城市数</Text>
+    <Replace Tag="LOC_HUD_CITYOVERLAP_LENS" Language="zh_Hans_CN">
+      <Text>城市重叠</Text>
     </Replace>
-    <Replace Tag="LOC_HUD_CITYOVERLAP6_LENS_TOOLTIP" Language="zh_Hans_CN">
-      <Text>显示地块6格范围内的城市数量</Text>
+    <Replace Tag="LOC_HUD_CITYOVERLAP_LENS_TOOLTIP" Language="zh_Hans_CN">
+      <Text>显示地块一定范围内的城市数量</Text>
     </Replace>
-
-    <!-- City Overlap Lens -->
-    <Replace Tag="LOC_HUD_CITYOVERLAP9_LENS" Language="zh_Hans_CN">
-      <Text>9格城市数</Text>
+    <Replace Tag="LOC_PANEL_CITYOVERLAP_OPTION1" Language="zh_Hans_CN">
+      <Text>高亮境外地块</Text>
     </Replace>
-    <Replace Tag="LOC_HUD_CITYOVERLAP9_LENS_TOOLTIP" Language="zh_Hans_CN">
-      <Text>显示地块9格范围内的城市数量</Text>
+    <Replace Tag="LOC_PANEL_CITYOVERLAP_NMOUSE" Language="zh_Hans_CN">
+        <Text>禁用鼠标</Text>
+    </Replace>
+    <Replace Tag="LOC_PANEL_CITYOVERLAP_RANGE" Language="zh_Hans_CN">
+      <Text>鼠标范围</Text>
+    </Replace>
+    <Replace Tag="LOC_LABEL_CITYOVERLAP_RANGE" Language="zh_Hans_CN">
+      <Text>范围</Text>
+    </Replace>
+    <Replace Tag="LOC_TOOLTIP_CITYOVERLAP_RANGE" Language="zh_Hans_CN">
+      <Text>显示鼠标所在地块周围一定范围内（在下面设置）的地块，并高亮其中的城市。</Text>
+    </Replace>
+    <Replace Tag="LOC_PANEL_CITYOVERLAP_RADIUS" Language="zh_Hans_CN">
+      <Text>鼠标半径</Text>
     </Replace>
 
     <!-- Barbarian Lens -->
@@ -64,7 +77,7 @@
       <Text>高亮显示地图上的野蛮人营地</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_BARBARIAN_LENS_ENCAPMENT" Language="zh_Hans_CN">
-      <Text>野蛮人营地</Text>
+      <Text>蛮族哨站</Text>
     </Replace>
 
     <!-- Resources Lens -->
@@ -75,10 +88,10 @@
       <Text>高亮显示地图上的资源</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_LUXURY" Language="zh_Hans_CN">
-      <Text>已开发奢侈资源</Text>
+      <Text>已开发奢侈品资源</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_NLUXURY" Language="zh_Hans_CN">
-      <Text>奢侈资源</Text>
+      <Text>奢侈品资源</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_STRATEGIC" Language="zh_Hans_CN">
       <Text>已开发战略资源</Text>
@@ -87,10 +100,10 @@
       <Text>战略资源</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_BONUS" Language="zh_Hans_CN">
-      <Text>已开发奖励资源</Text>
+      <Text>已开发加成资源</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_NBONUS" Language="zh_Hans_CN">
-      <Text>奖励资源</Text>
+      <Text>加成资源</Text>
     </Replace>
 
     <!-- Wonder Lens -->
@@ -124,6 +137,23 @@
     </Replace>
     <Replace Tag="LOC_TOOLTIP_SCOUT_LENS_GHUT" Language="zh_Hans_CN">
       <Text>部落村庄</Text>
+    </Replace>
+
+    <!-- Naturalist Lens -->
+    <Replace Tag="LOC_HUD_NATURALIST_LENS" Language="zh_Hans_CN">
+      <Text>自然学家</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_NATURALIST_LENS_TOOLTIP" Language="zh_Hans_CN">
+      <Text>高亮显示可建造国家公园的地块</Text>
+    </Replace>
+    <Replace Tag="LOC_TOOLTIP_NATURALIST_LENS_NPARK" Language="zh_Hans_CN">
+      <Text>可立即建造国家公园</Text>
+    </Replace>
+    <Replace Tag="LOC_TOOLTIP_NATURALIST_LENS_OK" Language="zh_Hans_CN">
+      <Text>修改其他地块后可建造国家公园</Text>
+    </Replace>
+    <Replace Tag="LOC_TOOLTIP_NATURALIST_LENS_FIXABLE" Language="zh_Hans_CN">
+      <Text>修改后可建造国家公园</Text>
     </Replace>
 
   </LocalizedText>

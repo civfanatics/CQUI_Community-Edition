@@ -8,7 +8,7 @@
       <Text>Builder</Text>
     </Row>
     <Row Tag="LOC_HUD_CITIZEN_MANAGEMENT_LENS_TOOLTIP">
-      <Text>Highlights what hexes the builder can work on</Text>
+      <Text>Highlights the hexes the builder can work on</Text>
     </Row>
 
     <!-- Builder Lens -->
@@ -18,23 +18,36 @@
     <Row Tag="LOC_HUD_BUILDER_LENS_TOOLTIP">
       <Text>Highlights what hexes the builder can work on</Text>
     </Row>
-    <Row Tag="LOC_TOOLTIP_BUILDER_LENS_IMP">
-      <Text>Resource/Pillaged/Unique Ability</Text>
+    <Row Tag="LOC_HUD_BUILDER_LENS_PN">
+      <Text>Nothing</Text>
     </Row>
-    <Row Tag="LOC_TOOLTIP_RECOMFEATURE_LENS_HILL">
-      <Text>Recommended Improve Feature</Text>
+    <Row Tag="LOC_HUD_BUILDER_LENS_PD">
+      <Text>Dangerous</Text>
     </Row>
-    <Row Tag="LOC_TOOLTIP_BUILDER_LENS_HILL">
-      <Text>Hill</Text>
+    <Row Tag="LOC_HUD_BUILDER_LENS_P1">
+      <Text>Resources</Text>
     </Row>
-    <Row Tag="LOC_TOOLTIP_BUILDER_LENS_FEATURE">
-      <Text>Removable Feature</Text>
+    <Row Tag="LOC_HUD_BUILDER_LENS_P1N">
+      <Text>Resources outside range</Text>
     </Row>
-    <Row Tag="LOC_TOOLTIP_BUILDER_LENS_GENERIC">
-      <Text>Generic Tile</Text>
+    <Row Tag="LOC_HUD_BUILDER_LENS_P2">
+      <Text>Recommended/Pillaged/Unique Ability</Text>
     </Row>
-    <Row Tag="LOC_TOOLTIP_BUILDER_LENS_NOTHING">
-      <Text>Nothing to do</Text>
+    <Row Tag="LOC_HUD_BUILDER_LENS_P3">
+      <Text>Currently Worked / Wonder-Buffed</Text>
+    </Row>
+    <Row Tag="LOC_HUD_BUILDER_LENS_P4">
+      <Text>Hills</Text>
+    </Row>
+    <Row Tag="LOC_HUD_BUILDER_LENS_P5">
+      <Text>Feature Extraction</Text>
+    </Row>
+    <!-- Nothing to add here atm -->
+    <Row Tag="LOC_HUD_BUILDER_LENS_P6">
+      <Text></Text>
+    </Row>
+    <Row Tag="LOC_HUD_BUILDER_LENS_P7">
+      <Text>General</Text>
     </Row>
 
     <!-- Archaeologist Lens -->
@@ -65,7 +78,7 @@
         <Text>No Mouse</Text>
     </Row>
     <Row Tag="LOC_PANEL_CITYOVERLAP_RANGE">
-      <Text>Range Mouse</Text>
+      <Text>Range</Text>
     </Row>
     <Row Tag="LOC_TOOLTIP_CITYOVERLAP_RANGE">
       <Text>Shows tiles and highlights cities within range (set below) from the tile under the mouse.</Text>
