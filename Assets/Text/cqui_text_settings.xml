@@ -96,6 +96,12 @@
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="en_US">
       <Text>Show the Civilization Icon of the Suzerain of a City State in the City State Banner</Text>
     </Row>
+	<Row Tag="LOC_CQUI_SHOW_LEADER_ICON_IN_CITY_STATE_BANNER" Language="en_US">
+      <Text>Leader instead of Civ Icon as Suzerain</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_LEADER_ICON_IN_CITY_STATE_BANNER_TOOLTIP" Language="en_US">
+      <Text>Check this if you have "Suzerain in CityState Banner enabled and would like to see the leader icon instead of the civilization icon in the City State Banner</Text>
+    </Row>
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="en_US">
       <Text>War Icon in CityState Banner</Text>
     </Row>

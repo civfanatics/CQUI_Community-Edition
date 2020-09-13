@@ -53,6 +53,8 @@
                         <Container ID="CQUI_CivSuzerain" Anchor="C,C" Size="auto,auto" AutoSizePadding="2,0" Hidden="1">
                             <Image ID="CQUI_CivSuzerainIconBackground" Size="22,22" Anchor="C,C" Texture="CircleBacking22">
                                 <Image ID="CQUI_CivSuzerainIcon" Size="22,22" Anchor="C,C" IconSize="22"/>
+								<Label ID="CQUI_SuzerainEnvoys" Anchor="C,T" Offset="10,-2" Style="StrongSmall2"/>
+								<Label ID="CQUI_LocalPlayerEnvoys" Anchor="C,T" Offset="-10,-2" Style="StrongSmall2"/>
                             </Image>
                         </Container>
 

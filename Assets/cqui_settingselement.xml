@@ -47,6 +47,9 @@
                             <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
                                 <GridButton ID="ShowSuzerainInCityStateBanner" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" />
                             </Stack>
+							<Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <GridButton ID="ShowLeaderIconInCityStateBanner" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_SHOW_LEADER_ICON_IN_CITY_STATE_BANNER" />
+                            </Stack>
                             <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
                                 <GridButton ID="ShowWarIconInCityStateBanner" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" />
                             </Stack>
