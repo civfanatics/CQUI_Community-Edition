@@ -3,6 +3,7 @@ print("NotificationPanel_CQUI.lua: File loaded");
 
 local LL = Locale.Lookup;
 
+
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
@@ -11,6 +12,22 @@ BASE_CQUI_OnCivicBoostActivateNotification = OnCivicBoostActivateNotification;
 BASE_CQUI_OnNotificationAdded = OnNotificationAdded;
 BASE_CQUI_LateInitialize = LateInitialize;
 BASE_CQUI_RegisterHandlers = RegisterHandlers;
+
+
+-- ===========================================================================
+-- CQUI Members
+-- ===========================================================================
+
+local CQUI_NotificationGoodyHut:boolean = true;
+
+function CQUI_OnSettingsInitialized()
+    CQUI_NotificationGoodyHut = GameConfiguration.GetValue("CQUI_NotificationGoodyHut");
+end
+
+function CQUI_OnSettingsUpdate()
+    CQUI_NotificationGoodyHut = GameConfiguration.GetValue("CQUI_NotificationGoodyHut");
+end
+
 
 -- =======================================================================================
 function OnCityRangeAttack( notificationEntry : NotificationType )
@@ -105,14 +122,6 @@ function OnNotificationAdded( playerID:number, notificationID:number )
 end
 
 -- ===========================================================================
-function LateInitialize()
-    BASE_CQUI_LateInitialize();
-
-    Events.NotificationAdded.Remove(BASE_CQUI_OnNotificationAdded);
-    Events.NotificationAdded.Add(OnNotificationAdded);
-end
-
--- ===========================================================================
 function RegisterHandlers()
     BASE_CQUI_RegisterHandlers();
     
@@ -121,27 +130,29 @@ function RegisterHandlers()
 end
 
 
--- CUSTOM NOTIFICATIONS
--- 2020-09-11 Infixo
+-- ===========================================================================
+-- CUSTOM NOTIFICATIONS, 2020-09-11 Infixo
+-- Usage:
+-- NotificationManager.SendNotification(iNotifyPlayer, notificationData.Type, msgString, sumString, pPlot:GetX(), pPlot:GetY());
 -- Potential notifications to be added:
 -- city border expands
 -- populations grows
 -- trade deal expired
--- goody hut reward
+-- goody hut reward [there is already NOTIFICATION_DISCOVER_GOODY_HUT]
+
 --[[
 USER_DEFINED_1 - used by BlackDeathScenario and CivRoyaleScenario
 USER_DEFINED_2 - used by BlackDeathScenario and CivRoyaleScenario
 USER_DEFINED_3 - used by BlackDeathScenario and CivRoyaleScenario
 USER_DEFINED_4 - used by BlackDeathScenario and CivRoyaleScenario
 USER_DEFINED_5 - used in CivRoyaleScenario
-USER_DEFINED_6 - used in CivRoyaleScenario => Goody Hut
+USER_DEFINED_6 - used in CivRoyaleScenario
 USER_DEFINED_7 - free => City Border Expands
 USER_DEFINED_8 - free => Population Grows
 USER_DEFINED_9 - free => Trade Deal Expired
 --]]
 
 
--- NotificationManager.SendNotification(iNotifyPlayer, notificationData.Type, msgString, sumString, pPlot:GetX(), pPlot:GetY());
 
 -- debug routine - prints a table (no recursion)
 function dshowtable(tTable:table)
@@ -225,8 +236,14 @@ function Initialize_RewardDescriptions()
     end
     --dshowtable(g_RewardDescriptions); -- debug
 end
+Initialize_RewardDescriptions();
+
+local m_eRewardMeteorHash:number = DB.MakeHash("METEOR_GOODIES"); -- the only entry in GameInfo.GoodyHuts with no .Hash value
 
 function OnGoodyHutReward(ePlayer:number, iUnitID:number, eRewardType:number, eRewardSubType:number)
+    if not CQUI_NotificationGoodyHut then
+        return;
+    end
     -- eRewardType    - use .Hash on GameInfo.GoodyHuts
     -- eRewardSubType - use DB.MakeHash() on GameInfo.GoodyHutSubTypes.SubTypeGoodyHut
     print("OnGoodyHutReward",ePlayer,iUnitID,eRewardType,eRewardSubType);
@@ -237,14 +254,35 @@ function OnGoodyHutReward(ePlayer:number, iUnitID:number, eRewardType:number, eR
     end
     print("reward", sReward);
     -- compose a notification and send it
-    -- "LOC_NOTIFICATION_DISCOVER_GOODY_HUT_MESSAGE" <Text>Tribal Village Discovered</Text>
-    -- "LOC_NOTIFICATION_DISCOVER_GOODY_HUT_SUMMARY" <Text>You have found a village inhabited by a friendly tribe.</Text>
-    NotificationManager.SendNotification(
-        ePlayer,
-        GameInfo.Notifications.NOTIFICATION_DISCOVER_GOODY_HUT.Hash,
-        LL("LOC_NOTIFICATION_DISCOVER_GOODY_HUT_MESSAGE"),
-        LL("LOC_NOTIFICATION_DISCOVER_GOODY_HUT_SUMMARY").."[NEWLINE]"..sReward);
+    if eRewardType == m_eRewardMeteorHash then
+        NotificationManager.SendNotification(
+            ePlayer,
+            GameInfo.Notifications.NOTIFICATION_DISCOVER_GOODY_HUT.Hash,
+            LL("LOC_IMPROVEMENT_METEOR_GOODY_NAME"),
+            sReward);
+    else
+        -- standard goody hut
+        -- "LOC_NOTIFICATION_DISCOVER_GOODY_HUT_MESSAGE" <Text>Tribal Village Discovered</Text>
+        -- "LOC_NOTIFICATION_DISCOVER_GOODY_HUT_SUMMARY" <Text>You have found a village inhabited by a friendly tribe.</Text>
+        NotificationManager.SendNotification(
+            ePlayer,
+            GameInfo.Notifications.NOTIFICATION_DISCOVER_GOODY_HUT.Hash,
+            LL("LOC_NOTIFICATION_DISCOVER_GOODY_HUT_MESSAGE"),
+            LL("LOC_NOTIFICATION_DISCOVER_GOODY_HUT_SUMMARY").."[NEWLINE]"..sReward);
+    end
 end
-Events.GoodyHutReward.Add( OnGoodyHutReward );
 
-Initialize_RewardDescriptions();
+
+-- ===========================================================================
+function LateInitialize()
+    BASE_CQUI_LateInitialize();
+
+    LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsInitialized );
+    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+    
+    Events.NotificationAdded.Remove(BASE_CQUI_OnNotificationAdded);
+    Events.NotificationAdded.Add(OnNotificationAdded);
+    
+    -- custom notifications
+    Events.GoodyHutReward.Add( OnGoodyHutReward );
+end
