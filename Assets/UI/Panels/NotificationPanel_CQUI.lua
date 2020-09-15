@@ -231,6 +231,8 @@ function Initialize_RewardDescriptions()
     for row in GameInfo.GoodyHutSubTypes() do
         local eRewardSubType:number = DB.MakeHash(row.SubTypeGoodyHut);
         local sRewardDescription:string = DecodeRewardDescription(row.SubTypeGoodyHut, row.Description, row.ModifierID);
+        sRewardDescription = string.gsub(sRewardDescription, "%[ENDCOLOR%]", "");
+        sRewardDescription = string.gsub(sRewardDescription, "%[COLOR[%l%u_]+%]", "");
         --print("DECODED", row.SubTypeGoodyHut, sRewardDescription);
         g_RewardDescriptions[ eRewardSubType ] = sRewardDescription;
     end
@@ -246,13 +248,13 @@ function OnGoodyHutReward(ePlayer:number, iUnitID:number, eRewardType:number, eR
     end
     -- eRewardType    - use .Hash on GameInfo.GoodyHuts
     -- eRewardSubType - use DB.MakeHash() on GameInfo.GoodyHutSubTypes.SubTypeGoodyHut
-    print("OnGoodyHutReward",ePlayer,iUnitID,eRewardType,eRewardSubType);
+    --print("OnGoodyHutReward",ePlayer,iUnitID,eRewardType,eRewardSubType);
     -- get a reward description
     local sReward:string = g_RewardDescriptions[eRewardSubType];
     if sReward == nil then
         sReward = "Warning! Unknown reward type!";
     end
-    print("reward", sReward);
+    --print("reward", sReward);
     -- compose a notification and send it
     if eRewardType == m_eRewardMeteorHash then
         NotificationManager.SendNotification(
