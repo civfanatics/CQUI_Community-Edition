@@ -297,6 +297,15 @@
     <Row Tag="LOC_CQUI_NUKE" Language="en_US">
       <Text>WMD Strike: Nuclear Device</Text>
     </Row>
+	<Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="en_US">
+      <Text>Show Suzerain envoy labels</Text>
+    </Row>
+	<Row Tag="LOC_CQUI_SUZ_CIV_ICON" Language="en_US">
+      <Text>Show Civilization Icon</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SUZ_LEADER_ICON" Language="en_US">
+      <Text>Show Leader Icon</Text>
+    </Row>
     <Row Tag="LOC_CQUI_THERMO_NUKE" Language="en_US">
       <Text>WMD Strike: Thermonuclear Device</Text>
     </Row>
