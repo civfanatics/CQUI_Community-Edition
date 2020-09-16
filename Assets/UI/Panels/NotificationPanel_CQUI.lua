@@ -1,9 +1,6 @@
 -- Given the issues observed with including this file, print out a confirmation that has loaded to make for easier debugging
 print("NotificationPanel_CQUI.lua: File loaded");
 
-local LL = Locale.Lookup;
-
-
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
@@ -13,21 +10,21 @@ BASE_CQUI_OnNotificationAdded = OnNotificationAdded;
 BASE_CQUI_LateInitialize = LateInitialize;
 BASE_CQUI_RegisterHandlers = RegisterHandlers;
 
-
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
-
 local CQUI_NotificationGoodyHut:boolean = true;
+local m_eRewardMeteorHash:number = DB.MakeHash("METEOR_GOODIES"); -- the only entry in GameInfo.GoodyHuts with no .Hash value
 
+-- =======================================================================================
 function CQUI_OnSettingsInitialized()
     CQUI_NotificationGoodyHut = GameConfiguration.GetValue("CQUI_NotificationGoodyHut");
 end
 
+-- =======================================================================================
 function CQUI_OnSettingsUpdate()
     CQUI_NotificationGoodyHut = GameConfiguration.GetValue("CQUI_NotificationGoodyHut");
 end
-
 
 -- =======================================================================================
 function OnCityRangeAttack( notificationEntry : NotificationType )
@@ -129,7 +126,6 @@ function RegisterHandlers()
     g_notificationHandlers[NotificationTypes.TECH_BOOST].Activate = OnTechBoostActivateNotification;
 end
 
-
 -- ===========================================================================
 -- CUSTOM NOTIFICATIONS, 2020-09-11 Infixo
 -- Usage:
@@ -139,6 +135,7 @@ end
 -- populations grows
 -- trade deal expired
 -- goody hut reward [there is already NOTIFICATION_DISCOVER_GOODY_HUT]
+-- Note: if PlotX/Y are not specified, the location-based notifications will not stack (only 1 will show at a time).
 
 --[[
 USER_DEFINED_1 - used by BlackDeathScenario and CivRoyaleScenario
@@ -152,41 +149,37 @@ USER_DEFINED_8 - free => Population Grows
 USER_DEFINED_9 - free => Trade Deal Expired
 --]]
 
-
-
 -- debug routine - prints a table (no recursion)
 function dshowtable(tTable:table)
-	if tTable == nil then print("dshowtable: table is nil"); return; end
-	for k,v in pairs(tTable) do
-		print(k, type(v), tostring(v));
-	end
+    if tTable == nil then print("dshowtable: table is nil"); return; end
+    for k,v in pairs(tTable) do
+        print(k, type(v), tostring(v));
+    end
 end
 
 -- ===========================================================================
-
 -- prepare reward descriptions in advance, to simplify the process later
 -- default behavior - read Description and fill it with Amount param from the Modifier
 g_RewardExceptions = {
     -- base
     GOODYHUT_GRANT_SCOUT      = "desc", -- direct description
     GOODYHUT_GRANT_UPGRADE    = "desc",
-    GOODYHUT_GRANT_EXPERIENCE = "exp", -- experience
+    GOODYHUT_GRANT_EXPERIENCE = "exp",  -- experience
     GOODYHUT_HEAL             = "desc",
     GOODYHUT_GRANT_BUILDER    = "unit", -- unit granted
     GOODYHUT_GRANT_TRADER     = "unit",
     GOODYHUT_GRANT_SETTLER    = "unit",
     -- xp2
     GOODYHUT_GOVERNOR_TITLE   = "desc",
-    GOODYHUT_RESOURCES        = "res", -- resources <Text>[COLOR_FLOAT_MILITARY]+{1_Num} [ICON_{2_Icon}] {3_Resources}[ENDCOLOR]</Text>
+    GOODYHUT_RESOURCES        = "res",  -- resources <Text>[COLOR_FLOAT_MILITARY]+{1_Num} [ICON_{2_Icon}] {3_Resources}[ENDCOLOR]</Text>
     -- gran colombia maya
     METEOR_GRANT_GOODIES      = "desc",
 }
---dshowtable(g_RewardExceptions);
 
 g_RewardDescriptions = {}; -- this is a global variable, so other mods can add its own rewards and hook descriptions in here
 
 function Initialize_RewardDescriptions()
-    --print("Initialize_RewardDescriptions");
+    -- print("CQUI -- Initialize_RewardDescriptions");
     -- helper to get arguments from modifiers
     local function GetModifierParam(sModifierID:string, sName:string)
         for row in GameInfo.ModifierArguments() do
@@ -194,74 +187,92 @@ function Initialize_RewardDescriptions()
                 return row.Value;
             end
         end
-        print("Warning! No argument", sName, "in modifier", sModifierID);
+
+        print("Warning! No argument '"..sName.."' in modifier '"..sModifierID.."'");
         return "0";
     end
+
     -- decode a single reward
     local function DecodeRewardDescription(sSubType:string, sDescription:string, sModifierID:string)
-        --print("DecodeRewardDescription",sSubType,sDescription,sModifierID);
+        -- print("DecodeRewardDescription",sSubType,sDescription,sModifierID);
         if sDescription == nil or sDescription == "" then
             return "Warning! Unkown description for goody sub type".. tostring(sSubType);
         end
+
+        local returnStr = "";
         if g_RewardExceptions[sSubType] then
             -- unique decode
             if g_RewardExceptions[sSubType] == "desc" then
-                return LL(sDescription);
+                returnStr = Locale.Lookup(sDescription);
             elseif g_RewardExceptions[sSubType] == "exp" then
-                return string.format("+%d%s %s", tonumber(GetModifierParam(sModifierID, "Amount")), LL("LOC_HUD_UNIT_PANEL_XP"), LL(sDescription));
+                returnStr =  string.format("+%d%s %s",
+                                           tonumber(GetModifierParam(sModifierID, "Amount")),
+                                           Locale.Lookup("LOC_HUD_UNIT_PANEL_XP"),
+                                           Locale.Lookup(sDescription));
             elseif g_RewardExceptions[sSubType] == "unit" then
                 local iNum:number  = tonumber(GetModifierParam(sModifierID, "Amount"));
                 local sType:string = GetModifierParam(sModifierID, "UnitType");
                 local infoUnit:table = GameInfo.Units[sType];
                 if infoUnit == nil then
-                    return "Warning! Cannot decode"..sSubType;
+                    returnStr = "Warning! Cannot decode"..sSubType;
                 end
-                return LL(sDescription, iNum, LL(infoUnit.Name));
+
+                returnStr = Locale.Lookup(sDescription, iNum, Locale.Lookup(infoUnit.Name));
             elseif g_RewardExceptions[sSubType] == "res" then
                 local iNum:number = tonumber(GetModifierParam(sModifierID, "Amount"));
-                return LL("LOC_GOODYHUT_STRATEGIC_RESOURCES_DESCRIPTION", iNum);
+                returnStr = Locale.Lookup("LOC_GOODYHUT_STRATEGIC_RESOURCES_DESCRIPTION", iNum);
             end
         else
             -- default decode
             local iNum:number = tonumber(GetModifierParam(sModifierID, "Amount"));
-            return LL(sDescription, iNum);
+            returnStr = Locale.Lookup(sDescription, iNum);
         end
+
+        return returnStr;
     end
+
     -- decode all rewards
     for row in GameInfo.GoodyHutSubTypes() do
         local eRewardSubType:number = DB.MakeHash(row.SubTypeGoodyHut);
         local sRewardDescription:string = DecodeRewardDescription(row.SubTypeGoodyHut, row.Description, row.ModifierID);
         sRewardDescription = string.gsub(sRewardDescription, "%[ENDCOLOR%]", "");
         sRewardDescription = string.gsub(sRewardDescription, "%[COLOR[%l%u_]+%]", "");
-        --print("DECODED", row.SubTypeGoodyHut, sRewardDescription);
+        -- print("DECODED", row.SubTypeGoodyHut, sRewardDescription);
         g_RewardDescriptions[ eRewardSubType ] = sRewardDescription;
     end
-    --dshowtable(g_RewardDescriptions); -- debug
 end
-Initialize_RewardDescriptions();
 
-local m_eRewardMeteorHash:number = DB.MakeHash("METEOR_GOODIES"); -- the only entry in GameInfo.GoodyHuts with no .Hash value
-
+-- ===========================================================================
 function OnGoodyHutReward(ePlayer:number, iUnitID:number, eRewardType:number, eRewardSubType:number)
     if not CQUI_NotificationGoodyHut then
         return;
     end
+
+    local pUnit :object = UnitManager.GetUnit(ePlayer, iUnitID);
+    if (pUnit == nil) then
+        print("Could not retrieve unit!  ePlayer:"..tostring(ePlayer).."  iUnitID:"..tostring(iUnitID));
+        return;
+    end
+
     -- eRewardType    - use .Hash on GameInfo.GoodyHuts
     -- eRewardSubType - use DB.MakeHash() on GameInfo.GoodyHutSubTypes.SubTypeGoodyHut
-    --print("OnGoodyHutReward",ePlayer,iUnitID,eRewardType,eRewardSubType);
+    -- print("OnGoodyHutReward",ePlayer,iUnitID,eRewardType,eRewardSubType);
     -- get a reward description
     local sReward:string = g_RewardDescriptions[eRewardSubType];
     if sReward == nil then
         sReward = "Warning! Unknown reward type!";
     end
-    --print("reward", sReward);
+    -- print("reward", sReward);
+
     -- compose a notification and send it
     if eRewardType == m_eRewardMeteorHash then
         NotificationManager.SendNotification(
             ePlayer,
             GameInfo.Notifications.NOTIFICATION_DISCOVER_GOODY_HUT.Hash,
-            LL("LOC_IMPROVEMENT_METEOR_GOODY_NAME"),
-            sReward);
+            Locale.Lookup("LOC_IMPROVEMENT_METEOR_GOODY_NAME"),
+            sReward,
+            pUnit:GetX(),
+            pUnit:GetY());
     else
         -- standard goody hut
         -- "LOC_NOTIFICATION_DISCOVER_GOODY_HUT_MESSAGE" <Text>Tribal Village Discovered</Text>
@@ -269,17 +280,22 @@ function OnGoodyHutReward(ePlayer:number, iUnitID:number, eRewardType:number, eR
         NotificationManager.SendNotification(
             ePlayer,
             GameInfo.Notifications.NOTIFICATION_DISCOVER_GOODY_HUT.Hash,
-            LL("LOC_NOTIFICATION_DISCOVER_GOODY_HUT_MESSAGE"),
-            LL("LOC_NOTIFICATION_DISCOVER_GOODY_HUT_SUMMARY").."[NEWLINE]"..sReward);
+            Locale.Lookup("LOC_NOTIFICATION_DISCOVER_GOODY_HUT_MESSAGE"),
+            Locale.Lookup("LOC_NOTIFICATION_DISCOVER_GOODY_HUT_SUMMARY").."[NEWLINE]"..sReward,
+            pUnit:GetX(),
+            pUnit:GetY());
     end
 end
-
 
 -- ===========================================================================
 function LateInitialize()
     BASE_CQUI_LateInitialize();
 
-    LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsInitialized );
+    Initialize_RewardDescriptions();
+    -- dshowtable(g_RewardExceptions); -- debug
+    -- dshowtable(g_RewardDescriptions); -- debug
+
+    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     
     Events.NotificationAdded.Remove(BASE_CQUI_OnNotificationAdded);
