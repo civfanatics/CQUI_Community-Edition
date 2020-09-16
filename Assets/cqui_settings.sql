@@ -64,6 +64,10 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ('CQUI_ShowImprovementsRecommendations', 0), -- Shows the advisor recommendation for the builder improvements
         ('CQUI_ShowCityDetailAdvisor', 0), -- Shows the advisor recommendation in the city detail panel
         ('CQUI_ReligionLensUnitFlagStyle', 1), -- When Religion Lens is on, update Flags of non-religious units.  Values of 0 (Solid, unmodified gae), 1 (Transparent), or 2 (Hidden) are acceptable
+        ('CQUI_NotificationGoodyHut', 1), -- Notification - goody hut reward
+        --('CQUI_NotificationTradeDeal', 1), -- Notification - trade deal expired (reserved)
+        --('CQUI_NotificationPopulation', 0), -- Notification - population growth (reserved)
+        --('CQUI_NotificationCityBorder', 0), -- Notification - city border growth (reserved)
         ('CQUI_ShowDebugPrint', 0); -- Shows print in the console
 /*
     ┌────────────────────────────────────────────────────────────────────────────────────────────┐

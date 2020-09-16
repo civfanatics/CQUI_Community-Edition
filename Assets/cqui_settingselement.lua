@@ -498,6 +498,7 @@ function Initialize()
         {Controls.UnitsTab, Controls.UnitsOptions},
         {Controls.TraderScreenTab, Controls.TraderScreenOption},
         {Controls.RecommendationsTab, Controls.RecommendationsOptions},
+        {Controls.NotificationsTab, Controls.NotificationsOptions},
         {Controls.HiddenTab, Controls.HiddenOptions}
     };
 
@@ -572,6 +573,12 @@ function Initialize()
     PopulateSlider(Controls.SmartWorkIconSizeSlider, Controls.SmartWorkIconSizeText, "CQUI_SmartWorkIconSize", WorkIconSizeConverter);
     PopulateSlider(Controls.WorkIconAlphaSlider, Controls.WorkIconAlphaText, "CQUI_WorkIconAlpha", WorkIconAlphaConverter);
     PopulateSlider(Controls.SmartWorkIconAlphaSlider, Controls.SmartWorkIconAlphaText, "CQUI_SmartWorkIconAlpha", WorkIconAlphaConverter);
+    
+    -- Notifications
+    PopulateCheckBox(Controls.NotificationGoodyHutCheckbox,   "CQUI_NotificationGoodyHut");
+    --PopulateCheckBox(Controls.NotificationTradeDealCheckbox,  "CQUI_NotificationTradeDeal");
+    --PopulateCheckBox(Controls.NotificationPopulationCheckbox, "CQUI_NotificationPopulation");
+    --PopulateCheckBox(Controls.NotificationCityBorderCheckbox, "CQUI_NotificationCityBorder");
 
     InitializeGossipCheckboxes();
     InitializeTraderScreenCheckboxes();

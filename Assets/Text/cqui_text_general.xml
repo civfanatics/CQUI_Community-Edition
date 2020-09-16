@@ -89,5 +89,16 @@
         <Text>[COLOR:Civ6Red]Improve or repair the tile to extract the resource[ENDCOLOR]</Text>
     </Row>
     
+    <!-- #177 Infixo goody hut rewards -->
+    <Row Tag="LOC_GOODYHUT_CIVIC_BOOST_DESCRIPTION" Language="en_US">
+        <Text>The [ICON_CivicBoosted] Inspiration moment for {1_Num} {1_Num: plural 1?random civic; other?random civics;}</Text>
+    </Row>
+    <Row Tag="LOC_GOODYHUT_TECH_BOOST_DESCRIPTION" Language="en_US">
+        <Text>The [ICON_TechBoosted] Eureka moment for {1_Num} {1_Num: plural 1?random technology; other?random technologies;}</Text>
+    </Row>
+    <Row Tag="LOC_GOODYHUT_STRATEGIC_RESOURCES_DESCRIPTION" Language="en_US">
+        <Text>+{1_Num} most advanced strategic resources</Text>
+    </Row>
+
   </LocalizedText>
 </GameData>
