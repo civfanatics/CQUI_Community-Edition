@@ -864,8 +864,8 @@
                 <LoadOrder>100</LoadOrder>
             </Properties>
             <Items>
-                <File>Integrations/ML/UI/MinimapPanel.lua</File>
-                <File>Integrations/ML/UI/MinimapPanel.xml</File>
+                <File>Integrations/ML/UI/minimappanel.lua</File>
+                <File>Integrations/ML/UI/minimappanel.xml</File>
                 <File>Integrations/ML/UI/Panels/ModalLensPanel.lua</File>
                 <File>Integrations/ML/UI/Panels/ModalLensPanel.xml</File>
             </Items>
@@ -1116,8 +1116,8 @@
         <File>Integrations/ML/Text/morelenses_text_pt.xml</File>
         <File>Integrations/ML/Text/morelenses_text_ru.xml</File>
         <File>Integrations/ML/Text/morelenses_text_zh.xml</File>
-        <File>Integrations/ML/UI/MinimapPanel.lua</File>
-        <File>Integrations/ML/UI/MinimapPanel.xml</File>
+        <File>Integrations/ML/UI/minimappanel.lua</File>
+        <File>Integrations/ML/UI/minimappanel.xml</File>
         <File>Integrations/ML/UI/Panels/ModalLensPanel.lua</File>
         <File>Integrations/ML/UI/Panels/ModalLensPanel.xml</File>
         <File>Integrations/ML/morelenses_colors.sql</File>
