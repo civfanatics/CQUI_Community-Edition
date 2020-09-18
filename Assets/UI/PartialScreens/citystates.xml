@@ -189,8 +189,8 @@
     <!-- ==================================================================  -->
 
     <Instance Name="CityStateRowInstance">
-        <GridButton ID="CityStateBase" Size="parent,66" Style="SubContainer4" Color="59,62,63,255">
-            <BoxButton ID="Button" Anchor="L,C" Offset="8,0" Size="40,40" Color="0,0,0,0">
+        <GridButton ID="CityStateBase" Size="parent,47" Style="SubContainer4" Color="59,62,63,255">
+            <BoxButton ID="Button" Anchor="L,T" Offset="8,0" Size="40,40" Color="0,0,0,0">
                 <Image ID="Icon" Anchor="L,C" Size="36,36" Texture="CivSymbols36" />
                 <Image ID="DiplomacyPip" Anchor="L,B" Offset="-10,-6" Size="23,23" Texture="Diplomacy_RelationshipPips" />
                 <Label ID="QuestIcon" Anchor="L,T" Offset="-9,3" String="[ICON_CityStateQuest]" Size="28,28"/>
