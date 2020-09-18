@@ -184,5 +184,23 @@
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="ko_KR">
       <Text>도시 국가와의 전쟁 때, 그 도시 국가의 도시 배너에 전쟁 아이콘을 표시</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="ko_KR">
+    <Text>쇼 수제레인 특사 라벨</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON_TOOLTIP" Language="ko_KR">
+        <Text>시티스테이트 배너에서 수제레인 특사 라벨 표시[NEWLINE]당신이 수즈레인 때, 아이콘의 오른쪽 상단에 있는 숫자는 보낸 특사를 보여줍니다.[NEWLINE]수제레인이 아니라면, 당신의 특사는 왼쪽 상단에 표시, 오른쪽 상단에 수제레인 특사.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_CIV_ICON" Language="ko_KR">
+        <Text>문명 아이콘 표시</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_DISABLED" Language="ko_KR">
+        <Text>수즈레인을 표시하지 마십시오</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="ko_KR">
+        <Text>시티스테이트 배너에서 수제레인의 문명 또는 지도자 아이콘 을 보여</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="ko_KR">
+        <Text>리더 아이콘 표시</Text>
+    </Row>
   </LocalizedText>
 </GameData>

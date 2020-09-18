@@ -238,5 +238,23 @@
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="pt_BR">
       <Text>Quando estiver em guerra com um Estado da cidade, mostre o Ícone da Guerra na bandeira da cidade daquele estado da cidade</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="pt_BR">
+    <Text>Mostrar rótulos de enviado suzerain</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON_TOOLTIP" Language="pt_BR">
+        <Text>Mostrar rótulos de enviado suzerain em CityState Banner[NEWLINE]Quando você é Suzerain, o número à direita superior do ícone mostra enviados por emissários enviados.[NEWLINE]Quando você não é Suzerain, seus enviados mostram no canto superior esquerdo, enviados Suzerain no canto superior direito.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_CIV_ICON" Language="pt_BR">
+        <Text>Ícone da civilização</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_DISABLED" Language="pt_BR">
+        <Text>Não Mostre Suzerain</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="pt_BR">
+        <Text>Mostre o ícone civilização ou líder do Suzerain na bandeira do Estado da Cidade</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="pt_BR">
+        <Text>Ícone do líder do show</Text>
+    </Row>
   </LocalizedText>
 </GameData>

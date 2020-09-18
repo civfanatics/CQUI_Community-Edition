@@ -184,5 +184,23 @@
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="pl_PL">
       <Text>Będąc w stanie wojny z państwem-miastem, pokaż ikonę wojny w sztandarze tego państwa-miasta</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="pl_PL">
+    <Text>Pokaż etykiety wysłannika Suzerain</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON_TOOLTIP" Language="pl_PL">
+        <Text>Pokaż etykiety wysłannika Suzeraina w Banner CityState[NEWLINE]Gdy jesteś Suzerain, numer w prawym górnym rogu ikony pokazuje wysłanych wysłanników.[NEWLINE]Kiedy nie jesteś Suzerain, twoi wysłannicy pokazują w lewym górnym rogu, wysłannicy Suzerain w prawym górnym rogu.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_CIV_ICON" Language="pl_PL">
+        <Text>Pokaż ikonę cywilizacji</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_DISABLED" Language="pl_PL">
+        <Text>Nie pokazuj Suzerain</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="pl_PL">
+        <Text>Pokaż ikonę cywilizacji lub lidera Suzerain w Sztandarze CityState</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="pl_PL">
+        <Text>Pokaż ikonę lidera</Text>
+    </Row>
   </LocalizedText>
 </GameData>

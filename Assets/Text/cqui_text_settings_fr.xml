@@ -178,5 +178,23 @@
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="fr_FR">
       <Text>En guerre contre un État de la ville, montrez l’icône de guerre dans la bannière de la ville de cet État de la ville</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="fr_FR">
+    <Text>Afficher les étiquettes Suzerain Envoy</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON_TOOLTIP" Language="fr_FR">
+        <Text>Afficher les étiquettes d’envoyé Suzerain dans CityState Banner[NEWLINE]Lorsque vous êtes Suzerain, le numéro en haut à droite de l’icône montre envoyés envoyés.[NEWLINE]Quand vous n’êtes pas Suzerain, vos envoyés montrent en haut à gauche, les envoyés Suzerain en haut à droite.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_CIV_ICON" Language="fr_FR">
+        <Text>Afficher l’icône civilisation</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_DISABLED" Language="fr_FR">
+        <Text>Ne pas montrer Suzerain</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="fr_FR">
+        <Text>Afficher l’icône Civilisation ou Leader du Suzerain dans la bannière CityState</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="fr_FR">
+        <Text>Afficher l’icône leader</Text>
+    </Row>
   </LocalizedText>
 </GameData>

@@ -250,5 +250,23 @@
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="ja_JP">
       <Text>都市国家との戦争時には、その都市国家の都市旗に戦争アイコンを表示します</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="ja_JP">
+    <Text>スゼレイン特使ラベルを表示</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON_TOOLTIP" Language="ja_JP">
+        <Text>都市国家旗にスゼレイン特使ラベルを表示[NEWLINE]あなたがSuzerainの場合、アイコンの右上の番号は、送信された使節を示しています。[NEWLINE]あなたがスゼレインでないとき、あなたの使節は左上に、スゼレイン特使は右上に表示されます。</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_CIV_ICON" Language="ja_JP">
+        <Text>文明アイコンを表示</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_DISABLED" Language="ja_JP">
+        <Text>スゼレインを見せない</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="ja_JP">
+        <Text>都市国家旗の中にスゼレインの文明または指導者のアイコンを表示する</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="ja_JP">
+        <Text>リーダー アイコンを表示</Text>
+    </Row>
   </LocalizedText>
 </GameData>
