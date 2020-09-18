@@ -11,9 +11,10 @@ local m_tabs;
 local _KeyBindingActions = InstanceManager:new("KeyBindingAction", "Root", Controls.KeyBindingsStack);
 
 local suzerain_icon_options = {
-    {"LOC_CQUI_SUZ_CIV_ICON",    0},
-    {"LOC_CQUI_SUZ_LEADER_ICON", 1}
-};
+    {"LOC_CQUI_SHOW_SUZERAIN_DISABLED",    0},
+    {"LOC_CQUI_SHOW_SUZERAIN_CIV_ICON",    1},
+    {"LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON", 2}
+};```
 
 local resource_icon_style_options = {
     {"LOC_CQUI_GENERAL_SOLID"      , 0},
