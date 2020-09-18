@@ -45,8 +45,6 @@
                             <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
                                 <GridButton ID="ToggleYieldsOnLoadCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_GENERAL_TOGGLEYIELDSONLOAD" />
                             </Stack>
-                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
-                                <GridButton ID="ShowWarIconInCityStateBanner" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" />
                             </Stack>
                         </Stack>
                     </Container>
