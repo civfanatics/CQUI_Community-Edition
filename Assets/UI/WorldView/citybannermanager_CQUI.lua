@@ -56,9 +56,12 @@ local CQUI_ShowCityManageAreaOnCityHover = true;
 local CQUI_CityManageAreaShown           = false;
 local CQUI_CityManageAreaShouldShow      = false;
 local CQUI_ShowSuzerainInCityStateBanner = true;
-local CQUI_LeaderIconOrCivIconInCityStateBanner = false;
+local CQUI_SHOW_SUZERAIN_DISABLED             = 0;
+local CQUI_SHOW_SUZERAIN_CIV_ICON             = 1;
+local CQUI_SHOW_SUZERAIN_LEADER_ICON          = 2;
+local CQUI_ShowSuzerainInCityStateBanner      = CQUI_SHOW_SUZERAIN_CIV_ICON;
 local CQUI_ShowSuzerainLabelInCityStateBanner = true;
-local CQUI_ShowWarIconInCityStateBanner = true;
+local CQUI_ShowWarIconInCityStateBanner       = true;
 
 local CQUI_SmartBanner                    = true;
 local CQUI_SmartBanner_Unmanaged_Citizen  = false;
