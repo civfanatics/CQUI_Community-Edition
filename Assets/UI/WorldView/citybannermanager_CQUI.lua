@@ -77,11 +77,10 @@ local CQUI_CitizenManagement   = UILens.CreateLensLayerHash("Citizen_Management"
 -- ===========================================================================
 function CQUI_OnSettingsInitialized()
     -- print_debug("CityBannerManager_CQUI: CQUI_OnSettingsInitialized ENTRY")
-    CQUI_ShowYieldsOnCityHover         = GameConfiguration.GetValue("CQUI_ShowYieldsOnCityHover");
-    CQUI_ShowSuzerainInCityStateBanner = GameConfiguration.GetValue("CQUI_ShowSuzerainInCityStateBanner");
-	CQUI_LeaderIconOrCivIconInCityStateBanner = (GameConfiguration.GetValue("CQUI_LeaderIconOrCivIconInCityStateBanner") ~= 0);
-	CQUI_ShowSuzerainLabelInCityStateBanner = GameConfiguration.GetValue("CQUI_ShowSuzerainLabelInCityStateBanner");
-    CQUI_ShowWarIconInCityStateBanner  = GameConfiguration.GetValue("CQUI_ShowWarIconInCityStateBanner");
+    CQUI_ShowYieldsOnCityHover              = GameConfiguration.GetValue("CQUI_ShowYieldsOnCityHover");
+    CQUI_ShowSuzerainInCityStateBanner      = GameConfiguration.GetValue("CQUI_ShowSuzerainInCityStateBanner");
+    CQUI_ShowSuzerainLabelInCityStateBanner = GameConfiguration.GetValue("CQUI_ShowSuzerainLabelInCityStateBanner");
+    CQUI_ShowWarIconInCityStateBanner       = GameConfiguration.GetValue("CQUI_ShowWarIconInCityStateBanner");```
 
     CQUI_SmartBanner            = GameConfiguration.GetValue("CQUI_Smartbanner");
     CQUI_SmartBanner_Districts  = CQUI_SmartBanner and GameConfiguration.GetValue("CQUI_Smartbanner_Districts");
