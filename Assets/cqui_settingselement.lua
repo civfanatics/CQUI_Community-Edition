@@ -604,7 +604,7 @@ function Initialize()
     );
     LuaEvents.CQUI_SettingsUpdate.Add(ToggleSmartbannerCheckboxes);
     LuaEvents.CQUI_SettingsUpdate.Add(ToggleSmartWorkIconSettings);
-	LuaEvents.CQUI_SettingsUpdate.Add(ToggleSuzerainOptionsCheckboxes);
+    LuaEvents.CQUI_SettingsUpdate.Add(ToggleSuzerainOptionsCheckboxes);
     LuaEvents.CQUI_SettingsUpdate.Add(UpdateKeyBindingsDisplay);
 
     LuaEvents.CQUI_SettingsInitialized(); --Tell other elements that the settings have been initialized and it's safe to try accessing settings now
@@ -639,4 +639,3 @@ function UpdateKeyBindingsDisplay()
 end
 
 Initialize();
-
