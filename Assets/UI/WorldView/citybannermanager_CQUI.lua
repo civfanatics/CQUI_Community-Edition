@@ -954,11 +954,6 @@ function IsCQUI_ShowSuzerainInCityStateBannerEnabled()
 end
 
 -- ===========================================================================
-function IsCQUI_LeaderIconOrCivIconInCityStateBannerEnabled()
-	return (IsCQUI_ShowSuzerainInCityStateBannerEnabled() and CQUI_LeaderIconOrCivIconInCityStateBanner);
-end
-
--- ===========================================================================
 function IsCQUI_ShowSuzerainLabelInCityStateBannerEnabled()
     return (IsCQUI_ShowSuzerainInCityStateBannerEnabled() and CQUI_ShowSuzerainLabelInCityStateBanner);
 end
