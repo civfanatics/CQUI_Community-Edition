@@ -184,5 +184,11 @@
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="ko_KR">
       <Text>도시 국가와의 전쟁 때, 그 도시 국가의 도시 배너에 전쟁 아이콘을 표시</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="ko_KR">
+      <Text>종교 렌즈 단위 플래그 스타일</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="ko_KR">
+      <Text>종교 렌즈가 켜지면 비종교 단위의 단위 플래그 아이콘스타일[NEWLINE]솔리드: 단위 플래그가 변경되지 않음 으로 표시됩니다.[NEWLINE]투명: 단위 플래그가 투명해집니다.[NEWLINE]숨겨진: 단위 플래그가 숨겨져 있습니다.</Text>
+    </Row>
   </LocalizedText>
 </GameData>

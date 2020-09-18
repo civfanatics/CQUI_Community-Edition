@@ -178,5 +178,11 @@
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="fr_FR">
       <Text>En guerre contre un État de la ville, montrez l’icône de guerre dans la bannière de la ville de cet État de la ville</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="fr_FR">
+      <Text>Religion Lens Unit Flag Style</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="fr_FR">
+      <Text>Le style pour les icônes de drapeau d’unité des unités non-religieuses lorsque l’objectif de religion est sur[NEWLINE]Solide : les indicateurs d’unité restent visibles, inchangés[NEWLINE]Transparent : les indicateurs d’unité deviennent transparents[NEWLINE]Masqué : les indicateurs d’unité sont masqués</Text>
+    </Row>
   </LocalizedText>
 </GameData>
