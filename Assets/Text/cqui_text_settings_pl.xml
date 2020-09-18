@@ -184,5 +184,11 @@
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="pl_PL">
       <Text>Będąc w stanie wojny z państwem-miastem, pokaż ikonę wojny w sztandarze tego państwa-miasta</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="pl_PL">
+      <Text>Styl flagi jednostki obiektywu religii</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="pl_PL">
+      <Text>Styl ikon flagi jednostki jednostek niereligijnych, gdy obiektyw religii jest włączony[NEWLINE]Bryła: Flagi jednostki pozostają widoczne, niezmienione[NEWLINE]Przezroczysty: Flagi jednostek stają się przezroczyste[NEWLINE]Ukryte: Flagi jednostek są ukryte</Text>
+    </Row>
   </LocalizedText>
 </GameData>

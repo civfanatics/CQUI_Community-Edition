@@ -238,5 +238,11 @@
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="pt_BR">
       <Text>Quando estiver em guerra com um Estado da cidade, mostre o Ícone da Guerra na bandeira da cidade daquele estado da cidade</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="pt_BR">
+      <Text>Estilo de bandeira da unidade de lente de religião</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="pt_BR">
+      <Text>O estilo para ícones de bandeira de unidades não-religiosas quando a Lente de Religião está em[NEWLINE]Sólido: As bandeiras da unidade permanecem visíveis, inalteradas[NEWLINE]Transparente: Bandeiras unitárias tornam-se transparentes[NEWLINE]Escondido: As bandeiras da unidade estão escondidas</Text>
+    </Row>
   </LocalizedText>
 </GameData>
