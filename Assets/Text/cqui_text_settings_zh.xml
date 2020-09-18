@@ -201,6 +201,11 @@
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="zh_Hans">
         <Text>显示领导者图标</Text>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="zh_Hans">
+      <Text>宗教镜头单位标志样式</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="zh_Hans">
+      <Text>宗教镜头打开时非宗教单位的单位标志图标的样式[NEWLINE]实心：单位标志保持可见，保持不变[NEWLINE]透明：单位标志变为透明[NEWLINE]隐藏：单位标志已隐藏</Text>
     </Row>
   </LocalizedText>
 </GameData>

@@ -255,6 +255,11 @@
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="pt_BR">
         <Text>Ícone do líder do show</Text>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="pt_BR">
+      <Text>Estilo de bandeira da unidade de lente de religião</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="pt_BR">
+      <Text>O estilo para ícones de bandeira de unidades não-religiosas quando a Lente de Religião está em[NEWLINE]Sólido: As bandeiras da unidade permanecem visíveis, inalteradas[NEWLINE]Transparente: Bandeiras unitárias tornam-se transparentes[NEWLINE]Escondido: As bandeiras da unidade estão escondidas</Text>
     </Row>
   </LocalizedText>
 </GameData>

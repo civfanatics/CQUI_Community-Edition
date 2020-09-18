@@ -201,6 +201,11 @@
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="ru_RU">
         <Text>Показать значок лидера</Text>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="ru_RU">
+      <Text>Религия объектив Блок Флаг Стиль</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="ru_RU">
+      <Text>Стиль для икон флага единицы не-религиозных единиц, когда религия объектив находится на[NEWLINE]Твердые: Флаги единиц остаются видимыми, неизменными[NEWLINE]Прозрачный: Флаги единиц становятся прозрачными[NEWLINE]Скрытые: Флаги подразделений скрыты</Text>
     </Row>
   </LocalizedText>
 </GameData>

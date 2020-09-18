@@ -267,6 +267,11 @@
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="ja_JP">
         <Text>リーダー アイコンを表示</Text>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="ja_JP">
+      <Text>宗教レンズユニット旗スタイル</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="ja_JP">
+      <Text>宗教レンズがオンのときの非宗教的単位のユニットフラグアイコンのスタイル[NEWLINE]ソリッド: ユニット フラグは表示されたまま、変更されない[NEWLINE]透明: 単位フラグが透明になる[NEWLINE]非表示: ユニットフラグは非表示です</Text>
     </Row>
   </LocalizedText>
 </GameData>

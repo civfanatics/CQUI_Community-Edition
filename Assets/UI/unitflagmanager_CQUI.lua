@@ -12,6 +12,15 @@ BASE_CQUI_OnUnitSelectionChanged = OnUnitSelectionChanged;
 BASE_CQUI_OnPlayerTurnActivated = OnPlayerTurnActivated;
 BASE_CQUI_OnUnitPromotionChanged = OnUnitPromotionChanged;
 BASE_CQUI_UpdateFlagType = UnitFlag.UpdateFlagType;
+BASE_CQUI_OnLensLayerOn = OnLensLayerOn;
+BASE_CQUI_OnLensLayerOff = OnLensLayerOff;
+BASE_CQUI_ShouldHideFlag = ShouldHideFlag;
+BASE_CQUI_UpdateIconStack = UpdateIconStack;
+BASE_CQUI_Refresh = Refresh;
+
+local m_HexColoringReligion:number = UILens.CreateLensLayerHash("Hex_Coloring_Religion");
+local m_IsReligionLensOn:boolean = false;
+local m_CQUIInitiatedRefresh = false;
 
 -- ===========================================================================
 -- CQUI Members
@@ -20,6 +29,11 @@ local CQUI_ShowingPath = nil; --unitID for the unit whose path is currently bein
 local CQUI_SelectionMade = false;
 local CQUI_ShowPaths = true; --Toggle for showing the paths
 local CQUI_IsFlagHover = false; -- if the path is the flag us currently hover or not
+
+local CQUI_RELIGIONLENS_UNITFLAGSTYLE_SOLID       = 0;
+local CQUI_RELIGIONLENS_UNITFLAGSTYLE_TRANSPARENT = 1;
+local CQUI_RELIGIONLENS_UNITFLAGSTYLE_HIDDEN      = 2;
+local CQUI_ReligionLensUnitFlagStyle = CQUI_RELIGIONLENS_UNITFLAGSTYLE_TRANSPARENT; -- Update flag of non-religious units when the Religion Lens is enabled
 
 -- ===========================================================================
 --Hides any currently drawn paths.
@@ -34,6 +48,15 @@ end
 function CQUI_OnSettingsUpdate()
     CQUI_HidePath();
     CQUI_ShowPaths = GameConfiguration.GetValue("CQUI_ShowUnitPaths");
+
+    -- If the lens is showing, we'll need to do an update to re-show the units
+    local curHideUnitsValue = CQUI_ReligionLensUnitFlagStyle;
+    CQUI_ReligionLensUnitFlagStyle = GameConfiguration.GetValue("CQUI_ReligionLensUnitFlagStyle");
+    --print("********* m_IsReligionLensOn: "..tostring(m_IsReligionLensOn).." curHideUnitsValue:"..tostring(curHideUnitsValue).." CQUI_ReligionLensUnitFlagStyle:"..tostring(CQUI_ReligionLensUnitFlagStyle))
+    if (m_IsReligionLensOn and curHideUnitsValue ~= CQUI_ReligionLensUnitFlagStyle) then
+        -- Call the Refresh, which will update the unit flags based on the setting that changed
+        CQUI_RefreshForReligionLensUpdate();
+    end
 end
 
 -- ===========================================================================
@@ -54,7 +77,27 @@ function CQUI_Refresh()
 end
 
 -- ===========================================================================
+function CQUI_IsReligiousUnit(playerID:number, unitID:number)
+    local retVal = false;
+    local pPlayer = Players[playerID];
+    if pPlayer ~= nil then
+        local pUnit = pPlayer:GetUnits():FindID(unitID);
+        if pUnit ~= nil and pUnit:GetReligiousStrength() > 0 then
+            retVal = true;
+        end
+    end
+
+    return retVal;
+end
+
+-- ===========================================================================
 function CQUI_OnUnitFlagPointerEntered(playerID:number, unitID:number)
+    if m_IsReligionLensOn and not CQUI_IsReligiousUnit(playerID, unitID) then
+        -- If the lens was enabled from the Lenses Menu, it is possible to show the queued path on mouseover
+        -- If we are here, then the religion lens is on, but player is hovering on a non-religious unit
+        return;
+    end
+
     if CQUI_ShowPaths and not CQUI_IsFlagHover then
         if not CQUI_SelectionMade then
             LuaEvents.CQUI_showUnitPath(true, unitID);
@@ -66,7 +109,11 @@ end
 
 -- ===========================================================================
 function CQUI_OnUnitFlagPointerExited(playerID:number, unitID:number)
-    if CQUI_ShowPaths and CQUI_IsFlagHover then
+    if m_IsReligionLensOn and not CQUI_IsReligiousUnit(playerID, unitID) then
+        return;
+    end
+
+    if CQUI_ShowPaths and CQUI_IsFlagHover and not m_IsReligionLensOn then
         if not CQUI_SelectionMade then
             LuaEvents.CQUI_clearUnitPath();
         end
@@ -156,6 +203,7 @@ for promoType,promoData in pairs(tReligionPromosMap) do
     promoData.Name = Locale.Lookup( GameInfo.UnitPromotions[ promoType ].Name );
 end
 
+-- ===========================================================================
 function GetReligionPromotions(pUnit:table)
     local sPromos:string, sTT:string = "", "";
     for _,promoID in ipairs(pUnit:GetExperience():GetPromotions()) do
@@ -169,7 +217,7 @@ function GetReligionPromotions(pUnit:table)
     return sPromos, sTT;
 end
 
-
+-- ===========================================================================
 function UnitFlag.UpdatePromotions( self )
     self.m_Instance.Promotion_Flag:SetHide(true);
     local pUnit : table = self:GetUnit();
@@ -339,6 +387,112 @@ function OnUnitPromotionChanged( playerID : number, unitID : number )
                 --flag:UpdateStats();
                 -- AZURENCY : request a refresh on the next frame (to update the promotion flag and remove + sign)
                 ContextPtr:RequestRefresh()
+            end
+        end
+    end
+end
+
+-- ===========================================================================
+--  CQUI modified OnLensLayerOn function
+--  If Religion Lens is enabled, call Refresh so non-religious units can be dimmed
+-- ===========================================================================
+function OnLensLayerOn( layerNum:number )
+    BASE_CQUI_OnLensLayerOn(layerNum);
+
+    if (layerNum == m_HexColoringReligion) then
+        m_IsReligionLensOn = true;
+        -- Call Refresh, which will cycle through all of the units visible to the current player
+        -- OnUnitVisibilityChanged will be called for every unit the player can see, where the
+        -- icon can be dimmed due to the religion lens being selected.
+        CQUI_RefreshForReligionLensUpdate();
+    end
+end
+
+-- ===========================================================================
+--  CQUI modified OnLensLayerOff function
+--  If Religion Lens is disabled, call Refresh so non-religious units can be restored
+-- ===========================================================================
+function OnLensLayerOff( layerNum:number )
+    BASE_CQUI_OnLensLayerOff(layerNum);
+
+    if (layerNum == m_HexColoringReligion) then
+        m_IsReligionLensOn = false;
+        -- See note in OnLensLayerOn as for why we call refresh here
+        CQUI_RefreshForReligionLensUpdate();
+    end
+end
+
+-- ===========================================================================
+--  CQUI modified ShouldHideFlag function
+--  If Religion Lens is enabled and the unit is NOT a Religous unit and Style is hidden, then hide the other unit flags
+-- ===========================================================================
+function ShouldHideFlag(pUnit:table)
+    local retVal = BASE_CQUI_ShouldHideFlag(pUnit);
+
+    if (m_IsReligionLensOn
+       and pUnit:GetReligiousStrength() <= 0
+       and CQUI_ReligionLensUnitFlagStyle == CQUI_RELIGIONLENS_UNITFLAGSTYLE_HIDDEN) then
+        retVal = true;
+    end
+
+    return retVal;
+end
+
+-- ===========================================================================
+function CQUI_RefreshForReligionLensUpdate()
+    -- Track that this refresh was initiated by CQUI, so the work of dimming or hiding the icons can be done
+    m_CQUIInitiatedRefresh = true;
+    Refresh();
+end
+
+-- ===========================================================================
+-- CQUI modified Refresh function
+-- Whenever Refresh is completed, mark m_CQUIInitiatedRefresh as false 
+-- ===========================================================================
+function Refresh()
+    BASE_CQUI_Refresh();
+    m_CQUIInitiatedRefresh = false;
+end
+
+-- ===========================================================================
+-- CQUI modified UpdateIconStack
+-- When a Refresh() has been initiated by CQUI, cycle through the visible units and update their transparency based on CQUI_ReligionLensUnitFlagStyle setting
+-- ===========================================================================
+function UpdateIconStack( plotX:number, plotY:number )
+    BASE_CQUI_UpdateIconStack(plotX, plotY);
+
+    if m_CQUIInitiatedRefresh == false then
+        -- Don't do the extra work if CQUI didn't initiate the refresh
+        return;
+    end
+
+    local applyDimming = false;
+    if (m_IsReligionLensOn and (CQUI_ReligionLensUnitFlagStyle == CQUI_RELIGIONLENS_UNITFLAGSTYLE_TRANSPARENT)) then
+        applyDimming = true;
+    end
+
+    local unitList:table = Units.GetUnitsInPlotLayerID( plotX, plotY, MapLayers.ANY );
+    if (unitList ~= nil) then
+        for _, pUnit in ipairs(unitList) do
+            -- Cache commonly used values (optimization)
+            local unitID:number = pUnit:GetID();
+            local unitOwner:number = pUnit:GetOwner();
+            local flag = GetUnitFlag( unitOwner, unitID );
+            if (flag ~= nil and flag.m_eVisibility == RevealedState.VISIBLE and flag.m_Style ~= FLAGSTYLE_RELIGION) then
+                -- print("**** unitID: "..tostring(unitID).."  CQUI_ReligionLensUnitFlagStyle:"..tostring(CQUI_ReligionLensUnitFlagStyle).."  applyDimming:"..tostring(applyDimming).." m_IsDimmed:"..tostring(flag.m_IsDimmed).." m_OverrideDimmed:"..tostring(flag.m_OverrideDimmed));
+                if (applyDimming) then
+                    flag.m_Instance.FlagRoot:SetToEnd();
+                    flag.m_Instance.FlagRoot:SetAlpha(ALPHA_DIM / 2); -- 1/2 of the "normal" dim
+                    flag.m_Instance.HealthBar:SetAlpha(ALPHA_DIM / 2);
+                elseif (flag.m_IsDimmed and not flag._OverrideDimmed) then
+                    -- When Religion lens is off, we need to reapply the usual dimming level to units that should have it
+                    flag.m_Instance.FlagRoot:SetToEnd();
+                    flag.m_Instance.FlagRoot:SetAlpha(ALPHA_DIM);
+                    flag.m_Instance.HealthBar:SetAlpha(ALPHA_DIM);
+                else
+                    flag.m_Instance.FlagRoot:SetAlpha(1.0);
+                    flag.m_Instance.HealthBar:SetAlpha(1.0);
+                end
             end
         end
     end

@@ -238,8 +238,8 @@
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="de_DE">
         <Text>Wenn Sie sich im Krieg mit einem Stadtstaat befinden, zeigen Sie die Kriegsikone im Stadtbanner dieses Stadtstaates</Text>
     </Row>
-	<Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="de_DE">
-    <Text>Suzerain Envoy Labels anzeigen</Text>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="de_DE">
+        <Text>Suzerain Envoy Labels anzeigen</Text>
     </Row>
     <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON_TOOLTIP" Language="de_DE">
         <Text>Zeigen Suzerain Gesandten Etiketten in CityState Banner[NEWLINE]Wenn Sie Suzerain sind, zeigt die Zahl oben rechts des Symbols gesandte Gesandte an.[NEWLINE]Wenn Sie nicht Suzerain sind, zeigen Ihre Gesandten oben links, Suzerain Gesandte oben rechts.</Text>
@@ -255,6 +255,12 @@
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="de_DE">
         <Text>Show Leader Icon</Text>
-</Row>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="de_DE">
+      <Text>Religion Objektiv Einheit Flagge Stil</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="de_DE">
+      <Text>Der Stil für Einheitsflaggensymbole nicht-religiöser Einheiten, wenn die Religionslinse eingeschaltet ist[NEWLINE]Festkörper: Einheitenflags bleiben sichtbar, unverändert[NEWLINE]Transparent: Unit Flags werden transparent[NEWLINE]Versteckt: Einheitenflags werden ausgeblendet</Text>
+    </Row>
   </LocalizedText>
 </GameData>

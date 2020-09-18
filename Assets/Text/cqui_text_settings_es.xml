@@ -185,7 +185,7 @@
       <Text>Cuando esté en guerra con un estado de la ciudad, muestre el icono de guerra en la bandera de la ciudad de ese estado de la ciudad</Text>
     </Row>
     <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="es_ES">
-    <Text>Mostrar etiquetas de Enviado de Suzerain</Text>
+        <Text>Mostrar etiquetas de Enviado de Suzerain</Text>
     </Row>
     <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON_TOOLTIP" Language="es_ES">
         <Text>Mostrar etiquetas de enviado de Suzerain en CityState Banner[NEWLINE]Cuando usted es Suzerain, el número en la parte superior derecha del icono muestra los enviados enviados.[NEWLINE]Cuando no eres Suzerain, tus enviados se muestran en la parte superior izquierda, Suzerain se envía en la parte superior derecha.</Text>
@@ -201,6 +201,11 @@
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="es_ES">
         <Text>Mostrar icono de líder</Text>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="es_ES">
+      <Text>Estilo de la bandera de la unidad de la lente de la religión</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="es_ES">
+      <Text>El estilo para los iconos de bandera de unidad de unidades no religiosas cuando la lente de religión está en[NEWLINE]Sólido: Las banderas de la unidad permanecen visibles, sin cambios[NEWLINE]Transparente: Las banderas de unidad se vuelven transparentes[NEWLINE]Oculto: las banderas de la unidad están ocultas</Text>
     </Row>
   </LocalizedText>
 </GameData>
