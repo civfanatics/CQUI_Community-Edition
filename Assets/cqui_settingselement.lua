@@ -616,10 +616,9 @@ function ToggleSmartbannerCheckboxes()
     Controls.CityViewStack:ReprocessAnchoring();
 end
 
--- ===========================================================================
-
+-- -- ===========================================================================
 function ToggleSuzerainOptionsCheckboxes()
-    local selected = Controls.ShowSuzerainInCityStateBanner:IsSelected();
+    local selected = (GameConfiguration.GetValue("CQUI_ShowSuzerainInCityStateBanner") ~= 0);  -- 0 is Do Not Show
     Controls.CityStateSuzerainOptions:SetHide(not selected);
     Controls.CityViewStack:ReprocessAnchoring();
 end
