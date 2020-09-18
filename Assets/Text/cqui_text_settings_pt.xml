@@ -255,6 +255,7 @@
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="pt_BR">
         <Text>Ícone do líder do show</Text>
+    </Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="pt_BR">
       <Text>Estilo de bandeira da unidade de lente de religião</Text>
     </Row>

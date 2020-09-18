@@ -201,6 +201,7 @@
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="zh_Hans">
         <Text>显示领导者图标</Text>
+	</Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="zh_Hans">
       <Text>宗教镜头单位标志样式</Text>
     </Row>

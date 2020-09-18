@@ -195,6 +195,7 @@
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="fr_FR">
         <Text>Afficher l’icône leader</Text>
+    </Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="fr_FR">
       <Text>Religion Lens Unit Flag Style</Text>
     </Row>

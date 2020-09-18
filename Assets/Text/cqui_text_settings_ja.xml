@@ -267,6 +267,7 @@
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="ja_JP">
         <Text>リーダー アイコンを表示</Text>
+    </Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="ja_JP">
       <Text>宗教レンズユニット旗スタイル</Text>
     </Row>

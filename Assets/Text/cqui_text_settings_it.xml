@@ -267,6 +267,7 @@
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="it_IT">
         <Text>Mostra icona direttrice</Text>
+    </Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="it_IT">
       <Text>Religione Lens Unità Bandiera Stile</Text>
     </Row>

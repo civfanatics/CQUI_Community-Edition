@@ -201,6 +201,7 @@
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="es_ES">
         <Text>Mostrar icono de líder</Text>
+    </Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="es_ES">
       <Text>Estilo de la bandera de la unidad de la lente de la religión</Text>
     </Row>

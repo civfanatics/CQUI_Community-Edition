@@ -296,6 +296,7 @@
     </Row>
     <Row Tag="LOC_CQUI_NUKE" Language="en_US">
       <Text>WMD Strike: Nuclear Device</Text>
+    </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_DISABLED" Language="en_US">
       <Text>Do Not Show Suzerain</Text>
     </Row>

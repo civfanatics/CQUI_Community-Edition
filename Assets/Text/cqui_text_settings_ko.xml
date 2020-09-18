@@ -201,6 +201,7 @@
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="ko_KR">
         <Text>리더 아이콘 표시</Text>
+    </Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="ko_KR">
       <Text>종교 렌즈 단위 플래그 스타일</Text>
     </Row>
