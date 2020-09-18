@@ -82,7 +82,8 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
 INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
     VALUES  ("CQUI_BindingsMode", 1), -- Set of keybindings used │ 0=Civ6 default │ 1=keybinds from Civ5 |
         ("CQUI_ResourceDimmingStyle", 1), -- Affects the way resource icons look when they have been improved  | 0=No Change | 1=Transparent | 2=Hidden |
-        ("CQUI_LeaderIconOrCivIconInCityStateBanner", 0); -- Whether to show civ icon or leader icon as suzerain in city state banner  | 0=Civ Icon | 1=Leader Icon
+        ('CQUI_ShowSuzerainInCityStateBanner', 1); -- Show the Icon of the Suzerain Civilization in the CityState Banner | 0 = No Suzerain | 1 = Civ Icon | 2 = Leader Icon
+
 
 /*
     ┌────────────────────────────────────────────────────────────────────────────────────────────┐
