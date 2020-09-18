@@ -537,7 +537,7 @@ function Initialize()
     PopulateComboBox(Controls.TechRecommendationsPullDown, boolean_options, "CQUI_ShowTechCivicRecommendations");
     PopulateComboBox(Controls.ImprovementsRecommendationsPullDown, boolean_options, "CQUI_ShowImprovementsRecommendations");
     PopulateComboBox(Controls.CityDetailAdvisorPullDown, boolean_options, "CQUI_ShowCityDetailAdvisor");
-
+    PopulateComboBox(Controls.ShowSuzerainInCityStateBanner, suzerain_icon_options, "CQUI_ShowSuzerainInCityStateBanner",  Locale.Lookup("LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP"));
 
     --Populating/binding checkboxes...
     PopulateCheckBox(Controls.ProductionQueueCheckbox, "CQUI_ProductionQueue");
