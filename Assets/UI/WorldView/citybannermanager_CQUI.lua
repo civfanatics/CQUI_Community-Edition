@@ -80,7 +80,7 @@ function CQUI_OnSettingsInitialized()
     CQUI_ShowYieldsOnCityHover              = GameConfiguration.GetValue("CQUI_ShowYieldsOnCityHover");
     CQUI_ShowSuzerainInCityStateBanner      = GameConfiguration.GetValue("CQUI_ShowSuzerainInCityStateBanner");
     CQUI_ShowSuzerainLabelInCityStateBanner = GameConfiguration.GetValue("CQUI_ShowSuzerainLabelInCityStateBanner");
-    CQUI_ShowWarIconInCityStateBanner       = GameConfiguration.GetValue("CQUI_ShowWarIconInCityStateBanner");```
+    CQUI_ShowWarIconInCityStateBanner       = GameConfiguration.GetValue("CQUI_ShowWarIconInCityStateBanner");
 
     CQUI_SmartBanner            = GameConfiguration.GetValue("CQUI_Smartbanner");
     CQUI_SmartBanner_Districts  = CQUI_SmartBanner and GameConfiguration.GetValue("CQUI_Smartbanner_Districts");
