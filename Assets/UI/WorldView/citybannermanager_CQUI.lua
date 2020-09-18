@@ -848,6 +848,7 @@ function CQUI_OnInfluenceGiven()
 end
 
 -- ===========================================================================
+-- ===========================================================================
 function CQUI_UpdateCityStateBannerSuzerain( pPlayer:table, bannerInstance )
     -- print_debug("CityBannerManager_CQUI: CQUI_UpdateCityStateBannerSuzerain ENTRY  pPlayer:"..tostring(pPlayer).."  bannerInstance:"..tostring(bannerInstance));
     if (bannerInstance == nil) then
@@ -855,59 +856,55 @@ function CQUI_UpdateCityStateBannerSuzerain( pPlayer:table, bannerInstance )
     end
 
     local pPlayerInfluence :table  = pPlayer:GetInfluence();
-    local localPlayerID = Game.GetLocalPlayer();
-	local pLocalPlayerDiplomacy :table = Players[localPlayerID]:GetDiplomacy();
-    local suzerainID       :number = pPlayerInfluence:GetSuzerain();
+    local suzerainID :number = pPlayerInfluence:GetSuzerain();
     if (suzerainID ~= -1 and IsCQUI_ShowSuzerainInCityStateBannerEnabled()) then
         local pPlayerConfig :table  = PlayerConfigurations[suzerainID];
-        local civType       :string = pPlayerConfig:GetCivilizationTypeName();
-        local backColor, frontColor = UI.GetPlayerColors(suzerainID);
         local suzerainTooltip = Locale.Lookup("LOC_CITY_STATES_SUZERAIN_LIST") .. " ";
-		local suzerainTokens = pPlayerInfluence:GetMostTokensReceived();
-		local localPlayerTokens = pPlayerInfluence:GetTokensReceived(localPlayerID);
+        local localPlayerID :number = Game.GetLocalPlayer();
+        local pLocalPlayerDiplomacy :table = Players[localPlayerID]:GetDiplomacy();
+        local suzerainTokens = pPlayerInfluence:GetMostTokensReceived();
+        local localPlayerTokens = pPlayerInfluence:GetTokensReceived(localPlayerID);
         if (pLocalPlayerDiplomacy:HasMet(suzerainID) or suzerainID == Game.GetLocalPlayer()) then
-			if (IsCQUI_LeaderIconOrCivIconInCityStateBannerEnabled()) then
-				bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetColor(UI.GetColorValueFromHexLiteral(0xFFFFFFFF));
-				bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetIcon("ICON_" .. pPlayerConfig:GetLeaderTypeName());
-			else
-				bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetIcon("ICON_" .. civType);
-				bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetColor(frontColor);
-			end
-            bannerInstance.m_Instance.CQUI_CivSuzerainIconBackground:SetColor(backColor);		 
+            if (CQUI_ShowSuzerainInCityStateBanner == CQUI_SHOW_SUZERAIN_LEADER_ICON) then -- We confirmed above that the icon is to be shown
+                bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetColor(UI.GetColorValueFromHexLiteral(0xFFFFFFFF));
+                bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetIcon("ICON_" .. pPlayerConfig:GetLeaderTypeName());
+            else
+                local backColor, frontColor = UI.GetPlayerColors(suzerainID);
+                bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetIcon("ICON_" ..  pPlayerConfig:GetCivilizationTypeName());
+                bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetColor(frontColor);
+                bannerInstance.m_Instance.CQUI_CivSuzerainIconBackground:SetColor(backColor);
+            end
+
             if (suzerainID == Game.GetLocalPlayer()) then
                 bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup("LOC_CITY_STATES_YOU"));
-                bannerInstance.m_Instance.CQUI_LocalPlayerEnvoys:SetHide(true);
             else
                 bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup(pPlayerConfig:GetPlayerName()));
-                if (IsCQUI_ShowSuzerainLabelInCityStateBannerEnabled()) then
-                    bannerInstance.m_Instance.CQUI_LocalPlayerEnvoys:SetText("[COLOR_RED]" .. localPlayerTokens .. "[ENDCOLOR]"); 
-                else
-                    bannerInstance.m_Instance.CQUI_LocalPlayerEnvoys:SetHide(true);
-				end
             end
         else
             bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetIcon("ICON_LEADER_DEFAULT");
             bannerInstance.m_Instance.CQUI_CivSuzerainIcon:SetToolTipString(suzerainTooltip .. Locale.Lookup("LOC_DIPLOPANEL_UNMET_PLAYER"));
-            if (IsCQUI_ShowSuzerainLabelInCityStateBannerEnabled()) then
-                bannerInstance.m_Instance.CQUI_LocalPlayerEnvoys:SetText("[COLOR_RED]" .. localPlayerTokens .. "[ENDCOLOR]");
-            else
-                bannerInstance.m_Instance.CQUI_LocalPlayerEnvoys:SetHide(true);
-			end
         end
+
         if (IsCQUI_ShowSuzerainLabelInCityStateBannerEnabled()) then
-			bannerInstance.m_Instance.CQUI_LocalPlayerEnvoys:SetHide(false);
-			bannerInstance.m_Instance.CQUI_SuzerainEnvoys:SetHide(false);
+            bannerInstance.m_Instance.CQUI_SuzerainEnvoys:SetHide(false);
             bannerInstance.m_Instance.CQUI_SuzerainEnvoys:SetText(suzerainTokens);
+            if (suzerainID == Game.GetLocalPlayer()) then
+                bannerInstance.m_Instance.CQUI_LocalPlayerEnvoys:SetHide(true);
+            else
+                bannerInstance.m_Instance.CQUI_LocalPlayerEnvoys:SetText("[COLOR_RED]" .. localPlayerTokens .. "[ENDCOLOR]"); 
+                bannerInstance.m_Instance.CQUI_LocalPlayerEnvoys:SetHide(false);
+            end
         else
+            bannerInstance.m_Instance.CQUI_LocalPlayerEnvoys:SetHide(true);
             bannerInstance.m_Instance.CQUI_SuzerainEnvoys:SetHide(true);
-		end
+        end
+
         bannerInstance.m_Instance.CQUI_CivSuzerain:SetHide(false);
         bannerInstance:Resize();
     else
         bannerInstance.m_Instance.CQUI_CivSuzerain:SetHide(true);
     end
 end
-
 
 -- ===========================================================================
 -- Utility Functions for use by the Basegame and Expansions CityBannerManager files
@@ -953,17 +950,20 @@ end
 
 -- ===========================================================================
 function IsCQUI_ShowSuzerainInCityStateBannerEnabled()
-    return (CQUI_SmartBanner and CQUI_ShowSuzerainInCityStateBanner);
+    return (CQUI_SmartBanner and (CQUI_ShowSuzerainInCityStateBanner ~= CQUI_SHOW_SUZERAIN_DISABLED));
 end
 
+-- ===========================================================================
 function IsCQUI_LeaderIconOrCivIconInCityStateBannerEnabled()
 	return (IsCQUI_ShowSuzerainInCityStateBannerEnabled() and CQUI_LeaderIconOrCivIconInCityStateBanner);
 end
 
+-- ===========================================================================
 function IsCQUI_ShowSuzerainLabelInCityStateBannerEnabled()
     return (IsCQUI_ShowSuzerainInCityStateBannerEnabled() and CQUI_ShowSuzerainLabelInCityStateBanner);
 end
 
+-- ===========================================================================
 function IsCQUI_ShowWarIconInCityStateBannerEnabled()
     return (CQUI_SmartBanner and CQUI_ShowWarIconInCityStateBanner);
 end

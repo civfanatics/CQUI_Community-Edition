@@ -59,7 +59,6 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ('CQUI_TraderShowSortOrder', 0), -- Adds a divider between groups in TradeOverview panel
         ('CQUI_ShowProductionRecommendations', 0), -- Shows the advisor recommendation in the city produciton panel
         ('CQUI_ShowTechCivicRecommendations', 1), -- Shows the advisor recommendation in the techs/civics tree/panel
-        ('CQUI_ShowSuzerainInCityStateBanner', 1), -- Show the Icon of the Suzerain Civilization in the CityState Banner
         ('CQUI_ShowSuzerainLabelInCityStateBanner', 1), -- Show the Icon of the Suzerain Civilization in the CityState Banner
         ('CQUI_ShowWarIconInCityStateBanner', 1), -- When at war with a City State, show the War Icon in the banner of that City State
         ('CQUI_ShowImprovementsRecommendations', 0), -- Shows the advisor recommendation for the builder improvements
