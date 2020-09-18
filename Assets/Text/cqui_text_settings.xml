@@ -306,5 +306,8 @@
     <Row Tag="LOC_CQUI_PLACE_PIN" Language="en_US">
       <Text>Place Pin</Text>
     </Row>
+	<Row Tag="LOC_CQUI_INLINE_CITY_STATE_QUEST" Language="en_US">
+      <Text>Show inline CityState Quest</Text>
+    </Row>
   </LocalizedText>
 </GameData>

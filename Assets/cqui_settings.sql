@@ -62,6 +62,7 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ('CQUI_ShowSuzerainInCityStateBanner', 1), -- Show the Icon of the Suzerain Civilization in the CityState Banner
         ('CQUI_ShowWarIconInCityStateBanner', 1), -- When at war with a City State, show the War Icon in the banner of that City State
         ('CQUI_ShowImprovementsRecommendations', 0), -- Shows the advisor recommendation for the builder improvements
+        ('CQUI_InlineCityStateQuest', 1), -- Show city state quest below city state name instead of a tooltip
         ('CQUI_ShowCityDetailAdvisor', 0), -- Shows the advisor recommendation in the city detail panel
         ('CQUI_NotificationGoodyHut', 1), -- Notification - goody hut reward
         --('CQUI_NotificationTradeDeal', 1), -- Notification - trade deal expired (reserved)

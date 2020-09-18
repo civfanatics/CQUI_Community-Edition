@@ -189,37 +189,37 @@
     <!-- ==================================================================  -->
 
     <Instance Name="CityStateRowInstance">
-        <GridButton ID="CityStateBase" Size="parent,48" Style="SubContainer4" Color="59,62,63,255">
+        <GridButton ID="CityStateBase" Size="parent,66" Style="SubContainer4" Color="59,62,63,255">
             <BoxButton ID="Button" Anchor="L,C" Offset="8,0" Size="40,40" Color="0,0,0,0">
                 <Image ID="Icon" Anchor="L,C" Size="36,36" Texture="CivSymbols36" />
                 <Image ID="DiplomacyPip" Anchor="L,B" Offset="-10,-6" Size="23,23" Texture="Diplomacy_RelationshipPips" />
-                <Label ID="QuestIcon" Anchor="L,T" Offset="-9,0" String="[ICON_CityStateQuest]" Size="28,28" />
+                <Label ID="QuestIcon" Anchor="L,T" Offset="-9,3" String="[ICON_CityStateQuest]" Size="28,28" />
             </BoxButton>
 
             <GridButton ID="NameButton" Offset="42,9" Size="126,33" Texture="Controls_CityBannerSmall" SliceCorner="14,9" SliceSize="5,4" SliceTextureSize="33,28" Color="50,50,50,255">
                 <Label ID="NameLabel" Anchor="C,C" Offset="0,-2" Style="FontFlair11" SmallCaps="16" SmallCapsStyle="EveryWord" String="Name" />
             </GridButton>
 
-            <Image ID="Envoy" Anchor="L,C" Offset="190,0" Size="40,40" Texture="Controls_CircleRim40">
+            <Image ID="Envoy" Anchor="L,T" Offset="190,1" Size="40,40" Texture="Controls_CircleRim40">
                 <Button ID="EnvoyLessButton" Anchor="L,C" Offset="-6,0" Size="34,34" Texture="Controls_Stepper" AnchorSide="O,I" FlipX="1" />
                 <Button ID="EnvoyMoreButton" Anchor="R,C" Offset="-6,0" Size="34,34" Texture="Controls_Stepper" AnchorSide="O,I" />
                 <Label ID="EnvoyCount" Anchor="C,C" Offset="-1,1" String="0" Style="FontFlairLua" Color="160,160,160,240" />
             </Image>
 
-            <Image ID="BonusImage1" Anchor="L,C" Offset="256,0" Size="29,42" Texture="CityState_BonusSlotOff">
+            <Image ID="BonusImage1" Anchor="L,T" Offset="256,3" Size="29,42" Texture="CityState_BonusSlotOff">
                 <Label ID="BonusText1" Anchor="R,T" Offset="3,2" Style="FontNormal12" String="1" />
                 <Image ID="BonusIcon1" Anchor="C,B" Size="26,26" Texture="EnvoyBonuses26" TextureOffset="104,0" />
             </Image>
-            <Image ID="BonusImage3" Anchor="L,C" Offset="286,0" Size="29,42" Texture="CityState_BonusSlotOn">
+            <Image ID="BonusImage3" Anchor="L,T" Offset="286,3" Size="29,42" Texture="CityState_BonusSlotOn">
                 <Label ID="BonusText3" Anchor="R,T" Offset="3,2" Style="FontNormal12" String="3" />
                 <Image ID="BonusIcon3" Anchor="C,B" Size="26,26" Texture="EnvoyBonuses26" TextureOffset="104,0" />
             </Image>
-            <Image ID="BonusImage6" Anchor="L,C" Offset="316,0" Size="29,42" Texture="CityState_BonusSlotOn">
+            <Image ID="BonusImage6" Anchor="L,T" Offset="316,3" Size="29,42" Texture="CityState_BonusSlotOn">
                 <Label ID="BonusText6" Anchor="R,T" Offset="3,2" Style="FontNormal12" String="6" />
                 <Image ID="BonusIcon6" Anchor="C,B" Size="26,26" Texture="EnvoyBonuses26" TextureOffset="104,0" />
             </Image>
             <!-- CQUI Note: The size of the container below was changed from 108 to 110 in order to fix a spacing issue. -->
-            <Container Anchor="L,C" Offset="346,0" Size="110,42">
+            <Container Anchor="L,T" Offset="346,3" Size="110,42">
                 <Grid ID="BonusImageSuzerainOff" Size="parent,parent" Texture="CityState_BonusSlotBigOff" SliceCorner="31,21" SliceTextureSize="34,42" />
                 <Grid ID="BonusImageSuzerainOn" Size="parent,parent" Texture="CityState_BonusSlotBigOn" SliceCorner="31,21" SliceTextureSize="34,42" />
                 <Label ID="BonusTextSuzerain" Anchor="R,B" Offset="4,2" Style="FontNormal12" String="4" />
@@ -232,7 +232,7 @@
             </Container>
 
             <Button Hidden="1" ID="LookAtButton" Anchor="R,C" Offset="3,-7" Size="23,31" Texture="Controls_ShowMe" StateOffsetIncrement="0,0" ToolTip="LOC_CITY_STATES_LOOK_AT" />
-            <Button ID="AmbassadorButton" Anchor="R,C" Offset="4,0" Size="32,32" Texture="XP1_GovernorsCityBannerFill32" TextureOffset="96,0" StateOffsetIncrement="0,0" ToolTip="LOC_CITY_STATE_PANEL_HAS_AMBASSADOR_TOOLTIP" />
+            <Button ID="AmbassadorButton" Anchor="R,T" Offset="4,3" Size="32,32" Texture="XP1_GovernorsCityBannerFill32" TextureOffset="96,0" StateOffsetIncrement="0,0" ToolTip="LOC_CITY_STATE_PANEL_HAS_AMBASSADOR_TOOLTIP" />
 
             <Label ID="TypeLabel" Anchor="L,C" Offset="125,0" Style="FontNormal16" Hidden="1" String="[ICON_Faith]Religious" Note="DEPRECATED" />
             <Label ID="QuestsLabel" Anchor="L,C" Offset="250,0" Style="FontNormal16" Hidden="1" String="[COLOR_GREEN]![ENDCOLOR]" />
@@ -244,6 +244,9 @@
             <GridButton ID="LevyMilitaryButton" Anchor="R,C" Offset="150,0" Size="140,32" Style="MainButton" Hidden="1"  String="Levy Military"/>
             <GridButton ID="ChangeWarStateButton" Anchor="R,C"  Offset="0,0" Size="140,32" Style="MainButton" Hidden="1" String="Declare War!"/>
             -->
+			<Grid ID="QuestRow" Size="parent,23" Anchor="C,B" Offset="0,-8">
+				<Label ID="CityStateQuest" Anchor="L,C" Offset="15,-2" String="$CQUI_Quest$" Style="FontNormal8"/>
+			</Grid>
         </GridButton>
     </Instance>
 

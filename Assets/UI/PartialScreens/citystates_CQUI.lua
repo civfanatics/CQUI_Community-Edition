@@ -1,3 +1,5 @@
+include( "CQUICommon.lua" );
+include( "CityStates" );
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
@@ -9,10 +11,52 @@ BASE_CQUI_AddCityStateRow = AddCityStateRow;
 local COLOR_ICON_BONUS_OFF:number = UI.GetColorValueFromHexLiteral(0xff606060);
 
 -- ===========================================================================
+-- CQUI Members
+-- ===========================================================================
+local CQUI_InlineCityStateQuest         = true;
+
+-- ===========================================================================
+function CQUI_OnSettingsInitialized()
+    -- print_debug("CityStates_CQUI: CQUI_OnSettingsInitialized ENTRY")
+    CQUI_InlineCityStateQuest      = GameConfiguration.GetValue("CQUI_InlineCityStateQuest");
+end
+
+-- ===========================================================================
+function CQUI_OnSettingsUpdate()
+    -- print_debug("CityStates_CQUI: CQUI_OnSettingsUpdate ENTRY")
+    CQUI_OnSettingsInitialized();
+    Refresh();
+end
+
+
+-- ===========================================================================
 --  CQUI Function Extensions
 -- ===========================================================================
 function AddCityStateRow( kCityState:table )
     local kInst = BASE_CQUI_AddCityStateRow(kCityState);
+	local numQuests = 0;
+	local questToolTip = Locale.Lookup("LOC_CITY_STATES_QUESTS");
+	
+    -- get city state quest
+    if (IsCQUI_InlineCityStateQuestEnabled()) then
+        kInst.QuestIcon:SetHide(true);
+        kInst.QuestRow:SetHide(false);
+		
+        for _,kQuest in pairs( kCityState.Quests ) do
+            numQuests = numQuests + 1;
+            questToolTip = questToolTip .. kQuest.Callout .. kQuest.Name;
+        end
+        if numQuests > 0 then
+            kInst.QuestRow:SetHide(false);
+            kInst.CityStateQuest:SetString(questToolTip)
+            kInst.CityStateQuest:SetColor(kCityState.ColorSecondary)
+        else
+            kInst.QuestRow:SetHide(true);
+        end
+    else
+        kInst.QuestIcon:SetHide(false);
+        kInst.QuestRow:SetHide(true);
+    end
 
     -- Determine the 2nd place (or first-place tie), produce text for Tooltip on the EnvoyCount label
     local envoyTable:table = {};
@@ -94,3 +138,19 @@ function AddCityStateRow( kCityState:table )
 
     return kInst;
 end
+
+-- ===========================================================================
+function IsCQUI_InlineCityStateQuestEnabled()
+    return CQUI_InlineCityStateQuest;
+end
+
+-- ===========================================================================
+--  CQUI Initialize Function
+-- ===========================================================================
+function Initialize_CQUI()
+    print_debug("citystates_CQUI: Initialize_CQUI CQUI CityStates (Common File)")
+    -- CQUI related events
+    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);
+    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+end
+Initialize_CQUI();
