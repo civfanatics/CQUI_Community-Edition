@@ -848,7 +848,6 @@ function CQUI_OnInfluenceGiven()
 end
 
 -- ===========================================================================
--- ===========================================================================
 function CQUI_UpdateCityStateBannerSuzerain( pPlayer:table, bannerInstance )
     -- print_debug("CityBannerManager_CQUI: CQUI_UpdateCityStateBannerSuzerain ENTRY  pPlayer:"..tostring(pPlayer).."  bannerInstance:"..tostring(bannerInstance));
     if (bannerInstance == nil) then

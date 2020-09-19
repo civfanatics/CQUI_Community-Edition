@@ -175,9 +175,6 @@
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="pl_PL">
       <Text>Ikona cywilizacji suzerena w sztandarze państwa-miasta</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="pl_PL">
-      <Text>Pokaż ikonę cywilizacji suzerena państwa-miasta na sztandarze tego państwa-miasta</Text>
-    </Row>
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="pl_PL">
       <Text>Ikona wojny w sztandarze państwa-miasta </Text>
     </Row>

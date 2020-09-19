@@ -241,9 +241,6 @@
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="ja_JP">
       <Text>スゼレイン・イン・シティ州旗</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="ja_JP">
-      <Text>都市国家旗の中に都市国家のスゼレインの文明アイコンを表示する</Text>
-    </Row>
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="ja_JP">
       <Text>シティステートバナーの戦争アイコン</Text>
     </Row>

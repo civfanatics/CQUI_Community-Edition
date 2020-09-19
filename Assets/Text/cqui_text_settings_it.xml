@@ -241,9 +241,6 @@
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="it_IT">
       <Text>Suzerain in CityState Banner</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="it_IT">
-      <Text>Mostra l'icona della civiltà del Suzerain di uno Stato della Città nello Stendardo dello Stato della Città</Text>
-    </Row>
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="it_IT">
       <Text>Icona guerra in CityState Banner</Text>
     </Row>

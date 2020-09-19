@@ -175,9 +175,6 @@
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="ru_RU">
       <Text>Сюзерен в ГородскомГосударственном Знамени</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="ru_RU">
-      <Text>Показать цивилизационную икону Сюзерена городского государства в городском государственном знамени</Text>
-    </Row>
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="ru_RU">
       <Text>Икона войны в Городском Знамени Государства</Text>
     </Row>
