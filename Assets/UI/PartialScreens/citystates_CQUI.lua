@@ -9,6 +9,9 @@ BASE_CQUI_AddCityStateRow = AddCityStateRow;
 --  CONSTANTS
 -- ===========================================================================
 local COLOR_ICON_BONUS_OFF:number = UI.GetColorValueFromHexLiteral(0xff606060);
+local ICON_NAMES = {"%[ICON_TechBoosted%] ", "%[ICON_CivicBoosted%] ", "%[ICON_TradeRoute%] ", "%[ICON_Barbarian%] "};
+local ORIGINAL_DIPLOMACY_PIP_OFFSET :number = -6;
+local NEW_DIPLOMACY_PIP_OFFSET :number = -2;
 
 -- ===========================================================================
 -- CQUI Members
@@ -28,34 +31,59 @@ function CQUI_OnSettingsUpdate()
     Refresh();
 end
 
+-- ===========================================================================
+function CQUI_RestoreOriginalPanel( kInst:table )
+    -- revert all changes done to the xml
+    kInst.DiplomacyPip:SetOffsetY(ORIGINAL_DIPLOMACY_PIP_OFFSET);
+    kInst.QuestIcon:SetHide(false);
+    kInst.QuestRow:SetHide(true);
+end
+
+-- ===========================================================================
+function CQUI_ChangeOriginalPanel( kInst:table )
+    -- enable all changes done to the xml
+    kInst.DiplomacyPip:SetOffsetY(NEW_DIPLOMACY_PIP_OFFSET);
+    kInst.QuestIcon:SetHide(true);
+    kInst.QuestRow:SetHide(false);
+end
+
+-- ===========================================================================
+function CQUI_RemoveQuestIconsFromString( inStr:string )
+    local lookupStr :string = inStr;
+    local outStr :string = lookupStr;
+    for _,iconName in ipairs(ICON_NAMES) do
+        if (string.find(lookupStr, iconName)) then
+            outStr = string.gsub(lookupStr, iconName, "");
+        end
+    end
+    return outStr;
+end
 
 -- ===========================================================================
 --  CQUI Function Extensions
 -- ===========================================================================
 function AddCityStateRow( kCityState:table )
-    local kInst = BASE_CQUI_AddCityStateRow(kCityState);
-	local numQuests = 0;
-	local questToolTip = Locale.Lookup("LOC_CITY_STATES_QUESTS");
+    local kInst :table = BASE_CQUI_AddCityStateRow(kCityState);
+	local anyQuests :boolean = false;
+    local questString :string;
 	
     -- get city state quest
     if (IsCQUI_InlineCityStateQuestEnabled()) then
-        kInst.QuestIcon:SetHide(true);
-        kInst.QuestRow:SetHide(false);
+        CQUI_ChangeOriginalPanel(kInst);
 		
         for _,kQuest in pairs( kCityState.Quests ) do
-            numQuests = numQuests + 1;
-            questToolTip = questToolTip .. kQuest.Callout .. kQuest.Name;
+            anyQuests = true;
+            questString = CQUI_RemoveQuestIconsFromString(kQuest.Name);
         end
-        if numQuests > 0 then
+        if anyQuests then
             kInst.QuestRow:SetHide(false);
-            kInst.CityStateQuest:SetString(questToolTip)
-            kInst.CityStateQuest:SetColor(kCityState.ColorSecondary)
+            kInst.CityStateQuest:SetString(questString);
+            kInst.CityStateQuest:SetColor(kCityState.ColorSecondary);
         else
-            kInst.QuestRow:SetHide(true);
+            kInst.QuestRow:SetHide(true);            
         end
     else
-        kInst.QuestIcon:SetHide(false);
-        kInst.QuestRow:SetHide(true);
+        CQUI_RestoreOriginalPanel(kInst);
     end
 
     -- Determine the 2nd place (or first-place tie), produce text for Tooltip on the EnvoyCount label
