@@ -45,13 +45,7 @@
                             <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
                                 <GridButton ID="ToggleYieldsOnLoadCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_GENERAL_TOGGLEYIELDSONLOAD" />
                             </Stack>
-                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
-                                <GridButton ID="ShowSuzerainInCityStateBanner" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" />
-                            </Stack>
-                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
-                                <GridButton ID="ShowWarIconInCityStateBanner" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" />
-                            </Stack>
-							<Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+							              <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
                                 <GridButton ID="InlineCityStateQuest" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_INLINE_CITY_STATE_QUEST" />
                             </Stack>
                         </Stack>
@@ -123,13 +117,25 @@
                                     <Stack Anchor="R,T" StackGrowth="Left" Offset="0,5">
                                         <GridButton ID="SmartbannerDistrictsAvailableCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_CITYVIEW_SMARTBANNER_DISTRICTS_AVAILABLE" />
                                     </Stack>
-                                </Stack>
-                                <Stack Anchor="C,C" StackGrowth="Left">
-                                    <Label Anchor="C,C" Style="ShellOptionText" String="LOC_CQUI_CITYVIEW_WORKICONS_HEADER" Offset="0,10"/>
-                                </Stack>
-                                <Stack Anchor="C,T" StackGrowth="Right" Padding="5">
-                                    <Label Anchor="L,C" Style="ShellOptionText" String="LOC_CQUI_CITYVIEW_WORKICONSIZE"/>
-                                    <Label String="0" Style="ShellOptionText" Anchor="L,C" ID="WorkIconSizeText" Offset="3,0" />
+                                    <Stack Anchor="R,T" StackGrowth="Down" Offset="0,5" StackPadding="5">
+                                        <Label Anchor="C,C" Style="ShellOptionText" String="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER"/>
+                                        <PullDown ID="ShowSuzerainInCityStateBanner" Style="PullDownBlue" ScrollThreshold="400" Size="300,24" Offset="0,0" SpaceForScroll="0"/>
+                                    </Stack>
+                                    <Stack ID="CityStateSuzerainOptions" Anchor="R,T" StackGrowth="Down" Offset="0,5">
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                            <GridButton ID="ShowSuzerainLabelInCityStateBanner" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" />
+                                        </Stack>
+                                    </Stack>
+                                    <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="0,5">
+                                        <GridButton ID="ShowWarIconInCityStateBanner" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" />
+                                    </Stack>
+                                    <Stack Anchor="C,C" StackGrowth="Left">
+                                        <Label Anchor="C,C" Style="ShellOptionText" String="LOC_CQUI_CITYVIEW_WORKICONS_HEADER" Offset="0,10"/>
+                                    </Stack>
+                                    <Stack Anchor="C,T" StackGrowth="Right" Padding="5">
+                                        <Label Anchor="L,C" Style="ShellOptionText" String="LOC_CQUI_CITYVIEW_WORKICONSIZE"/>
+                                        <Label String="0" Style="ShellOptionText" Anchor="L,C" ID="WorkIconSizeText" Offset="3,0" />
+                                    </Stack>
                                 </Stack>
                                 <Slider Style="SliderControl" Anchor="C,B" Size="300,13" SpaceForScroll="0" ID="WorkIconSizeSlider" Steps="10" />
                                 <Stack Anchor="C,T" StackGrowth="Right" Padding="5">

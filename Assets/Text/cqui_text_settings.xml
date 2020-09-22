@@ -94,7 +94,7 @@
       <Text>Suzerain in CityState Banner</Text>
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="en_US">
-      <Text>Show the Civilization Icon of the Suzerain of a City State in the City State Banner</Text>
+      <Text>Show the Civilization or Leader icon of the Suzerain in the CityState Banner</Text>
     </Row>
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="en_US">
       <Text>War Icon in CityState Banner</Text>
@@ -296,6 +296,21 @@
     </Row>
     <Row Tag="LOC_CQUI_NUKE" Language="en_US">
       <Text>WMD Strike: Nuclear Device</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_DISABLED" Language="en_US">
+      <Text>Do Not Show Suzerain</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_CIV_ICON" Language="en_US">
+      <Text>Show Civilization Icon</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="en_US">
+      <Text>Show Leader Icon</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="en_US">
+      <Text>Show Suzerain Envoy Labels</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON_TOOLTIP" Language="en_US">
+      <Text>Show Suzerain envoy labels in CityState Banner[NEWLINE]When you are Suzerain, the number to the upper right of the icon shows envoys sent.[NEWLINE]When you are not Suzerain, your envoys show on upper left, Suzerain envoys on upper right.</Text>
     </Row>
     <Row Tag="LOC_CQUI_THERMO_NUKE" Language="en_US">
       <Text>WMD Strike: Thermonuclear Device</Text>

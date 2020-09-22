@@ -175,15 +175,30 @@
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="zh_Hans">
       <Text>城市州横幅中的苏泽兰</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="zh_Hans">
-      <Text>在城市国家旗帜中展示一个城市国家苏塞兰的文明图标</Text>
-    </Row>
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="zh_Hans">
       <Text>城市国家旗帜中的战争图标</Text>
     </Row>
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="zh_Hans">
       <Text>当与城市州开战时， 在该城邦的城市旗帜中展示战争图标</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="zh_Hans">
+    <Text>显示苏泽兰特使标签</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON_TOOLTIP" Language="zh_Hans">
+        <Text>在城市国家旗帜中显示苏泽兰特使标签[NEWLINE]当您是 Suzerain 时，图标右上角的号码显示已派特使。[NEWLINE]当你不是苏泽兰时， 你的特使在左上角显示， 苏泽兰特使在右上角。</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_CIV_ICON" Language="zh_Hans">
+        <Text>显示文明图标</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_DISABLED" Language="zh_Hans">
+        <Text>不显示苏泽兰</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="zh_Hans">
+        <Text>在城市国家旗帜中展示苏泽兰的文明或领袖图标</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="zh_Hans">
+        <Text>显示领导者图标</Text>
+	</Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="zh_Hans">
       <Text>宗教镜头单位标志样式</Text>
     </Row>
