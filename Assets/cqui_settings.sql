@@ -59,7 +59,7 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ('CQUI_TraderShowSortOrder', 0), -- Adds a divider between groups in TradeOverview panel
         ('CQUI_ShowProductionRecommendations', 0), -- Shows the advisor recommendation in the city produciton panel
         ('CQUI_ShowTechCivicRecommendations', 1), -- Shows the advisor recommendation in the techs/civics tree/panel
-        ('CQUI_ShowSuzerainInCityStateBanner', 1), -- Show the Icon of the Suzerain Civilization in the CityState Banner
+        ('CQUI_ShowSuzerainLabelInCityStateBanner', 1), -- Show the Icon of the Suzerain Civilization in the CityState Banner
         ('CQUI_ShowWarIconInCityStateBanner', 1), -- When at war with a City State, show the War Icon in the banner of that City State
         ('CQUI_ShowImprovementsRecommendations', 0), -- Shows the advisor recommendation for the builder improvements
         ('CQUI_ShowCityDetailAdvisor', 0), -- Shows the advisor recommendation in the city detail panel
@@ -81,7 +81,9 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
 
 INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
     VALUES  ("CQUI_BindingsMode", 1), -- Set of keybindings used │ 0=Civ6 default │ 1=keybinds from Civ5 |
-        ("CQUI_ResourceDimmingStyle", 1); -- Affects the way resource icons look when they have been improved  | 0=No Change | 1=Transparent | 2=Hidden |
+        ("CQUI_ResourceDimmingStyle", 1), -- Affects the way resource icons look when they have been improved  | 0=No Change | 1=Transparent | 2=Hidden |
+        ('CQUI_ShowSuzerainInCityStateBanner', 1); -- Show the Icon of the Suzerain Civilization in the CityState Banner | 0 = No Suzerain | 1 = Civ Icon | 2 = Leader Icon
+
 
 /*
     ┌────────────────────────────────────────────────────────────────────────────────────────────┐

@@ -175,14 +175,29 @@
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="ru_RU">
       <Text>Сюзерен в ГородскомГосударственном Знамени</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="ru_RU">
-      <Text>Показать цивилизационную икону Сюзерена городского государства в городском государственном знамени</Text>
-    </Row>
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="ru_RU">
       <Text>Икона войны в Городском Знамени Государства</Text>
     </Row>
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="ru_RU">
       <Text>Во время войны с городским государством, показать икону войны в городе знамя этого города государства</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="ru_RU">
+    <Text>Показать Suzerain посланник этикетки</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON_TOOLTIP" Language="ru_RU">
+        <Text>Показать Suzerain посланник этикетки в CityState Знамя[NEWLINE]Когда вы Suzerain, номер в правом верхнем справа от значка показывает посланников послал.[NEWLINE]Когда вы не Сюзерин, ваши посланники показывают в левом верхнем левом, Suzerain посланников в правом верхнем.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_CIV_ICON" Language="ru_RU">
+        <Text>Показать икону цивилизации</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_DISABLED" Language="ru_RU">
+        <Text>Не показывать Suzerain</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="ru_RU">
+        <Text>Показать цивилизацию или лидер значок Suzerain в CityState Знамя</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="ru_RU">
+        <Text>Показать значок лидера</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="ru_RU">
       <Text>Религия объектив Блок Флаг Стиль</Text>
