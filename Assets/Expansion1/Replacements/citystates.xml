@@ -191,7 +191,7 @@
     <Instance Name="CityStateRowInstance">
         <GridButton ID="CityStateBase" Size="parent,48" Style="SubContainer4" Color="59,62,63,255">
             <BoxButton ID="Button" Anchor="L,C" Offset="8,0" Size="40,40" Color="0,0,0,0">
-                <Image ID="Icon" Anchor="L,C" Size="36,36" Texture="CivSymbols36" />
+                <Image ID="Icon" Offset="0,0" Anchor="L,C" Size="36,36" Texture="CivSymbols36" />
                 <Image ID="DiplomacyPip" Anchor="L,B" Offset="-10,-2" Size="23,23" Texture="Diplomacy_RelationshipPips" />
                 <Label ID="QuestIcon" Anchor="L,T" Offset="-9,0" String="[ICON_CityStateQuest]" Size="28,28" />
             </BoxButton>
@@ -220,8 +220,8 @@
             </Image>
             <!-- CQUI Note: The size of the container below was changed from 108 to 110 in order to fix a spacing issue. -->
             <Container ID="SuzerainStatus" Anchor="L,C" Offset="346,0" Size="110,42">
-                <Grid ID="BonusImageSuzerainOff" Size="parent,parent" Texture="CityState_BonusSlotBigOff" SliceCorner="31,21" SliceTextureSize="34,42" />
-                <Grid ID="BonusImageSuzerainOn" Size="parent,parent" Texture="CityState_BonusSlotBigOn" SliceCorner="31,21" SliceTextureSize="34,42" />
+                <Grid ID="BonusImageSuzerainOff" Size="parent,parent" Texture="CityState_BonusSlotBigOff" SliceCorner="31,12" SliceTextureSize="34,42" />
+                <Grid ID="BonusImageSuzerainOn" Size="parent,parent" Texture="CityState_BonusSlotBigOn" SliceCorner="31,12" SliceTextureSize="34,42" />
                 <Label ID="BonusTextSuzerain" Anchor="R,B" Offset="4,2" Style="FontNormal12" String="4" />
                 <Image ID="BonusIconSuzerain" Anchor="L,B" Offset="2,0" Size="26,26" Texture="EnvoyBonuses26" TextureOffset="156,0" />
                 <Label ID="SecondHighestLabel" Anchor="L,T" Offset="3,0" Style="FontNormal12" />
@@ -244,8 +244,8 @@
             <GridButton ID="LevyMilitaryButton" Anchor="R,C" Offset="150,0" Size="140,32" Style="MainButton" Hidden="1"  String="Levy Military"/>
             <GridButton ID="ChangeWarStateButton" Anchor="R,C"  Offset="0,0" Size="140,32" Style="MainButton" Hidden="1" String="Declare War!"/>
             -->
-			<Grid ID="QuestRow" Size="parent,23" Anchor="C,B" Offset="0,-8">
-				<Label ID="CityStateQuest" Anchor="L,C" Offset="16,-2" String="$CQUI_Quest$" Style="FontNormal8"/>
+			<Grid ID="QuestRow" Size="parent,23" Anchor="C,B" Offset="0,-4">
+				<Label ID="CityStateQuest" Anchor="L,C" Offset="16,-3" String="$CQUI_Quest$" Style="FontNormal10"/>
 			</Grid>
         </GridButton>
     </Instance>
