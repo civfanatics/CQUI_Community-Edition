@@ -350,7 +350,7 @@
                 <Grid ID="Banner_Base" Size="Parent,Parent" Texture="BannerMini_Base_Combo" SliceCorner="18,9" SliceSize="44,16" SliceTextureSize="80,34"/>
 
                 <!-- District Font Icon -->
-                <Label Anchor="L,C" Offset="7,3" Style="FontNormal14" String="[Icon_DISTRICT_ENCAMPMENT]"/>
+                <Label ID="EncampmentFontIcon" Anchor="L,C" Offset="7,3" Style="FontNormal14" String="[Icon_DISTRICT_ENCAMPMENT]"/>
 
                 <!-- Healthbars -->
                 <TextureBar ID="CityHealthBar" Anchor="R,C" Offset="8,3" Size="66,7" Texture="CityBannerShieldsBar1" Direction="Right" Speed="1" Percent="1.0" />
