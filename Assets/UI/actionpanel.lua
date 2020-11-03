@@ -526,10 +526,16 @@ function CQUI_CheckPolicyCanBeChanged()
     -- AURENCY : get the Index of the future tech
     local futureCivicIndex = GameInfo["Civics"]["CIVIC_FUTURE_CIVIC"].Index
 
-    local PRD:table    = pPlayer:GetCulture()
-    if (PRD:CivicCompletedThisTurn() and PRD:GetCivicCompletedThisTurn() ~= futureCivicIndex and not PRD:PolicyChangeMade()) then
+    local PRD:table = pPlayer:GetCulture()
+    local completedThisTurnIndex = PRD:GetCivicCompletedThisTurn()
+
+    if (PRD:CivicCompletedThisTurn() 
+        and completedThisTurnIndex ~= futureCivicIndex
+        and completedThisTurnIndex ~= -1 -- Civs with free policy slots can show, on the first turn, as CivicCompletedThisTurn = true and GetCivicCompletedThisTurn as -1
+        and not PRD:PolicyChangeMade()) then
         return true
     end
+
     return false
 end
 
