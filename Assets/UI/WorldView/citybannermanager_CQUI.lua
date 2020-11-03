@@ -119,9 +119,7 @@ function CQUI_Common_CityBanner_Initialize(self, playerID, cityID, districtID, b
     end
 
     -- Register the MouseOver callbacks
-    if (bannerType == BANNERTYPE_CITY_CENTER 
-        and bannerStyle == BANNERSTYLE_LOCAL_TEAM 
-        and playerID == Game.GetLocalPlayer()) then
+    if (bannerType == BANNERTYPE_CITY_CENTER) then
         -- Register the callbacks 
         self.m_Instance.CityNameButton:RegisterCallback( Mouse.eMouseEnter, CQUI_OnBannerMouseOver );
         self.m_Instance.CityNameButton:RegisterCallback( Mouse.eMouseExit,  CQUI_OnBannerMouseExit );
