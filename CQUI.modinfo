@@ -463,6 +463,7 @@
 
         <ReplaceUIScript id="CQUI_ProductionPanel">
             <Properties>
+                <LoadOrder>10</LoadOrder> <!-- to override the replacement from the Hero Mode -->
                 <LuaContext>ProductionPanel</LuaContext>
                 <LuaReplace>Assets/UI/Panels/productionpanel_CQUI.lua</LuaReplace>
             </Properties>
