@@ -180,9 +180,6 @@ function AddRecruit( kData:table, kPerson:table )
     local classData :table = GameInfo.GreatPersonClasses[kPerson.ClassID];
     local individualData :table = GameInfo.GreatPersonIndividuals[kPerson.IndividualID];
 
-    -- TEMP
-    print("**** AddRecruit:  classData.Name:"..tostring(classData.Name));
-
     if (kPerson.ClassID ~= nil) then
         local portrait:string = "ICON_GENERIC_" .. classData.GreatPersonClassType;
         portrait = portrait:gsub("_CLASS","_INDIVIDUAL");
