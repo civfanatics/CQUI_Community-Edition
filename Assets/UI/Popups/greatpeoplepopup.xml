@@ -5,7 +5,6 @@
 
     <Container ID="PopupContainer" Anchor="C,C" Size="parent,768">
         <ScrollPanel ID="PeopleScroller" Offset="0,0" Size="parent,parent" Vertical="0" AutoScrollBar="1">
-
             <!-- CQUI : new textures that adapt the height -->
             <Image ID="CQUI_ContentWoodPaneling" Size="214,parent" Texture="CQUI_GreatPeople_Background_Repeat_Top.dds" StretchMode="Tile"/>
             <Image ID="WoodPaneling" Size="214,547" Texture="CQUI_GreatPeople_Background_Top.dds" StretchMode="TileX"/>
@@ -15,9 +14,6 @@
             <!-- This image is the bottom of the paneling outline (curved corner and horizontal line) -->
             <!-- At 40px tall, it has 5px gap between the bottom horizontal line and the PeopleScroller scroll bar, must be at least 40px in height -->
             <Image ID="CQUI_BottomWoodPaneling" Size="214,40" Texture="CQUI_GreatPeople_Background_Bottom.dds" StretchMode="TileX" Anchor="L,B" />
-
-
-
             <Stack ID="PeopleStack" Offset="0,78" StackGrowth="Right" StackPadding="0" />
             <ScrollBar Anchor="L,B" Offset="0,10" Size="parent-10,8" Style="ScrollHorizontalBackingAlt">
                 <Thumb Style="ScrollThumbHAlt" />
@@ -25,13 +21,13 @@
 
             <Tutorial ID="GPAbilityPointer" Style="TutorialContainer" Anchor="L,C" Offset="410,70" TriggerBy="TutorialGPAbilityPointer">
                 <SlideAnim Start="110,-40" EndOffset="30,0" Cycle="Bounce" Function="OutQuad">
-                    <Image Texture="Tutorial_ArrowH" Size="58,44" />
+                    <Image Texture="Tutorial_ArrowH" Size="58,44" Offset="25,-90"/>
                 </SlideAnim>
             </Tutorial>
 
             <Tutorial ID="GPCostPointer" Style="TutorialContainer" Anchor="L,C" Offset="410,270" TriggerBy="TutorialGPCostPointer">
                 <SlideAnim Start="110,-40" EndOffset="30,0" Cycle="Bounce" Function="OutQuad">
-                    <Image Texture="Tutorial_ArrowH" Size="58,44" />
+                    <Image Texture="Tutorial_ArrowH" Size="58,44" Offset="45,111"/>
                 </SlideAnim>
             </Tutorial>
         </ScrollPanel>
@@ -55,18 +51,12 @@
         </Box>
 
         <!-- Tabs -->
-        <Container Anchor="C,T" Offset="0,30" Size="400,61">
-            <Image Anchor="C,C" Size="439,27" Texture="Controls_TabLedge2_Fill" StretchMode="Tile" />
-            <Grid Anchor="C,T" Size="580,61" Texture="Controls_TabLedge2" SliceCorner="194,18" SliceSize="52,26" SliceTextureSize="438,61">
-                <Container ID="TabContainer" Offset="50,13" Size="parent-80,34">
-                    <GridButton ID="ButtonGreatPeople" Size="170,34" Style="TabButton" FontSize="14" TextOffset="0,2" String="LOC_GREAT_PEOPLE_TAB_GREAT_PEOPLE">
-                        <GridButton ID="SelectGreatPeople" Size="parent,parent" Style="TabButtonSelected" ConsumeMouseButton="0" ConsumeMouseOver="1" />
-                    </GridButton>
-                    <GridButton ID="ButtonPreviouslyRecruited" Size="170,34" Style="TabButton" FontSize="14" TextOffset="0,2" String="LOC_GREAT_PEOPLE_TAB_PREVIOUSLY_RECRUITED">
-                        <GridButton ID="SelectPreviouslyRecruited" Size="parent,parent" Style="TabButtonSelected" ConsumeMouseButton="0" ConsumeMouseOver="1" />
-                    </GridButton>
-                </Container>
-            </Grid>
+        <Container Anchor="C,T" Offset="0,48" Size="auto,61">
+            <Image Anchor="C,T" Size="auto,27" AutoSizePadding="-100,0" Texture="Controls_TabLedge2_Fill" StretchMode="Tile">
+                <Grid Anchor="C,T" Offset="0,-17" Size="auto,61" AutoSizePadding="100,0" Texture="Controls_TabLedge2" SliceCorner="194,18" SliceSize="52,26" SliceTextureSize="438,61">
+                    <Container ID="TabContainer" Anchor="C,T" Offset="0,13" Size="0,34"/>
+                </Grid>
+            </Image>
         </Container>
 
         <!-- Place the modal screen controls in a separate container; this uses a custom background inside of the scroll panel. -->
@@ -218,5 +208,11 @@
                 <Image ID="CivIcon" Anchor="C,C" Texture="CivSymbols22" Size="22,22"/>
             </Image>
         </Container>
+    </Instance>
+
+    <Instance Name="TabButtonInstance">
+        <GridButton ID="Button" Anchor="L,T" Size="170,34" Style="TabButton" FontSize="14" TextOffset="0,2">
+            <GridButton ID="SelectButton" Size="parent,parent" Style="TabButtonSelected" ConsumeMouseButton="0" ConsumeMouseOver="1" Hidden="1"/>
+        </GridButton>
     </Instance>
 </Context>

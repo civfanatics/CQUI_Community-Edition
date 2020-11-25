@@ -110,6 +110,54 @@ function TruncateStringByLength( textString, textLen )
     return textString;
 end
 
+-- ===========================================================================
+--	Given a table of strings, format it as a single string separated by spaces.
+-- ===========================================================================
+function FormatTableAsString( tStringTable:table)
+    if tStringTable == nil or #tStringTable == 0 then
+        return "";
+    end
+    local sFormattedString:string = "";
+    for i,line in ipairs(tStringTable) do
+        if (line ~= nil and line ~= "") then
+            if (sFormattedString ~= "") then
+                sFormattedString = sFormattedString .. " ";
+            end
+            sFormattedString = sFormattedString .. Locale.Lookup(line);
+        end
+    end
+    
+    return sFormattedString;
+end
+
+-- ===========================================================================
+--	Given a table of strings, format it as a single string separated by 
+--	line breaks. Optional bool uses two-line breaks.
+-- ===========================================================================
+function FormatTableAsNewLineString( tStringTable:table, bDoubleLines:boolean )
+    if tStringTable == nil or #tStringTable == 0 then
+        return "";
+    end
+    bDoubleLines = bDoubleLines or false;
+
+    local sFormattedString:string = "";
+    for i,line in ipairs(tStringTable) do
+        if (line ~= nil and line ~= "") then
+            if (sFormattedString ~= "") then
+                if bDoubleLines == true then
+                    sFormattedString = sFormattedString .. "[NEWLINE][NEWLINE]";
+                else
+                    sFormattedString = sFormattedString .. "[NEWLINE]";
+                end
+            end
+            sFormattedString = sFormattedString .. Locale.Lookup(line);
+        end
+    end
+    
+    return sFormattedString;
+end
+
+
 -- Wraps a string according to the provided length, but, unlike the built in wrapping, will ignore the limit if a single continuous word exceeds the length of the wrap width
 function CQUI_SmartWrap( textString, wrapWidth )
     local lines = {""}; --Table that holds each individual line as it's build
@@ -466,6 +514,40 @@ function RandRange(min:number, max:number, logString:string)
         return min;
     end
 end
+
+-- ===========================================================================
+--	RandWeight()
+--	Performs a weighted random roll and returns a row from rollTable.  
+--  NOTE: Only table elements in rollTable that have a "Weight" value will be eligable for the roll.
+-- ===========================================================================
+function RandWeight(rollTable :table, logString:string)
+    if (Game.GetRandNum == nil) then
+        print("Error: missing GetRandNum!");
+        return rollTable[1];
+    end
+
+    local totalWeight = 0;
+    for _, totalRow in ipairs(rollTable) do
+        if(totalRow.Weight ~= nil) then
+            totalWeight = totalWeight + totalRow.Weight;
+        end
+    end
+
+    local randNum = Game.GetRandNum(totalWeight, logString);
+    for _, rollRow in ipairs(rollTable) do
+        if(rollRow.Weight ~= nil) then
+            randNum = randNum - rollRow.Weight;
+            if (randNum < 0) then
+                -- This row's weight puts the rand number into the negative.  This is the selected row!
+                return rollRow;
+            end
+        end
+    end
+
+    print("Error: no rollRow found! This shouldn't be possible.");
+    return rollTable[1];
+    end
+
 
 -- ===========================================================================
 --  Triangular()
