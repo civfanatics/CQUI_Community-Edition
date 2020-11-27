@@ -521,7 +521,6 @@ function FillRecruitInstance(instance:table, playerPoints:table, personData:tabl
 
     instance.Amount:SetText( "(+" .. tostring(Round(playerPoints.PointsPerTurn,1)) .. ") " .. tostring(recruitTurnsLeft) .. "[ICON_Turn]");
 
-
     local progressPercent :number = Clamp( playerPoints.PointsTotal / personData.RecruitCost, 0, 1 );
     instance.ProgressBar:SetPercent( progressPercent );
     
@@ -1118,7 +1117,7 @@ function RefreshPreviousGreatPeople()
     };        
 
     PopulateData(kData, true);  -- use past data
-    ViewCurrent(kData);
+    ViewPast(kData);
 
     m_kData = kData;
 end
