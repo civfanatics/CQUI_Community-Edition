@@ -579,15 +579,26 @@ function ViewMain( data:table )
             end
         end
     end
+    data.AmenitiesFromDistricts = data.AmenitiesFromDistricts or 0;
+    data.AmenitiesFromNaturalWonders = data.AmenitiesFromNaturalWonders or 0;
+    data.AmenitiesFromTraits = data.AmenitiesFromTraits or 0;
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_LUXURIES",           "Luxuries"                        );
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_CIVICS",             "Civics"                          );
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_ENTERTAINMENT",      "Entertainment"                   );
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_GREAT_PEOPLE",       "GreatPeople"                     );
+    repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_CITY_STATES",        "CityStates"                      );
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_RELIGION",           "Religion"                        );
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_NATIONAL_PARKS",     "NationalParks"                   );
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_STARTING_ERA",       "StartingEra"                     );
+    repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_IMPROVEMENTS",       "Improvements"                    );
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_LOST_FROM_WAR_WEARINESS", "WarWeariness",         true      );
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_LOST_FROM_BANKRUPTCY",    "Bankruptcy",           true      );
+    repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_DISTRICTS",          "Districts"                       );
+    repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_NATURAL_WONDERS",    "NaturalWonders"                  );
+    repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_TRAITS", "Traits");
+    if g_bIsRiseAndFall or g_bIsGatheringStorm then
+        repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_LOST_FROM_GOVERNORS", "Governors");
+    end
     repeatAvoidAddNew("LOC_HUD_REPORTS_FROM_POPULATION",                "AmenitiesRequiredNum", true, true);
     function AmenitiesSort(a, b)
         return a["Amenities"] > b["Amenities"];
