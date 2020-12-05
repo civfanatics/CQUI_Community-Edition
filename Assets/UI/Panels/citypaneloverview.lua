@@ -605,7 +605,7 @@ function ViewPanelAmenities( data:table )
 
     --City States
     if GameCapabilities.HasCapability("CAPABILITY_CITY_HUD_AMENITIES_CITY_STATES") then
-        CQUI_BuildAmenityBubbleInstance("ICON_CITY_STATE", data.AmenitiesFromCityStates, "LOC_TRADE_OVERVIEW_CITY_STATES");
+        CQUI_BuildAmenityBubbleInstance("ICON_CITY_STATE", data.AmenitiesFromCityStates, "LOC_CITY_STATES_TITLE");
     end
 
     --Relgion
@@ -619,15 +619,15 @@ function ViewPanelAmenities( data:table )
     end
 
     --Era
-    data.AmenitiesFromStartingEra = tonumber(data.AmenitiesFromStartingEra) or 0;
+    data.AmenitiesFromStartingEra = data.AmenitiesFromStartingEra or 0;
     if (data.AmenitiesFromStartingEra > 0) then 
         CQUI_BuildAmenityBubbleInstance("ICON_GREAT_PERSON_CLASS_SCIENTIST", Locale.ToNumber(data.AmenitiesFromStartingEra), "LOC_GAME_START_ERA");
     end
 
     --Improvements
-    data.AmenitiesFromImprovements = tonumber(data.AmenitiesFromImprovements) or 0;
+    data.AmenitiesFromImprovements = data.AmenitiesFromImprovements or 0;
     if (data.AmenitiesFromImprovements > 0) then 
-        CQUI_BuildAmenityBubbleInstance("ICON_CITYSTATE_INDUSTRIAL", Locale.ToNumber(data.AmenitiesFromImprovements), "LOC_PEDIA_IMPROVEMENTS_PAGEGROUP_IMPROVEMENTS_NAME");
+        CQUI_BuildAmenityBubbleInstance("ICON_IMPROVEMENT_PASTURE", Locale.ToNumber(data.AmenitiesFromImprovements), "LOC_PEDIA_IMPROVEMENTS_PAGEGROUP_IMPROVEMENTS_NAME");
     end
 
     --War Weariness
@@ -641,21 +641,21 @@ function ViewPanelAmenities( data:table )
     end
 
     --Districts
-    data.AmenitiesFromDistricts = tonumber(data.AmenitiesFromDistricts) or 0;
+    data.AmenitiesFromDistricts = data.AmenitiesFromDistricts or 0;
     if (data.AmenitiesFromDistricts > 0) then
         CQUI_BuildAmenityBubbleInstance("ICON_DISTRICT_CITY_CENTER", Locale.ToNumber(data.AmenitiesFromDistricts), "LOC_PEDIA_DISTRICTS_TITLE");
     end
 
     --Natural Wonders
-    data.AmenitiesFromNaturalWonders = tonumber(data.AmenitiesFromNaturalWonders) or 0;
+    data.AmenitiesFromNaturalWonders = data.AmenitiesFromNaturalWonders or 0;
     if (data.AmenitiesFromNaturalWonders > 0) then
-        CQUI_BuildAmenityBubbleInstance("ICON_WB_TOOL_WONDERS", Locale.ToNumber(data.AmenitiesFromNaturalWonders), "LOC_PEDIA_FEATURES_PAGEGROUP_NATURAL_WONDERS_NAME");
+        CQUI_BuildAmenityBubbleInstance("ICON_GREAT_PERSON_CLASS_MERCHANT", Locale.ToNumber(data.AmenitiesFromNaturalWonders), "LOC_PEDIA_FEATURES_PAGEGROUP_NATURAL_WONDERS_NAME");
     end
 
     --Traits
-    data.AmenitiesFromTraits = tonumber(data.AmenitiesFromTraits) or 0;
+    data.AmenitiesFromTraits = data.AmenitiesFromTraits or 0;
     if (data.AmenitiesFromTraits > 0) then
-        CQUI_BuildAmenityBubbleInstance("ICON_MAP_PIN_PLUS", Locale.ToNumber(data.AmenitiesFromTraits), "LOC_UI_PEDIA_TRAITS");
+        CQUI_BuildAmenityBubbleInstance("ICON_GREAT_PERSON_CLASS_ENGINEER", Locale.ToNumber(data.AmenitiesFromTraits), "LOC_UI_PEDIA_TRAITS");
     end
     -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
@@ -682,7 +682,7 @@ function ViewPanelHousing( data:table )
     m_kHousingIM:ResetInstances();
 
     --Buildings
-    CQUI_BuildHousingBubbleInstance("ICON_BUILDING_GRANARY", data.HousingFromBuildings, "LOC_BUILDING_NAME");
+    CQUI_BuildHousingBubbleInstance("ICON_BUILDING_GRANARY", data.HousingFromBuildings, "LOC_PEDIA_BUILDINGS_TITLE");
     --Civics
     CQUI_BuildHousingBubbleInstance("ICON_NOTIFICATION_CONSIDER_GOVERNMENT_CHANGE", data.HousingFromCivics, "LOC_CATEGORY_CIVICS_NAME");
     --Districts
@@ -692,7 +692,7 @@ function ViewPanelHousing( data:table )
     --Water
     CQUI_BuildHousingBubbleInstance("ICON_GREAT_PERSON_CLASS_ADMIRAL", data.HousingFromWater, "LOC_PEDIA_CONCEPTS_PAGE_CITIES_15_CHAPTER_CONTENT_TITLE");
     --Improvements
-    CQUI_BuildHousingBubbleInstance("ICON_IMPROVEMENT_PASTURE", CQUI_HousingFromImprovements, "LOC_IMPROVEMENT_NAME");    -- CQUI real housing from improvements value
+    CQUI_BuildHousingBubbleInstance("ICON_IMPROVEMENT_PASTURE", CQUI_HousingFromImprovements, "LOC_PEDIA_IMPROVEMENTS_PAGEGROUP_IMPROVEMENTS_NAME");    -- CQUI real housing from improvements value
     --Era
     data.HousingFromStartingEra = tonumber(data.HousingFromStartingEra) or 0;
     if (data.HousingFromStartingEra > 0) then

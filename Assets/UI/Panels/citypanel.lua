@@ -598,50 +598,46 @@ function ViewMain( data:table )
     local HappinessTooltipString = Locale.Lookup(GameInfo.Happinesses[data.Happiness].Name);
     HappinessTooltipString = HappinessTooltipString.."[NEWLINE]";
     local tableChanges = {};
-    tableChanges["Neg"] = {}
-    tableChanges["Pos"] = {};
 
     -- Inline function declaration
     function repeatAvoidAddNew( TextKey, dataID, isNegative, special)
         local textValue = Locale.Lookup(TextKey, "");
         if (isNegative) then
             if special then
-                table.insert(tableChanges["Neg"], {Amenities = Locale.ToNumber(data[dataID]), AmenityType = textValue.." "});
+                table.insert(tableChanges, {Amenities = -data[dataID], AmenityType = textValue.." "});
             elseif (data["AmenitiesLostFrom"..dataID] ~= 0) then
-                table.insert(tableChanges["Neg"], {Amenities = Locale.ToNumber(data["AmenitiesLostFrom"..dataID]), AmenityType = textValue});
+                table.insert(tableChanges, {Amenities = -data["AmenitiesLostFrom"..dataID], AmenityType = textValue});
             end
         else
             if ( data["AmenitiesFrom"..dataID] > 0) then
-                table.insert(tableChanges["Pos"], {Amenities = Locale.ToNumber(data["AmenitiesFrom"..dataID]), AmenityType = textValue});
+                table.insert(tableChanges, {Amenities = data["AmenitiesFrom"..dataID], AmenityType = textValue});
             end
         end
     end
 
+    data.AmenitiesFromDistricts = data.AmenitiesFromDistricts or 0;
+    data.AmenitiesFromNaturalWonders = data.AmenitiesFromNaturalWonders or 0;
+    data.AmenitiesFromTraits = data.AmenitiesFromTraits or 0;
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_LUXURIES",           "Luxuries"                        );
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_CIVICS",             "Civics"                          );
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_ENTERTAINMENT",      "Entertainment"                   );
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_GREAT_PEOPLE",       "GreatPeople"                     );
+    repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_CITY_STATES",        "CityStates"                      );
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_RELIGION",           "Religion"                        );
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_NATIONAL_PARKS",     "NationalParks"                   );
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_STARTING_ERA",       "StartingEra"                     );
+    repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_IMPROVEMENTS",       "Improvements"                    );
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_LOST_FROM_WAR_WEARINESS", "WarWeariness",         true      );
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_LOST_FROM_BANKRUPTCY",    "Bankruptcy",           true      );
+    repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_DISTRICTS",          "Districts"                       );
+    repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_NATURAL_WONDERS",    "NaturalWonders"                  );
+    repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_TRAITS",             "Traits"                          );
+    if g_bIsRiseAndFall or g_bIsGatheringStorm then
+        repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_LOST_FROM_GOVERNORS", "Governors");
+    end
     repeatAvoidAddNew("LOC_HUD_REPORTS_FROM_POPULATION",                "AmenitiesRequiredNum", true, true);
-
-    -- Inline function declaration
-    function AmenitiesSort(a, b)
-        return a["Amenities"] > b["Amenities"];
-    end
-
-    table.sort(tableChanges["Neg"], AmenitiesSort);
-    table.sort(tableChanges["Pos"], AmenitiesSort);
-
-    for _, aTable in pairs(tableChanges["Pos"])do
-        HappinessTooltipString = HappinessTooltipString.."[NEWLINE]+"..aTable.Amenities.." "..aTable.AmenityType:sub(1, -2).."";
-    end
-
-    for _, aTable in pairs(tableChanges["Neg"])do
-        HappinessTooltipString = HappinessTooltipString.."[NEWLINE]-"..aTable.Amenities.." "..aTable.AmenityType:sub(1, -2).."";
+    for _, aTable in pairs(tableChanges)do
+        HappinessTooltipString = HappinessTooltipString..string.format("[NEWLINE]%+d %s", aTable.Amenities, aTable.AmenityType:sub(1, -2));
     end
 
     if data.HappinessGrowthModifier ~= 0 then
