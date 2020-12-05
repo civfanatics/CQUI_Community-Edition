@@ -28,7 +28,7 @@ local TURN_TIMER_BAR_INACTIVE_COLOR :number = UI.GetColorValue(1,0,0,1);
 
 local MAX_BLOCKER_BUTTONS           :number = 4;  -- Number of buttons around big action button
 local autoEndTurnOptionHash         :number = DB.MakeHash("AutoEndTurn");
-local cityRangeAttackTurnOptionHash    :number = DB.MakeHash("CityRangeAttackTurnBlocking");
+local cityRangeAttackTurnOptionHash :number = DB.MakeHash("CityRangeAttackTurnBlocking");
 
 local MAX_BEFORE_TRUNC_TURN_STRING  :number = 150;
 
@@ -673,7 +673,7 @@ function DoEndTurn( optionalNewBlocker:number )
             local attackCity = pPlayer:GetCities():GetFirstRangedAttackCity();
             if (attackCity ~= nil) then
                 -- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
-                -- CQUI: Commented lines are the unmodified code
+                -- CQUI: These next two lines are in the unmodified code are replaced by the two CQUI LuaEvents that follow
                 -- UI.SelectCity(attackCity);
                 -- UI.SetInterfaceMode(InterfaceModeTypes.CITY_RANGE_ATTACK);
                 LuaEvents.CQUI_Strike_Enter();
@@ -683,6 +683,7 @@ function DoEndTurn( optionalNewBlocker:number )
                 UI.DataError( "Unable to find selectable attack city while in CheckCityRangeAttackState()" );
             end
         -- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
+        -- CQUI: Add check on Encampment and Policy
         elseif (CQUI_CheckEncampmentRangeAttackState()) then
             local attackEncampment = CQUI_GetFirstRangedAttackEncampment();
             if (attackEncampment ~= nil) then
@@ -819,7 +820,7 @@ function OnEndTurnRightClicked()
     end
 
     -- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
-    -- The lines above the 'if (CheckCityRangeAttackState'
+    -- These lines from the unmodified game are commented out, see additional note below
     -- local activeBlockerId = NotificationManager.GetFirstEndTurnBlocking(Game.GetLocalPlayer());
     -- if activeBlockerId == EndTurnBlockingTypes.NO_ENDTURN_BLOCKING then
     --     if (CheckUnitsHaveMovesState()) then
@@ -1079,44 +1080,52 @@ end
 
 -- ===========================================================================
 function OnLocalPlayerTurnBegin()
-    -- Standard disable is set to false in the refresh.
-    -- This extra level of input catching is done when tutorial has raised
-    -- this boolean and will prevent spam clicking through; as the tutorial
-    -- system itself sets ENABLED as it's hiding all controls.
-    if m_isSlowTurnEnable then
-        Controls.TutorialSlowTurnEnableAnim:SetHide(false);
-        Controls.TutorialSlowTurnEnableAnim:SetToBeginning();
-        Controls.TutorialSlowTurnEnableAnim:RegisterEndCallback(
-            function()
-                Controls.TutorialSlowTurnEnableAnim:SetHide(true);
-            end
-        );
-        Controls.TutorialSlowTurnEnableAnim:Play();
-    end
-    ContextPtr:RequestRefresh();
+    -- If the player is dead (observing), then automatically end their turn
+    local pPlayerConfig :table	= PlayerConfigurations[Game.GetLocalPlayer()];
+    if (not pPlayerConfig:IsAlive()) then
+        DoEndTurn();
+    else
+        -- Standard disable is set to false in the refresh.
+        -- This extra level of input catching is done when tutorial has raised
+        -- this boolean and will prevent spam clicking through; as the tutorial
+        -- system itself sets ENABLED as it's hiding all controls.
+        if m_isSlowTurnEnable then
+            Controls.TutorialSlowTurnEnableAnim:SetHide(false);
+            Controls.TutorialSlowTurnEnableAnim:SetToBeginning();
+            Controls.TutorialSlowTurnEnableAnim:RegisterEndCallback(
+                function()
+                    Controls.TutorialSlowTurnEnableAnim:SetHide(true);
+                end
+            );
+            Controls.TutorialSlowTurnEnableAnim:Play();
+        end
+        ContextPtr:RequestRefresh();
 
-    -- if auto-cycle is OFF, play this sound to indicate "start of turn"
-    if (not UserConfiguration.IsAutoUnitCycle()) then
-            UI.PlaySound("SP_Turn_Start");
--- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
-            -- AZURENCY : also reset the policy reminder shown status
-            CQUI_PolicyReminderClosed = false
--- ==== CQUI CUSTOMIZATION END  ====================================================================================== -- 
+        -- if auto-cycle is OFF, play this sound to indicate "start of turn"
+        if (not UserConfiguration.IsAutoUnitCycle()) then
+                UI.PlaySound("SP_Turn_Start");
+            -- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
+                -- AZURENCY : also reset the policy reminder shown status
+                CQUI_PolicyReminderClosed = false
+            -- ==== CQUI CUSTOMIZATION END  ====================================================================================== -- 
+        end
     end
 end
 
 -- ===========================================================================
 function OnLocalPlayerTurnEnd()
+    local pPlayerConfig :table	= PlayerConfigurations[Game.GetLocalPlayer()];
+    if (pPlayerConfig:IsAlive()) then
+        -- Only disable if not in multi-player, so turns can "unend"...
+        if not GameConfiguration.IsAnyMultiplayer() then
+            Controls.EndTurnButton:SetDisabled(true);
+            Controls.EndTurnButtonLabel:SetDisabled(true);
+        end
 
-    -- Only disable if not in multi-player, so turns can "unend"...
-    if not GameConfiguration.IsAnyMultiplayer() then
-        Controls.EndTurnButton:SetDisabled(true);
-        Controls.EndTurnButtonLabel:SetDisabled(true);
+        SetEndTurnWaiting();
+        UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
+        m_kSoundsPlayed = {};
     end
-
-    SetEndTurnWaiting();
-    UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
-    m_kSoundsPlayed = {};
 end
 
 -- ===========================================================================
@@ -1425,6 +1434,15 @@ function ChangePleaseWaitTooltip(newTooltip:string)
 end
 
 -- ===========================================================================
+function OnStartObserverMode()
+    ChangePleaseWaitTooltip(Locale.Lookup("LOC_ACTION_PANEL_END_OBSERVER_MODE"));
+    Controls.EndTurnButton:SetToolTipString(Locale.Lookup("LOC_ACTION_PANEL_END_OBSERVER_MODE"));
+    Controls.ObserverButtonLabel:SetHide(false);
+    Controls.EndObserverModeButton:SetHide(false);
+    DoEndTurn();
+end
+
+-- ===========================================================================
 --  Input Hotkey Event
 -- ===========================================================================
 function OnInputActionTriggered( actionId )
@@ -1455,6 +1473,9 @@ function LateInitialize()
     Controls.OverflowCheckbox:RegisterCallback(   Mouse.eLClick, OnOverflowClick);
     Controls.TurnBlockerContainerAlpha:RegisterEndCallback( HideOverflowContainer );
 
+    Controls.ObserverButtonLabel:RegisterCallback(Mouse.eLClick, function() LuaEvents.ActionPanel_EndObserverMode() end);
+    Controls.EndObserverModeButton:RegisterCallback(Mouse.eLClick, function() LuaEvents.ActionPanel_EndObserverMode() end);
+
     -- Engine Events
     Events.CityCommandStarted.Add(      OnCityCommandStarted);
     Events.CityProductionChanged.Add(   OnCityProductionChanged );
@@ -1483,11 +1504,12 @@ function LateInitialize()
     LuaEvents.AutoPlayEnd.Add(          OnAutoPlayEnd );    -- Raised by engine AutoPlay_Manager!
     LuaEvents.Tutorial_SlowNextTurnEnable.Add(  OnTutorialSlowTurnEnable );
     LuaEvents.ProductionPanel_IsQueueOpen.Add(    OnIsProdQueueOpen );
+    LuaEvents.EndGameMenu_StartObserverMode.Add(OnStartObserverMode);
 
     -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     LuaEvents.OnCQUIPolicyReminderClose.Add(function() CQUI_PolicyReminderClosed = true; ContextPtr:RequestRefresh(); end)
     LuaEvents.OnCQUIPolicyReminderOpenedChangePolicy.Add(function() CQUI_PolicyReminderClosed = true; ContextPtr:RequestRefresh(); end)
-    -- ==== CQUI CUSTOMIZATION END ====================================================================================== --
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     m_kPopupDialog = PopupDialog:new( "ActionPanelPopupDialog" );
 end
