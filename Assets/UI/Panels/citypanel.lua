@@ -1270,7 +1270,9 @@ function OnShutdown()
         -- Game Core Events
     Events.CityAddedToMap.Remove(          OnCityAddedToMap );
     Events.CityNameChanged.Remove(         OnCityNameChanged );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     Events.CitySelectionChanged.Remove(    CQUI_OnCitySelectionChanged );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     Events.CityFocusChanged.Remove(        OnCityFocusChange );
     Events.CityProductionCompleted.Remove( OnCityProductionCompleted );
     Events.CityProductionUpdated.Remove(   OnCityProductionUpdated );
@@ -1279,13 +1281,17 @@ function OnShutdown()
     Events.DistrictDamageChanged.Remove(   OnCityProductionChanged );
     Events.LocalPlayerTurnBegin.Remove(    OnLocalPlayerTurnBegin );
     Events.ImprovementChanged.Remove(      OnCityProductionChanged );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     Events.InterfaceModeChanged.Remove(    CQUI_OnInterfaceModeChanged );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     Events.LocalPlayerChanged.Remove(      OnLocalPlayerChanged );
     Events.PlayerResourceChanged.Remove(   OnPlayerResourceChanged );
     Events.UnitSelectionChanged.Remove(    OnUnitSelectionChanged );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     Events.LoadScreenClose.Remove(         CQUI_OnLoadScreenClose );
     Events.PlotYieldChanged.Remove(        OnTileImproved );
     Events.PlayerTurnActivated.Remove(     RefreshOnTurnRoll );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     -- LUA Events
     LuaEvents.CityPanelOverview_CloseButton.Remove(     OnCloseOverviewPanel );

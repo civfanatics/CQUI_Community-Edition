@@ -694,7 +694,7 @@ function ViewPanelHousing( data:table )
     --Improvements
     CQUI_BuildHousingBubbleInstance("ICON_IMPROVEMENT_PASTURE", CQUI_HousingFromImprovements, "LOC_PEDIA_IMPROVEMENTS_PAGEGROUP_IMPROVEMENTS_NAME");    -- CQUI real housing from improvements value
     --Era
-    data.HousingFromStartingEra = tonumber(data.HousingFromStartingEra) or 0;
+    data.HousingFromStartingEra = data.HousingFromStartingEra or 0;
     if (data.HousingFromStartingEra > 0) then
         CQUI_BuildHousingBubbleInstance("ICON_GREAT_PERSON_CLASS_SCIENTIST", data.HousingFromStartingEra, "LOC_GAME_START_ERA");
     end
