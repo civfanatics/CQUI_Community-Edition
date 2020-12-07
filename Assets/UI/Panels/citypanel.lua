@@ -1179,7 +1179,7 @@ function OnToggleOverviewPanel()
 end
 
 -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
--- CQUI Replaces this function with CQUI_OnCitySelectionChanged
+-- CQUI Replaces this function with CQUI_OnCitySelectionChanged (function header shown here at location it appears in unmodified citypanel.lua)
 -- function OnCitySelectionChanged( ownerPlayerID:number, cityID:number, i:number, j:number, k:number, isSelected:boolean, isEditable:boolean)
 -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
