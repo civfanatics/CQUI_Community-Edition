@@ -406,6 +406,8 @@ function OnInit( isReload:boolean )
     if isReload then
         LuaEvents.GameDebug_GetValues(RELOAD_CACHE_ID);
     end
+
+    LateInitialize();
 end
 
 -- ===========================================================================
@@ -469,6 +471,13 @@ end
 -- ===========================================================================
 function OnNotificationPanel_ShowCivicDiscovered(ePlayer, civicIndex, isByUser:boolean)
     AddCompletedPopup( ePlayer, civicIndex, nil, isByUser  );
+end
+
+-- ===========================================================================
+-- FOR OVERRIDE
+-- ===========================================================================
+function LateInitialize()
+  -- Unmodified version of this file has no code here, this function exists entirely for Override by other mods
 end
 
 -- ===========================================================================
