@@ -546,50 +546,75 @@ function ViewPanelAmenities( data:table )
 
     g_kAmenitiesIM:ResetInstances();
 
-    --Luxuries
-    CQUI_BuildAmenityBubbleInstance("ICON_IMPROVEMENT_BEACH_RESORT", data.AmenitiesFromLuxuries, "LOC_PEDIA_RESOURCES_PAGEGROUP_LUXURY_NAME");
-    --Civics
+    -- Luxuries
+    CQUI_BuildAmenityBubbleInstance("ICON_IMPROVEMENT_BEACH_RESORT", data.AmenitiesFromLuxuries, "LOC_HUD_REPORTS_LUXURIES");
+    
+    -- Civics
     if GameCapabilities.HasCapability("CAPABILITY_CITY_HUD_AMENITIES_CIVICS") then
         CQUI_BuildAmenityBubbleInstance("ICON_NOTIFICATION_CONSIDER_GOVERNMENT_CHANGE", data.AmenitiesFromCivics, "LOC_CATEGORY_CIVICS_NAME");
     end
-    --Entertainment
+    
+    -- Entertainment
     CQUI_BuildAmenityBubbleInstance("ICON_PROJECT_CARNIVAL", data.AmenitiesFromEntertainment, "LOC_CQUI_CITY_ENTERTAINMENT");
-    --Great People
+    
+    -- Great People
     if GameCapabilities.HasCapability("CAPABILITY_CITY_HUD_AMENITIES_GREAT_PEOPLE") then
         CQUI_BuildAmenityBubbleInstance("ICON_NOTIFICATION_CLAIM_GREAT_PERSON", data.AmenitiesFromGreatPeople, "LOC_PEDIA_CONCEPTS_PAGEGROUP_GREATPEOPLE_NAME");
     end
-    --Relgion
+
+    -- City-States
+	if GameCapabilities.HasCapability("CAPABILITY_CITY_HUD_AMENITIES_CITY_STATES") then
+        if data.AmenitiesFromCityStates > 0 then
+            CQUI_BuildAmenityBubbleInstance("ICON_CITY_STATE", data.AmenitiesFromCityStates, "LOC_CITY_STATES_TITLE");
+        end
+	end
+    
+    -- Religion
     if GameCapabilities.HasCapability("CAPABILITY_CITY_HUD_AMENITIES_RELIGION") then
         CQUI_BuildAmenityBubbleInstance("ICON_UNITOPERATION_FOUND_RELIGION", data.AmenitiesFromReligion, "LOC_UI_RELIGION_TITLE");
     end
-    --National Parks
+    
+    -- National Parks
     if GameCapabilities.HasCapability("CAPABILITY_CITY_HUD_AMENITIES_NATIONAL_PARKS") then
         CQUI_BuildAmenityBubbleInstance("ICON_UNITOPERATION_DESIGNATE_PARK", data.AmenitiesFromNationalParks, "LOC_PEDIA_CONCEPTS_PAGE_TOURISM_4_CHAPTER_CONTENT_TITLE");
     end
-    --War Weariness
+    
+    -- Starting Era
+	if data.AmenitiesFromStartingEra > 0 then 
+        CQUI_BuildAmenityBubbleInstance("ICON_GREAT_PERSON_CLASS_SCIENTIST", data.AmenitiesFromStartingEra, "LOC_GAME_START_ERA");
+	end
+    
+    -- Improvements
+    CQUI_BuildAmenityBubbleInstance("ICON_CITYSTATE_INDUSTRIAL", data.AmenitiesFromImprovements, "LOC_PEDIA_IMPROVEMENTS_PAGEGROUP_IMPROVEMENTS_NAME");
+    
+    -- War Weariness
     if GameCapabilities.HasCapability("CAPABILITY_CITY_HUD_AMENITIES_WAR_WEARINESS") then
-        CQUI_BuildAmenityBubbleInstance("ICON_UNITOPERATION_FORTIFY", (data.AmenitiesLostFromWarWeariness>0 and -data.AmenitiesLostFromWarWeariness or 0), "LOC_PEDIA_CONCEPTS_PAGE_COMBAT_3_CHAPTER_CONTENT_TITLE");
+        if data.AmenitiesLostFromWarWeariness > 0 then 
+            CQUI_BuildAmenityBubbleInstance("ICON_UNITOPERATION_FORTIFY", -data.AmenitiesLostFromWarWeariness, "LOC_PEDIA_CONCEPTS_PAGE_COMBAT_3_CHAPTER_CONTENT_TITLE");
+        end
     end
-    --Bankruptcy
+    
+    -- Bankruptcy
     if GameCapabilities.HasCapability("CAPABILITY_CITY_HUD_AMENITIES_BANKRUPTCY") then
-        CQUI_BuildAmenityBubbleInstance("ICON_NOTIFICATION_TREASURY_BANKRUPT", (data.AmenitiesLostFromBankruptcy>0 and -data.AmenitiesLostFromBankruptcy or 0), "LOC_PEDIA_CONCEPTS_PAGE_GOLD_4_CHAPTER_CONTENT_TITLE");
+        if data.AmenitiesLostFromBankruptcy > 0 then 
+            CQUI_BuildAmenityBubbleInstance("ICON_NOTIFICATION_TREASURY_BANKRUPT", -data.AmenitiesLostFromBankruptcy, "LOC_PEDIA_CONCEPTS_PAGE_GOLD_4_CHAPTER_CONTENT_TITLE");
+        end
     end
 
-    -- CQUI (AZURENCY) TODO : find the best icons for theses bubble
-    -- M4A Fix: data.AmenitiesFromDistricts was not always a number?
-    data.AmenitiesFromDistricts = tonumber(data.AmenitiesFromDistricts) or 0;
-    if (data.AmenitiesFromDistricts > 0) then
-        CQUI_BuildAmenityBubbleInstance("ICON_NOTIFICATION_TREASURY_BANKRUPT", Locale.ToNumber(data.AmenitiesFromDistricts), "LOC_HUD_CITY_AMENITIES_FROM_DISTRICTS");
-    end
+    -- Districts
+	data.AmenitiesFromDistricts = data.AmenitiesFromDistricts or 0;
+    CQUI_BuildAmenityBubbleInstance("ICON_DISTRICT_CITY_CENTER", data.AmenitiesFromDistricts, "LOC_PEDIA_DISTRICTS_TITLE");
 
+    -- Natural Wonders
     data.AmenitiesFromNaturalWonders = data.AmenitiesFromNaturalWonders or 0;
-    if (data.AmenitiesFromNaturalWonders > 0) then
-        CQUI_BuildAmenityBubbleInstance("ICON_NOTIFICATION_TREASURY_BANKRUPT", Locale.ToNumber(data.AmenitiesFromNaturalWonders), "LOC_HUD_CITY_AMENITIES_FROM_NATURAL_WONDERS");
+    if data.AmenitiesFromNaturalWonders > 0 then
+        CQUI_BuildAmenityBubbleInstance("ICON_GREAT_PERSON_CLASS_MERCHANT", data.AmenitiesFromNaturalWonders, "LOC_PEDIA_FEATURES_PAGEGROUP_NATURAL_WONDERS_NAME");
     end
 
+    -- Traits
     data.AmenitiesFromTraits = data.AmenitiesFromTraits or 0;
-    if (data.AmenitiesFromTraits > 0) then
-        CQUI_BuildAmenityBubbleInstance("ICON_NOTIFICATION_TREASURY_BANKRUPT", Locale.ToNumber(data.AmenitiesFromTraits), "LOC_HUD_CITY_AMENITIES_FROM_TRAITS");
+    if data.AmenitiesFromTraits > 0 then
+        CQUI_BuildAmenityBubbleInstance("ICON_GREAT_PERSON_CLASS_ENGINEER", data.AmenitiesFromTraits, "LOC_UI_PEDIA_TRAITS");
     end
 
     Controls.AmenitiesRequiredNum:SetText( Locale.ToNumber(data.AmenitiesRequiredNum) );
@@ -613,19 +638,19 @@ function ViewPanelHousing( data:table )
     m_kHousingIM:ResetInstances();
 
     --Buildings
-    CQUI_BuildHousingBubbleInstance("ICON_BUILDING_GRANARY", data.HousingFromBuildings, "LOC_BUILDING_NAME");
+    CQUI_BuildHousingBubbleInstance("ICON_BUILDING_GRANARY", data.HousingFromBuildings, "LOC_HUD_BUILDINGS");
     --Civics
     CQUI_BuildHousingBubbleInstance("ICON_NOTIFICATION_CONSIDER_GOVERNMENT_CHANGE", data.HousingFromCivics, "LOC_CATEGORY_CIVICS_NAME");
     --Districts
-    CQUI_BuildHousingBubbleInstance("ICON_DISTRICT_CITY_CENTER", data.HousingFromDistricts, "LOC_DISTRICT_NAME");
+    CQUI_BuildHousingBubbleInstance("ICON_DISTRICT_CITY_CENTER", data.HousingFromDistricts, "LOC_PEDIA_DISTRICTS_TITLE");
     --Great People
     CQUI_BuildHousingBubbleInstance("ICON_NOTIFICATION_CLAIM_GREAT_PERSON", data.HousingFromGreatPeople, "LOC_PEDIA_CONCEPTS_PAGEGROUP_GREATPEOPLE_NAME");
     --Water
     CQUI_BuildHousingBubbleInstance("ICON_GREAT_PERSON_CLASS_ADMIRAL", data.HousingFromWater, "LOC_PEDIA_CONCEPTS_PAGE_CITIES_15_CHAPTER_CONTENT_TITLE");
     --Improvements
-    CQUI_BuildHousingBubbleInstance("ICON_IMPROVEMENT_PASTURE", CQUI_HousingFromImprovements, "LOC_IMPROVEMENT_NAME");    -- CQUI real housing from improvements value
+    CQUI_BuildHousingBubbleInstance("ICON_CITYSTATE_INDUSTRIAL", CQUI_HousingFromImprovements, "LOC_PEDIA_IMPROVEMENTS_PAGEGROUP_IMPROVEMENTS_NAME");    -- CQUI real housing from improvements value
     --Era
-    CQUI_BuildHousingBubbleInstance("ICON_GREAT_PERSON_CLASS_SCIENTIST", data.HousingFromStartingEra, "LOC_ERA_NAME");
+    CQUI_BuildHousingBubbleInstance("ICON_GREAT_PERSON_CLASS_SCIENTIST", data.HousingFromStartingEra, "LOC_GAME_START_ERA");
 
     local colorName:string = GetPercentGrowthColor( data.HousingMultiplier ) ;
     Controls.HousingTotalNum:SetText( data.Housing - data.HousingFromImprovements + CQUI_HousingFromImprovements );    -- CQUI calculate real housing
