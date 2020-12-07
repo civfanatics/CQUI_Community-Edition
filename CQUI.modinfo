@@ -52,6 +52,13 @@
             <LeaderPlayable>Players:Expansion1_Players::LEADER_CHANDRAGUPTA,Players:Expansion1_Players::LEADER_GENGHIS_KHAN,Players:Expansion1_Players::LEADER_LAUTARO,Players:Expansion1_Players::LEADER_POUNDMAKER,Players:Expansion1_Players::LEADER_ROBERT_THE_BRUCE,Players:Expansion1_Players::LEADER_SEONDEOK,Players:Expansion1_Players::LEADER_SHAKA,Players:Expansion1_Players::LEADER_TAMAR,Players:Expansion1_Players::LEADER_WILHELMINA</LeaderPlayable>
             <LeaderPlayable>Players:Expansion2_Players::LEADER_CHANDRAGUPTA,Players:Expansion2_Players::LEADER_GENGHIS_KHAN,Players:Expansion2_Players::LEADER_LAUTARO,Players:Expansion2_Players::LEADER_POUNDMAKER,Players:Expansion2_Players::LEADER_ROBERT_THE_BRUCE,Players:Expansion2_Players::LEADER_SEONDEOK,Players:Expansion2_Players::LEADER_SHAKA,Players:Expansion2_Players::LEADER_TAMAR,Players:Expansion2_Players::LEADER_WILHELMINA</LeaderPlayable>
         </Criteria>
+        <Criteria id="Heroes_Mode">
+            <ConfigurationValueMatches>
+                <Group>Game</Group>
+                <ConfigurationId>GAMEMODE_HEROES</ConfigurationId>
+                <Value>1</Value>
+            </ConfigurationValueMatches>
+        </Criteria>
     </ActionCriteria>
 
     <!-- ============================== CQUI specific settings ============================== -->
@@ -259,6 +266,17 @@
             <Properties><LoadOrder>200</LoadOrder></Properties>
             <File>Assets/Expansion2/Data/Expansion2_Icons_FontIcons_CQUI.xml</File>
         </UpdateIcons>
+
+        <ImportFiles id="CQUI_HEROES_MODE" criteria="Heroes_Mode">
+            <Properties>
+                <LoadOrder>250</LoadOrder>
+                <Context>InGame</Context>
+            </Properties>
+            <Items>
+                <File>Assets/Babylon/Additions/greatpeopleheropanel.lua</File>
+                <File>Assets/Babylon/Additions/greatpeopleheropanel.xml</File>
+            </Items>
+        </ImportFiles>
 
         <!-- ============================== CQUI specific LOCs ============================== -->
         <LocalizedText id="CQUI_TEXT">
@@ -977,6 +995,10 @@
         <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
         <File>Assets/Expansion2/CityBanners/cityreligioninstances.xml</File>
         <File>Assets/Expansion2/Data/Expansion2_Icons_FontIcons_CQUI.xml</File>
+
+        <!-- Heroes Mode -->
+        <File>Assets/Babylon/Additions/greatpeopleheropanel.lua</File>
+        <File>Assets/Babylon/Additions/greatpeopleheropanel.xml</File>
 
         <File>Assets/Text/Gossip_Text.xml</File>
         <File>Assets/Text/Gossip_Text_de.xml</File>

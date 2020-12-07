@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Context xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\..\..\CivTech\Libs\ForgeUI\ForgeUI_Assets\Controls.xsd" Style="FontNormal16" FontStyle="Shadow">
+
+    <Include File="CivilizationIcon"/>
+
+    <Stack ID="HeroStack" Offset="0,78" StackGrowth="Right" StackPadding="0" />
+
+    <!-- ================================================================== -->
+    <!--    Instances                                                       -->
+    <!-- ================================================================== -->
+    <Instance Name="HeroPanelInstance">
+        <Container ID="Content" Size="428,670">
+            <Grid ID="FadedBackground" Anchor="C,T" Offset="-1,0" Size="parent-10,parent-46" Texture="GreatPeople_Overlay" SliceCorner="13,13" SliceSize="1,1" SliceTextureSize="25,25" Hidden="1" />
+            <!-- <Label ID="IndividualName" Anchor="C,C" Offset="0,-295" Align="C,C" WrapWidth="200" Style="GreatPeopleLargeText" String="$IndividualName$"/> -->
+            <Label ID="IndividualName" Anchor="C,C" Offset="0,-295" Align="C,C" WrapWidth="290" Style="GreatPeopleLargeText" String="$IndividualName$"/>
+            <Line ID="TitleLine" Start="10,56" End="418,56" Width="2" Color="199,187,157,90" />
+
+            <Image ID="CircleFlare" Anchor="C,T" Offset="0,20" Texture="GreatPeople_SlotOn">
+                <Image ID="Portrait" Anchor="C,B" Offset="0,10" Size="105,105" IconSize="105" Texture="Heores105"/>
+                <Button ID="LookAtButton" Anchor="L,B" Offset="-2,4" Size="29,29" Texture="TopBar_LookButton"/>
+                <Button ID="CivilopediaButton" Anchor="R,B" Offset="-2,4" Size="29,29" Texture="TopBar_CivilopediaButton" ToolTip="LOC_GREAT_PEOPLE_HEROES_CIVILOPEDIA_ENTRY_TT"/>
+            </Image>
+            <!-- this is the line under the portraits (why wasn't line just used here?  who knows... -->
+            <Box Anchor="C,T" Offset="0,214" Size="parent-18,2" Color="199,187,157,90" />
+
+            <Container ID="MainInfo" Anchor="C,T" Size="parent,654">
+                <ScrollPanel ID="EffectStackScroller" Offset="0,224" Size="parent-15,240" Vertical="1" AutoScrollBar="1">
+                    <Stack ID="EffectStack" StackPadding="4"/>
+                    <ScrollBar Anchor="R,T" AnchorSide="O,I" Offset="1,0" Style="ScrollVerticalBarAlt" Size="8,parent-10"/>
+                </ScrollPanel>
+
+                <Container ID="RecruitProgressBox" Anchor="C,B" Offset="-1,30" Size="parent,152">
+                    <Box Anchor="C,T" Size="parent-8,2" Color="199,187,157,90" />
+                    <Stack Anchor="C,C" StackPadding="10">
+                        <Label ID="HeroStatus" Anchor="C,T" Align="Center" Style="FontFlair14" WrapWidth="parent-20" Color="157,150,138,255" SmallCaps="20" SmallCapsType="EveryWord"/>
+                        <MakeInstance ID="ClaimedByCivIcon" Name="CivilizationIcon44" Anchor="C,T" />
+                        <Label ID="CQUI_HeroOriginCity" Anchor="C,T" Align="Center" Style="FontFlair14" WrapWidth="parent-20" Color="157,150,138,255" SmallCaps="20" SmallCapsType="EveryWord"/>
+                        <Label ID="DeceasedText" Anchor="C,T" Align="Center" Style="FontFlair14" WrapWidth="parent-20" Color="157,150,138,255" SmallCaps="20" SmallCapsType="EveryWord" String="LOC_GREAT_PEOPLE_HEROES_DECEASED" Hidden="1"/>
+                    </Stack>
+                </Container>
+
+                <Stack Anchor="C,B" Offset="0,-10" StackGrowth="Right" StackPadding="10">
+                    <GridButton ID="FaithRecallButton" Anchor="C,T" Size="80,32" SliceCorner="12,12" SliceSize="1,1" SliceTextureSize="24,24" Texture="Controls_ButtonControl_Brown" TextColor="126,123,120" Style="FontNormal18" StateOffsetIncrement="0,24" String="LOC_GREAT_PEOPLE_HEROES_FAITH_RECALL"/>
+                </Stack>
+            </Container>
+
+            <Container ID="RecruitInfoArea" Anchor="L,B" Offset="13,54" Size="parent-34,150" Hidden="1">
+                <ScrollPanel ID="RecruitInfoScroll" Anchor="C,B" Offset="0,0" Size="parent,parent" Vertical="1">
+                    <Stack ID="RecruitInfoStack" StackGrowth="Down" StackPadding="4"/>
+                    <ScrollBar Anchor="R,C" Offset="1,0" AnchorSide="O,I" Style="ScrollVerticalBarAlt" />
+                </ScrollPanel>
+                <GridButton ID="RecruitInfoBackButton" Anchor="C,B" AnchorSide="I,O" Offset="0,20" Size="parent-40,28" SliceCorner="12,12" SliceSize="1,1" SliceTextureSize="24,24" Texture="Controls_ButtonControl_Tan" TextColor="20,20,20" Style="FontNormal16" String="LOC_GREAT_PEOPLE_BACK" StateOffsetIncrement="0,24" />
+            </Container>
+        </Container>
+    </Instance>
+
+    <Instance Name="AbilityInstance">
+        <Container ID="Top" Size="parent,auto">
+            <Image Offset="6,0" Size="38,38" IconSize="38" Icon="ICON_HERO_PASSIVE_ABILITY"/>
+            <Stack Anchor="L,T" Offset="45,0" StackGrowth="Down" StackPadding="4">
+                <ScrollTextField ID="AbilityName" Anchor="L,T" Size="350,20" Style="GreatPeopleLargeText"/>
+                <Label ID="AbilityText" Anchor="L,T" WrapWidth="355" Style="GreatPeopleText"/>
+            </Stack>
+        </Container>
+    </Instance>
+
+    <Instance Name="CommandInstance">
+        <Container ID="Top" Size="parent,auto">
+            <Image ID="CommandIcon" Offset="6,0" Size="38,38" Texture="Controls_SlotCircle3"/>
+            <Stack Anchor="L,T" Offset="45,0" StackGrowth="Down" StackPadding="4">
+                <ScrollTextField ID="CommandName" Anchor="L,T" Size="350,20" Style="GreatPeopleLargeText"/>
+                <Label ID="CommandText" Anchor="L,T" WrapWidth="355" Style="GreatPeopleText"/>
+            </Stack>
+        </Container>
+    </Instance>
+
+    <Instance Name="StatInstance">
+        <Container ID="Top" Size="parent,auto">
+            <Image ID="StatIcon" Anchor="L,T" Offset="100,0" Size="16,16" Icon="ICON_STRENGTH"/>
+            <Label ID="NameText" Anchor="L,T" Offset="120,2" Style="GreatPeopleText" String="Combat Strength" />
+            <Label ID="ValueText" Anchor="R,T" Offset="100,2" Style="GreatPeopleText" String="22" />
+        </Container>
+    </Instance>
+
+</Context>
+
