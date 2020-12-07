@@ -614,7 +614,6 @@ function ViewMain( data:table )
             end
         end
     end
-
     data.AmenitiesFromDistricts = data.AmenitiesFromDistricts or 0;
     data.AmenitiesFromNaturalWonders = data.AmenitiesFromNaturalWonders or 0;
     data.AmenitiesFromTraits = data.AmenitiesFromTraits or 0;
