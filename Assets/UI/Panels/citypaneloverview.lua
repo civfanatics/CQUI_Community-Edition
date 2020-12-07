@@ -1,3 +1,8 @@
+-- ===========================================================================
+-- CQUI CityPanelOverview Replacement File
+-- CQUI customized sections marked
+-- ===========================================================================
+
 -- Copyright 2017-2018, Firaxis Games
 -- AKA: "City Details", (Left) side panel with details on a selected city
 
@@ -9,7 +14,9 @@ include( "SupportFunctions" );      -- Round(), Clamp()
 include( "TabSupport" );
 include( "CitySupport" );
 include( "EspionageViewManager" );
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
 include( "CQUICommon.lua" );
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
 -- ===========================================================================
 --  CONSTANTS
@@ -30,7 +37,6 @@ local UV_CITIZEN_GROWTH_STATUS    :table  = {};
         UV_CITIZEN_GROWTH_STATUS[4] = {u=0, v=100};   -- content (normal)
         UV_CITIZEN_GROWTH_STATUS[5] = {u=0, v=150};   -- happy
         UV_CITIZEN_GROWTH_STATUS[6] = {u=0, v=200};   -- ecstatic
-        UV_CITIZEN_GROWTH_STATUS[7] = {u=0, v=200};   -- jubilant
 
 local UV_HOUSING_GROWTH_STATUS    :table = {};
         UV_HOUSING_GROWTH_STATUS[0] = {u=0, v=0};     -- halted
@@ -52,27 +58,35 @@ local YIELD_STATE :table = {
 -- ===========================================================================
 --  GLOBALS
 -- ===========================================================================
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+-- CQUI uses CQUI_BubbleInstance instead of AmenityInstance
 g_kAmenitiesIM = InstanceManager:new( "CQUI_BubbleInstance", "Top", Controls.AmenityStack );
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
 -- ===========================================================================
 --  MEMBERS
 -- ===========================================================================
 
-local m_kBuildingsIM = InstanceManager:new( "BuildingInstance", "Top");
-local m_kDistrictsIM = InstanceManager:new( "DistrictInstance", "Top", Controls.BuildingAndDistrictsStack );
-local m_kHousingIM = InstanceManager:new( "CQUI_BubbleInstance", "Top", Controls.HousingStack );
-local m_kOtherReligionsIM = InstanceManager:new( "OtherReligionInstance", "Top", Controls.OtherReligions );
-local m_kProductionIM = InstanceManager:new( "ProductionInstance", "Top", Controls.ProductionQueueStack );
-local m_kReligionsBeliefsIM = InstanceManager:new( "ReligionBeliefsInstance", "Top", Controls.ReligionBeliefsStack );
-local m_kTradingPostsIM = InstanceManager:new( "TradingPostInstance", "Top", Controls.TradingPostsStack );
-local m_kWondersIM = InstanceManager:new( "WonderInstance", "Top", Controls.WondersStack );
-local m_kKeyStackIM = InstanceManager:new( "KeyEntry", "KeyColorImage", Controls.KeyStack );
+local m_kBuildingsIM        :table = InstanceManager:new( "BuildingInstance", "Top");
+local m_kDistrictsIM        :table = InstanceManager:new( "DistrictInstance", "Top", Controls.BuildingAndDistrictsStack );
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+-- CQUI uses CQUI_BubbleInstance instead of HousingInstance
+local m_kHousingIM          :table = InstanceManager:new( "CQUI_BubbleInstance", "Top", Controls.HousingStack );
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+local m_kOtherReligionsIM   :table = InstanceManager:new( "OtherReligionInstance", "Top", Controls.OtherReligions );
+local m_kProductionIM       :table = InstanceManager:new( "ProductionInstance", "Top", Controls.ProductionQueueStack );
+local m_kReligionsBeliefsIM :table = InstanceManager:new( "ReligionBeliefsInstance", "Top", Controls.ReligionBeliefsStack );
+local m_kTradingPostsIM     :table = InstanceManager:new( "TradingPostInstance", "Top", Controls.TradingPostsStack );
+local m_kWondersIM          :table = InstanceManager:new( "WonderInstance", "Top", Controls.WondersStack );
+local m_kKeyStackIM         :table = InstanceManager:new( "KeyEntry", "KeyColorImage", Controls.KeyStack );
 
 local m_isInitializing  :boolean = false;
 local m_kData           :table = nil;
 local m_pCity           :table = nil;
 local m_pPlayer         :table = nil;
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
 local m_desiredLens     :string = "CityManagement";  -- CQUI : replaced Default by CityManagement
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
 local ms_eventID        :number = 0;
 local m_isShowingPanel  :boolean = false;
@@ -82,21 +96,24 @@ local m_tabs         = nil;
 
 local m_kEspionageViewManager = EspionageViewManager:CreateManager();
 
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
 --CQUI Members
 local CQUI_ShowCityDetailAdvisor :boolean = false;
 
+-- ===========================================================================
 function CQUI_OnSettingsUpdate()
         CQUI_ShowCityDetailAdvisor = GameConfiguration.GetValue("CQUI_ShowCityDetailAdvisor") == 1
 end
+
 LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
 LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 
 -- ====================CQUI Cityview==========================================
-
 function CQUI_OnCityviewEnabled()
         OnShowOverviewPanel(true)
 end
 
+-- ===========================================================================
 function CQUI_OnCityviewDisabled()
         OnShowOverviewPanel(false);
         LuaEvents.CQUI_ClearCitizenManagement();
@@ -106,7 +123,6 @@ LuaEvents.CQUI_CityPanelOverview_CityviewEnable.Add( CQUI_OnCityviewEnabled);
 LuaEvents.CQUI_CityPanelOverview_CityviewDisable.Add( CQUI_OnCityviewDisabled);
 
 -- ===========================================================================
-
 -- HACK: Something in the event city selection event chain is overriding the active lens after we open this screen
 --       Check lens next frame to ensure we end up with the correct lens active
 -- TODO: We need to do figure out why this is happening, having it reactivate the lens every frame does not play well
@@ -142,6 +158,7 @@ function SetDesiredLens(desiredLens)
     end
 end
 
+-- ===========================================================================
 function EnsureDesiredLens()
     if m_isShowingPanel then
         if m_desiredLens == "CityManagement" then
@@ -154,6 +171,7 @@ function EnsureDesiredLens()
     end
     ContextPtr:ClearUpdate();
 end
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
 -- ===========================================================================
 function HideAll()
@@ -173,7 +191,9 @@ function HideAll()
     Controls.PanelQueue:SetHide(true);
     Controls.PanelDynamicTab:SetHide(true);
 
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     SetDesiredLens("CityManagement");
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 end
 
 -- ===========================================================================
@@ -190,10 +210,13 @@ function OnSelectHealthTab()
         ViewPanelHousing( m_kData );
         
         if m_kData.Owner == Game.GetLocalPlayer() then
+            -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+            -- CQUI set CityManagement lens instead of CityDetails lens, use SetDesiredLens instead of UILens.SetActive directly
             SetDesiredLens("CityManagement");
         else
             SetDesiredLens("EnemyCityDetails");
             LuaEvents.ShowEnemyCityDetails( m_kData.Owner, m_kData.City:GetID() );
+            -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
         end
     end
     
@@ -214,10 +237,13 @@ function OnSelectBuildingsTab()
     if (m_kData ~= nil) then
         ViewPanelBreakdown( m_kData );
         if m_kData.Owner == Game.GetLocalPlayer() then
+            -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+            -- CQUI set CityManagement lens instead of CityDetails lens, use SetDesiredLens instead of UILens.SetActive directly
             SetDesiredLens("CityManagement");
         else
             SetDesiredLens("EnemyCityDetails");
             LuaEvents.ShowEnemyCityDetails( m_kData.Owner, m_kData.City:GetID() );
+            -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
         end
     end
 
@@ -311,7 +337,7 @@ function ViewPanelBreakdown( data:table )
 
     -- Add trading posts
     local hideTradingPostsInfo :boolean = not GameCapabilities.HasCapability("CAPABILITY_CITY_HUD_TRADING_POSTS");
-    local isHasTradingPosts :boolean = (table.count(data.TradingPosts) > 0)
+    local isHasTradingPosts :boolean = (table.count(data.TradingPosts) > 0);
     Controls.NoTradingPostsArea:SetHide(hideTradingPostsInfo or isHasTradingPosts);
     Controls.TradingPostsArea:SetHide(hideTradingPostsInfo or not isHasTradingPosts);
     Controls.TradingPostsHeader:SetHide(hideTradingPostsInfo);
@@ -361,9 +387,11 @@ function ViewPanelReligion( data:table )
         Controls.PantheonBelief:SetToolTipString( Locale.Lookup(kPantheonBelief.Description) );
     end
 
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     -- CQUI (AZURENCY) : there seems to always be a data.Religions[1] named RELIGION_PANTHEON so reverted back to previous "and" version
     --local isHasReligion :boolean = (table.count(data.Religions) > 0) or (data.PantheonBelief > -1);
     local isHasReligion :boolean = (table.count(data.Religions) > 0) and (data.PantheonBelief > -1);
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     Controls.NoReligionArea:SetHide( isHasReligion );
     Controls.StackReligion:SetHide( not isHasReligion );
 
@@ -378,10 +406,6 @@ function ViewPanelReligion( data:table )
             kBeliefInstance.BeliefLabel:SetText( Locale.Lookup(kBelief.Name) );
             kBeliefInstance.Top:SetToolTipString( Locale.Lookup(kBelief.Description) );
         end
-
-        -- AZURENCY : fix the DominantReligionGrid being hidden at each turn of the loop
-        --            Should not be required after 1.0.0.216
-        -- Controls.DominantReligionGrid:SetHide(true);
 
         -- Dominant religion
         local dominateReligion:table = nil;
@@ -447,7 +471,10 @@ function ViewPanelReligion( data:table )
     end
 
     if Controls.PanelReligion:IsVisible() then
+        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+        -- Use CQUI Wrapper for UILens.SetActive
         SetDesiredLens("Religion");
+        -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     end
 end
 
@@ -478,19 +505,23 @@ function GetPercentGrowthColor( percent:number )
     return "StatNormalCSGlow";
 end
 
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+-- CQUI Helper functions
 function GetColor( count:number )
     if count > 0 then return "StatGoodCSGlow" end
     if count < 0 then return "StatBadCSGlow" end
     return "StatNormalCSGlow";
 end
+
+-- ===========================================================================
 function GetOffset( count:number )
     if count > 0 then return 200; end
     if count < 0 then return 0; end
     return 100;
 end
+
 -- ===========================================================================
 function CQUI_BuildBubbleInstance(icon, amount, labelLOC, instanceManager)
-    -- FIX: M4A
     -- Observed an error where amount was a string value rather than a number... this will force it to be a number
     amount = tonumber(amount);
     local kInstance :table = instanceManager:GetInstance();
@@ -502,19 +533,26 @@ function CQUI_BuildBubbleInstance(icon, amount, labelLOC, instanceManager)
     kInstance.BubbleLabel:SetText( CQUI_SmartWrap(Locale.Lookup(labelLOC), 10) );
     kInstance.BubbleLabel:SetColor(UI.GetColorValueFromHexLiteral(0xffffffff));
 end
+
+-- ===========================================================================
 function CQUI_BuildAmenityBubbleInstance(icon, amount, labelLOC)
     CQUI_BuildBubbleInstance(icon, amount, labelLOC, g_kAmenitiesIM);
 end
 
+-- ===========================================================================
 function CQUI_BuildHousingBubbleInstance(icon, amount, labelLOC)
     CQUI_BuildBubbleInstance(icon, amount, labelLOC, m_kHousingIM);
 end
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
+
+-- ===========================================================================
 function ViewPanelAmenities( data:table )
     --print("ViewPanelAmenities");
-    -- Only show the advisor bubbles during the tutorial
-    -- AZURENCY : or show the advisor if the setting is enabled
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- CQUI Show the advisor if configred to do so
     Controls.AmenitiesAdvisorBubble:SetHide( m_kEspionageViewManager:IsEspionageView() or (IsTutorialRunning() == false and CQUI_ShowCityDetailAdvisor == false ));
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     local colorName:string = GetHappinessColor(data.Happiness);
     Controls.AmenitiesConstructedLabel:SetText( Locale.Lookup( "LOC_HUD_CITY_AMENITY", data.AmenitiesNum) );
@@ -546,6 +584,9 @@ function ViewPanelAmenities( data:table )
 
     g_kAmenitiesIM:ResetInstances();
 
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- CQUI: CQUI helper functions are used to populate values in each of the instances below
+    -- The unmodified version of this file does much of this work in-line
     -- Luxuries
     CQUI_BuildAmenityBubbleInstance("ICON_IMPROVEMENT_BEACH_RESORT", data.AmenitiesFromLuxuries, "LOC_HUD_REPORTS_LUXURIES");
     
@@ -563,11 +604,11 @@ function ViewPanelAmenities( data:table )
     end
 
     -- City-States
-	if GameCapabilities.HasCapability("CAPABILITY_CITY_HUD_AMENITIES_CITY_STATES") then
+    if GameCapabilities.HasCapability("CAPABILITY_CITY_HUD_AMENITIES_CITY_STATES") then
         if data.AmenitiesFromCityStates > 0 then
             CQUI_BuildAmenityBubbleInstance("ICON_CITY_STATE", data.AmenitiesFromCityStates, "LOC_CITY_STATES_TITLE");
         end
-	end
+    end
     
     -- Religion
     if GameCapabilities.HasCapability("CAPABILITY_CITY_HUD_AMENITIES_RELIGION") then
@@ -602,8 +643,10 @@ function ViewPanelAmenities( data:table )
     end
 
     -- Districts
-	data.AmenitiesFromDistricts = data.AmenitiesFromDistricts or 0;
-    CQUI_BuildAmenityBubbleInstance("ICON_DISTRICT_CITY_CENTER", data.AmenitiesFromDistricts, "LOC_PEDIA_DISTRICTS_TITLE");
+    data.AmenitiesFromDistricts = data.AmenitiesFromDistricts or 0;
+    if data.AmenitiesFromDistricts > 0 then
+        CQUI_BuildAmenityBubbleInstance("ICON_DISTRICT_CITY_CENTER", data.AmenitiesFromDistricts, "LOC_PEDIA_DISTRICTS_TITLE");
+    end
 
     -- Natural Wonders
     data.AmenitiesFromNaturalWonders = data.AmenitiesFromNaturalWonders or 0;
@@ -616,6 +659,7 @@ function ViewPanelAmenities( data:table )
     if data.AmenitiesFromTraits > 0 then
         CQUI_BuildAmenityBubbleInstance("ICON_GREAT_PERSON_CLASS_ENGINEER", data.AmenitiesFromTraits, "LOC_UI_PEDIA_TRAITS");
     end
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     Controls.AmenitiesRequiredNum:SetText( Locale.ToNumber(data.AmenitiesRequiredNum) );
     Controls.CitizenGrowthStatus:SetTextureOffsetVal( UV_CITIZEN_GROWTH_STATUS[data.Happiness].u, UV_CITIZEN_GROWTH_STATUS[data.Happiness].v );
@@ -626,6 +670,8 @@ end
 function ViewPanelHousing( data:table )
     --print("ViewPanelHousing");
 
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- CQUI uses its helper functions for the "bubbles" and the RealHousing value
     -- CQUI get real housing from improvements value
     local selectedCity  = UI.GetHeadSelectedCity();
     local selectedCityID = selectedCity:GetID();
@@ -650,10 +696,14 @@ function ViewPanelHousing( data:table )
     --Improvements
     CQUI_BuildHousingBubbleInstance("ICON_CITYSTATE_INDUSTRIAL", CQUI_HousingFromImprovements, "LOC_PEDIA_IMPROVEMENTS_PAGEGROUP_IMPROVEMENTS_NAME");    -- CQUI real housing from improvements value
     --Era
-    CQUI_BuildHousingBubbleInstance("ICON_GREAT_PERSON_CLASS_SCIENTIST", data.HousingFromStartingEra, "LOC_GAME_START_ERA");
+    data.HousingFromStartingEra = data.HousingFromStartingEra or 0;
+    if data.HousingFromStartingEra > 0 then
+        CQUI_BuildHousingBubbleInstance("ICON_GREAT_PERSON_CLASS_SCIENTIST", data.HousingFromStartingEra, "LOC_GAME_START_ERA");
+    end
 
     local colorName:string = GetPercentGrowthColor( data.HousingMultiplier ) ;
     Controls.HousingTotalNum:SetText( data.Housing - data.HousingFromImprovements + CQUI_HousingFromImprovements );    -- CQUI calculate real housing
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     Controls.HousingTotalNum:SetColorByName( colorName );
     local uv:number;
 
@@ -675,11 +725,14 @@ function ViewPanelHousing( data:table )
     Controls.HousingPopulationStatus:SetColorByName( colorName );
 
     Controls.CitizensNum:SetText( data.Population );
-    if data.Population <= 1 then
-        Controls.CitizensName:SetText(Locale.Lookup("LOC_HUD_CITY_CITIZEN"));
-    elseif data.Population > 1 then
-        Controls.CitizensName:SetText(Locale.Lookup("LOC_HUD_CITY_CITIZENS"));
-    end
+
+    Controls.CitizensName:SetText(Locale.Lookup("LOC_HUD_CITY_CITIZENS_LABEL", data.Population));
+
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- CQUI has no HousingTotalNum2 control (unmodified does)
+    -- Controls.HousingTotalNum2:SetText( data.Housing );
+    -- Controls.HousingTotalNum2:SetColorByName( colorName );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     --local uv:number = data.TurnsUntilGrowth > 0 and 1 or 0;
     Controls.HousingStatus:SetTextureOffsetVal( UV_HOUSING_GROWTH_STATUS[uv].u, UV_HOUSING_GROWTH_STATUS[uv].v );
@@ -890,6 +943,8 @@ function Close()
         return;
     end
     m_isShowingPanel = false;
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- CQUI change the behavior of the close function
     --local offsetx = Controls.OverviewSlide:GetOffsetX();
     --if (offsetx == 0) then
     -- AZURENCY : only check if it's not already reversing
@@ -898,6 +953,7 @@ function Close()
         UI.PlaySound("UI_CityPanel_Closed");
         SetDesiredLens("Default");
     end
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 end
 
 -- ===========================================================================
@@ -907,7 +963,10 @@ end
 
 -- ===========================================================================
 function OnCloseButtonClicked()
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- CQUI change the behavior of when the Close button is clicked
     LuaEvents.CQUI_CityPanel_CityviewDisable();
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 end
 
 -- ===========================================================================
@@ -979,24 +1038,29 @@ end
 --  Input
 --  UI Event Handler
 -- ===========================================================================
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+-- CQUI behavior for OnInputHandler differs from unmodified, adding this KeyHandler wrapper function called by OnInputHandler
 function KeyHandler( key:number )
     if key == Keys.VK_ESCAPE then
         if ( m_isShowingPanel ) then
+            -- CQUI behavior change handling escape
             UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
             return true;
-        else
-            return false;
         end
     end
+
     return false;
 end
 
+-- ===========================================================================
 function OnInputHandler( pInputStruct:table )
     local uiMsg = pInputStruct:GetMessageType();
     if (uiMsg == KeyEvents.KeyUp) then return KeyHandler( pInputStruct:GetKey() ); end;
     return false;
 end
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
+-- ===========================================================================
 -- Resize Handler
 function OnUpdateUI( type:number, tag:string, iData1:number, iData2:number, strData1:string )
     if type == SystemUpdateUI.ScreenResize then
@@ -1053,8 +1117,11 @@ function OnUpdateUI( type:number, tag:string, iData1:number, iData2:number, strD
 end
 
 function OnShowOverviewPanel( isShowing: boolean )
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     if (isShowing) then
         m_isShowingPanel = true;
+        -- CQUI adds this if clause and adds the two lines immediately following the if statement 
+        -- unmodified always runs code here starting with the "Refresh()" line
         if ContextPtr:IsHidden() or Controls.OverviewSlide:IsReversing() then
             Controls.PauseDismissWindow:SetToBeginning();
             ContextPtr:SetHide(false);
@@ -1062,6 +1129,8 @@ function OnShowOverviewPanel( isShowing: boolean )
             Controls.OverviewSlide:SetToBeginning();
             Controls.OverviewSlide:Play();
             UI.PlaySound("UI_CityPanel_Open");
+            -- CQUI Does not set the Interface mode here (unmodified does)
+            -- UI.SetInterfaceMode(InterfaceModeTypes.CITY_SELECTION);
         end
     else
         --local offsetx = Controls.OverviewSlide:GetOffsetX();
@@ -1074,6 +1143,9 @@ function OnShowOverviewPanel( isShowing: boolean )
     end
     -- Ensure button state in CityPanel is correct
     LuaEvents.CityPanel_SetOverViewState(m_isShowingPanel);
+    -- CQUI does not call this event (unmodified does)
+    -- LuaEvents.CityPanelOverview_Opened();
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 end
 
 function ToggleOverviewTab(tabButton:table)
@@ -1112,12 +1184,23 @@ function AddKeyEntry(textString:string, colorValue:number)
     keyEntryInstance.KeyColorImage:SetColor(colorValue);
 end
 
--- ===========================================================================
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+-- CQUI adds this OnHide function, does not have an OnLensChanged function here
 function OnHide()
     ContextPtr:SetHide(true);
     Controls.PauseDismissWindow:SetToBeginning();
 end
 
+-- ===========================================================================
+-- CQUI does not use this function, this is found in the unmodified CityPanelOverview.lua file
+-- function OnLensChanged( newLensName:string, oldLensName:string )
+--     -- When a new city is selected we're always sent back to Default lens which overrides Overview lenses
+--     -- This switches back to the proper Overview lens we were forced to switch away from
+--     if m_isShowingPanel and newLensName == "Default" then
+--         UILens.SetActive(oldLensName);
+--     end
+-- end
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
 -- ===========================================================================
 --  UI Callback
@@ -1135,12 +1218,13 @@ function LateInitialize()
     --print("LateInitialize");
     Controls.Close:RegisterCallback(Mouse.eLClick, OnCloseButtonClicked);
     Controls.Close:RegisterCallback( Mouse.eMouseEnter, function() UI.PlaySound("Main_Menu_Mouse_Over"); end);
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     Controls.PauseDismissWindow:RegisterEndCallback( OnHide );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     LuaEvents.Tutorial_ResearchOpen.Add(OnClose);
     LuaEvents.ActionPanel_OpenChooseResearch.Add(OnClose);
     LuaEvents.ActionPanel_OpenChooseCivic.Add(OnClose);
-    Events.SystemUpdateUI.Add( OnUpdateUI );
     LuaEvents.CityPanel_ShowOverviewPanel.Add( OnShowOverviewPanel );
     LuaEvents.CityPanel_ToggleOverviewCitizens.Add( OnToggleCitizensTab );
     LuaEvents.CityPanel_ToggleOverviewBuildings.Add( OnToggleBuildingsTab );
@@ -1156,6 +1240,10 @@ function LateInitialize()
     Events.ResearchCompleted.Add( OnResearchCompleted );
     Events.GovernmentPolicyChanged.Add( OnPolicyChanged );
     Events.GovernmentPolicyObsoleted.Add( OnPolicyChanged );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- CQUI has no such event registration for OnLensChanged (unmodified does)
+    -- Events.LensChanged.Add( OnLensChanged );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     -- Populate tabs        
     AddTab( Controls.HealthButton, OnSelectHealthTab );
@@ -1178,6 +1266,29 @@ end
 -- ===========================================================================
 function OnShutdown()
     LuaEvents.GameDebug_AddValue(RELOAD_CACHE_ID, "m_isShowingPanel", m_isShowingPanel);
+
+    LuaEvents.Tutorial_ResearchOpen.Remove(OnClose);
+    LuaEvents.ActionPanel_OpenChooseResearch.Remove(OnClose);
+    LuaEvents.ActionPanel_OpenChooseCivic.Remove(OnClose);
+    LuaEvents.CityPanel_ShowOverviewPanel.Remove( OnShowOverviewPanel );	
+    LuaEvents.CityPanel_ToggleOverviewCitizens.Remove( OnToggleCitizensTab );
+    LuaEvents.CityPanel_ToggleOverviewBuildings.Remove( OnToggleBuildingsTab );
+    LuaEvents.CityPanel_ToggleOverviewReligion.Remove( OnToggleReligionTab );
+    LuaEvents.CityPanel_LiveCityDataChanged.Remove( OnLiveCityDataChanged );
+    LuaEvents.CityBannerManager_ShowEnemyCityOverview.Remove( OnShowEnemyCityOverview );
+    LuaEvents.CityBannerManager_CityPanelOverview.Remove( OnToggleCitizensTab );
+    LuaEvents.DiploScene_SceneOpened.Remove(OnClose); --We don't want this UI open when we return from Diplomacy
+
+    Events.SystemUpdateUI.Remove( OnUpdateUI );
+    Events.CityNameChanged.Remove(OnCityNameChanged);
+    Events.LocalPlayerTurnEnd.Remove( OnLocalPlayerTurnEnd );
+    Events.ResearchCompleted.Remove( OnResearchCompleted );
+    Events.GovernmentPolicyChanged.Remove( OnPolicyChanged );
+    Events.GovernmentPolicyObsoleted.Remove( OnPolicyChanged );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- CQUI has no such event registration removal for OnLensChanged (unmodified does)
+    -- Events.LensChanged.Remove( OnLensChanged );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 end
 
 -- ===========================================================================
