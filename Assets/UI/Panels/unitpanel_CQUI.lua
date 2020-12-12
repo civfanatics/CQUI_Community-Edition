@@ -1,3 +1,4 @@
+print("*** unitpanel_CQUI.lua start")
 include("GameCapabilities");
 
 -- ===========================================================================
@@ -110,3 +111,4 @@ function GetUnitActionsTable( pUnit )
 
     return actionsTable;
 end
+print("*** unitpanel_CQUI.lua end")

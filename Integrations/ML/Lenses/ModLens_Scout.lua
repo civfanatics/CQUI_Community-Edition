@@ -1,3 +1,4 @@
+print("*** CQUI ML ModLens_Scout.lua start")
 local LENS_NAME = "ML_SCOUT"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 
@@ -156,3 +157,4 @@ if g_ModLensModalPanel ~= nil then
     {"LOC_TOOLTIP_SCOUT_LENS_GHUT", UI.GetColorValue("COLOR_GHUT_SCOUT_LENS")}
   }
 end
+print("*** CQUI ML ModLens_Scout.lua end")

@@ -1,3 +1,4 @@
+print("*** citystates_CQUI.lua start")
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
@@ -94,3 +95,4 @@ function AddCityStateRow( kCityState:table )
 
     return kInst;
 end
+print("*** citystates_CQUI.lua end")

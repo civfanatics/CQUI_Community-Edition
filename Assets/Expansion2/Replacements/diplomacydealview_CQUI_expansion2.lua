@@ -1,3 +1,4 @@
+print("*** diplomacydealview_CQUI_expansion2.lua start")
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
@@ -19,3 +20,4 @@ function LateInitialize()
 
     print("CQUI Diplomacy Deal View for expansion 2 loaded");
 end
+print("*** diplomacydealview_CQUI_expansion2.lua end")

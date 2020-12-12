@@ -1,3 +1,4 @@
+print("*** CQUI ML minimappanel.lua start")
 -- Copyright 2016-2018, Firaxis Games
 include( "InstanceManager" );
 include( "GameCapabilities" );
@@ -1598,3 +1599,4 @@ function Initialize()
   -- End Astog Mod ------------------------------------------------------------------------------------------------
 end
 Initialize();
+print("*** CQUI ML minimappanel.lua end")

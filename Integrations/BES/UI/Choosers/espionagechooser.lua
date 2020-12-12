@@ -1,3 +1,4 @@
+print("*** CQUI BES espionagechooser.lua start")
 -- ===========================================================================
 --
 --  Slideout panel for selecting a new destination for a spy unit
@@ -1089,3 +1090,4 @@ function Initialize()
   LuaEvents.GameDebug_Return.Add(OnGameDebugReturn);
 end
 Initialize();
+print("*** CQUI BES espionagechooser.lua end")

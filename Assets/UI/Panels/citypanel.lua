@@ -1,3 +1,4 @@
+print("*** CQUI citypanel.lua start")
 -- Copyright 2016-2019, Firaxis Games
 
 -- ===========================================================================
@@ -1656,3 +1657,4 @@ end
 
 -- Main script start
 Initialize();
+print("*** CQUI citypanel.lua end")

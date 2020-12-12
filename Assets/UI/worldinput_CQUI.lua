@@ -1,3 +1,4 @@
+print("*** worldinput_CQUI.lua start")
 include("PopupDialog.lua");
 include("CQUICommon.lua");
 
@@ -718,3 +719,4 @@ function Initialize()
     LuaEvents.CQUI_clearUnitPath.Add(ClearMovementPath);
 end
 Initialize();
+print("*** worldinput_CQUI.lua end")

@@ -1,3 +1,4 @@
+print("*** StatusMessagePanel_CQUI.lua start")
 include("StatusMessagePanel");
 include("supportfunctions.lua");
 include("CQUICommon.lua");
@@ -326,3 +327,4 @@ function Initialize()
     LuaEvents.CQUI_AddStatusMessage.Add( CQUI_OnStatusMessage );
 end
 Initialize();
+print("*** StatusMessagePanel_CQUI.lua end")

@@ -1,4 +1,4 @@
-
+print("*** ResearchChooser_CQUI.lua start")
 -- CQUI/Infixo choose a proper base file to load
 include("CQUICommon");
 if g_bIsGatheringStorm or g_bIsRiseAndFall then
@@ -109,3 +109,4 @@ function CQUI_Initialize()
     LuaEvents.WorldTracker_OpenChooseResearch.Add(OnOpenPanel);
 end
 CQUI_Initialize();
+print("*** ResearchChooser_CQUI.lua end")

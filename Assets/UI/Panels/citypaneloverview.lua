@@ -1,3 +1,4 @@
+print("*** CQUI citypaneloverview.lua start")
 -- Copyright 2017-2018, Firaxis Games
 -- AKA: "City Details", (Left) side panel with details on a selected city
 
@@ -1189,3 +1190,4 @@ function Initialize()
     LuaEvents.GameDebug_Return.Add(OnGameDebugReturn);        
 end
 Initialize();
+print("*** CQUI citypaneloverview.lua end")

@@ -1,3 +1,4 @@
+print("*** CQUI ML Modlens_CityOverlap.lua start")
 include("LensSupport")
 
 local PANEL_OFFSET_Y:number = 32
@@ -304,3 +305,4 @@ local function Initialize()
 end
 
 Initialize()
+print("*** CQUI ML Modlens_CityOverlap.lua end")

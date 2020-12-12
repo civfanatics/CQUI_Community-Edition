@@ -1,3 +1,4 @@
+print("*** diplomacyactionview_CQUI.lua start")
 include( "CQUICommon.lua" );
 
 -- ===========================================================================
@@ -176,3 +177,4 @@ function OnActivateIntelRelationshipPanel(relationshipInstance : table)
 
     BASE_OnActivateIntelRelationshipPanel(intelSubPanel);
 end
+print("*** diplomacyactionview_CQUI.lua end")

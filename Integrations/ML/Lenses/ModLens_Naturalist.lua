@@ -1,3 +1,4 @@
+print("*** CQUI ML ModLens_Naturalist.lua start")
 include("LensSupport")
 
 local LENS_NAME = "ML_NATURALIST"
@@ -221,3 +222,4 @@ if g_ModLensModalPanel ~= nil then
         {"LOC_TOOLTIP_NATURALIST_LENS_FIXABLE", UI.GetColorValue("COLOR_FIXABLE_NATURALIST_LENS")}
     }
 end
+print("*** CQUI ML ModLens_Naturalist.lua end")

@@ -1,3 +1,4 @@
+print("*** WorldViewIconsManager_CQUI.lua start")
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
@@ -137,3 +138,4 @@ function Initialize()
     Events.ImprovementRemovedFromMap.Add(CQUI_OnImprovementRemoved);
 end
 Initialize();
+print("*** WorldViewIconsManager_CQUI.lua end")

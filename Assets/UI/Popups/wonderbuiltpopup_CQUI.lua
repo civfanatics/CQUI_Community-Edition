@@ -1,3 +1,4 @@
+print("*** CQUI wonderbuiltpopup_CQUI.lua start")
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
@@ -276,3 +277,4 @@ function Initialize()
     LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
 end
 Initialize();
+print("*** CQUI wonderbuiltpopup_CQUI.lua end")

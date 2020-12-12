@@ -1,3 +1,4 @@
+print("*** CivicsChooser_CQUI.lua start")
 include("CivicsChooser");
 
 -- ===========================================================================
@@ -98,3 +99,4 @@ function CQUI_Initialize()
     LuaEvents.WorldTracker_OpenChooseCivic.Add(OnOpenPanel);
 end
 CQUI_Initialize();
+print("*** CivicsChooser_CQUI.lua end")

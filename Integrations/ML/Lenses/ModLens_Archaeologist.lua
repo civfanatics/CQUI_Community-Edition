@@ -1,3 +1,4 @@
+print("*** CQUI ML ModLens_Archaeologist.lua start")
 local LENS_NAME = "ML_ARCHAEOLOGIST"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 
@@ -154,3 +155,4 @@ if g_ModLensModalPanel ~= nil then
     {"LOC_TOOLTIP_ARCHAEOLOGIST_LENS_SHIPWRECK",    UI.GetColorValue("COLOR_SHIPWRECK_ARCH_LENS")}
   }
 end
+print("*** CQUI ML ModLens_Archaeologist.lua end")

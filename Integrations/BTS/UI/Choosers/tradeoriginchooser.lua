@@ -1,3 +1,4 @@
+print("*** CQUI BTS tradeoriginchooser.lua start")
 -- ===========================================================================
 --
 --  Slideout panel that allows the player to move their trade units to other city centers
@@ -385,3 +386,4 @@ function Initialize()
   Controls.ChangeOriginCityButton:RegisterCallback( Mouse.eMouseEnter, function() UI.PlaySound("Main_Menu_Mouse_Over"); end);
 end
 Initialize();
+print("*** CQUI BTS tradeoriginchooser.lua end")

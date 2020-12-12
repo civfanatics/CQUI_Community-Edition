@@ -1,3 +1,4 @@
+print("*** citypaneloverview_expansion1_CQUI.lua start");
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
@@ -11,3 +12,4 @@ function ViewPanelAmenities(data:table)
     --kInstance.AmenityYield:SetText( Locale.ToNumber(data.AmenitiesFromGovernors) );
     CQUI_BuildAmenityBubbleInstance("ICON_GOVERNOR_THE_EDUCATOR", data.AmenitiesFromGovernors, "LOC_REPORTS_GOVERNOR");
 end
+print("*** citypaneloverview_expansion1_CQUI.lua end");

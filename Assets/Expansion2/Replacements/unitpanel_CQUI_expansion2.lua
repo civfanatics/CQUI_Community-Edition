@@ -1,3 +1,4 @@
+print("*** unitpanel_CQUI_expansion2.lua start")
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
@@ -60,3 +61,4 @@ function CQUI_GetUnitResourceRequirements ( pUnit:table )
 
     return retVal;
 end
+print("*** unitpanel_CQUI_expansion2.lua end")

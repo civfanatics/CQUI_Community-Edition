@@ -1,3 +1,4 @@
+print("*** CQUI BTS tradesupport.lua start")
 include( "Colors" );
 include( "Civ6Common");
 
@@ -1657,3 +1658,4 @@ function TradeSupportAutomater_Initialize()
 
   Events.PlayerTurnActivated.Add( TradeSupportAutomater_OnPlayerTurnActivated );
 end
+print("*** CQUI BTS tradesupport.lua end")

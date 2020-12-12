@@ -1,3 +1,4 @@
+print("*** CQUI ML LensSupport.lua start")
 include( "Civ6Common.lua" ) -- GetCivilizationUniqueTraits, GetLeaderUniqueTraits
 include( "SupportFunctions" ) -- Split
 
@@ -429,3 +430,4 @@ end
         end
     end
 -- End of iterator code --------------------
+print("*** CQUI ML LensSupport.lua end")

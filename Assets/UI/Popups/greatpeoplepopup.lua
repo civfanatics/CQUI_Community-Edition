@@ -1,3 +1,4 @@
+print("*** CQUI greatpeoplepopup.lua start")
 -- ===========================================================================
 --  Great People Popup
 -- ===========================================================================
@@ -1330,3 +1331,4 @@ end
 include("GreatPeoplePopup_", true);
 
 Initialize();
+print("*** CQUI greatpeoplepopup.lua end")

@@ -1,3 +1,4 @@
+print("*** diplomacydealview_CQUI.lua start")
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
@@ -702,3 +703,4 @@ function PopulateAvailableGreatWorks(player : table, iconList : table)
 
     return iAvailableItemCount;
 end
+print("*** diplomacydealview_CQUI.lua end")

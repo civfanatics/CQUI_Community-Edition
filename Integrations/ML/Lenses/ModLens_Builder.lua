@@ -1,3 +1,4 @@
+print("*** CQUI ML ModLens_Builder.lua start")
 include("LensSupport")
 
 local m_NothingColor        = UI.GetColorValue("COLOR_NOTHING_BUILDER_LENS")
@@ -204,3 +205,4 @@ if g_ModLensModalPanel ~= nil then
     {"LOC_TOOLTIP_BUILDER_LENS_NOTHING",    UI.GetColorValue("COLOR_NOTHING_BUILDER_LENS")}
   }
 end
+print("*** CQUI ML ModLens_Builder.lua end")

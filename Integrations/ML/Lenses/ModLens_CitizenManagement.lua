@@ -1,3 +1,4 @@
+print("*** CQUI ML Modlens_CitizenManagement.lua start")
 local LENS_NAME = "CQUI_CITIZEN_MANAGEMENT"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 
@@ -101,3 +102,4 @@ local CitizenManagementEntry = {
 if g_ModLenses ~= nil then
   g_ModLenses[LENS_NAME] = CitizenManagementEntry
 end
+print("*** CQUI ML Modlens_CitizenManagement.lua end")

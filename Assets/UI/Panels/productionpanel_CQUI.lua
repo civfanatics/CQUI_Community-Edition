@@ -1,3 +1,4 @@
+print("*** productionpanel_CQUI.lua start")
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
@@ -676,3 +677,4 @@ function RightClickProductionItem(sItemType:string)
 end
 
 end -- bIsHeroMODE
+print("*** productionpanel_CQUI.lua end")

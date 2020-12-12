@@ -1,3 +1,4 @@
+print("*** CQUI BTS traderoutechooser.lua start")
 -- ===========================================================================
 --  Settings
 -- ===========================================================================
@@ -1416,3 +1417,4 @@ function Initialize()
   InitButton(Controls.TurnsToCompleteSortButton, OnSortByTurnsToComplete, OnNotSortByTurnsToComplete)
 end
 Initialize();
+print("*** CQUI BTS traderoutechooser.lua end")

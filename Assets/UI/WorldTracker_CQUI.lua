@@ -1,3 +1,4 @@
+print("*** WorldTracker_CQUI.lua start")
 include("ToolTipHelper");
 include("CQUICommon.lua");
 
@@ -103,3 +104,4 @@ function SetMainPanelToolTip(toolTip:string, panelTextureName:string)
         end
     end
 end
+print("*** WorldTracker_CQUI.lua end")

@@ -1,3 +1,4 @@
+print("*** CQUI policyreminderpopup.lua start")
 -- ===========================================================================
 --  Popups when policies can still be changed at the end of the turn
 -- ===========================================================================
@@ -124,3 +125,4 @@ function Initialize()
     LuaEvents.CQUI_ShowPolicyReminderPopup.Add(OnCQUIShowPolicyReminderPopup);
 end
 Initialize();
+print("*** CQUI policyreminderpopup.lua end")

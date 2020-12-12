@@ -1,3 +1,4 @@
+print("*** CQUI ingame.lua start")
 -- Copyright 2015-2018, Firaxis Games
 -- XP2 root context for ingame (aka: All-the-things)
 -- MODs / Expansions cannot use partial replacement as this context is 
@@ -389,3 +390,4 @@ function Initialize()
     LuaEvents.CQUI_RequestUIAddin.Add(function(request: string, requester: string) LuaEvents.CQUI_PushUIAddIn(CQUI_RequestUIAddin(request), recipient); end); --Responds to an addin request with a PushUIAddIn event containing the requested context. Can return nil
 end
 Initialize();
+print("*** CQUI ingame.lua end")

@@ -1,3 +1,4 @@
+print("*** partialscreenhooks_CQUI.lua start")
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
@@ -103,3 +104,4 @@ function LateInitialize()
     LuaEvents.PartialScreenHooks_AddHook(hookInfo1);
     ]]--
 end
+print("*** partialscreenhooks_CQUI.lua end")

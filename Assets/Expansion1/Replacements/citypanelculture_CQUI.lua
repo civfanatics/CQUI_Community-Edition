@@ -1,3 +1,4 @@
+print("*** citypanelculture_CQUI.lua start")
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
@@ -62,3 +63,4 @@ function Initialize()
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 end
 Initialize();
+print("*** citypanelculture_CQUI.lua end");

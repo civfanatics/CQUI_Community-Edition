@@ -1,3 +1,4 @@
+print("*** plottooltip_CQUI.lua start")
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
@@ -427,3 +428,4 @@ function Initialize()
     Controls.TooltipMain:SetSpeed(8);  -- CQUI : tooltip spawn faster
 end
 Initialize();
+print("*** plottooltip_CQUI.lua end")

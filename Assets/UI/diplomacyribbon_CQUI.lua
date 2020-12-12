@@ -1,3 +1,4 @@
+print("*** diplomacyribbon_CQUI.lua start")
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
@@ -160,3 +161,4 @@ function AddLeader(iconName : string, playerID : number, kProps: table)
 
     return oLeaderIcon;
 end
+print("*** diplomacyribbon_CQUI.lua end")

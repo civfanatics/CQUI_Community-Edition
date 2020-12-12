@@ -1,3 +1,4 @@
+print("*** CQUI ML ModLens_Wonder.lua start")
 include("LensSupport")
 
 local LENS_NAME = "ML_WONDER"
@@ -84,3 +85,4 @@ if g_ModLensModalPanel ~= nil then
         {"LOC_TOOLTIP_RESOURCE_LENS_PWONDER", UI.GetColorValue("COLOR_PLAYER_WONDER_LENS")}
     }
 end
+print("*** CQUI ML ModLens_Wonder.lua end")

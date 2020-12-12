@@ -1,3 +1,4 @@
+print("*** toppanel_CQUI.lua start")
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
@@ -93,3 +94,4 @@ function LateInitialize()
         Controls.ViewReports:SetHide(true); -- CQUI : hide the report button, moved to launchbar
     end
 end
+print("*** toppanel_CQUI.lua end")

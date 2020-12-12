@@ -1,3 +1,4 @@
+print("*** NotificationPanel_CQUI.lua start")
 -- Given the issues observed with including this file, print out a confirmation that has loaded to make for easier debugging
 print("NotificationPanel_CQUI.lua: File loaded");
 
@@ -304,3 +305,4 @@ function LateInitialize()
     -- custom notifications
     Events.GoodyHutReward.Add( OnGoodyHutReward );
 end
+print("*** NotificationPanel_CQUI.lua end")

@@ -1,3 +1,4 @@
+print("*** CQUI actionpanel.lua start")
 -- CQUI ActionPanel.lua Replacement
 -- CQUI-Specific Changes marked in-line below
 
@@ -1523,3 +1524,4 @@ function Initialize()
     ContextPtr:SetRefreshHandler( OnRefresh );
 end
 Initialize();
+print("*** CQUI actionpanel.lua end")

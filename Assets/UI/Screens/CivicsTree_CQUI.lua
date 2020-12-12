@@ -1,4 +1,4 @@
-
+print("*** CivicsTree_CQUI.lua start")
 -- CQUI/Infixo choose a proper base file to load
 include("CQUICommon");
 
@@ -184,3 +184,4 @@ function LateInitialize()
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 end
+print("*** CivicsTree_CQUI.lua end")

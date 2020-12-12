@@ -1,3 +1,4 @@
+print("*** CQUI ML ModLens_Builder_Config_Default.lua start")
 include("LensSupport")
 
 -- ===========================================================================
@@ -592,3 +593,4 @@ table.insert(g_ModLenses_Builder_Config[m_GenericColor],
 
         return -1
     end)
+    print("*** CQUI ML ModLens_Builder_Config_Default.lua end")

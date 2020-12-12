@@ -1,3 +1,4 @@
+print("*** CQUI techciviccompletedpopup.lua start")
 -- CQUI Modification Summary:
 -- Allow for the disabling of the Tech/Civic popup, and control whether the audio voiceover is automatically played when showing the popup.
 -- Firaxis' design of this file makes it difficult/impossible to just extend functions and also implement the ability to control
@@ -508,3 +509,4 @@ function Initialize()
     -- === END CQUI CHANGES ======================================================
 end
 Initialize();
+print("*** CQUI techciviccompletedpopup.lua end")

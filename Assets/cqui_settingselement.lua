@@ -1,3 +1,4 @@
+print("*** cqui_settingselement.lua start")
 -- TODO (2020-05): Custom localizations are temporarily disabled due to reloads breaking them at the moment. Localizations are complete, so remember to enable them once Firaxis fixes this!
 include( "Civ6Common" );
 include( "CQUICommon.lua" );
@@ -638,3 +639,4 @@ function UpdateKeyBindingsDisplay()
 end
 
 Initialize();
+print("*** cqui_settingselement.lua end")

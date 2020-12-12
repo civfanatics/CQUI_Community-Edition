@@ -1,3 +1,4 @@
+print("*** diplomacydealview_CQUI_basegame.lua start")
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
@@ -34,3 +35,4 @@ function Initialize()
     print("CQUI Diplomacy Deal View loaded");
 end
 Initialize();
+print("*** diplomacydealview_CQUI_basegame.lua end")

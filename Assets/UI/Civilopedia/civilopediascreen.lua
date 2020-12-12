@@ -1,3 +1,4 @@
+print("*** CQUI civilopediascreen.lua start")
 -- ===========================================================================
 --	CQUI CivilopediaScreen.lua replacement
 --  This file matches the Firaxis version of CivilopediaScreen.lua, save for the lines referencing CQUI
@@ -19,3 +20,4 @@ include("CivilopediaPage_", true);
 
 -- Initialize the pedia!
 Initialize();
+print("*** CQUI civilopediascreen.lua end")

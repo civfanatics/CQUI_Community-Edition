@@ -1,3 +1,4 @@
+print("*** CQUI ingame.lua (basegame) start")
 -- CQUI InGame.lua Replacement
 -- CQUI-Specific Changes marked in-line below
 -- NOTE: InGame.lua cannot be replaced via ReplaceUIScript, per the comment below from Firaxis.
@@ -422,3 +423,4 @@ function Initialize()
 
 end
 Initialize();
+print("*** CQUI ingame.lua (basegame) end")

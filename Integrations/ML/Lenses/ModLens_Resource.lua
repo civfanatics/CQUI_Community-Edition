@@ -1,3 +1,4 @@
+print("*** CQUI ML ModLens_Resource.lua start")
 include("LensSupport")
 
 local PANEL_OFFSET_Y:number = 32
@@ -446,3 +447,4 @@ local function Initialize()
 end
 
 Initialize()
+print("*** CQUI ML ModLens_Resource.lua end")

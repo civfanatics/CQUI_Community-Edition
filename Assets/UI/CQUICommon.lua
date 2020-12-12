@@ -1,3 +1,4 @@
+print("*** CQUICommon.lua start")
 ------------------------------------------------------------------------------
 -- Additional CQUI Common LUA support functions specific to Civilization 6
 -- Contains:
@@ -130,3 +131,4 @@ function Initialize()
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 end
 Initialize();
+print("*** CQUICommon.lua end")

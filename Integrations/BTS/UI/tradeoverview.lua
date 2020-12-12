@@ -1,3 +1,4 @@
+print("*** CQUI BTS tradeoverview.lua start")
 -- Copyright 2018-2019, Firaxis Games
 
 -- ===========================================================================
@@ -2294,3 +2295,4 @@ function Initialize()
   LuaEvents.GameDebug_Return.Add(OnGameDebugReturn);
 end
 Initialize();
+print("*** CQUI BTS tradeoverview.lua end")

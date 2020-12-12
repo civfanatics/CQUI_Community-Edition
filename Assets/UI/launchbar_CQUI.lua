@@ -1,3 +1,4 @@
+print("*** launchbar_CQUI.lua start")
 include( "GameCapabilities" );
 
 -- ===========================================================================
@@ -226,3 +227,4 @@ function Initialize()
     
 end
 Initialize();
+print("*** launchbar_CQUI.lua end")

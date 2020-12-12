@@ -1,3 +1,4 @@
+print("*** governmentscreen_CQUI.lua start")
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
@@ -132,3 +133,4 @@ function LateInitialization()
     LuaEvents.LaunchBar_GovernmentOpenMyGovernment.Remove(BASE_CQUI_OnOpenGovernmentScreenMyGovernment);
     LuaEvents.LaunchBar_GovernmentOpenMyGovernment.Add(OnOpenGovernmentScreenMyGovernment);
 end
+print("*** governmentscreen_CQUI.lua end")

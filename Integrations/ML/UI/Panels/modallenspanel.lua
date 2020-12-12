@@ -1,5 +1,5 @@
 -- Provides info about currently active Modal Lens
-
+print("*** CQUI ML modallenspanel.lua start")
 include( "InstanceManager" );
 include( "GameCapabilities" );
 include( "CQUICommon.lua" );
@@ -366,3 +366,4 @@ function Initialize()
   ContextPtr:SetInitHandler(OnInit);
 end
 Initialize();
+print("*** CQUI ML modallenspanel.lua end")

@@ -1,3 +1,4 @@
+print("*** CQUI extendedrelationship.lua start")
 -- CQUI Custom file, does not replace any Firaxis-produced file
 -- Extended Relationship Tooltip creator
 -- Aristos and atggta
@@ -51,3 +52,4 @@ function RelationshipGet(nPlayerID :number)
 
     return sRelationship;
 end
+print("*** CQUI extendedrelationship.lua end")

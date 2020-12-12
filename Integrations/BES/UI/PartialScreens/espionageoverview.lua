@@ -1,3 +1,4 @@
+print("*** CQUI BES espionageoverview.lua start")
 -- ===========================================================================
 ---- ESPIONAGE OVERVIEW ----
 -- ===========================================================================
@@ -1284,3 +1285,4 @@ function Initialize()
     PopulateTabs();
   end
   Initialize();
+  print("*** CQUI BES espionageoverview.lua end")

@@ -1,3 +1,4 @@
+print("*** plottooltip_CQUI_expansion2 start")
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
@@ -472,3 +473,4 @@ function GetDetails(data)
 
     return details;
 end
+print("*** plottooltip_CQUI_expansion2 end")

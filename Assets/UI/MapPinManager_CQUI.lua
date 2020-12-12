@@ -1,3 +1,4 @@
+print("*** MapPinManager_CQUI.lua start")
 -- ===========================================================================
 --	Map Pin Manager
 --	Manages all the map pins on the world map.
@@ -57,3 +58,4 @@ function CQUI_Initialize()
     ContextPtr:SetInputHandler( OnInputHandler, true );
 end
 CQUI_Initialize();
+print("*** MapPinManager_CQUI.lua end")

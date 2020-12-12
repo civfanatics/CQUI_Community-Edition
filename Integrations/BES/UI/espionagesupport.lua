@@ -1,3 +1,4 @@
+print("*** CQUI BES espionagesupport.lua start")
 -- ===========================================================================
 function GetFormattedOperationDetailText(operation:table, spy:table, city:table)
   local outputString:string = "";
@@ -248,3 +249,4 @@ function hasDistrict(city:table, districtType:string)
 
   return false
 end
+print("*** CQUI BES espionagesupport.lua end")
