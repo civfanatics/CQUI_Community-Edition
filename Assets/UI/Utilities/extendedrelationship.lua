@@ -1,3 +1,4 @@
+-- CQUI Custom file, does not replace any Firaxis-produced file
 -- Extended Relationship Tooltip creator
 -- Aristos and atggta
 function RelationshipGet(nPlayerID :number)
