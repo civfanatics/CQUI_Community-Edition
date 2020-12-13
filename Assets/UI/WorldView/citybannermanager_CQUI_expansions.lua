@@ -1,3 +1,4 @@
+print("*** citybannermanager_CQUI_expansions.lua start")
 -- ===========================================================================
 -- CityBannerManager for Expansion 1 and Expansion 2
 -- ===========================================================================
@@ -546,3 +547,4 @@ function Initialize_CQUI_expansions()
     Events.LensLayerOn.Add(CQUI_OnLensLayerOn);
 end
 Initialize_CQUI_expansions();
+print("*** citybannermanager_CQUI_expansions.lua end")

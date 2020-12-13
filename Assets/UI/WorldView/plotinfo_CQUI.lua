@@ -1,3 +1,4 @@
+print("*** plotinfo_CQUI.lua start")
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
@@ -206,3 +207,4 @@ function Initialize()
     LuaEvents.CQUI_RefreshPurchasePlots.Add(RefreshPurchasePlots);
 end
 Initialize();
+print("*** plotinfo_CQUI.lua end")

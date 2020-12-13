@@ -1,3 +1,4 @@
+print("*** citybannermanager_CQUI_basegame.lua start")
 -- ===========================================================================
 -- CityBannerManager for Basegame (Vanilla)
 -- ===========================================================================
@@ -651,3 +652,4 @@ function Initialize_CQUI_basegame()
     Events.LensLayerOn.Add(CQUI_OnLensLayerOn);
 end
 Initialize_CQUI_basegame();
+print("*** citybannermanager_CQUI_basegame.lua end")

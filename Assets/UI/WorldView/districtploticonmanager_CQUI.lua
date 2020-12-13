@@ -1,3 +1,4 @@
+print("*** districtploticonmanager_CQUI.lua start")
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
@@ -8,3 +9,4 @@ function Initialize()
     LuaEvents.CQUI_Realize2dArtForDistrictPlacement.Add(Realize2dArtForDistrictPlacement);
 end
 Initialize();
+print("*** districtploticonmanager_CQUI.lua end")

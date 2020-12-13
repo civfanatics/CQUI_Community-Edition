@@ -1,3 +1,4 @@
+print("*** citybannermanager_CQUI.lua start")
 -- ===========================================================================
 -- CQUI Common Functions to all CityBannerManager instances
 -- This is what should go in the citybannermanager_CQUI file, the specific-to-basegame things go the _basegame file
@@ -1054,3 +1055,4 @@ function Initialize_CQUI()
     Events.DiplomacyMakePeace.Add( CQUI_OnDiplomacyDeclareWarMakePeace );
 end
 Initialize_CQUI();
+print("*** citybannermanager_CQUI.lua end")
