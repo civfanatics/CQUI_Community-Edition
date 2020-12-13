@@ -881,7 +881,7 @@
                 <LoadOrder>101</LoadOrder>
             </Properties>
             <Items>
-                <File>Integrations/ML/DLC/Expansion1/UI/Replacements/MinimapPanel.xml</File>
+                <File>Integrations/ML/DLC/Expansion1/UI/Replacements/minimappanel.xml</File>
             </Items>
         </ImportFiles>
 
@@ -890,7 +890,7 @@
                 <LoadOrder>102</LoadOrder>
             </Properties>
             <Items>
-                <File>Integrations/ML/DLC/Expansion2/UI/Replacements/MinimapPanel.xml</File>
+                <File>Integrations/ML/DLC/Expansion2/UI/Replacements/minimappanel.xml</File>
             </Items>
         </ImportFiles>
 
@@ -1127,20 +1127,20 @@
         <File>Integrations/ML/UI/Panels/modallenspanel.xml</File>
         <File>Integrations/ML/morelenses_colors.sql</File>
         <File>Integrations/ML/Lenses/LensSupport.lua</File>
-        <File>Integrations/ML/Lenses/ModLens_Builder.lua</File>
-        <File>Integrations/ML/Lenses/ModLens_Builder_Config_Default.lua</File>
-        <File>Integrations/ML/Lenses/ModLens_Scout.lua</File>
         <File>Integrations/ML/Lenses/ModLens_Archaeologist.lua</File>
         <File>Integrations/ML/Lenses/ModLens_Barbarian.lua</File>
-        <File>Integrations/ML/Lenses/ModLens_Naturalist.lua</File>
-        <File>Integrations/ML/Lenses/ModLens_Wonder.lua</File>
+        <File>Integrations/ML/Lenses/ModLens_Builder.lua</File>
+        <File>Integrations/ML/Lenses/ModLens_Builder_Config_Default.lua</File>
         <File>Integrations/ML/Lenses/ModLens_CitizenManagement.lua</File>
         <File>Integrations/ML/Lenses/ModLens_CityOverlap.xml</File>
         <File>Integrations/ML/Lenses/ModLens_CityOverlap.lua</File>
+        <File>Integrations/ML/Lenses/ModLens_Naturalist.lua</File>
         <File>Integrations/ML/Lenses/ModLens_Resource.xml</File>
         <File>Integrations/ML/Lenses/ModLens_Resource.lua</File>
-        <File>Integrations/ML/DLC/Expansion1/UI/Replacements/MinimapPanel.xml</File>
-        <File>Integrations/ML/DLC/Expansion2/UI/Replacements/MinimapPanel.xml</File>
+        <File>Integrations/ML/Lenses/ModLens_Scout.lua</File>
+        <File>Integrations/ML/Lenses/ModLens_Wonder.lua</File>
+        <File>Integrations/ML/DLC/Expansion1/UI/Replacements/minimappanel.xml</File>
+        <File>Integrations/ML/DLC/Expansion2/UI/Replacements/minimappanel.xml</File>
         <File>Integrations/BES/UI/espionagesupport.lua</File>
         <File>Integrations/BES/UI/Choosers/espionagechooser.lua</File>
         <File>Integrations/BES/UI/Choosers/espionagechooser.xml</File>
