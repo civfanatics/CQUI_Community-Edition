@@ -250,15 +250,29 @@
                 <File>Assets/Expansion2/Replacements/toppanel_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/unitpanel_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/worldinput_CQUI_expansion2.lua</File>
-                <File>Assets/Expansion2/CityBanners/citybannermanager_CQUI_expansion2.lua</File>
-                <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
-                <File>Assets/Expansion2/CityBanners/cityreligioninstances.xml</File>
+                <!-- <File>Assets/Expansion2/CityBanners/citybannermanager_CQUI_expansion2.lua</File> -->
+                <!-- these get included by citybannermanager.xml -->
+                <!-- <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
+                <File>Assets/Expansion2/CityBanners/cityreligioninstances.xml</File> -->
             </Items>
         </ImportFiles>
         <UpdateIcons id="CQUI_EXP2_UPDATE_ICONS" criteria="Expansion2">
             <Properties><LoadOrder>200</LoadOrder></Properties>
             <File>Assets/Expansion2/Data/Expansion2_Icons_FontIcons_CQUI.xml</File>
         </UpdateIcons>
+
+        <ImportFiles id="CQUI_EXP2_IMPORT_FILES_CITYBANNERMANAGER" criteria="Expansion2">
+            <Properties>
+                <LoadOrder>201</LoadOrder>
+                <Context>InGame</Context>
+            </Properties>
+            <Items>
+                <File>Assets/Expansion2/CityBanners/citybannermanager_CQUI_expansion2.lua</File>
+                <File>Assets/Expansion2/CityBanners/citybannermanager.xml</File>
+                <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
+                <File>Assets/Expansion2/CityBanners/cityreligioninstances.xml</File>
+            </Items>
+        </ImportFiles>
 
         <!-- ============================== CQUI specific LOCs ============================== -->
         <LocalizedText id="CQUI_TEXT">
@@ -515,7 +529,7 @@
 
         <ReplaceUIScript id="CQUI_CityBannerManager_EXP2" criteria="Expansion2">
             <Properties>
-                <LoadOrder>200</LoadOrder>
+                <LoadOrder>201</LoadOrder>
                 <LuaContext>CityBannerManager</LuaContext>
                 <LuaReplace>Assets/Expansion2/CityBanners/citybannermanager_CQUI_expansion2.lua</LuaReplace>
             </Properties>
@@ -974,6 +988,7 @@
         <File>Assets/Expansion2/Replacements/unitpanel_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/worldinput_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/CityBanners/citybannermanager_CQUI_expansion2.lua</File>
+        <File>Assets/Expansion2/CityBanners/citybannermanager.xml</File>
         <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
         <File>Assets/Expansion2/CityBanners/cityreligioninstances.xml</File>
         <File>Assets/Expansion2/Data/Expansion2_Icons_FontIcons_CQUI.xml</File>
