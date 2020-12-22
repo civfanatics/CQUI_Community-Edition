@@ -591,6 +591,7 @@ function PopulateAvailableCities(player : table, iconList : table)
                 uiMinimizedIcon.AmountText:SetHide(true);
                 uiMinimizedIcon.SelectButton:SetDisabled( not entry.IsValid and entry.ValidationResult ~= DealValidationResult.MISSING_DEPENDENCY );	-- Hide if invalid, unless it is just missing a dependency, the user will update that when it is added to the deal.
                 uiMinimizedIcon.RemoveButton:SetHide(true);
+                uiMinimizedIcon.StopAskingButton:SetHide(true);
                 uiMinimizedIcon.SelectButton:SetToolTipString( CQUI_MakeCityToolTip(pCity, player) );
 
                 -- What to do when double clicked/tapped.
@@ -655,6 +656,7 @@ function PopulateAvailableGreatWorks(player : table, iconList : table)
                 uiMinimizedIcon.AmountText:SetHide(true);
                 uiMinimizedIcon.SelectButton:SetDisabled( not entry.IsValid and entry.ValidationResult ~= DealValidationResult.MISSING_DEPENDENCY );	-- Hide if invalid, unless it is just missing a dependency, the user will update that when it is added to the deal.
                 uiMinimizedIcon.RemoveButton:SetHide(true);
+                uiMinimizedIcon.StopAskingButton:SetHide(true);
 
                 -- CQUI (Azurency) : add the type icon
                 local objectType = greatWorkDesc.GreatWorkObjectType;

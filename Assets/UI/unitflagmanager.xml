@@ -16,6 +16,7 @@
             <Grid ID="Formation2" Anchor="C,C" Size="100,36" Offset="0,0" Texture="UnitFormationDuo.dds" SliceCorner="20,17" SliceSize="60,1" SliceTextureSize="100,36" Hidden="1" />
 
             <AlphaAnim ID="FlagRoot" Anchor="C,C" Size="64,64" Cycle="Once" Speed="1.5">
+                <Container ID="HeroGlowAnchor" Anchor="C,C" Size="64,64"/>
                 <!-- Religious Unit Indicator -->
                 <Label ID="ReligionPromotions" Anchor="C,T" Offset="0,-8" Style="FontNormal20"/>
                 <Image ID="ReligionIconBacking" Anchor="C,T" Size="25,35" Offset="0,45" Texture="UnitFlagReligionTag" Hidden="1">
@@ -125,6 +126,17 @@
             </PullDown>
         </Container>
 
+    </Instance>
+
+    <Instance Name="HeroGlowInstance">
+        <Container ID="Root" Anchor="C,C" Size="auto,auto">
+            <AlphaAnim Anchor="C,C"	Size="auto,auto" Cycle="Bounce" AlphaStart="1.5" AlphaEnd="0.5" Speed="0.5">
+                <Image ID="HeroGlow" Anchor="C,C" Texture="UnitFlagGoldenGlow" Size="110,110" StretchMode="Fill"/>
+            </AlphaAnim>
+            <AlphaAnim Anchor="C,C"	Size="auto,auto" Cycle="Bounce" AlphaStart="0.5" AlphaEnd="1.5" Speed="0.5">
+                <Image ID="HeroGlowReverse" Anchor="C,C" Texture="UnitFlagGoldenGlow" Size="110,110" StretchMode="Fill"/>
+            </AlphaAnim>
+        </Container>
     </Instance>
 
 </Context>
