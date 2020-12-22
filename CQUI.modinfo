@@ -200,8 +200,8 @@
             <Items>
                 <File>Assets/Expansion1/CityBanners/citybannermanager_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/CityBanners/citybannermanager.xml</File>
-                <File>Assets/Expansion1/CityBanners/citybannerinstances.xml</File>
-                <File>Assets/Expansion1/CityBanners/cityreligioninstances.xml</File>
+                <File>Assets/Expansion1/CityBanners/CityBannerInstances.xml</File>
+                <File>Assets/Expansion1/CityBanners/CityReligionInstances.xml</File>
                 <File>Assets/Expansion1/Replacements/citypaneloverview_expansion1_CQUI.lua</File>
                 <File>Assets/Expansion1/Replacements/citystates.xml</File>
                 <File>Assets/Expansion1/Replacements/citystates_CQUI_expansion1.lua</File>
@@ -269,8 +269,8 @@
             <Items>
                 <File>Assets/Expansion2/CityBanners/citybannermanager_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/CityBanners/citybannermanager.xml</File>
-                <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
-                <File>Assets/Expansion2/CityBanners/cityreligioninstances.xml</File>
+                <File>Assets/Expansion2/CityBanners/CityBannerInstances.xml</File>
+                <File>Assets/Expansion2/CityBanners/CityReligionInstances.xml</File>
             </Items>
         </ImportFiles>
 
@@ -956,8 +956,8 @@
         <!-- EXP 1 -->
         <File>Assets/Expansion1/CityBanners/citybannermanager_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/CityBanners/citybannermanager.xml</File>
-        <File>Assets/Expansion1/CityBanners/citybannerinstances.xml</File>
-        <File>Assets/Expansion1/CityBanners/cityreligioninstances.xml</File>
+        <File>Assets/Expansion1/CityBanners/CityBannerInstances.xml</File>
+        <File>Assets/Expansion1/CityBanners/CityReligionInstances.xml</File>
         <File>Assets/Expansion1/Replacements/citypanelculture_CQUI.lua</File>
         <File>Assets/Expansion1/Replacements/citypaneloverview_expansion1_CQUI.lua</File>
         <File>Assets/Expansion1/Replacements/citystates.xml</File>
@@ -989,8 +989,8 @@
         <File>Assets/Expansion2/Replacements/worldinput_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/CityBanners/citybannermanager_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/CityBanners/citybannermanager.xml</File>
-        <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
-        <File>Assets/Expansion2/CityBanners/cityreligioninstances.xml</File>
+        <File>Assets/Expansion2/CityBanners/CityBannerInstances.xml</File>
+        <File>Assets/Expansion2/CityBanners/CityReligionInstances.xml</File>
         <File>Assets/Expansion2/Data/Expansion2_Icons_FontIcons_CQUI.xml</File>
 
         <File>Assets/Text/Gossip_Text.xml</File>

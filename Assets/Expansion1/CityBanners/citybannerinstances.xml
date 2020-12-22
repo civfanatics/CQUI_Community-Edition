@@ -1,5 +1,5 @@
 <Include File="CityBannerInstances">
-
+    <Container ID="m4atest_exp1_cbi_cqui_standalone"/>
     <!-- Include info panels that attack to bottom of CityBanner -->
     <Include File="CityLoyaltyInstances"/>
     <Include File="CityReligionInstances"/>

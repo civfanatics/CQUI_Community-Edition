@@ -1,5 +1,5 @@
 <Include File="CityReligionInstances">
-
+    <Container ID="m4atest_exp1_cri_cqui_standalone"/>
 	<Instance Name="ReligionInfo">
 		<!-- Religion Info Dropdown -->
 		<Container ID="ReligionInfoContainer" Anchor="C,B" AnchorSide="I,O" Offset="0,-2" Size="200,200">

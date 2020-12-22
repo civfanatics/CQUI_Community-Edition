@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Context>
+  <Container ID="m4atest_exp1_cbm_cqui_withotherincludes"/>
   <!-- Instances that make up City Banners -->
   <Include File="CityBannerInstances"/>
 
