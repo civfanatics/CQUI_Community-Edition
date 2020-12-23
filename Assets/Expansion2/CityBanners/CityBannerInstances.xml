@@ -1,5 +1,13 @@
 <Include File="CityBannerInstances">
-    <Container ID="m4atest_exp2_cbi_cqui_standalone" />
+    <!-- CQUI CityBannerInstances Replacement File -->
+    <!-- Note: This file only loads in Linux if naming and casing is CityBannerInstances.xml -->
+    <!-- See note in citybannermanager.xml regarding this hidden container below -->
+    <Container ID="CQUI_EmptyContainer_CityBannerInstances_Exp2" />
+
+    <!-- Include info panels that attack to bottom of CityBanner -->
+    <Include File="CityLoyaltyInstances"/>
+    <Include File="CityReligionInstances"/>
+
     <Instance Name="CityBanner">
         <!-- To match old behavior, it would go from 0 to -25 on the Y axis -->
         <!-- Moving on the Z axis looks about the same but works with camera rotation -->

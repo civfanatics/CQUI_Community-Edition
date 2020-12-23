@@ -1,5 +1,9 @@
 <Include File="CityReligionInstances">
-    <Container ID="m4atest_exp2_cri_cqui_standalone"/>
+    <!-- CQUI CityReligionInstances Replacement File -->
+    <!-- Note: This file only loads in Linux if naming and casing is CityReligionInstances.xml -->
+    <!-- See note in citybannermanager.xml regarding this hidden container below -->
+    <Container ID="CQUI_EmptyContainer_CityReligionInstances_Exp2" Hidden="1"/>
+
     <Instance Name="ReligionInfo">
         <!-- Religion Info Dropdown -->
         <Container ID="ReligionInfoContainer" Anchor="C,B" AnchorSide="I,O" Offset="0,-2" Size="200,200">
