@@ -1,5 +1,6 @@
 -- ===========================================================================
---  Popups when policies can still be changed at the end of the turn
+-- CQUI Custom File: Popups when policies can still be changed at the end of the turn
+-- This file does not replace any Civ6 base file
 -- ===========================================================================
 include("TechAndCivicSupport"); -- (Already includes Civ6Common and InstanceManager) PopulateUnlockablesForTech, PopulateUnlockablesForCivic, GetUnlockablesForCivic, GetUnlockablesForTech
 

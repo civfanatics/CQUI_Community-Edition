@@ -1,3 +1,9 @@
+-- ===========================================================================
+-- CQUI CityPanel lua
+-- CQUI Civ5-style city panel creates many differences from the unmodified version of this file from Firaxis
+-- Differences are noted in file below
+-- ===========================================================================
+
 -- Copyright 2016-2019, Firaxis Games
 
 -- ===========================================================================
@@ -86,18 +92,19 @@ local m_isShowingPanels :boolean= false;
 local m_pPlayer         :table  = nil;
 local m_primaryColor    :number = UI.GetColorValueFromHexLiteral(0xcafef00d);
 local m_secondaryColor  :number = UI.GetColorValueFromHexLiteral(0xf00d1ace);
-local m_CurrentPanelLine:number = 0;
 local m_kTutorialDisabledControls :table = nil;
+local m_CurrentPanelLine:number = 0;
 
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
 local CQUI_bSukUI:boolean = Modding.IsModActive("805cc499-c534-4e0a-bdce-32fb3c53ba38"); -- Sukritact's Simple UI Adjustments
- 
--- ====================CQUI Cityview==========================================
 
+-- ====================CQUI Cityview==========================================
 local CQUI_cityview = false;
 local CQUI_usingStrikeButton = false;
 local CQUI_wonderMode = false;
 local CQUI_growthTile = true;
 
+-- ===========================================================================
 function CQUI_CityviewEnableManager()
     CQUI_cityview = true;
     CQUI_wonderMode = false;
@@ -107,6 +114,7 @@ function CQUI_CityviewEnableManager()
     LuaEvents.CQUI_WorldInput_CityviewEnable();
 end
 
+-- ===========================================================================
 function CQUI_CityviewDisableManager()
     CQUI_cityview = false;
     CQUI_wonderMode = false;
@@ -116,6 +124,7 @@ function CQUI_CityviewDisableManager()
     LuaEvents.CQUI_WorldInput_CityviewDisable();
 end
 
+-- ===========================================================================
 function CQUI_OnCityviewEnabled()
     if ContextPtr:IsHidden() or Controls.CityPanelSlide:IsReversing() then
         ContextPtr:SetHide(false);
@@ -133,6 +142,7 @@ function CQUI_OnCityviewEnabled()
 
 end
 
+-- ===========================================================================
 function CQUI_OnCityviewDisabled()
     Close();
     UI.DeselectAllCities();
@@ -142,6 +152,7 @@ function CQUI_OnCityviewDisabled()
     UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
 end
 
+-- ===========================================================================
 function CQUI_WonderModeEnabled()
     CQUI_cityview = false;
     CQUI_wonderMode = true;
@@ -150,6 +161,7 @@ function CQUI_WonderModeEnabled()
     UILens.ToggleLayerOff(m_CitizenManagement);
 end
 
+-- ===========================================================================
 -- AZURENCY : CQUI_CityviewDisableManager() call an unwanted UI.SetInterfaceMode(InterfaceModeTypes.SELECTION), this does not
 function CQUI_HideCityInterface()
     CQUI_cityview = false;
@@ -225,6 +237,7 @@ function CQUI_OnInterfaceModeChanged( eOldMode:number, eNewMode:number )
     end
 end
 
+-- ===========================================================================
 -- Clear city culture growth tile overlay if one exists
 function CQUI_ClearGrowthTile()
     if g_growthPlotId ~= -1 then
@@ -233,6 +246,7 @@ function CQUI_ClearGrowthTile()
     end
 end
 
+-- ===========================================================================
 function CQUI_OnCitySelectionChanged( ownerPlayerID:number, cityID:number, i:number, j:number, k:number, isSelected:boolean, isEditable:boolean)
     if (ownerPlayerID == Game.GetLocalPlayer()) then
         if (isSelected) then
@@ -266,18 +280,21 @@ function CQUI_OnCitySelectionChanged( ownerPlayerID:number, cityID:number, i:num
     end
 end
 
+-- ===========================================================================
 function CQUI_OnNextCity()
     local kCity:table = UI.GetHeadSelectedCity();
     UI.SelectNextCity(kCity);
     UI.PlaySound("UI_Click_Sweetener_Metal_Button_Small");
 end
 
+-- ===========================================================================
 function CQUI_OnPreviousCity()
     local kCity:table = UI.GetHeadSelectedCity();
     UI.SelectPrevCity(kCity);
     UI.PlaySound("UI_Click_Sweetener_Metal_Button_Small");
 end
 
+-- ===========================================================================
 function CQUI_OnLoadScreenClose()
     CQUI_RecenterCameraGameStart();
 end
@@ -306,15 +323,20 @@ function CQUI_RecenterCameraGameStart()
     UI.LookAtPlot( startX, startY );
 end
 
+-- ===========================================================================
 -- Sets the visibility of the tile growth overlay
 function CQUI_SetGrowthTile(state)
     GameConfiguration.SetValue("CQUI_ShowCultureGrowth", state);
     LuaEvents.CQUI_SettingsUpdate();
 end
+
+-- ===========================================================================
 -- Toggles the visibility of the tile growth overlay
 function CQUI_ToggleGrowthTile()
     CQUI_SetGrowthTile(not CQUI_growthTile);
 end
+
+-- ===========================================================================
 function CQUI_SettingsUpdate()
     CQUI_growthTile = GameConfiguration.GetValue("CQUI_ShowCultureGrowth");
     if (g_growthPlotId ~= -1 and not CQUI_growthTile) then
@@ -325,15 +347,18 @@ function CQUI_SettingsUpdate()
         DisplayGrowthTile();
     end
 end
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
 -- ===========================================================================
 --
 -- ===========================================================================
 function Close()
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     Controls.CityPanelAlpha:SetToBeginning();
     Controls.CityPanelAlpha:Play();
     Controls.CityPanelSlide:SetToBeginning();
     Controls.CityPanelSlide:Play();
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     ContextPtr:SetHide( true );
 end
 
@@ -473,6 +498,7 @@ function ViewMain( data:table )
         UI.DataError("Invalid type name returned by GetCivilizationTypeName");
     end
 
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     -- Divine Yuri's Tooltip calculations (Some changes made for CQUI)
     local selectedCity  = UI.GetHeadSelectedCity();
     -- Food yield correction
@@ -489,6 +515,7 @@ function ViewMain( data:table )
     else
         totalFood = data.FoodSurplus;
     end
+
     -- Food p/turn tooltip
     local realFoodPerTurnToolTip = data.FoodPerTurnToolTip .."[NEWLINE]"..
         toPlusMinusString(-(data.FoodPerTurn - data.FoodSurplus)).." "..Locale.Lookup("LOC_HUD_CITY_FROM_POPULATION").."[NEWLINE][NEWLINE]"..
@@ -498,6 +525,7 @@ function ViewMain( data:table )
     if data.Occupied then
         realFoodPerTurnToolTip = realFoodPerTurnToolTip.."[NEWLINE]".."x"..data.OccupationMultiplier..Locale.Lookup("LOC_HUD_CITY_OCCUPATION_MULTIPLIER");
     end
+
     -- Religion tooltip/icon
     local ReligionTooltip :string;
     if ((table.count(data.Religions) > 1) or (data.PantheonBelief > -1)) then
@@ -507,6 +535,7 @@ function ViewMain( data:table )
             local kPantheonBelief = GameInfo.Beliefs[data.PantheonBelief];
             ReligionTooltip = ReligionTooltip..Locale.Lookup(kPantheonBelief.Name).."[NEWLINE]"..Locale.Lookup(kPantheonBelief.Description);
         end
+
         if (table.count(data.Religions) > 0) then
             local religiousMinorities = "";
             local religiousMinoritiesExist = false;
@@ -523,10 +552,12 @@ function ViewMain( data:table )
                     end
                 end
             end
+
             for _, beliefIndex in ipairs(data.BeliefsOfDominantReligion) do
                 local kBelief     :table = GameInfo.Beliefs[beliefIndex];
                 ReligionTooltip = ReligionTooltip.."[NEWLINE][NEWLINE]"..Locale.Lookup(kBelief.Name).."[NEWLINE]"..Locale.Lookup(kBelief.Description);
             end
+
             if religiousMinoritiesExist then
                 ReligionTooltip = ReligionTooltip.."[NEWLINE]---------------------[NEWLINE]"..Locale.Lookup("LOC_HUD_CITY_RELIGIOUS_MINORITIES").."[NEWLINE]"..religiousMinorities;
             end
@@ -534,6 +565,7 @@ function ViewMain( data:table )
     else
         ReligionTooltip = Locale.Lookup("LOC_RELIGIONPANEL_NO_RELIGION");
     end
+
     -- District tooltip
     local DistrictTooltip = "";
     for i, district in ipairs(data.BuildingsAndDistricts) do
@@ -542,11 +574,13 @@ function ViewMain( data:table )
             if district.isPillaged then
                 districtName = districtName .. " "..Locale.Lookup("LOC_HUD_CITY_PILLAGED").." "
             end
+
             if ( i == 1 ) then
                 DistrictTooltip = DistrictTooltip..""..districtName;
             else
                 DistrictTooltip = DistrictTooltip.."[NEWLINE]"..districtName;
             end
+
             --district.YieldBonus
             for _,building in ipairs(district.Buildings) do
                 if building.isBuilt then
@@ -559,10 +593,13 @@ function ViewMain( data:table )
             end
         end
     end
+
     -- Amenities tooltip
     local HappinessTooltipString = Locale.Lookup(GameInfo.Happinesses[data.Happiness].Name);
     HappinessTooltipString = HappinessTooltipString.."[NEWLINE]";
     local tableChanges = {};
+
+    -- Inline function declaration
     function repeatAvoidAddNew( TextKey, dataID, isNegative, special)
         local textValue = Locale.Lookup(TextKey, "");
         if (isNegative) then
@@ -577,6 +614,7 @@ function ViewMain( data:table )
             end
         end
     end
+
     data.AmenitiesFromDistricts = data.AmenitiesFromDistricts or 0;
     data.AmenitiesFromNaturalWonders = data.AmenitiesFromNaturalWonders or 0;
     data.AmenitiesFromTraits = data.AmenitiesFromTraits or 0;
@@ -593,14 +631,16 @@ function ViewMain( data:table )
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_LOST_FROM_BANKRUPTCY",    "Bankruptcy",           true      );
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_DISTRICTS",          "Districts"                       );
     repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_NATURAL_WONDERS",    "NaturalWonders"                  );
-    repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_TRAITS", "Traits");
+    repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_FROM_TRAITS",             "Traits"                          );
     if g_bIsRiseAndFall or g_bIsGatheringStorm then
         repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_LOST_FROM_GOVERNORS", "Governors");
     end
+
     repeatAvoidAddNew("LOC_HUD_REPORTS_FROM_POPULATION",                "AmenitiesRequiredNum", true, true);
     for _, aTable in pairs(tableChanges)do
         HappinessTooltipString = HappinessTooltipString..string.format("[NEWLINE]%+d %s", aTable.Amenities, aTable.AmenityType:sub(1, -2));
     end
+
     if data.HappinessGrowthModifier ~= 0 then
         local growthInfo:string =
             GetColorPercentString(Round(1 + (data.HappinessGrowthModifier/100), 2)) .. " " ..
@@ -609,6 +649,7 @@ function ViewMain( data:table )
             Locale.ToUpper( Locale.Lookup("LOC_HUD_CITY_ALL_YIELDS") );
         HappinessTooltipString = HappinessTooltipString.."[NEWLINE][NEWLINE]"..growthInfo;
     end
+
     -- Housing tooltip
     local HousingTooltip = "";
     if data.HousingMultiplier == 0 then
@@ -620,6 +661,7 @@ function ViewMain( data:table )
             HousingTooltip = Locale.Lookup("LOC_HUD_CITY_POPULATION_GROWTH_NORMAL");
         end
     end
+
     -- Production info
     local buildQueue  = selectedCity:GetBuildQueue();
     local currentProductionHash = buildQueue:GetCurrentProductionTypeHash();
@@ -630,48 +672,59 @@ function ViewMain( data:table )
     else
         productionHash = currentProductionHash;
     end
+
     local currentProductionInfo :table = GetProductionInfoOfCity( data.City, productionHash );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
+    -- Set icons and values for the yield checkboxes
+    Controls.CultureCheck:GetTextButton():SetText(    "[ICON_Culture]"    ..toPlusMinusString(data.CulturePerTurn) );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- Food value is calculated above
+    Controls.FoodCheck:GetTextButton():SetText(       "[ICON_Food]"       ..toPlusMinusString(totalFood) );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+    Controls.ProductionCheck:GetTextButton():SetText( "[ICON_Production]" ..toPlusMinusString(data.ProductionPerTurn) );
+    Controls.ScienceCheck:GetTextButton():SetText(    "[ICON_Science]"    ..toPlusMinusString(data.SciencePerTurn) );
+    Controls.FaithCheck:GetTextButton():SetText(      "[ICON_Faith]"      ..toPlusMinusString(data.FaithPerTurn) );
+    Controls.GoldCheck:GetTextButton():SetText(       "[ICON_Gold]"       ..toPlusMinusString(data.GoldPerTurn) );
 
-  -- Set icons and values for the yield checkboxes
-  Controls.CultureCheck:GetTextButton():SetText(    "[ICON_Culture]"  ..toPlusMinusString(data.CulturePerTurn) );
-  Controls.FoodCheck:GetTextButton():SetText(       "[ICON_Food]"   ..toPlusMinusString(totalFood) );
-  Controls.ProductionCheck:GetTextButton():SetText( "[ICON_Production]" ..toPlusMinusString(data.ProductionPerTurn) );
-  Controls.ScienceCheck:GetTextButton():SetText(    "[ICON_Science]"  ..toPlusMinusString(data.SciencePerTurn) );
-  Controls.FaithCheck:GetTextButton():SetText(      "[ICON_Faith]"    ..toPlusMinusString(data.FaithPerTurn) );
-  Controls.GoldCheck:GetTextButton():SetText(       "[ICON_Gold]"   ..toPlusMinusString(data.GoldPerTurn) );
+    -- Set the Yield checkboxes based on the game state
+    RealizeYield3WayCheck( data.YieldFilters[YieldTypes.CULTURE], YieldTypes.CULTURE, data.CulturePerTurnToolTip);
+    RealizeYield3WayCheck( data.YieldFilters[YieldTypes.FAITH], YieldTypes.FAITH, data.FaithPerTurnToolTip);
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- Food value is calcuated above
+    RealizeYield3WayCheck( data.YieldFilters[YieldTypes.FOOD], YieldTypes.FOOD, realFoodPerTurnToolTip);
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+    RealizeYield3WayCheck( data.YieldFilters[YieldTypes.GOLD], YieldTypes.GOLD, data.GoldPerTurnToolTip);
+    RealizeYield3WayCheck( data.YieldFilters[YieldTypes.PRODUCTION], YieldTypes.PRODUCTION, data.ProductionPerTurnToolTip);
+    RealizeYield3WayCheck( data.YieldFilters[YieldTypes.SCIENCE], YieldTypes.SCIENCE, data.SciencePerTurnToolTip);
 
-  -- Set the Yield checkboxes based on the game state
-  RealizeYield3WayCheck( data.YieldFilters[YieldTypes.CULTURE], YieldTypes.CULTURE, data.CulturePerTurnToolTip);
-  RealizeYield3WayCheck( data.YieldFilters[YieldTypes.FAITH], YieldTypes.FAITH, data.FaithPerTurnToolTip);
-  RealizeYield3WayCheck( data.YieldFilters[YieldTypes.FOOD], YieldTypes.FOOD, realFoodPerTurnToolTip);
-  RealizeYield3WayCheck( data.YieldFilters[YieldTypes.GOLD], YieldTypes.GOLD, data.GoldPerTurnToolTip);
-  RealizeYield3WayCheck( data.YieldFilters[YieldTypes.PRODUCTION], YieldTypes.PRODUCTION, data.ProductionPerTurnToolTip);
-  RealizeYield3WayCheck( data.YieldFilters[YieldTypes.SCIENCE], YieldTypes.SCIENCE, data.SciencePerTurnToolTip);
-  
-  -- #33 Infixo SukUI integration
-  if CQUI_bSukUI then
-    local toPlusMinus = function(value) return Locale.ToNumber(value, "+#,###.#;-#,###.#") end
-    LuaEvents.SetSuk_YieldTooltip(Controls.CultureGrid,    data.YieldFilters[YieldTypes.CULTURE],    toPlusMinus(data.CulturePerTurn),    data.CulturePerTurnToolTip);
-    LuaEvents.SetSuk_YieldTooltip(Controls.FaithGrid,      data.YieldFilters[YieldTypes.FAITH],      toPlusMinus(data.FaithPerTurn),      data.FaithPerTurnToolTip);
-    LuaEvents.SetSuk_YieldTooltip(Controls.FoodGrid,       data.YieldFilters[YieldTypes.FOOD],       toPlusMinus(totalFood),              realFoodPerTurnToolTip); -- different here
-    LuaEvents.SetSuk_YieldTooltip(Controls.GoldGrid,       data.YieldFilters[YieldTypes.GOLD],       toPlusMinus(data.GoldPerTurn),       data.GoldPerTurnToolTip);
-    LuaEvents.SetSuk_YieldTooltip(Controls.ProductionGrid, data.YieldFilters[YieldTypes.PRODUCTION], toPlusMinus(data.ProductionPerTurn), data.ProductionPerTurnToolTip);
-    LuaEvents.SetSuk_YieldTooltip(Controls.ScienceGrid,    data.YieldFilters[YieldTypes.SCIENCE],    toPlusMinus(data.SciencePerTurn),    data.SciencePerTurnToolTip);
-  end
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- #33 Infixo SukUI integration
+    if CQUI_bSukUI then
+        local toPlusMinus = function(value) return Locale.ToNumber(value, "+#,###.#;-#,###.#") end
+        LuaEvents.SetSuk_YieldTooltip(Controls.CultureGrid,    data.YieldFilters[YieldTypes.CULTURE],    toPlusMinus(data.CulturePerTurn),    data.CulturePerTurnToolTip);
+        LuaEvents.SetSuk_YieldTooltip(Controls.FaithGrid,      data.YieldFilters[YieldTypes.FAITH],      toPlusMinus(data.FaithPerTurn),      data.FaithPerTurnToolTip);
+        LuaEvents.SetSuk_YieldTooltip(Controls.FoodGrid,       data.YieldFilters[YieldTypes.FOOD],       toPlusMinus(totalFood),              realFoodPerTurnToolTip); -- different here
+        LuaEvents.SetSuk_YieldTooltip(Controls.GoldGrid,       data.YieldFilters[YieldTypes.GOLD],       toPlusMinus(data.GoldPerTurn),       data.GoldPerTurnToolTip);
+        LuaEvents.SetSuk_YieldTooltip(Controls.ProductionGrid, data.YieldFilters[YieldTypes.PRODUCTION], toPlusMinus(data.ProductionPerTurn), data.ProductionPerTurnToolTip);
+        LuaEvents.SetSuk_YieldTooltip(Controls.ScienceGrid,    data.YieldFilters[YieldTypes.SCIENCE],    toPlusMinus(data.SciencePerTurn),    data.SciencePerTurnToolTip);
+    end
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
-  if m_isShowingPanels then
-    Controls.LabelButtonRows:SetSizeX( SIZE_MAIN_ROW_LEFT_COLLAPSED );
-  else
-    Controls.LabelButtonRows:SetSizeX( SIZE_MAIN_ROW_LEFT_WIDE );
-  end
+    if m_isShowingPanels then
+        Controls.LabelButtonRows:SetSizeX( SIZE_MAIN_ROW_LEFT_COLLAPSED );
+    else
+        Controls.LabelButtonRows:SetSizeX( SIZE_MAIN_ROW_LEFT_WIDE );
+    end
 
-
-  Controls.BreakdownNum:SetText( data.DistrictsNum.."/"..data.DistrictsPossibleNum );
-  Controls.BreakdownGrid:SetOffsetY(PANEL_INFOLINE_LOCATIONS[m_CurrentPanelLine]);
-  Controls.BreakdownButton:SetOffsetX(PANEL_BUTTON_LOCATIONS[m_CurrentPanelLine].x);
-  Controls.BreakdownButton:SetOffsetY(PANEL_BUTTON_LOCATIONS[m_CurrentPanelLine].y);
-  m_CurrentPanelLine = m_CurrentPanelLine + 1;
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- also show the districts possible value
+    Controls.BreakdownNum:SetText( data.DistrictsNum.."/"..data.DistrictsPossibleNum );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+    Controls.BreakdownGrid:SetOffsetY(PANEL_INFOLINE_LOCATIONS[m_CurrentPanelLine]);
+    Controls.BreakdownButton:SetOffsetX(PANEL_BUTTON_LOCATIONS[m_CurrentPanelLine].x);
+    Controls.BreakdownButton:SetOffsetY(PANEL_BUTTON_LOCATIONS[m_CurrentPanelLine].y);
+    m_CurrentPanelLine = m_CurrentPanelLine + 1;
 
     -- Hide Religion / Faith UI in some scenarios
     if not GameCapabilities.HasCapability("CAPABILITY_CITY_HUD_RELIGION_TAB") then
@@ -689,10 +742,13 @@ function ViewMain( data:table )
         Controls.ProduceWithFaithCheck:SetHide(true);
         Controls.FaithGrid:SetHide(true);
     end
+
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     Controls.BreakdownGrid:SetToolTipString(DistrictTooltip);
     Controls.AmenitiesGrid:SetToolTipString(HappinessTooltipString);
     Controls.ReligionGrid:SetToolTipString(ReligionTooltip);
     Controls.HousingGrid:SetToolTipString(HousingTooltip);
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     local amenitiesNumText = data.AmenitiesNetAmount;
     if (data.AmenitiesNetAmount > 0) then
@@ -712,7 +768,9 @@ function ViewMain( data:table )
     colorName = GetPercentGrowthColor( data.HousingMultiplier );
     Controls.HousingNum:SetColorByName( colorName );
 
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     Controls.HousingMax:SetText( data.Housing - data.HousingFromImprovements + CQUI_GetRealHousingFromImprovements(selectedCity) );    -- CQUI calculate real housing
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     Controls.HousingLabels:SetOffsetX(PANEL_BUTTON_LOCATIONS[m_CurrentPanelLine].x - HOUSING_LABEL_OFFSET);
     Controls.HousingGrid:SetOffsetY(PANEL_INFOLINE_LOCATIONS[m_CurrentPanelLine]);
     Controls.HousingButton:SetOffsetX(PANEL_BUTTON_LOCATIONS[m_CurrentPanelLine].x);
@@ -746,6 +804,8 @@ function ViewMain( data:table )
         Controls.GrowthLabel:SetColorByName("StatBadCS");
         Controls.GrowthLabel:SetText( Locale.ToUpper( Locale.Lookup("LOC_HUD_CITY_GROWTH_OCCUPIED") ) );
     else
+        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+        -- CQUI show the current and required food values
         local pCityGrowth :table = data.City:GetGrowth();
         local CurFood = Round(pCityGrowth:GetFood(), 1);
         local FoodGainNextTurn = Round(data.FoodSurplus * pCityGrowth:GetOverallGrowthModifier(), 1);
@@ -757,6 +817,7 @@ function ViewMain( data:table )
             Controls.GrowthLabel:SetColorByName("StatBadCS");
             Controls.GrowthLabel:SetText( "  "..CurFood.." / "..RequiredFood.."  ("..data.FoodSurplus.."[ICON_Food])");
         end
+        -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     end
 
     widthNumLabel = Controls.GrowthNum:GetSizeX();
@@ -764,11 +825,14 @@ function ViewMain( data:table )
 
     --Production
 
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- update CQUI custom controls, do not hide the Controls.ProductionTurns
     --Controls.ProductionTurns:SetHide( m_isShowingPanels );
     Controls.CurrentProductionProgress:SetPercent(Clamp(data.CurrentProdPercent, 0.0, 1.0));
     Controls.CurrentProductionProgress:SetShadowPercent(Clamp(data.ProdPercentNextTurn, 0.0, 1.0));
     Controls.CurrentProductionCost:SetText( data.CurrentTurnsLeft );
     Controls.ProductionLabel:SetText(currentProductionInfo.Progress.."/"..currentProductionInfo.Cost.."  (+"..data.ProductionPerTurn.." [ICON_Production])");
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     Controls.ProductionNowLabel:SetText( data.CurrentProductionName );
 
     Controls.ProductionDescriptionString:SetText( data.CurrentProductionDescription );
@@ -790,8 +854,10 @@ function ViewMain( data:table )
     end
     Controls.ProductionIcon:SetHide( not isIconSet );
 
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     Controls.CurrentProductionCost:SetHide( data.CurrentTurnsLeft < 0 );
     Controls.ProductionLabel:SetHide( data.CurrentTurnsLeft < 0 );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     if data.CurrentTurnsLeft < 0 then
         Controls.ProductionLabel:SetText( Locale.ToUpper( Locale.Lookup("LOC_HUD_CITY_NOTHING_PRODUCED")) );
@@ -914,10 +980,14 @@ function Refresh()
         -- more effecient than recomputing the entire set of yields a second time,
         -- despite the large size.
         LuaEvents.CityPanel_LiveCityDataChanged( m_kData, true );
+        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
         LuaEvents.UpdateBanner(Game.GetLocalPlayer(), g_pCity:GetID());
+        -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     end
 end
 
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+-- Custom function for CQUI to refresh the UI if needed
 function RefreshOnTurnRoll()
     --print("Turn Roll City Panel Update");
     local pPlayer = Game.GetLocalPlayer();
@@ -961,6 +1031,7 @@ function RefreshOnTurnRoll()
         LuaEvents.UpdateBanner(Game.GetLocalPlayer(), g_pCity:GetID());
     end
 end
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
 -- ===========================================================================
 function RefreshIfMatch( ownerPlayerID:number, cityID:number )
@@ -969,7 +1040,8 @@ function RefreshIfMatch( ownerPlayerID:number, cityID:number )
     end
 end
 
--- ===========================================================================
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+-- Handle updating values when a tile is improved
 function OnTileImproved(x, y)
     -- print("A Tile Was Improved!");
     local plot:table = Map.GetPlot(x,y);
@@ -1024,6 +1096,7 @@ function OnTileImproved(x, y)
         end
     end
 end
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
 -- ===========================================================================
 --  GAME Event
@@ -1075,9 +1148,11 @@ end
 --  GAME Event
 -- ===========================================================================
 function OnCityProductionChanged(ownerPlayerID:number, cityID:number)
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     if Controls.ChangeProductionCheck:IsChecked() then
         Controls.ChangeProductionCheck:SetCheck(false);
     end
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     RefreshIfMatch(ownerPlayerID, cityID);
 end
 
@@ -1105,6 +1180,11 @@ function OnToggleOverviewPanel()
         LuaEvents.CityPanel_ShowOverviewPanel(false);
     end
 end
+
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+-- CQUI Replaces this function with CQUI_OnCitySelectionChanged (function header shown here at location it appears in unmodified citypanel.lua)
+-- function OnCitySelectionChanged( ownerPlayerID:number, cityID:number, i:number, j:number, k:number, isSelected:boolean, isEditable:boolean)
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
 -- ===========================================================================
 function AnimateFromCloseToOpen()
@@ -1188,6 +1268,47 @@ end
 function OnShutdown()
     -- Cache values for hotloading...
     LuaEvents.GameDebug_AddValue("CityPanel", "isHidden", ContextPtr:IsHidden() );
+
+        -- Game Core Events
+    Events.CityAddedToMap.Remove(          OnCityAddedToMap );
+    Events.CityNameChanged.Remove(         OnCityNameChanged );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    Events.CitySelectionChanged.Remove(    CQUI_OnCitySelectionChanged );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+    Events.CityFocusChanged.Remove(        OnCityFocusChange );
+    Events.CityProductionCompleted.Remove( OnCityProductionCompleted );
+    Events.CityProductionUpdated.Remove(   OnCityProductionUpdated );
+    Events.CityProductionChanged.Remove(   OnCityProductionChanged );
+    Events.CityWorkerChanged.Remove(       OnCityWorkerChanged );
+    Events.DistrictDamageChanged.Remove(   OnCityProductionChanged );
+    Events.LocalPlayerTurnBegin.Remove(    OnLocalPlayerTurnBegin );
+    Events.ImprovementChanged.Remove(      OnCityProductionChanged );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    Events.InterfaceModeChanged.Remove(    CQUI_OnInterfaceModeChanged );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+    Events.LocalPlayerChanged.Remove(      OnLocalPlayerChanged );
+    Events.PlayerResourceChanged.Remove(   OnPlayerResourceChanged );
+    Events.UnitSelectionChanged.Remove(    OnUnitSelectionChanged );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    Events.LoadScreenClose.Remove(         CQUI_OnLoadScreenClose );
+    Events.PlotYieldChanged.Remove(        OnTileImproved );
+    Events.PlayerTurnActivated.Remove(     RefreshOnTurnRoll );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+
+    -- LUA Events
+    LuaEvents.CityPanelOverview_CloseButton.Remove(     OnCloseOverviewPanel );
+    LuaEvents.CityPanel_SetOverViewState.Remove(    OnCityPanelSetOverViewState );
+    LuaEvents.CityPanel_ToggleManageCitizens.Remove(OnCityPanelToggleManageCitizens );
+    LuaEvents.GameDebug_Return.Remove(                  OnGameDebugReturn );
+    LuaEvents.ProductionPanel_Close.Remove(             OnProductionPanelClose );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- CQUI does not register this event
+    -- LuaEvents.ProductionPanel_ListModeChanged.Remove(	OnProductionPanelListModeChanged );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+    LuaEvents.ProductionPanel_Open.Remove(              OnProductionPanelOpen );
+    LuaEvents.Tutorial_CityPanelOpen.Remove(            OnTutorialOpen );
+    LuaEvents.Tutorial_ContextDisableItems.Remove(      OnTutorial_ContextDisableItems );
+
 end
 
 -- ===========================================================================
@@ -1298,6 +1419,12 @@ function OnResetYieldToNormal( yieldType:number, yieldName:string )
     SetYieldIgnore( yieldType );    -- One more ignore to flip it off
 end
 
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+-- CQUI implements custom versions of these functions from the unmodified file that appear here
+-- function OnNextCity()
+-- function OnPreviousCity()
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+
 -- ===========================================================================
 --  Recenter camera on city
 -- ===========================================================================
@@ -1314,12 +1441,21 @@ end
 function OnTogglePurchaseTile()
     if Controls.PurchaseTileCheck:IsChecked() then
         if not Controls.ManageCitizensCheck:IsChecked() then
+            -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+            -- CQUI does not save off the interface mode and restore later
+            -- m_PrevInterfaceMode = UI.GetInterfaceMode();
+            -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
             UI.SetInterfaceMode(InterfaceModeTypes.CITY_MANAGEMENT);  -- Enter mode
         end
         RecenterCameraOnCity();
         UILens.ToggleLayerOn( m_PurchasePlot );
     else
         if not Controls.ManageCitizensCheck:IsChecked() and UI.GetInterfaceMode() == InterfaceModeTypes.CITY_MANAGEMENT then
+            -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+            -- CQUI does not save off the interface mode and restore later
+            -- UI.SetInterfaceMode(m_PrevInterfaceMode);         -- Exit mode
+            -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+
             UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);      -- Exit mode
         end
 
@@ -1332,9 +1468,6 @@ function OnToggleProduction()
     if Controls.ChangeProductionCheck:IsChecked() then
         RecenterCameraOnCity();
         LuaEvents.CityPanel_ProductionOpen();
-        --Controls.ProduceWithFaithCheck:SetCheck( false );
-        --Controls.ProduceWithGoldCheck:SetCheck( false );
-        --AnimateToWithProductionQueue();
     else
         LuaEvents.CityPanel_ProductionClose();
     end
@@ -1345,9 +1478,11 @@ function OnTogglePurchaseWithGold()
     if Controls.ProduceWithGoldCheck:IsChecked() then
         RecenterCameraOnCity();
         LuaEvents.CityPanel_PurchaseGoldOpen();
+        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
         Controls.ChangeProductionCheck:SetCheck( false );
         Controls.ProduceWithFaithCheck:SetCheck( false );
         --AnimateToWithProductionQueue();
+        -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     else
         LuaEvents.CityPanel_ProductionClose();
     end
@@ -1358,9 +1493,11 @@ function OnTogglePurchaseWithFaith()
     if Controls.ProduceWithFaithCheck:IsChecked() then
         RecenterCameraOnCity();
         LuaEvents.CityPanel_PurchaseFaithOpen();
+        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
         Controls.ChangeProductionCheck:SetCheck( false );
         Controls.ProduceWithGoldCheck:SetCheck( false );
         --AnimateToWithProductionQueue();
+        -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     else
         LuaEvents.CityPanel_ProductionClose();
     end
@@ -1375,6 +1512,9 @@ end
 --  current state in deciding what is populate in a lens layer.
 -- ===========================================================================
 function OnToggleManageCitizens()
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- CQUI shows the Manage Citizens at all times, so no code is required here
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
 end
 
 -- ===========================================================================
@@ -1420,7 +1560,10 @@ function DisplayGrowthTile()
         local cityCulture:table = g_pCity:GetCulture();
         if cityCulture ~= nil then
             local newGrowthPlot:number = cityCulture:GetNextPlot();
+            -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+            -- CQUI also checks if this is the CQUI_growthTile
             if (newGrowthPlot ~= -1 and newGrowthPlot ~= g_growthPlotId and CQUI_growthTile) then
+                -- ==== CQUI CUSTOMIZATION END ==================================================================================== --
                 g_growthPlotId = newGrowthPlot;
 
                 local cost:number = cityCulture:GetNextPlotCultureCost();
@@ -1469,6 +1612,27 @@ function OnCityMadePurchase(owner:number, cityID:number, plotX:number, plotY:num
     end
 end
 
+
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+-- CQUI does not implement this function (unmodified defines this function here)
+-- function OnProductionPanelListModeChanged( listMode:number )
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+
+-- ===========================================================================
+function OnCityPanelSetOverViewState( isOpened:boolean )
+    Controls.ToggleOverviewPanel:SetCheck(isOpened);
+end
+
+-- ===========================================================================
+function OnCityPanelToggleManageCitizens()
+    Controls.ManageCitizensCheck:SetAndCall(not Controls.ManageCitizensCheck:IsChecked());
+end
+
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+-- CQUI implements a custom version of this function (unmodified defines this function here)
+-- function OnInterfaceModeChanged( eOldMode:number, eNewMode:number )
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+
 -- ===========================================================================
 --  Engine EVENT
 --  Local player changed; likely a hotseat game
@@ -1496,13 +1660,15 @@ function SetupCollapsibleToggle( pCheckBoxControl:table, pButtonControl:table, p
     pCheckBoxControl:RegisterCheckHandler(
         function()
             pAreaControl:SetHide( pCheckBoxControl:IsChecked() );
-        end);
+        end
+    );
 
     if pButtonControl ~= nil then
         pButtonControl:RegisterCallback( Mouse.eLClick,
             function()
                 pCheckBoxControl:SetAndCall( not pCheckBoxControl:IsChecked() );
-            end);
+            end
+    );
     end
 end
 
@@ -1538,7 +1704,7 @@ function OnTutorial_ContextDisableItems( contextName:string, kIdsToDisable:table
     end
 end
 
--- ===========================================================================
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
 -- CQUI update all cities data including real housing when tech/civic that adds housing is boosted and research is completed
 function CQUI_UpdateAllCitiesData(PlayerID)
     local m_kCity :table = Players[PlayerID]:GetCities();
@@ -1546,7 +1712,7 @@ function CQUI_UpdateAllCitiesData(PlayerID)
         CityManager.RequestCommand(kCity, CityCommandTypes.SET_FOCUS, nil);
     end
 end
-
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
 -- ===========================================================================
 --  CTOR
@@ -1579,17 +1745,29 @@ function Initialize()
     Controls.GoldIgnore       :RegisterCallback( Mouse.eLClick, function() OnResetYieldToNormal( YieldTypes.GOLD,       "Gold"); end);
     Controls.ProductionIgnore :RegisterCallback( Mouse.eLClick, function() OnResetYieldToNormal( YieldTypes.PRODUCTION, "Production"); end);
     Controls.ScienceIgnore    :RegisterCallback( Mouse.eLClick, function() OnResetYieldToNormal( YieldTypes.SCIENCE,    "Science"); end);
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     Controls.NextCityButton   :RegisterCallback( Mouse.eLClick, CQUI_OnNextCity);
     Controls.PrevCityButton   :RegisterCallback( Mouse.eLClick, CQUI_OnPreviousCity);
 
     -- CQUI recenter on the city when clicking the round icon in the panel
     Controls.CircleBacking:RegisterCallback( Mouse.eLClick,  RecenterCameraOnCity);
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     if GameCapabilities.HasCapability("CAPABILITY_GOLD") then
         Controls.PurchaseTileCheck:RegisterCheckHandler(OnTogglePurchaseTile );
         Controls.PurchaseTileCheck:RegisterCallback( Mouse.eMouseEnter, function() UI.PlaySound("Main_Menu_Mouse_Over"); end);
+        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+        -- CQUI does not register these (unmodified does)
+        -- Controls.ProduceWithGoldCheck:RegisterCheckHandler( OnTogglePurchaseWithGold );
+        -- Controls.ProduceWithGoldCheck:RegisterCallback( Mouse.eMouseEnter, function() UI.PlaySound("Main_Menu_Mouse_Over"); end);
+        -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+
     else
         Controls.PurchaseTileCheck:SetHide(true);
+        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+        -- CQUI does not hide this control here (unmodified does)
+        -- Controls.ProduceWithGoldCheck:SetHide(true);
+        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     end
 
     Controls.ManageCitizensCheck  :RegisterCheckHandler(  OnToggleManageCitizens );
@@ -1606,7 +1784,9 @@ function Initialize()
     -- Game Core Events
     Events.CityAddedToMap         .Add( OnCityAddedToMap );
     Events.CityNameChanged        .Add( OnCityNameChanged );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     Events.CitySelectionChanged   .Add( CQUI_OnCitySelectionChanged );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     Events.CityFocusChanged       .Add( OnCityFocusChange );
     Events.CityProductionCompleted.Add( OnCityProductionCompleted );
     Events.CityProductionUpdated  .Add( OnCityProductionUpdated );
@@ -1615,30 +1795,33 @@ function Initialize()
     Events.DistrictDamageChanged  .Add( OnCityProductionChanged );
     Events.LocalPlayerTurnBegin   .Add( OnLocalPlayerTurnBegin );
     Events.ImprovementChanged     .Add( OnCityProductionChanged );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     Events.InterfaceModeChanged   .Add( CQUI_OnInterfaceModeChanged );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     Events.LocalPlayerChanged     .Add( OnLocalPlayerChanged );
     Events.UnitSelectionChanged   .Add( OnUnitSelectionChanged );
     Events.PlayerResourceChanged  .Add( OnPlayerResourceChanged );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     Events.LoadScreenClose        .Add( CQUI_OnLoadScreenClose );
     Events.PlotYieldChanged       .Add( OnTileImproved );
     Events.PlayerTurnActivated    .Add( RefreshOnTurnRoll );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     -- LUA Events
     LuaEvents.CityPanelOverview_CloseButton.Add( OnCloseOverviewPanel );
+    LuaEvents.CityPanel_SetOverViewState.Add(    OnCityPanelSetOverViewState );
+    LuaEvents.CityPanel_ToggleManageCitizens.Add(OnCityPanelToggleManageCitizens );
     LuaEvents.GameDebug_Return             .Add( OnGameDebugReturn );      -- hotloading help
     LuaEvents.ProductionPanel_Close        .Add( OnProductionPanelClose );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- CQUI does not register this LuaEvent (unmodified does)
+    -- LuaEvents.ProductionPanel_ListModeChanged.Add(   OnProductionPanelListModeChanged );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     LuaEvents.ProductionPanel_Open         .Add( OnProductionPanelOpen );
     LuaEvents.Tutorial_CityPanelOpen       .Add( OnTutorialOpen );
     LuaEvents.Tutorial_ContextDisableItems .Add( OnTutorial_ContextDisableItems );
-    LuaEvents.CityPanel_SetOverViewState   .Add(
-        function(isOpened)
-            Controls.ToggleOverviewPanel:SetCheck(isOpened);
-        end);
-    LuaEvents.CityPanel_ToggleManageCitizens.Add(
-        function()
-            Controls.ManageCitizensCheck:SetAndCall(not Controls.ManageCitizensCheck:IsChecked());
-        end);
 
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     -- CQUI Events
     LuaEvents.CQUI_GoNextCity      .Add( CQUI_OnNextCity );
     LuaEvents.CQUI_GoPrevCity      .Add( CQUI_OnPreviousCity );
@@ -1646,6 +1829,7 @@ function Initialize()
     LuaEvents.CQUI_SettingsUpdate  .Add( CQUI_SettingsUpdate );
     LuaEvents.RefreshCityPanel     .Add( Refresh );
     LuaEvents.CQUI_AllCitiesInfoUpdatedOnTechCivicBoost .Add( CQUI_UpdateAllCitiesData );    -- CQUI update all cities data including real housing when tech/civic that adds housing is boosted and research is completed
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     -- Truncate possible static text overflows
     TruncateStringWithTooltip(Controls.BreakdownLabel, MAX_BEFORE_TRUNC_STATIC_LABELS, Controls.BreakdownLabel:GetText());

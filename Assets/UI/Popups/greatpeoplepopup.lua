@@ -1,5 +1,8 @@
 -- ===========================================================================
---  Great People Popup
+--  CQUI Great People Popup replacement file
+--  CQUI dynamically adjusts the size of various elements in the Great People popup.
+--  This requires access to variables not exported in the Firaxis unmodified version
+--  CQUI changes marked, some of which have corresponding changes found in greatpeoplepopup.xml
 -- ===========================================================================
 
 include("InstanceManager");
@@ -44,10 +47,9 @@ local m_pGreatPeopleTabInstance  :table = nil;
 local m_pPrevRecruitedTabInstance:table = nil;
 
 -- ===========================================================================
---  CQUI
+--  CQUI Variables
 -- ===========================================================================
 local _, CQUI_screenHeight = UIManager:GetScreenSizeVal();
-local CQUI_MARGIN = 180;
 local CQUI_ModalFrameBaseSize = Controls.ModalFrame:GetSizeY();
 local CQUI_PopupContainerBaseSize = Controls.PopupContainer:GetSizeY();
 
@@ -65,6 +67,7 @@ local CQUI_preferredEffectsScrollSize = 240; -- Value defined in the XML
 local CQUI_preferredInstanceSize = 0;
 local CQUI_isPreferredRecruitScrollSizeComputed:boolean = false;
 local CQUI_isPreferredHeightsComputed:boolean = false;
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
 -- ===========================================================================
 function ChangeDisplayPlayerID(bBackward)
@@ -262,6 +265,8 @@ function AddRecruit( kData:table, kPerson:table )
     if kPerson.IndividualID ~= nil and kPerson.ClassID ~= nil then
     -- Buy via gold
         if (HasCapability("CAPABILITY_GREAT_PEOPLE_RECRUIT_WITH_GOLD") and (not kPerson.CanRecruit and not kPerson.CanReject and kPerson.PatronizeWithGoldCost ~= nil and kPerson.PatronizeWithGoldCost < 1000000)) then
+            -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+            -- CQUI Customization to use different shades of gold based on whether the player can patronize the great person
             if (kPerson.CanPatronizeWithGold) then
                 instance.GoldButton:SetText("[COLOR_GoldMetal]" .. kPerson.PatronizeWithGoldCost .. "[ENDCOLOR][ICON_Gold]");
                 instance.GoldButton:SetDisabled(false);
@@ -273,13 +278,18 @@ function AddRecruit( kData:table, kPerson:table )
             instance.GoldButton:SetToolTipString(GetPatronizeWithGoldTT(kPerson));
             instance.GoldButton:SetVoid1(kPerson.IndividualID);
             instance.GoldButton:RegisterCallback(Mouse.eLClick, OnGoldButtonClick);
+            -- CQUI: GoldButton Disabled setting is handled above with custom colorization
+            -- instance.GoldButton:SetDisabled((not kPerson.CanPatronizeWithGold) or IsReadOnly());
             instance.GoldButton:SetHide(false);
+            -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
         else
             instance.GoldButton:SetHide(true);
         end
 
         -- Buy via Faith
         if (HasCapability("CAPABILITY_GREAT_PEOPLE_RECRUIT_WITH_FAITH") and (not kPerson.CanRecruit and not kPerson.CanReject and kPerson.PatronizeWithFaithCost ~= nil and kPerson.PatronizeWithFaithCost < 1000000)) then
+            -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+            -- CQUI Customization to use different shades of faith color based on whether the player can patronize the great person
             if ((kPerson.CanPatronizeWithFaith) and not IsReadOnly()) then
                 instance.FaithButton:SetText("[COLOR_Faith]" .. kPerson.PatronizeWithFaithCost .. "[ENDCOLOR][ICON_Faith]");
                 instance.FaithButton:SetDisabled(false);
@@ -291,7 +301,10 @@ function AddRecruit( kData:table, kPerson:table )
             instance.FaithButton:SetToolTipString(GetPatronizeWithFaithTT(kPerson));
             instance.FaithButton:SetVoid1(kPerson.IndividualID);
             instance.FaithButton:RegisterCallback(Mouse.eLClick, OnFaithButtonClick);
+            -- CQUI: FaithButton Disabled setting is handled above with custom colorization
+            -- instance.FaithButton:SetDisabled((not kPerson.CanPatronizeWithFaith) or IsReadOnly());
             instance.FaithButton:SetHide(false);
+            -- ==== CQUI CUSTOMIZATION END ======================================================================================== --            
         else
             instance.FaithButton:SetHide(true);
         end
@@ -321,13 +334,15 @@ function AddRecruit( kData:table, kPerson:table )
             instance.RejectButton:SetHide(true);
         end
 
-        -- If Recruit or Reject buttons are shown hide the minimized recruit stack
+        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
         -- CQUI: Do not hide the "Minimized Recruit" Stack (which lists the progress of all of the civs for that Great Person)
-            -- if not instance.RejectButton:IsHidden() or not instance.RecruitButton:IsHidden() then
+        -- If Recruit or Reject buttons are shown hide the minimized recruit stack
+        -- if not instance.RejectButton:IsHidden() or not instance.RecruitButton:IsHidden() then
         --    instance.RecruitMinimizedStack:SetHide(true);
         -- else
         --    instance.RecruitMinimizedStack:SetHide(false);
         -- end
+        -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
         
         -- Recruiting standings
         -- Let's sort the table first by points total, then by the lower player id (to push yours toward the top of the list for readability)
@@ -350,18 +365,22 @@ function AddRecruit( kData:table, kPerson:table )
             else
                 local recruitInst:table = instance["m_RecruitIM"]:GetInstance();
                 FillRecruitInstance(recruitInst, kPlayerPoints, kPerson, classData);
+                -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
                 if not CQUI_isPreferredRecruitScrollSizeComputed then
                     CQUI_preferredRecruitScrollSize = CQUI_preferredRecruitScrollSize + recruitInst.Top:GetSizeY() + 5; -- AZURENCY : 5 is the padding
                 end
+                -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
             end
 
             local recruitExtendedInst:table = instance["m_RecruitExtendedIM"]:GetInstance();
             FillRecruitInstance(recruitExtendedInst, kPlayerPoints, kPerson, classData);
         end
 
+        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
         if not CQUI_isPreferredRecruitScrollSizeComputed then
             CQUI_isPreferredRecruitScrollSizeComputed = true;
         end
+        -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
         if (kPerson.EarnConditions ~= nil and kPerson.EarnConditions ~= "") then
             instance.RecruitInfo:SetText("[COLOR_Civ6Red]" .. Locale.Lookup("LOC_GREAT_PEOPLE_CANNOT_EARN_PERSON") .. "[ENDCOLOR]");
@@ -392,8 +411,11 @@ function AddRecruit( kData:table, kPerson:table )
     end
 
     local noneAvailable :boolean = (kPerson.IndividualID == nil);
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- These two elements are not toggled in the unmodified file
     instance.ClassName:SetHide( noneAvailable );
     instance.TitleLine:SetHide( noneAvailable );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     instance.IndividualName:SetHide( noneAvailable );
     instance.EraName:SetHide( noneAvailable );
     instance.MainInfo:SetHide( noneAvailable );
@@ -405,8 +427,11 @@ function AddRecruit( kData:table, kPerson:table )
     instance.BiographyOpenButton:SetHide( noneAvailable );
     instance.EffectStack:CalculateSize();
     instance.EffectStackScroller:CalculateSize();
-
+    
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- Set the heights of the various elements in the Great People Panel instance as has been computed
     if (CQUI_isPreferredHeightsComputed == false) then
+        -- This if clause will only run for the first instance, each subsequent will use the values calculated here
         --CQUI_preferredRecruitScrollSize = 1000;  -- for quick testing
         if (CQUI_preferredRecruitScrollSize > (CQUI_screenHeight / 4)) then
             CQUI_preferredRecruitScrollSize = (CQUI_screenHeight / 4);
@@ -433,12 +458,13 @@ function AddRecruit( kData:table, kPerson:table )
         CQUI_isPreferredHeightsComputed = true;
     end
 
-    -- CQUI : change size
+    -- CQUI: Set the height of the elements in this GPP instance
     -- CQUI DEBUG TEST :
     -- CQUI_preferredRecruitScrollSize = 300;
     instance.Content:SetSizeY(CQUI_preferredInstanceSize);
     instance.EffectStackScroller:SetSizeY(CQUI_preferredEffectsScrollSize);
     instance.RecruitScroll:SetSizeY(CQUI_preferredRecruitScrollSize);
+    -- ==== CQUI CUSTOMIZATION END ==================================================================================== --
 end
 
 -- ===========================================================================
@@ -467,20 +493,25 @@ function ViewCurrent( data:table )
         AddRecruit(data, kPerson);
     end
 
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     -- CQUI : change size.  CQUI_preferredRecruitScrollSize and the like were calculated in the AddRecruit function
     -- CQUI_preferredRecruitScrollSize = CQUI_preferredRecruitScrollSize + 32 + 28 + 48 + 28 ;
     -- CQUI : 22 our LocalPlayerRecruitInstance, 28 Recruit progress title, 48 buttons, 28 distance from scroll bar to edge of PeopleScroller control
     Controls.CQUI_RecruitWoodPaneling:SetSizeY(CQUI_preferredRecruitScrollSize + CQUI_lowerPanelAdditionalHeight); 
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     Controls.PeopleStack:CalculateSize();
     Controls.PeopleScroller:CalculateSize();
     
     m_screenWidth = math.max(Controls.PeopleStack:GetSizeX(), 1024);
     Controls.WoodPaneling:SetSizeX( m_screenWidth );
-    -- CQUI : change size
+
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- CQUI: Set the width of the panel
     Controls.CQUI_ContentWoodPaneling:SetSizeX( m_screenWidth );
     Controls.CQUI_RecruitWoodPaneling:SetSizeX( m_screenWidth );
     Controls.CQUI_BottomWoodPaneling:SetSizeX( m_screenWidth );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     -- Clamp overall popup size to not be larger than contents (overspills in 4k and eyefinitiy rigs.)
     local screenX,_ :number = UIManager:GetScreenSizeVal();
@@ -490,9 +521,11 @@ function ViewCurrent( data:table )
 
     Controls.PopupContainer:SetSizeX( m_screenWidth );
     Controls.ModalFrame:SetSizeX( m_screenWidth );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     -- CQUI : change size
-    Controls.ModalFrame:SetSizeY( CQUI_preferredInstanceSize + CQUI_instanceMargin -6 );    -- CQUI: 6px less for the 3px outer border
+    Controls.ModalFrame:SetSizeY( CQUI_preferredInstanceSize + CQUI_instanceMargin -6 );  -- CQUI: 6px less for the 3px outer border
     Controls.PopupContainer:SetSizeY( CQUI_preferredInstanceSize + CQUI_instanceMargin ); -- CQUI
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     -- Has an instance been set to auto scroll to?
     Controls.PeopleScroller:SetScrollValue( 0 );            -- Either way reset scroll first (mostly for hot seat)
@@ -505,21 +538,27 @@ function ViewCurrent( data:table )
         scrollAmt = math.clamp( scrollAmt, 0, 1);
         Controls.PeopleScroller:SetScrollValue( scrollAmt );
     end
+    if IsTutorialRunning() then
+        Controls.PeopleScroller:SetScrollValue( .3 );
+    end
 end
 
 -- ===========================================================================
 function FillRecruitInstance(instance:table, playerPoints:table, personData:table, classData:table)
     instance.Country:SetText( playerPoints.PlayerName );
-    
-    -- instance.Amount:SetText( tostring(Round(playerPoints.PointsTotal,1)) .. "/" .. tostring(personData.RecruitCost) );
+
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     -- CQUI Points Per Turn and Turns Left -- Add the turn icon into the text
     -- recruitTurnsLeft gets +0.5 so that's rounded up
+    -- This next line is from the unmodified code, not required by CQUI.
+    -- instance.Amount:SetText( tostring(Round(playerPoints.PointsTotal,1)) .. "/" .. tostring(personData.RecruitCost) );
     local recruitTurnsLeft = Round((personData.RecruitCost-playerPoints.PointsTotal)/playerPoints.PointsPerTurn + 0.5,0);
     if (recruitTurnsLeft == math.huge) then
         recruitTurnsLeft = "∞";
     end
 
     instance.Amount:SetText( "(+" .. tostring(Round(playerPoints.PointsPerTurn,1)) .. ") " .. tostring(recruitTurnsLeft) .. "[ICON_Turn]");
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     local progressPercent :number = Clamp( playerPoints.PointsTotal / personData.RecruitCost, 0, 1 );
     instance.ProgressBar:SetPercent( progressPercent );
@@ -535,9 +574,11 @@ function FillRecruitInstance(instance:table, playerPoints:table, personData:tabl
 
     DifferentiateCiv(playerPoints.PlayerID,instance.CivIcon,instance.CivIcon,instance.CivBacking, nil, nil, Game.GetLocalPlayer());
 
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     -- CQUI : Added total points in the tooltip
     local recruitDetails:string = tostring(Round(playerPoints.PointsTotal,1)) .. "/" .. tostring(personData.RecruitCost) .. ".";
     recruitDetails = recruitDetails .. "[NEWLINE][NEWLINE]" .. Locale.Lookup("LOC_GREAT_PEOPLE_POINT_DETAILS", Round(playerPoints.PointsPerTurn, 1), classData.IconString, classData.Name);
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     instance.Top:SetToolTipString(recruitDetails);
 end
 
@@ -587,7 +628,7 @@ function ViewPast( data:table )
             UI.DataError("GreatPeople previous recruited as unable to find the class text for #"..tostring(i));
         end
         instance.ClassName:SetText( Locale.ToUpper(classText) );
-        instance.ClassName:SetHide(false); --  TODO: CQUI didn't have this previously???
+        instance.ClassName:SetHide(false);
         instance.GreatPersonInfo:SetText( kPerson.Name )
         DifferentiateCiv(kPerson.ClaimantID, instance.CivIcon, instance.CivIcon, instance.CivIndicator, nil, nil, localPlayerID);
         instance.RecruitedImage:SetHide(true);
@@ -1295,7 +1336,6 @@ function Initialize()
 
     m_tabs.CenterAlignTabs(-10);
     m_tabs.SelectTab( m_pGreatPeopleTabInstance.Button );
-
 
     -- UI Events
     ContextPtr:SetInitHandler( OnInit );
