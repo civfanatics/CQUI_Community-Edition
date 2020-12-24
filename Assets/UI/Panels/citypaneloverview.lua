@@ -644,9 +644,7 @@ function ViewPanelAmenities( data:table )
 
     -- Districts
     data.AmenitiesFromDistricts = data.AmenitiesFromDistricts or 0;
-    if data.AmenitiesFromDistricts > 0 then
-        CQUI_BuildAmenityBubbleInstance("ICON_DISTRICT_CITY_CENTER", data.AmenitiesFromDistricts, "LOC_PEDIA_DISTRICTS_TITLE");
-    end
+    CQUI_BuildAmenityBubbleInstance("ICON_DISTRICT_CITY_CENTER", data.AmenitiesFromDistricts, "LOC_PEDIA_DISTRICTS_TITLE");
 
     -- Natural Wonders
     data.AmenitiesFromNaturalWonders = data.AmenitiesFromNaturalWonders or 0;
