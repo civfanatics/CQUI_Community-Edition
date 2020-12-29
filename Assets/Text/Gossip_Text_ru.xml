@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameData>
+	<LocalizedText>
+		<!-- Replace Gossip Text -->
+		<Replace Tag="LOC_GOSSIP_AGENDA_KUDOS" Language="ru_RU">
+			<Text>[ICON_Declare_friendship] {1_LeaderName} поблагодарил {2_Leadername} за совместную повестку: {3_AgendaName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_AGENDA_WARNING" Language="ru_RU">
+			<Text>[ICON_Denounce] {1_LeaderName} предупредил {2_Leadername} за вмешательство в повестку: {3_AgendaName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ALLIED" Language="ru_RU">
+			<Text>[ICON_Alliance] {1_CivName} заключил союз с {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ARTIFACT_EXTRACTED" Language="ru_RU">
+			<Text>[ICON_Greatwork_relic] {1_CivName} раскопал реликвию: {2_GreatWork}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_BARBARIAN_INVASION_STARTED" Language="ru_RU">
+			<Text>[ICON_Barbarian] {1_CivName} подвергается варварскому вторжению на {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_BARBARIAN_RAID_STARTED" Language="ru_RU">
+			<Text>[ICON_Barbarian] {1_CivName} подвергается варварскому набегу на {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_BEACH_RESORT_CREATED" Language="ru_RU">
+			<Text>[ICON_Production] {1_CivName} построил морской курорт неподалёку от {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CHANGE_GOVERNMENT" Language="ru_RU">
+			<Text>[ICON_Government] {1_CivName} изменил правительство на {2_Government}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_BESIEGED" Language="ru_RU">
+			<Text>[ICON_Razed] {1_CityName} подвергается осаде.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_LIBERATED" Language="ru_RU">
+			<Text>[ICON_Buildings] {1_CivName} освободил {2_CityName} и вернул его {3_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_RAZED" Language="ru_RU">
+			<Text>[ICON_Razed] {1_CivName} разрушил город, основанный {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CLEAR_CAMP" Language="ru_RU">
+			<Text>[ICON_Barbarian] {1_CivName} использовал {LOC_GRAMMAR_A_AN &lt;&lt; {2_UnitName}} чтобы очистить {LOC_GRAMMAR_A_AN &lt;&lt; {3_ImprovementName}}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_STATE_INFLUENCE" Language="ru_RU">
+			<Text>[ICON_Envoy] {1_CivName} отправил посла в {2_CityState}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONQUER_CITY" Language="ru_RU">
+			<Text>[ICON_Razed] {1_CivName} завоевал {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONSTRUCT_BUILDING" Language="ru_RU">
+			<Text>[ICON_Production] {1_CivName} построил {LOC_GRAMMAR_A_AN &lt;&lt; {2_BuildingName}} в {3_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONSTRUCT_DISTRICT" Language="ru_RU">
+			<Text>[ICON_Production] {1_CivName} построил {LOC_GRAMMAR_A_AN &lt;&lt; {2_DistrictName}} в {3_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CREATE_PANTHEON" Language="ru_RU">
+			<Text>[ICON_Religion] {1_CivName} поклоняется пантеону, сосредоточенном на вере {2_BeliefName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CULTURVATE_CIVIC" Language="ru_RU">
+			<Text>[ICON_Culture] {1_CivName} завершил исследование {2_CivicName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_DECLARED_FRIENDSHIP" Language="ru_RU">
+			<Text>[ICON_Declare_friendship] {1_CivName} теперь друзья с {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_DELEGATION" Language="ru_RU">
+			<Text>[ICON_Envoy] {1_CivName} принял иностранную делегацию из {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_DENOUNCED" Language="ru_RU">
+			<Text>[ICON_Denounce] {1_CivName} осудил {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_EMBASSY" Language="ru_RU">
+			<Text>[ICON_Resident_embassy] Новое посольство прибыло в {1_CivName} из {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ERA_CHANGED" Language="ru_RU">
+			<Text>[ICON_Capitallarge] {1_CivName} вступило в {3_NewEra}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_FIND_NATURAL_WONDER" Language="ru_RU">
+			<Text>[ICON_Terrain] {1_CivName} обнаружил {2_NWName} чудо природы.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_FOUND_CITY" Language="ru_RU">
+			<Text>[ICON_Buildings] {1_CivName} основал новый город под названием: {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_FOUND_RELIGION" Language="ru_RU">
+			<Text>[ICON_Religion] {1_CivName} основал новую религию: {2_ReligionName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_GREATPERSON_CREATED" Language="ru_RU">
+			<Text>[ICON_Greatperson] {1_CivName} получил {2_unit} {3_GreatPerson}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_LAUNCHING_ATTACK" Language="ru_RU">
+			<Text>[ICON_Declare_formal_war] {1_CivName} начал военное наступление на {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WAR_PREPARATION" Language="ru_RU">
+			<Text>[ICON_Declare_formal_war] {1_CivName} готовится к войне с {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_INQUISITION_LAUNCHED" Language="ru_RU">
+			<Text>[ICON_Religion] {1_CivName} начал инквизицию против {2_ReligionName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_LAND_UNIT_LEVEL" Language="ru_RU">
+			<Text>[ICON_Promotion] {1_CivName} имеет {2_UnitName}, который заработал {3_PromotionName} повышение.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_MAKE_DOW" Language="ru_RU">
+			<Text>[ICON_Declare_formal_war] {1_CivName} объявил войну {2_OtherPlayer}!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_NATIONAL_PARK_CREATED" Language="ru_RU">
+			<Text>[ICON_Terrain] {1_CivName} создал {2_NationalParkName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_NAVAL_UNIT_LEVEL" Language="ru_RU">
+			<Text>[ICON_Promotion] {1_CivName} имеет {2_UnitName}, который заработал {3_PromotionName} повышение.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_NEW_RELIGIOUS_MAJORITY" Language="ru_RU">
+			<Text>[ICON_Religion] Доминирующая религия в {1_CivName} сейчас: {2_ReligionName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_PILLAGE" Language="ru_RU">
+			<Text>[ICON_Pillaged] {1_CivName} разграбил вражеский {2_TargetName} с помощью {LOC_GRAMMAR_A_AN &lt;&lt; {3_UnitName}}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_POLICY_ENACTED" Language="ru_RU">
+			<Text>[ICON_Policy] {1_CivName} принял {2_SlotName} политику {3_PolicyName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RECEIVE_DOW" Language="ru_RU">
+			<Text>[ICON_Declare_formal_war] {1_CivName} получил объявление войны от {2_OtherPlayer}!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RELIC_RECEIVED" Language="ru_RU">
+			<Text>[ICON_Greatwork_religious] {1_CivName} получил новую священную реликвию: {2_RelicName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RESEARCH_AGREEMENT" Language="ru_RU">
+			<Text>[ICON_Research_agreement] {1_CivName} и {2_CivName} сформировали научный союз.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RESEARCH_TECH" Language="ru_RU">
+			<Text>[ICON_Science] {1_CivName} завершил исследования {2_TechName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_DETECTED" Language="ru_RU">
+			<Text>[ICON_Pillaged] {1_CivName} космодром в {2_CityName} был саботирован {3_SpyPlayer}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_UNDETECTED" Language="ru_RU">
+			<Text>[ICON_Pillaged] {1_CivName} космодром в {2_CityName} был кем-то саботирован.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_GREAT_WORK_HEIST_DETECTED" Language="ru_RU">
+			<Text>[ICON_Exclamation] {1_CivName} произведение искусства в {2_CityName} было украдено {3_SpyPlayer}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_GREAT_WORK_HEIST_UNDETECTED" Language="ru_RU">
+			<Text>[ICON_Exclamation] {1_CivName} произведение искусства в {2_CityName} было кем-то украдено.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_RECRUIT_PARTISANS_DETECTED" Language="ru_RU">
+			<Text>[ICON_Exclamation] {1_CivName} воюет с партизанами в {2_CityName}, подготовленными {3_SpyPlayer}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_RECRUIT_PARTISANS_UNDETECTED" Language="ru_RU">
+			<Text>[ICON_Exclamation] {1_CivName} воюет с партизанами в {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SABOTAGE_PRODUCTION_DETECTED" Language="ru_RU">
+			<Text>[ICON_Exclamation] {1_CivName} производство в {2_CityName} было саботировано {3_SpyPlayer}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SABOTAGE_PRODUCTION_UNDETECTED" Language="ru_RU">
+			<Text>[ICON_Exclamation] {1_CivName} производство в {2_CityName} было кем-то саботировано.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SIPHON_FUNDS_DETECTED" Language="ru_RU">
+			<Text>[ICON_Exclamation] {1_CivName} обнаружил пропажу денежных средств в {2_CityName}, улики указывают на {3_SpyPlayer}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SIPHON_FUNDS_UNDETECTED" Language="ru_RU">
+			<Text>[ICON_Exclamation] {1_CivName} обнаружил пропажу денежных средств в {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_STEAL_TECH_BOOST_DETECTED" Language="ru_RU">
+			<Text>[ICON_Exclamation] {1_CivName} обнаружил воровство технологии в {2_CityName}, улики указывают на {3_SpyPlayer}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_STEAL_TECH_BOOST_UNDETECTED" Language="ru_RU">
+			<Text>[ICON_Exclamation] {1_CivName} обнаружил воровство технологии в {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRADE_DEAL" Language="ru_RU">
+			<Text>[ICON_Gold] {1_CivName} торгует с {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRADE_RENEGE" Language="ru_RU">
+			<Text>[ICON_Gold] {1_CivName} отказался от сделки с {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRAIN_SETTLER" Language="ru_RU">
+			<Text>[ICON_Unit] {1_CivName} завершил создание нового {2_UnitName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRAIN_UNIT" Language="ru_RU">
+			<Text>[ICON_Unit] {1_CivName} завершил создание первого в мире {2_UnitName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRAIN_UNIQUE_UNIT" Language="ru_RU">
+			<Text>[ICON_Unit] {1_CivName} завершил создание уникального юнита, {2_UnitName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPACE_RACE_PROJECT_COMPLETED" Language="ru_RU">
+			<Text>{1_CivName} завершил проект космической гонки {2_ProjectType}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WMD_BUILT" Language="ru_RU">
+			<Text>[ICON_Nuclear] {1_CivName} построил {2_WMDCount} единиц оружия массового поражения!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WMD_STRIKE" Language="ru_RU">
+			<Text>[ICON_Nuclear] {1_CivName} применил оружие массового поражения! {2_UnitName}!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WONDER_STARTED" Language="ru_RU">
+			<Text>[ICON_Production] {1_CivName} начал строительство {3_BuildingName} в {2_CityName}.</Text>
+		</Replace>
+	</LocalizedText>
+</GameData>

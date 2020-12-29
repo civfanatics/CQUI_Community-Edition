@@ -7,16 +7,16 @@
       <Text>Сочетания клавиш</Text>
     </Row>
     <Row Tag="LOC_CQUI_BINDINGS_DROPDOWN" Language="ru_RU">
-      <Text>Сочетания</Text>
+      <Text>Сочетания клавиш</Text>
     </Row>
     <Row Tag="LOC_CQUI_BINDINGS_DROPDOWN_TOOLTIP" Language="ru_RU">
-      <Text>Стандартные: Без изменений[NEWLINE]Классические: клавиши из Civ V[NEWLINE]Продвинутые: Клавиши из Civ V со следующими изменениями:[NEWLINE]  WASD контроль камеры[NEWLINE]  Q/E переключение юнита/города[NEWLINE]  Shift переключает выбор города/юнита[NEWLINE] Каменоломня/Авиаудар изменён на Alt + Q/S[NEWLINE]  ВНИМАНИЕ: ОТКРЕПИТЕ КЛАВИШИ W/E В НАСТРОЙКАХ ИЛИ ДАННЫЙ РЕЖИМ НЕ ЗАРАБОТАЕТ!</Text>
+      <Text>Стандартные: без изменений[NEWLINE]Классические: клавиши из Civ V[NEWLINE]Улучшенные: клавиши из Civ V со следующими изменениями:[NEWLINE]  WASD контроль камеры[NEWLINE]  Q/E переключение юнита/города[NEWLINE]  Shift переключает выбор города/юнита[NEWLINE]  Каменоломня/Авиаудар изменён на + Q/S[NEWLINE]  ВНИМАНИЕ: ОТКРЕПИТЕ КЛАВИШИ W/E В НАСТРОЙКАХ ИЛИ ДАННЫЙ РЕЖИМ НЕ ЗАРАБОТАЕТ!</Text>
     </Row>
     <Row Tag="LOC_CQUI_BINDINGS_CLASSIC" Language="ru_RU">
       <Text>Классические</Text>
     </Row>
     <Row Tag="LOC_CQUI_BINDINGS_ENHANCED" Language="ru_RU">
-      <Text>Продвинутые</Text>
+      <Text>Улучшенные</Text>
     </Row>
     <Row Tag="LOC_CQUI_BINDINGS_STANDARD" Language="ru_RU">
       <Text>Стандартные</Text>
@@ -24,186 +24,308 @@
     <Row Tag="LOC_CQUI_CITYVIEW" Language="ru_RU">
       <Text>Обзор города</Text>
     </Row>
-    <!-- Relocate City Strike and Encampment Strike button translations done via Google Translate -->
     <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="ru_RU">
-      <Text>Кнопка Смена места жительства Attack Город</Text>
+      <Text>Переместить кнопку атаки города</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP" Language="ru_RU">
-      <Text>Включите это, чтобы переместить кнопку City Attack поверх панелей здоровья и защиты.</Text>
+      <Text>Включите, чтобы переместить кнопку дальнобойной атаки города над полосами здоровья и защиты</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" Language="ru_RU">
-      <Text>Переместить кнопку атаки Лагерь</Text>
+      <Text>Переместить кнопку атаки лагеря</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="ru_RU">
-      <Text>Включите это, чтобы переместить кнопку Удар по лагерю над панелями здоровья и защиты</Text>
+      <Text>Включите, чтобы переместить кнопку дальнобойной атаки военного лагеря над полосами здоровья и защиты</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_PRODUCTIONQUEUE" Language="ru_RU">
-      <Text>Очередь производства</Text>
+      <Text>Включить очередь производства</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWCULTUREGROWTH" Language="ru_RU">
-      <Text>Показывать культурный рост</Text>
+      <Text>Показывать слой культурного роста</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWCULTUREGROWTH_TOOLTIP" Language="ru_RU">
-      <Text>Также может быть включена нажатием на иконку роста в обзоре города</Text>
+      <Text>Это также может быть переключено нажатием на эмблему роста в обзоре города</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWYIELDSONCITYHOVER" Language="ru_RU">
       <Text>Информация о городе при наведении</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWYIELDSONCITYHOVER_TOOLTIP" Language="ru_RU">
-      <Text>Расстановка горожан, урожайность клеток, и рост границ при наведении</Text>
+      <Text>Показывает значки управления гражданами, урожайность клеток и рост границ при наведении курсора</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITIZENICONSONHOVER" Language="ru_RU">
+      <Text>Значки граждан при наведении</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITIZENICONSONHOVER_TOOLTIP" Language="ru_RU">
+      <Text>Показывает значки граждан при наведении курсора на городскую вывеску</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEONHOVER" Language="ru_RU">
+      <Text>Область управления городом</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEONHOVER_TOOLTIP" Language="ru_RU">
+      <Text>Показывает область управления гражданами при наведении курсора на городскую вывеску</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_HEADER" Language="ru_RU">
-      <Text>Умные баннеры</Text>
+      <Text>Умные вывески</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER" Language="ru_RU">
-      <Text>Включить баннеры</Text>
+      <Text>Включить умные вывески</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_TOOLTIP" Language="ru_RU">
-        <Text>Отображает новые иконки на баннере города.</Text>
+      <Text>Отображает новые значки и информацию на городской вывеске.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_UNLOCKEDCITIZEN_TOOLTIP" Language="ru_RU">
-      <Text>[ICON_EXCLAMATION] отображается пока в городе есть незаблокированные горожане, распределенные ИИ.</Text>
+      <Text>[ICON_EXCLAMATION] отображается всякий раз, когда есть разблокированные граждане, автоматически назначаемые ИИ губернатором города.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_DISTRICTS_TOOLTIP" Language="ru_RU">
-      <Text>Иконки районов отображают построенные на территории города районы.</Text>
+      <Text>Показывает значки районов для уже построенных районов.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_POPULATION_TOOLTIP" Language="ru_RU">
-      <Text>Показывает количество ходов до увеличения населения [NEWLINE] и [текущее население/максимум жилья].</Text>
+      <Text>Показывает кол-во ходов, оставшихся до роста населения[NEWLINE]и [текущее население/максимальное жильё].</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_CULTURAL_TOOLTIP" Language="ru_RU">
-      <Text>Показывает количество ходов до культурного роста.</Text>
+      <Text>Показывает кол-во ходов, оставшихся до культурного роста.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_DISTRICTS_AVAILABLE" Language="ru_RU">
+      <Text>Доступные районы</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_DISTRICTS_AVAILABLE_TOOLTIP" Language="ru_RU">
+      <Text>Показывает значок, указывающий, что в городе могут быть построены районы.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="ru_RU">
+      <Text>Значки на вывеске города-государства</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="ru_RU">
+      <Text>Показывает значок сюзерена (цивилизации или лидера) на вывеске города-государства.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="ru_RU">
+      <Text>Знак войны на вывеске ГГ</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="ru_RU">
+      <Text>Показывает знак войны на городской вывеске города-государства, когда вы находитесь в состоянии войны с этим городом-государством.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTWORKICON" Language="ru_RU">
-      <Text>Активные иконки рабочих</Text>
+      <Text>Умные значки горожан</Text>	  
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTWORKICON_TOOLTIP" Language="ru_RU">
-      <Text>Задает особые размер/прозрачность активных ячеек рабочих</Text>
+      <Text>Придаёт особый размер и прозрачность значкам работающих горожан</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTWORKICONALPHA" Language="ru_RU">
-      <Text>Прозрачность активной иконки</Text>
+      <Text>Прозрачность умных значков</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTWORKICONSIZE" Language="ru_RU">
-      <Text>Размер активной иконки</Text>
+      <Text>Размер умных значков</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_WORKICONS_HEADER" Language="ru_RU">
-      <Text>Иконки рабочих</Text>
+      <Text>Значки горожан</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_WORKICONALPHA" Language="ru_RU">
-      <Text>Прозрачность иконки</Text>
+      <Text>Прозрачность значков горожан</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_WORKICONSIZE" Language="ru_RU">
-      <Text>Размер иконки</Text>
+      <Text>Размер значков горожан</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL" Language="ru_RU">
-      <Text>Основные</Text>
+      <Text>Основное</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_HIDDEN" Language="ru_RU">
       <Text>Скрытый</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_MINIMAPSIZE" Language="ru_RU">
-      <Text>Размер мини-карты</Text>
+      <Text>Размер миникарты</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_RESOURCEDIMMINGSTYLE" Language="ru_RU">
-      <Text>Отображение иконок ресурсов</Text>
+      <Text>Стиль значка улучшенного ресурса</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_RESOURCEDIMMINGSTYLE_TOOLTIP" Language="ru_RU">
-      <Text>Сплошные: всегда показывать иконки ресурсов[NEWLINE]Прозрачные: делает иконки ресурсов полупрозрачными[NEWLINE]Скрытые: скрывает иконки ресурсов</Text>
+      <Text>Полный: всегда отображать значки ресурсов[NEWLINE]Прозрачный: значки улучшенных ресурсов прозрачны[NEWLINE]Скрытый: значки улучшенных ресурсов скрыты</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_SHOWLUXURY" Language="ru_RU">
-      <Text>Редкие ресурсы на верхней панели</Text>
+      <Text>Ресурсы роскоши на верхней панеле</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_SOLID" Language="ru_RU">
-      <Text>Сплошные</Text>
+      <Text>Полный</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_TOGGLEYIELDSONLOAD" Language="ru_RU">
-      <Text>Показать урожайность по умолчанию</Text>
-    </Row>
+      <Text>Включить выработку по умолчанию</Text>
+    </Row>	
     <Row Tag="LOC_CQUI_GENERAL_TRANSPARENT" Language="ru_RU">
-      <Text>Прозрачные</Text>
+      <Text>Прозрачный</Text>
     </Row>
     <Row Tag="LOC_CQUI_GOSSIP" Language="ru_RU">
       <Text>Слухи</Text>
     </Row>
     <Row Tag="LOC_CQUI_GOSSIP_TRIMMESSAGE" Language="ru_RU">
-      <Text>Сокращает сообщения о слухах</Text>
+      <Text>Обрезать сообщения слухов</Text>
     </Row>
     <Row Tag="LOC_CQUI_GOSSIP_TRIMMESSAGE_TOOLTIP" Language="ru_RU">
-      <Text>Удаляет, в основном, бесполезное начало слухов, описывающее от кого пришла информация.</Text>
+      <Text>Удаляет в основном бесполезное начало сообщения слуха, описывающее, откуда взялась информация</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES" Language="ru_RU">
       <Text>Линзы</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYARCHAEOLOGISTLENS" Language="ru_RU">
-      <Text>Автовключение линзы археолога</Text>
+      <Text>Автоприменение линзы археолога</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYBUILDERLENS" Language="ru_RU">
-      <Text>Автовключение линзы строителей</Text>
+      <Text>Автоприменение линзы строителя</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS" Language="ru_RU">
-      <Text>Автовключение линзы разведки</Text>
+      <Text>Автоприменение линзы разведчика</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS" Language="ru_RU">
-      <Text>Попапы</Text>
+      <Text>Всплывающие окна</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_ALWAYSOPENTECHTREES" Language="ru_RU">
-      <Text>Всегда открывает дерево вместо попапа</Text>
+      <Text>Открывать полное дерево вместо окон</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHVISUAL" Language="ru_RU">
-      <Text>Попапы Исследований/Институтов</Text>
+      <Text>Уведомление о технологии/соц. институте</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHVISUAL_TOOLTIP" Language="ru_RU">
-      <Text>Всплывающие окна, которые появлялись всякий раз, когда были исследованы новая технология или социальный институт</Text>
+      <Text>Включает всплывающее окно, которое появляется всякий раз, когда открывается новая технология или социальный институт.</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO" Language="ru_RU">
-      <Text>Воспроизведение аудио с техническими/гражданскими всплывающими окнами</Text>
+      <Text>Звук для окон технол./соц. институтов</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO_TOOLTIP" Language="ru_RU">
-      <Text>Переключиться на автоматическое воспроизведение аудио закадровый голос, когда технологии / Гражданские всплывающие окна появляются</Text>
+      <Text>Автоматически проигрывает звук при появлении всплывающего окна технологии/социального института.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTVISUAL" Language="ru_RU">
+      <Text>Ролик при завершении чуда</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTVISUAL_TOOLTIP" Language="ru_RU">
+      <Text>Включает воспроизведение ролика, которое появляется всякий раз, когда чудо завершено.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTAUDIO" Language="ru_RU">
+      <Text>Звук при завершении чуда</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTAUDIO_TOOLTIP" Language="ru_RU">
+      <Text>Включает воспроизведение звука, которое появляется всякий раз, когда чудо завершено. Полностью независимо от визуальной составляющей и может воспроизводиться даже при отсутствии видимого всплывающего окна.</Text>
     </Row>
     <Row Tag="LOC_CQUI_SETTINGS_REMINDER" Language="ru_RU">
-      <Text>Напоминание: настройки CQUI связаны с каждым сохранением![NEWLINE]Если вы хотите изменить настройки по умолчанию, изучите информацию[NEWLINE]в файле cqui_settings.sql в папке [MOD INSTALL DIRECTORY]/CQUI/Assets</Text>
+      <Text>Помните: настройки CQUI привязаны к отдельным сохранениям![NEWLINE]Если вы хотите изменить настройки по умолчанию, пожалуйста, прочитайте информацию[NEWLINE]в файле cqui_settings.sql, находящемся в директории [Каталог модификации]/CQUI/Assets</Text>
     </Row>
     <Row Tag="LOC_CQUI_UNITS" Language="ru_RU">
       <Text>Юниты</Text>
     </Row>
     <Row Tag="LOC_CQUI_UNITS_SHOWUNITPATHS" Language="ru_RU">
-      <Text>Путь юнита при выборе/наведении</Text>
+      <Text>Путь юнита при наведении или выделении</Text>
     </Row>
     <Row Tag="LOC_CQUI_UNITS_AUTOEXPANDUNITACTIONS" Language="ru_RU">
-      <Text>Автопоказ действий на панели юнита</Text>
+      <Text>Вкл. все действия в управлении юнитами</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="ru_RU">
-      <Text>Сюзерен в ГородскомГосударственном Знамени</Text>
+    <Row Tag="LOC_CQUI_GENERAL_SHOWPRD" Language="ru_RU">
+      <Text>Всплывающее окно о политике</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="ru_RU">
-      <Text>Икона войны в Городском Знамени Государства</Text>
+    <Row Tag="LOC_CQUI_GENERAL_SHOWPRD_TOOLTIP" Language="ru_RU">
+      <Text>Включает всплывающее окно для напоминания о необходимости изменить свои политические карты до конца хода</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="ru_RU">
-      <Text>Во время войны с городским государством, показать икону войны в городе знамя этого города государства</Text>
+    <Row Tag="LOC_CQUI_TRADER_SCREEN" Language="ru_RU">
+      <Text>Экран торговли</Text>
     </Row>
-    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="ru_RU">
-    <Text>Показать Suzerain посланник этикетки</Text>
+    <Row Tag="LOC_CQUI_TRADER_SHOW_SORT_ORDER" Language="ru_RU">
+      <Text>Показать порядок сортировки</Text>
     </Row>
-    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON_TOOLTIP" Language="ru_RU">
-        <Text>Показать Suzerain посланник этикетки в CityState Знамя[NEWLINE]Когда вы Suzerain, номер в правом верхнем справа от значка показывает посланников послал.[NEWLINE]Когда вы не Сюзерин, ваши посланники показывают в левом верхнем левом, Suzerain посланников в правом верхнем.</Text>
+    <Row Tag="LOC_CQUI_TRADER_SHOW_SORT_ORDER_TOOLTIP" Language="ru_RU">
+      <Text>Показывает порядок сортировки различных доходностей на экране торговли</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_CIV_ICON" Language="ru_RU">
-        <Text>Показать икону цивилизации</Text>
+    <Row Tag="LOC_CQUI_TRADER_COLOR_YIELDS" Language="ru_RU">
+      <Text>Цветные значения доходности</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_TRADER_COLOR_YIELDS_TOOLTIP" Language="ru_RU">
+      <Text>Окрашивает значения доходности в зависимости от типа. Пример: урожайность продуктов питания окрашена в зеленый цвет</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_TRADER_ADD_DIVIDER" Language="ru_RU">
+      <Text>Добавить разделитель между группами</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_TRADER_ADD_DIVIDER_TOOLTIP" Language="ru_RU">
+      <Text>Добавляет разделитель между группами в панель обзора торговли</Text>
+    </Row>	
+    <Row Tag="LOC_CQUI_RECOMMENDATIONS_SCREEN" Language="ru_RU">
+      <Text>Рекомендации</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_RECOMMENDATIONS_SHOWPRODUCTION" Language="ru_RU">
+      <Text>Рекомендации производства</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_RECOMMENDATIONS_SHOWTECH" Language="ru_RU">
+      <Text>Рекомендации технологий/соц. институтов</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_RECOMMENDATIONS_SHOWIMPROVEMENTS" Language="ru_RU">
+      <Text>Рекомендации улучшений</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_RECOMMENDATIONS_SHOWCITYDETAILADVISOR" Language="ru_RU">
+      <Text>Городской советник</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CANCEL_COMMAND" Language="ru_RU">
+      <Text>Отменить очередь действий юнита</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_REMOVE_HARVEST" Language="ru_RU">
+      <Text>Удалить улучшение/собрать ресурс</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_FISHING" Language="ru_RU">
+      <Text>Построить рыбацкую лодку</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_FORT" Language="ru_RU">
+      <Text>Построить форт</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_CAMP" Language="ru_RU">
+      <Text>Построить лагерь</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_FARM" Language="ru_RU">
+      <Text>Построить ферму</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_MILL" Language="ru_RU">
+      <Text>Построить лесопилку</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_OIL" Language="ru_RU">
+      <Text>Построить нефтяную вышку/скважину</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_PASTURE" Language="ru_RU">
+      <Text>Построить пастбище</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_PLANTATION" Language="ru_RU">
+      <Text>Построить плантацию</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_QUARRY" Language="ru_RU">
+      <Text>Построить карьер</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_RAILROAD" Language="ru_RU">
+      <Text>Построить железную дорогу</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_MINE" Language="ru_RU">
+      <Text>Построить шахту</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_NUKE" Language="ru_RU">
+      <Text>Ядерный удар</Text>
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_DISABLED" Language="ru_RU">
-        <Text>Не показывать Suzerain</Text>
+      <Text>Не показывать сюзерена</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="ru_RU">
-        <Text>Показать цивилизацию или лидер значок Suzerain в CityState Знамя</Text>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_CIV_ICON" Language="ru_RU">
+      <Text>Показывать иконку цивилизации</Text>
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="ru_RU">
-        <Text>Показать значок лидера</Text>
+      <Text>Показывать иконку лидера</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="ru_RU">
+      <Text>Показывать кол-во послов сюзерена</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON_TOOLTIP" Language="ru_RU">
+      <Text>Показывает кол-во послов сюзерена на вывеске города-государства.[NEWLINE]Когда вы являетесь сюзереном, в правом верхнем углу значка показывается кол-во отправленных послов.[NEWLINE]Когда вы не являетесь сюзереном, ваши посланники показываются слева сверху, а послы сюзерена показываются справа сверху.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_THERMO_NUKE" Language="ru_RU">
+      <Text>Термоядерный удар</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_REBASE" Language="ru_RU">
+      <Text>Перебазирование</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_PLACE_PIN" Language="ru_RU">
+      <Text>Добавить метку</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="ru_RU">
-      <Text>Религия объектив Блок Флаг Стиль</Text>
+      <Text>Стиль флага юнитов для линзы религии</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="ru_RU">
-      <Text>Стиль для икон флага единицы не-религиозных единиц, когда религия объектив находится на[NEWLINE]Твердые: Флаги единиц остаются видимыми, неизменными[NEWLINE]Прозрачный: Флаги единиц становятся прозрачными[NEWLINE]Скрытые: Флаги подразделений скрыты</Text>
+      <Text>Стиль для флага нерелигиозных юнитов[NEWLINE]при включённой линзе религии[NEWLINE]Полный: флаг юнитов остаётся видимым, без изменений[NEWLINE]Прозрачный: флаг юнитов становится прозрачным[NEWLINE]Скрытый: флаг юнитов скрыт</Text>
     </Row>
   </LocalizedText>
 </GameData>
