@@ -6,7 +6,7 @@
     <Container ID="PopupContainer" Anchor="C,C" Size="parent,768">
         <ScrollPanel ID="PeopleScroller" Offset="0,0" Size="parent,parent" Vertical="0" AutoScrollBar="1">
             <!-- CQUI : new textures that adapt the height -->
-            <Image ID="CQUI_ContentWoodPaneling" Size="214,parent" Texture="CQUI_GreatPeople_Background_Repeat_Top.dds" StretchMode="Tile"/>
+            <Image ID="CQUI_TopWoodPaneling" Size="214,parent" Texture="CQUI_GreatPeople_Background_Repeat_Top.dds" StretchMode="Tile"/>
             <Image ID="WoodPaneling" Size="214,547" Texture="CQUI_GreatPeople_Background_Top.dds" StretchMode="TileX"/>
             <!-- This is the darker "paneling", which is actually just the vertical lines as BottomWoodPaneling sits on top of it -->
             <!-- Size should be set programmatically (OffsetY : 78 peoplestack + 42 buttons) -->

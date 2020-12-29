@@ -9,27 +9,32 @@
     <!--    Instances                                                       -->
     <!-- ================================================================== -->
     <Instance Name="HeroPanelInstance">
-        <Container ID="Content" Size="428,670">
+        <Container ID="Content" Size="350,670">
+
+            <!-- ==== CQUI CUSTOMIZATION VARIOUS VALUES  ============================================================================= -->
+            <!-- Use solid boxes in each instance to cover up the background "wood panel", allowing CQUI to make these instances wider -->
+            <!-- Note that the offsets are necessary to cover up parts of the "wood panel" borders that show through from the instance-holding container -->
+            <Box ID="HeroInstanceBackgroundBorder" Anchor="C,T" Size="parent+2,parent+2" Offset="-2,-2"  Color="165,136,86,255" />
+            <Box ID="HeroInstanceBackgroundColor"  Size="parent,parent" Offset="0,0" Color="51,24,12,255" />
+            
             <Grid ID="FadedBackground" Anchor="C,T" Offset="-1,0" Size="parent-10,parent-46" Texture="GreatPeople_Overlay" SliceCorner="13,13" SliceSize="1,1" SliceTextureSize="25,25" Hidden="1" />
-            <!-- <Label ID="IndividualName" Anchor="C,C" Offset="0,-295" Align="C,C" WrapWidth="200" Style="GreatPeopleLargeText" String="$IndividualName$"/> -->
-            <Label ID="IndividualName" Anchor="C,C" Offset="0,-295" Align="C,C" WrapWidth="290" Style="GreatPeopleLargeText" String="$IndividualName$"/>
-            <Line ID="TitleLine" Start="10,56" End="418,56" Width="2" Color="199,187,157,90" />
+            <Label ID="IndividualName" Anchor="C,T" Offset="0,22" Align="C,C" WrapWidth="parent-20" Style="GreatPeopleLargeText" String="$IndividualName$"/>
+            <Line ID="TitleLine" Start="10,56" End="parent-10,56" Width="2" Color="199,187,157,90" />
 
             <Image ID="CircleFlare" Anchor="C,T" Offset="0,20" Texture="GreatPeople_SlotOn">
                 <Image ID="Portrait" Anchor="C,B" Offset="0,10" Size="105,105" IconSize="105" Texture="Heores105"/>
                 <Button ID="LookAtButton" Anchor="L,B" Offset="-2,4" Size="29,29" Texture="TopBar_LookButton"/>
                 <Button ID="CivilopediaButton" Anchor="R,B" Offset="-2,4" Size="29,29" Texture="TopBar_CivilopediaButton" ToolTip="LOC_GREAT_PEOPLE_HEROES_CIVILOPEDIA_ENTRY_TT"/>
             </Image>
-            <!-- this is the line under the portraits (why wasn't line just used here?  who knows... -->
-            <Box Anchor="C,T" Offset="0,214" Size="parent-18,2" Color="199,187,157,90" />
 
-            <Container ID="MainInfo" Anchor="C,T" Size="parent,654">
-                <ScrollPanel ID="EffectStackScroller" Offset="0,224" Size="parent-15,240" Vertical="1" AutoScrollBar="1">
+            <Line Start="10,214" End="parent-10,214" Color="199,187,157,90" />
+            <Container ID="MainInfo" Anchor="C,T" Size="parent,parent-224" Offset="0,224">
+                <ScrollPanel ID="EffectStackScroller" Size="parent,parent-152" Vertical="1" AutoScrollBar="1">
                     <Stack ID="EffectStack" StackPadding="4"/>
                     <ScrollBar Anchor="R,T" AnchorSide="O,I" Offset="1,0" Style="ScrollVerticalBarAlt" Size="8,parent-10"/>
                 </ScrollPanel>
 
-                <Container ID="RecruitProgressBox" Anchor="C,B" Offset="-1,30" Size="parent,152">
+                <Container ID="RecruitProgressBox" Anchor="C,B" Size="parent,152">
                     <Box Anchor="C,T" Size="parent-8,2" Color="199,187,157,90" />
                     <Stack Anchor="C,C" StackPadding="10">
                         <Label ID="HeroStatus" Anchor="C,T" Align="Center" Style="FontFlair14" WrapWidth="parent-20" Color="157,150,138,255" SmallCaps="20" SmallCapsType="EveryWord"/>
@@ -58,8 +63,8 @@
         <Container ID="Top" Size="parent,auto">
             <Image Offset="6,0" Size="38,38" IconSize="38" Icon="ICON_HERO_PASSIVE_ABILITY"/>
             <Stack Anchor="L,T" Offset="45,0" StackGrowth="Down" StackPadding="4">
-                <ScrollTextField ID="AbilityName" Anchor="L,T" Size="350,20" Style="GreatPeopleLargeText"/>
-                <Label ID="AbilityText" Anchor="L,T" WrapWidth="355" Style="GreatPeopleText"/>
+                <ScrollTextField ID="AbilityName" Anchor="L,T" Size="parent-55,20" Style="GreatPeopleLargeText"/>
+                <Label ID="AbilityText" Anchor="L,T" WrapWidth="parent-55" Style="GreatPeopleText"/>
             </Stack>
         </Container>
     </Instance>
@@ -68,17 +73,17 @@
         <Container ID="Top" Size="parent,auto">
             <Image ID="CommandIcon" Offset="6,0" Size="38,38" Texture="Controls_SlotCircle3"/>
             <Stack Anchor="L,T" Offset="45,0" StackGrowth="Down" StackPadding="4">
-                <ScrollTextField ID="CommandName" Anchor="L,T" Size="350,20" Style="GreatPeopleLargeText"/>
-                <Label ID="CommandText" Anchor="L,T" WrapWidth="355" Style="GreatPeopleText"/>
+                <ScrollTextField ID="CommandName" Anchor="L,T" Size="parent-55,20" Style="GreatPeopleLargeText"/>
+                <Label ID="CommandText" Anchor="L,T" WrapWidth="parent-55" Style="GreatPeopleText"/>
             </Stack>
         </Container>
     </Instance>
 
     <Instance Name="StatInstance">
         <Container ID="Top" Size="parent,auto">
-            <Image ID="StatIcon" Anchor="L,T" Offset="100,0" Size="16,16" Icon="ICON_STRENGTH"/>
-            <Label ID="NameText" Anchor="L,T" Offset="120,2" Style="GreatPeopleText" String="Combat Strength" />
-            <Label ID="ValueText" Anchor="R,T" Offset="100,2" Style="GreatPeopleText" String="22" />
+            <Image ID="StatIcon" Anchor="L,T" Offset="75,0" Size="16,16" Icon="ICON_STRENGTH"/>
+            <Label ID="NameText" Anchor="L,T" Offset="95,2" WrapWidth="120" Style="GreatPeopleText" String="Combat Strength" />
+            <Label ID="ValueText" Anchor="R,T" Offset="75,2" Style="GreatPeopleText" String="22" />
         </Container>
     </Instance>
 

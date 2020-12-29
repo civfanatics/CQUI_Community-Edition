@@ -1,15 +1,14 @@
 -- ===========================================================================
--- CQUI GreatPeopleHeroPanel replacement
--- Cleans up the GreatPeopleHeroPanel, scaling it to screen much like the regular Great People panel
+-- CQUI GreatPeopleHeroPanel replacement for GreatPeopleHeroPanel.lua, found in Babylon DLC (DLC/Babylon/UI/Additions)
+-- Full file replacement is necessary because of Firaxis' use of local variables that CQUI requires access to in order to implement the scaling based on screen resolution
 -- ===========================================================================
 
 -- Copyright 2020, Firaxis Games
--- TEMP 
-print("****!!!!****!!!!**** CQUI GreatPeopleHeroPanel loaded ****!!!!****!!!!****")
 
 include("InstanceManager");
 include("HeroesSupport");
 include("CivilizationIcon");
+include("CQUICommon.lua");
 
 -- ===========================================================================
 --  CONSTANTS
@@ -41,18 +40,9 @@ function RefreshHeroes()
     end
 end
 
-
--- TEMP
-m4atemp = nil;
-
 -- ===========================================================================
 function AddHero( kHeroDef:table )
     local kHeroInstance:object = m_pHeroPanelIM:GetInstance();
-
-    -- TEMP
-    if (kHeroDef.HeroClassType == 'HEROCLASS_MULAN') then
-        m4atemp = kHeroDef
-    end
 
     local sHeroName:string = "";
     if kHeroDef.HeroClassType == m_newestHeroType then
@@ -111,12 +101,6 @@ function AddHero( kHeroDef:table )
 
     -- Abilities
     local kAbilities:table = GetHeroClassUnitAbilities(kHeroDef.Index);
--- CQUI change start add category titles
--- todo get localized text
-    local abilityTitle = m_pAbilityIM:GetInstance(kHeroInstance.EffectStack);
-    abilityTitle.AbilityName:SetText("ABILITIES");
-    abilityTitle.AbilityText:SetText("---------------------");
---end CQUI additions
     for _, kAbility in pairs(kAbilities) do
         local pAbilityInst:table = m_pAbilityIM:GetInstance(kHeroInstance.EffectStack);
             
@@ -126,13 +110,6 @@ function AddHero( kHeroDef:table )
 
     -- Commands
     local kCommands:table = GetHeroClassUnitCommands(kHeroDef.Index);
-    -- CQUI change start add category titles
-    -- todo get localized text
-    local commandTitle = m_pAbilityIM:GetInstance(kHeroInstance.EffectStack);
-    commandTitle.AbilityName:SetText("--- COMMANDS ---");
-    commandTitle.AbilityText:SetText("---------------------");
-    --end CQUI additions
-
     for _, kCommand in pairs(kCommands) do
         local pCommandInst:table = m_pCommandIM:GetInstance(kHeroInstance.EffectStack);
             
@@ -176,27 +153,31 @@ function AddHero( kHeroDef:table )
         end
 
         kHeroInstance.DeceasedText:SetHide(bIsAlive);
---CQUI change, show the origin city if the hero is claimed
+        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+        --CQUI change, show the origin city if the hero is claimed
         kHeroInstance.CQUI_HeroOriginCity:SetHide(true);
---end CQUI change
+        -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
         local bHideLookAtButton:boolean = true;
         local bHideRecallButton:boolean = true;
         if claimedByPlayer == Game.GetLocalPlayer() then
--- CQUI change to display city value
+            -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+            -- CQUI: Show the City value
             local cityID:table = pGameHeroes:GetHeroOriginCityID(kHeroDef.Index);
             local pPlayerCities:object = Players[claimedByPlayer]:GetCities();
             local pHeroCity:object = pPlayerCities:FindID(cityID.id);
---end CQUI change
+            -- ==== CQUI CUSTOMIZATION END ====================================================================================== --
+
             -- Show Look at Hero/City button if claimed by the active player
             if pHeroUnit ~= nil then
                 kHeroInstance.LookAtButton:SetToolTipString(Locale.Lookup("LOC_GREAT_PEOPLE_HEROES_LOOK_AT_HERO_TT"));
                 kHeroInstance.LookAtButton:RegisterCallback( Mouse.eLClick, function() LookAtUnit(pHeroUnit); end);
                 bHideLookAtButton = false;
---CQUI change show the bound city
+                -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+                -- CQUI: Show the City value
                 kHeroInstance.CQUI_HeroOriginCity:SetHide(false);
                 kHeroInstance.CQUI_HeroOriginCity:SetText(Locale.Lookup(pHeroCity:GetName()))
---end CQUI change
+                -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
             else
                 if pHeroCity then
                     kHeroInstance.LookAtButton:SetToolTipString(Locale.Lookup("LOC_GREAT_PEOPLE_HEROES_LOOK_AT_CITY_TT"))
@@ -219,6 +200,14 @@ function AddHero( kHeroDef:table )
         kHeroInstance.LookAtButton:SetHide(true);
         kHeroInstance.FaithRecallButton:SetHide(true);
     end
+
+        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- Set the heights of the various elements in the Great People Panel instance as has been computed
+    -- These functions are defined in CQUICommon.lua
+    -- TODO: Figure out why the 48 pixel difference there... 
+    kHeroInstance.Content:SetSizeY(CQUI_GreatPeoplePanel_GetInstanceContentSizeY() + 48);
+    -- ==== CQUI CUSTOMIZATION END ==================================================================================== --
+
 end
 
 -- ===========================================================================
@@ -355,4 +344,3 @@ function Initialize()
     Controls.HeroStack:RegisterSizeChanged( OnHeroStackSizeChanged );
 end
 Initialize();
-print("****!!!!****!!!!**** CQUI GreatPeopleHeroPanel File Exit ****!!!!****!!!!****")

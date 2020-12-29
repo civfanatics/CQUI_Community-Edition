@@ -124,6 +124,91 @@ function CQUI_SmartWrap( textString, wrapWidth )
 end
 
 -- ===========================================================================
+local m_CQUI_GreatPeoplePopupCalculations = {};
+
+local function CQUI_GreatPeoplePopupSizeCalculations()
+    local _, CQUI_screenHeight = UIManager:GetScreenSizeVal();
+    -- These values are calculated as part of the "AddRecruit" function, which is a function separated out from "ViewCurrent" by Firaxis.
+    -- Previously CQUI left the "AddRecruit" logic inline the ViewCurrent function, however given the changes for the Babylon Patch by Firaxis,
+    -- it makes sense to move the logic out to that separate function, in case a future update makes use of it.
+    -- Notes on Pixel sizes:
+    -- 63px from top of container "RecruitProgressBox" to top of scrollpanel "RecruitScroll"
+    -- 84px from bottom of scrollpanel "RecruitScroll" to bottom of the container "PopupContainer"
+    local CQUI_lowerPanelAdditionalHeight = 147;
+    -- When fit to a full screen, the Great Person panel instance is 122px shorter than the "PopupContainer"
+    local CQUI_instanceMargin = 127;
+    -- each individual Recruit Row instance has a height of 22, with 3 padding in between each
+    local majorCivs = Game.GetPlayers{Major = true};
+    local recruitScrollCivsCount = #majorCivs - 1;
+    local CQUI_preferredRecruitScrollSize = (recruitScrollCivsCount * 22) + ((recruitScrollCivsCount - 2) * 3);
+    local CQUI_preferredEffectsScrollSize = 240; -- Value defined in the XML
+    local CQUI_preferredInstanceSize = 0;
+
+        -- This if clause will only run for the first instance, each subsequent will use the values calculated here
+    --CQUI_preferredRecruitScrollSize = 1000;  -- for quick testing
+    if (CQUI_preferredRecruitScrollSize > (CQUI_screenHeight / 4)) then
+        CQUI_preferredRecruitScrollSize = (CQUI_screenHeight / 4);
+    end
+
+    -- 670 is the default Instance size in the XML... 86 is a number that represents some undocumented thing
+    CQUI_preferredInstanceSize =  670 - 86 + CQUI_preferredRecruitScrollSize;
+    -- CQUI_preferredInstanceSize = 3000 -- for quick testing
+    if (CQUI_preferredInstanceSize > (CQUI_screenHeight - CQUI_instanceMargin)) then
+        -- The instance area cannot be bigger than the screen height minus CQUI_instanceMargin:
+        -- When the Gold/Faith (or Recruit/Pass) buttons are 5px above the PeopleScroller horizontal scroll, 
+        -- the PanelInstance is CQUI_instanceMargin pixels less in height than the PeopleContainer, which is defined as 768 in the XML.
+        -- These adjustments are necessary to properly fit the screen
+        local prevPreferredInstanceSize = CQUI_preferredInstanceSize;
+        CQUI_preferredInstanceSize = CQUI_screenHeight - CQUI_instanceMargin;
+
+        -- Instead of shrinking the recruit scroll size, instead shrink the EffectsStackScroller, as there's typically room to spare in that section
+        -- 240 is the value defined in the XML.  We cannot do a GetSizeY here because subsequent calls to this function
+        -- would update the smaller value, eventually shrinking the control to less than zero.
+        local effectStackScrollerAdjustment = prevPreferredInstanceSize - CQUI_preferredInstanceSize;
+        CQUI_preferredEffectsScrollSize = 240 - effectStackScrollerAdjustment;
+    end
+
+    m_CQUI_GreatPeoplePopupCalculations["InstanceContentSizeY"] = CQUI_preferredInstanceSize;
+    m_CQUI_GreatPeoplePopupCalculations["EffectsScrollSizeY"] = CQUI_preferredEffectsScrollSize;
+    m_CQUI_GreatPeoplePopupCalculations["RecruitScrollSizeY"] = CQUI_preferredRecruitScrollSize;
+    m_CQUI_GreatPeoplePopupCalculations["RecruitWoodPanelingY"] = CQUI_preferredRecruitScrollSize + CQUI_lowerPanelAdditionalHeight;
+    m_CQUI_GreatPeoplePopupCalculations["ModalFrameSizeY"] = CQUI_preferredInstanceSize + CQUI_instanceMargin -6; -- CQUI: 6px less for the 3px outer border
+    m_CQUI_GreatPeoplePopupCalculations["PopupContainerSizeY"] = CQUI_preferredInstanceSize + CQUI_instanceMargin;
+end
+
+local function CQUI_GreatPeoplePanel_GetControlSizeY( controlName )
+    if m_CQUI_GreatPeoplePopupCalculations[controlName] == nil then
+        CQUI_GreatPeoplePopupSizeCalculations();
+    end
+
+    return m_CQUI_GreatPeoplePopupCalculations[controlName];
+end
+
+function CQUI_GreatPeoplePanel_GetInstanceContentSizeY()
+    return CQUI_GreatPeoplePanel_GetControlSizeY("InstanceContentSizeY");
+end
+
+function CQUI_GreatPeoplePanel_GetEffectsScrollSizeY()
+    return CQUI_GreatPeoplePanel_GetControlSizeY("EffectsScrollSizeY");
+end
+
+function CQUI_GreatPeoplePanel_GetRecruitScrollSizeY()
+    return CQUI_GreatPeoplePanel_GetControlSizeY("RecruitScrollSizeY");
+end
+
+function CQUI_GreatPeoplePanel_GetRecruitWoodPanelingSizeY()
+    return CQUI_GreatPeoplePanel_GetControlSizeY("RecruitWoodPanelingY");
+end
+
+function CQUI_GreatPeoplePanel_GetModalFrameSizeY()
+    return CQUI_GreatPeoplePanel_GetControlSizeY("ModalFrameSizeY");
+end
+
+function CQUI_GreatPeoplePanel_GetPopupContainerSizeY()
+    return CQUI_GreatPeoplePanel_GetControlSizeY("PopupContainerSizeY");
+end
+
+-- ===========================================================================
 function Initialize()
     -- print_debug("INITIALIZE: CQUICommon.lua");
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
