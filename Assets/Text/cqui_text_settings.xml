@@ -330,6 +330,9 @@
     <Row Tag="LOC_CQUI_SPREAD_RELIGION" Language="en_US">
       <Text>Spread religion</Text>
     </Row>
+    <Row Tag="LOC_CQUI_REMOVE_HERESY" Language="en_US">
+      <Text>Remove heresy</Text>
+    </Row>
     <Row Tag="LOC_CQUI_RELIGIOUS_HEAL" Language="en_US">
       <Text>Religious heal</Text>
     </Row>

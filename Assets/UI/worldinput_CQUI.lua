@@ -246,10 +246,13 @@ function DefaultKeyUpHandler( uiKey:number )
         cquiHandledKey = true;
     end
 
-    if (action["SPREAD_RELIGION"]
-        and
-        (unitType == "UNIT_MISSIONARY" or unitType == "UNIT_APOSTLE")) then
+    if action["SPREAD_RELIGION"] and CQUI_UnitSupportsSpreadingReligion(unitType) then
         UnitManager.RequestOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_SPREAD_RELIGION"].Hash);
+        cquiHandledKey = true;
+    end
+
+    if action["REMOVE_HERESY"] and unitType == "UNIT_INQUISITOR" then
+        UnitManager.RequestOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_REMOVE_HERESY"].Hash);
         cquiHandledKey = true;
     end
 
@@ -691,6 +694,12 @@ function CQUI_BuildImprovement (unit, improvementHash: number)
     tParameters[UnitOperationTypes.PARAM_IMPROVEMENT_TYPE] = improvementHash;
 
     UnitManager.RequestOperation( unit, UnitOperationTypes.BUILD_IMPROVEMENT, tParameters );
+end
+
+-- you can get unit type by calling
+-- GameInfo.Units[selectedUnit:GetUnitType()].UnitType;
+function CQUI_UnitSupportsSpreadingReligion(unitType)
+  return unitType == "UNIT_MISSIONARY" or unitType == "UNIT_APOSTLE"
 end
 
 -- ===========================================================================
