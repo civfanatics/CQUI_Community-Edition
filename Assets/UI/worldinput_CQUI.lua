@@ -249,14 +249,14 @@ function DefaultKeyUpHandler( uiKey:number )
     if (action["SPREAD_RELIGION"]
         and
         (unitType == "UNIT_MISSIONARY" or unitType == "UNIT_APOSTLE")) then
-        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.UnitOperations["UNITOPERATION_SPREAD_RELIGION"].Hash);
+        UnitManager.RequestOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_SPREAD_RELIGION"].Hash);
         cquiHandledKey = true;
     end
 
     if (action["RELIGIOS_HEAL"]
         and
         (unitType == "UNIT_MISSIONARY" or unitType == "UNIT_APOSTLE")) then
-        CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.UnitOperations["UNITOPERATION_RELIGIOUS_HEAL"].Hash);
+        UnitManager.RequestOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_RELIGIOUS_HEAL"].Hash);
         cquiHandledKey = true;
     end
 
