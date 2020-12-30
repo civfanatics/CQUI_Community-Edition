@@ -251,7 +251,8 @@ function DefaultKeyUpHandler( uiKey:number )
         cquiHandledKey = true;
     end
 
-    if action["REMOVE_HERESY"] and unitType == "UNIT_INQUISITOR" then
+    local bCanRemoveHeresy = selectedUnit and UnitManager.CanStartOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_REMOVE_HERESY"].Hash, nil, true);
+    if action["REMOVE_HERESY"] and bCanRemoveHeresy then
         UnitManager.RequestOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_REMOVE_HERESY"].Hash);
         cquiHandledKey = true;
     end
