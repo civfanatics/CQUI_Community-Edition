@@ -256,7 +256,7 @@ function DefaultKeyUpHandler( uiKey:number )
         cquiHandledKey = true;
     end
 
-    if (action["RELIGIOS_HEAL"]
+    if (action["RELIGIOUS_HEAL"]
         and
         (unitType == "UNIT_MISSIONARY" or unitType == "UNIT_APOSTLE")) then
         UnitManager.RequestOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_REST_REPAIR"].Hash);

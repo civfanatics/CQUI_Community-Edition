@@ -204,6 +204,6 @@ INSERT OR REPLACE INTO CQUI_Bindings -- Don't touch this line!
         ("THERMO_NUKE", "Alt+N", "LOC_CQUI_THERMO_NUKE"),
         ("SPREAD_RELIGION", "R", "LOC_CQUI_SPREAD_RELIGION"),
         ("REMOVE_HERESY", "R", "LOC_CQUI_REMOVE_HERESY"),
-        ("RELIGIOS_HEAL", "H", "LOC_CQUI_RELIGIOUS_HEAL"),
+        ("RELIGIOUS_HEAL", "H", "LOC_CQUI_RELIGIOUS_HEAL"),
         ("REBASE", "Alt+R", "LOC_CQUI_REBASE"),
         ("PLACE_PIN", "Shift+P", "LOC_CQUI_PLACE_PIN");
