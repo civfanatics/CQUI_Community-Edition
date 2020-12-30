@@ -697,12 +697,6 @@ function CQUI_BuildImprovement (unit, improvementHash: number)
     UnitManager.RequestOperation( unit, UnitOperationTypes.BUILD_IMPROVEMENT, tParameters );
 end
 
--- you can get unit type by calling
--- GameInfo.Units[selectedUnit:GetUnitType()].UnitType;
-function CQUI_UnitSupportsSpreadingReligion(unitType)
-  return unitType == "UNIT_MISSIONARY" or unitType == "UNIT_APOSTLE"
-end
-
 -- ===========================================================================
 -- CQUI: Initialize Function
 -- ===========================================================================
