@@ -246,7 +246,8 @@ function DefaultKeyUpHandler( uiKey:number )
         cquiHandledKey = true;
     end
 
-    if action["SPREAD_RELIGION"] and CQUI_UnitSupportsSpreadingReligion(unitType) then
+    local bCanSpreadReligion = selectedUnit and UnitManager.CanStartOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_SPREAD_RELIGION"].Hash, nil, true);
+    if action["SPREAD_RELIGION"] and bCanSpreadReligion then
         UnitManager.RequestOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_SPREAD_RELIGION"].Hash);
         cquiHandledKey = true;
     end
