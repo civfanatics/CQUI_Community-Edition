@@ -258,9 +258,8 @@ function DefaultKeyUpHandler( uiKey:number )
         cquiHandledKey = true;
     end
 
-    if (action["RELIGIOUS_HEAL"]
-        and
-        (unitType == "UNIT_MISSIONARY" or unitType == "UNIT_APOSTLE")) then
+    local bCanRestHeal = selectedUnit and UnitManager.CanStartOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_REST_REPAIR"].Hash, nil, true);
+    if action["REST_HEAL"] and bCanRestHeal then
         UnitManager.RequestOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_REST_REPAIR"].Hash);
         cquiHandledKey = true;
     end
