@@ -635,6 +635,7 @@ function ViewMain( data:table )
     if g_bIsRiseAndFall or g_bIsGatheringStorm then
         repeatAvoidAddNew("LOC_HUD_CITY_AMENITIES_LOST_FROM_GOVERNORS", "Governors");
     end
+
     repeatAvoidAddNew("LOC_HUD_REPORTS_FROM_POPULATION",                "AmenitiesRequiredNum", true, true);
     for _, aTable in pairs(tableChanges)do
         HappinessTooltipString = HappinessTooltipString..string.format("[NEWLINE]%+d %s", aTable.Amenities, aTable.AmenityType:sub(1, -2));
@@ -671,19 +672,20 @@ function ViewMain( data:table )
     else
         productionHash = currentProductionHash;
     end
+
     local currentProductionInfo :table = GetProductionInfoOfCity( data.City, productionHash );
     -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     -- Set icons and values for the yield checkboxes
-    Controls.CultureCheck:GetTextButton():SetText(    "[ICON_Culture]"  ..toPlusMinusString(data.CulturePerTurn) );
+    Controls.CultureCheck:GetTextButton():SetText(    "[ICON_Culture]"    ..toPlusMinusString(data.CulturePerTurn) );
     -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     -- Food value is calculated above
-    Controls.FoodCheck:GetTextButton():SetText(       "[ICON_Food]"   ..toPlusMinusString(totalFood) );
+    Controls.FoodCheck:GetTextButton():SetText(       "[ICON_Food]"       ..toPlusMinusString(totalFood) );
     -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     Controls.ProductionCheck:GetTextButton():SetText( "[ICON_Production]" ..toPlusMinusString(data.ProductionPerTurn) );
-    Controls.ScienceCheck:GetTextButton():SetText(    "[ICON_Science]"  ..toPlusMinusString(data.SciencePerTurn) );
-    Controls.FaithCheck:GetTextButton():SetText(      "[ICON_Faith]"    ..toPlusMinusString(data.FaithPerTurn) );
-    Controls.GoldCheck:GetTextButton():SetText(       "[ICON_Gold]"   ..toPlusMinusString(data.GoldPerTurn) );
+    Controls.ScienceCheck:GetTextButton():SetText(    "[ICON_Science]"    ..toPlusMinusString(data.SciencePerTurn) );
+    Controls.FaithCheck:GetTextButton():SetText(      "[ICON_Faith]"      ..toPlusMinusString(data.FaithPerTurn) );
+    Controls.GoldCheck:GetTextButton():SetText(       "[ICON_Gold]"       ..toPlusMinusString(data.GoldPerTurn) );
 
     -- Set the Yield checkboxes based on the game state
     RealizeYield3WayCheck( data.YieldFilters[YieldTypes.CULTURE], YieldTypes.CULTURE, data.CulturePerTurnToolTip);
@@ -1180,7 +1182,7 @@ function OnToggleOverviewPanel()
 end
 
 -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
--- CQUI Replaces this function with CQUI_OnCitySelectionChanged
+-- CQUI Replaces this function with CQUI_OnCitySelectionChanged (function header shown here at location it appears in unmodified citypanel.lua)
 -- function OnCitySelectionChanged( ownerPlayerID:number, cityID:number, i:number, j:number, k:number, isSelected:boolean, isEditable:boolean)
 -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
@@ -1828,7 +1830,6 @@ function Initialize()
     LuaEvents.RefreshCityPanel     .Add( Refresh );
     LuaEvents.CQUI_AllCitiesInfoUpdatedOnTechCivicBoost .Add( CQUI_UpdateAllCitiesData );    -- CQUI update all cities data including real housing when tech/civic that adds housing is boosted and research is completed
     -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
-
 
     -- Truncate possible static text overflows
     TruncateStringWithTooltip(Controls.BreakdownLabel, MAX_BEFORE_TRUNC_STATIC_LABELS, Controls.BreakdownLabel:GetText());
