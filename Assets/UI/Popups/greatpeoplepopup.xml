@@ -3,18 +3,27 @@
 
     <Container ID="Vignette" Style="FullScreenVignetteConsumer" />
 
-    <Container ID="PopupContainer" Anchor="C,C" Size="parent,768">
-        <ScrollPanel ID="PeopleScroller" Offset="0,0" Size="parent,parent" Vertical="0" AutoScrollBar="1">
-            <!-- CQUI : new textures that adapt the height -->
-            <Image ID="CQUI_TopWoodPaneling" Size="214,parent" Texture="CQUI_GreatPeople_Background_Repeat_Top.dds" StretchMode="Tile"/>
-            <Image ID="WoodPaneling" Size="214,547" Texture="CQUI_GreatPeople_Background_Top.dds" StretchMode="TileX"/>
-            <!-- This is the darker "paneling", which is actually just the vertical lines as BottomWoodPaneling sits on top of it -->
-            <!-- Size should be set programmatically (OffsetY : 78 peoplestack + 42 buttons) -->
-            <Image ID="CQUI_RecruitWoodPaneling" Anchor="L,B" Offset="0,0" Size="214,parent" Texture="CQUI_GreatPeople_Background_Repeat_Bottom.dds" StretchMode="Tile"/>
-            <!-- This image is the bottom of the paneling outline (curved corner and horizontal line) -->
-            <!-- At 40px tall, it has 5px gap between the bottom horizontal line and the PeopleScroller scroll bar, must be at least 40px in height -->
-            <Image ID="CQUI_BottomWoodPaneling" Size="214,40" Texture="CQUI_GreatPeople_Background_Bottom.dds" StretchMode="TileX" Anchor="L,B" />
-            <Stack ID="PeopleStack" Offset="0,78" StackGrowth="Right" StackPadding="0" />
+    <!-- CQUI calculates the Y-value of the PopupContainer based on the size to create the Recruit Progress section, which uses a count of alive, major civs -->
+    <Container ID="PopupContainer" Anchor="C,C" Size="parent,parent">
+        <!-- PeopleScroller is used for the Great People and Heroes panels; RecruitedArea is for the Previously Recruited list -->
+        <ScrollPanel ID="PeopleScroller" Size="parent,parent" Vertical="0" AutoScrollBar="1">
+            <!-- CQUI: The WoodPaneling texture that replaces the Firaxis-provided one, which has the border lines and curved top of each panel, -->
+            <!--       and includes parts that are covered by the title bar and the panel selection buttons (75px from top of texture to top of the "wood panel" piece) -->
+            <!--       WoodPaneling is the ID in the unmodified file, retained by CQUI for compatability reasons. -->
+            <!--       The Y-size is static at 547px, if that top section stretches beyond 547px, the CQUI_GreatPeople_Background_Repeat_Top is used for filling in after 547. -->
+            <Image ID="WoodPaneling" Anchor="L,T" Size="parent,547" Texture="CQUI_GreatPeople_Background_Top.dds" StretchMode="TileX"/>
+            <!-- CQUI: CQUI_WoodPanelingTopFiller is the lighter color with vertical lines at each end, is 214px wide -->
+            <!--       The color of this texture matches the bottom of the WoodPaneling (CQUI_GreatPeople_Background_Top.dds) texture -->
+            <!--       as such, this texture is used to fill in any areas below the 547px already being covered by the WoodPaneling object defined above -->
+            <Image ID="CQUI_WoodPanelingTopFiller" Size="parent,parent-547" Offset="0,547" Texture="CQUI_GreatPeople_Background_Repeat_Top.dds" StretchMode="Tile" />
+            <!-- CQUI: This is the darker "paneling", which appears under the Recruit Progress section.  -->
+            <!--       The Y-size of this Image object is set programatically based on the calculated size of the Recruit Progress section. -->
+            <!--       Because the anchor for this Image object is at the bottom, the Y-size and StretchMode value combine to cover any of the WoodPaneling or CQUI_WoodPanelingTopFiller -->
+            <Image ID="CQUI_WoodPanelingBottomFiller" Anchor="L,B" Size="parent,4" Texture="CQUI_GreatPeople_Background_Repeat_Bottom.dds" StretchMode="Tile"/>
+            <!-- This image is the bottom of the paneling outline (curved corner and horizontal line, 15px tall), and the bottom part of the Great People frame (65px tall) -->
+            <Image ID="CQUI_WoodPanelingBottom" Anchor="L,B" Size="parent,80" Texture="CQUI_GreatPeople_Background_Bottom.dds" StretchMode="TileX"/>
+
+            <Stack ID="PeopleStack" Anchor="L,T" Offset="0,78" StackGrowth="Right" StackPadding="0"/>
             <ScrollBar Anchor="L,B" Offset="0,10" Size="parent-10,8" Style="ScrollHorizontalBackingAlt">
                 <Thumb Style="ScrollThumbHAlt" />
             </ScrollBar>
@@ -51,6 +60,7 @@
         </Box>
 
         <!-- Tabs -->
+        <!-- Their size says 61, however some of this (34px) overlaps onto the Great Person info below it -->
         <Container Anchor="C,T" Offset="0,48" Size="auto,61">
             <Image Anchor="C,T" Size="auto,27" AutoSizePadding="-100,0" Texture="Controls_TabLedge2_Fill" StretchMode="Tile">
                 <Grid Anchor="C,T" Offset="0,-17" Size="auto,61" AutoSizePadding="100,0" Texture="Controls_TabLedge2" SliceCorner="194,18" SliceSize="52,26" SliceTextureSize="438,61">
@@ -60,7 +70,7 @@
         </Container>
 
         <!-- Place the modal screen controls in a separate container; this uses a custom background inside of the scroll panel. -->
-        <Container ID="ModalFrame" Style="ModalScreenWide" />
+        <Container ID="ModalFrame" Style="ModalScreenWide"/>
     </Container>
 
 
@@ -68,6 +78,7 @@
     <!-- Instances                                                          -->
     <!-- ================================================================== -->
     <Instance Name="PanelInstance">
+        <!-- === CQUI calculates the Y-value of this container based on number of alive (major) Civs (in order to expand the Recruit Progress box) === -->
         <Container ID="Content" Size="214,670">
             <Grid ID="FadedBackground" Anchor="C,T" Offset="-1,0" Size="parent-10,parent-46" Texture="GreatPeople_Overlay" SliceCorner="13,13" SliceSize="1,1" SliceTextureSize="25,25" Hidden="1" />
             <Label ID="ClassName" Anchor="C,T" Offset="0,6" Color="60,60,30,255" GradientColor="230,230,150,255" Style="FontFlair18" SmallCaps="24" SmallCapsType="EveryWord" String="$ClassName$"/>
@@ -81,15 +92,15 @@
             </Image>
             <Box Anchor="C,T" Offset="0,214" Size="parent-18,2" Color="199,187,157,90" />
 
-            <!-- CQUI : changex SizeY : 654 to parent -->
-            <Container ID="MainInfo" Anchor="C,T" Size="parent,parent">
+            <!-- CQUI : changed SizeY : 654 to parent-16 to account for the calculated resizing -->
+            <Container ID="MainInfo" Anchor="C,T" Size="parent,parent-16">
                 <ScrollPanel ID="EffectStackScroller" Offset="0,224" Size="parent-15,240" Vertical="1" AutoScrollBar="1">
                     <Stack ID="EffectStack" Offset="0,0" StackPadding="10"/>
                     <ScrollBar Anchor="R,T" AnchorSide="O,I" Offset="1,0" Style="ScrollVerticalBarAlt" Size="8,parent-10"/>
                 </ScrollPanel>
 
-                <!-- CQUI : changed sizeY to auto -->
-                <Container ID="RecruitProgressBox" Anchor="C,B" Offset="-1,30" Size="parent,auto">
+                <!-- CQUI : Y-size will be adjusted programaticly -->
+                <Container ID="RecruitProgressBox" Anchor="C,B" Offset="-1,30" Size="parent,152">
                     <Stack Anchor="C,T" StackGrowth="Down" StackPadding="3">
                         <Box Anchor="C,T" Size="parent-8,2" Color="199,187,157,90" />
                         <Stack Anchor="C,T" StackGrowth="Right" StackPadding="2" Offset="0,4">
@@ -99,8 +110,8 @@
                         <MakeInstance ID="LocalPlayerRecruitInstance" Name="RecruitInstance" Offset="0,4" />
                         <Box Anchor="C,T" Size="parent-8,2" Color="199,187,157,90" />
                         <Stack ID="RecruitMinimizedStack" StackGrowth="Down" StackPadding="3">
-                            <!-- CQUI : size should be defined programaticly -->
-                            <ScrollPanel ID="RecruitScroll" Anchor="C,T" Size="182,1000" Vertical="1">
+                            <!-- CQUI : Y-size will be adjusted programaticly -->
+                            <ScrollPanel ID="RecruitScroll" Anchor="C,T" Size="182,48" Vertical="1">
                                 <Stack ID="RecruitStack" Anchor="C,T" StackPadding="2" />
                                 <ScrollBar Anchor="R,C" Offset="0,0" AnchorSide="O,I" Style="ScrollVerticalBarAlt" />
                             </ScrollPanel>

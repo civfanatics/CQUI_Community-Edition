@@ -2,23 +2,24 @@
 <Context xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\..\..\CivTech\Libs\ForgeUI\ForgeUI_Assets\Controls.xsd" Style="FontNormal16" FontStyle="Shadow">
 
     <Include File="CivilizationIcon"/>
-
     <Stack ID="HeroStack" Offset="0,78" StackGrowth="Right" StackPadding="0" />
-
     <!-- ================================================================== -->
     <!--    Instances                                                       -->
     <!-- ================================================================== -->
     <Instance Name="HeroPanelInstance">
-        <Container ID="Content" Size="350,670">
+        <!-- ==== CQUI CUSTOMIZATION: Wider Heroes Panel -->
+        <!-- CQUI: Each Hero instance is wider, which requires covering up the "Wood Paneling" used on the regular Great People -->
+        <!--       panel, as that paneling is fixed at 214px wide.  -->
+        <Container ID="Content" Size="350,parent">
+            <!-- Use overlapping Box controls to create an illusion that looks similar to the Wood Paneling used with the Great People panel -->
+            <!-- The size and offsets are necessary to cover up parts of the wood panel borders that are visible in the PopupContainer -->
+            <!-- The color 95,75,55,255 is the full-alpha equivalent of the 199,187,157,90 colors used below on these backgrounds -->
+            <Box ID="HeroInstanceBackgroundBorder" Anchor="C,T" Size="parent,parent+4" Offset="0,-2"  Color="95,75,55,255"/>
+            <Box ID="HeroInstanceBackgroundColorTop"  Anchor="C,T" Size="parent-2,parent-2" Offset="1,1" Color="41,22,22,255"/>
+            <Box ID="HeroInstanceBackgroundColorBottom"  Anchor="C,B" Size="parent-2,152" Offset="1,1" Color="24,13,13,255"/>
 
-            <!-- ==== CQUI CUSTOMIZATION VARIOUS VALUES  ============================================================================= -->
-            <!-- Use solid boxes in each instance to cover up the background "wood panel", allowing CQUI to make these instances wider -->
-            <!-- Note that the offsets are necessary to cover up parts of the "wood panel" borders that show through from the instance-holding container -->
-            <Box ID="HeroInstanceBackgroundBorder" Anchor="C,T" Size="parent+2,parent+2" Offset="-2,-2"  Color="165,136,86,255" />
-            <Box ID="HeroInstanceBackgroundColor"  Size="parent,parent" Offset="0,0" Color="51,24,12,255" />
-            
             <Grid ID="FadedBackground" Anchor="C,T" Offset="-1,0" Size="parent-10,parent-46" Texture="GreatPeople_Overlay" SliceCorner="13,13" SliceSize="1,1" SliceTextureSize="25,25" Hidden="1" />
-            <Label ID="IndividualName" Anchor="C,T" Offset="0,22" Align="C,C" WrapWidth="parent-20" Style="GreatPeopleLargeText" String="$IndividualName$"/>
+            <Label ID="IndividualName" Anchor="C,T" Offset="0,22" Align="C,C" WrapWidth="parent-20" Style="GreatPeopleLargeText" Color="168,168,129,255" String="$IndividualName$"/>
             <Line ID="TitleLine" Start="10,56" End="parent-10,56" Width="2" Color="199,187,157,90" />
 
             <Image ID="CircleFlare" Anchor="C,T" Offset="0,20" Texture="GreatPeople_SlotOn">
@@ -27,7 +28,7 @@
                 <Button ID="CivilopediaButton" Anchor="R,B" Offset="-2,4" Size="29,29" Texture="TopBar_CivilopediaButton" ToolTip="LOC_GREAT_PEOPLE_HEROES_CIVILOPEDIA_ENTRY_TT"/>
             </Image>
 
-            <Line Start="10,214" End="parent-10,214" Color="199,187,157,90" />
+            <Line Start="10,214" End="parent-10,214" Width="2" Color="199,187,157,90" />
             <Container ID="MainInfo" Anchor="C,T" Size="parent,parent-224" Offset="0,224">
                 <ScrollPanel ID="EffectStackScroller" Size="parent,parent-152" Vertical="1" AutoScrollBar="1">
                     <Stack ID="EffectStack" StackPadding="4"/>
@@ -35,12 +36,12 @@
                 </ScrollPanel>
 
                 <Container ID="RecruitProgressBox" Anchor="C,B" Size="parent,152">
-                    <Box Anchor="C,T" Size="parent-8,2" Color="199,187,157,90" />
+                    <Line Start="10,0" End="parent-10,0" Width="2" Color="199,187,157,90" />
                     <Stack Anchor="C,C" StackPadding="10">
                         <Label ID="HeroStatus" Anchor="C,T" Align="Center" Style="FontFlair14" WrapWidth="parent-20" Color="157,150,138,255" SmallCaps="20" SmallCapsType="EveryWord"/>
                         <MakeInstance ID="ClaimedByCivIcon" Name="CivilizationIcon44" Anchor="C,T" />
                         <Label ID="CQUI_HeroOriginCity" Anchor="C,T" Align="Center" Style="FontFlair14" WrapWidth="parent-20" Color="157,150,138,255" SmallCaps="20" SmallCapsType="EveryWord"/>
-                        <Label ID="DeceasedText" Anchor="C,T" Align="Center" Style="FontFlair14" WrapWidth="parent-20" Color="157,150,138,255" SmallCaps="20" SmallCapsType="EveryWord" String="LOC_GREAT_PEOPLE_HEROES_DECEASED" Hidden="1"/>
+                        <Label ID="DeceasedText" Anchor="C,T" Align="Center" Style="FontFlair14" WrapWidth="parent-20" Color="157,150,138,255" SmallCaps="20" SmallCapsType="EveryWord" String="LOC_GREAT_PEOPLE_HEROES_DECEASED" />
                     </Stack>
                 </Container>
 
@@ -63,8 +64,8 @@
         <Container ID="Top" Size="parent,auto">
             <Image Offset="6,0" Size="38,38" IconSize="38" Icon="ICON_HERO_PASSIVE_ABILITY"/>
             <Stack Anchor="L,T" Offset="45,0" StackGrowth="Down" StackPadding="4">
-                <ScrollTextField ID="AbilityName" Anchor="L,T" Size="parent-55,20" Style="GreatPeopleLargeText"/>
-                <Label ID="AbilityText" Anchor="L,T" WrapWidth="parent-55" Style="GreatPeopleText"/>
+                <ScrollTextField ID="AbilityName" Anchor="L,T" Size="parent-55,20" Style="GreatPeopleLargeText" Color="168,168,129,255"/>
+                <Label ID="AbilityText" Anchor="L,T" WrapWidth="parent-55" Style="GreatPeopleText" Color="168,168,129,255"/>
             </Stack>
         </Container>
     </Instance>

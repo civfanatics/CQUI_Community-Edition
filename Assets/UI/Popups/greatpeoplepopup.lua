@@ -397,10 +397,11 @@ function AddRecruit( kData:table, kPerson:table )
     
     -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     -- Set the heights of the various elements in the Great People Panel instance as has been computed
-    -- These functions are defined in CQUICommon.lua
-    instance.Content:SetSizeY(CQUI_GreatPeoplePanel_GetInstanceContentSizeY());
-    instance.EffectStackScroller:SetSizeY(CQUI_GreatPeoplePanel_GetEffectsScrollSizeY());
-    instance.RecruitScroll:SetSizeY(CQUI_GreatPeoplePanel_GetRecruitScrollSizeY());
+    -- CQUI_GreatPeoplePanel_GetControlSizeY function is defined in CQUICommon.lua
+    instance.Content:SetSizeY(CQUI_GreatPeoplePanel_GetControlSizeY("Content"));
+    instance.EffectStackScroller:SetSizeY(CQUI_GreatPeoplePanel_GetControlSizeY("EffectStackScroller"));
+    instance.RecruitProgressBox:SetSizeY(CQUI_GreatPeoplePanel_GetControlSizeY("RecruitProgressBox"));
+    instance.RecruitScroll:SetSizeY(CQUI_GreatPeoplePanel_GetControlSizeY("RecruitScroll"));
     -- ==== CQUI CUSTOMIZATION END ==================================================================================== --
 end
 
@@ -431,22 +432,16 @@ function ViewCurrent( data:table )
     end
 
     -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-    -- CQUI : change size.  CQUI_preferredRecruitScrollSize and the like were calculated in the AddRecruit function
-    Controls.CQUI_RecruitWoodPaneling:SetSizeY(CQUI_GreatPeoplePanel_GetRecruitWoodPanelingSizeY()); 
+    -- CQUI_DarkerWoodPaneling is the darker background showing the Recruit Progress section
+    Controls.CQUI_WoodPanelingBottomFiller:SetSizeY(CQUI_GreatPeoplePanel_GetControlSizeY("CQUI_WoodPanelingBottomFiller")); 
     -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     Controls.PeopleStack:CalculateSize();
     Controls.PeopleScroller:CalculateSize();
     
     m_screenWidth = math.max(Controls.PeopleStack:GetSizeX(), 1024);
+    -- CQUI: Texture was changed, see notes in GreatPeoplePopup.xml
     Controls.WoodPaneling:SetSizeX( m_screenWidth );
-
-    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-    -- CQUI: Set the width of the panel
-    Controls.CQUI_TopWoodPaneling:SetSizeX( m_screenWidth );
-    Controls.CQUI_RecruitWoodPaneling:SetSizeX( m_screenWidth );
-    Controls.CQUI_BottomWoodPaneling:SetSizeX( m_screenWidth );
-    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     -- Clamp overall popup size to not be larger than contents (overspills in 4k and eyefinitiy rigs.)
     local screenX,_ :number = UIManager:GetScreenSizeVal();
@@ -457,9 +452,9 @@ function ViewCurrent( data:table )
     Controls.PopupContainer:SetSizeX( m_screenWidth );
     Controls.ModalFrame:SetSizeX( m_screenWidth );
     -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-    -- CQUI : change size
-    Controls.ModalFrame:SetSizeY( CQUI_GreatPeoplePanel_GetModalFrameSizeY() );
-    Controls.PopupContainer:SetSizeY( CQUI_GreatPeoplePanel_GetPopupContainerSizeY() );
+    -- CQUI : change size based on calculations done in CQUICommon.lua
+    Controls.ModalFrame:SetSizeY( CQUI_GreatPeoplePanel_GetControlSizeY("ModalFrame") );
+    Controls.PopupContainer:SetSizeY( CQUI_GreatPeoplePanel_GetControlSizeY("PopupContainer") );
     -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     -- Has an instance been set to auto scroll to?
@@ -1314,11 +1309,6 @@ function OnHeroesClick( uiSelectedButton:table )
     Controls.PeopleScroller:SetHide(false);
     Controls.RecruitedArea:SetHide(true);
 
-    -- Controls.WoodPaneling:SetHide(true);
-    -- Controls.CQUI_HeroesBackground:SetHide(false);
-    -- Controls.CQUI_TopWoodPaneling:SetHide(true);
-    -- Controls.CQUI_RecruitWoodPaneling:SetHide(true);
-    -- Controls.CQUI_BottomWoodPaneling:SetHide(true);
 end
 
 Initialize();

@@ -103,7 +103,6 @@ function AddHero( kHeroDef:table )
     local kAbilities:table = GetHeroClassUnitAbilities(kHeroDef.Index);
     for _, kAbility in pairs(kAbilities) do
         local pAbilityInst:table = m_pAbilityIM:GetInstance(kHeroInstance.EffectStack);
-            
         pAbilityInst.AbilityName:SetText(Locale.ToUpper(kAbility.Name));
         pAbilityInst.AbilityText:SetText(Locale.Lookup(kAbility.Description));
     end
@@ -112,7 +111,6 @@ function AddHero( kHeroDef:table )
     local kCommands:table = GetHeroClassUnitCommands(kHeroDef.Index);
     for _, kCommand in pairs(kCommands) do
         local pCommandInst:table = m_pCommandIM:GetInstance(kHeroInstance.EffectStack);
-            
         pCommandInst.CommandName:SetText( Locale.ToUpper(kCommand.Name) );
         pCommandInst.CommandText:SetText( Locale.Lookup(kCommand.Description) );
         pCommandInst.CommandIcon:SetIcon( kCommand.Icon );
@@ -153,8 +151,9 @@ function AddHero( kHeroDef:table )
         end
 
         kHeroInstance.DeceasedText:SetHide(bIsAlive);
+
         -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-        --CQUI change, show the origin city if the hero is claimed
+        -- CQUI change, show the origin city if the hero is claimed
         kHeroInstance.CQUI_HeroOriginCity:SetHide(true);
         -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
@@ -174,9 +173,9 @@ function AddHero( kHeroDef:table )
                 kHeroInstance.LookAtButton:RegisterCallback( Mouse.eLClick, function() LookAtUnit(pHeroUnit); end);
                 bHideLookAtButton = false;
                 -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-                -- CQUI: Show the City value
+                -- CQUI: Show the Home City value (this shows "Home City: City Name")
                 kHeroInstance.CQUI_HeroOriginCity:SetHide(false);
-                kHeroInstance.CQUI_HeroOriginCity:SetText(Locale.Lookup(pHeroCity:GetName()))
+                kHeroInstance.CQUI_HeroOriginCity:SetText(Locale.Lookup("LOC_UNITFLAG_ARCHAEOLOGY_HOME_CITY", pHeroCity:GetName()))
                 -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
             else
                 if pHeroCity then
@@ -201,13 +200,11 @@ function AddHero( kHeroDef:table )
         kHeroInstance.FaithRecallButton:SetHide(true);
     end
 
-        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     -- Set the heights of the various elements in the Great People Panel instance as has been computed
     -- These functions are defined in CQUICommon.lua
-    -- TODO: Figure out why the 48 pixel difference there... 
-    kHeroInstance.Content:SetSizeY(CQUI_GreatPeoplePanel_GetInstanceContentSizeY() + 48);
-    -- ==== CQUI CUSTOMIZATION END ==================================================================================== --
-
+    kHeroInstance.Content:SetSizeY(CQUI_GreatPeoplePanel_GetControlSizeY("Content"));
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 end
 
 -- ===========================================================================
