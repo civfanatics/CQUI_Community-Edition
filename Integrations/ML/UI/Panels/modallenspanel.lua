@@ -9,7 +9,17 @@ include( "CQUICommon.lua" );
 -- ===========================================================================
 
 g_ModLensModalPanel = {} -- Populated by ModLens_*.lua scripts
-include( "ModLens_", true )
+-- CQUI Linux: The load order on Linux is not always matching the load order we see on PC.  For example, ModLens_Builder_Config_Default.lua will load before ModLens_Builder.lua, which it depends upon
+-- Temporary workaround to force the load order in the same order we see on the PC, at least until we update the integrated More Lenses (which resolves the import via file renames)
+-- include( "ModLens_", true )
+include("ModLens_Archaeologist.lua")
+include("ModLens_Wonder.lua")
+include("Modlens_CitizenManagement.lua")
+include("ModLens_Barbarian.lua")
+include("ModLens_Naturalist.lua")
+include("ModLens_Builder.lua")
+-- ModLens_Builder has an include for ModLens_Builder_Config_Default.lua
+include("ModLens_Scout.lua")
 
 -- ===========================================================================
 -- Members
