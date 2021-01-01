@@ -1,6 +1,7 @@
 -- ===========================================================================
 -- CQUI GreatPeopleHeroPanel replacement for GreatPeopleHeroPanel.lua, found in Babylon DLC (DLC/Babylon/UI/Additions)
 -- Full file replacement is necessary because of Firaxis' use of local variables that CQUI requires access to in order to implement the scaling based on screen resolution
+-- CQUI changes are marked with Customization Begin/End Tags
 -- ===========================================================================
 
 -- Copyright 2020, Firaxis Games
@@ -8,7 +9,10 @@
 include("InstanceManager");
 include("HeroesSupport");
 include("CivilizationIcon");
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+-- Include CQUICommon.lua for GreatPeople vertical size calculation
 include("CQUICommon.lua");
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
 -- ===========================================================================
 --  CONSTANTS
@@ -161,7 +165,7 @@ function AddHero( kHeroDef:table )
         local bHideRecallButton:boolean = true;
         if claimedByPlayer == Game.GetLocalPlayer() then
             -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-            -- CQUI: Show the City value
+            -- CQUI: Show the City value (code relocated from else case below)
             local cityID:table = pGameHeroes:GetHeroOriginCityID(kHeroDef.Index);
             local pPlayerCities:object = Players[claimedByPlayer]:GetCities();
             local pHeroCity:object = pPlayerCities:FindID(cityID.id);
