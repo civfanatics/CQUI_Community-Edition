@@ -148,6 +148,7 @@ function CQUI_GreatPeoplePopupSizeCalculations_Test(screenSizeY, aliveMajorNotLo
     CQUI_GreatPeoplePopupSizeCalculations_Worker(screenSizeY, aliveMajorNotLocalCivs)
 end 
 
+-- ===========================================================================
 function CQUI_GreatPeoplePopupSizeCalculations_Worker(screenSizeY, aliveMajorNotLocalCivs)
     -- The unmodified game sets the total height of the control to 768 pixels.
     -- The 768px includes 240 for the "Great Person Effects" section and 152 for the "Recruit Progress" section.
@@ -218,6 +219,7 @@ function CQUI_GreatPeoplePopupSizeCalculations_Worker(screenSizeY, aliveMajorNot
     m_CQUI_GreatPeoplePopupCalculations["CQUI_WoodPanelingBottomFiller"] = gppiRecruitProgressBoxSizeY + gppiBottomAreaSizeY + popupContinerFooterSizeY + 3;
 end
 
+-- ===========================================================================
 function CQUI_GreatPeoplePanel_GetControlSizeY( controlName )
     if m_CQUI_GreatPeoplePopupCalculations[controlName] == nil then
         CQUI_GreatPeoplePopupSizeCalculations();

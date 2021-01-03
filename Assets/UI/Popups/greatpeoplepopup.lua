@@ -432,7 +432,7 @@ function ViewCurrent( data:table )
     end
 
     -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-    -- CQUI_DarkerWoodPaneling is the darker background showing the Recruit Progress section
+    -- CQUI_WoodPanelingBottomFiller is the darker background showing the Recruit Progress section
     Controls.CQUI_WoodPanelingBottomFiller:SetSizeY(CQUI_GreatPeoplePanel_GetControlSizeY("CQUI_WoodPanelingBottomFiller")); 
     -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
@@ -442,6 +442,12 @@ function ViewCurrent( data:table )
     m_screenWidth = math.max(Controls.PeopleStack:GetSizeX(), 1024);
     -- CQUI: Texture was changed, see notes in GreatPeoplePopup.xml
     Controls.WoodPaneling:SetSizeX( m_screenWidth );
+        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- CQUI: Set the width of the panel
+    Controls.CQUI_ContentWoodPaneling:SetSizeX( m_screenWidth );
+    Controls.CQUI_RecruitWoodPaneling:SetSizeX( m_screenWidth );
+    Controls.CQUI_BottomWoodPaneling:SetSizeX( m_screenWidth );
+    -- ==== CQUI CUSTOMIZATION END ============================================================================================ --
 
     -- Clamp overall popup size to not be larger than contents (overspills in 4k and eyefinitiy rigs.)
     local screenX,_ :number = UIManager:GetScreenSizeVal();
@@ -1298,17 +1304,5 @@ end
 -- This method replaces the uses of include("GreatPeoplePopup") in files that want to override 
 -- functions from this file. If you're implementing a new "GreatPeoplePopup_" file DO NOT include this file.
 include("GreatPeoplePopup_", true);
-
--- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
--- NOTE: This must follow the "include" of the GreatPeoplePopup_ above in order to make modifications to the Heroes-related
---       objects found in GreatPeoplePopup_Babylon_Heroes.lua.
-BASE_CQUI_OnHeroesClick = OnHeroesClick;
-function OnHeroesClick( uiSelectedButton:table )
-    BASE_CQUI_OnHeroesClick(uiSelectedButton);
-
-    Controls.PeopleScroller:SetHide(false);
-    Controls.RecruitedArea:SetHide(true);
-
-end
 
 Initialize();
