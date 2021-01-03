@@ -202,5 +202,8 @@ INSERT OR REPLACE INTO CQUI_Bindings -- Don't touch this line!
         ("BUILD_MINE", "N", "LOC_CQUI_BUILD_MINE"),
         ("NUKE", "N", "LOC_CQUI_NUKE"),
         ("THERMO_NUKE", "Alt+N", "LOC_CQUI_THERMO_NUKE"),
+        ("SPREAD_RELIGION", "R", "LOC_CQUI_SPREAD_RELIGION"),
+        ("REMOVE_HERESY", "R", "LOC_CQUI_REMOVE_HERESY"),
+        ("REST_HEAL", "H", "LOC_CQUI_REST_HEAL"),
         ("REBASE", "Alt+R", "LOC_CQUI_REBASE"),
         ("PLACE_PIN", "Shift+P", "LOC_CQUI_PLACE_PIN");
