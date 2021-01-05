@@ -438,10 +438,16 @@ function ViewCurrent( data:table )
 
     Controls.PeopleStack:CalculateSize();
     Controls.PeopleScroller:CalculateSize();
-    
+
     m_screenWidth = math.max(Controls.PeopleStack:GetSizeX(), 1024);
+
     -- CQUI: Texture was changed, see notes in GreatPeoplePopup.xml
     Controls.WoodPaneling:SetSizeX( m_screenWidth );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    Controls.CQUI_WoodPanelingTopFiller:SetSizeX( m_screenWidth );
+    Controls.CQUI_WoodPanelingBottomFiller:SetSizeX( m_screenWidth );
+    Controls.CQUI_WoodPanelingBottom:SetSizeX( m_screenWidth );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
 
     -- Clamp overall popup size to not be larger than contents (overspills in 4k and eyefinitiy rigs.)
     local screenX,_ :number = UIManager:GetScreenSizeVal();
@@ -1298,5 +1304,42 @@ end
 -- This method replaces the uses of include("GreatPeoplePopup") in files that want to override 
 -- functions from this file. If you're implementing a new "GreatPeoplePopup_" file DO NOT include this file.
 include("GreatPeoplePopup_", true);
+
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+-- In order for the wood paneling to "look correct" when scrolling sideways, we need to hook into these functions
+-- declared in GreatPeoplePopup_Babylon_Heroes.lua.
+-- It should require only 1 function, but for some reason in the unmodified file, there exists this OnGreatPeopleHeroPanel_SizeChanged that sets the
+-- local m_HeroStackSizeX value before calling ResizeHeroPaneling so it can use that m_HeroStackSizeX instead of the heroStackSizeX parameter!
+BASE_CQUI_ResizeHeroPaneling = ResizeHeroPaneling;
+BASE_CQUI_OnGreatPeopleHeroPanel_SizeChanged = OnGreatPeopleHeroPanel_SizeChanged;
+local m_HeroStackSizeX = 0;
+
+-- =======================================================================================
+function OnGreatPeopleHeroPanel_SizeChanged( heroStackSizeX:number )
+    -- Save off this value, as the heroStackSizeX param is unused in the ResizeHeroPaneling function
+    m_HeroStackSizeX = heroStackSizeX;
+    BASE_CQUI_OnGreatPeopleHeroPanel_SizeChanged(heroStackSizeX);
+end
+
+-- =======================================================================================
+function ResizeHeroPaneling( heroStackSizeX )
+    -- See note above about "heroStackSizeX" not being used and m_HeroStackSizeX being used instead
+    BASE_CQUI_ResizeHeroPaneling();
+
+    -- Ignore if size is zero
+    -- This means it's been cleared and another tab is opening which will handle the resizing
+    if m_HeroStackSizeX <= 0 then
+        return;
+    end
+
+    local scrollWidth = math.max(m_HeroStackSizeX, 1024);
+
+    -- Set the X values for the WoodPaneling images so that they cover the area behind all of the instances
+    Controls.WoodPaneling:SetSizeX( scrollWidth );
+    Controls.CQUI_WoodPanelingTopFiller:SetSizeX( scrollWidth );
+    Controls.CQUI_WoodPanelingBottomFiller:SetSizeX( scrollWidth );
+    Controls.CQUI_WoodPanelingBottom:SetSizeX( scrollWidth );
+end
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
 Initialize();
