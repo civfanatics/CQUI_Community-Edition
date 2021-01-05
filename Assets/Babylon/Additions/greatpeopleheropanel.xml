@@ -68,8 +68,8 @@
                         <!-- CQUI: Added OriginCity for Hero -->
                         <Label ID="CQUI_HeroOriginCity" Anchor="C,T" Align="Center" Style="FontFlair14" WrapWidth="parent-20" Color="157,150,138,255" SmallCaps="20" SmallCapsType="EveryWord"/>
                         <Label ID="DeceasedText" Anchor="C,T" Align="Center" Style="FontFlair14" WrapWidth="parent-20" Color="157,150,138,255" SmallCaps="20" SmallCapsType="EveryWord" String="LOC_GREAT_PEOPLE_HEROES_DECEASED" Hidden="1"/>
-                        <!-- CQUI: FaithRecallButton no longer part of own Stack Control, twice as wide to fit text -->
-                        <GridButton ID="FaithRecallButton" Anchor="C,T" Size="160,32" SliceCorner="12,12" SliceSize="1,1" SliceTextureSize="24,24" Texture="Controls_ButtonControl_Brown" TextColor="126,123,120" Style="FontNormal18" StateOffsetIncrement="0,24" String="LOC_GREAT_PEOPLE_HEROES_FAITH_RECALL"/>
+                        <!-- CQUI: FaithRecallButton no longer part of own Stack Control -->
+                        <GridButton ID="FaithRecallButton" Anchor="C,T" Size="80,32" SliceCorner="12,12" SliceSize="1,1" SliceTextureSize="24,24" Texture="Controls_ButtonControl_Brown" TextColor="126,123,120" Style="FontNormal18" StateOffsetIncrement="0,24" String="LOC_GREAT_PEOPLE_HEROES_FAITH_RECALL"/>
                     </Stack>
                 </Container>
 

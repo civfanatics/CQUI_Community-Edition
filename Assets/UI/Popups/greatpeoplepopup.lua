@@ -442,12 +442,6 @@ function ViewCurrent( data:table )
     m_screenWidth = math.max(Controls.PeopleStack:GetSizeX(), 1024);
     -- CQUI: Texture was changed, see notes in GreatPeoplePopup.xml
     Controls.WoodPaneling:SetSizeX( m_screenWidth );
-        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-    -- CQUI: Set the width of the panel
-    Controls.CQUI_ContentWoodPaneling:SetSizeX( m_screenWidth );
-    Controls.CQUI_RecruitWoodPaneling:SetSizeX( m_screenWidth );
-    Controls.CQUI_BottomWoodPaneling:SetSizeX( m_screenWidth );
-    -- ==== CQUI CUSTOMIZATION END ============================================================================================ --
 
     -- Clamp overall popup size to not be larger than contents (overspills in 4k and eyefinitiy rigs.)
     local screenX,_ :number = UIManager:GetScreenSizeVal();

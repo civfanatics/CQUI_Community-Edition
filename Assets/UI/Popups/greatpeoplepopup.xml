@@ -130,7 +130,7 @@
                     <!-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== -->
                     <!-- The recruit with gold/faith buttons and recruit/reject buttons are moved to this MainInfo container -->
                     <!-- and located in the same place, showing the buttons when appropriate -->
-                    <Stack Anchor="C,B" Offset="0,-38" StackGrowth="Right" StackPadding="8">
+                    <Stack Anchor="C,B" Offset="0,2" StackGrowth="Right" StackPadding="8">
                         <GridButton ID="RecruitButton"  Hidden="1" Size="88,32" Style="ButtonConfirmSmall"  Style="FontNormal16" String="LOC_GREAT_PEOPLE_RECRUIT" />
                         <GridButton ID="RejectButton"  Hidden="1" Size="88,32" Style="MainButtonSmall"  Style="FontNormal16" String="LOC_GREAT_PEOPLE_PASS" />
                         <GridButton ID="GoldButton" Size="88,32" SliceCorner="12,12" SliceSize="1,1" SliceTextureSize="24,24" Texture="Controls_ButtonControl_Brown" Style="FontNormal18" StateOffsetIncrement="0,24" String="999" />
