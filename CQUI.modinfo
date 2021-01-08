@@ -278,8 +278,8 @@
                 <Context>InGame</Context>
             </Properties>
             <Items>
-                <File>Assets/Babylon/Additions/greatpeopleheropanel.lua</File>
-                <File>Assets/Babylon/Additions/greatpeopleheropanel.xml</File>
+                <File>Assets/Babylon/Additions/GreatPeopleHeroPanel.lua</File>
+                <File>Assets/Babylon/Additions/GreatPeopleHeroPanel.xml</File>
             </Items>
         </ImportFiles>
 
@@ -1008,8 +1008,8 @@
         <File>Assets/Expansion2/Data/Expansion2_Icons_FontIcons_CQUI.xml</File>
 
         <!-- Heroes Mode -->
-        <File>Assets/Babylon/Additions/greatpeopleheropanel.lua</File>
-        <File>Assets/Babylon/Additions/greatpeopleheropanel.xml</File>
+        <File>Assets/Babylon/Additions/GreatPeopleHeroPanel.lua</File>
+        <File>Assets/Babylon/Additions/GreatPeopleHeroPanel.xml</File>
 
         <File>Assets/Text/Gossip_Text.xml</File>
         <File>Assets/Text/Gossip_Text_de.xml</File>
