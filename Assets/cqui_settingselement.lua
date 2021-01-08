@@ -541,6 +541,7 @@ function Initialize()
 
     --Populating/binding checkboxes...
     PopulateCheckBox(Controls.ProductionQueueCheckbox, "CQUI_ProductionQueue");
+    PopulateCheckBox(Controls.InlineCityStateQuest, "CQUI_InlineCityStateQuest");
     RegisterControl(Controls.ProductionQueueCheckbox, "CQUI_ProductionQueue", UpdateCheckbox);
     PopulateCheckBox(Controls.ShowLuxuryCheckbox, "CQUI_ShowLuxuries");
     PopulateCheckBox(Controls.ShowCultureGrowthCheckbox, "CQUI_ShowCultureGrowth", Locale.Lookup("LOC_CQUI_CITYVIEW_SHOWCULTUREGROWTH_TOOLTIP"));

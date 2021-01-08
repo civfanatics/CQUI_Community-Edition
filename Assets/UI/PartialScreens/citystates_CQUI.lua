@@ -7,12 +7,138 @@ BASE_CQUI_AddCityStateRow = AddCityStateRow;
 --  CONSTANTS
 -- ===========================================================================
 local COLOR_ICON_BONUS_OFF:number = UI.GetColorValueFromHexLiteral(0xff606060);
+local ICON_NAMES = {"%[ICON_TechBoosted%] ", "%[ICON_CivicBoosted%] ", "%[ICON_TradeRoute%] ", "%[ICON_Barbarian%] "};
+local OFFSET_0 :number = 0;
+local NEW_ROW_OFFSET_Y :number = -2;
+local BONUS_IMAGE_ORIGINAL_SIZE_X :number = 29;
+local BONUS_IMAGE_ORIGINAL_SIZE_Y :number = 42;
+local BONUS_IMAGE_NEW_SIZE_X :number = 37;
+local BONUS_IMAGE_NEW_SIZE_Y :number = 50;
+local SUZERAIN_STATUS_ORIGINAL_SIZE_X :number = 110;
+local SUZERAIN_STATUS_ORIGINAL_SIZE_Y :number = 42;
+local SUZERAIN_STATUS_NEW_SIZE_X :number = 113;
+local SUZERAIN_STATUS_NEW_SIZE_Y :number = 50;
+local SUZERAIN_STATUS_EXTRA_OFFSET_X :number = 26;
+local BONUS_IMAGE_1_ORIGINAL_OFFSET_X :number = 256;
+local BONUS_IMAGE_1_ORIGINAL_OFFSET_STEP_X :number = 30;
+local BONUS_IMAGE_1_NEW_OFFSET_STEP_X :number = 38;
+local ORIGINAL_DIPLOMACY_PIP_OFFSET_Y :number = -6;
+local NEW_DIPLOMACY_PIP_OFFSET_Y :number = -2;
+local ORIGINAL_NAME_BUTTON_OFFSET_Y :number = 9;
+local NEW_NAME_BUTTON_OFFSET_Y :number = 11;
+local ORIGINAL_CITY_STATE_BASE_SIZE_Y :number = 48;
+local NEW_CITY_STATE_BASE_SIZE_Y :number = 56;
+local ORIGINAL_AMBASSADOR_OFFSET_X :number = 4;
+local NEW_AMBASSADOR_OFFSET_X :number = 8;
+local ORIGINAL_AMBASSADOR_ICON_SIZE :number = 32;
+local NEW_AMBASSADOR_ICON_SIZE :number = 30;
+local NORMAL_ENVOY_LABEL_OFFSET_X :number = 4;
+local NEW_ENVOY_LABEL_OFFSET_X :number = 28;
+
+-- ===========================================================================
+-- CQUI Members
+-- ===========================================================================
+local CQUI_InlineCityStateQuest         = true;
+
+-- ===========================================================================
+function CQUI_OnSettingsInitialized()
+    -- print_debug("CityStates_CQUI: CQUI_OnSettingsInitialized ENTRY")
+    CQUI_InlineCityStateQuest      = GameConfiguration.GetValue("CQUI_InlineCityStateQuest");
+end
+
+-- ===========================================================================
+function CQUI_OnSettingsUpdate()
+    -- print_debug("CityStates_CQUI: CQUI_OnSettingsUpdate ENTRY")
+    CQUI_OnSettingsInitialized();
+    Refresh();
+end
+
+-- ===========================================================================
+function CQUI_RestoreOriginalPanel( kInst:table )
+    -- revert all changes done to the xml
+    kInst.CityStateBase:SetSizeY(ORIGINAL_CITY_STATE_BASE_SIZE_Y);
+    kInst.DiplomacyPip:SetOffsetY(ORIGINAL_DIPLOMACY_PIP_OFFSET_Y);
+    kInst.Icon:SetOffsetY(OFFSET_0);
+    kInst.NameButton:SetOffsetY(ORIGINAL_NAME_BUTTON_OFFSET_Y);
+    kInst.Envoy:SetOffsetY(OFFSET_0);
+    kInst.BonusImage1:SetSizeVal(BONUS_IMAGE_ORIGINAL_SIZE_X, BONUS_IMAGE_ORIGINAL_SIZE_Y);
+    kInst.BonusImage3:SetOffsetX(BONUS_IMAGE_1_ORIGINAL_OFFSET_X + BONUS_IMAGE_1_ORIGINAL_OFFSET_STEP_X);
+    kInst.BonusImage3:SetSizeVal(BONUS_IMAGE_ORIGINAL_SIZE_X, BONUS_IMAGE_ORIGINAL_SIZE_Y);
+    kInst.BonusImage6:SetOffsetX(BONUS_IMAGE_1_ORIGINAL_OFFSET_X + BONUS_IMAGE_1_ORIGINAL_OFFSET_STEP_X * 2);
+    kInst.BonusImage6:SetSizeVal(BONUS_IMAGE_ORIGINAL_SIZE_X, BONUS_IMAGE_ORIGINAL_SIZE_Y);
+    kInst.SuzerainStatus:SetOffsetX(BONUS_IMAGE_1_ORIGINAL_OFFSET_X + BONUS_IMAGE_1_ORIGINAL_OFFSET_STEP_X * 3);
+    kInst.SuzerainStatus:SetSizeVal(SUZERAIN_STATUS_ORIGINAL_SIZE_X, SUZERAIN_STATUS_ORIGINAL_SIZE_Y);
+    kInst.BonusTextSuzerain:SetOffsetX(NORMAL_ENVOY_LABEL_OFFSET_X);
+    kInst.SecondHighestEnvoys:SetOffsetX(NORMAL_ENVOY_LABEL_OFFSET_X);
+    kInst.AmbassadorButton:SetOffsetX(ORIGINAL_AMBASSADOR_OFFSET_X);
+    kInst.AmbassadorButton:SetSizeVal(ORIGINAL_AMBASSADOR_ICON_SIZE, ORIGINAL_AMBASSADOR_ICON_SIZE);
+    kInst.QuestRow:SetHide(true);
+end
+
+-- ===========================================================================
+function CQUI_ChangeOriginalPanel( kInst:table )
+    -- enable all changes done to the xml
+    kInst.CityStateBase:SetSizeY(NEW_CITY_STATE_BASE_SIZE_Y);
+    kInst.DiplomacyPip:SetOffsetY(NEW_DIPLOMACY_PIP_OFFSET_Y);
+    kInst.Icon:SetOffsetY(NEW_ROW_OFFSET_Y);
+    kInst.NameButton:SetOffsetY(NEW_NAME_BUTTON_OFFSET_Y);
+    kInst.Envoy:SetOffsetY(NEW_ROW_OFFSET_Y);
+    kInst.BonusImage1:SetSizeVal(BONUS_IMAGE_NEW_SIZE_X, BONUS_IMAGE_NEW_SIZE_Y);
+    kInst.BonusImage3:SetOffsetX(BONUS_IMAGE_1_ORIGINAL_OFFSET_X + BONUS_IMAGE_1_NEW_OFFSET_STEP_X);
+    kInst.BonusImage3:SetSizeVal(BONUS_IMAGE_NEW_SIZE_X, BONUS_IMAGE_NEW_SIZE_Y);
+    kInst.BonusImage6:SetOffsetX(BONUS_IMAGE_1_ORIGINAL_OFFSET_X + BONUS_IMAGE_1_NEW_OFFSET_STEP_X * 2);
+    kInst.BonusImage6:SetSizeVal(BONUS_IMAGE_NEW_SIZE_X, BONUS_IMAGE_NEW_SIZE_Y);
+    kInst.SuzerainStatus:SetOffsetX(BONUS_IMAGE_1_ORIGINAL_OFFSET_X + BONUS_IMAGE_1_NEW_OFFSET_STEP_X * 3);
+    kInst.SuzerainStatus:SetSizeVal(SUZERAIN_STATUS_NEW_SIZE_X, SUZERAIN_STATUS_NEW_SIZE_Y);
+    kInst.BonusTextSuzerain:SetOffsetX(NORMAL_ENVOY_LABEL_OFFSET_X);
+    kInst.SecondHighestEnvoys:SetOffsetX(NORMAL_ENVOY_LABEL_OFFSET_X);
+    kInst.AmbassadorButton:SetOffsetX(NEW_AMBASSADOR_OFFSET_X);
+    kInst.AmbassadorButton:SetSizeVal(NEW_AMBASSADOR_ICON_SIZE,NEW_AMBASSADOR_ICON_SIZE);
+end
+
+-- ===========================================================================
+function CQUI_RemoveQuestIconsFromString( inStr:string )
+    local lookupStr :string = inStr;
+    local outStr :string = lookupStr;
+    for _,iconName in ipairs(ICON_NAMES) do
+        if (string.find(lookupStr, iconName)) then
+            outStr = string.gsub(lookupStr, iconName, "");
+        end
+    end
+    return outStr;
+end
 
 -- ===========================================================================
 --  CQUI Function Extensions
 -- ===========================================================================
 function AddCityStateRow( kCityState:table )
-    local kInst = BASE_CQUI_AddCityStateRow(kCityState);
+    local kInst :table = BASE_CQUI_AddCityStateRow(kCityState);
+    local anyQuests :boolean = false;
+    local questString :string;
+
+    -- get city state quest
+    if (IsCQUI_InlineCityStateQuestEnabled()) then
+        CQUI_ChangeOriginalPanel(kInst);
+        kInst.QuestIcon:SetHide(true);
+
+        for _,kQuest in pairs( kCityState.Quests ) do
+            anyQuests = true;
+            questString = CQUI_RemoveQuestIconsFromString(kQuest.Name);
+        end
+        if anyQuests then
+            kInst.QuestRow:SetHide(false);
+            kInst.CityStateQuest:SetString(questString);
+            kInst.CityStateQuest:SetColor(kCityState.ColorSecondary);
+        else
+            CQUI_RestoreOriginalPanel(kInst);
+            kInst.SuzerainStatus:SetSizeVal(SUZERAIN_STATUS_ORIGINAL_SIZE_X + SUZERAIN_STATUS_EXTRA_OFFSET_X, SUZERAIN_STATUS_ORIGINAL_SIZE_Y);
+            kInst.BonusTextSuzerain:SetOffsetX(NEW_ENVOY_LABEL_OFFSET_X);
+            kInst.SecondHighestEnvoys:SetOffsetX(NEW_ENVOY_LABEL_OFFSET_X);
+        end
+    else
+        CQUI_RestoreOriginalPanel(kInst);
+        kInst.QuestIcon:SetHide(false);
+    end
 
     -- Determine the 2nd place (or first-place tie), produce text for Tooltip on the EnvoyCount label
     local envoyTable:table = {};
@@ -94,3 +220,19 @@ function AddCityStateRow( kCityState:table )
 
     return kInst;
 end
+
+-- ===========================================================================
+function IsCQUI_InlineCityStateQuestEnabled()
+    return CQUI_InlineCityStateQuest;
+end
+
+-- ===========================================================================
+--  CQUI Initialize Function
+-- ===========================================================================
+function Initialize_CQUI()
+    print_debug("citystates_CQUI: Initialize_CQUI CQUI CityStates (Common File)")
+    -- CQUI related events
+    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);
+    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+end
+Initialize_CQUI();
