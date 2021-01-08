@@ -50,19 +50,19 @@ function AddCityStateRow( kCityState:table )
     local anyQuests :boolean = false;
     local questString :string;
 
+    for _,kQuest in pairs( kCityState.Quests ) do
+        anyQuests = true;
+        questString = kQuest.Name;
+    end
+
     -- get city state quest
     if (IsCQUI_InlineCityStateQuestEnabled()) then
         kInst.QuestIcon:SetHide(true);
 
-        for _,kQuest in pairs( kCityState.Quests ) do
-            anyQuests = true;
-            questString = CQUI_RemoveQuestIconsFromString(kQuest.Name);
-        end
-
         if (anyQuests) then
             kInst.CityStateBase:SetSizeY(CITYSTATEBASE_EXPANDED_SIZEY);
             kInst.QuestRow:SetHide(false);
-            kInst.CityStateQuest:SetString(questString);
+            kInst.CityStateQuest:SetString(CQUI_RemoveQuestIconsFromString(questString));
             kInst.CityStateQuest:SetColor(kCityState.ColorSecondary);
         else
             kInst.CityStateBase:SetSizeY(CITYSTATEBASE_DEFAULT_SIZEY);
@@ -70,8 +70,9 @@ function AddCityStateRow( kCityState:table )
         end
     else
         kInst.CityStateBase:SetSizeY(CITYSTATEBASE_DEFAULT_SIZEY);
-        kInst.QuestIcon:SetHide(false);
         kInst.QuestRow:SetHide(true);
+        -- SetHide is TRUE if anyQuests is FALSE
+        kInst.QuestIcon:SetHide(not anyQuests);
     end
 
     -- Determine the 2nd place (or first-place tie), produce text for Tooltip on the EnvoyCount label
