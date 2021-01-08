@@ -114,7 +114,7 @@ function DefaultKeyUpHandler( uiKey:number )
         if uiKey == Keys.VK_SHIFT then
             CQUI_isShiftDown = false;
         end
-    
+
         if uiKey == Keys.VK_ALT then
             CQUI_isAltDown = false;
         end
@@ -178,7 +178,7 @@ function DefaultKeyUpHandler( uiKey:number )
         CQUI_BuildImprovement(UI.GetHeadSelectedUnit(), GameInfo.Improvements["IMPROVEMENT_MINE"].Hash);
         cquiHandledKey = true;
     end
-    
+
     if (action["NUKE"] or action["THERMO_NUKE"]) then
         local bCanStartWmdStrike = selectedUnit and UnitManager.CanStartOperation(selectedUnit, UnitOperationTypes.WMD_STRIKE, nil, true);
         if (bCanStartWmdStrike) then
@@ -246,6 +246,24 @@ function DefaultKeyUpHandler( uiKey:number )
         cquiHandledKey = true;
     end
 
+    local bCanSpreadReligion = selectedUnit and UnitManager.CanStartOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_SPREAD_RELIGION"].Hash, nil, true);
+    if action["SPREAD_RELIGION"] and bCanSpreadReligion then
+        UnitManager.RequestOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_SPREAD_RELIGION"].Hash);
+        cquiHandledKey = true;
+    end
+
+    local bCanRemoveHeresy = selectedUnit and UnitManager.CanStartOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_REMOVE_HERESY"].Hash, nil, true);
+    if action["REMOVE_HERESY"] and bCanRemoveHeresy then
+        UnitManager.RequestOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_REMOVE_HERESY"].Hash);
+        cquiHandledKey = true;
+    end
+
+    local bCanRestHeal = selectedUnit and UnitManager.CanStartOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_REST_REPAIR"].Hash, nil, true);
+    if action["REST_HEAL"] and bCanRestHeal then
+        UnitManager.RequestOperation(selectedUnit, GameInfo.UnitOperations["UNITOPERATION_REST_REPAIR"].Hash);
+        cquiHandledKey = true;
+    end
+
     if uiKey == Keys.VK_SHIFT then
         -- We need to let the base function also handle the Shift Up action
         CQUI_isShiftDown = false;
@@ -282,7 +300,7 @@ function RealizeMovementPath(showQueuedPath:boolean, unitID:number)
     -- Largely the same as the base RealizeMovementPath, save for the additional unitID parameter
     -- The unitID allows CQUI to show the movement path when a unit is hovered over (base game returns because no unit is actually selected)
     -- Note: Adding the "show movement path on hover" mechanism means that this function cannot be extended and therefore must be replaced entirely
-    
+
     if not UI.IsMovementPathOn() or UI.IsGameCoreBusy() then
         return;
     end

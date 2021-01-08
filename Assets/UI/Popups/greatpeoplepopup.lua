@@ -1,5 +1,8 @@
 -- ===========================================================================
---  Great People Popup
+--  CQUI Great People Popup replacement file
+--  CQUI dynamically adjusts the size of various elements in the Great People popup.
+--  This requires access to variables not exported in the Firaxis unmodified version
+--  CQUI changes marked, some of which have corresponding changes found in greatpeoplepopup.xml
 -- ===========================================================================
 
 include("InstanceManager");
@@ -16,13 +19,16 @@ local MAX_BIOGRAPHY_PARAGRAPHS :number = 9;  -- maximum # of paragraphs for a bi
 local RELOAD_CACHE_ID          :string = "GreatPeoplePopup"; -- hotloading
 local SIZE_ACTION_ICON         :number = 38;
 
+local TAB_SIZE                 :number = 170;
+local TAB_PADDING              :number = 10;
 
 -- ===========================================================================
 --  MEMBERS
 -- ===========================================================================
 local m_TopPanelConsideredHeight :number = 0;
 local m_greatPersonPanelIM       :table  = InstanceManager:new("PanelInstance",           "Content", Controls.PeopleStack);
-local m_greatPersonRowIM         :table  = InstanceManager:new("PastRecruitmentInstance", "Content",    Controls.RecruitedStack);
+local m_greatPersonRowIM         :table  = InstanceManager:new("PastRecruitmentInstance", "Content", Controls.RecruitedStack);
+local m_tabButtonIM              :table  = InstanceManager:new("TabButtonInstance",       "Button",  Controls.TabContainer);
 local m_kGreatPeople             :table;
 local m_kData                    :table;
 local m_activeBiographyID        :number = -1; -- Only allow one open at a time (or very quick exceed font allocation)
@@ -32,13 +38,36 @@ local m_defaultPastRowHeight     :number = -1; -- Default/mix height (from XML) 
 local m_displayPlayerID          :number = -1; -- What player are we displaying.    Used for looking at different players in autoplay
 local m_screenWidth              :number = -1;
 
+local m_numTabs                  :number = 0;
+
+-- Dynamic refresh call member used to override the refresh functionality
+local m_RefreshFunc              :ifunction = nil;
+
+local m_pGreatPeopleTabInstance  :table = nil;
+local m_pPrevRecruitedTabInstance:table = nil;
+
 -- ===========================================================================
---  CQUI
+--  CQUI Variables
 -- ===========================================================================
 local _, CQUI_screenHeight = UIManager:GetScreenSizeVal();
-local CQUI_MARGIN = 180;
 local CQUI_ModalFrameBaseSize = Controls.ModalFrame:GetSizeY();
 local CQUI_PopupContainerBaseSize = Controls.PopupContainer:GetSizeY();
+
+-- These values are calculated as part of the "AddRecruit" function, which is a function separated out from "ViewCurrent" by Firaxis.
+-- Previously CQUI left the "AddRecruit" logic inline the ViewCurrent function, however given the changes for the Babylon Patch by Firaxis,
+-- it makes sense to move the logic out to that separate function, in case a future update makes use of it.
+-- Notes on Pixel sizes:
+-- 63px from top of container "RecruitProgressBox" to top of scrollpanel "RecruitScroll"
+-- 84px from bottom of scrollpanel "RecruitScroll" to bottom of the container "PopupContainer"
+local CQUI_lowerPanelAdditionalHeight = 147;
+-- When fit to a full screen, the Great Person panel instance is 122px shorter than the "PopupContainer"
+local CQUI_instanceMargin = 127;
+local CQUI_preferredRecruitScrollSize = 0;
+local CQUI_preferredEffectsScrollSize = 240; -- Value defined in the XML
+local CQUI_preferredInstanceSize = 0;
+local CQUI_isPreferredRecruitScrollSizeComputed:boolean = false;
+local CQUI_isPreferredHeightsComputed:boolean = false;
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
 -- ===========================================================================
 function ChangeDisplayPlayerID(bBackward)
@@ -146,6 +175,303 @@ function GetBiographyTextTable( individualID:number )
     return kBiography;
 end
 
+-- ===========================================================================
+-- Add an instance of a Great Person "recruit" to the Great People Panel
+-- ===========================================================================
+function AddRecruit( kData:table, kPerson:table )
+    local instance  :table = m_greatPersonPanelIM:GetInstance();
+    local classData :table = GameInfo.GreatPersonClasses[kPerson.ClassID];
+    local individualData :table = GameInfo.GreatPersonIndividuals[kPerson.IndividualID];
+
+    if (kPerson.ClassID ~= nil) then
+        local portrait:string = "ICON_GENERIC_" .. classData.GreatPersonClassType;
+        portrait = portrait:gsub("_CLASS","_INDIVIDUAL");
+        instance.Portrait:SetIcon(portrait);
+        instance.CircleFlare:SetHide(false);
+
+        local classText:string = Locale.Lookup(classData.Name);
+        instance.ClassName:SetText(classText);
+        instance.ClassName:SetHide(false);
+    else
+        instance.CircleFlare:SetHide(true);
+        instance.ClassName:SetHide(true);
+    end
+    
+    if kPerson.IndividualID ~= nil then
+        local individualName:string = Locale.ToUpper(kPerson.Name);
+        instance.IndividualName:SetText( individualName );
+    end
+
+    if kPerson.EraID ~= nil then
+        local eraName:string = Locale.ToUpper(Locale.Lookup(GameInfo.Eras[kPerson.EraID].Name));
+        instance.EraName:SetText( eraName );
+    end
+
+    if instance["m_EffectsIM"] ~= nil then
+        instance["m_EffectsIM"]:ResetInstances();
+    else
+        instance["m_EffectsIM"] = InstanceManager:new("EffectInstance", "Top", instance.EffectStack);
+    end
+
+    if kPerson.PassiveNameText ~= nil and kPerson.PassiveNameText ~= "" then
+        local effectInst:table  = instance["m_EffectsIM"]:GetInstance();
+        local effectText:string = kPerson.PassiveEffectText;
+        local fullText:string   = kPerson.PassiveNameText .. "[NEWLINE][NEWLINE]" .. effectText;
+        effectInst.Text:SetText( effectText );
+        effectInst.EffectTypeIcon:SetToolTipString( fullText );
+        effectInst.PassiveAbilityIcon:SetHide(false);
+        effectInst.ActiveAbilityIcon:SetHide(true);
+    end
+
+    if (kPerson.ActionNameText ~= nil and kPerson.ActionNameText ~= "") then
+        local effectInst:table  = instance["m_EffectsIM"]:GetInstance();
+        local effectText:string = kPerson.ActionEffectText;
+        local fullText:string   = kPerson.ActionNameText;
+        if (kPerson.ActionCharges > 0) then
+            fullText = fullText .. " (" .. Locale.Lookup("LOC_GREATPERSON_ACTION_CHARGES", kPerson.ActionCharges) .. ")";
+        end
+        fullText = fullText .. "[NEWLINE]" .. kPerson.ActionUsageText;
+        fullText = fullText .. "[NEWLINE][NEWLINE]" .. effectText;
+        effectInst.Text:SetText( effectText );
+        effectInst.EffectTypeIcon:SetToolTipString( fullText );
+
+        local actionIcon:string = classData.ActionIcon;
+        if actionIcon ~= nil and actionIcon ~= "" then
+            local textureOffsetX:number, textureOffsetY:number, textureSheet:string = IconManager:FindIconAtlas(actionIcon, SIZE_ACTION_ICON);
+            if (textureSheet == nil or textureSheet == "") then
+                UI.DataError("Could not find icon in ViewCurrent: icon=\""..actionIcon.."\", iconSize="..tostring(SIZE_ACTION_ICON) );
+            else
+                effectInst.ActiveAbilityIcon:SetTexture(textureOffsetX, textureOffsetY, textureSheet);
+                effectInst.ActiveAbilityIcon:SetHide(false);
+                effectInst.PassiveAbilityIcon:SetHide(true);
+            end
+        else
+            effectInst.ActiveAbilityIcon:SetHide(true);
+        end
+    end
+
+    if instance["m_RecruitIM"] ~= nil then
+        instance["m_RecruitIM"]:ResetInstances();
+    else
+        instance["m_RecruitIM"] = InstanceManager:new("RecruitInstance", "Top", instance.RecruitStack);
+    end
+
+    if instance["m_RecruitExtendedIM"] ~= nil then
+        instance["m_RecruitExtendedIM"]:ResetInstances();
+    else
+        instance["m_RecruitExtendedIM"] = InstanceManager:new("RecruitInstance", "Top", instance.RecruitInfoStack);
+    end
+
+    if kPerson.IndividualID ~= nil and kPerson.ClassID ~= nil then
+    -- Buy via gold
+        if (HasCapability("CAPABILITY_GREAT_PEOPLE_RECRUIT_WITH_GOLD") and (not kPerson.CanRecruit and not kPerson.CanReject and kPerson.PatronizeWithGoldCost ~= nil and kPerson.PatronizeWithGoldCost < 1000000)) then
+            -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+            -- CQUI Customization to use different shades of gold based on whether the player can patronize the great person
+            if (kPerson.CanPatronizeWithGold) then
+                instance.GoldButton:SetText("[COLOR_GoldMetal]" .. kPerson.PatronizeWithGoldCost .. "[ENDCOLOR][ICON_Gold]");
+                instance.GoldButton:SetDisabled(false);
+            else
+                instance.GoldButton:SetText("[COLOR_GoldMetalDark]" .. kPerson.PatronizeWithGoldCost .. "[ENDCOLOR][ICON_Gold]");
+                instance.GoldButton:SetDisabled(true);
+            end
+
+            instance.GoldButton:SetToolTipString(GetPatronizeWithGoldTT(kPerson));
+            instance.GoldButton:SetVoid1(kPerson.IndividualID);
+            instance.GoldButton:RegisterCallback(Mouse.eLClick, OnGoldButtonClick);
+            -- CQUI: GoldButton Disabled setting is handled above with custom colorization
+            -- instance.GoldButton:SetDisabled((not kPerson.CanPatronizeWithGold) or IsReadOnly());
+            instance.GoldButton:SetHide(false);
+            -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+        else
+            instance.GoldButton:SetHide(true);
+        end
+
+        -- Buy via Faith
+        if (HasCapability("CAPABILITY_GREAT_PEOPLE_RECRUIT_WITH_FAITH") and (not kPerson.CanRecruit and not kPerson.CanReject and kPerson.PatronizeWithFaithCost ~= nil and kPerson.PatronizeWithFaithCost < 1000000)) then
+            -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+            -- CQUI Customization to use different shades of faith color based on whether the player can patronize the great person
+            if ((kPerson.CanPatronizeWithFaith) and not IsReadOnly()) then
+                instance.FaithButton:SetText("[COLOR_Faith]" .. kPerson.PatronizeWithFaithCost .. "[ENDCOLOR][ICON_Faith]");
+                instance.FaithButton:SetDisabled(false);
+            else
+                instance.FaithButton:SetText("[COLOR_FaithDark]" .. kPerson.PatronizeWithFaithCost .. "[ENDCOLOR][ICON_Faith]");
+                instance.FaithButton:SetDisabled(true);
+            end
+
+            instance.FaithButton:SetToolTipString(GetPatronizeWithFaithTT(kPerson));
+            instance.FaithButton:SetVoid1(kPerson.IndividualID);
+            instance.FaithButton:RegisterCallback(Mouse.eLClick, OnFaithButtonClick);
+            -- CQUI: FaithButton Disabled setting is handled above with custom colorization
+            -- instance.FaithButton:SetDisabled((not kPerson.CanPatronizeWithFaith) or IsReadOnly());
+            instance.FaithButton:SetHide(false);
+            -- ==== CQUI CUSTOMIZATION END ======================================================================================== --            
+        else
+            instance.FaithButton:SetHide(true);
+        end
+
+        -- Recruiting 
+        if (HasCapability("CAPABILITY_GREAT_PEOPLE_CAN_RECRUIT") and kPerson.CanRecruit and kPerson.RecruitCost ~= nil) then
+            instance.RecruitButton:SetToolTipString( Locale.Lookup("LOC_GREAT_PEOPLE_RECRUIT_DETAILS", kPerson.RecruitCost) );
+            instance.RecruitButton:SetVoid1(kPerson.IndividualID);
+            instance.RecruitButton:RegisterCallback(Mouse.eLClick, OnRecruitButtonClick);
+            instance.RecruitButton:SetHide(false);
+
+        -- Auto scroll to first recruitable person.
+            if kInstanceToShow==nil then
+                kInstanceToShow = instance;
+            end
+        else
+            instance.RecruitButton:SetHide(true);
+        end
+
+        -- Rejecting
+        if (HasCapability("CAPABILITY_GREAT_PEOPLE_CAN_REJECT") and kPerson.CanReject and kPerson.RejectCost ~= nil) then
+            instance.RejectButton:SetToolTipString( Locale.Lookup("LOC_GREAT_PEOPLE_PASS_DETAILS", kPerson.RejectCost ) );
+            instance.RejectButton:SetVoid1(kPerson.IndividualID);
+            instance.RejectButton:RegisterCallback(Mouse.eLClick, OnRejectButtonClick);
+            instance.RejectButton:SetHide(false);
+        else
+            instance.RejectButton:SetHide(true);
+        end
+
+        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+        -- CQUI: Do not hide the "Minimized Recruit" Stack (which lists the progress of all of the civs for that Great Person)
+        -- If Recruit or Reject buttons are shown hide the minimized recruit stack
+        -- if not instance.RejectButton:IsHidden() or not instance.RecruitButton:IsHidden() then
+        --    instance.RecruitMinimizedStack:SetHide(true);
+        -- else
+        --    instance.RecruitMinimizedStack:SetHide(false);
+        -- end
+        -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+        
+        -- Recruiting standings
+        -- Let's sort the table first by points total, then by the lower player id (to push yours toward the top of the list for readability)
+        local recruitTable: table = {};
+        for i, kPlayerPoints in ipairs(kData.PointsByClass[kPerson.ClassID]) do
+            table.insert(recruitTable,kPlayerPoints);
+        end
+        table.sort(recruitTable,
+            function (a,b) 
+                if (a.PointsTotal == b.PointsTotal) then
+                    return a.PlayerID < b.PlayerID;
+                else
+                    return a.PointsTotal > b.PointsTotal;
+                end 
+                end);
+
+        for i, kPlayerPoints in ipairs(recruitTable) do
+            if (kPlayerPoints.PlayerID == Game.GetLocalPlayer()) then
+                FillRecruitInstance(instance.LocalPlayerRecruitInstance, kPlayerPoints, kPerson, classData);
+            else
+                local recruitInst:table = instance["m_RecruitIM"]:GetInstance();
+                FillRecruitInstance(recruitInst, kPlayerPoints, kPerson, classData);
+                -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+                if not CQUI_isPreferredRecruitScrollSizeComputed then
+                    CQUI_preferredRecruitScrollSize = CQUI_preferredRecruitScrollSize + recruitInst.Top:GetSizeY() + 5; -- AZURENCY : 5 is the padding
+                end
+                -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+            end
+
+            local recruitExtendedInst:table = instance["m_RecruitExtendedIM"]:GetInstance();
+            FillRecruitInstance(recruitExtendedInst, kPlayerPoints, kPerson, classData);
+        end
+
+        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+        if not CQUI_isPreferredRecruitScrollSizeComputed then
+            CQUI_isPreferredRecruitScrollSizeComputed = true;
+        end
+        -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+
+        if (kPerson.EarnConditions ~= nil and kPerson.EarnConditions ~= "") then
+            instance.RecruitInfo:SetText("[COLOR_Civ6Red]" .. Locale.Lookup("LOC_GREAT_PEOPLE_CANNOT_EARN_PERSON") .. "[ENDCOLOR]");
+            instance.RecruitInfo:SetToolTipString("[COLOR_Civ6Red]" .. kPerson.EarnConditions .. "[ENDCOLOR]");
+            instance.RecruitInfo:SetHide(false);
+        else
+            instance.RecruitInfo:SetHide(true);
+        end
+
+        instance.RecruitScroll:CalculateSize();
+    end
+
+    
+    if kPerson.IndividualID ~= nil then
+        -- Set the biography buttons
+        instance.BiographyBackButton:SetVoid1( kPerson.IndividualID );
+        instance.BiographyBackButton:RegisterCallback( Mouse.eLClick, OnBiographyClick );
+        instance.BiographyOpenButton:SetVoid1( kPerson.IndividualID );
+        instance.BiographyOpenButton:RegisterCallback( Mouse.eLClick, OnBiographyClick );
+        
+        -- Setup extended recruit info buttons
+        instance.RecruitInfoOpenButton:SetVoid1( kPerson.IndividualID );
+        instance.RecruitInfoOpenButton:RegisterCallback( Mouse.eLClick, OnRecruitInfoClick );
+        instance.RecruitInfoBackButton:SetVoid1( kPerson.IndividualID );
+        instance.RecruitInfoBackButton:RegisterCallback( Mouse.eLClick, OnRecruitInfoClick );
+
+        m_kGreatPeople[kPerson.IndividualID] = instance; -- Store instance for later look up
+    end
+
+    local noneAvailable :boolean = (kPerson.IndividualID == nil);
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- These two elements are not toggled in the unmodified file
+    instance.ClassName:SetHide( noneAvailable );
+    instance.TitleLine:SetHide( noneAvailable );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+    instance.IndividualName:SetHide( noneAvailable );
+    instance.EraName:SetHide( noneAvailable );
+    instance.MainInfo:SetHide( noneAvailable );
+    instance.BiographyBackButton:SetHide( noneAvailable );
+    instance.ClaimedLabel:SetHide( not noneAvailable );
+    instance.BiographyArea:SetHide( true );
+    instance.RecruitInfoArea:SetHide( true );
+    instance.FadedBackground:SetHide( true );
+    instance.BiographyOpenButton:SetHide( noneAvailable );
+    instance.EffectStack:CalculateSize();
+    instance.EffectStackScroller:CalculateSize();
+    
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- Set the heights of the various elements in the Great People Panel instance as has been computed
+    if (CQUI_isPreferredHeightsComputed == false) then
+        -- This if clause will only run for the first instance, each subsequent will use the values calculated here
+        --CQUI_preferredRecruitScrollSize = 1000;  -- for quick testing
+        if (CQUI_preferredRecruitScrollSize > (CQUI_screenHeight / 4)) then
+            CQUI_preferredRecruitScrollSize = (CQUI_screenHeight / 4);
+        end
+
+        -- 670 is the default Instance size in the XML... 86 is a number that represents some undocumented thing
+        CQUI_preferredInstanceSize =  670 - 86 + CQUI_preferredRecruitScrollSize;
+        -- CQUI_preferredInstanceSize = 3000 -- for quick testing
+        if (CQUI_preferredInstanceSize > (CQUI_screenHeight - CQUI_instanceMargin)) then
+            -- The instance area cannot be bigger than the screen height minus CQUI_instanceMargin:
+            -- When the Gold/Faith (or Recruit/Pass) buttons are 5px above the PeopleScroller horizontal scroll, 
+            -- the PanelInstance is CQUI_instanceMargin pixels less in height than the PeopleContainer, which is defined as 768 in the XML.
+            -- These adjustments are necessary to properly fit the screen
+            local prevPreferredInstanceSize = CQUI_preferredInstanceSize;
+            CQUI_preferredInstanceSize = CQUI_screenHeight - CQUI_instanceMargin;
+
+            -- Instead of shrinking the recruit scroll size, instead shrink the EffectsStackScroller, as there's typically room to spare in that section
+            -- 240 is the value defined in the XML.  We cannot do a GetSizeY here because subsequent calls to this function
+            -- would update the smaller value, eventually shrinking the control to less than zero.
+            local effectStackScrollerAdjustment = prevPreferredInstanceSize - CQUI_preferredInstanceSize;
+            CQUI_preferredEffectsScrollSize = 240 - effectStackScrollerAdjustment;
+        end
+
+        CQUI_isPreferredHeightsComputed = true;
+    end
+
+    -- CQUI: Set the height of the elements in this GPP instance
+    -- CQUI DEBUG TEST :
+    -- CQUI_preferredRecruitScrollSize = 300;
+    instance.Content:SetSizeY(CQUI_preferredInstanceSize);
+    instance.EffectStackScroller:SetSizeY(CQUI_preferredEffectsScrollSize);
+    instance.RecruitScroll:SetSizeY(CQUI_preferredRecruitScrollSize);
+    -- ==== CQUI CUSTOMIZATION END ==================================================================================== --
+end
+
+-- ===========================================================================
+function ResetGreatPeopleInstances()
+    m_greatPersonPanelIM:ResetInstances();
+    m_greatPersonRowIM:ResetInstances();
+end
 
 -- ===========================================================================
 --  View the great people currently available (to be purchased)
@@ -157,303 +483,35 @@ function ViewCurrent( data:table )
     end
 
     m_kGreatPeople = {};
-    m_greatPersonPanelIM:ResetInstances();
+    ResetGreatPeopleInstances();
     Controls.PeopleScroller:SetHide(false);
     Controls.RecruitedArea:SetHide(true);
 
     local kInstanceToShow:table = nil;
 
-    -- 63px from top of container "RecruitProgressBox" to top of scrollpanel "RecruitScroll"
-    -- 84px from bottom of scrollpanel "RecruitScroll" to bottom of the container "PopupContainer"
-    local CQUI_lowerPanelAdditionalHeight = 147;
-    -- When fit to a full screen, the Great Person panel instance is 122px shorter than the "PopupContainer"
-    local CQUI_instanceMargin = 127;
-    local CQUI_preferredRecruitScrollSize = 0;
-    local CQUI_preferredEffectsScrollSize = 240; -- Value defined in the XML
-    local CQUI_preferredInstanceSize = 0;
-    local CQUI_isPreferredRecruitScrollSizeComputed:boolean = false;
-    local CQUI_isPreferredHeightsComputed:boolean = false;
-
     for i, kPerson:table in ipairs(data.Timeline) do
-        local instance  :table = m_greatPersonPanelIM:GetInstance();
-        local classData :table = GameInfo.GreatPersonClasses[kPerson.ClassID];
-        local individualData :table = GameInfo.GreatPersonIndividuals[kPerson.IndividualID];
-
-        if (kPerson.ClassID ~= nil) then
-            local portrait:string = "ICON_GENERIC_" .. classData.GreatPersonClassType;
-            portrait = portrait:gsub("_CLASS","_INDIVIDUAL");
-            instance.Portrait:SetIcon(portrait);
-            instance.CircleFlare:SetHide(false);
-
-            local classText:string = Locale.Lookup(classData.Name);
-            instance.ClassName:SetText(classText);
-            instance.ClassName:SetHide(false);
-        else
-            instance.CircleFlare:SetHide(true);
-            instance.ClassName:SetHide(true);
-        end
-        
-        if kPerson.IndividualID ~= nil then
-            local individualName:string = Locale.ToUpper(kPerson.Name);
-            instance.IndividualName:SetText( individualName );
-        end
-
-        if kPerson.EraID ~= nil then
-            local eraName:string = Locale.ToUpper(Locale.Lookup(GameInfo.Eras[kPerson.EraID].Name));
-            instance.EraName:SetText( eraName );
-        end
-
-        if instance["m_EffectsIM"] ~= nil then
-            instance["m_EffectsIM"]:ResetInstances();
-        else
-            instance["m_EffectsIM"] = InstanceManager:new("EffectInstance", "Top", instance.EffectStack);
-        end
-
-        if kPerson.PassiveNameText ~= nil and kPerson.PassiveNameText ~= "" then
-            local effectInst:table  = instance["m_EffectsIM"]:GetInstance();
-            local effectText:string = kPerson.PassiveEffectText;
-            local fullText:string   = kPerson.PassiveNameText .. "[NEWLINE][NEWLINE]" .. effectText;
-            effectInst.Text:SetText( effectText );
-            effectInst.EffectTypeIcon:SetToolTipString( fullText );
-            effectInst.PassiveAbilityIcon:SetHide(false);
-            effectInst.ActiveAbilityIcon:SetHide(true);
-        end
-
-        if (kPerson.ActionNameText ~= nil and kPerson.ActionNameText ~= "") then
-            local effectInst:table  = instance["m_EffectsIM"]:GetInstance();
-            local effectText:string = kPerson.ActionEffectText;
-            local fullText:string   = kPerson.ActionNameText;
-            if (kPerson.ActionCharges > 0) then
-                fullText = fullText .. " (" .. Locale.Lookup("LOC_GREATPERSON_ACTION_CHARGES", kPerson.ActionCharges) .. ")";
-            end
-            fullText = fullText .. "[NEWLINE]" .. kPerson.ActionUsageText;
-            fullText = fullText .. "[NEWLINE][NEWLINE]" .. effectText;
-            effectInst.Text:SetText( effectText );
-            effectInst.EffectTypeIcon:SetToolTipString( fullText );
-
-            local actionIcon:string = classData.ActionIcon;
-            if actionIcon ~= nil and actionIcon ~= "" then
-                local textureOffsetX:number, textureOffsetY:number, textureSheet:string = IconManager:FindIconAtlas(actionIcon, SIZE_ACTION_ICON);
-                if (textureSheet == nil or textureSheet == "") then
-                    UI.DataError("Could not find icon in ViewCurrent: icon=\""..actionIcon.."\", iconSize="..tostring(SIZE_ACTION_ICON) );
-                else
-                    effectInst.ActiveAbilityIcon:SetTexture(textureOffsetX, textureOffsetY, textureSheet);
-                    effectInst.ActiveAbilityIcon:SetHide(false);
-                    effectInst.PassiveAbilityIcon:SetHide(true);
-                end
-            else
-                effectInst.ActiveAbilityIcon:SetHide(true);
-            end
-        end
-
-        if instance["m_RecruitIM"] ~= nil then
-            instance["m_RecruitIM"]:ResetInstances();
-        else
-            instance["m_RecruitIM"] = InstanceManager:new("RecruitInstance", "Top", instance.RecruitStack);
-        end
-
-        if instance["m_RecruitExtendedIM"] ~= nil then
-            instance["m_RecruitExtendedIM"]:ResetInstances();
-        else
-            instance["m_RecruitExtendedIM"] = InstanceManager:new("RecruitInstance", "Top", instance.RecruitInfoStack);
-        end
-
-        if kPerson.IndividualID ~= nil and kPerson.ClassID ~= nil then
-        -- Buy via gold
-            if (HasCapability("CAPABILITY_GREAT_PEOPLE_RECRUIT_WITH_GOLD") and (not kPerson.CanRecruit and not kPerson.CanReject and kPerson.PatronizeWithGoldCost ~= nil and kPerson.PatronizeWithGoldCost < 1000000)) then
-                if (kPerson.CanPatronizeWithGold) then
-                    instance.GoldButton:SetText("[COLOR_GoldMetal]" .. kPerson.PatronizeWithGoldCost .. "[ENDCOLOR][ICON_Gold]");
-                    instance.GoldButton:SetDisabled(false);
-                else
-                    instance.GoldButton:SetText("[COLOR_GoldMetalDark]" .. kPerson.PatronizeWithGoldCost .. "[ENDCOLOR][ICON_Gold]");
-                    instance.GoldButton:SetDisabled(true);
-                end
-
-                instance.GoldButton:SetToolTipString(GetPatronizeWithGoldTT(kPerson));
-                instance.GoldButton:SetVoid1(kPerson.IndividualID);
-                instance.GoldButton:RegisterCallback(Mouse.eLClick, OnGoldButtonClick);
-                instance.GoldButton:SetHide(false);
-            else
-                instance.GoldButton:SetHide(true);
-            end
-
-            -- Buy via Faith
-            if (HasCapability("CAPABILITY_GREAT_PEOPLE_RECRUIT_WITH_FAITH") and (not kPerson.CanRecruit and not kPerson.CanReject and kPerson.PatronizeWithFaithCost ~= nil and kPerson.PatronizeWithFaithCost < 1000000)) then
-                if ((kPerson.CanPatronizeWithFaith) and not IsReadOnly()) then
-                    instance.FaithButton:SetText("[COLOR_Faith]" .. kPerson.PatronizeWithFaithCost .. "[ENDCOLOR][ICON_Faith]");
-                    instance.FaithButton:SetDisabled(false);
-                else
-                    instance.FaithButton:SetText("[COLOR_FaithDark]" .. kPerson.PatronizeWithFaithCost .. "[ENDCOLOR][ICON_Faith]");
-                    instance.FaithButton:SetDisabled(true);
-                end
-
-                instance.FaithButton:SetToolTipString(GetPatronizeWithFaithTT(kPerson));
-                instance.FaithButton:SetVoid1(kPerson.IndividualID);
-                instance.FaithButton:RegisterCallback(Mouse.eLClick, OnFaithButtonClick);
-                instance.FaithButton:SetHide(false);
-            else
-                instance.FaithButton:SetHide(true);
-            end
-
-            -- Recruiting 
-            if (HasCapability("CAPABILITY_GREAT_PEOPLE_CAN_RECRUIT") and kPerson.CanRecruit and kPerson.RecruitCost ~= nil) then
-                instance.RecruitButton:SetToolTipString( Locale.Lookup("LOC_GREAT_PEOPLE_RECRUIT_DETAILS", kPerson.RecruitCost) );
-                instance.RecruitButton:SetVoid1(kPerson.IndividualID);
-                instance.RecruitButton:RegisterCallback(Mouse.eLClick, OnRecruitButtonClick);
-                instance.RecruitButton:SetHide(false);
-
-              -- Auto scroll to first recruitable person.
-                if kInstanceToShow==nil then
-                    kInstanceToShow = instance;
-                end
-            else
-                instance.RecruitButton:SetHide(true);
-            end
-
-            -- Rejecting
-            if (HasCapability("CAPABILITY_GREAT_PEOPLE_CAN_REJECT") and kPerson.CanReject and kPerson.RejectCost ~= nil) then
-                instance.RejectButton:SetToolTipString( Locale.Lookup("LOC_GREAT_PEOPLE_PASS_DETAILS", kPerson.RejectCost ) );
-                instance.RejectButton:SetVoid1(kPerson.IndividualID);
-                instance.RejectButton:RegisterCallback(Mouse.eLClick, OnRejectButtonClick);
-                instance.RejectButton:SetHide(false);
-            else
-                instance.RejectButton:SetHide(true);
-            end
-
-            -- If Recruit or Reject buttons are shown hide the minimized recruit stack
-            -- CQUI: Do not hide the "Minimized Recruit" Stack (which lists the progress of all of the civs for that Great Person)
-                -- if not instance.RejectButton:IsHidden() or not instance.RecruitButton:IsHidden() then
-            --    instance.RecruitMinimizedStack:SetHide(true);
-            -- else
-            --    instance.RecruitMinimizedStack:SetHide(false);
-            -- end
-            
-            -- Recruiting standings
-            -- Let's sort the table first by points total, then by the lower player id (to push yours toward the top of the list for readability)
-            local recruitTable: table = {};
-            for i, kPlayerPoints in ipairs(data.PointsByClass[kPerson.ClassID]) do
-                table.insert(recruitTable,kPlayerPoints);
-            end
-            table.sort(recruitTable,
-                function (a,b) 
-                    if (a.PointsTotal == b.PointsTotal) then
-                        return a.PlayerID < b.PlayerID;
-                    else
-                        return a.PointsTotal > b.PointsTotal;
-                    end 
-                    end);
-
-            for i, kPlayerPoints in ipairs(recruitTable) do
-                if (kPlayerPoints.PlayerID == Game.GetLocalPlayer()) then
-                    FillRecruitInstance(instance.LocalPlayerRecruitInstance, kPlayerPoints, kPerson, classData);
-                else
-                    local recruitInst:table = instance["m_RecruitIM"]:GetInstance();
-                    FillRecruitInstance(recruitInst, kPlayerPoints, kPerson, classData);
-                    if not CQUI_isPreferredRecruitScrollSizeComputed then
-                        CQUI_preferredRecruitScrollSize = CQUI_preferredRecruitScrollSize + recruitInst.Top:GetSizeY() + 5; -- AZURENCY : 5 is the padding
-                    end
-                end
-
-                local recruitExtendedInst:table = instance["m_RecruitExtendedIM"]:GetInstance();
-                FillRecruitInstance(recruitExtendedInst, kPlayerPoints, kPerson, classData);
-            end
-
-            if not CQUI_isPreferredRecruitScrollSizeComputed then
-                CQUI_isPreferredRecruitScrollSizeComputed = true;
-            end
-
-            if (kPerson.EarnConditions ~= nil and kPerson.EarnConditions ~= "") then
-                instance.RecruitInfo:SetText("[COLOR_Civ6Red]" .. Locale.Lookup("LOC_GREAT_PEOPLE_CANNOT_EARN_PERSON") .. "[ENDCOLOR]");
-                instance.RecruitInfo:SetToolTipString("[COLOR_Civ6Red]" .. kPerson.EarnConditions .. "[ENDCOLOR]");
-                instance.RecruitInfo:SetHide(false);
-            else
-                instance.RecruitInfo:SetHide(true);
-            end
-
-            instance.RecruitScroll:CalculateSize();
-        end
-
-        
-        if kPerson.IndividualID ~= nil then
-            -- Set the biography buttons
-            instance.BiographyBackButton:SetVoid1( kPerson.IndividualID );
-            instance.BiographyBackButton:RegisterCallback( Mouse.eLClick, OnBiographyClick );
-            instance.BiographyOpenButton:SetVoid1( kPerson.IndividualID );
-            instance.BiographyOpenButton:RegisterCallback( Mouse.eLClick, OnBiographyClick );
-            
-            -- Setup extended recruit info buttons
-            instance.RecruitInfoOpenButton:SetVoid1( kPerson.IndividualID );
-            instance.RecruitInfoOpenButton:RegisterCallback( Mouse.eLClick, OnRecruitInfoClick );
-            instance.RecruitInfoBackButton:SetVoid1( kPerson.IndividualID );
-            instance.RecruitInfoBackButton:RegisterCallback( Mouse.eLClick, OnRecruitInfoClick );
-
-            m_kGreatPeople[kPerson.IndividualID] = instance; -- Store instance for later look up
-        end
-
-        local noneAvailable :boolean = (kPerson.IndividualID == nil);
-        instance.ClassName:SetHide( noneAvailable );
-        instance.TitleLine:SetHide( noneAvailable );
-        instance.IndividualName:SetHide( noneAvailable );
-        instance.EraName:SetHide( noneAvailable );
-        instance.MainInfo:SetHide( noneAvailable );
-        instance.BiographyBackButton:SetHide( noneAvailable );
-        instance.ClaimedLabel:SetHide( not noneAvailable );
-        instance.BiographyArea:SetHide( true );
-        instance.RecruitInfoArea:SetHide( true );
-        instance.FadedBackground:SetHide( true );
-        instance.BiographyOpenButton:SetHide( noneAvailable );
-        instance.EffectStack:CalculateSize();
-        instance.EffectStackScroller:CalculateSize();
-
-        if (CQUI_isPreferredHeightsComputed == false) then
-            --CQUI_preferredRecruitScrollSize = 1000;  -- for quick testing
-            if (CQUI_preferredRecruitScrollSize > (CQUI_screenHeight / 4)) then
-                CQUI_preferredRecruitScrollSize = (CQUI_screenHeight / 4);
-            end
-
-            -- 670 is the default Instance size in the XML... 86 is a number that represents some undocumented thing
-            CQUI_preferredInstanceSize =  670 - 86 + CQUI_preferredRecruitScrollSize;
-            -- CQUI_preferredInstanceSize = 3000 -- for quick testing
-            if (CQUI_preferredInstanceSize > (CQUI_screenHeight - CQUI_instanceMargin)) then
-                -- The instance area cannot be bigger than the screen height minus CQUI_instanceMargin:
-                -- When the Gold/Faith (or Recruit/Pass) buttons are 5px above the PeopleScroller horizontal scroll, 
-                -- the PanelInstance is CQUI_instanceMargin pixels less in height than the PeopleContainer, which is defined as 768 in the XML.
-                -- These adjustments are necessary to properly fit the screen
-                local prevPreferredInstanceSize = CQUI_preferredInstanceSize;
-                CQUI_preferredInstanceSize = CQUI_screenHeight - CQUI_instanceMargin;
-
-                -- Instead of shrinking the recruit scroll size, instead shrink the EffectsStackScroller, as there's typically room to spare in that section
-                -- 240 is the value defined in the XML.  We cannot do a GetSizeY here because subsequent calls to this function
-                -- would update the smaller value, eventually shrinking the control to less than zero.
-                local effectStackScrollerAdjustment = prevPreferredInstanceSize - CQUI_preferredInstanceSize;
-                CQUI_preferredEffectsScrollSize = 240 - effectStackScrollerAdjustment;
-            end
-
-            CQUI_isPreferredHeightsComputed = true;
-        end
-
-        -- CQUI : change size
-        -- CQUI DEBUG TEST :
-        -- CQUI_preferredRecruitScrollSize = 300;
-        instance.Content:SetSizeY(CQUI_preferredInstanceSize);
-        instance.EffectStackScroller:SetSizeY(CQUI_preferredEffectsScrollSize);
-        instance.RecruitScroll:SetSizeY(CQUI_preferredRecruitScrollSize);
+        AddRecruit(data, kPerson);
     end
 
-    -- CQUI : change size
-    --CQUI_preferredRecruitScrollSize = CQUI_preferredRecruitScrollSize + 32 + 28 + 48 + 28 ;
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- CQUI : change size.  CQUI_preferredRecruitScrollSize and the like were calculated in the AddRecruit function
+    -- CQUI_preferredRecruitScrollSize = CQUI_preferredRecruitScrollSize + 32 + 28 + 48 + 28 ;
     -- CQUI : 22 our LocalPlayerRecruitInstance, 28 Recruit progress title, 48 buttons, 28 distance from scroll bar to edge of PeopleScroller control
     Controls.CQUI_RecruitWoodPaneling:SetSizeY(CQUI_preferredRecruitScrollSize + CQUI_lowerPanelAdditionalHeight); 
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     Controls.PeopleStack:CalculateSize();
     Controls.PeopleScroller:CalculateSize();
     
     m_screenWidth = math.max(Controls.PeopleStack:GetSizeX(), 1024);
     Controls.WoodPaneling:SetSizeX( m_screenWidth );
-    -- CQUI : change size
+
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- CQUI: Set the width of the panel
     Controls.CQUI_ContentWoodPaneling:SetSizeX( m_screenWidth );
     Controls.CQUI_RecruitWoodPaneling:SetSizeX( m_screenWidth );
     Controls.CQUI_BottomWoodPaneling:SetSizeX( m_screenWidth );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     -- Clamp overall popup size to not be larger than contents (overspills in 4k and eyefinitiy rigs.)
     local screenX,_ :number = UIManager:GetScreenSizeVal();
@@ -463,9 +521,11 @@ function ViewCurrent( data:table )
 
     Controls.PopupContainer:SetSizeX( m_screenWidth );
     Controls.ModalFrame:SetSizeX( m_screenWidth );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     -- CQUI : change size
-    Controls.ModalFrame:SetSizeY( CQUI_preferredInstanceSize + CQUI_instanceMargin -6 );    -- CQUI: 6px less for the 3px outer border
+    Controls.ModalFrame:SetSizeY( CQUI_preferredInstanceSize + CQUI_instanceMargin -6 );  -- CQUI: 6px less for the 3px outer border
     Controls.PopupContainer:SetSizeY( CQUI_preferredInstanceSize + CQUI_instanceMargin ); -- CQUI
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     -- Has an instance been set to auto scroll to?
     Controls.PeopleScroller:SetScrollValue( 0 );            -- Either way reset scroll first (mostly for hot seat)
@@ -478,22 +538,27 @@ function ViewCurrent( data:table )
         scrollAmt = math.clamp( scrollAmt, 0, 1);
         Controls.PeopleScroller:SetScrollValue( scrollAmt );
     end
+    if IsTutorialRunning() then
+        Controls.PeopleScroller:SetScrollValue( .3 );
+    end
 end
 
 -- ===========================================================================
 function FillRecruitInstance(instance:table, playerPoints:table, personData:table, classData:table)
     instance.Country:SetText( playerPoints.PlayerName );
-    
-    -- instance.Amount:SetText( tostring(Round(playerPoints.PointsTotal,1)) .. "/" .. tostring(personData.RecruitCost) );
+
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     -- CQUI Points Per Turn and Turns Left -- Add the turn icon into the text
     -- recruitTurnsLeft gets +0.5 so that's rounded up
+    -- This next line is from the unmodified code, not required by CQUI.
+    -- instance.Amount:SetText( tostring(Round(playerPoints.PointsTotal,1)) .. "/" .. tostring(personData.RecruitCost) );
     local recruitTurnsLeft = Round((personData.RecruitCost-playerPoints.PointsTotal)/playerPoints.PointsPerTurn + 0.5,0);
     if (recruitTurnsLeft == math.huge) then
         recruitTurnsLeft = "∞";
     end
 
     instance.Amount:SetText( "(+" .. tostring(Round(playerPoints.PointsPerTurn,1)) .. ") " .. tostring(recruitTurnsLeft) .. "[ICON_Turn]");
-
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     local progressPercent :number = Clamp( playerPoints.PointsTotal / personData.RecruitCost, 0, 1 );
     instance.ProgressBar:SetPercent( progressPercent );
@@ -509,9 +574,11 @@ function FillRecruitInstance(instance:table, playerPoints:table, personData:tabl
 
     DifferentiateCiv(playerPoints.PlayerID,instance.CivIcon,instance.CivIcon,instance.CivBacking, nil, nil, Game.GetLocalPlayer());
 
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     -- CQUI : Added total points in the tooltip
     local recruitDetails:string = tostring(Round(playerPoints.PointsTotal,1)) .. "/" .. tostring(personData.RecruitCost) .. ".";
     recruitDetails = recruitDetails .. "[NEWLINE][NEWLINE]" .. Locale.Lookup("LOC_GREAT_PEOPLE_POINT_DETAILS", Round(playerPoints.PointsPerTurn, 1), classData.IconString, classData.Name);
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     instance.Top:SetToolTipString(recruitDetails);
 end
 
@@ -531,8 +598,8 @@ function ViewPast( data:table )
         UI.DataError("GreatPeople attempting to view past timeline data but received NIL instead.");
         return;
     end
-    
-    m_greatPersonRowIM:ResetInstances();
+
+    ResetGreatPeopleInstances();
     Controls.PeopleScroller:SetHide(true);
     Controls.RecruitedArea:SetHide(false);
 
@@ -561,6 +628,7 @@ function ViewPast( data:table )
             UI.DataError("GreatPeople previous recruited as unable to find the class text for #"..tostring(i));
         end
         instance.ClassName:SetText( Locale.ToUpper(classText) );
+        instance.ClassName:SetHide(false);
         instance.GreatPersonInfo:SetText( kPerson.Name )
         DifferentiateCiv(kPerson.ClaimantID, instance.CivIcon, instance.CivIcon, instance.CivIndicator, nil, nil, localPlayerID);
         instance.RecruitedImage:SetHide(true);
@@ -942,7 +1010,8 @@ end
 --  LUA Event
 -- =======================================================================================
 function OnOpenViaNotification()
-    Open();        
+    Open();
+    SelectTab( m_pGreatPeopleTabInstance.Button );
 end
 
 -- =======================================================================================
@@ -1056,46 +1125,60 @@ end
 
 
 -- ===========================================================================
---  
+function Refresh( newRefreshFunc:ifunction )
+    -- Update the refresh function if passed in a new one
+    if newRefreshFunc ~= nil then
+        m_RefreshFunc = newRefreshFunc;
+    end
+
+    -- Call current refresh function
+    if m_RefreshFunc ~= nil then
+        m_RefreshFunc();
+    end
+end
+
 -- ===========================================================================
-function Refresh()
+function RefreshCurrentGreatPeople()
     local kData :table = {
         Timeline       = {},
         PointsByClass  = {},
     };        
-    if m_tabs.selectedControl == Controls.ButtonPreviouslyRecruited then
-        PopulateData(kData, true);  -- use past data
-        ViewPast(kData);
-    else
-        PopulateData(kData, false);  -- do not use past data
-        ViewCurrent(kData);
-    end
+
+    PopulateData(kData, false);  -- do not use past data
+    ViewCurrent(kData);
 
     m_kData = kData;
 end
 
-
-
 -- ===========================================================================
---  Tab callback
--- ===========================================================================
-function OnGreatPeopleClick()
-    Controls.SelectGreatPeople:SetHide( false );
-    Controls.ButtonGreatPeople:SetSelected( true );
-    Controls.SelectPreviouslyRecruited:SetHide( true );
-    Controls.ButtonPreviouslyRecruited:SetSelected( false );
-    Refresh();
+function RefreshPreviousGreatPeople()
+    local kData :table = {
+        Timeline       = {},
+        PointsByClass  = {},
+    };        
+
+    PopulateData(kData, true);  -- use past data
+    ViewPast(kData);
+
+    m_kData = kData;
 end
 
 -- ===========================================================================
 --  Tab callback
 -- ===========================================================================
-function OnPreviousRecruitedClick()
-    Controls.SelectGreatPeople:SetHide( true );
-    Controls.ButtonGreatPeople:SetSelected( false );
-    Controls.SelectPreviouslyRecruited:SetHide( false );
-    Controls.ButtonPreviouslyRecruited:SetSelected( true );
-    Refresh();
+function OnGreatPeopleClick( uiSelectedButton:table )
+    ResetTabButtons();
+    SetTabButtonsSelected(uiSelectedButton);
+    Refresh(RefreshCurrentGreatPeople);
+end
+
+-- ===========================================================================
+--  Tab callback
+-- ===========================================================================
+function OnPreviousRecruitedClick( uiSelectedButton:table )
+    ResetTabButtons();
+    SetTabButtonsSelected(uiSelectedButton);
+    Refresh(RefreshPreviousGreatPeople);
 end
 
 -- ===========================================================================
@@ -1109,6 +1192,7 @@ end
 --  UI Event
 -- =======================================================================================
 function OnInit( isHotload:boolean )
+    LateInitialize();
     if isHotload then
         LuaEvents.GameDebug_GetValues(RELOAD_CACHE_ID);
     end
@@ -1138,6 +1222,21 @@ end
 function OnShutdown()
     LuaEvents.GameDebug_AddValue(RELOAD_CACHE_ID, "isHidden",      ContextPtr:IsHidden() );
     LuaEvents.GameDebug_AddValue(RELOAD_CACHE_ID, "isPreviousTab", (m_tabs.selectedControl == Controls.ButtonPreviouslyRecruited) );
+
+    m_tabButtonIM:ResetInstances();
+
+    -- Game engine Events	
+    Events.LocalPlayerChanged.Remove( OnLocalPlayerChanged );
+    Events.LocalPlayerTurnBegin.Remove( OnLocalPlayerTurnBegin );
+    Events.LocalPlayerTurnEnd.Remove( OnLocalPlayerTurnEnd );
+    Events.UnitGreatPersonActivated.Remove( OnUnitGreatPersonActivated );
+    Events.GreatPeoplePointsChanged.Remove( OnGreatPeoplePointsChanged );
+
+    -- LUA Events
+    LuaEvents.GameDebug_Return.Remove( OnGameDebugReturn );
+    LuaEvents.LaunchBar_OpenGreatPeoplePopup.Remove( OnOpenViaLaunchBar );
+    LuaEvents.NotificationPanel_OpenGreatPeoplePopup.Remove( OnOpenViaNotification );
+    LuaEvents.LaunchBar_CloseGreatPeoplePopup.Remove( OnClose );
 end
 
 -- ===========================================================================
@@ -1158,6 +1257,63 @@ function OnGameDebugReturn( context:string, contextTable:table )
 end
 
 -- =======================================================================================
+function AddTabInstance( buttonText:string, callbackFunc:ifunction )
+    local kInstance:object = m_tabButtonIM:GetInstance();
+    kInstance.Button:SetText(Locale.Lookup(buttonText));
+    kInstance.Button:RegisterCallback( Mouse.eMouseEnter, function() UI.PlaySound("Main_Menu_Mouse_Over"); end);
+    m_tabs.AddTab( kInstance.Button, callbackFunc );
+    m_numTabs = m_numTabs + 1;
+    return kInstance;
+end
+
+-- =======================================================================================
+function SelectTab( buttonControl:table )
+    m_tabs.SelectTab(buttonControl);
+end
+
+-- =======================================================================================
+function SetTabButtonsSelected( buttonControl:table )
+    for i=1, m_tabButtonIM.m_iCount, 1 do
+        local buttonInstance:table = m_tabButtonIM:GetAllocatedInstance(i);
+        if buttonInstance and buttonInstance.Button == buttonControl then
+            buttonInstance.Button:SetSelected(true);
+            buttonInstance.SelectButton:SetHide(false);
+        end
+    end
+end
+
+-- =======================================================================================
+function ResetTabButtons()
+    for i=1, m_tabButtonIM.m_iCount, 1 do
+        local buttonInstance:table = m_tabButtonIM:GetAllocatedInstance(i);
+        if buttonInstance then
+            buttonInstance.Button:SetSelected(false);
+            buttonInstance.SelectButton:SetHide(true);
+        end
+    end
+end
+
+-- =======================================================================================
+function ResizeTabContainer()
+    if m_numTabs > 0 then
+        local desiredSize = (TAB_SIZE * m_numTabs) + (TAB_PADDING * (m_numTabs - 1));
+        Controls.TabContainer:SetSizeX(desiredSize);
+    end
+end
+
+-- =======================================================================================
+-- This function should be overridden in mods/dlc to add new tabs to this screen
+-- =======================================================================================
+function AddCustomTabs()
+    -- No custom tabs in base games
+end
+
+-- =======================================================================================
+function LateInitialize()
+  -- Basegame code has an empty function
+end
+
+-- =======================================================================================
 --
 -- =======================================================================================
 function Initialize()
@@ -1167,12 +1323,19 @@ function Initialize()
         return;
     end
 
+    m_numTabs = 0;
+
     -- Tab setup and setting of default tab.
     m_tabs = CreateTabs( Controls.TabContainer, 42, 34, UI.GetColorValueFromHexLiteral(0xFF331D05) );
-    m_tabs.AddTab( Controls.ButtonGreatPeople,         OnGreatPeopleClick );
-    m_tabs.AddTab( Controls.ButtonPreviouslyRecruited, OnPreviousRecruitedClick );
+    m_pGreatPeopleTabInstance = AddTabInstance("LOC_GREAT_PEOPLE_TAB_GREAT_PEOPLE", OnGreatPeopleClick);
+    m_pPrevRecruitedTabInstance = AddTabInstance("LOC_GREAT_PEOPLE_TAB_PREVIOUSLY_RECRUITED", OnPreviousRecruitedClick);
+
+    AddCustomTabs();
+
+    ResizeTabContainer();
+
     m_tabs.CenterAlignTabs(-10);
-    m_tabs.SelectTab( Controls.ButtonGreatPeople );
+    m_tabs.SelectTab( m_pGreatPeopleTabInstance.Button );
 
     -- UI Events
     ContextPtr:SetInitHandler( OnInit );
@@ -1197,11 +1360,13 @@ function Initialize()
     LuaEvents.LaunchBar_OpenGreatPeoplePopup.Add(         OnOpenViaLaunchBar );
     LuaEvents.NotificationPanel_OpenGreatPeoplePopup.Add( OnOpenViaNotification );
     LuaEvents.LaunchBar_CloseGreatPeoplePopup.Add(        OnClose );
-    
-    -- Audio Events
-    Controls.ButtonGreatPeople:RegisterCallback( Mouse.eMouseEnter, function() UI.PlaySound("Main_Menu_Mouse_Over"); end);
-    Controls.ButtonPreviouslyRecruited:RegisterCallback( Mouse.eMouseEnter, function() UI.PlaySound("Main_Menu_Mouse_Over"); end);
 
     m_TopPanelConsideredHeight = Controls.Vignette:GetSizeY() - TOP_PANEL_OFFSET;
 end
+
+-- This wildcard include will include all loaded files beginning with "GreatPeoplePopup_"
+-- This method replaces the uses of include("GreatPeoplePopup") in files that want to override 
+-- functions from this file. If you're implementing a new "GreatPeoplePopup_" file DO NOT include this file.
+include("GreatPeoplePopup_", true);
+
 Initialize();

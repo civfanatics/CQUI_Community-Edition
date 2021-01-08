@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameData>
 	<LocalizedText>
-		<!-- Replace Gossip Text -- GERMAN -->
+		<!-- Replace Gossip Text: GERMAN -->
 		<Replace Tag="LOC_GOSSIP_AGENDA_KUDOS" Language="de_DE">
 			<Text>[ICON_Declare_friendship] {1_LeaderName} bedankte sich bei {2_Leadername} für die Zusammenarbeit bei {3_AgendaName}.</Text>
 		</Replace>

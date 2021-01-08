@@ -330,5 +330,14 @@
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="en_US">
       <Text>The style for unit flag icons of non-Religious units[NEWLINE]when the Religion Lens is on[NEWLINE]Solid: Unit Flags remain visible, unchanged[NEWLINE]Transparent: Unit Flags become transparent[NEWLINE]Hidden:Unit flags are hidden</Text>
     </Row>
+    <Row Tag="LOC_CQUI_SPREAD_RELIGION" Language="en_US">
+      <Text>Spread religion</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_REMOVE_HERESY" Language="en_US">
+      <Text>Remove heresy</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_REST_HEAL" Language="en_US">
+      <Text>Rest and heal</Text>
+    </Row>
   </LocalizedText>
 </GameData>

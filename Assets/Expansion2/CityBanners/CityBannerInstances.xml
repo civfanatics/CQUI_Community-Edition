@@ -1,6 +1,10 @@
 <Include File="CityBannerInstances">
+    <!-- CQUI CityBannerInstances Replacement File -->
+    <!-- Note: This file only loads in Linux if naming and casing is CityBannerInstances.xml -->
+    <!-- See note in citybannermanager.xml regarding this hidden container below -->
+    <Container ID="CQUI_EmptyContainer_CityBannerInstances_Exp2" />
 
-    <!-- Include info panels that attack to bottom of CityBanner -->
+    <!-- Include info panels that attach to the bottom of CityBanner -->
     <Include File="CityLoyaltyInstances"/>
     <Include File="CityReligionInstances"/>
 
@@ -33,8 +37,7 @@
                 </Grid>
 
                 <!-- CENTER: MAIN BUTTON -->
-                <Button ID="CityBannerButton" Anchor="L,T" Size="parent,parent" NoStateChange="true">
-                    <!-- COLORED BG -->
+                <Button ID="CityBannerButton" Anchor="L,T" Size="parent,parent" NoStateChange="true" >
                     <Grid ID="CityBannerFill" Anchor="C,T" Size="parent,parent" Texture="Banner_FrameBase_Combo" SliceTextureSize="113,41" SliceCorner="18,7" SliceSize="76,27"/>
 
                     <!-- OUTLINE: MOUSE IN / OUT -->
@@ -53,8 +56,8 @@
                         <Container ID="CQUI_CivSuzerain" Anchor="C,C" Size="auto,auto" AutoSizePadding="2,0" Hidden="1">
                             <Image ID="CQUI_CivSuzerainIconBackground" Size="22,22" Anchor="C,C" Texture="CircleBacking22">
                                 <Image ID="CQUI_CivSuzerainIcon" Size="22,22" Anchor="C,C" IconSize="22"/>
-                                    <Label ID="CQUI_SuzerainEnvoys" Anchor="C,T" Offset="10,-2" Style="StrongSmall2"/>
-                                    <Label ID="CQUI_LocalPlayerEnvoys" Anchor="C,T" Offset="-10,-2" Style="StrongSmall2"/>
+                                <Label ID="CQUI_SuzerainEnvoys" Anchor="C,T" Offset="10,-2" Style="StrongSmall2"/>
+                                <Label ID="CQUI_LocalPlayerEnvoys" Anchor="C,T" Offset="-10,-2" Style="StrongSmall2"/>
                             </Image>
                         </Container>
 
@@ -90,7 +93,9 @@
 
     <!-- Instances populate in CityDetailsStack -->
     <Instance Name="CityDetailEffect">
-        <Image ID="Icon" Size="20,20" Anchor="C,C"/>
+        <Button ID="Button" Size="20,20" Anchor="C,C">
+            <Image ID="Icon" Size="20,20" Anchor="C,C"/>
+        </Button>
     </Instance>
 
     <!-- Instances populate in CityInfoStack -->
@@ -102,7 +107,7 @@
 
     <Instance Name="CityInfoCondition">
         <Button ID="Button" Anchor="C,C" Size="20,20" Texture="Banner_TypeSlot" NoStateChange="1">
-            <Image ID="Icon" Anchor="C,C" Size="22,22" Offset="0,-1" Texture="Cities22">
+            <Image ID="Icon" Anchor="C,C" Size="22,22" Texture="Cities22">
                 <Image ID="ConditionRising" Offset="-4,-1" Anchor="R,B" Size="12,12" Texture="CityCondition_Rising" Hidden="1"/>
                 <Image ID="ConditionFalling" Offset="-4,-1" Anchor="R,B" Size="12,12" Texture="CityCondition_Falling" Hidden="1"/>
             </Image>
@@ -139,7 +144,7 @@
             <TextureBar ID="FillMeter" Anchor="C,C" Size="28,28" Direction="Up" Speed="0" Texture="XP1_Banner_MeterFill">
                 <TextureBar ID="SlotMeter" Anchor="C,C" Size="28,28" Direction="Down" Speed="0" Texture="XP1_Banner_MeterSlot"/>
                 <Label ID="CityPopulation" Anchor="C,C" String="999" Style="FontFlair20" FontStyle="stroke" Color0="225,225,225,255" Color1="35,35,35,178" />
-                <Label ID="CityPopTurnsLeft" Anchor="C,T" Offset="12,-5" Style="StrongSmall2" FontStyle="stroke" />
+                <Label ID="CityPopTurnsLeft" Anchor="C,T" Offset="12,-5" Style="StrongSmall2" FontStyle="stroke"/>
                 <Label ID="CQUI_CityHousing" Anchor="C,B" Offset="12,-5" Style="StrongSmall2" FontStyle="stroke" Hidden="1"/>
                 <Label ID="CityCultureTurnsLeft" Anchor="C,B" Offset="-12,-5" Style="StrongSmall2" FontStyle="stroke" Color="204,109,197,255" Hidden="1"/>
             </TextureBar>
@@ -241,23 +246,23 @@
         <ZoomAnchor ID="Anchor" ZoomOffsetNear="0,0,0" ZoomOffsetFar="0,0,-20">
             <Container ID="EncampmentBannerContainer" Anchor="C,C" Size="106,34">
 
-                <!-- District strength -->
-                <Grid ID="DistrictDefenseGrid" Texture="Banner_StatusFrame" Size="55,20" Anchor="C,T" AnchorSide="I,O" Offset="0,-3" SliceTextureSize="24,20" SliceCorner="9,2" SliceSize="5,15">
-                    <Stack Anchor="C,C" Offset="-2,0" StackGrowth="Right">
-                        <Image Size="21,18" Texture="Banner_StrengthIcon_Shields"/>
-                        <Label ID="DistrictDefenseStrengthLabel" Offset="0,2" Style="StrongSmall" String="17"/>
-                    </Stack>
-                </Grid>
-
                 <!-- Banner Background -->
-                <Grid ID="Banner_Base" Size="parent,parent" Texture="BannerMini_Base_Combo" SliceCorner="14,14" SliceSize="51,5" SliceTextureSize="80,34"/>
+                <Grid ID="Banner_Base" Size="parent,parent" Texture="BannerMini_Base_Combo" SliceCorner="18,9" SliceSize="44,16" SliceTextureSize="80,34"/>
 
                 <!-- District Font Icon -->
-                <Label Anchor="L,C" Offset="7,3" Style="FontNormal14" String="[Icon_DISTRICT_ENCAMPMENT]"/>
+                <Label ID="EncampmentFontIcon" Anchor="L,C" Offset="7,3" Style="FontNormal14" String="[Icon_DISTRICT_ENCAMPMENT]"/>
 
                 <!-- Healthbars -->
                 <TextureBar ID="CityHealthBar" Anchor="R,C" Offset="8,3" Size="66,7" Texture="CityBannerShieldsBar1" Direction="Right" Speed="1" Percent="1.0" />
                 <TextureBar ID="CityDefenseBar" Anchor="R,C" Offset="8,-4" Size="66,7" Texture="CityBannerShieldsBar1" Direction="Right" Speed="1" Percent="1.0" Color="120,198,247,255"/>
+
+                <!-- District strength -->
+                <Grid ID="DistrictDefenseGrid" Texture="Banner_StrengthBacking" Size="60,15" Anchor="C,T" AnchorSide="I,O" SliceTextureSize="42,15" SliceCorner="21,7" Color="255,255,255,150">
+                    <Stack Anchor="C,C" Offset="-2,1" StackGrowth="Right">
+                        <Image Size="21,18" Texture="Banner_StrengthIcon_Shields"/>
+                        <Label ID="DistrictDefenseStrengthLabel" Offset="0,2" Style="StrongSmall" String="17"/>
+                    </Stack>
+                </Grid>
 
                 <!-- District ranged strike button -->
                 <Image ID="CityStrike" Texture="CityBannerRangeAttackRim" Size="36,45" Anchor="C,B" Offset="0,-4" AnchorSide="I,O">
@@ -275,6 +280,28 @@
                 <Image ID="Banner_Base" Size="parent,parent" Texture="BannerMini2_Base_Combo"/>
                 <Image ID="DistrictIcon" Anchor="C,C" Offset="0,0" Size="22,22" IconSize="22" Icon="ICON_DISTRICT_CITY_CENTER"/>
                 <Image ID="UnderConstructionIcon" Anchor="C,C" Size="22,22" IconSize="22" Icon="ICON_DISTRICT_UNDER_CONSTRUCTION"/>
+            </Container>
+        </ZoomAnchor>
+    </Instance>
+
+    <!-- Tunnel Minibanner -->
+    <Instance Name="TunnelBanner">
+        <ZoomAnchor ID="Anchor" ZoomOffsetNear="0,0,0" ZoomOffsetFar="0,0,-20">
+            <Container ID="TunnelBannerContainer" Anchor="C,C" Size="38,38" ToolTip="LOC_IMPROVEMENT_MOUNTAIN_TUNNEL_NAME">
+                <!-- Banner Background -->
+                <Image ID="Banner_Base" Size="parent,parent" Texture="BannerMini2_Base_Combo"/>
+                <Image ID="TunnelIcon" Anchor="C,C" Offset="0,0" Size="38,38" IconSize="38" Icon="ICON_IMPROVEMENT_MOUNTAIN_TUNNEL"/>
+            </Container>
+        </ZoomAnchor>
+    </Instance>
+
+    <!-- Qhapaq Nan Minibanner -->
+    <Instance Name="QhapaqNanBanner">
+        <ZoomAnchor ID="Anchor" ZoomOffsetNear="0,0,0" ZoomOffsetFar="0,0,-20">
+            <Container ID="QhapaqNanBannerContainer" Anchor="C,C" Size="38,38" ToolTip="LOC_IMPROVEMENT_MOUNTAIN_ROAD_NAME">
+                <!-- Banner Background -->
+                <Image ID="Banner_Base" Size="parent,parent" Texture="BannerMini2_Base_Combo"/>
+                <Image ID="QhapaqNanIcon" Anchor="C,C" Offset="0,0" Size="38,38" IconSize="38" Icon="ICON_IMPROVEMENT_MOUNTAIN_ROAD"/>
             </Container>
         </ZoomAnchor>
     </Instance>

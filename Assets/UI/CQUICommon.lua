@@ -5,6 +5,7 @@
 -- * Debug support
 -- * CQUI_TrimGossipMessage
 -- * CQUI_GetRealHousingFromImprovements
+-- * CQUI_SmartWrap
 ------------------------------------------------------------------------------
 
 -- ===========================================================================
@@ -75,6 +76,7 @@ end
 
 local iCityMaxBuyPlotRange:number = tonumber(GlobalParameters.CITY_MAX_BUY_PLOT_RANGE);
 
+-- ===========================================================================
 function CQUI_GetRealHousingFromImprovements(pCity:table)
     local cityX:number, cityY:number = pCity:GetX(), pCity:GetY();
     --local centerIndex:number = Map.GetPlotIndex(pCity:GetLocation());
@@ -92,6 +94,34 @@ function CQUI_GetRealHousingFromImprovements(pCity:table)
     return pCity:GetGrowth():GetHousingFromImprovements() + Round(iNumHousing-math.floor(iNumHousing),1);
 end
 
+-- ===========================================================================
+-- Wraps a string according to the provided length, but, unlike the built in wrapping, will ignore the limit if a single continuous word exceeds the length of the wrap width
+function CQUI_SmartWrap( textString, wrapWidth )
+    local lines = {""}; --Table that holds each individual line as it's build
+    function append(w) --Appends a new word to the end of the currently processed line along with proper spacing
+        if (lines[#lines] ~= "") then
+            w = lines[#lines] .. " " .. w;
+        end
+
+        return w;
+    end
+
+    for i, word in ipairs(Split(textString, " ")) do --Takes each word and builds it into lines that respect the wrapWidth param, except for long individual words
+        if (i ~= 1 and string.len(append(word)) > wrapWidth) then
+            lines[#lines] = lines[#lines] .. "[NEWLINE]";
+            lines[#lines + 1] = "";
+        end
+
+        lines[#lines] = append(word);
+    end
+
+    local out = ""; --The output variable
+    for _,line in ipairs(lines) do --Flattens the table back into a single string
+        out = out .. line;
+    end
+
+    return out;
+end
 
 -- ===========================================================================
 function Initialize()
