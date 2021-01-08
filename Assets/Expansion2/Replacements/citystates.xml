@@ -190,20 +190,17 @@
 
     <Instance Name="CityStateRowInstance">
         <GridButton ID="CityStateBase" Size="parent,48" Style="SubContainer4" Color="59,62,63,255">
-            <BoxButton ID="Button" Anchor="L,C" Offset="8,0" Size="40,40" Color="0,0,0,0">
-            <!-- m4a original before swarsele changes -->
-                <!-- <Image ID="Icon" Anchor="L,C" Size="36,36" Texture="CivSymbols36" /> -->
-                <!-- <Image ID="DiplomacyPip" Anchor="L,B" Offset="-10,-6" Size="23,23" Texture="Diplomacy_RelationshipPips" /> -->
-                <Image ID="Icon" Offset="0,0" Anchor="L,C" Size="36,36" Texture="CivSymbols36" />
+            <BoxButton ID="Button" Anchor="L,T" Offset="8,4" Size="40,40" Color="0,0,0,0">
+                <Image ID="Icon" Anchor="L,C" Size="36,36" Texture="CivSymbols36" />
                 <Image ID="DiplomacyPip" Anchor="L,B" Offset="-10,-2" Size="23,23" Texture="Diplomacy_RelationshipPips" />
                 <Label ID="QuestIcon" Anchor="L,T" Offset="-9,0" String="[ICON_CityStateQuest]" Size="28,28" />
             </BoxButton>
 
-            <GridButton ID="NameButton" Offset="42,9" Size="126,33" Texture="Controls_CityBannerSmall" SliceCorner="14,9" SliceSize="5,4" SliceTextureSize="33,28" Color="50,50,50,255">
+            <GridButton ID="NameButton" Anchor="L,T" Offset="42,9" Size="126,33" Texture="Controls_CityBannerSmall" SliceCorner="14,9" SliceSize="5,4" SliceTextureSize="33,28" Color="50,50,50,255">
                 <Label ID="NameLabel" Anchor="C,C" Offset="0,-2" Style="FontFlair11" SmallCaps="16" SmallCapsStyle="EveryWord" String="Name" />
             </GridButton>
 
-            <Image ID="Envoy" Anchor="L,C" Offset="190,0" Size="40,40" Texture="Controls_CircleRim40">
+            <Image ID="Envoy" Anchor="L,T" Offset="190,4" Size="40,40" Texture="Controls_CircleRim40">
                 <Button ID="EnvoyLessButton" Anchor="L,C" Offset="-6,0" Size="34,34" Texture="Controls_Stepper" AnchorSide="O,I" FlipX="1" />
                 <Button ID="EnvoyMoreButton" Anchor="R,C" Offset="-6,0" Size="34,34" Texture="Controls_Stepper" AnchorSide="O,I" />
                 <Label ID="EnvoyCount" Anchor="C,C" Offset="-1,1" String="0" Style="FontFlairLua" Color="160,160,160,240" />
@@ -223,18 +220,14 @@
             </Image>
             <!-- CQUI Note: The size of the container below was changed from 108 to 110 in order to fix a spacing issue. -->
             <Container ID="SuzerainStatus" Anchor="L,C" Offset="346,0" Size="110,42">
-                <!-- m4a original before swarsele changes -->
-                <!-- <Grid ID="BonusImageSuzerainOff" Size="parent,parent" Texture="CityState_BonusSlotBigOff" SliceCorner="31,21" SliceTextureSize="34,42" /> -->
-                <!-- <Grid ID="BonusImageSuzerainOn" Size="parent,parent" Texture="CityState_BonusSlotBigOn" SliceCorner="31,21" SliceTextureSize="34,42" /> -->
-                <Grid ID="BonusImageSuzerainOff" Size="parent,parent" Texture="CityState_BonusSlotBigOff" SliceCorner="31,12" SliceTextureSize="34,42" />
-                <Grid ID="BonusImageSuzerainOn" Size="parent,parent" Texture="CityState_BonusSlotBigOn" SliceCorner="31,12" SliceTextureSize="34,42" />
-                <Label ID="BonusTextSuzerain" Anchor="R,B" Offset="4,2" Style="FontNormal12" String="4" />
+                <Grid ID="BonusImageSuzerainOff" Size="parent,parent" Texture="CityState_BonusSlotBigOff" SliceCorner="31,21" SliceTextureSize="34,42" />
+                <Grid ID="BonusImageSuzerainOn" Size="parent,parent" Texture="CityState_BonusSlotBigOn" SliceCorner="31,21" SliceTextureSize="34,42" />
+                <Label ID="SuzerainLabel" Anchor="L,T" Offset="32,2" Style="FontNormal12" String="LOC_CITY_STATES_SUZERAIN" />
+                <Label ID="Suzerain" Anchor="L,C" Offset="32,0" Style="FontNormal12" String="LOC_CITY_STATES_NONE" TruncateWidth="60" />
+                <Label ID="BonusTextSuzerain" Anchor="R,C" Offset="4,0" Style="FontNormal12" String="4" />
                 <Image ID="BonusIconSuzerain" Anchor="L,B" Offset="2,0" Size="26,26" Texture="EnvoyBonuses26" TextureOffset="156,0" />
-                <Label ID="SecondHighestLabel" Anchor="L,T" Offset="3,0" Style="FontNormal12" />
-                <Label ID="SuzerainLabel" Anchor="L,B" Offset="32,14" Style="FontNormal12" String="LOC_CITY_STATES_SUZERAIN" />
-                <Label ID="Suzerain" Anchor="L,B" Offset="32,2" Style="FontNormal12" String="LOC_CITY_STATES_NONE" TruncateWidth="60" />
-                <Label ID="SecondHighestName" Anchor="L,T" Offset="32,0" Style="FontNormal12" TruncateWidth="60" />
-                <Label ID="SecondHighestEnvoys" Anchor="R,T" Offset="4,0" Style="FontNormal12" />
+                <Label ID="SecondHighestName" Anchor="L,B" Offset="32,2" Style="FontNormal12" TruncateWidth="60" />
+                <Label ID="SecondHighestEnvoys" Anchor="R,B" Offset="4,2" Style="FontNormal12" />
             </Container>
 
             <Button Hidden="1" ID="LookAtButton" Anchor="R,C" Offset="3,-7" Size="23,31" Texture="Controls_ShowMe" StateOffsetIncrement="0,0" ToolTip="LOC_CITY_STATES_LOOK_AT" />
@@ -250,11 +243,9 @@
             <GridButton ID="LevyMilitaryButton" Anchor="R,C"  Offset="150,0" Size="140,32" Style="MainButton" Hidden="1" String="Levy Military"/>
             <GridButton ID="ChangeWarStateButton" Anchor="R,C"  Offset="0,0" Size="140,32" Style="MainButton" Hidden="1" String="Declare War!"/>
             -->
-            <!-- m4a these are swarsele added section -->
-            <Grid ID="QuestRow" Size="parent,23" Anchor="C,B" Offset="0,-4">
-                <Label ID="CityStateQuest" Anchor="L,C" Offset="16,1" String="$CQUI_Quest$" Style="FontNormal10"/>
+            <Grid ID="QuestRow" Size="parent,23" Anchor="C,B" Offset="0,0">
+                <Label ID="CityStateQuest" Anchor="L,C" Offset="12,2" String="$CQUI_Quest$" Style="FontNormal10"/>
             </Grid>
-            <!-- m4a these are swarsele added section END -->
         </GridButton>
     </Instance>
 
