@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Context xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\..\..\CivTech\Libs\ForgeUI\ForgeUI_Assets\Controls.xsd" Style="FontNormal16" FontStyle="Shadow">
+
+    <Include File="CivilizationIcon"/>
+
+    <Stack ID="HeroStack" Offset="0,78" StackGrowth="Right" StackPadding="0" />
+
+    <!-- ================================================================== -->
+    <!--    Instances                                                       -->
+    <!-- ================================================================== -->
+    <Instance Name="HeroPanelInstance">
+        <!-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== -->
+        <!-- CQUI makes each instance of the Heroes panel wider, and the control hosting each Hero instance taller (same size as Great People panel) -->
+        <!-- CQUI: Customized textures are used to account for the wider Heroes panel that also will match the vertical size calculated for the Great People panel -->
+        <Container ID="Content" Size="350,parent">
+            <!-- CQUI: The WoodPaneling texture that replaces the Firaxis-provided one, which has the border lines and curved top of each panel, -->
+            <!--       and includes parts that are covered by the title bar and the panel selection buttons (75px from top of texture to top of the "wood panel" piece) -->
+            <!--       WoodPaneling is the ID in the unmodified file, retained by CQUI for compatability reasons. -->
+            <!--       The Y-size is static at 547px, if that top section stretches beyond 547px, the CQUI_Heroes_Background_Repeat_Top is used for filling in after 547. -->
+            <!--       The offset of -78 is also required here because this paneling is applied to each instance, rather than the control hosting each instance -->
+            <Image ID="WoodPaneling" Anchor="L,T" Size="parent,547" Offset="0,-78" Texture="CQUI_Heroes_Background_Top.dds" StretchMode="TileX"/>
+            <!-- CQUI: CQUI_WoodPanelingTopFiller is the lighter color with vertical lines at each end, is 214px wide for GreatPeople panel, 350px wide for Heroes panel. -->
+            <!--       The color of this texture matches the bottom of the WoodPaneling (CQUI_Heroes_Background_Top.dds) texture, as such, this texture is used to fill in -->
+            <!--       any areas below the 547px already being covered by the WoodPaneling object defined above.  Note the offset is adjusted to account for the offset above it. -->
+            <Image ID="CQUI_WoodPanelingTopFiller" Size="parent,parent-547" Offset="0,469" Texture="CQUI_Heroes_Background_Repeat_Top.dds" StretchMode="Tile" />
+            <!-- CQUI: This is the darker "paneling", which appears under the Recruit Progress section.  -->
+            <!--       The Y-size of this Image object is set programatically based on the calculated size of the Recruit Progress section. -->
+            <!--       Because the anchor for this Image object is at the bottom, the Y-size and StretchMode value combine to cover any of the WoodPaneling or CQUI_WoodPanelingTopFiller -->
+            <Image ID="CQUI_WoodPanelingBottomFiller" Anchor="L,B" Size="parent,152" Texture="CQUI_Heroes_Background_Repeat_Bottom.dds" StretchMode="Tile"/>
+            <!-- CQUI: This image is the bottom of the paneling outline (curved corner and horizontal line, 15px tall), and the bottom part of the Great People frame (65px tall) -->
+            <Image ID="CQUI_WoodPanelingBottom" Anchor="L,B" Size="parent,40" Offset="0,-10" Texture="CQUI_Heroes_Background_Bottom.dds" StretchMode="TileX"/>
+
+            <Grid ID="FadedBackground" Anchor="C,T" Offset="-1,0" Size="parent-10,parent-46" Texture="GreatPeople_Overlay" SliceCorner="13,13" SliceSize="1,1" SliceTextureSize="25,25" Hidden="1" />
+            <!-- CQUI: Changed anchor, offset, and wrap width values, added Color value (brighter text) -->
+            <Label ID="IndividualName" Anchor="C,T" Offset="0,22" Align="C,C" WrapWidth="parent-20" Style="GreatPeopleLargeText" Color="168,168,129,255" String="$IndividualName$"/>
+            <!-- CQUI: End X-value for title line changed to reflect wider panel -->
+            <Line ID="TitleLine" Start="10,56" End="parent-10,56" Width="2" Color="199,187,157,90" />
+            <!-- ==== CQUI CUSTOMIZATION END ======================================================================================== -->
+
+            <Image ID="CircleFlare" Anchor="C,T" Offset="0,20" Texture="GreatPeople_SlotOn">
+                <Image ID="Portrait" Anchor="C,B" Offset="0,10" Size="105,105" IconSize="105" Texture="Heores105"/>
+                <Button ID="LookAtButton" Anchor="L,B" Offset="-2,4" Size="29,29" Texture="TopBar_LookButton"/>
+                <Button ID="CivilopediaButton" Anchor="R,B" Offset="-2,4" Size="29,29" Texture="TopBar_CivilopediaButton" ToolTip="LOC_GREAT_PEOPLE_HEROES_CIVILOPEDIA_ENTRY_TT"/>
+            </Image>
+
+            <!-- ==== CQUI CUSTOMIZATION BEGIN ======================================================================================== -->
+            <!-- CQUI: Changed control from Box to Line -->
+            <Line Start="10,214" End="parent-10,214" Width="2" Color="199,187,157,90" />
+            <!-- CQUI: Changed size to auto-adjust when the control vertical size is changed -->
+            <Container ID="MainInfo" Anchor="C,T" Size="parent,parent-224" Offset="0,224">
+                <-- CQUI: Changed X-size to span entire control, Y-size to auto-adjust when main panel vertical size is changed -->
+                <ScrollPanel ID="EffectStackScroller" Size="parent,parent-152" Vertical="1" AutoScrollBar="1">
+                <!-- ==== CQUI CUSTOMIZATION END ========================================================================================== -->
+
+                    <Stack ID="EffectStack" StackPadding="4"/>
+                    <ScrollBar Anchor="R,T" AnchorSide="O,I" Offset="1,0" Style="ScrollVerticalBarAlt" Size="8,parent-10"/>
+                </ScrollPanel>
+
+                <!-- ==== CQUI CUSTOMIZATION BEGIN ======================================================================================== -->
+                <!-- CQUI: Removed offset value -->
+                <Container ID="RecruitProgressBox" Anchor="C,B" Size="parent,152">
+                    <!-- CQUI: changed control from Box to Line, removed Anchor, set X-size to start/stop 10px from edge -->
+                    <Line Start="10,0" End="parent-10,0" Width="2" Color="199,187,157,90" />
+                    <!-- CQUI: Adjusted StackPadding and added Offset -->
+                    <Stack Anchor="C,C" StackPadding="5" Offset="0,-5">
+                        <Label ID="HeroStatus" Anchor="C,T" Align="Center" Style="FontFlair14" WrapWidth="parent-20" Color="157,150,138,255" SmallCaps="20" SmallCapsType="EveryWord"/>
+                        <MakeInstance ID="ClaimedByCivIcon" Name="CivilizationIcon44" Anchor="C,T" />
+                        <!-- CQUI: Added OriginCity for Hero -->
+                        <Label ID="CQUI_HeroOriginCity" Anchor="C,T" Align="Center" Style="FontFlair14" WrapWidth="parent-20" Color="157,150,138,255" SmallCaps="20" SmallCapsType="EveryWord"/>
+                        <Label ID="DeceasedText" Anchor="C,T" Align="Center" Style="FontFlair14" WrapWidth="parent-20" Color="157,150,138,255" SmallCaps="20" SmallCapsType="EveryWord" String="LOC_GREAT_PEOPLE_HEROES_DECEASED" Hidden="1"/>
+                        <!-- CQUI: FaithRecallButton no longer part of own Stack Control -->
+                        <GridButton ID="FaithRecallButton" Anchor="C,T" Size="80,32" SliceCorner="12,12" SliceSize="1,1" SliceTextureSize="24,24" Texture="Controls_ButtonControl_Brown" TextColor="126,123,120" Style="FontNormal18" StateOffsetIncrement="0,24" String="LOC_GREAT_PEOPLE_HEROES_FAITH_RECALL"/>
+                    </Stack>
+                </Container>
+
+                <Stack Anchor="C,B" Offset="0,0" StackGrowth="Right" StackPadding="10">
+                    <!-- CQUI: Moved FaithRecallButton control to stack in the RecruitProgressBox -->                                                                                                                                                                                                                                                                                                                
+                </Stack>
+                <!-- ==== CQUI CUSTOMIZATION END ========================================================================================== -->
+            </Container>
+
+            <Container ID="RecruitInfoArea" Anchor="L,B" Offset="13,54" Size="180,391" Hidden="1">
+                <ScrollPanel ID="RecruitInfoScroll" Anchor="C,B" Offset="0,0" Size="parent,parent" Vertical="1">
+                    <Stack ID="RecruitInfoStack" StackGrowth="Down" StackPadding="4"/>
+                    <ScrollBar Anchor="R,C" Offset="1,0" AnchorSide="O,I" Style="ScrollVerticalBarAlt" />
+                </ScrollPanel>
+                <GridButton ID="RecruitInfoBackButton" Anchor="C,B" AnchorSide="I,O" Offset="0,20" Size="parent-40,28" SliceCorner="12,12" SliceSize="1,1" SliceTextureSize="24,24" Texture="Controls_ButtonControl_Tan" TextColor="20,20,20" Style="FontNormal16" String="LOC_GREAT_PEOPLE_BACK" StateOffsetIncrement="0,24" />
+            </Container>
+        </Container>
+    </Instance>
+
+    <Instance Name="AbilityInstance">
+        <Container ID="Top" Size="parent,auto">
+            <Image Offset="6,0" Size="38,38" IconSize="38" Icon="ICON_HERO_PASSIVE_ABILITY"/>
+            <Stack Anchor="L,T" Offset="45,0" StackGrowth="Down" StackPadding="4">
+                <!-- ==== CQUI CUSTOMIZATION BEGIN ======================================================================================== -->
+                <!-- CQUI: Adjusted the X-size and added Color value for AbilityName and AbilityText -->
+                <ScrollTextField ID="AbilityName" Anchor="L,T" Size="parent-55,20" Style="GreatPeopleLargeText" Color="168,168,129,255"/>
+                <Label ID="AbilityText" Anchor="L,T" WrapWidth="parent-55" Style="GreatPeopleText" Color="168,168,129,255"/>
+                <!-- ==== CQUI CUSTOMIZATION END ========================================================================================== -->
+            </Stack>
+        </Container>
+    </Instance>
+
+    <Instance Name="CommandInstance">
+        <Container ID="Top" Size="parent,auto">
+            <Image ID="CommandIcon" Offset="6,0" Size="38,38" Texture="Controls_SlotCircle3"/>
+            <Stack Anchor="L,T" Offset="45,0" StackGrowth="Down" StackPadding="4">
+                <!-- ==== CQUI CUSTOMIZATION BEGIN ======================================================================================== -->
+                <!-- CQUI: Adjusted the X-size and added Color value for CommandName and CommandText -->
+                <ScrollTextField ID="CommandName" Anchor="L,T" Size="parent-55,20" Style="GreatPeopleLargeText" Color="168,168,129,255"/>
+                <Label ID="CommandText" Anchor="L,T" WrapWidth="parent-55" Style="GreatPeopleText" Color="168,168,129,255"/>
+                <!-- ==== CQUI CUSTOMIZATION END ========================================================================================== -->
+            </Stack>
+        </Container>
+    </Instance>
+
+    <Instance Name="StatInstance">
+        <Container ID="Top" Size="parent,auto">
+            <!-- ==== CQUI CUSTOMIZATION BEGIN ======================================================================================== -->
+            <!-- CQUI: Adjusted offsets, WrapWidth, and text Color values for StatIcon, NameText, and ValueText -->
+            <Image ID="StatIcon" Anchor="L,T" Offset="75,0" Size="16,16" Icon="ICON_STRENGTH"/>
+            <Label ID="NameText" Anchor="L,T" Offset="95,2" WrapWidth="120" Style="GreatPeopleText" String="Combat Strength" Color="168,168,129,255"/>
+            <Label ID="ValueText" Anchor="R,T" Offset="75,2" Style="GreatPeopleText" String="22" Color="168,168,129,255"/>
+            <!-- ==== CQUI CUSTOMIZATION END ========================================================================================== -->
+        </Container>
+    </Instance>
+
+</Context>

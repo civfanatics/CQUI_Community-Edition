@@ -621,9 +621,9 @@ function ViewPanelAmenities( data:table )
     end
     
     -- Starting Era
-	if data.AmenitiesFromStartingEra > 0 then 
+    if data.AmenitiesFromStartingEra > 0 then
         CQUI_BuildAmenityBubbleInstance("ICON_GREAT_PERSON_CLASS_SCIENTIST", data.AmenitiesFromStartingEra, "LOC_GAME_START_ERA");
-	end
+    end
     
     -- Improvements
     CQUI_BuildAmenityBubbleInstance("ICON_CITYSTATE_INDUSTRIAL", data.AmenitiesFromImprovements, "LOC_PEDIA_IMPROVEMENTS_PAGEGROUP_IMPROVEMENTS_NAME");
