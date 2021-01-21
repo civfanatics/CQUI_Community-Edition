@@ -124,6 +124,111 @@ function CQUI_SmartWrap( textString, wrapWidth )
 end
 
 -- ===========================================================================
+-- Function to determine the vertical size of the Great People Popup
+-- This is located in CQUICommon as the values calculated here are used by both Assets/UI/Popups/GreatPeoplePopup.lua and Assets/Babylon/Additions/GreatPeopleHeroPanel.lua
+-- The vertical size of the panel depends on the number of major and alive civilizations, and is calculated once after the first load of the game.
+-- NOTE! Values here may refer to objects defined in the XML files (greatpeoplepopup.xml and greatpeopleheropanel.xml), so changes there may require updates here.
+
+local m_CQUI_GreatPeoplePopupCalculations = {};
+
+-- This function is not intended to be called by the other files, it is called when one of
+-- those other files attempts to lookup a size of one of the controls and the sizes had not
+-- yet been calculated
+local function CQUI_GreatPeoplePopupSizeCalculations()
+    -- Get the Y-size of the screen, to ensure the panel is built to fit on smaller screens
+    local _, screenSizeY = UIManager:GetScreenSizeVal();
+
+    -- Get the number of not-local-player Civs by calculating all alive major civs and subtracting 1
+    local majorCivs = Game.GetPlayers{Major = true, Alive = true};
+    CQUI_GreatPeoplePopupSizeCalculations_Worker(screenSizeY, (#majorCivs - 1));
+end
+
+-- This function exists in order to test different heights of the control and RecruitProgress section from the Live Tuner
+function CQUI_GreatPeoplePopupSizeCalculations_Test(screenSizeY, aliveMajorNotLocalCivs)
+    CQUI_GreatPeoplePopupSizeCalculations_Worker(screenSizeY, aliveMajorNotLocalCivs)
+end 
+
+-- ===========================================================================
+function CQUI_GreatPeoplePopupSizeCalculations_Worker(screenSizeY, aliveMajorNotLocalCivs)
+    -- The unmodified game sets the total height of the control to 768 pixels.
+    -- The 768px includes 240 for the "Great Person Effects" section and 152 for the "Recruit Progress" section.
+    -- CQUI will adjust the size of the Recruit Progress and Great Person Effects sections based on the number
+    -- of major, alive civilizations.
+    -- In order to adjust these values dynamically we need to know the total Y-size of the elements above and below
+    -- those that we will change.
+
+    -- The area in the PopupContainer control above the PeopleStack control
+    -- PeopleStack is the control that hosts each Great Person and Hero Panel insance
+    local popupContainerHeaderSizeY = 78; 
+    -- The section of Great Person Panel Instance (gppi) containing the type, name, era, and icon
+    -- This is the distance from the top of the instance to the top of the EffectStackScroller (offset 0,224)
+    local gppiTopAreaSizeY = 224;
+    -- An unnamed small buffer that exists between the EffectStackScroller control and the RecruitProgressBox control
+    local gppiMiddleBufferSizeY = 8;
+    -- The area in the bottom of the Great Person Panel instance that contains the purchase/recruit/reject buttons
+    local gppiBottomAreaSizeY = 46;
+    -- The area in the PopupContainer control that exists below the PeopleStack control containing the instance;
+    -- This footer area contains the horizontal scroll bar
+    local popupContinerFooterSizeY = 20;
+
+    -- The start size of the EffectStackScroller is the unmodified default of 240.
+    -- This value may be reduced in order to accomodate a larger Recruit Progress section
+    local gppiEffectStackScrollerSizeY = 240;
+    -- The Recruit Progress section (RecruitProgressBox) is 152 in the unmodified XML,
+    -- which includes allocating 48 for the RecruitScroll control, which shows 2 non-local-player civilizations
+    -- Each RecruitInstance item in the RecruitScroll control measures at 24px tall
+    local gppiRecruitProgressBoxStaticSizeY = 104;
+    local gppiRecruitInstanceItemStaticSizeY = 24;
+
+    -- Determine the size of the RecruitScroll control (inside of the RecruitProgressBox control) based 
+    -- on the number of alive, major Civs that are not the local player
+    local gppiRecruitScrollSizeY = aliveMajorNotLocalCivs * gppiRecruitInstanceItemStaticSizeY;
+    local gppiRecruitProgressBoxSizeY = gppiRecruitProgressBoxStaticSizeY + gppiRecruitScrollSizeY;
+
+    -- Determine the new Y-size of the panel
+    -- all of the other elements (calculation below sums items in order of their placement on screen, top to bottom)
+    local popupContainerSizeY = popupContainerHeaderSizeY 
+                                + gppiTopAreaSizeY
+                                + gppiEffectStackScrollerSizeY
+                                + gppiMiddleBufferSizeY
+                                + gppiRecruitProgressBoxSizeY
+                                + gppiBottomAreaSizeY
+                                + popupContinerFooterSizeY;
+
+    -- If the height of the panel exceeds the available screen height, adjustments are required
+    if (popupContainerSizeY > screenSizeY) then
+        popupContainerSizeY = screenSizeY;
+        -- Determine the height available to fit the EffectStackScroller and RecruitProgressBox, and split
+        -- the difference between the two
+        local sizeRemaining = screenSizeY - popupContainerHeaderSizeY - gppiTopAreaSizeY - gppiMiddleBufferSizeY - gppiBottomAreaSizeY - popupContinerFooterSizeY;
+        gppiEffectStackScrollerSizeY = sizeRemaining / 2;
+        gppiRecruitProgressBoxSizeY = sizeRemaining / 2;
+        -- The recruit scroll control is the Y-size of the RecruitProgressBox control minus the Y-size of the elements
+        -- in that RecruitProgressBox control that do not change
+        gppiRecruitScrollSizeY = gppiRecruitProgressBoxSizeY - gppiRecruitProgressBoxStaticSizeY;
+    end
+
+    -- Fill in the table with the new sizes of various items
+    m_CQUI_GreatPeoplePopupCalculations["ModalFrame"] = popupContainerSizeY; -- The Modal Frame effectively creates a 3px border around the PopupContainer control, but is same size
+    m_CQUI_GreatPeoplePopupCalculations["PopupContainer"] = popupContainerSizeY;
+
+    m_CQUI_GreatPeoplePopupCalculations["Content"] =  gppiTopAreaSizeY + gppiEffectStackScrollerSizeY + gppiMiddleBufferSizeY + gppiRecruitProgressBoxSizeY + gppiBottomAreaSizeY;
+    m_CQUI_GreatPeoplePopupCalculations["EffectStackScroller"] = gppiEffectStackScrollerSizeY;
+    m_CQUI_GreatPeoplePopupCalculations["RecruitProgressBox"]  = gppiRecruitProgressBoxSizeY;
+    m_CQUI_GreatPeoplePopupCalculations["RecruitScroll"] = gppiRecruitScrollSizeY;
+    m_CQUI_GreatPeoplePopupCalculations["CQUI_WoodPanelingBottomFiller"] = gppiRecruitProgressBoxSizeY + gppiBottomAreaSizeY + popupContinerFooterSizeY + 3;
+end
+
+-- ===========================================================================
+function CQUI_GreatPeoplePanel_GetControlSizeY( controlName )
+    if m_CQUI_GreatPeoplePopupCalculations[controlName] == nil then
+        CQUI_GreatPeoplePopupSizeCalculations();
+    end
+
+    return m_CQUI_GreatPeoplePopupCalculations[controlName];
+end
+
+-- ===========================================================================
 function Initialize()
     -- print_debug("INITIALIZE: CQUICommon.lua");
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);

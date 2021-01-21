@@ -11,6 +11,7 @@ include("SupportFunctions");
 include("Civ6Common"); --DifferentiateCiv
 include("ModalScreen_PlayerYieldsHelper");
 include("GameCapabilities");
+include("CQUICommon.lua");
 
 -- ===========================================================================
 --  CONSTANTS
@@ -45,29 +46,6 @@ local m_RefreshFunc              :ifunction = nil;
 
 local m_pGreatPeopleTabInstance  :table = nil;
 local m_pPrevRecruitedTabInstance:table = nil;
-
--- ===========================================================================
---  CQUI Variables
--- ===========================================================================
-local _, CQUI_screenHeight = UIManager:GetScreenSizeVal();
-local CQUI_ModalFrameBaseSize = Controls.ModalFrame:GetSizeY();
-local CQUI_PopupContainerBaseSize = Controls.PopupContainer:GetSizeY();
-
--- These values are calculated as part of the "AddRecruit" function, which is a function separated out from "ViewCurrent" by Firaxis.
--- Previously CQUI left the "AddRecruit" logic inline the ViewCurrent function, however given the changes for the Babylon Patch by Firaxis,
--- it makes sense to move the logic out to that separate function, in case a future update makes use of it.
--- Notes on Pixel sizes:
--- 63px from top of container "RecruitProgressBox" to top of scrollpanel "RecruitScroll"
--- 84px from bottom of scrollpanel "RecruitScroll" to bottom of the container "PopupContainer"
-local CQUI_lowerPanelAdditionalHeight = 147;
--- When fit to a full screen, the Great Person panel instance is 122px shorter than the "PopupContainer"
-local CQUI_instanceMargin = 127;
-local CQUI_preferredRecruitScrollSize = 0;
-local CQUI_preferredEffectsScrollSize = 240; -- Value defined in the XML
-local CQUI_preferredInstanceSize = 0;
-local CQUI_isPreferredRecruitScrollSizeComputed:boolean = false;
-local CQUI_isPreferredHeightsComputed:boolean = false;
--- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
 -- ===========================================================================
 function ChangeDisplayPlayerID(bBackward)
@@ -365,22 +343,11 @@ function AddRecruit( kData:table, kPerson:table )
             else
                 local recruitInst:table = instance["m_RecruitIM"]:GetInstance();
                 FillRecruitInstance(recruitInst, kPlayerPoints, kPerson, classData);
-                -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-                if not CQUI_isPreferredRecruitScrollSizeComputed then
-                    CQUI_preferredRecruitScrollSize = CQUI_preferredRecruitScrollSize + recruitInst.Top:GetSizeY() + 5; -- AZURENCY : 5 is the padding
-                end
-                -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
             end
 
             local recruitExtendedInst:table = instance["m_RecruitExtendedIM"]:GetInstance();
             FillRecruitInstance(recruitExtendedInst, kPlayerPoints, kPerson, classData);
         end
-
-        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-        if not CQUI_isPreferredRecruitScrollSizeComputed then
-            CQUI_isPreferredRecruitScrollSizeComputed = true;
-        end
-        -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
         if (kPerson.EarnConditions ~= nil and kPerson.EarnConditions ~= "") then
             instance.RecruitInfo:SetText("[COLOR_Civ6Red]" .. Locale.Lookup("LOC_GREAT_PEOPLE_CANNOT_EARN_PERSON") .. "[ENDCOLOR]");
@@ -430,40 +397,11 @@ function AddRecruit( kData:table, kPerson:table )
     
     -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     -- Set the heights of the various elements in the Great People Panel instance as has been computed
-    if (CQUI_isPreferredHeightsComputed == false) then
-        -- This if clause will only run for the first instance, each subsequent will use the values calculated here
-        --CQUI_preferredRecruitScrollSize = 1000;  -- for quick testing
-        if (CQUI_preferredRecruitScrollSize > (CQUI_screenHeight / 4)) then
-            CQUI_preferredRecruitScrollSize = (CQUI_screenHeight / 4);
-        end
-
-        -- 670 is the default Instance size in the XML... 86 is a number that represents some undocumented thing
-        CQUI_preferredInstanceSize =  670 - 86 + CQUI_preferredRecruitScrollSize;
-        -- CQUI_preferredInstanceSize = 3000 -- for quick testing
-        if (CQUI_preferredInstanceSize > (CQUI_screenHeight - CQUI_instanceMargin)) then
-            -- The instance area cannot be bigger than the screen height minus CQUI_instanceMargin:
-            -- When the Gold/Faith (or Recruit/Pass) buttons are 5px above the PeopleScroller horizontal scroll, 
-            -- the PanelInstance is CQUI_instanceMargin pixels less in height than the PeopleContainer, which is defined as 768 in the XML.
-            -- These adjustments are necessary to properly fit the screen
-            local prevPreferredInstanceSize = CQUI_preferredInstanceSize;
-            CQUI_preferredInstanceSize = CQUI_screenHeight - CQUI_instanceMargin;
-
-            -- Instead of shrinking the recruit scroll size, instead shrink the EffectsStackScroller, as there's typically room to spare in that section
-            -- 240 is the value defined in the XML.  We cannot do a GetSizeY here because subsequent calls to this function
-            -- would update the smaller value, eventually shrinking the control to less than zero.
-            local effectStackScrollerAdjustment = prevPreferredInstanceSize - CQUI_preferredInstanceSize;
-            CQUI_preferredEffectsScrollSize = 240 - effectStackScrollerAdjustment;
-        end
-
-        CQUI_isPreferredHeightsComputed = true;
-    end
-
-    -- CQUI: Set the height of the elements in this GPP instance
-    -- CQUI DEBUG TEST :
-    -- CQUI_preferredRecruitScrollSize = 300;
-    instance.Content:SetSizeY(CQUI_preferredInstanceSize);
-    instance.EffectStackScroller:SetSizeY(CQUI_preferredEffectsScrollSize);
-    instance.RecruitScroll:SetSizeY(CQUI_preferredRecruitScrollSize);
+    -- CQUI_GreatPeoplePanel_GetControlSizeY function is defined in CQUICommon.lua
+    instance.Content:SetSizeY(CQUI_GreatPeoplePanel_GetControlSizeY("Content"));
+    instance.EffectStackScroller:SetSizeY(CQUI_GreatPeoplePanel_GetControlSizeY("EffectStackScroller"));
+    instance.RecruitProgressBox:SetSizeY(CQUI_GreatPeoplePanel_GetControlSizeY("RecruitProgressBox"));
+    instance.RecruitScroll:SetSizeY(CQUI_GreatPeoplePanel_GetControlSizeY("RecruitScroll"));
     -- ==== CQUI CUSTOMIZATION END ==================================================================================== --
 end
 
@@ -494,24 +432,22 @@ function ViewCurrent( data:table )
     end
 
     -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-    -- CQUI : change size.  CQUI_preferredRecruitScrollSize and the like were calculated in the AddRecruit function
-    -- CQUI_preferredRecruitScrollSize = CQUI_preferredRecruitScrollSize + 32 + 28 + 48 + 28 ;
-    -- CQUI : 22 our LocalPlayerRecruitInstance, 28 Recruit progress title, 48 buttons, 28 distance from scroll bar to edge of PeopleScroller control
-    Controls.CQUI_RecruitWoodPaneling:SetSizeY(CQUI_preferredRecruitScrollSize + CQUI_lowerPanelAdditionalHeight); 
+    -- CQUI_WoodPanelingBottomFiller is the darker background showing the Recruit Progress section
+    Controls.CQUI_WoodPanelingBottomFiller:SetSizeY(CQUI_GreatPeoplePanel_GetControlSizeY("CQUI_WoodPanelingBottomFiller")); 
     -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     Controls.PeopleStack:CalculateSize();
     Controls.PeopleScroller:CalculateSize();
-    
-    m_screenWidth = math.max(Controls.PeopleStack:GetSizeX(), 1024);
-    Controls.WoodPaneling:SetSizeX( m_screenWidth );
 
+    m_screenWidth = math.max(Controls.PeopleStack:GetSizeX(), 1024);
+
+    -- CQUI: Texture was changed, see notes in GreatPeoplePopup.xml
+    Controls.WoodPaneling:SetSizeX( m_screenWidth );
     -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-    -- CQUI: Set the width of the panel
-    Controls.CQUI_ContentWoodPaneling:SetSizeX( m_screenWidth );
-    Controls.CQUI_RecruitWoodPaneling:SetSizeX( m_screenWidth );
-    Controls.CQUI_BottomWoodPaneling:SetSizeX( m_screenWidth );
-    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+    Controls.CQUI_WoodPanelingTopFiller:SetSizeX( m_screenWidth );
+    Controls.CQUI_WoodPanelingBottomFiller:SetSizeX( m_screenWidth );
+    Controls.CQUI_WoodPanelingBottom:SetSizeX( m_screenWidth );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
 
     -- Clamp overall popup size to not be larger than contents (overspills in 4k and eyefinitiy rigs.)
     local screenX,_ :number = UIManager:GetScreenSizeVal();
@@ -522,9 +458,9 @@ function ViewCurrent( data:table )
     Controls.PopupContainer:SetSizeX( m_screenWidth );
     Controls.ModalFrame:SetSizeX( m_screenWidth );
     -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-    -- CQUI : change size
-    Controls.ModalFrame:SetSizeY( CQUI_preferredInstanceSize + CQUI_instanceMargin -6 );  -- CQUI: 6px less for the 3px outer border
-    Controls.PopupContainer:SetSizeY( CQUI_preferredInstanceSize + CQUI_instanceMargin ); -- CQUI
+    -- CQUI : change size based on calculations done in CQUICommon.lua
+    Controls.ModalFrame:SetSizeY( CQUI_GreatPeoplePanel_GetControlSizeY("ModalFrame") );
+    Controls.PopupContainer:SetSizeY( CQUI_GreatPeoplePanel_GetControlSizeY("PopupContainer") );
     -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     -- Has an instance been set to auto scroll to?
@@ -1368,5 +1304,42 @@ end
 -- This method replaces the uses of include("GreatPeoplePopup") in files that want to override 
 -- functions from this file. If you're implementing a new "GreatPeoplePopup_" file DO NOT include this file.
 include("GreatPeoplePopup_", true);
+
+-- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+-- In order for the wood paneling to "look correct" when scrolling sideways, we need to hook into these functions
+-- declared in GreatPeoplePopup_Babylon_Heroes.lua.
+-- It should require only 1 function, but for some reason in the unmodified file, there exists this OnGreatPeopleHeroPanel_SizeChanged that sets the
+-- local m_HeroStackSizeX value before calling ResizeHeroPaneling so it can use that m_HeroStackSizeX instead of the heroStackSizeX parameter!
+BASE_CQUI_ResizeHeroPaneling = ResizeHeroPaneling;
+BASE_CQUI_OnGreatPeopleHeroPanel_SizeChanged = OnGreatPeopleHeroPanel_SizeChanged;
+local m_HeroStackSizeX = 0;
+
+-- =======================================================================================
+function OnGreatPeopleHeroPanel_SizeChanged( heroStackSizeX:number )
+    -- Save off this value, as the heroStackSizeX param is unused in the ResizeHeroPaneling function
+    m_HeroStackSizeX = heroStackSizeX;
+    BASE_CQUI_OnGreatPeopleHeroPanel_SizeChanged(heroStackSizeX);
+end
+
+-- =======================================================================================
+function ResizeHeroPaneling( heroStackSizeX )
+    -- See note above about "heroStackSizeX" not being used and m_HeroStackSizeX being used instead
+    BASE_CQUI_ResizeHeroPaneling();
+
+    -- Ignore if size is zero
+    -- This means it's been cleared and another tab is opening which will handle the resizing
+    if m_HeroStackSizeX <= 0 then
+        return;
+    end
+
+    local scrollWidth = math.max(m_HeroStackSizeX, 1024);
+
+    -- Set the X values for the WoodPaneling images so that they cover the area behind all of the instances
+    Controls.WoodPaneling:SetSizeX( scrollWidth );
+    Controls.CQUI_WoodPanelingTopFiller:SetSizeX( scrollWidth );
+    Controls.CQUI_WoodPanelingBottomFiller:SetSizeX( scrollWidth );
+    Controls.CQUI_WoodPanelingBottom:SetSizeX( scrollWidth );
+end
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
 Initialize();
