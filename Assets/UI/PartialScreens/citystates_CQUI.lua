@@ -55,8 +55,8 @@ function AddCityStateRow( kCityState:table )
         questString = kQuest.Name;
     end
 
-    -- get city state quest
-    if (IsCQUI_InlineCityStateQuestEnabled()) then
+    -- get city state quest, ensure the CQUI-added QuestRow is valid (in case another mod loads its XML but does not replace this lua)
+    if (IsCQUI_InlineCityStateQuestEnabled() and kInst.QuestRow ~= nil) then
         kInst.QuestIcon:SetHide(true);
 
         if (anyQuests) then
@@ -70,7 +70,11 @@ function AddCityStateRow( kCityState:table )
         end
     else
         kInst.CityStateBase:SetSizeY(CITYSTATEBASE_DEFAULT_SIZEY);
-        kInst.QuestRow:SetHide(true);
+        if (kInst.QuestRow ~= nil) then
+            -- Reference only if valid (another mod may have replaced the XML but not the lua)
+            kInst.QuestRow:SetHide(true);
+        end
+
         -- SetHide is TRUE if anyQuests is FALSE
         kInst.QuestIcon:SetHide(not anyQuests);
     end
@@ -124,8 +128,9 @@ function AddCityStateRow( kCityState:table )
 
         kInst.EnvoyCount:SetToolTipString(envoysToolTip);
 
-        if (#envoyTable > 1) then
+        if (#envoyTable > 1 and kInst.SecondHighestName ~= nil) then
             -- Show 2nd place if there is one (recall Lua tables/arrays start at index 1)
+            -- The check on kInst.SecondHighestName is for cases where another mod replaces the XML, but not the citystates lua file
             local secondPlaceIdx = 2;
 
             -- is there a tie for first?
