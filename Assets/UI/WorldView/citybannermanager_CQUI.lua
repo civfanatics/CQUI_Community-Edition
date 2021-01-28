@@ -22,11 +22,6 @@ BASE_CQUI_CityBanner_UpdateRangeStrike = CityBanner.UpdateRangeStrike;
 local COLOR_CITY_GREEN           = UI.GetColorValueFromHexLiteral(0xFF4CE710);
 local COLOR_CITY_RED             = UI.GetColorValueFromHexLiteral(0xFF0101F5);
 local COLOR_CITY_YELLOW          = UI.GetColorValueFromHexLiteral(0xFF2DFFF8);
-local BANNERTYPE_CITY_CENTER     = 0;
-local BANNERTYPE_ENCAMPMENT      = 1;
-local BANNERTYPE_AERODROME       = 2;
-local BANNERTYPE_MISSILE_SILO    = 3;
-local BANNERTYPE_OTHER_DISTRICT  = 4;
 local BANNERSTYLE_LOCAL_TEAM     = 0;
 local BANNERSTYLE_OTHER_TEAM     = 1;
 

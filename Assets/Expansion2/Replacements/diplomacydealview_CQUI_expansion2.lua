@@ -1,7 +1,8 @@
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
-include("DiplomacyDealView_Expansion2");
+-- Firaxis does that wildcard include at the end of their diplomacydealview, which would grab their DiplomacyDealView_Expansion2 file, so we just need to include DipolmacyDealView
+include("DiplomacyDealView"); 
 
 -- ===========================================================================
 -- Cached Base Functions

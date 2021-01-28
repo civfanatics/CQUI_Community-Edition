@@ -11,7 +11,9 @@ BASE_CQUI_UpdateOtherPlayerText = UpdateOtherPlayerText;
 -- ===========================================================================
 -- Members
 -- ===========================================================================
-local CQUI_IconOnlyIM = InstanceManager:new( "IconOnly", "SelectButton", Controls.IconOnlyContainer );
+-- TODO: IconOnlyIM and and IconAndTextIM (which we hadn't been using here) are now globals, 
+--       may need to look into this more closely, but using the g_IconOnlyIM seems to work for now.
+-- local CQUI_IconOnlyIM = InstanceManager:new( "IconOnly", "SelectButton", Controls.IconOnlyContainer );
 local CQUI_IconAndTextForCitiesIM = InstanceManager:new( "IconAndTextForCities", "SelectButton", Controls.IconOnlyContainer );
 local CQUI_IconAndTextForGreatWorkIM = InstanceManager:new( "IconAndTextForGreatWork", "SelectButton", Controls.IconOnlyContainer );
 local CQUI_MinimizedSectionIM = InstanceManager:new( "MinimizedSection", "MinimizedSectionContainer" );
@@ -202,7 +204,7 @@ end
 -- ===========================================================================
 function CQUI_RenderResourceButton(resource, resourceCategory, iconList, howAcquired)
     resourceDesc = GameInfo.Resources[resource.ForType];
-    local icon = CQUI_IconOnlyIM:GetInstance(iconList.ListStack);
+    local icon = g_IconOnlyIM:GetInstance(iconList.ListStack);
     local tooltipAddedText = '';
     local buttonDisabled = false;
 
@@ -414,7 +416,7 @@ function UpdateOtherPlayerText(otherPlayerSays)
     isCquiXmlActive = isCquiXmlActive and (Controls.OtherPlayerCivName ~= nil);
 
     if isCquiXmlActive then
-        CQUI_IconOnlyIM:ResetInstances();
+        g_IconOnlyIM:ResetInstances();
         CQUI_IconAndTextForCitiesIM:ResetInstances();
         CQUI_IconAndTextForGreatWorkIM:ResetInstances();
         CQUI_MinimizedSectionIM:ResetInstances();
@@ -440,7 +442,7 @@ function PopulateAvailableResources(player : table, iconList : table, className 
     local otherPlayerImportedResources = CQUI_GetImportedResources(GetOtherPlayer(player):GetID());
 
     if (pDeal ~= nil) then
-        CQUI_IconOnlyIM:ReleaseInstanceByParent(iconList);
+        g_IconOnlyIM:ReleaseInstanceByParent(iconList);
     end
 
     if (possibleResources ~= nil) then
@@ -585,7 +587,7 @@ function PopulateAvailableCities(player : table, iconList : table)
             -- pCity should never be nil here, if it is print a warning so the scenario can be reproduced
             if pCity ~= nil then
                 local icon = CQUI_RenderCityButton(pCity, player, iconList.ListStack);
-                local uiMinimizedIcon = CQUI_IconOnlyIM:GetInstance(uiMinimizedSection.MinimizedSectionStack);
+                local uiMinimizedIcon = g_IconOnlyIM:GetInstance(uiMinimizedSection.MinimizedSectionStack);
                 SetIconToSize(uiMinimizedIcon.Icon, "ICON_BUILDINGS", 45);
                 uiMinimizedIcon.AmountText:SetHide(true);
                 uiMinimizedIcon.SelectButton:SetDisabled( not entry.IsValid and entry.ValidationResult ~= DealValidationResult.MISSING_DEPENDENCY );	-- Hide if invalid, unless it is just missing a dependency, the user will update that when it is added to the deal.
@@ -641,7 +643,7 @@ function PopulateAvailableGreatWorks(player : table, iconList : table)
             if (greatWorkDesc ~= nil) then
                 local type = entry.ForType;
                 local icon = CQUI_IconAndTextForGreatWorkIM:GetInstance(iconList.ListStack);
-                local uiMinimizedIcon = CQUI_IconOnlyIM:GetInstance(uiMinimizedSection.MinimizedSectionStack);
+                local uiMinimizedIcon = g_IconOnlyIM:GetInstance(uiMinimizedSection.MinimizedSectionStack);
 
                 SetIconToSize(icon.Icon, "ICON_" .. greatWorkDesc.GreatWorkType, 45);
                 SetIconToSize(uiMinimizedIcon.Icon, "ICON_" .. greatWorkDesc.GreatWorkType, 45);

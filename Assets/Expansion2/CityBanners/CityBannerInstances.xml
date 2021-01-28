@@ -241,6 +241,29 @@
         </ZoomAnchor>
     </Instance>
 
+        <!-- Industry Minibanner -->
+    <Instance	Name="IndustryBanner">
+    <ZoomAnchor ID="Anchor" ZoomOffsetNear="0,0,0" ZoomOffsetFar="0,0,-20">
+        <Container ID="IndustryBannerContainer" Anchor="C,C" Size="88,34">
+        <!-- Banner Background -->
+            <Image ID="Banner_Base" Anchor="C,C" Size="50,50" Texture="BannerMonopolies_Combo_Base_Combo"/>
+            <Image ID="Icon" Anchor="C,C" Size="34,34" Texture="AdvisorRec22" />
+        </Container>
+    </ZoomAnchor>
+    </Instance>
+    
+    <!-- Corporation Minibanner -->
+    <Instance	Name="CorporationBanner">
+    <ZoomAnchor ID="Anchor" ZoomOffsetNear="0,0,0" ZoomOffsetFar="0,0,-20">
+        <Container ID="CorporationBannerContainer" Anchor="C,C" Size="88,34">
+        <!-- Banner Background -->
+            <Image ID="Banner_Base" Anchor="C,C" Size="50,50" Texture="BannerMonopolies_Combo_Base_Combo"/>
+            <Image ID="Icon" Anchor="C,C" Size="34,34" Texture="AdvisorRec22" />
+            <Image ID="CorporationRing" Anchor="C,C" Size="48,48" Texture="Monopolies_GoldBorder"/>
+        </Container>
+    </ZoomAnchor>
+    </Instance>
+
     <!-- Encampment Minibanner -->
     <Instance Name="EncampmentBanner">
         <ZoomAnchor ID="Anchor" ZoomOffsetNear="0,0,0" ZoomOffsetFar="0,0,-20">
