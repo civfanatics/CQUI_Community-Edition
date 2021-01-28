@@ -321,8 +321,11 @@
     <Row Tag="LOC_CQUI_PLACE_PIN" Language="en_US">
       <Text>Place Pin</Text>
     </Row>
-	<Row Tag="LOC_CQUI_INLINE_CITY_STATE_QUEST" Language="en_US">
-      <Text>Show inline CityState Quest</Text>
+    <Row Tag="LOC_CQUI_INLINE_CITY_STATE_QUEST" Language="en_US">
+      <Text>Show Inline CityState Quest</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_INLINE_CITY_STATE_QUEST_FONT_SIZE" Language="en_US">
+      <Text>Show Inline CityState Quest Font Size:</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="en_US">
       <Text>Religion Lens Unit Flag Style</Text>

@@ -198,8 +198,8 @@
                 <Label ID="QuestIcon" Anchor="L,T" Offset="-9,0" String="[ICON_CityStateQuest]" Size="28,28"/>
             </BoxButton>
 
-            <!-- ==== CQUI Modification: added Anchor for NameButton ==== -->
-            <GridButton ID="NameButton" Anchor="L,T" Offset="42,9" Size="126,33" Texture="Controls_CityBannerSmall" SliceCorner="14,9" SliceSize="5,4" SliceTextureSize="33,28" Color="50,50,50,255">
+            <!-- ==== CQUI Modification: added Anchor and changed OffsetY ==== -->
+            <GridButton ID="NameButton" Anchor="L,T" Offset="42,11" Size="126,33" Texture="Controls_CityBannerSmall" SliceCorner="14,9" SliceSize="5,4" SliceTextureSize="33,28" Color="50,50,50,255">
                 <Label ID="NameLabel" Anchor="C,C" Offset="0,-2" Style="FontFlair11" SmallCaps="16" SmallCapsStyle="EveryWord" String="Name"/>
             </GridButton>
 
@@ -210,20 +210,23 @@
                 <Label ID="EnvoyCount" Anchor="C,C" Offset="-1,1" String="0" Style="FontFlairLua" Color="160,160,160,240" />
             </Image>
 
-            <Image ID="BonusImage1" Anchor="L,C" Offset="256,0" Size="29,42" Texture="CityState_BonusSlotOff">
+            <!-- ==== CQUI Modification: changed AnchorY and OffsetY ==== -->
+            <Image ID="BonusImage1" Anchor="L,T" Offset="256,3" Size="29,42" Texture="CityState_BonusSlotOff">
                 <Label ID="BonusText1" Anchor="R,T" Offset="3,2" Style="FontNormal12" String="1" />
                 <Image ID="BonusIcon1" Anchor="C,B" Size="26,26" Texture="EnvoyBonuses26" TextureOffset="104,0" />
             </Image>
-            <Image ID="BonusImage3" Anchor="L,C" Offset="286,0" Size="29,42" Texture="CityState_BonusSlotOn">
+            <!-- ==== CQUI Modification: changed AnchorY and OffsetY ==== -->
+            <Image ID="BonusImage3" Anchor="L,T" Offset="286,3" Size="29,42" Texture="CityState_BonusSlotOn">
                 <Label ID="BonusText3" Anchor="R,T" Offset="3,2" Style="FontNormal12" String="3" />
                 <Image ID="BonusIcon3" Anchor="C,B" Size="26,26" Texture="EnvoyBonuses26" TextureOffset="104,0" />
             </Image>
-            <Image ID="BonusImage6" Anchor="L,C" Offset="316,0" Size="29,42" Texture="CityState_BonusSlotOn">
+            <!-- ==== CQUI Modification: changed AnchorY and OffsetY ==== -->
+            <Image ID="BonusImage6" Anchor="L,T" Offset="316,3" Size="29,42" Texture="CityState_BonusSlotOn">
                 <Label ID="BonusText6" Anchor="R,T" Offset="3,2" Style="FontNormal12" String="6" />
                 <Image ID="BonusIcon6" Anchor="C,B" Size="26,26" Texture="EnvoyBonuses26" TextureOffset="104,0" />
             </Image>
-            <!-- ==== CQUI Modification: The size of SuzerainStatus container changed from 108 to 110 in order to fix a spacing issue ==== -->
-            <Container ID="SuzerainStatus" Anchor="L,C" Offset="346,0" Size="110,42">
+            <!-- ==== CQUI Modification: Changed AnchorY and OffsetY, SizeX of SuzerainStatus container changed from 108 to 110 in order to fix a spacing issue ==== -->
+            <Container ID="SuzerainStatus" Anchor="L,T" Offset="346,3" Size="110,42">
                 <Grid ID="BonusImageSuzerainOff" Size="parent,parent" Texture="CityState_BonusSlotBigOff" SliceCorner="31,21" SliceTextureSize="34,42" />
                 <Grid ID="BonusImageSuzerainOn" Size="parent,parent" Texture="CityState_BonusSlotBigOn" SliceCorner="31,21" SliceTextureSize="34,42" />
                 <!-- ==== CQUI Modification: Moved SuzerainLabel and Suzerain above BonusTextSuzerain and BonusIconSuzerain, changed Anchors and Offsets ==== -->
@@ -250,7 +253,7 @@
             <GridButton ID="ChangeWarStateButton" Anchor="R,C" Offset="0,0" Size="140,32" Style="MainButton" Hidden="1" String="Declare War!"/>
             -->
             <!-- ==== CQUI Modification: Added QuestRow to show text of the CityState quest ==== -->
-            <Grid ID="QuestRow" Size="parent,23" Anchor="C,B" Offset="0,0">
+            <Grid ID="QuestRow" Size="parent,23" Anchor="L,B" Offset="0,0" AutoSize="H">
                 <Label ID="CityStateQuest" Anchor="L,C" Offset="12,2" String="$CQUI_Quest$" Style="FontNormal10"/>
             </Grid>
         </GridButton>

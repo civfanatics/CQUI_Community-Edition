@@ -10,17 +10,18 @@ BASE_CQUI_AddCityStateRow = AddCityStateRow;
 local COLOR_ICON_BONUS_OFF:number = UI.GetColorValueFromHexLiteral(0xff606060);
 local ICON_NAMES = {"%[ICON_TechBoosted%] ", "%[ICON_CivicBoosted%] ", "%[ICON_TradeRoute%] ", "%[ICON_Barbarian%] "};
 local CITYSTATEBASE_DEFAULT_SIZEY :number = 48;
-local CITYSTATEBASE_EXPANDED_SIZEY :number = 56;
 
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
 local CQUI_InlineCityStateQuest         = true;
+local CQUI_InlineCityStateQuestFontSize = 10;
 
 -- ===========================================================================
 function CQUI_OnSettingsInitialized()
     -- print_debug("CityStates_CQUI: CQUI_OnSettingsInitialized ENTRY")
-    CQUI_InlineCityStateQuest      = GameConfiguration.GetValue("CQUI_InlineCityStateQuest");
+    CQUI_InlineCityStateQuest         = GameConfiguration.GetValue("CQUI_InlineCityStateQuest");
+    CQUI_InlineCityStateQuestFontSize = GameConfiguration.GetValue("CQUI_InlineCityStateQuestFontSize");
 end
 
 -- ===========================================================================
@@ -60,8 +61,10 @@ function AddCityStateRow( kCityState:table )
         kInst.QuestIcon:SetHide(true);
 
         if (anyQuests) then
-            kInst.CityStateBase:SetSizeY(CITYSTATEBASE_EXPANDED_SIZEY);
+            -- Adjust the size of the container based on the font size of the Inline City State Quest
+            kInst.CityStateBase:SetSizeY(CITYSTATEBASE_DEFAULT_SIZEY + CQUI_InlineCityStateQuestFontSize - 2);
             kInst.QuestRow:SetHide(false);
+            kInst.CityStateQuest:SetFontSize(CQUI_InlineCityStateQuestFontSize);
             kInst.CityStateQuest:SetString(CQUI_RemoveQuestIconsFromString(questString));
             kInst.CityStateQuest:SetColor(kCityState.ColorSecondary);
         else
