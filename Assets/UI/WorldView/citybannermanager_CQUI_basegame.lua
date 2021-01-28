@@ -173,7 +173,6 @@ function CityBanner.UpdateName( self )
     end
     
     -- Update district icons
-    -- districtType:number == Index
     local districts = {};
     districts[CQUI_GetDistrictIndexSafe("DISTRICT_ACROPOLIS")]             = { Icon = "[ICON_DISTRICT_ACROPOLIS]", Instance = self.m_Instance.CityBuiltDistrictAcropolis };
     districts[CQUI_GetDistrictIndexSafe("DISTRICT_AQUEDUCT")]              = { Icon = "[ICON_DISTRICT_AQUEDUCT]", Instance = self.m_Instance.CityBuiltDistrictAqueduct };
@@ -196,9 +195,11 @@ function CityBanner.UpdateName( self )
     districts[CQUI_GetDistrictIndexSafe("DISTRICT_STREET_CARNIVAL")]       = { Icon = "[ICON_DISTRICT_ENTERTAINMENT_COMPLEX]", Instance = self.m_Instance.CityBuiltDistrictStreetCarnival }; -- Icon uses Entertainment Complex (see XML)
     districts[CQUI_GetDistrictIndexSafe("DISTRICT_THEATER")]               = { Icon = "[ICON_DISTRICT_THEATER]", Instance = self.m_Instance.CityBuiltDistrictTheater };
 
+    -- Checking if CityBuildDistrictAqueduct is not nil answers the question of whether or not m_Instance is valid
     if (self.m_Instance.CityBuiltDistrictAqueduct ~= nil) then
         self.m_Instance.CQUI_DistrictsContainer:SetHide(true);
         self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
+        self.m_Instance.CityUnlockedCitizen:SetHide(true);
         for k,v in pairs(districts) do
             districts[k].Instance:SetHide(true);
         end
