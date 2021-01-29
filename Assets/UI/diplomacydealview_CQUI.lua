@@ -11,9 +11,8 @@ BASE_CQUI_UpdateOtherPlayerText = UpdateOtherPlayerText;
 -- ===========================================================================
 -- Members
 -- ===========================================================================
--- TODO: IconOnlyIM and and IconAndTextIM (which we hadn't been using here) are now globals, 
---       may need to look into this more closely, but using the g_IconOnlyIM seems to work for now.
--- local CQUI_IconOnlyIM = InstanceManager:new( "IconOnly", "SelectButton", Controls.IconOnlyContainer );
+-- The *_IconOnlyIM is now a global variable in the Expansion2 version of DiplomacyDealView; it is still declared locally in the Vanilla/Exp1 version.
+-- The code below appears to work for all three (Vanilla, Exp1, Exp2) using the g_IconOnlyIM, so CQUI declares the global g_IconOnlyIM in diplomacydealview_CQUI_basegame.lua
 local CQUI_IconAndTextForCitiesIM = InstanceManager:new( "IconAndTextForCities", "SelectButton", Controls.IconOnlyContainer );
 local CQUI_IconAndTextForGreatWorkIM = InstanceManager:new( "IconAndTextForGreatWork", "SelectButton", Controls.IconOnlyContainer );
 local CQUI_MinimizedSectionIM = InstanceManager:new( "MinimizedSection", "MinimizedSectionContainer" );
