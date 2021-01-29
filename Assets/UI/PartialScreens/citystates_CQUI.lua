@@ -1,3 +1,4 @@
+include("CQUICommon.lua");
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
@@ -7,12 +8,79 @@ BASE_CQUI_AddCityStateRow = AddCityStateRow;
 --  CONSTANTS
 -- ===========================================================================
 local COLOR_ICON_BONUS_OFF:number = UI.GetColorValueFromHexLiteral(0xff606060);
+local ICON_NAMES = {"%[ICON_TechBoosted%] ", "%[ICON_CivicBoosted%] ", "%[ICON_TradeRoute%] ", "%[ICON_Barbarian%] "};
+local CITYSTATEBASE_DEFAULT_SIZEY :number = 48;
+
+-- ===========================================================================
+-- CQUI Members
+-- ===========================================================================
+local CQUI_InlineCityStateQuest         = true;
+local CQUI_InlineCityStateQuestFontSize = 10;
+
+-- ===========================================================================
+function CQUI_OnSettingsInitialized()
+    -- print_debug("CityStates_CQUI: CQUI_OnSettingsInitialized ENTRY")
+    CQUI_InlineCityStateQuest         = GameConfiguration.GetValue("CQUI_InlineCityStateQuest");
+    CQUI_InlineCityStateQuestFontSize = GameConfiguration.GetValue("CQUI_InlineCityStateQuestFontSize");
+end
+
+-- ===========================================================================
+function CQUI_OnSettingsUpdate()
+    -- print_debug("CityStates_CQUI: CQUI_OnSettingsUpdate ENTRY")
+    CQUI_OnSettingsInitialized();
+    Refresh();
+end
+
+-- ===========================================================================
+function CQUI_RemoveQuestIconsFromString( inStr:string )
+    local lookupStr :string = inStr;
+    local outStr :string = lookupStr;
+    for _,iconName in ipairs(ICON_NAMES) do
+        if (string.find(lookupStr, iconName)) then
+            outStr = string.gsub(lookupStr, iconName, "");
+        end
+    end
+    return outStr;
+end
 
 -- ===========================================================================
 --  CQUI Function Extensions
 -- ===========================================================================
 function AddCityStateRow( kCityState:table )
-    local kInst = BASE_CQUI_AddCityStateRow(kCityState);
+    local kInst :table = BASE_CQUI_AddCityStateRow(kCityState);
+    local anyQuests :boolean = false;
+    local questString :string;
+
+    for _,kQuest in pairs( kCityState.Quests ) do
+        anyQuests = true;
+        questString = kQuest.Name;
+    end
+
+    -- get city state quest, ensure the CQUI-added QuestRow is valid (in case another mod loads its XML but does not replace this lua)
+    if (IsCQUI_InlineCityStateQuestEnabled() and kInst.QuestRow ~= nil) then
+        kInst.QuestIcon:SetHide(true);
+
+        if (anyQuests) then
+            -- Adjust the size of the container based on the font size of the Inline City State Quest
+            kInst.CityStateBase:SetSizeY(CITYSTATEBASE_DEFAULT_SIZEY + CQUI_InlineCityStateQuestFontSize - 2);
+            kInst.QuestRow:SetHide(false);
+            kInst.CityStateQuest:SetFontSize(CQUI_InlineCityStateQuestFontSize);
+            kInst.CityStateQuest:SetString(CQUI_RemoveQuestIconsFromString(questString));
+            kInst.CityStateQuest:SetColor(kCityState.ColorSecondary);
+        else
+            kInst.CityStateBase:SetSizeY(CITYSTATEBASE_DEFAULT_SIZEY);
+            kInst.QuestRow:SetHide(true);
+        end
+    else
+        kInst.CityStateBase:SetSizeY(CITYSTATEBASE_DEFAULT_SIZEY);
+        if (kInst.QuestRow ~= nil) then
+            -- Reference only if valid (another mod may have replaced the XML but not the lua)
+            kInst.QuestRow:SetHide(true);
+        end
+
+        -- SetHide is TRUE if anyQuests is FALSE
+        kInst.QuestIcon:SetHide(not anyQuests);
+    end
 
     -- Determine the 2nd place (or first-place tie), produce text for Tooltip on the EnvoyCount label
     local envoyTable:table = {};
@@ -63,8 +131,9 @@ function AddCityStateRow( kCityState:table )
 
         kInst.EnvoyCount:SetToolTipString(envoysToolTip);
 
-        if (#envoyTable > 1 and kInst.SecondHighestLabel ~= nil) then
+        if (#envoyTable > 1 and kInst.SecondHighestName ~= nil) then
             -- Show 2nd place if there is one (recall Lua tables/arrays start at index 1)
+            -- The check on kInst.SecondHighestName is for cases where another mod replaces the XML, but not the citystates lua file
             local secondPlaceIdx = 2;
 
             -- is there a tie for first?
@@ -82,9 +151,6 @@ function AddCityStateRow( kCityState:table )
             end
 
             -- Add changes to the actual UI object placeholders, which are created in the CityStates.xml file
-            kInst.SecondHighestLabel:SetColor(secondHighestIsPlayer and kCityState.ColorSecondary or COLOR_ICON_BONUS_OFF);
-            -- -- CQUI Note: SecondHighestLabel needs to be localized, but is hard coded for now
-            kInst.SecondHighestLabel:SetText("2nd");
             kInst.SecondHighestName:SetColor(secondHighestIsPlayer and kCityState.ColorSecondary or COLOR_ICON_BONUS_OFF);
             kInst.SecondHighestName:SetText(secondHighestName);
             kInst.SecondHighestEnvoys:SetColor(secondHighestIsPlayer and kCityState.ColorSecondary or COLOR_ICON_BONUS_OFF);
@@ -94,3 +160,19 @@ function AddCityStateRow( kCityState:table )
 
     return kInst;
 end
+
+-- ===========================================================================
+function IsCQUI_InlineCityStateQuestEnabled()
+    return CQUI_InlineCityStateQuest;
+end
+
+-- ===========================================================================
+--  CQUI Initialize Function
+-- ===========================================================================
+function Initialize_CQUI()
+    print_debug("citystates_CQUI: Initialize_CQUI CQUI CityStates (Common File)")
+    -- CQUI related events
+    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);
+    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+end
+Initialize_CQUI();

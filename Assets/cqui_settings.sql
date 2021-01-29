@@ -62,6 +62,7 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ('CQUI_ShowSuzerainLabelInCityStateBanner', 1), -- Show the Icon of the Suzerain Civilization in the CityState Banner
         ('CQUI_ShowWarIconInCityStateBanner', 1), -- When at war with a City State, show the War Icon in the banner of that City State
         ('CQUI_ShowImprovementsRecommendations', 0), -- Shows the advisor recommendation for the builder improvements
+        ('CQUI_InlineCityStateQuest', 1), -- Show city state quest below city state name instead of a tooltip
         ('CQUI_ShowCityDetailAdvisor', 0), -- Shows the advisor recommendation in the city detail panel
         ('CQUI_ReligionLensUnitFlagStyle', 1), -- When Religion Lens is on, update Flags of non-religious units.  Values of 0 (Solid, unmodified gae), 1 (Transparent), or 2 (Hidden) are acceptable
         ('CQUI_NotificationGoodyHut', 1), -- Notification - goody hut reward
@@ -84,7 +85,6 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ("CQUI_ResourceDimmingStyle", 1), -- Affects the way resource icons look when they have been improved  | 0=No Change | 1=Transparent | 2=Hidden |
         ('CQUI_ShowSuzerainInCityStateBanner', 1); -- Show the Icon of the Suzerain Civilization in the CityState Banner | 0 = No Suzerain | 1 = Civ Icon | 2 = Leader Icon
 
-
 /*
     ┌────────────────────────────────────────────────────────────────────────────────────────────┐
     │                                    Slider settings                                         │
@@ -99,7 +99,8 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
     VALUES  ("CQUI_SmartWorkIconSize", 64), -- Size used for "smart" work icons. This size is applied to work icons that are currently locked if the smart work icon option is enabled. Recommended values fall between 48 and 128, though any positive multiple of 8 could work (non-multiples are rounded down)
         ("CQUI_SmartWorkIconAlpha", 40), -- Transparency percent used for "smart" work icons. This alpha is applied to work icons that are currently locked if the smart work icon option is enabled. Recommended values fall between 10 and 100, though any value between 0 and 100 could work
         ("CQUI_WorkIconSize", 64), -- Size used for work icons. Applies to all icons that aren't flagged using the "smart" work icon feature. Recommended values fall between 48 and 128, though any positive multiple of 8 could work (non-multiples are rounded down)
-        ("CQUI_WorkIconAlpha", 80); -- Size used for work icons. Applies to all icons that aren't flagged using the "smart" work icon feature. Recommended values fall between 10 and 100, though any value between 0 and 100 could work
+        ("CQUI_WorkIconAlpha", 80), -- Size used for work icons. Applies to all icons that aren't flagged using the "smart" work icon feature. Recommended values fall between 10 and 100, though any value between 0 and 100 could work
+        ('CQUI_InlineCityStateQuestFontSize', 10); -- Font size of the inline City State Quest font
 
 /*
     ┌────────────────────────────────────────────────────────────────────────────────────────────┐

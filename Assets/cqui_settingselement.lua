@@ -27,67 +27,30 @@ local boolean_options = {
     {"LOC_OPTIONS_DISABLED", 0},
 };
 
---Used to convert between slider steps and production item height
---Minimum value is 24, maximum is 128. This translates to the 0th step and the 104th
-local ProductionItemHeightConverter = {
-    ToSteps = function(value)
-            local out = value - 24;
+-- Object containing functions that convert either a value to a set slider notch, or convert a notch to a value
+local SliderControlConverter = {
+    ToSteps = function(value, min, max, numsteps)
+            -- Determine the position of the slider based on the number of steps in total
+            -- If the value is the same as the minimum, then the step value is 0.
+            local stepIncrement = math.floor((max - min + 1) / numsteps);
+            local out = math.floor((value - min) / stepIncrement);
             if (out < 0) then
                 out = 0;
-            elseif (out > 104) then
-                out = 104;
             end
+
             return out;
         end,
-    ToValue = function(steps)
-            local out = steps + 24;
-            if (out > 128) then
-                out = 128;
+
+    ToValue = function(curstep, min, max, numsteps)
+            local stepIncrement = math.floor((max - min + 1) / numsteps);
+            local out = (curstep * stepIncrement) + min;
+
+            if (out > max) then
+                out = max;
             end
             return out;
         end
 };
-
---Minimum value is 48, maximum is 128, but only multiples of 8 are allowed. This translates to 10 steps, or 0th step to the 9th
-local WorkIconSizeConverter = {
-    ToSteps = function(value)
-            local out = math.floor((value - 48) / 8);
-            if (out < 0) then
-                out = 0;
-            end
-            return out;
-        end,
-    ToValue = function(steps)
-            local out = (steps) * 8 + 48;
-            if (out > 128) then
-                out = 128;
-            end
-            return out;
-        end
-};
-
---Minimum value is 0, maximum is 100. This translates to 101 steps, or 0th step to 100th
-local WorkIconAlphaConverter = {
-    ToSteps = function(value)
-            local out = value;
-            if (out < 0) then
-                out = 0;
-            end
-            return out;
-        end,
-    ToValue = function(steps)
-            local out = steps;
-            if (out > 100) then
-                out = 100;
-            end
-            return out;
-        end,
-    ToString = function(value)
-            local out = tostring(value) .. "%"
-            return out;
-        end
-};
-
 
 -- ============================================================================
 -- FUNCTIONS
@@ -225,9 +188,9 @@ function PopulateCheckBox(control, setting_name, tooltip)
 end
 
 -- ===========================================================================
---Used to populate sliders. data_converter is a table containing two functions: ToStep and ToValue, which describe how to hanlde converting from the incremental slider steps to a setting value, think of it as a less elegant inner class
+--Used to populate sliders. data_converter is a table containing two functions: ToStep and ToValue, which describe how to handle converting from the incremental slider steps to a setting value, think of it as a less elegant inner class
 --Optional third function: ToString. When included, this function will handle how the value is converted to a display value, otherwise this defaults to using the value from ToValue
-function PopulateSlider(control, label, setting_name, data_converter, tooltip)
+function PopulateSlider(control, label, setting_name, data_converter, tooltip, minvalue, maxvalue)
     -- print_debug("ENTRY: CQUICommon - PopulateSlider");
     --This is necessary because RegisterSliderCallback fires twice when releasing the mouse cursor for some reason
     local hasScrolled = false;
@@ -243,7 +206,7 @@ function PopulateSlider(control, label, setting_name, data_converter, tooltip)
         GameConfiguration.SetValue(setting_name, current_value); --/LY
     end
 
-    control:SetStep(data_converter.ToSteps(current_value));
+    control:SetStep(data_converter.ToSteps(current_value, minvalue, maxvalue, control:GetNumSteps()));
     if (data_converter.ToString) then
         label:SetText(data_converter.ToString(current_value));
     else
@@ -252,20 +215,15 @@ function PopulateSlider(control, label, setting_name, data_converter, tooltip)
 
     control:RegisterSliderCallback(
         function()
-            local value = data_converter.ToValue(control:GetStep());
+            local value = data_converter.ToValue(control:GetStep(), minvalue, maxvalue, control:GetNumSteps());
             if (data_converter.ToString) then
                 label:SetText(data_converter.ToString(value));
             else
                 label:SetText(value);
             end
 
-            if (not control:IsTrackingLeftMouseButton() and hasScrolled == true) then
-                GameConfiguration.SetValue(setting_name, value);
-                LuaEvents.CQUI_SettingsUpdate();
-                hasScrolled = false;
-            else
-                hasScrolled = true;
-            end
+            GameConfiguration.SetValue(setting_name, value);
+            LuaEvents.CQUI_SettingsUpdate();
         end
     );
 
@@ -541,6 +499,7 @@ function Initialize()
 
     --Populating/binding checkboxes...
     PopulateCheckBox(Controls.ProductionQueueCheckbox, "CQUI_ProductionQueue");
+    PopulateCheckBox(Controls.InlineCityStateQuest, "CQUI_InlineCityStateQuest");
     RegisterControl(Controls.ProductionQueueCheckbox, "CQUI_ProductionQueue", UpdateCheckbox);
     PopulateCheckBox(Controls.ShowLuxuryCheckbox, "CQUI_ShowLuxuries");
     PopulateCheckBox(Controls.ShowCultureGrowthCheckbox, "CQUI_ShowCultureGrowth", Locale.Lookup("LOC_CQUI_CITYVIEW_SHOWCULTUREGROWTH_TOOLTIP"));
@@ -576,10 +535,12 @@ function Initialize()
     PopulateCheckBox(Controls.AlwaysOpenTechTreesCheckbox, "CQUI_AlwaysOpenTechTrees");
     PopulateCheckBox(Controls.SmartWorkIconCheckbox, "CQUI_SmartWorkIcon", Locale.Lookup("LOC_CQUI_CITYVIEW_SMARTWORKICON_TOOLTIP"));
     PopulateCheckBox(Controls.ShowPolicyReminderCheckbox, "CQUI_ShowPolicyReminder", Locale.Lookup("LOC_CQUI_GENERAL_SHOWPRD_TOOLTIP"));
-    PopulateSlider(Controls.WorkIconSizeSlider, Controls.WorkIconSizeText, "CQUI_WorkIconSize", WorkIconSizeConverter);
-    PopulateSlider(Controls.SmartWorkIconSizeSlider, Controls.SmartWorkIconSizeText, "CQUI_SmartWorkIconSize", WorkIconSizeConverter);
-    PopulateSlider(Controls.WorkIconAlphaSlider, Controls.WorkIconAlphaText, "CQUI_WorkIconAlpha", WorkIconAlphaConverter);
-    PopulateSlider(Controls.SmartWorkIconAlphaSlider, Controls.SmartWorkIconAlphaText, "CQUI_SmartWorkIconAlpha", WorkIconAlphaConverter);
+    -- Number of steps for each setting in each slider is set in the XML
+    PopulateSlider(Controls.WorkIconSizeSlider, Controls.WorkIconSizeText, "CQUI_WorkIconSize", SliderControlConverter, "", 48, 128);
+    PopulateSlider(Controls.SmartWorkIconSizeSlider, Controls.SmartWorkIconSizeText, "CQUI_SmartWorkIconSize", SliderControlConverter, "", 48, 128);
+    PopulateSlider(Controls.WorkIconAlphaSlider, Controls.WorkIconAlphaText, "CQUI_WorkIconAlpha", SliderControlConverter, "", 0, 100);
+    PopulateSlider(Controls.SmartWorkIconAlphaSlider, Controls.SmartWorkIconAlphaText, "CQUI_SmartWorkIconAlpha", SliderControlConverter, "", 0, 100);
+    PopulateSlider(Controls.InlineCityStateQuestFontSize, Controls.InlineCityStateQuestFontSizeText, "CQUI_InlineCityStateQuestFontSize", SliderControlConverter, "", 8, 14);
     
     -- Notifications
     PopulateCheckBox(Controls.NotificationGoodyHutCheckbox,   "CQUI_NotificationGoodyHut");
@@ -606,6 +567,7 @@ function Initialize()
     LuaEvents.CQUI_SettingsUpdate.Add(ToggleSmartWorkIconSettings);
     LuaEvents.CQUI_SettingsUpdate.Add(ToggleSuzerainOptionsCheckboxes);
     LuaEvents.CQUI_SettingsUpdate.Add(UpdateKeyBindingsDisplay);
+    LuaEvents.CQUI_SettingsUpdate.Add(ToggleInlineCityStateQuestFontSizeSlider);
 
     LuaEvents.CQUI_SettingsInitialized(); --Tell other elements that the settings have been initialized and it's safe to try accessing settings now
 end
@@ -629,6 +591,13 @@ function ToggleSmartWorkIconSettings()
     local selected = Controls.SmartWorkIconCheckbox:IsSelected();
     Controls.SmartWorkIconSettings:SetHide(not selected);
     Controls.CityViewStack:ReprocessAnchoring();
+end
+
+-- ===========================================================================
+function ToggleInlineCityStateQuestFontSizeSlider()
+    local selected = Controls.InlineCityStateQuest:IsSelected();
+    Controls.InlineCityStateQuestFontSizeStack:SetHide(not selected);
+    Controls.GeneralOptionsStack:ReprocessAnchoring();
 end
 
 -- ===========================================================================
