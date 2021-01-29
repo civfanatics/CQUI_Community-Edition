@@ -107,12 +107,20 @@ function CityBanner.UpdateStats(self)
             -- CQUI real housing from improvements fix to show correct values when waiting for the next turn
             local housingString, housingLeft = CQUI_GetHousingString(pCity, cqui_HousingFromImprovementsCalc);
             housingString = "[COLOR:"..popTurnLeftColor.."]"..turnsUntilGrowth.."[ENDCOLOR] ["..housingString.."] ";
-            --local CTLS = "[COLOR:"..popTurnLeftColor.."]"..turnsUntilGrowth.."[ENDCOLOR]  [[COLOR:"..housingLeftColor.."]"..housingLeftText.."[ENDCOLOR]]  ";
             self.m_Instance.CityPopTurnsLeft:SetText(housingString);
             self.m_Instance.CityPopTurnsLeft:SetHide(false);
 
-            -- CQUI : add housing left to tooltip
-            local popTooltip = GetPopulationTooltip(self, turnsUntilGrowth, currentPopulation, foodSurplus); -- self.m_Instance.CityPopulation:GetToolTipString(); --populationInstance.FillMeter:GetToolTipString();
+            -- Firaxis removed the GetPopulationTooltip function and placed it inline with the January 2021 update
+            local popTooltip:string = Locale.Lookup("LOC_CITY_BANNER_POPULATION") .. ": " .. currentPopulation;
+            if turnsUntilGrowth > 0 then
+                popTooltip = popTooltip .. "[NEWLINE]  " .. Locale.Lookup("LOC_CITY_BANNER_TURNS_GROWTH", turnsUntilGrowth);
+                popTooltip = popTooltip .. "[NEWLINE]  " .. Locale.Lookup("LOC_CITY_BANNER_FOOD_SURPLUS", toPlusMinusString(foodSurplus));
+            elseif turnsUntilGrowth == 0 then
+                popTooltip = popTooltip .. "[NEWLINE]  " .. Locale.Lookup("LOC_CITY_BANNER_STAGNATE");
+            elseif turnsUntilGrowth < 0 then
+                popTooltip = popTooltip .. "[NEWLINE]  " .. Locale.Lookup("LOC_CITY_BANNER_TURNS_STARVATION", -turnsUntilGrowth);
+            end
+
             local CQUI_housingLeftPopupText = "[NEWLINE] [ICON_Housing]" .. Locale.Lookup("LOC_HUD_CITY_HOUSING") .. ": " .. housingLeft;
             popTooltip = popTooltip .. CQUI_housingLeftPopupText;
             self.m_Instance.CityPopulation:SetToolTipString(popTooltip);
@@ -223,6 +231,7 @@ function CityBanner.UpdateName( self )
                         local kPlot :table = Map.GetPlotByIndex(plotId);
                         if (tMaxUnits[i] >= 1 and tUnits[i] >= 1 and tLockedUnits[i] <= 0) then
                             self.m_Instance.CityUnlockedCitizen:SetHide(false);
+                            self.m_Instance.CityUnlockedCitizen:SetToolTipString(Locale.Lookup("LOC_CQUI_SMARTBANNER_UNLOCKEDCITIZEN_TOOLTIP"));
                         end
                     end
                 end

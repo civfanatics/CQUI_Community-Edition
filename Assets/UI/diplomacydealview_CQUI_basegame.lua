@@ -2,10 +2,15 @@
 -- Base File
 -- ===========================================================================
 include("DiplomacyDealView");
-include("diplomacydealview_CQUI.lua");
 
 g_LocalPlayer = nil;
 g_OtherPlayer = nil;
+
+-- With the January 2021 update, Firaxis declared this object globally with the Expansion2 files, and kept it as local in the Vanilla and Expansion1.
+-- Declaring this here is therefore necessary as diplomacydealview_CQUI.lua references the g_IconOnlyIM object.
+g_IconOnlyIM = InstanceManager:new( "IconOnly", "SelectButton", Controls.IconOnlyContainer );
+
+include("diplomacydealview_CQUI.lua");
 
 -- ===========================================================================
 --  CQUI OnShowMakeDeal to set the g_LocalPlayer and g_OtherPlayer
