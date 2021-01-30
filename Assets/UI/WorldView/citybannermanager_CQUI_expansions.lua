@@ -1,8 +1,17 @@
--- ===========================================================================
+print("******** citybannermanager_CQUI_expansions.lua START")
+include("CQUICommon.lua");
+-- TODO: This is a temporary workaround until a more elegant solution to the problem of Firaxis calling the include CityBannerManager_* at the end of their CityBannerManager.lua file
+--       Perhaps the ScriptReplacement isn't necessary anymore (for files that do not entirely replace the Firaxis versions), etc?
+--       This if statement wraps the contents in this file, the lack of indentation is intended
+if ((g_bIsRiseAndFall or g_bIsGatheringStorm) and (citybannermanager_CQUI_expansions_loaded == nil)) then
+print("******** citybannermanager_CQUI_expansions.lua LOADING")
+citybannermanager_CQUI_expansions_loaded = 1;
+include("citybannermanager_CQUI.lua");
+
+    -- ===========================================================================
 -- CityBannerManager for Expansion 1 and Expansion 2
 -- ===========================================================================
 -- Functions and objects common to basegame and expansions
-include( "citybannermanager_CQUI.lua");
 
 -- #59 Infixo they are local and not visible in this file
 local m_isReligionLensActive:boolean = false;
@@ -15,6 +24,8 @@ local RELIGION_POP_CHART_TOOLTIP_HEADER:string = Locale.Lookup("LOC_CITY_BANNER_
 -- ===========================================================================
 -- Cached Base Functions (Expansions only)
 -- ===========================================================================
+-- NOTE: Only assign these if they have not already been assigned; the wildcard include statement in the Firaxis CityBannerManager
+--       may result in both of citybannermanager_CQUI_basegame and citybannermanager_CQUI_expansions being loaded
 BASE_CQUI_CityBanner_Initialize = CityBanner.Initialize;
 BASE_CQUI_CityBanner_Uninitialize = CityBanner.Uninitialize;
 BASE_CQUI_CityBanner_UpdateInfo = CityBanner.UpdateInfo;
@@ -27,10 +38,6 @@ BASE_CQUI_CityBanner_UpdateStats = CityBanner.UpdateStats;
 function CityBanner.Initialize(self, playerID, cityID, districtID, bannerType, bannerStyle)
     -- print_debug("CityBannerManager_CQUI_Expansions: CityBanner:Initialize ENTRY: playerID:"..tostring(playerID).." cityID:"..tostring(cityID).." districtID:"..tostring(districtID).." bannerType:"..tostring(bannerType).." bannerStyle:"..tostring(bannerStyle));
     CQUI_Common_CityBanner_Initialize(self, playerID, cityID, districtID, bannerType, bannerStyle);
-
-    if (IsBannerTypeCityCenter(bannerType) and (self.CQUI_DistrictBuiltIM == nil)) then
-        self.CQUI_DistrictBuiltIM = InstanceManager:new( "CQUI_DistrictBuilt", "Icon", self.m_Instance.CQUI_Districts );
-    end
 end
 
 -- ============================================================================
@@ -546,3 +553,13 @@ function Initialize_CQUI_expansions()
     Events.LensLayerOn.Add(CQUI_OnLensLayerOn);
 end
 Initialize_CQUI_expansions();
+
+-- TEMP else case
+else
+    print("****&&&& citybannermanager_CQUI_expansions_loaded conditions not met, file not loaded");
+
+-- This "end" is here because of the if statement that is the workaround for the Firaxis wildcard include
+-- TODO: Find something more elegant than this solution
+end 
+
+print("******** citybannermanager_CQUI_expansions.lua END")

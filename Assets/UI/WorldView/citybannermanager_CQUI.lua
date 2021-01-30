@@ -2,8 +2,20 @@
 -- CQUI Common Functions to all CityBannerManager instances
 -- This is what should go in the citybannermanager_CQUI file, the specific-to-basegame things go the _basegame file
 -- ===========================================================================
-include( "CityBannerManager" );
-include( "CQUICommon.lua" );
+print("******** citybannermanager_CQUI.lua START")
+
+-- TODO: This is a temporary workaround until a more elegant solution to the problem of Firaxis calling the include CityBannerManager_* at the end of their CityBannerManager.lua file
+--       Perhaps the ScriptReplacement isn't necessary anymore (for files that do not entirely replace the Firaxis versions), etc?
+--       This if statement wraps the contents in this file, the lack of indentation is intended
+if (citybannermanager_CQUI_loaded == nil) then
+
+print("******&&& citybannermanager_CQUI LOADING");
+citybannermanager_CQUI_loaded = 1;
+include("CityBannerManager");
+include("CQUICommon.lua");
+
+print("******** citybannermanager_CQUI.lua AFTER CityBannerManager Include")
+
 
 -- ===========================================================================
 -- Cached Base Functions
@@ -122,7 +134,13 @@ function CQUI_Common_CityBanner_Initialize(self, playerID, cityID, districtID, b
         self.m_Instance.CityNameButton:RegisterCallback( Mouse.eLClick, OnCityBannerClick );
         self.m_Instance.CityNameButton:SetVoid1(playerID);
         self.m_Instance.CityNameButton:SetVoid2(cityID);
+
+        -- If this is one of the expansions, create the CQUI_DistrictBuiltIM object
+        if ((g_bIsRiseAndFall or g_bIsGatheringStorm) and (self.CQUI_DistrictBuiltIM == nil)) then
+            self.CQUI_DistrictBuiltIM = InstanceManager:new( "CQUI_DistrictBuilt", "Icon", self.m_Instance.CQUI_Districts );
+        end
     end
+
 end
 
 -- ===========================================================================
@@ -1049,3 +1067,12 @@ function Initialize_CQUI()
     Events.DiplomacyMakePeace.Add( CQUI_OnDiplomacyDeclareWarMakePeace );
 end
 Initialize_CQUI();
+
+-- TEMP else case
+else
+    print("****&&&& citybannermanager_CQUI load SKIPPED");
+
+-- This "end" is for the include wildcard workaround, see note at top.
+end
+
+print("******** citybannermanager_CQUI.lua END")

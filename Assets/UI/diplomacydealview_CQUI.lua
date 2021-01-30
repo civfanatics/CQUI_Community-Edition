@@ -1,3 +1,10 @@
+print("***** diplomacydealview_CQUI START");
+-- TODO: This is a temporary workaround until a more elegant solution to the problem of Firaxis calling the include DiplomacyDealView_* at the end of their DiplomacyDealView.lua file
+--       Perhaps the ScriptReplacement isn't necessary anymore (for files that do not entirely replace the Firaxis versions), etc?
+--       This if statement wraps the contents in this file, the lack of indentation is intended
+if (diplomacydealview_CQUI_loaded == nil) then
+print("***** diplomacydealview_CQUI LOADING")
+diplomacydealview_CQUI_loaded = 1;
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
@@ -705,3 +712,13 @@ function PopulateAvailableGreatWorks(player : table, iconList : table)
 
     return iAvailableItemCount;
 end
+
+
+-- TEMP else
+else
+    print("***** diplomacydealview_CQUI load SKIPPED")
+
+-- This "end" is for the include wildcard workaround, see note at top.
+end
+
+print("***** diplomacydealview_CQUI END");
