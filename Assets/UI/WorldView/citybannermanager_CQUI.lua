@@ -563,7 +563,7 @@ end
 -- When a banner is moused over, display the relevant yields and next culture plot
 function CQUI_OnBannerMouseOver(playerID: number, cityID: number)
     -- print_debug("CityBannerManager_CQUI: CQUI_OnBannerMouseOver ENTRY playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
-    if (CQUI_ShowYieldsOnCityHover == false) then
+    if (CQUI_ShowYieldsOnCityHover == false or UILens.IsLayerOn(CQUI_CitizenManagement)) then
         return;
     end
 
@@ -572,7 +572,6 @@ function CQUI_OnBannerMouseOver(playerID: number, cityID: number)
     -- Don't show this lens if any unit is selected.
     -- This prevents the need to check if every lens is on or not, like builder, religious lens.
     if (CQUI_ShowCityManageAreaOnCityHover
-          and not UILens.IsLayerOn(CQUI_CitizenManagement)
           and UI.GetInterfaceMode() == InterfaceModeTypes.SELECTION
           and UI.GetHeadSelectedUnit() == nil) then
         LuaEvents.CQUI_ShowCitizenManagement(cityID);
@@ -584,12 +583,12 @@ function CQUI_OnBannerMouseOver(playerID: number, cityID: number)
     local kCity   = kCities:FindID(cityID);
 
     local tParameters :table = {};
+    -- Plots that are owned (manage_citizen) and available to be purchased (plot_purchase)
     tParameters[CityCommandTypes.PARAM_MANAGE_CITIZEN] = UI.GetInterfaceModeParameter(CityCommandTypes.PARAM_MANAGE_CITIZEN);
     tParameters[CityCommandTypes.PARAM_PLOT_PURCHASE]  = UI.GetInterfaceModeParameter(CityCommandTypes.PARAM_PLOT_PURCHASE);
 
     local tResults  :table = CityManager.GetCommandTargets( kCity, CityCommandTypes.MANAGE, tParameters );
     if tResults == nil then
-        -- Add error message here
         return;
     end
 
@@ -605,7 +604,7 @@ function CQUI_OnBannerMouseOver(playerID: number, cityID: number)
     local yields :table = {};
     local yieldsIndex :table = {};
 
-    if (tPlots ~= nil and table.count(tPlots) ~= 0 and UILens.IsLayerOn(CQUI_CitizenManagement) == false) then
+    if (tPlots ~= nil and table.count(tPlots) ~= 0) then
         CQUI_YieldsOn = UserConfiguration.ShowMapYield();
         for i,plotId in pairs(tPlots) do
             local kPlot :table = Map.GetPlotByIndex(plotId);
@@ -652,7 +651,8 @@ function CQUI_OnBannerMouseOver(playerID: number, cityID: number)
     end
 
     tPlots = tResults[CityCommandResults.PLOTS];
-    if (tPlots ~= nil and table.count(tPlots) ~= 0 and UILens.IsLayerOn(CQUI_CitizenManagement) == false) then
+    -- Get the Plots that are available to be purchased, if any exist so the yields can be shown
+    if (tPlots ~= nil and table.count(tPlots) ~= 0) then
         for i,plotId in pairs(tPlots) do
             local kPlot :table = Map.GetPlotByIndex(plotId);
             local index:number = kPlot:GetIndex();
@@ -666,20 +666,20 @@ function CQUI_OnBannerMouseOver(playerID: number, cityID: number)
             table.insert(yields, plotId);
             yieldsIndex[index] = plotId;
         end
-
-        local plotCount = Map.GetPlotCount();
-
-        if (CQUI_YieldsOn == false and not UILens.IsLayerOn(CQUI_CitizenManagement)) then
-            UILens.SetLayerHexesArea(CQUI_CityYields, Game.GetLocalPlayer(), yields);
-            UILens.ToggleLayerOn( CQUI_CityYields );
-        end
-    elseif (UILens.IsLayerOn(CQUI_CitizenManagement) == false) then
+    else
+        -- Show the next plot growth location, which is 4+ tiles away
         local pInstance :table = CQUI_GetInstanceAt(pNextPlotID);
         if (pInstance ~= nil) then
             pInstance.CQUI_NextPlotLabel:SetString("[ICON_Turn]" .. Locale.Lookup("LOC_HUD_CITY_IN_TURNS" , TurnsUntilExpansion ) .. "   ");
             pInstance.CQUI_NextPlotButton:SetHide( false );
             CQUI_NextPlot4Away = pNextPlotID;
         end
+    end
+
+    -- If the Yields are not already showing on the map, show them for the city where the mouse is hovering
+    if (CQUI_YieldsOn == false) then
+        UILens.SetLayerHexesArea(CQUI_CityYields, Game.GetLocalPlayer(), yields);
+        UILens.ToggleLayerOn( CQUI_CityYields );
     end
 end
 
