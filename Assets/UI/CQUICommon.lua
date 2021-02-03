@@ -229,9 +229,9 @@ function CQUI_GreatPeoplePanel_GetControlSizeY( controlName )
 end
 
 -- ===========================================================================
-function Initialize()
+function Initialize_CQUICommon()
     -- print_debug("INITIALIZE: CQUICommon.lua");
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 end
-Initialize();
+Initialize_CQUICommon();
