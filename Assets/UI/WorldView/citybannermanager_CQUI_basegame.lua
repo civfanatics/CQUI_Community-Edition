@@ -373,45 +373,65 @@ end
 
 -- ===========================================================================
 -- #59 Infixo overwritten because changes are deep inside it
-function CityBanner.UpdateReligion( self )
+-- EXPANSIONS
+-- ===========================================================================
+-- #59 Infixo overwritten because changes are deep inside it
+function CityBanner.UpdateReligion(self)
+    --print("FUN CityBanner:UpdateReligion()");
 
-    local cityInst          :table = self.m_Instance;
+    local cityInst          :table = self.m_Instance;                                                     
     local pCity             :table = self:GetCity();
     local pCityReligion     :table = pCity:GetReligion();
+    local localPlayerID     :number = Game.GetLocalPlayer();
     local eMajorityReligion :number = pCityReligion:GetMajorityReligion();
     local religionsInCity   :table = pCityReligion:GetReligionsInCity();
+    local religionInfo      :table = {};
+    if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
+        -- The basegame instance is built or pointed at later on in this function
+        religionInfo = cityInst.ReligionInfo;
+    end
+
     self.m_eMajorityReligion = eMajorityReligion;
 
-    if (eMajorityReligion > 0) then
-        local iconName : string = "ICON_" .. GameInfo.Religions[eMajorityReligion].ReligionType;
-        local majorityReligionColor : number = UI.GetColorValue(GameInfo.Religions[eMajorityReligion].Color);
-        if (majorityReligionColor ~= nil) then
-            self.m_Instance.ReligionBannerIcon:SetColor(majorityReligionColor);
+    if (g_bIsBaseGame) then
+        -- The Basegame has the ReligionBannerIcon for the color, Expansions do not have this container
+        if (eMajorityReligion > 0) then
+            local iconName : string = "ICON_" .. GameInfo.Religions[eMajorityReligion].ReligionType;
+            local majorityReligionColor : number = UI.GetColorValue(GameInfo.Religions[eMajorityReligion].Color);
+            if (majorityReligionColor ~= nil) then
+                self.m_Instance.ReligionBannerIcon:SetColor(majorityReligionColor);
+            end
+            local textureOffsetX, textureOffsetY, textureSheet = IconManager:FindIconAtlas(iconName,22);
+            if (textureOffsetX ~= nil) then
+                self.m_Instance.ReligionBannerIcon:SetTexture( textureOffsetX, textureOffsetY, textureSheet );
+            end
+            self.m_Instance.ReligionBannerIconContainer:SetHide(false);
+            self.m_Instance.ReligionBannerIconContainer:SetToolTipString(Game.GetReligion():GetName(eMajorityReligion));
+        elseif (pCityReligion:GetActivePantheon() >= 0) then
+            local iconName : string = "ICON_" .. GameInfo.Religions[0].ReligionType;
+            local textureOffsetX, textureOffsetY, textureSheet = IconManager:FindIconAtlas(iconName,22);
+            if (textureOffsetX ~= nil) then
+                self.m_Instance.ReligionBannerIcon:SetTexture( textureOffsetX, textureOffsetY, textureSheet );
+            end
+            self.m_Instance.ReligionBannerIconContainer:SetHide(false);
+            self.m_Instance.ReligionBannerIconContainer:SetToolTipString(Locale.Lookup("LOC_HUD_CITY_PANTHEON_TT", GameInfo.Beliefs[pCityReligion:GetActivePantheon()].Name));
+        else
+            self.m_Instance.ReligionBannerIconContainer:SetHide(true);
         end
-        local textureOffsetX, textureOffsetY, textureSheet = IconManager:FindIconAtlas(iconName,22);
-        if (textureOffsetX ~= nil) then
-            self.m_Instance.ReligionBannerIcon:SetTexture( textureOffsetX, textureOffsetY, textureSheet );
-        end
-        self.m_Instance.ReligionBannerIconContainer:SetHide(false);
-        self.m_Instance.ReligionBannerIconContainer:SetToolTipString(Game.GetReligion():GetName(eMajorityReligion));
-    elseif (pCityReligion:GetActivePantheon() >= 0) then
-        local iconName : string = "ICON_" .. GameInfo.Religions[0].ReligionType;
-        local textureOffsetX, textureOffsetY, textureSheet = IconManager:FindIconAtlas(iconName,22);
-        if (textureOffsetX ~= nil) then
-            self.m_Instance.ReligionBannerIcon:SetTexture( textureOffsetX, textureOffsetY, textureSheet );
-        end
-        self.m_Instance.ReligionBannerIconContainer:SetHide(false);
-        self.m_Instance.ReligionBannerIconContainer:SetToolTipString(Locale.Lookup("LOC_HUD_CITY_PANTHEON_TT", GameInfo.Beliefs[pCityReligion:GetActivePantheon()].Name));
+     
+        self:Resize();
     else
-        self.m_Instance.ReligionBannerIconContainer:SetHide(true);
+        -- Only called in the Expansions code
+        self:UpdateInfo(pCity);
     end
     
-    self:Resize();
 
     -- Hide the meter and bail out if the religion lens isn't active
     if (not m_isReligionLensActive or table.count(religionsInCity) == 0) then
-        if cityInst[DATA_FIELD_RELIGION_INFO_INSTANCE] then
+        if (g_bIsBaseGame and cityInst[DATA_FIELD_RELIGION_INFO_INSTANCE]) then
             cityInst[DATA_FIELD_RELIGION_INFO_INSTANCE].ReligionInfoContainer:SetHide(true);
+        elseif ((g_bIsRiseAndFall or g_bIsGatheringStorm) and religionInfo) then
+            religionInfo.ReligionInfoContainer:SetHide(true);
         end
         return;
     end
@@ -432,7 +452,7 @@ function CityBanner.UpdateReligion( self )
     for _, cityReligion in pairs(pReligionsInCity) do
         local religion:number = cityReligion.Religion;
         if religion == -1 then religion = 0; end -- #59 Infixo include a pantheon
-        --if (religion >= 0) then
+            --if (religion >= 0) then
             local followers:number = cityReligion.Followers;
             local fillPercent:number = followers / iCityPopulation;
             totalFillPercent = totalFillPercent + fillPercent;
@@ -446,7 +466,7 @@ function CityBanner.UpdateReligion( self )
                 Color=GameInfo.Religions[religion].Color });
         --end
     end
-    
+
     -- Sort religions by largest number of followers
     -- #59 Infixo sort by followers, then by lifetime pressure
     table.sort(activeReligions,
@@ -467,7 +487,7 @@ function CityBanner.UpdateReligion( self )
     end
 
     if (table.count(activeReligions) > 0) then
-        local localPlayerVis:table = PlayersVisibility[Game.GetLocalPlayer()];
+        local localPlayerVis:table = PlayersVisibility[localPlayerID];
         if (localPlayerVis ~= nil) then
             -- Holy sites get a different color and texture
             local holySitePlotIDs:table = {};
@@ -491,26 +511,26 @@ function CityBanner.UpdateReligion( self )
             -- Color hexes in this city the same color as religion
             local plots:table = Map.GetCityPlots():GetPurchasedPlots(pCity);
             if (table.count(plots) > 0) then
-                UILens.SetLayerHexesColoredArea( m_HexColoringReligion, Game.GetLocalPlayer(), plots, majorityReligionColor );
+                UILens.SetLayerHexesColoredArea( m_HexColoringReligion, localPlayerID, plots, majorityReligionColor );
             end
         end
     end
 
-    -- Find or create religion info instance
-    local religionInfoInst = {};
-    if cityInst.ReligionInfoAnchor and cityInst[DATA_FIELD_RELIGION_INFO_INSTANCE] == nil then
-        ContextPtr:BuildInstanceForControl( "ReligionInfoInstance", religionInfoInst, cityInst.ReligionInfoAnchor );
-        cityInst[DATA_FIELD_RELIGION_INFO_INSTANCE] = religionInfoInst;
-    else
-        religionInfoInst = cityInst[DATA_FIELD_RELIGION_INFO_INSTANCE];
+    if (g_bIsBaseGame) then
+        -- Basegame/Vanilla: Find or create religion info instance
+        if cityInst.ReligionInfoAnchor and cityInst[DATA_FIELD_RELIGION_INFO_INSTANCE] == nil then
+            ContextPtr:BuildInstanceForControl( "ReligionInfoInstance", religionInfo, cityInst.ReligionInfoAnchor );
+            cityInst[DATA_FIELD_RELIGION_INFO_INSTANCE] = religionInfo;
+        else
+            religionInfo = cityInst[DATA_FIELD_RELIGION_INFO_INSTANCE];
+        end
     end
 
-    -- Update religion info instance
-    if religionInfoInst and religionInfoInst.ReligionInfoContainer then
+    if religionInfo then
         -- Create or reset icon instance manager
         local iconIM:table = cityInst[DATA_FIELD_RELIGION_ICONS_IM];
         if (iconIM == nil) then
-            iconIM = InstanceManager:new("ReligionIconInstance", "ReligionIconContainer", religionInfoInst.ReligionInfoIconStack);
+            iconIM = InstanceManager:new("ReligionIconInstance", "ReligionIconContainer", religionInfo.ReligionInfoIconStack);
             cityInst[DATA_FIELD_RELIGION_ICONS_IM] = iconIM;
         else
             iconIM:ResetInstances();
@@ -519,7 +539,7 @@ function CityBanner.UpdateReligion( self )
         -- Create or reset follower list instance manager
         local followerListIM:table = cityInst[DATA_FIELD_RELIGION_FOLLOWER_LIST_IM];
         if (followerListIM == nil) then
-            followerListIM = InstanceManager:new("ReligionFollowerListInstance", "ReligionFollowerListContainer", religionInfoInst.ReligionFollowerListStack);
+            followerListIM = InstanceManager:new("ReligionFollowerListInstance", "ReligionFollowerListContainer", religionInfo.ReligionFollowerListStack);
             cityInst[DATA_FIELD_RELIGION_FOLLOWER_LIST_IM] = followerListIM;
         else
             followerListIM:ResetInstances();
@@ -528,7 +548,7 @@ function CityBanner.UpdateReligion( self )
         -- Create or reset pop chart instance manager
         local popChartIM:table = cityInst[DATA_FIELD_RELIGION_POP_CHART_IM];
         if (popChartIM == nil) then
-            popChartIM = InstanceManager:new("ReligionPopChartInstance", "PopChartMeter", religionInfoInst.ReligionPopChartContainer);
+            popChartIM = InstanceManager:new("ReligionPopChartInstance", "PopChartMeter", religionInfo.ReligionPopChartContainer);
             cityInst[DATA_FIELD_RELIGION_POP_CHART_IM] = popChartIM;
         else
             popChartIM:ResetInstances();
@@ -537,12 +557,12 @@ function CityBanner.UpdateReligion( self )
         local populationChartTooltip:string = RELIGION_POP_CHART_TOOLTIP_HEADER;
 
         -- Add religion icons for each active religion
-        for i,religionInfo in ipairs(activeReligions) do
-            local religionDef:table = GameInfo.Religions[religionInfo.Religion];
+        for i,activeReligionInfo in ipairs(activeReligions) do
+            local religionDef:table = GameInfo.Religions[activeReligionInfo.Religion];
 
             local icon = "ICON_" .. religionDef.ReligionType;
             local religionColor = UI.GetColorValue(religionDef.Color);
-            
+        
             -- The first index is the predominant religion. Label it as such.
             local religionName = "";
             if i == 1 then
@@ -552,54 +572,55 @@ function CityBanner.UpdateReligion( self )
             end
 
             -- Add icon to main icon list
+            -- If our only active religion is the same religion we're being converted to don't show an icon for it
+            --if numOfActiveReligions > 1 or nextReligion ~= activeReligionInfo.Religion then -- #59 Infixo show all religions
             local iconInst:table = iconIM:GetInstance();
             iconInst.ReligionIconButton:SetIcon(icon);
             iconInst.ReligionIconButton:SetColor(religionColor);
             iconInst.ReligionIconButtonBacking:SetColor(religionColor);
             --iconInst.ReligionIconButtonBacking:SetToolTipString(religionName); -- #59 Infixo new field and tooltip
-            iconInst.ReligionIconFollowers:SetText(religionInfo.Followers);
+            iconInst.ReligionIconFollowers:SetText(activeReligionInfo.Followers);
             iconInst.ReligionIconContainer:SetToolTipString(
-                Locale.Lookup("LOC_CITY_BANNER_FOLLOWER_PRESSURE_TOOLTIP", religionName, religionInfo.Followers, Round(religionInfo.LifetimePressure)).."[NEWLINE]"..
-                Locale.Lookup("LOC_HUD_REPORTS_PER_TURN", "+"..tostring(Round(religionInfo.Pressure, 1))));
-            
-            
+            Locale.Lookup("LOC_CITY_BANNER_FOLLOWER_PRESSURE_TOOLTIP", religionName, activeReligionInfo.Followers, Round(activeReligionInfo.LifetimePressure)).."[NEWLINE]"..
+            Locale.Lookup("LOC_HUD_REPORTS_PER_TURN", "+"..tostring(Round(activeReligionInfo.Pressure, 1))));
+            --end
+
             -- Add followers to detailed info list
             local followerListInst:table = followerListIM:GetInstance();
             followerListInst.ReligionFollowerIcon:SetIcon(icon);
             followerListInst.ReligionFollowerIcon:SetColor(religionColor);
             followerListInst.ReligionFollowerIconBacking:SetColor(religionColor);
-            followerListInst.ReligionFollowerCount:SetText(religionInfo.Followers);
-            followerListInst.ReligionFollowerPressure:SetText(Locale.Lookup("LOC_CITY_BANNER_RELIGIOUS_PRESSURE", Round(religionInfo.Pressure)));
+            followerListInst.ReligionFollowerCount:SetText(activeReligionInfo.Followers);
+            followerListInst.ReligionFollowerPressure:SetText(Locale.Lookup("LOC_CITY_BANNER_RELIGIOUS_PRESSURE", Round(activeReligionInfo.Pressure)));
 
             -- Add the follower tooltip to the population chart tooltip
-            local followerTooltip:string = Locale.Lookup("LOC_CITY_BANNER_FOLLOWER_PRESSURE_TOOLTIP", religionName, religionInfo.Followers, Round(religionInfo.LifetimePressure));
+            local followerTooltip:string = Locale.Lookup("LOC_CITY_BANNER_FOLLOWER_PRESSURE_TOOLTIP", religionName, activeReligionInfo.Followers, Round(activeReligionInfo.LifetimePressure));
             followerListInst.ReligionFollowerIconBacking:SetToolTipString(followerTooltip);
             populationChartTooltip = populationChartTooltip .. "[NEWLINE][NEWLINE]" .. followerTooltip;
         end
 
-        religionInfoInst.ReligionPopChartContainer:SetToolTipString(populationChartTooltip);
-        
-        religionInfoInst.ReligionFollowerListStack:CalculateSize();
-        religionInfoInst.ReligionFollowerListScrollPanel:CalculateInternalSize();
-        religionInfoInst.ReligionFollowerListScrollPanel:ReprocessAnchoring();
+        religionInfo.ReligionPopChartContainer:SetToolTipString(populationChartTooltip);
+        religionInfo.ReligionFollowerListStack:CalculateSize();
+        religionInfo.ReligionFollowerListScrollPanel:CalculateInternalSize();
+        religionInfo.ReligionFollowerListScrollPanel:ReprocessAnchoring();
 
         -- Add populations to pie chart in reverse order
         for i = #activeReligions, 1, -1 do
-            local religionInfo = activeReligions[i];
-            local religionColor = UI.GetColorValue(religionInfo.Color);
+            local activeReligionInfo = activeReligions[i];
+            local religionColor = UI.GetColorValue(activeReligionInfo.Color);
 
             local popChartInst:table = popChartIM:GetInstance();
-            popChartInst.PopChartMeter:SetPercent(religionInfo.AccumulativeFillPercent);
+            popChartInst.PopChartMeter:SetPercent(activeReligionInfo.AccumulativeFillPercent);
             popChartInst.PopChartMeter:SetColor(religionColor);
         end
 
         -- Update population pie chart majority religion icon
         if (eMajorityReligion > 0) then
             local iconName : string = "ICON_" .. GameInfo.Religions[eMajorityReligion].ReligionType;
-            religionInfoInst.ReligionPopChartIcon:SetIcon(iconName);
-            religionInfoInst.ReligionPopChartIcon:SetHide(false);
+            religionInfo.ReligionPopChartIcon:SetIcon(iconName);
+            religionInfo.ReligionPopChartIcon:SetHide(false);
         else
-            religionInfoInst.ReligionPopChartIcon:SetHide(true);
+            religionInfo.ReligionPopChartIcon:SetHide(true);
         end
 
         -- Show what religion we will eventually turn into
@@ -609,44 +630,43 @@ function CityBanner.UpdateReligion( self )
             local pNextReligionDef:table = GameInfo.Religions[nextReligion];
 
             -- Religion icon
-            if religionInfoInst.ConvertingReligionIcon then
+            if religionInfo.ConvertingReligionIcon then
                 local religionIcon = "ICON_" .. pNextReligionDef.ReligionType;
-                religionInfoInst.ConvertingReligionIcon:SetIcon(religionIcon);
+                religionInfo.ConvertingReligionIcon:SetIcon(religionIcon);
                 local religionColor = UI.GetColorValue(pNextReligionDef.Color);
-                religionInfoInst.ConvertingReligionIcon:SetColor(religionColor);
-                religionInfoInst.ConvertingReligionIconBacking:SetColor(religionColor);
-                religionInfoInst.ConvertingReligionIconBacking:SetToolTipString(Locale.Lookup(pNextReligionDef.Name));
+                religionInfo.ConvertingReligionIcon:SetColor(religionColor);
+                religionInfo.ConvertingReligionIconBacking:SetColor(religionColor);
+                religionInfo.ConvertingReligionIconBacking:SetToolTipString(Locale.Lookup(pNextReligionDef.Name));
             end
 
             -- Converting text
             local convertString = Locale.Lookup("LOC_CITY_BANNER_CONVERTS_IN_X_TURNS", turnsTillNextReligion);
-            religionInfoInst.ConvertingReligionLabel:SetText(convertString);
-            religionInfoInst.ReligionConversionTurnsStack:SetHide(false);
+            religionInfo.ConvertingReligionLabel:SetText(convertString);
+            religionInfo.ReligionConversionTurnsStack:SetHide(false);
 
             -- If the turns till conversion are less than 10 play the warning flash animation
-            religionInfoInst.ConvertingSoonAlphaAnim:SetToBeginning();
+            religionInfo.ConvertingSoonAlphaAnim:SetToBeginning();
             if turnsTillNextReligion <= 10 then
-                religionInfoInst.ConvertingSoonAlphaAnim:Play();
+                religionInfo.ConvertingSoonAlphaAnim:Play();
             else
-                religionInfoInst.ConvertingSoonAlphaAnim:Stop();
+                religionInfo.ConvertingSoonAlphaAnim:Stop();
             end
         else
-            religionInfoInst.ReligionConversionTurnsStack:SetHide(true);
+            religionInfo.ReligionConversionTurnsStack:SetHide(true);
         end
-
         -- Show how much religion this city is exerting outwards
         local outwardReligiousPressure = pCityReligion:GetPressureFromCity();
-        religionInfoInst.ExertedReligiousPressure:SetText(Locale.Lookup("LOC_CITY_BANNER_RELIGIOUS_PRESSURE", Round(outwardReligiousPressure)));
+        religionInfo.ExertedReligiousPressure:SetText(Locale.Lookup("LOC_CITY_BANNER_RELIGIOUS_PRESSURE", Round(outwardReligiousPressure)));
 
         -- Reset buttons to default state
-        religionInfoInst.ReligionInfoButton:SetHide(false);
-        religionInfoInst.ReligionInfoDetailedButton:SetHide(true);
+        religionInfo.ReligionInfoButton:SetHide(false);
+        religionInfo.ReligionInfoDetailedButton:SetHide(true);
 
         -- Register callbacks to open/close detailed info
-        religionInfoInst.ReligionInfoButton:RegisterCallback( Mouse.eLClick, function() OnReligionInfoButtonClicked(religionInfoInst, pCity); end);
-        religionInfoInst.ReligionInfoDetailedButton:RegisterCallback( Mouse.eLClick, function() OnReligionInfoDetailedButtonClicked(religionInfoInst, pCity); end);
+        religionInfo.ReligionInfoButton:RegisterCallback( Mouse.eLClick, function() OnReligionInfoButtonClicked(religionInfo, pCity); end);
+        religionInfo.ReligionInfoDetailedButton:RegisterCallback( Mouse.eLClick, function() OnReligionInfoDetailedButtonClicked(religionInfo, pCity); end);
 
-        religionInfoInst.ReligionInfoContainer:SetHide(false);
+        religionInfo.ReligionInfoContainer:SetHide(false);
     end
 end
 

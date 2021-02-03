@@ -37,10 +37,6 @@ end
 -- ===========================================================================
 function CQUI_UpdateCitiesCitizensWhenSwapTiles(pCity)
     CityManager.RequestCommand(pCity, CityCommandTypes.SET_FOCUS, nil);
-
-    local PlayerID = Game.GetLocalPlayer();
-    local pCityID = pCity:GetID();
-    LuaEvents.CQUI_CityInfoUpdated(PlayerID, pCityID);
 end
 
 -- ===========================================================================
@@ -53,9 +49,6 @@ function CQUI_UpdateCloseCitiesCitizensWhenCityFounded(playerID, cityID)
     for i, pCity in m_pCity:Members() do
         if Map.GetPlotDistance( kCity:GetX(), kCity:GetY(), pCity:GetX(), pCity:GetY() ) == 4 then
             CityManager.RequestCommand(pCity, CityCommandTypes.SET_FOCUS, nil);
-
-            local pCityID = pCity:GetID();
-            LuaEvents.CQUI_CityInfoUpdated(playerID, pCityID);
         end
     end
 end

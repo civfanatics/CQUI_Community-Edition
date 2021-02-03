@@ -119,6 +119,7 @@ end
 -- Common code to both basegame and expansions during the CityBanner.Initialize function
 function CQUI_Common_CityBanner_Initialize(self, playerID, cityID, districtID, bannerType, bannerStyle)
     -- Defined in the respective basegame/expansion files
+    -- PROGRESS: COPIED THE CONTENTS OF THIS INITIALIZE TO THE COMBINED FILE
     BASE_CQUI_CityBanner_Initialize(self, playerID, cityID, districtID, bannerType, bannerStyle);
 
     if (self.m_Instance.CityNameButton == nil) then
@@ -819,8 +820,8 @@ end
 
 -- ===========================================================================
 -- Common handler for the District Strike Button
-function OnDistrictRangeStrikeButtonClick( playerID, districtID )
-    -- print_debug("CityBannerManager_CQUI: OnDistrictRangeStrikeButtonClick ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID));
+function CQUI_OnDistrictRangeStrikeButtonClick( playerID, districtID )
+    -- print_debug("CityBannerManager_CQUI: CQUI_OnDistrictRangeStrikeButtonClick ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID));
     local pPlayer = Players[playerID];
     if (pPlayer == nil) then
         return;
@@ -1055,7 +1056,7 @@ function Initialize_CQUI()
     LuaEvents.CQUI_CityInfoUpdated.Add(CQUI_OnCityInfoUpdated);    -- CQUI update city's real housing from improvements
     LuaEvents.CQUI_CityLostTileToCultureBomb.Add(CQUI_OnCityLostTileToCultureBomb);    -- CQUI update close to a culture bomb cities data and real housing from improvements
     LuaEvents.CQUI_CityRangeStrike.Add(CQUI_OnCityRangeStrikeButtonClick); -- AZURENCY : to acces it in the actionpannel on the city range attack button
-    LuaEvents.CQUI_DistrictRangeStrike.Add(OnDistrictRangeStrikeButtonClick); -- AZURENCY : to acces it in the actionpannel on the district range attack button
+    LuaEvents.CQUI_DistrictRangeStrike.Add(CQUI_OnDistrictRangeStrikeButtonClick); -- AZURENCY : to acces it in the actionpannel on the district range attack button
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
 
