@@ -37,7 +37,8 @@
                 </Grid>
 
                 <!-- CENTER: MAIN BUTTON -->
-                <Button ID="CityBannerButton" Anchor="L,T" Size="parent,parent" NoStateChange="true" >
+                <Button ID="CityBannerButton" Anchor="L,T" Size="parent,parent" NoStateChange="true">
+                    <!-- COLORED BG -->
                     <Grid ID="CityBannerFill" Anchor="C,T" Size="parent,parent" Texture="Banner_FrameBase_Combo" SliceTextureSize="113,41" SliceCorner="18,7" SliceSize="76,27"/>
 
                     <!-- OUTLINE: MOUSE IN / OUT -->
@@ -241,7 +242,7 @@
         </ZoomAnchor>
     </Instance>
 
-        <!-- Industry Minibanner -->
+    <!-- Industry Minibanner -->
     <Instance	Name="IndustryBanner">
     <ZoomAnchor ID="Anchor" ZoomOffsetNear="0,0,0" ZoomOffsetFar="0,0,-20">
         <Container ID="IndustryBannerContainer" Anchor="C,C" Size="88,34">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Mod id="1d44b5e7-753e-405b-af24-5ee634ec8a01" version="2.32">
+<Mod id="1d44b5e7-753e-405b-af24-5ee634ec8a01" version="2.4">
     <!-- ==============================  Basic Mod Information ============================== -->
     <Properties>
         <AffectsSavedGames>0</AffectsSavedGames>
@@ -142,9 +142,6 @@
                 <File>Assets/UI/diplomacyactionview_CQUI_basegame.lua</File>
                 <File>Assets/UI/diplomacyactionview_CQUI.lua</File>
                 <File>Assets/UI/diplomacyactionview.xml</File>
-                <File>Assets/UI/diplomacydealview_CQUI_basegame.lua</File>
-                <File>Assets/UI/diplomacydealview_CQUI.lua</File>
-                <File>Assets/UI/diplomacydealview.xml</File>
                 <File>Assets/UI/diplomacyribbon_CQUI_basegame.lua</File>
                 <File>Assets/UI/diplomacyribbon_CQUI.lua</File>
                 <File>Assets/UI/ingame.lua</File>
@@ -192,12 +189,16 @@
                 <File>Assets/UI/ToolTips/plottooltip_CQUI_basegame.lua</File>
                 <File>Assets/UI/ToolTips/plottooltip_CQUI.lua</File>
                 <File>Assets/UI/Utilities/extendedrelationship.lua</File>
-                <!-- <File>Assets/UI/WorldView/citybannermanager_CQUI_basegame.lua</File> -->
-                <!-- <File>Assets/UI/WorldView/citybannermanager_CQUI.lua</File>
-                <File>Assets/UI/WorldView/citybannermanager.xml</File> -->
                 <File>Assets/UI/WorldView/districtploticonmanager_CQUI.lua</File>
                 <File>Assets/UI/WorldView/plotinfo_CQUI.lua</File>
                 <File>Assets/UI/WorldView/plotinfo.xml</File>
+            </Items>
+        </ImportFiles>
+
+        <ImportFiles id="CQUI_IMPORT_FILES_DIPLOMACYDEALVIEW_BASEGAME">
+            <Items>
+                <File>Assets/UI/DiplomacyDealView_CQUI.lua</File>
+                <File>Assets/UI/diplomacydealview.xml</File>
             </Items>
         </ImportFiles>
 
@@ -214,20 +215,18 @@
                 <Context>InGame</Context>
             </Properties>
             <Items>
-                <File>Assets/UI/WorldView/CityBannerManager_CQUI.lua</File>
                 <File>Assets/Expansion1/CityBanners/citybannermanager.xml</File>
                 <File>Assets/Expansion1/CityBanners/CityBannerInstances.xml</File>
                 <File>Assets/Expansion1/CityBanners/CityReligionInstances.xml</File>
             </Items>
         </ImportFiles>
 
-        <ImportFiles id="CQUI_EXP1_IMPORT_FILES_CITYBANNERMANAGER_EXP2" criteria="Expansion2">
+        <ImportFiles id="CQUI_EXP2_IMPORT_FILES_CITYBANNERMANAGER_EXP2" criteria="Expansion2">
             <Properties>
                 <LoadOrder>200</LoadOrder>
                 <Context>InGame</Context>
             </Properties>
             <Items>
-                <File>Assets/UI/WorldView/CityBannerManager_CQUI.lua</File>
                 <File>Assets/Expansion2/CityBanners/citybannermanager.xml</File>
                 <File>Assets/Expansion2/CityBanners/CityBannerInstances.xml</File>
                 <File>Assets/Expansion2/CityBanners/CityReligionInstances.xml</File>
@@ -245,10 +244,6 @@
                 <Context>InGame</Context>
             </Properties>
             <Items>
-                <!-- <File>Assets/Expansion1/CityBanners/citybannermanager_CQUI_expansion1.lua</File> -->
-                <!-- <File>Assets/Expansion1/CityBanners/citybannermanager.xml</File>
-                <File>Assets/Expansion1/CityBanners/CityBannerInstances.xml</File>
-                <File>Assets/Expansion1/CityBanners/CityReligionInstances.xml</File> -->
                 <File>Assets/Expansion1/Replacements/citypaneloverview_expansion1_CQUI.lua</File>
                 <File>Assets/Expansion1/Replacements/citystates.xml</File>
                 <File>Assets/Expansion1/Replacements/citystates_CQUI_expansion1.lua</File>
@@ -256,7 +251,7 @@
                 <File>Assets/Expansion1/Replacements/diplomacyribbon_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/governmentscreen_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/launchbar_CQUI_expansion1.lua</File>
-                <!-- <File>Assets/Expansion1/Replacements/partialscreenhooks_CQUI_expansion1.lua</File> -->
+                <File>Assets/Expansion1/Replacements/partialscreenhooks_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/toppanel_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/unitpanel_CQUI_expansion1.lua</File>
                 <File>Assets/Expansion1/Replacements/worldinput_CQUI_expansion1.lua</File>
@@ -270,7 +265,6 @@
                 <Context>InGame</Context>
             </Properties>
             <Items>
-                <!-- <File>Assets/UI/WorldView/citybannermanager_CQUI_expansions.lua</File> -->
                 <File>Assets/Expansion1/Replacements/citypanelculture_CQUI.lua</File>
             </Items>
         </ImportFiles>
@@ -287,7 +281,6 @@
                 <File>Assets/Expansion2/Replacements/citystates_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/diplomacyactionview_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/diplomacyactionview.xml</File>
-                <File>Assets/Expansion2/Replacements/diplomacydealview_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/diplomacyribbon_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/governmentscreen_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/ingame.lua</File>
@@ -297,10 +290,6 @@
                 <File>Assets/Expansion2/Replacements/toppanel_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/unitpanel_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/worldinput_CQUI_expansion2.lua</File>
-                <!-- <File>Assets/Expansion2/CityBanners/citybannermanager_CQUI_expansion2.lua</File> -->
-                <!-- <File>Assets/Expansion2/CityBanners/citybannermanager.xml</File>
-                <File>Assets/Expansion2/CityBanners/CityBannerInstances.xml</File>
-                <File>Assets/Expansion2/CityBanners/CityReligionInstances.xml</File> -->
             </Items>
         </ImportFiles>
         <UpdateIcons id="CQUI_EXP2_UPDATE_ICONS" criteria="Expansion2">
@@ -562,29 +551,6 @@
             </Properties>
         </ReplaceUIScript>
 
-        <!-- <ReplaceUIScript id="CQUI_CityBannerManager">
-            <Properties>
-                <LuaContext>CityBannerManager</LuaContext>
-                <LuaReplace>Assets/UI/WorldView/citybannermanager_CQUI_basegame.lua</LuaReplace>
-            </Properties>
-        </ReplaceUIScript>
-
-        <ReplaceUIScript id="CQUI_CityBannerManager_EXP1" criteria="Expansion1">
-            <Properties>
-                <LoadOrder>100</LoadOrder>
-                <LuaContext>CityBannerManager</LuaContext>
-                <LuaReplace>Assets/Expansion1/CityBanners/citybannermanager_CQUI_expansion1.lua</LuaReplace>
-            </Properties>
-        </ReplaceUIScript>
-
-        <ReplaceUIScript id="CQUI_CityBannerManager_EXP2" criteria="Expansion2">
-            <Properties>
-                <LoadOrder>200</LoadOrder>
-                <LuaContext>CityBannerManager</LuaContext>
-                <LuaReplace>Assets/Expansion2/CityBanners/citybannermanager_CQUI_expansion2.lua</LuaReplace>
-            </Properties>
-        </ReplaceUIScript> -->
-
         <ReplaceUIScript id="CQUI_TopPanel">
             <Properties>
                 <LuaContext>TopPanel</LuaContext>
@@ -726,21 +692,6 @@
                 <LoadOrder>100</LoadOrder>
                 <LuaContext>CityPanelCulture</LuaContext>
                 <LuaReplace>Assets/Expansion1/Replacements/citypanelculture_CQUI.lua</LuaReplace>
-            </Properties>
-        </ReplaceUIScript>
-
-        <ReplaceUIScript id="CQUI_DiplomacyDealView">
-            <Properties>
-                <LuaContext>DiplomacyDealView</LuaContext>
-                <LuaReplace>Assets/UI/diplomacydealview_CQUI_basegame.lua</LuaReplace>
-            </Properties>
-        </ReplaceUIScript>
-
-        <ReplaceUIScript id="CQUI_DiplomacyDealView_EXP2" criteria="Expansion2">
-            <Properties>
-                <LoadOrder>200</LoadOrder>
-                <LuaContext>DiplomacyDealView</LuaContext>
-                <LuaReplace>Assets/Expansion2/Replacements/diplomacydealview_CQUI_expansion2.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
 
@@ -1000,11 +951,7 @@
         <File>Assets/cqui_toplayer.lua</File>
         <File>Assets/UI/CQUICommon.lua</File>
 
-        <!-- COMMON TO BOTH EXPANSIONS -->
-        <!-- <File>Assets/UI/WorldView/citybannermanager_CQUI_expansions.lua</File> -->
-
         <!-- EXP 1 -->
-        <!-- <File>Assets/Expansion1/CityBanners/citybannermanager_CQUI_expansion1.lua</File> -->
         <File>Assets/Expansion1/CityBanners/citybannermanager.xml</File>
         <File>Assets/Expansion1/CityBanners/CityBannerInstances.xml</File>
         <File>Assets/Expansion1/CityBanners/CityReligionInstances.xml</File>
@@ -1027,7 +974,6 @@
         <File>Assets/Expansion2/Replacements/citystates_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/diplomacyactionview_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/diplomacyactionview.xml</File>
-        <File>Assets/Expansion2/Replacements/diplomacydealview_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/diplomacyribbon_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/governmentscreen_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/ingame.lua</File>
@@ -1037,7 +983,6 @@
         <File>Assets/Expansion2/Replacements/toppanel_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/unitpanel_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/worldinput_CQUI_expansion2.lua</File>
-        <!-- <File>Assets/Expansion2/CityBanners/citybannermanager_CQUI_expansion2.lua</File> -->
         <File>Assets/Expansion2/CityBanners/citybannermanager.xml</File>
         <File>Assets/Expansion2/CityBanners/CityBannerInstances.xml</File>
         <File>Assets/Expansion2/CityBanners/CityReligionInstances.xml</File>
@@ -1106,8 +1051,7 @@
         <File>Assets/UI/diplomacyactionview_CQUI_basegame.lua</File>
         <File>Assets/UI/diplomacyactionview_CQUI.lua</File>
         <File>Assets/UI/diplomacyactionview.xml</File>
-        <File>Assets/UI/diplomacydealview_CQUI_basegame.lua</File>
-        <File>Assets/UI/diplomacydealview_CQUI.lua</File>
+        <File>Assets/UI/DiplomacyDealView_CQUI.lua</File>
         <File>Assets/UI/diplomacydealview.xml</File>
         <File>Assets/UI/diplomacyribbon_CQUI_basegame.lua</File>
         <File>Assets/UI/diplomacyribbon_CQUI.lua</File>
@@ -1158,7 +1102,6 @@
         <File>Assets/UI/ToolTips/plottooltip_CQUI_basegame.lua</File>
         <File>Assets/UI/ToolTips/plottooltip_CQUI.lua</File>
         <File>Assets/UI/Utilities/extendedrelationship.lua</File>
-        <!-- <File>Assets/UI/WorldView/citybannermanager_CQUI_basegame.lua</File> -->
         <File>Assets/UI/WorldView/CityBannerManager_CQUI.lua</File>
         <File>Assets/UI/WorldView/citybannermanager.xml</File>
         <File>Assets/UI/WorldView/districtploticonmanager_CQUI.lua</File>

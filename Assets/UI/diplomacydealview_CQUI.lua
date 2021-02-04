@@ -1,10 +1,3 @@
-print("***** diplomacydealview_CQUI START");
--- TODO: This is a temporary workaround until a more elegant solution to the problem of Firaxis calling the include DiplomacyDealView_* at the end of their DiplomacyDealView.lua file
---       Perhaps the ScriptReplacement isn't necessary anymore (for files that do not entirely replace the Firaxis versions), etc?
---       This if statement wraps the contents in this file, the lack of indentation is intended
-if (diplomacydealview_CQUI_loaded == nil) then
-print("***** diplomacydealview_CQUI LOADING")
-diplomacydealview_CQUI_loaded = 1;
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
@@ -24,6 +17,16 @@ local CQUI_IconAndTextForCitiesIM = InstanceManager:new( "IconAndTextForCities",
 local CQUI_IconAndTextForGreatWorkIM = InstanceManager:new( "IconAndTextForGreatWork", "SelectButton", Controls.IconOnlyContainer );
 local CQUI_MinimizedSectionIM = InstanceManager:new( "MinimizedSection", "MinimizedSectionContainer" );
 local CQUI_SIZE_SLOT_TYPE_ICON = 20;
+
+-- These are declared in the Expansions version of DiplomacyDealView, resetting them here as nil should not hurt things
+g_LocalPlayer = nil;
+g_OtherPlayer = nil;
+
+-- With the January 2021 update, Firaxis declared this object globally with the Expansion2 files, and kept it as local in the Vanilla and Expansion1.
+-- Declaring this here is therefore necessary as diplomacydealview_CQUI.lua references the g_IconOnlyIM object.
+if (g_IconOnlyIM == nil) then
+    g_IconOnlyIM = InstanceManager:new( "IconOnly", "SelectButton", Controls.IconOnlyContainer );
+end
 
 -- ===========================================================================
 --  CQUI PopulateSignatureArea function
@@ -713,12 +716,24 @@ function PopulateAvailableGreatWorks(player : table, iconList : table)
     return iAvailableItemCount;
 end
 
-
--- TEMP else
-else
-    print("***** diplomacydealview_CQUI load SKIPPED")
-
--- This "end" is for the include wildcard workaround, see note at top.
+-- ===========================================================================
+--  CQUI OnShowMakeDeal to set the g_LocalPlayer and g_OtherPlayer
+-- ===========================================================================
+function CQUI_OnShowMakeDeal(otherPlayerID)
+    g_LocalPlayer = Players[Game.GetLocalPlayer()];
+    g_OtherPlayer = Players[otherPlayerID];
+    OnShowMakeDeal(otherPlayerID);
 end
+LuaEvents.DiploPopup_ShowMakeDeal.Add(CQUI_OnShowMakeDeal);
+LuaEvents.DiploPopup_ShowMakeDeal.Remove(OnShowMakeDeal);
 
-print("***** diplomacydealview_CQUI END");
+-- ===========================================================================
+--  CQUI OnShowMakeDemand to set the g_LocalPlayer and g_OtherPlayer
+-- ===========================================================================
+function CQUI_OnShowMakeDemand(otherPlayerID)
+    g_LocalPlayer = Players[Game.GetLocalPlayer()];
+    g_OtherPlayer = Players[otherPlayerID];
+    OnShowMakeDemand(otherPlayerID);
+end
+LuaEvents.DiploPopup_ShowMakeDemand.Add(CQUI_OnShowMakeDemand);
+LuaEvents.DiploPopup_ShowMakeDemand.Remove(OnShowMakeDemand);
