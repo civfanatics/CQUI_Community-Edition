@@ -97,6 +97,8 @@ local CQUI_CitizenManagement   = UILens.CreateLensLayerHash("Citizen_Management"
 function CQUI_OnSettingsInitialized()
     -- print("CityBannerManager_CQUI: CQUI_OnSettingsInitialized ENTRY")
     CQUI_ShowYieldsOnCityHover              = GameConfiguration.GetValue("CQUI_ShowYieldsOnCityHover");
+    CQUI_ShowCitizenIconsOnCityHover        = GameConfiguration.GetValue("CQUI_ShowCitizenIconsOnCityHover");
+    CQUI_ShowCityManageAreaOnCityHover      = GameConfiguration.GetValue("CQUI_ShowCityManageAreaOnCityHover");
     CQUI_ShowSuzerainInCityStateBanner      = GameConfiguration.GetValue("CQUI_ShowSuzerainInCityStateBanner");
     CQUI_ShowSuzerainLabelInCityStateBanner = GameConfiguration.GetValue("CQUI_ShowSuzerainLabelInCityStateBanner");
     CQUI_ShowWarIconInCityStateBanner       = GameConfiguration.GetValue("CQUI_ShowWarIconInCityStateBanner");
@@ -114,8 +116,7 @@ function CQUI_OnSettingsInitialized()
     CQUI_SmartWorkIconSize  = GameConfiguration.GetValue("CQUI_SmartWorkIconSize");
     CQUI_SmartWorkIconAlpha = GameConfiguration.GetValue("CQUI_SmartWorkIconAlpha") / 100;
 
-    CQUI_ShowCitizenIconsOnCityHover   = GameConfiguration.GetValue("CQUI_ShowCitizenIconsOnCityHover");
-    CQUI_ShowCityManageAreaOnCityHover = GameConfiguration.GetValue("CQUI_ShowCityManageAreaOnCityHover");
+
     CQUI_RelocateCityStrike            = GameConfiguration.GetValue("CQUI_RelocateCityStrike");
     CQUI_RelocateEncampmentStrike      = GameConfiguration.GetValue("CQUI_RelocateEncampmentStrike");
 end

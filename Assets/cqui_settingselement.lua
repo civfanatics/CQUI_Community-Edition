@@ -568,6 +568,7 @@ function Initialize()
     LuaEvents.CQUI_SettingsUpdate.Add(ToggleSuzerainOptionsCheckboxes);
     LuaEvents.CQUI_SettingsUpdate.Add(UpdateKeyBindingsDisplay);
     LuaEvents.CQUI_SettingsUpdate.Add(ToggleInlineCityStateQuestFontSizeSlider);
+    LuaEvents.CQUI_SettingsUpdate.Add(ToggleCityBannerHoverOptions);
 
     LuaEvents.CQUI_SettingsInitialized(); --Tell other elements that the settings have been initialized and it's safe to try accessing settings now
 end
@@ -599,6 +600,15 @@ function ToggleInlineCityStateQuestFontSizeSlider()
     Controls.InlineCityStateQuestFontSizeStack:SetHide(not selected);
     Controls.GeneralOptionsStack:ReprocessAnchoring();
 end
+
+-- ===========================================================================
+function ToggleCityBannerHoverOptions()
+    local selected = Controls.ShowYieldsOnCityHoverCheckbox:IsSelected();
+    Controls.ShowCitizenIconsOnHoverCheckbox:SetHide(not selected);
+    Controls.ShowCityManageAreaOnHoverCheckbox:SetHide(not selected);
+    Controls.CityViewStack:ReprocessAnchoring();
+end
+
 
 -- ===========================================================================
 function UpdateKeyBindingsDisplay()
