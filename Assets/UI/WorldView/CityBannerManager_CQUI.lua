@@ -116,7 +116,6 @@ function CQUI_OnSettingsInitialized()
     CQUI_SmartWorkIconSize  = GameConfiguration.GetValue("CQUI_SmartWorkIconSize");
     CQUI_SmartWorkIconAlpha = GameConfiguration.GetValue("CQUI_SmartWorkIconAlpha") / 100;
 
-
     CQUI_RelocateCityStrike            = GameConfiguration.GetValue("CQUI_RelocateCityStrike");
     CQUI_RelocateEncampmentStrike      = GameConfiguration.GetValue("CQUI_RelocateEncampmentStrike");
 end
