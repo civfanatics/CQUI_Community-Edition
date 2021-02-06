@@ -11,11 +11,22 @@ BASE_CQUI_UpdateOtherPlayerText = UpdateOtherPlayerText;
 -- ===========================================================================
 -- Members
 -- ===========================================================================
-local CQUI_IconOnlyIM = InstanceManager:new( "IconOnly", "SelectButton", Controls.IconOnlyContainer );
+-- The *_IconOnlyIM is now a global variable in the Expansion2 version of DiplomacyDealView; it is still declared locally in the Vanilla/Exp1 version.
+-- The code below appears to work for all three (Vanilla, Exp1, Exp2) using the g_IconOnlyIM, so CQUI declares the global g_IconOnlyIM in diplomacydealview_CQUI_basegame.lua
 local CQUI_IconAndTextForCitiesIM = InstanceManager:new( "IconAndTextForCities", "SelectButton", Controls.IconOnlyContainer );
 local CQUI_IconAndTextForGreatWorkIM = InstanceManager:new( "IconAndTextForGreatWork", "SelectButton", Controls.IconOnlyContainer );
 local CQUI_MinimizedSectionIM = InstanceManager:new( "MinimizedSection", "MinimizedSectionContainer" );
 local CQUI_SIZE_SLOT_TYPE_ICON = 20;
+
+-- These are declared in the Expansions version of DiplomacyDealView, resetting them here as nil should not hurt things
+g_LocalPlayer = nil;
+g_OtherPlayer = nil;
+
+-- With the January 2021 update, Firaxis declared this object globally with the Expansion2 files, and kept it as local in the Vanilla and Expansion1.
+-- Declaring this here is therefore necessary as diplomacydealview_CQUI.lua references the g_IconOnlyIM object.
+if (g_IconOnlyIM == nil) then
+    g_IconOnlyIM = InstanceManager:new( "IconOnly", "SelectButton", Controls.IconOnlyContainer );
+end
 
 -- ===========================================================================
 --  CQUI PopulateSignatureArea function
@@ -202,7 +213,7 @@ end
 -- ===========================================================================
 function CQUI_RenderResourceButton(resource, resourceCategory, iconList, howAcquired)
     resourceDesc = GameInfo.Resources[resource.ForType];
-    local icon = CQUI_IconOnlyIM:GetInstance(iconList.ListStack);
+    local icon = g_IconOnlyIM:GetInstance(iconList.ListStack);
     local tooltipAddedText = '';
     local buttonDisabled = false;
 
@@ -414,7 +425,7 @@ function UpdateOtherPlayerText(otherPlayerSays)
     isCquiXmlActive = isCquiXmlActive and (Controls.OtherPlayerCivName ~= nil);
 
     if isCquiXmlActive then
-        CQUI_IconOnlyIM:ResetInstances();
+        g_IconOnlyIM:ResetInstances();
         CQUI_IconAndTextForCitiesIM:ResetInstances();
         CQUI_IconAndTextForGreatWorkIM:ResetInstances();
         CQUI_MinimizedSectionIM:ResetInstances();
@@ -440,7 +451,7 @@ function PopulateAvailableResources(player : table, iconList : table, className 
     local otherPlayerImportedResources = CQUI_GetImportedResources(GetOtherPlayer(player):GetID());
 
     if (pDeal ~= nil) then
-        CQUI_IconOnlyIM:ReleaseInstanceByParent(iconList);
+        g_IconOnlyIM:ReleaseInstanceByParent(iconList);
     end
 
     if (possibleResources ~= nil) then
@@ -585,7 +596,7 @@ function PopulateAvailableCities(player : table, iconList : table)
             -- pCity should never be nil here, if it is print a warning so the scenario can be reproduced
             if pCity ~= nil then
                 local icon = CQUI_RenderCityButton(pCity, player, iconList.ListStack);
-                local uiMinimizedIcon = CQUI_IconOnlyIM:GetInstance(uiMinimizedSection.MinimizedSectionStack);
+                local uiMinimizedIcon = g_IconOnlyIM:GetInstance(uiMinimizedSection.MinimizedSectionStack);
                 SetIconToSize(uiMinimizedIcon.Icon, "ICON_BUILDINGS", 45);
                 uiMinimizedIcon.AmountText:SetHide(true);
                 uiMinimizedIcon.SelectButton:SetDisabled( not entry.IsValid and entry.ValidationResult ~= DealValidationResult.MISSING_DEPENDENCY );	-- Hide if invalid, unless it is just missing a dependency, the user will update that when it is added to the deal.
@@ -641,7 +652,7 @@ function PopulateAvailableGreatWorks(player : table, iconList : table)
             if (greatWorkDesc ~= nil) then
                 local type = entry.ForType;
                 local icon = CQUI_IconAndTextForGreatWorkIM:GetInstance(iconList.ListStack);
-                local uiMinimizedIcon = CQUI_IconOnlyIM:GetInstance(uiMinimizedSection.MinimizedSectionStack);
+                local uiMinimizedIcon = g_IconOnlyIM:GetInstance(uiMinimizedSection.MinimizedSectionStack);
 
                 SetIconToSize(icon.Icon, "ICON_" .. greatWorkDesc.GreatWorkType, 45);
                 SetIconToSize(uiMinimizedIcon.Icon, "ICON_" .. greatWorkDesc.GreatWorkType, 45);
@@ -704,3 +715,25 @@ function PopulateAvailableGreatWorks(player : table, iconList : table)
 
     return iAvailableItemCount;
 end
+
+-- ===========================================================================
+--  CQUI OnShowMakeDeal to set the g_LocalPlayer and g_OtherPlayer
+-- ===========================================================================
+function CQUI_OnShowMakeDeal(otherPlayerID)
+    g_LocalPlayer = Players[Game.GetLocalPlayer()];
+    g_OtherPlayer = Players[otherPlayerID];
+    OnShowMakeDeal(otherPlayerID);
+end
+LuaEvents.DiploPopup_ShowMakeDeal.Add(CQUI_OnShowMakeDeal);
+LuaEvents.DiploPopup_ShowMakeDeal.Remove(OnShowMakeDeal);
+
+-- ===========================================================================
+--  CQUI OnShowMakeDemand to set the g_LocalPlayer and g_OtherPlayer
+-- ===========================================================================
+function CQUI_OnShowMakeDemand(otherPlayerID)
+    g_LocalPlayer = Players[Game.GetLocalPlayer()];
+    g_OtherPlayer = Players[otherPlayerID];
+    OnShowMakeDemand(otherPlayerID);
+end
+LuaEvents.DiploPopup_ShowMakeDemand.Add(CQUI_OnShowMakeDemand);
+LuaEvents.DiploPopup_ShowMakeDemand.Remove(OnShowMakeDemand);

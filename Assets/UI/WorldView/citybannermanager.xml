@@ -56,6 +56,7 @@
                 <Stack ID="ContentStack" Anchor="C,T" StackGrowth="Right" Padding="5">
                     <Container Anchor="L,C" Size="34,34">
                         <Label ID="CityPopulation" Anchor="C,C" String="999" Style="FontFlair28" FontStyle="glow" KerningAdjustment="-3" />
+                        <!-- ==== CQUI: Added CityCultureTurnsLeft and put both in Stack control ==== -->
                         <Stack StackGrowth="Down">
                             <Label ID="CityPopTurnsLeft" Anchor="L,T" Offset="-20,-16" Style="StrongSmall2" />
                             <Label ID="CityCultureTurnsLeft" Anchor="L,B" Offset="-10,27" Style="StrongSmall2" Color="204,109,197,255" />
@@ -64,13 +65,15 @@
 
                     <Container ID="CityNameContainer" Anchor="L,C" Size="50,34">
                         <Stack ID="CityNameStack" Anchor="C,C" StackGrowth="Right" Padding="2">
-                            <Label ID="TradingPostIcon" Anchor="R,C" Offset="0,2" String="[ICON_TradingPost]" Hidden="1">
+                            <Container Size="auto,auto" Anchor="L,C" Offset="0,2">
+                                <Label ID="TradingPostIcon" Anchor="C,C" String="[ICON_TradingPost]" Hidden="1"/>
                                 <Label ID="TradingPostDisabledIcon" Anchor="C,C" String="[ICON_Exclamation]" Hidden="1"/>
-                            </Label>
+                            </Container>
                             <Label ID="CityUnderSiegeIcon" Anchor="L,C" Style="FontNormal20" String="[ICON_UnderSiege]" ConsumeMouse="1" ToolTip="LOC_HUD_REPORTS_STATUS_UNDER_SEIGE"/>
                             <Label ID="CityOccupiedIcon" Anchor="L,C" Style="FontNormal20" String="[ICON_Occupied]" ConsumeMouse="1" ToolTip="LOC_HUD_CITY_GROWTH_OCCUPIED"/>
                             <Label ID="CityHousingInsufficientIcon" Anchor="L,C" Style="FontNormal20" String="[ICON_HousingInsufficient]"/>
                             <Label ID="CityAmenitiesInsufficientIcon" Anchor="L,C" Style="FontNormal20" String="[ICON_AmenitiesInsufficient]"/>
+                            <!-- ==== CQUI: Added CityUnlockedCitizen and all of the CQUI_Districts items below ==== -->
                             <Label ID="CityUnlockedCitizen" Hidden="1" Anchor="L,C" Offset="0,2" String="[ICON_EXCLAMATION]"/>
                             <Container ID="CQUI_DistrictsContainer" Anchor="C,C" Size="auto,parent" >
                                 <Stack ID="CQUI_Districts" Anchor="L,C" Offset="0,0" StackGrowth="Right" Padding="-12">
@@ -97,8 +100,10 @@
                                     <Label ID="CityBuiltDistrictTheater" Hidden="1" Style="FontNormal20" String="[ICON_DISTRICT_THEATER]"/>
                                 </Stack>
                             </Container>
+                            <!-- ==== CQUI: Added DistrictAvailable Image ==== -->
                             <Image ID="CQUI_DistrictAvailable" Anchor="L,C" Offset="-2,0" Icon="ICON_STAT_DISTRICTS" Size="24,24" ToolTip="LOC_HUD_DISTRICTS" Hidden="true" />
                             <Label ID="CityQuestIcon" Anchor="L,C" Style="FontNormal20" />
+                            <!-- ==== CQUI: Created CityNameButton, which holds the CityName Label ==== -->
                             <Button ID="CityNameButton" Anchor="L,C" Hidden="0" Size="auto,parent">
                                 <Label ID="CityName" Anchor="L,C" Style="HeaderSmallCaps" String="BALTIMORE" />
                             </Button>
@@ -109,6 +114,7 @@
                     </Container>
 
                     <Container ID="ProductionOrSpace" Anchor="L,C" Offset="0,1" Size="40,34">
+                        <!-- ==== CQUI: Added ID, referenced in UpdateProduction function -->
                         <AlphaAnim ID="ProductionIndicator" Anchor="C,T" AlphaStart="0" AlphaEnd="1" Speed="1" Cycle="Once" Size="parent,parent" Hidden="1">
                             <SlideAnim Anchor="C,T" Function="Root" Start="-8,0" End="0,0" Speed="2.5" Cycle="Once" Size="parent,parent">
                                 <Image Anchor="R,C" Texture="Banner_ProductionCircle" Size="26,26" Offset="6,-2" Color="255,255,255,200">
@@ -135,11 +141,9 @@
                         <Stack StackGrowth="Down" Anchor="L,C">
                             <Grid ID="CityDefenseBarBacking" Size="100,8" Texture="Banner_LifeBar" SliceTextureSize="100,6" SliceCorner="50,3">
                                 <TextureBar ID="CityDefenseBar" Texture="Banner_LifeBar" Size="100,6" Direction="Right" Speed="1" Anchor="L,C" TextureOffset="0,6" Color="120,198,247,255"/>
-
                             </Grid>
                             <Grid ID="CityHealthBarBacking" Size="100,8" Texture="Banner_LifeBar" SliceTextureSize="100,6" SliceCorner="50,3" Hidden="1">
                                 <TextureBar ID="CityHealthBar" Texture="Banner_LifeBar" Size="100,6" Direction="Right" Speed="1" Anchor="L,C" TextureOffset="0,6"/>
-
                             </Grid>
                         </Stack>
                     </Stack>
@@ -158,23 +162,24 @@
     <Instance Name="OtherCityBanner">
         <ZoomAnchor ID="Anchor" ZoomOffsetNear="0,0,0" ZoomOffsetFar="0,0,-20">
             <Container Anchor="C,C" Offset="0,-20" Size="200,34">
-                <Button ID="CityBannerButton" Anchor="C,T" Size="Parent-20,34" NoStateChange="true">
-                    <Grid ID="CityBannerBackground" Anchor="C,T" Offset="1,0" Size="Parent,34" Color="255,255,255,150" SliceTextureSize="50,34" SliceCorner="25,17" Texture="Banner_BannerBacking">
-                        <Image ID="CityProductionProgress" Anchor="R,C" Offset="2,0" Size="14,32" TextureOffset="14,0" Speed="1" Texture="Banner_ProductionMeter">
-                            <TextureBar ID="CityProductionNextTurn" Anchor="L,C" Size="14,32" Direction="Up" Speed="1" Texture="Banner_ProductionMeter"/>
-                            <TextureBar ID="CityProductionMeter" Anchor="L,C" Size="14,32" Direction="Up" Speed="1" Texture="Banner_ProductionMeter"/>
+                <Button ID="CityBannerButton" Size="Parent-20,34" Anchor="C,T" NoStateChange="true">
+                    <!-- ==== CQUI: Do not hide CityBannerBackground ==== -->
+                    <Grid ID="CityBannerBackground" Size="Parent,34" Offset="1,0" Anchor="C,T" Color="255,255,255,150" SliceTextureSize="50,34" SliceCorner="25,17" Texture="Banner_BannerBacking" "Hidden"="0">
+                        <Image ID="CityProductionProgress" TextureOffset="14,0" Offset="2,0" Speed="1" Anchor="R,C" Size="14,32" Texture="Banner_ProductionMeter" "Hidden"="1">
+                            <TextureBar ID="CityProductionNextTurn" Direction="Up" Speed="1" Anchor="L,C" Size="14,32" Texture="Banner_ProductionMeter"/>
+                            <TextureBar ID="CityProductionMeter" Direction="Up" Speed="1" Anchor="L,C" Size="14,32" Texture="Banner_ProductionMeter"/>
                         </Image>
-                        <Image Anchor="L,C" Offset="2,0" Size="14,32" Speed="1" TextureOffset="14,0" Texture="Banner_PopulationMeter">
-                            <TextureBar ID="CityPopulationNextTurn" Anchor="R,C" Size="14,32" Direction="Up" Speed="1" Texture="Banner_PopulationMeter" CounterClockwise="1"/>
-                            <TextureBar ID="CityPopulationMeter" Anchor="R,C" Size="14,32" Direction="Up" Speed="1" Texture="Banner_PopulationMeter" CounterClockwise="1"/>
+                        <Image Offset="2,0" Speed="1" TextureOffset="14,0" Anchor="L,C" Size="14,32" Texture="Banner_PopulationMeter">
+                            <TextureBar ID="CityPopulationNextTurn" Direction="Up" Speed="1" Anchor="R,C" Size="14,32" Texture="Banner_PopulationMeter" CounterClockwise="1"/>
+                            <TextureBar ID="CityPopulationMeter" Direction="Up" Speed="1" Anchor="R,C" Size="14,32" Texture="Banner_PopulationMeter" CounterClockwise="1"/>
                         </Image>
                     </Grid>
-                    <Grid ID="CityBannerFill" Anchor="C,T" Size="Parent,Parent" Texture="Banner_Base_Combo" SliceTextureSize="196,34" SliceCorner="98,17"/>
-                    <AlphaAnim Anchor="L,T" Size="Parent,Parent" ShowOnMouseOver="1" AlphaStart="0" AlphaEnd="1" Speed="2" Function="Root" Cycle="Once">
-                        <Grid ID="CityBannerFillOver" Anchor="C,T" Size="Parent,Parent" Texture="Banner_Secondary_Combo" SliceTextureSize="196,34" SliceCorner="98,17"/>
+                    <Grid ID="CityBannerFill" Texture="Banner_Base_Combo" Size="Parent,Parent" Anchor="R,T" SliceTextureSize="196,34" SliceCorner="98,17"/>
+                    <AlphaAnim Size="Parent,Parent" ShowOnMouseOver="1" AlphaStart="0" AlphaEnd="1" Speed="2" Function="Root" Cycle="Once">
+                        <Grid ID="CityBannerFillOver" Texture="Banner_Secondary_Combo" Size="Parent,Parent" Anchor="C,T" SliceTextureSize="196,34" SliceCorner="98,17"/>
                     </AlphaAnim>
                     <AlphaAnim Size="Parent,Parent" ShowOnMouseOut="1" AlphaStart="1" AlphaEnd="0" Speed="2" Function="Root" Cycle="Once">
-                        <Grid ID="CityBannerFillOut" Anchor="C,T" Size="Parent,Parent" Texture="Banner_Secondary_Combo" SliceTextureSize="196,34" SliceCorner="98,17"/>
+                        <Grid ID="CityBannerFillOut" Texture="Banner_Secondary_Combo" Size="Parent,Parent" Anchor="C,T" SliceTextureSize="196,34" SliceCorner="98,17"/>
                     </AlphaAnim>
                 </Button>
 
@@ -184,19 +189,22 @@
                     <Container Anchor="L,C" Size="34,34">
                         <Label ID="CityPopulation" Anchor="C,C" String="999" Style="FontFlair28" FontStyle="glow" />
                         <Label ID="CityPopTurnsLeft" AnchorSide="O,I" Offset="3,-2" Style="StrongSmall2" KerningAdjustment="-1" Hidden="1"/>
+                        <!-- ==== CQUI: Added CityCultureTurnsLeft ==== -->
                         <Label ID="CityCultureTurnsLeft" AnchorSide="O,I" Offset="3,-2" Style="StrongSmall2" KerningAdjustment="-1" Hidden="1"/>
                     </Container>
 
                     <Container ID="CityNameContainer" Anchor ="L,C" Size="50,34">
                         <Stack ID="CityNameStack" StackGrowth="Right" Padding="2" Anchor="C,C">
-                            <Label ID="TradingPostIcon" Anchor="R,C" Offset="0,2" String="[ICON_TradingPost]" Hidden="1">
+                            <Container Size="auto,auto" Anchor="L,C" Offset="0,2">
+                                <Label ID="TradingPostIcon" Anchor="C,C" String="[ICON_TradingPost]" Hidden="1"/>
                                 <Label ID="TradingPostDisabledIcon" Anchor="C,C" String="[ICON_Exclamation]" Hidden="1"/>
-                            </Label>
+                            </Container>
                             <Label ID="CityUnderSiegeIcon" Anchor="L,C" Style="FontNormal20" String="[ICON_UnderSiege]" ConsumeMouse="1" ToolTip="LOC_HUD_REPORTS_STATUS_UNDER_SEIGE"/>
                             <Label ID="CityOccupiedIcon" Anchor="L,C" Style="FontNormal20" String="[ICON_Occupied]" ConsumeMouse="1" ToolTip="LOC_HUD_CITY_GROWTH_OCCUPIED"/>
+                            <!-- ==== CQUI: Added icon to indicate War with CityState -->
                             <Image ID="CQUI_AtWarWithCSIcon" Size="22,22" Anchor="C,C" Icon="ICON_RELATIONSHIP_WAR" ToolTip="LOC_DIPLO_STATE_WAR_NAME" Hidden="1"/>
                             <Label ID="CityQuestIcon" Anchor="L,C" Style="FontNormal20"/>
-                            <!-- CQUI: Show Suzerain in CS banner -->
+                            <!-- ==== CQUI: Show Suzerain in CS banner ==== -->
                             <Container ID="CQUI_CivSuzerain" Anchor="C,C" Size="34,34" Hidden="1">
                                 <Image ID="CQUI_CivSuzerainIconBackground" Size="22,22" Anchor="C,C" Texture="CircleBacking22" >
                                     <Image ID="CQUI_CivSuzerainIcon" Size="22,22" Anchor="C,C" IconSize="22"/>
@@ -342,6 +350,29 @@
         </ZoomAnchor>
     </Instance>
 
+    <!-- Industry Minibanner -->
+    <Instance Name="IndustryBanner">
+        <ZoomAnchor ID="Anchor" ZoomOffsetNear="0,0,0" ZoomOffsetFar="0,0,-20">
+            <Container ID="IndustryBannerContainer" Anchor="C,C" Size="88,34">
+                <!-- Banner Background -->
+                <Image ID="Banner_Base" Anchor="C,C" Size="50,50" Texture="BannerMonopolies_Combo_Base_Combo"/>
+                <Image ID="Icon" Anchor="C,C" Size="34,34" Texture="AdvisorRec22" />
+            </Container>
+        </ZoomAnchor>
+    </Instance>
+
+    <!-- Corporation Minibanner -->
+    <Instance Name="CorporationBanner">
+        <ZoomAnchor ID="Anchor" ZoomOffsetNear="0,0,0" ZoomOffsetFar="0,0,-20">
+            <Container ID="CorporationBannerContainer" Anchor="C,C" Size="88,34">
+                <!-- Banner Background -->
+                <Image ID="Banner_Base" Anchor="C,C" Size="50,50" Texture="BannerMonopolies_Combo_Base_Combo"/>
+                <Image ID="Icon" Anchor="C,C" Size="34,34" Texture="AdvisorRec22" />
+                <Image ID="CorporationRing" Anchor="C,C" Size="48,48" Texture="Monopolies_GoldBorder"/>
+            </Container>
+        </ZoomAnchor>
+    </Instance>
+
     <!-- Encampment Minibanner -->
     <Instance Name="EncampmentBanner">
         <ZoomAnchor ID="Anchor" ZoomOffsetNear="0,0,0" ZoomOffsetFar="0,0,-20">
@@ -399,7 +430,7 @@
         </Image>
     </Instance>
 
-    <!-- Infixo this is the singular religion icon displayed below the banner -->
+    <!-- ==== CQUI: Infixo this is the singular religion icon displayed below the banner ==== -->
     <Instance Name="ReligionIconInstance">
         <Container ID="ReligionIconContainer" Anchor="L,T" Size="auto,30">
             <Stack StackGrowth="Right">

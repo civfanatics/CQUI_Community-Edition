@@ -17,6 +17,7 @@
 -- in the Gameplay context a different method must be used as those variables will be nil
 g_bIsRiseAndFall    = Modding and Modding.IsModActive("1B28771A-C749-434B-9053-D1380C553DE9"); -- Rise & Fall
 g_bIsGatheringStorm = Modding and Modding.IsModActive("4873eb62-8ccc-4574-b784-dda455e74e68"); -- Gathering Storm
+g_bIsBaseGame       = not g_bIsRiseAndFall and not g_bIsGatheringStorm;
 
 -- ===========================================================================
 -- Debug support
@@ -229,9 +230,9 @@ function CQUI_GreatPeoplePanel_GetControlSizeY( controlName )
 end
 
 -- ===========================================================================
-function Initialize()
+function Initialize_CQUICommon()
     -- print_debug("INITIALIZE: CQUICommon.lua");
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 end
-Initialize();
+Initialize_CQUICommon();
