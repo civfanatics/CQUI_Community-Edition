@@ -1,3 +1,4 @@
+print("*** CQUI: DiplomacyDealView_CQUI loaded");
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
@@ -221,13 +222,13 @@ function CQUI_RenderResourceButton(resource, resourceCategory, iconList, howAcqu
     icon.SelectButton:SetAlpha(1);
     icon.AmountText:SetAlpha(1);
     icon.AmountText:SetColor(UI.GetColorValue(194/255,194/255,204/255)); -- Color : BodyTextCool
-    icon.Important:SetHide(true);
     icon.SelectButton:SetTexture("Controls_DraggableButton");
     icon.SelectButton:SetTextureOffsetVal(0, 0);
+    local hideImportantIcon = true;
 
     if (resourceCategory == 'scarce') then
         icon.AmountText:SetColor(UI.GetColorValue(224/255,124/255,124/255,230/255));
-        icon.Important:SetHide(false);
+        hideImportantIcon = false;
     elseif (resourceCategory == 'duplicate') then
         icon.SelectButton:SetAlpha(.8);
         icon.AmountText:SetColor(UI.GetColorValue(124/255,154/255,224/255,230/255));
@@ -238,8 +239,14 @@ function CQUI_RenderResourceButton(resource, resourceCategory, iconList, howAcqu
         tooltipAddedText = ' [COLOR:GoldMetalDark](' .. Locale.Lookup("LOC_IDS_DEAL_UNTRADEABLE") .. ')[ENDCOLOR]';
         buttonDisabled = true;
     else
-        icon.Important:SetHide(false);
+        -- This needs to be here or somehow the "Remove this from deal" button appears to be randomly enabled?
+        -- It doesn't make sense, but this is the only change that produced that behavior
         icon.SelectButton:SetTextureOffsetVal(0, 50);
+    end
+
+    -- CQUI added the "Important" icon, however if something overwrote the XML, the object may not exist
+    if (icon.Important ~= nil) then
+        icon.Important:SetHide(hideImportantIcon);
     end
 
     SetIconToSize(icon.Icon, "ICON_" .. resourceDesc.ResourceType);
@@ -425,6 +432,7 @@ function UpdateOtherPlayerText(otherPlayerSays)
     isCquiXmlActive = isCquiXmlActive and (Controls.OtherPlayerCivName ~= nil);
 
     if isCquiXmlActive then
+        -- Technically, this doesn't need to be called for the Expansion2 games.  However, for Vanilla and EXP1...
         g_IconOnlyIM:ResetInstances();
         CQUI_IconAndTextForCitiesIM:ResetInstances();
         CQUI_IconAndTextForGreatWorkIM:ResetInstances();
@@ -717,15 +725,32 @@ function PopulateAvailableGreatWorks(player : table, iconList : table)
 end
 
 -- ===========================================================================
+    -- We need to clear hide the important icon and reset the text color (properties only CQUI will set)
+    -- Note: Calling ResetInstances just puts already allocated instances into an available list and does NOT clear these bit set by CQUI
+function CQUI_CleanAllocatedInstances()
+    for i=1, #g_IconOnlyIM.m_AllocatedInstances, 1 do
+        local inst = g_IconOnlyIM.m_AllocatedInstances[i];
+        -- Reset the text color, in case it was set to red or blue because this instances was last used for a scarce or duplicate resource
+        inst.AmountText:SetColor(UI.GetColorValue(194/255,194/255,204/255))
+        -- Reset these as well, because it appears it is not always cleared as it should be if that instance ends up as the diplomatic favor or gold button
+        inst.UnacceptableIcon:SetHide(true);
+        inst.RemoveButton:SetHide(true);
+        -- Important only exists if the CQUI DiplomacyDealView XML was loaded
+        if (inst.Important ~= nil) then
+            inst.Important:SetHide(true);
+        end
+    end
+end
+
+-- ===========================================================================
 --  CQUI OnShowMakeDeal to set the g_LocalPlayer and g_OtherPlayer
 -- ===========================================================================
 function CQUI_OnShowMakeDeal(otherPlayerID)
     g_LocalPlayer = Players[Game.GetLocalPlayer()];
     g_OtherPlayer = Players[otherPlayerID];
+    CQUI_CleanAllocatedInstances();
     OnShowMakeDeal(otherPlayerID);
 end
-LuaEvents.DiploPopup_ShowMakeDeal.Add(CQUI_OnShowMakeDeal);
-LuaEvents.DiploPopup_ShowMakeDeal.Remove(OnShowMakeDeal);
 
 -- ===========================================================================
 --  CQUI OnShowMakeDemand to set the g_LocalPlayer and g_OtherPlayer
@@ -733,7 +758,16 @@ LuaEvents.DiploPopup_ShowMakeDeal.Remove(OnShowMakeDeal);
 function CQUI_OnShowMakeDemand(otherPlayerID)
     g_LocalPlayer = Players[Game.GetLocalPlayer()];
     g_OtherPlayer = Players[otherPlayerID];
+    CQUI_CleanAllocatedInstances();
     OnShowMakeDemand(otherPlayerID);
 end
-LuaEvents.DiploPopup_ShowMakeDemand.Add(CQUI_OnShowMakeDemand);
-LuaEvents.DiploPopup_ShowMakeDemand.Remove(OnShowMakeDemand);
+
+-- ===========================================================================
+function Initialize_DiplomacyDealView_CQUI()
+    -- Override the unmodified game for these Lua Events
+    LuaEvents.DiploPopup_ShowMakeDeal.Remove(OnShowMakeDeal);
+    LuaEvents.DiploPopup_ShowMakeDemand.Remove(OnShowMakeDemand);
+    LuaEvents.DiploPopup_ShowMakeDeal.Add(CQUI_OnShowMakeDeal);
+    LuaEvents.DiploPopup_ShowMakeDemand.Add(CQUI_OnShowMakeDemand);
+end
+Initialize_DiplomacyDealView_CQUI();
