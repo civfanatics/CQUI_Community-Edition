@@ -10,24 +10,19 @@ include("CitySupport");
 BASE_CQUI_UpdateOtherPlayerText = UpdateOtherPlayerText;
 
 -- ===========================================================================
--- Members
+-- Constants
 -- ===========================================================================
--- The *_IconOnlyIM is now a global variable in the Expansion2 version of DiplomacyDealView; it is still declared locally in the Vanilla/Exp1 version.
--- The code below appears to work for all three (Vanilla, Exp1, Exp2) using the g_IconOnlyIM, so CQUI declares the global g_IconOnlyIM in diplomacydealview_CQUI_basegame.lua
-local CQUI_IconAndTextForCitiesIM = InstanceManager:new( "IconAndTextForCities", "SelectButton", Controls.IconOnlyContainer );
-local CQUI_IconAndTextForGreatWorkIM = InstanceManager:new( "IconAndTextForGreatWork", "SelectButton", Controls.IconOnlyContainer );
-local CQUI_MinimizedSectionIM = InstanceManager:new( "MinimizedSection", "MinimizedSectionContainer" );
 local CQUI_SIZE_SLOT_TYPE_ICON = 20;
 
--- These are declared in the Expansions version of DiplomacyDealView, resetting them here as nil should not hurt things
-g_LocalPlayer = nil;
-g_OtherPlayer = nil;
-
--- With the January 2021 update, Firaxis declared this object globally with the Expansion2 files, and kept it as local in the Vanilla and Expansion1.
--- Declaring this here is therefore necessary as diplomacydealview_CQUI.lua references the g_IconOnlyIM object.
-if (g_IconOnlyIM == nil) then
-    g_IconOnlyIM = InstanceManager:new( "IconOnly", "SelectButton", Controls.IconOnlyContainer );
-end
+-- ===========================================================================
+-- Members
+-- ===========================================================================
+-- The *_IconOnlyIM and *_IconAndTextIM are now a global variables in the Expansion2 version of DiplomacyDealView; it is still declared locally in the Vanilla/Exp1 version.
+-- CQUI will use g_IconOnlyIM and g_IconAndTextIM in any case; if those start as nil, then they are instantiated like their local-only counterparts from Vanilla/XP1 (in the Initialize function)
+local CQUI_IconAndTextForCitiesIM = nil;
+local CQUI_IconAndTextForGreatWorkIM = nil;
+-- This is a local instance of ms_MinimizedSectionIM, which appears in the unmodified file, also declared as local
+local ms_MinimizedSectionIM = InstanceManager:new( "MinimizedSection", "MinimizedSectionContainer" );
 
 -- ===========================================================================
 --  CQUI PopulateSignatureArea function
@@ -286,9 +281,17 @@ end
 --  Render the city button with all the details
 -- ===========================================================================
 function CQUI_RenderCityButton(pCity : table, player : table, targetContainer : table)
-    local button = CQUI_IconAndTextForCitiesIM:GetInstance(targetContainer);
+    local isCQUIXmlLoaded = CQUI_IsCQUIXmlLoaded();
+    local button = nil; 
     local cityData = GetCityData(pCity);
     local otherPlayer = GetOtherPlayer(player);
+
+    if (isCQUIXmlLoaded) then
+        button = CQUI_IconAndTextForCitiesIM:GetInstance(targetContainer);
+    else
+        -- CQUI XML wasn't loaded, so use the basegame "IconAndText" button
+        button = g_IconAndTextIM:GetInstance(targetContainer);
+    end
 
     SetIconToSize(button.Icon, "ICON_BUILDINGS", 45);
     button.IconText:SetText(CQUI_GenerateCityNameForDisplay(pCity, player, true));
@@ -298,16 +301,23 @@ function CQUI_RenderCityButton(pCity : table, player : table, targetContainer : 
         button.SelectButton:SetTextureOffsetVal(0, 0);
     end
 
-    button.PopulationLabel:SetText(tostring(cityData.Population));
-    --ARISTOS: only show detailed info for cities owned or occupied by local player! CQUI non-cheat policy
-    if pCity:GetOwner() == Game.GetLocalPlayer() then
-        button.FoodLabel:SetText("[ICON_FOOD]" .. toPlusMinusString(cityData.FoodPerTurn));
-        button.ProductionLabel:SetText("[ICON_PRODUCTION]" .. toPlusMinusString(cityData.ProductionPerTurn));
-        button.ScienceLabel:SetText("[ICON_SCIENCE]" .. toPlusMinusString(cityData.SciencePerTurn));
+    if (isCQUIXmlLoaded) then
+        button.PopulationLabel:SetText(tostring(cityData.Population));
+        --ARISTOS: only show detailed info for cities owned or occupied by local player! CQUI non-cheat policy
+        if pCity:GetOwner() == Game.GetLocalPlayer() then
+            button.FoodLabel:SetText("[ICON_FOOD]" .. toPlusMinusString(cityData.FoodPerTurn));
+            button.ProductionLabel:SetText("[ICON_PRODUCTION]" .. toPlusMinusString(cityData.ProductionPerTurn));
+            button.ScienceLabel:SetText("[ICON_SCIENCE]" .. toPlusMinusString(cityData.SciencePerTurn));
+        else
+            button.FoodLabel:SetText("");
+            button.ProductionLabel:SetText("");
+            button.ScienceLabel:SetText("");
+        end
     else
-        button.FoodLabel:SetText("");
-        button.ProductionLabel:SetText("");
-        button.ScienceLabel:SetText("");
+        -- CQUI DiplomacyDealView XML was not loaded (note these IDs do not exist in the CQUI XML version)
+        button.AmountText:SetHide(true);
+        button.RemoveButton:SetHide(true);
+        button.StopAskingButton:SetHide(true);
     end
 
     button.SelectButton:SetToolTipString( CQUI_MakeCityToolTip(pCity, player) );
@@ -423,20 +433,15 @@ end
 function UpdateOtherPlayerText(otherPlayerSays)
     BASE_CQUI_UpdateOtherPlayerText(otherPlayerSays);
 
-    local isCquiXmlActive : boolean = true;
-    isCquiXmlActive = isCquiXmlActive and (Controls.PlayerCivIcon ~= nil);
-    isCquiXmlActive = isCquiXmlActive and (Controls.PlayerLeaderName ~= nil);
-    isCquiXmlActive = isCquiXmlActive and (Controls.PlayerCivName ~= nil);
-    isCquiXmlActive = isCquiXmlActive and (Controls.OtherPlayerCivIcon ~= nil);
-    isCquiXmlActive = isCquiXmlActive and (Controls.OtherPlayerLeaderName ~= nil);
-    isCquiXmlActive = isCquiXmlActive and (Controls.OtherPlayerCivName ~= nil);
+    -- This doesn't need to be called for the Expansion2 games as it's already been done prior to calling this function.
+    -- However, for Vanilla and EXP1, it does because we declared this as a global and the instances require resetting
+    -- Calling this (rather than including CQUICommon and checking which mod is loaded) doesn't hurt anything with XP2, so just allow it to be called...
+    g_IconOnlyIM:ResetInstances();
+    ms_MinimizedSectionIM:ResetInstances();
 
-    if isCquiXmlActive then
-        -- Technically, this doesn't need to be called for the Expansion2 games.  However, for Vanilla and EXP1...
-        g_IconOnlyIM:ResetInstances();
+    if (CQUI_IsCQUIXmlLoaded()) then
         CQUI_IconAndTextForCitiesIM:ResetInstances();
         CQUI_IconAndTextForGreatWorkIM:ResetInstances();
-        CQUI_MinimizedSectionIM:ResetInstances();
 
         PopulateSignatureArea(g_LocalPlayer, Controls.PlayerCivIcon, Controls.PlayerLeaderName, Controls.PlayerCivName);  -- Expansion 2 added global variable for local and other player
         PopulateSignatureArea(g_OtherPlayer, Controls.OtherPlayerCivIcon, Controls.OtherPlayerLeaderName, Controls.OtherPlayerCivName);
@@ -546,11 +551,13 @@ function PopulateAvailableCities(player : table, iconList : table)
     local possibleItems = DealManager.GetPossibleDealItems(player:GetID(), GetOtherPlayer(player):GetID(), DealItemTypes.CITIES, pForDeal);
 
     if (pForDeal ~= nil) then
-        CQUI_IconAndTextForCitiesIM:ReleaseInstanceByParent(iconList.ListStack);
-        CQUI_MinimizedSectionIM:ReleaseInstanceByParent(iconList.List);
+        ms_MinimizedSectionIM:ReleaseInstanceByParent(iconList.List);
+        if (CQUI_IsCQUIXmlLoaded()) then
+            CQUI_IconAndTextForCitiesIM:ReleaseInstanceByParent(iconList.ListStack);
+        end
     end
 
-    local uiMinimizedSection:table = CQUI_MinimizedSectionIM:GetInstance(iconList.List);
+    local uiMinimizedSection:table = ms_MinimizedSectionIM:GetInstance(iconList.List);
 
     -- Todo: Possible to show the untradable (damaged) cities?
     if (possibleItems ~= nil) then
@@ -644,11 +651,13 @@ function PopulateAvailableGreatWorks(player : table, iconList : table)
     local possibleItems = DealManager.GetPossibleDealItems(player:GetID(), GetOtherPlayer(player):GetID(), DealItemTypes.GREATWORK, pForDeal);
 
     if (pForDeal ~= nil) then
-        CQUI_IconAndTextForGreatWorkIM:ReleaseInstanceByParent(iconList.ListStack);
-        CQUI_MinimizedSectionIM:ReleaseInstanceByParent(iconList.List);
+        ms_MinimizedSectionIM:ReleaseInstanceByParent(iconList.List);
+        if (CQUI_IsCQUIXmlLoaded()) then
+            CQUI_IconAndTextForGreatWorkIM:ReleaseInstanceByParent(iconList.ListStack);
+        end
     end
 
-    local uiMinimizedSection:table = CQUI_MinimizedSectionIM:GetInstance(iconList.List);
+    local uiMinimizedSection:table = ms_MinimizedSectionIM:GetInstance(iconList.List);
 
     -- CQUI : Sort by great work type
     local sort_func = function( a,b ) return a.ForTypeDescriptionID < b.ForTypeDescriptionID end;
@@ -659,8 +668,16 @@ function PopulateAvailableGreatWorks(player : table, iconList : table)
             local greatWorkDesc = GameInfo.GreatWorks[entry.ForTypeDescriptionID];
             if (greatWorkDesc ~= nil) then
                 local type = entry.ForType;
-                local icon = CQUI_IconAndTextForGreatWorkIM:GetInstance(iconList.ListStack);
+                local isCQUIXmlLoaded = CQUI_IsCQUIXmlLoaded();
+                local icon = nil;
                 local uiMinimizedIcon = g_IconOnlyIM:GetInstance(uiMinimizedSection.MinimizedSectionStack);
+
+                if (isCQUIXmlLoaded) then
+                    icon = CQUI_IconAndTextForGreatWorkIM:GetInstance(iconList.ListStack);
+                else
+                    -- CQUI DiplomacyDealView XML is not loaded
+                    icon = g_IconAndTextIM:GetInstance(iconList.ListStack);
+                end
 
                 SetIconToSize(icon.Icon, "ICON_" .. greatWorkDesc.GreatWorkType, 45);
                 SetIconToSize(uiMinimizedIcon.Icon, "ICON_" .. greatWorkDesc.GreatWorkType, 45);
@@ -677,16 +694,22 @@ function PopulateAvailableGreatWorks(player : table, iconList : table)
                 uiMinimizedIcon.StopAskingButton:SetHide(true);
 
                 -- CQUI (Azurency) : add the type icon
-                local objectType = greatWorkDesc.GreatWorkObjectType;
-                local slotTypeIcon = "ICON_" .. objectType;
-                if objectType == "GREATWORKOBJECT_ARTIFACT" then
-                    slotTypeIcon = slotTypeIcon .. "_" .. greatWorkDesc.EraType;
-                end
-                local textureOffsetX:number, textureOffsetY:number, textureSheet:string = IconManager:FindIconAtlas(slotTypeIcon, CQUI_SIZE_SLOT_TYPE_ICON);
-                if (textureSheet == nil or textureSheet == "") then
-                    UI.DataError("Could not find slot type icon in PopulateAvailableGreatWorks: icon=\""..slotTypeIcon.."\", iconSize="..tostring(CQUI_SIZE_SLOT_TYPE_ICON));
+                if (isCQUIXmlLoaded) then
+                    local objectType = greatWorkDesc.GreatWorkObjectType;
+                    local slotTypeIcon = "ICON_" .. objectType;
+                    if objectType == "GREATWORKOBJECT_ARTIFACT" then
+                        slotTypeIcon = slotTypeIcon .. "_" .. greatWorkDesc.EraType;
+                    end
+                    local textureOffsetX:number, textureOffsetY:number, textureSheet:string = IconManager:FindIconAtlas(slotTypeIcon, CQUI_SIZE_SLOT_TYPE_ICON);
+                    if (textureSheet == nil or textureSheet == "") then
+                        UI.DataError("Could not find slot type icon in PopulateAvailableGreatWorks: icon=\""..slotTypeIcon.."\", iconSize="..tostring(CQUI_SIZE_SLOT_TYPE_ICON));
+                    else
+                        icon.TypeIcon:SetTexture(textureOffsetX, textureOffsetY, textureSheet);
+                    end
                 else
-                    icon.TypeIcon:SetTexture(textureOffsetX, textureOffsetY, textureSheet);
+                    -- The RemoveButton and StopAskingButton objects are not defined in the CQUI IconAndTextForGreatWork Control
+                    icon.RemoveButton:SetHide(true);
+                    icon.StopAskingButton:SetHide(true);
                 end
 
                 -- CQUI (Azurency) : add creator to the IconText
@@ -763,11 +786,46 @@ function CQUI_OnShowMakeDemand(otherPlayerID)
 end
 
 -- ===========================================================================
+function CQUI_IsCQUIXmlLoaded()
+    -- Check and see if the Controls unique to CQUI are not-nil, and if so, the CQUI DiplomacyDealView XML must be loaded
+    isCquiXmlActive = true;
+    isCquiXmlActive = isCquiXmlActive and (Controls.PlayerCivIcon ~= nil);
+    isCquiXmlActive = isCquiXmlActive and (Controls.PlayerLeaderName ~= nil);
+    isCquiXmlActive = isCquiXmlActive and (Controls.PlayerCivName ~= nil);
+    isCquiXmlActive = isCquiXmlActive and (Controls.OtherPlayerCivIcon ~= nil);
+    isCquiXmlActive = isCquiXmlActive and (Controls.OtherPlayerLeaderName ~= nil);
+    isCquiXmlActive = isCquiXmlActive and (Controls.OtherPlayerCivName ~= nil);
+
+    return isCquiXmlActive;
+end
+
+-- ===========================================================================
 function Initialize_DiplomacyDealView_CQUI()
     -- Override the unmodified game for these Lua Events
     LuaEvents.DiploPopup_ShowMakeDeal.Remove(OnShowMakeDeal);
     LuaEvents.DiploPopup_ShowMakeDemand.Remove(OnShowMakeDemand);
     LuaEvents.DiploPopup_ShowMakeDeal.Add(CQUI_OnShowMakeDeal);
     LuaEvents.DiploPopup_ShowMakeDemand.Add(CQUI_OnShowMakeDemand);
+
+    -- CQUI Custom Icons in Trade Screen - only instantiate if the CQUI XML was loaded
+    if (CQUI_IsCQUIXmlLoaded()) then
+        CQUI_IconAndTextForCitiesIM = InstanceManager:new( "IconAndTextForCities", "SelectButton", Controls.IconOnlyContainer );
+        CQUI_IconAndTextForGreatWorkIM = InstanceManager:new( "IconAndTextForGreatWork", "SelectButton", Controls.IconOnlyContainer );
+    end
+
+    -- These are declared in the Expansions version of DiplomacyDealView, resetting them here as nil should not hurt things
+    g_LocalPlayer = nil;
+    g_OtherPlayer = nil;
+
+    -- With the January 2021 update, Firaxis declared this object globally with the Expansion2 files, and kept it as local in the Vanilla and Expansion1.
+    -- Declaring this here is therefore necessary as diplomacydealview_CQUI.lua references the g_IconOnlyIM object.
+    if (g_IconOnlyIM == nil) then
+        g_IconOnlyIM = InstanceManager:new( "IconOnly", "SelectButton", Controls.IconOnlyContainer );
+    end
+
+    -- Do the same for the IconAndText object, as it will be used in cases where the CQUI XML did not get loaded
+    if (g_IconAndTextIM == nil) then
+        g_IconAndTextIM = InstanceManager:new( "IconAndText",  "SelectButton", Controls.IconAndTextContainer );
+    end
 end
 Initialize_DiplomacyDealView_CQUI();
