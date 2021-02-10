@@ -234,12 +234,10 @@ function CQUI_RenderResourceButton(resource, resourceCategory, iconList, howAcqu
         tooltipAddedText = ' [COLOR:GoldMetalDark](' .. Locale.Lookup("LOC_IDS_DEAL_UNTRADEABLE") .. ')[ENDCOLOR]';
         buttonDisabled = true;
     else
-        -- This needs to be here or somehow the "Remove this from deal" button appears to be randomly enabled?
-        -- It doesn't make sense, but this is the only change that produced that behavior
         icon.SelectButton:SetTextureOffsetVal(0, 50);
     end
 
-    -- CQUI added the "Important" icon, however if something overwrote the XML, the object may not exist
+    -- CQUI added the "Important" icon, it will not be nil if the CQUI version of the XML is loaded
     if (icon.Important ~= nil) then
         icon.Important:SetHide(hideImportantIcon);
     end
@@ -675,7 +673,7 @@ function PopulateAvailableGreatWorks(player : table, iconList : table)
                 if (isCQUIXmlLoaded) then
                     icon = CQUI_IconAndTextForGreatWorkIM:GetInstance(iconList.ListStack);
                 else
-                    -- CQUI DiplomacyDealView XML is not loaded
+                    -- CQUI DiplomacyDealView XML is not loaded, use the standard GreatWork button
                     icon = g_IconAndTextIM:GetInstance(iconList.ListStack);
                 end
 
@@ -749,7 +747,7 @@ end
 
 -- ===========================================================================
     -- We need to clear hide the important icon and reset the text color (properties only CQUI will set)
-    -- Note: Calling ResetInstances just puts already allocated instances into an available list and does NOT clear these bit set by CQUI
+    -- Note: Calling ResetInstances just puts the already-allocated instances into an available list and does NOT reset these properties changed by CQUI
 function CQUI_CleanAllocatedInstances()
     for i=1, #g_IconOnlyIM.m_AllocatedInstances, 1 do
         local inst = g_IconOnlyIM.m_AllocatedInstances[i];
