@@ -609,7 +609,6 @@ function ToggleCityBannerHoverOptions()
     Controls.CityViewStack:ReprocessAnchoring();
 end
 
-
 -- ===========================================================================
 function UpdateKeyBindingsDisplay()
     local selected = (GameConfiguration.GetValue("CQUI_BindingsMode") ~= 0);
