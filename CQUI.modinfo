@@ -61,6 +61,14 @@
                 <Value>1</Value>
             </ConfigurationValueMatches>
         </Criteria>
+        <!-- Lots of overlap in CQUI and EDR users; EDR makes minor changes to DiplomacyDealView -->
+        <!-- TODO: Pre-game configuration option that allows the user to say "just use the EDR version of DiplomacyDealView" -->
+        <Criteria id="ModNotInUse_ExtendedDiplomacyRibbon">
+            <ModInUse inverse="1">382a187f-c8ba-4094-a6a7-0d5315661f32</ModInUse>
+        </Criteria>
+        <Criteria id="ModInUse_ExtendedDiplomacyRibbon">
+            <ModInUse>382a187f-c8ba-4094-a6a7-0d5315661f32</ModInUse>
+        </Criteria>
     </ActionCriteria>
 
     <!-- ============================== CQUI specific settings ============================== -->
@@ -195,9 +203,28 @@
             </Items>
         </ImportFiles>
 
-        <ImportFiles id="CQUI_IMPORT_FILES_DIPLOMACYDEALVIEW_BASEGAME">
+        <!-- DiplomacyDealView: always load our file with the overwrites and extensions -->
+        <ImportFiles id="CQUI_IMPORT_FILES_DIPLOMACYDEALVIEW_LUA">
+            <!-- Default load order value -->
             <Items>
                 <File>Assets/UI/DiplomacyDealView_CQUI.lua</File>
+            </Items>
+        </ImportFiles>
+
+        <!-- Extended Diplomacy Ribbon is not running, load the CQUI XML using the default load oder value -->
+        <ImportFiles id="CQUI_IMPORT_FILES_DIPLOMACYDEALVIEW_XML_NO_EDR" criteria = "ModNotInUse_ExtendedDiplomacyRibbon">
+            <!-- Default load order value -->
+            <Items>
+                <File>Assets/UI/diplomacydealview.xml</File>
+            </Items>
+        </ImportFiles>
+
+        <!-- Extended Diplomacy Ribbon has a load order value of 13000 (or 13001, 13002) for its DiplomacyDealView.xml, CQUI needs to load later -->
+        <ImportFiles id="CQUI_IMPORT_FILES_DIPLOMACYDEALVIEW_XML_EDR" criteria = "ModInUse_ExtendedDiplomacyRibbon">
+            <Properties>
+                <LoadOrder>13013</LoadOrder>
+            </Properties>
+            <Items>
                 <File>Assets/UI/diplomacydealview.xml</File>
             </Items>
         </ImportFiles>

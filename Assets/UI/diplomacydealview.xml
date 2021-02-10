@@ -23,7 +23,10 @@
             <Button ID="RemoveButton" Anchor="L,B" Offset ="-10,-10" Texture="Controls_RemoveDealSmall" Size="16,16" ToolTip="LOC_DIPLO_DEAL_REMOVE_ITEM" Hidden="1"/>
             <Button ID="StopAskingButton" Anchor="C,C" Offset ="0,0" Texture="Controls_DontAskAgainSmall" Size="16,16" ToolTip="LOC_DIPLO_DEAL_REMOVE_ITEM" Hidden="1"/>
             <!-- CQUI : Added Important -->
-            <Label ID="Important" String="[ICON_New]" Anchor="L,T" Offset="-11,-11" Hidden="1" />
+            <Label ID="Important" String="[ICON_Exclamation]" Anchor="L,T" Offset="-11,-11" Hidden="1" />
+            <!-- CQUI: Workaround for Extended Diplomacy Ribbon (EDR) by Aristos, which adds a TradableIndicator and references it in their ReplaceUIScript -->
+            <!--       This shares the location with the Important icon, but it appears they have different criteria when deciding to show -->
+            <Label ID="TradeableIndicator" String="[ICON_New]" Anchor="L,T" Offset="-11,-11" Hidden="1"/>
             <Image ID="UnacceptableIcon" Anchor="R,T" Offset="-8,-8" Texture="Alert18" Size="18,18" ToolTip="LOC_DIPLO_DEAL_UNACCEPTABLE_ITEM_TOOLTIP" Hidden="1"/>
         </GridButton>
     </Instance>
@@ -49,6 +52,7 @@
                 </Container>
             </Stack>
             <Image ID="UnacceptableIcon" Anchor="R,T" Offset="-8,-8" Texture="Alert18" Size="18,18" ToolTip="LOC_DIPLO_DEAL_UNACCEPTABLE_ITEM_TOOLTIP" Hidden="1"/>
+            <!-- The Remove and StopAskingButtons are not needed here, the IconAndTextForCities button only exists in the available objects for trade, not when already selected -->
         </GridButton>
     </Instance>
 
@@ -92,6 +96,7 @@
                 </Container>
             </Stack>
             <Image ID="UnacceptableIcon" Anchor="R,T" Offset="-8,-8" Texture="Alert18" Size="18,18" ToolTip="LOC_DIPLO_DEAL_UNACCEPTABLE_ITEM_TOOLTIP" Hidden="1"/>
+            <!-- The Remove and StopAskingButtons are not needed here, the IconAndTextForCities button only exists in the available objects for trade, not when already selected -->
         </GridButton>
     </Instance>
 
