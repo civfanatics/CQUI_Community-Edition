@@ -6,6 +6,31 @@
 include("CQUICommon.lua");
 
 -- ===========================================================================
+-- Used for checking to see if the XML is actually loaded
+local CQUI_IssuedMissingXMLWarning = false;
+function IsCQUI_CityBannerXMLLoaded()
+    retVal = true;
+
+    if (g_bIsGatheringStorm) then
+        retVal = retVal and (Controls.CQUI_EmptyContainer_CityBannerInstances_Exp2 ~= nil);
+        retVal = retVal and (Controls.CQUI_EmptyContainer_CityReligionInstances_Exp2 ~= nil);
+    elseif (g_bIsRiseAndFall) then
+        retVal = retVal and (Controls.CQUI_EmptyContainer_CityBannerInstances_Exp1 ~= nil);
+        retVal = retVal and (Controls.CQUI_EmptyContainer_CityReligionInstances_Exp1 ~= nil);
+    end
+
+    -- This control is in basegame and the expansions, in CityBannerManager.xml
+    retVal = retVal and (Controls.CQUI_WorkedPlotContainer ~= nil);
+
+    if (retVal == false and CQUI_IssuedMissingXMLWarning == false) then
+        print("****** CQUI ERROR: One or more of the CQUI version of the City Bannner XML files did not load properly!  CQUI affects cannot apply!");
+        CQUI_IssuedMissingXMLWarning = true;
+    end
+
+    return retVal;
+end
+
+-- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
 BASE_CQUI_CityBanner_Initialize = CityBanner.Initialize;
@@ -63,7 +88,11 @@ local COLOR_RELIGION_DEFAULT            :number = UI.GetColorValueFromHexLiteral
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
-local CQUI_PlotIM        = InstanceManager:new( "CQUI_WorkedPlotInstance", "Anchor", Controls.CQUI_WorkedPlotContainer );
+local CQUI_PlotIM        = {};
+if (IsCQUI_CityBannerXMLLoaded()) then
+    CQUI_PlotIM = InstanceManager:new( "CQUI_WorkedPlotInstance", "Anchor", Controls.CQUI_WorkedPlotContainer );
+end
+
 local CQUI_UIWorldMap    = {};
 local CQUI_YieldsOn      = false;
 local CQUI_Hovering      = false;
@@ -151,7 +180,7 @@ function CityBanner.Initialize(self, playerID, cityID, districtID, bannerType, b
         self.m_Instance.CityNameButton:SetVoid2(cityID);
 
         -- If this is one of the expansions, create the CQUI_DistrictBuiltIM object for the District icons in the banner
-        if ((g_bIsRiseAndFall or g_bIsGatheringStorm) and (self.CQUI_DistrictBuiltIM == nil)) then
+        if ((g_bIsRiseAndFall or g_bIsGatheringStorm) and IsCQUI_CityBannerXMLLoaded() and (self.CQUI_DistrictBuiltIM == nil)) then
             self.CQUI_DistrictBuiltIM = InstanceManager:new( "CQUI_DistrictBuilt", "Icon", self.m_Instance.CQUI_Districts );
         end
     end
@@ -178,7 +207,7 @@ function CityBanner.UpdateProduction(self)
         -- if there is anything in the build queue, it will have a hash, otherwise the hash is 0.
         local currentProductionHash :number = pBuildQueue:GetCurrentProductionTypeHash();
 
-        if (currentProductionHash ~= 0) then
+        if (currentProductionHash ~= 0 and IsCQUI_CityBannerXMLLoaded()) then
             -- This single line is responsible for the icon of what is being produced showing in the City Banner
             self.m_Instance.ProductionIndicator:SetHide(false);
         end
@@ -212,6 +241,10 @@ function CQUI_CityBanner_UpdateStats_BaseGame(self)
     end
 
     if (self.m_Player ~= Players[localPlayerID]) then
+        return;
+    end
+
+    if (IsCQUI_CityBannerXMLLoaded() == false) then
         return;
     end
 
@@ -280,6 +313,11 @@ end
 function CQUI_CityBanner_UpdateStats_Expansions(self)
     -- print("CityBannerManager_CQUI: CQUI_CityBanner_UpdateStats_Expansions ENTRY");
     -- BASE_CQUI_CityBanner_UpdateStats function was called by CityBanner.UpdateStats
+
+    if (IsCQUI_CityBannerXMLLoaded() == false) then
+        return;
+    end
+
     local pDistrict:table = self:GetDistrict();
     if (pDistrict ~= nil and IsBannerTypeCityCenter(self.m_Type)) then
         local localPlayerID:number = Game.GetLocalPlayer();
@@ -365,8 +403,12 @@ function CityBanner.UpdateInfo(self, pCity : table )
     if (pCity == nil) then
         return;
     end
-    local playerID:number = pCity:GetOwner();
 
+    if (IsCQUI_CityBannerXMLLoaded() == false) then
+        return;
+    end
+
+    local playerID:number = pCity:GetOwner();
     --CQUI : Unlocked citizen check
     if (playerID == Game.GetLocalPlayer() and IsCQUI_SmartBanner_Unmanaged_CitizenEnabled()) then
         local tParameters :table = {};
@@ -460,6 +502,10 @@ function CityBanner.UpdatePopulation(self, isLocalPlayer:boolean, pCity:table, p
         return;
     end
 
+    if (IsCQUI_CityBannerXMLLoaded() == false) then
+        return;
+    end
+
     local currentPopulation:number = pCity:GetPopulation();
     -- XP1+, grab the first instance
     local populationInstance = CQUI_GetInstanceObject(self.m_StatPopulationIM);
@@ -503,6 +549,7 @@ end
 
 -- ============================================================================
 -- Move the CityStrike icon and button to the top of the City bar; similar to the Sukritact Simple UI Mod (which puts it on the right)
+-- This function should work, regardless of whether the CQUI XMLs are loaded
 function CityBanner.UpdateRangeStrike(self)
     -- print("CityBannerManager_CQUI: CityBanner.UpdateRangeStrike ENTRY");
     BASE_CQUI_CityBanner_UpdateRangeStrike(self);
@@ -644,39 +691,41 @@ function CityBanner.UpdateName( self )
     
     -- Update district icons
     local districts = {};
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_ACROPOLIS")]             = { Icon = "[ICON_DISTRICT_ACROPOLIS]", Instance = self.m_Instance.CityBuiltDistrictAcropolis };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_AQUEDUCT")]              = { Icon = "[ICON_DISTRICT_AQUEDUCT]", Instance = self.m_Instance.CityBuiltDistrictAqueduct };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_AERODROME")]             = { Icon = "[ICON_DISTRICT_AERODROME]", Instance = self.m_Instance.CityBuiltDistrictAerodrome };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_BATH")]                  = { Icon = "[ICON_DISTRICT_BATH]", Instance = self.m_Instance.CityBuiltDistrictBath };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_CAMPUS")]                = { Icon = "[ICON_DISTRICT_CAMPUS]", Instance = self.m_Instance.CityBuiltDistrictCampus };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_COMMERCIAL_HUB")]        = { Icon = "[ICON_DISTRICT_COMMERCIAL_HUB]", Instance = self.m_Instance.CityBuiltDistrictCommercial };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_ENCAMPMENT")]            = { Icon = "[ICON_DISTRICT_ENCAMPMENT]", Instance = self.m_Instance.CityBuiltDistrictEncampment };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_ENTERTAINMENT_COMPLEX")] = { Icon = "[ICON_DISTRICT_ENTERTAINMENT_COMPLEX]", Instance = self.m_Instance.CityBuiltDistrictEntertainment };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_HANSA")]                 = { Icon = "[ICON_DISTRICT_HANSA]", Instance = self.m_Instance.CityBuiltDistrictHansa };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_HARBOR")]                = { Icon = "[ICON_DISTRICT_HARBOR]", Instance = self.m_Instance.CityBuiltDistrictHarbor };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_HOLY_SITE")]             = { Icon = "[ICON_DISTRICT_HOLY_SITE]", Instance = self.m_Instance.CityBuiltDistrictHoly };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_INDUSTRIAL_ZONE")]       = { Icon = "[ICON_DISTRICT_INDUSTRIAL_ZONE]", Instance = self.m_Instance.CityBuiltDistrictIndustrial };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_LAVRA")]                 = { Icon = "[ICON_DISTRICT_LAVRA]", Instance = self.m_Instance.CityBuiltDistrictLavra };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_MBANZA")]                = { Icon = "[ICON_DISTRICT_MBANZA]", Instance = self.m_Instance.CityBuiltDistrictMbanza };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_NEIGHBORHOOD")]          = { Icon = "[ICON_DISTRICT_NEIGHBORHOOD]", Instance = self.m_Instance.CityBuiltDistrictNeighborhood };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_OBSERVATORY")]           = { Icon = "[ICON_DISTRICT_OBSERVATORY]", Instance = self.m_Instance.CityBuiltDistrictObservatory };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_ROYAL_NAVY_DOCKYARD")]   = { Icon = "[ICON_DISTRICT_ROYAL_NAVY_DOCKYARD]", Instance = self.m_Instance.CityBuiltDistrictRoyalNavy };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_SPACEPORT")]             = { Icon = "[ICON_DISTRICT_SPACEPORT]", Instance = self.m_Instance.CityBuiltDistrictSpaceport };
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_STREET_CARNIVAL")]       = { Icon = "[ICON_DISTRICT_ENTERTAINMENT_COMPLEX]", Instance = self.m_Instance.CityBuiltDistrictStreetCarnival }; -- Icon uses Entertainment Complex (see XML)
-    districts[CQUI_GetDistrictIndexSafe("DISTRICT_THEATER")]               = { Icon = "[ICON_DISTRICT_THEATER]", Instance = self.m_Instance.CityBuiltDistrictTheater };
+    if (IsCQUI_CityBannerXMLLoaded()) then
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_ACROPOLIS")]             = { Icon = "[ICON_DISTRICT_ACROPOLIS]", Instance = self.m_Instance.CityBuiltDistrictAcropolis };
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_AQUEDUCT")]              = { Icon = "[ICON_DISTRICT_AQUEDUCT]", Instance = self.m_Instance.CityBuiltDistrictAqueduct };
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_AERODROME")]             = { Icon = "[ICON_DISTRICT_AERODROME]", Instance = self.m_Instance.CityBuiltDistrictAerodrome };
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_BATH")]                  = { Icon = "[ICON_DISTRICT_BATH]", Instance = self.m_Instance.CityBuiltDistrictBath };
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_CAMPUS")]                = { Icon = "[ICON_DISTRICT_CAMPUS]", Instance = self.m_Instance.CityBuiltDistrictCampus };
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_COMMERCIAL_HUB")]        = { Icon = "[ICON_DISTRICT_COMMERCIAL_HUB]", Instance = self.m_Instance.CityBuiltDistrictCommercial };
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_ENCAMPMENT")]            = { Icon = "[ICON_DISTRICT_ENCAMPMENT]", Instance = self.m_Instance.CityBuiltDistrictEncampment };
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_ENTERTAINMENT_COMPLEX")] = { Icon = "[ICON_DISTRICT_ENTERTAINMENT_COMPLEX]", Instance = self.m_Instance.CityBuiltDistrictEntertainment };
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_HANSA")]                 = { Icon = "[ICON_DISTRICT_HANSA]", Instance = self.m_Instance.CityBuiltDistrictHansa };
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_HARBOR")]                = { Icon = "[ICON_DISTRICT_HARBOR]", Instance = self.m_Instance.CityBuiltDistrictHarbor };
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_HOLY_SITE")]             = { Icon = "[ICON_DISTRICT_HOLY_SITE]", Instance = self.m_Instance.CityBuiltDistrictHoly };
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_INDUSTRIAL_ZONE")]       = { Icon = "[ICON_DISTRICT_INDUSTRIAL_ZONE]", Instance = self.m_Instance.CityBuiltDistrictIndustrial };
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_LAVRA")]                 = { Icon = "[ICON_DISTRICT_LAVRA]", Instance = self.m_Instance.CityBuiltDistrictLavra };
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_MBANZA")]                = { Icon = "[ICON_DISTRICT_MBANZA]", Instance = self.m_Instance.CityBuiltDistrictMbanza };
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_NEIGHBORHOOD")]          = { Icon = "[ICON_DISTRICT_NEIGHBORHOOD]", Instance = self.m_Instance.CityBuiltDistrictNeighborhood };
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_OBSERVATORY")]           = { Icon = "[ICON_DISTRICT_OBSERVATORY]", Instance = self.m_Instance.CityBuiltDistrictObservatory };
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_ROYAL_NAVY_DOCKYARD")]   = { Icon = "[ICON_DISTRICT_ROYAL_NAVY_DOCKYARD]", Instance = self.m_Instance.CityBuiltDistrictRoyalNavy };
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_SPACEPORT")]             = { Icon = "[ICON_DISTRICT_SPACEPORT]", Instance = self.m_Instance.CityBuiltDistrictSpaceport };
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_STREET_CARNIVAL")]       = { Icon = "[ICON_DISTRICT_ENTERTAINMENT_COMPLEX]", Instance = self.m_Instance.CityBuiltDistrictStreetCarnival }; -- Icon uses Entertainment Complex (see XML)
+        districts[CQUI_GetDistrictIndexSafe("DISTRICT_THEATER")]               = { Icon = "[ICON_DISTRICT_THEATER]", Instance = self.m_Instance.CityBuiltDistrictTheater };
 
-    -- Checking if CityBuildDistrictAqueduct is not nil answers the question of whether or not m_Instance is valid
-    if (self.m_Instance.CityBuiltDistrictAqueduct ~= nil) then
-        self.m_Instance.CQUI_DistrictsContainer:SetHide(true);
-        self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
-        self.m_Instance.CityUnlockedCitizen:SetHide(true);
-        for k,v in pairs(districts) do
-            districts[k].Instance:SetHide(true);
+        -- Checking if CityBuildDistrictAqueduct is not nil answers the question of whether or not m_Instance is valid
+        if (self.m_Instance.CityBuiltDistrictAqueduct ~= nil) then
+            self.m_Instance.CQUI_DistrictsContainer:SetHide(true);
+            self.m_Instance.CQUI_DistrictAvailable:SetHide(true);
+            self.m_Instance.CityUnlockedCitizen:SetHide(true);
+            for k,v in pairs(districts) do
+                districts[k].Instance:SetHide(true);
+            end
         end
     end
 
     local pCityDistricts:table  = pCity:GetDistricts();
-    if (IsCQUI_SmartBannerEnabled() and self.m_Instance.CityBuiltDistrictAqueduct ~= nil) then
+    if (IsCQUI_SmartBannerEnabled() and IsCQUI_CityBannerXMLLoaded() and self.m_Instance.CityBuiltDistrictAqueduct ~= nil) then
         --Unlocked citizen check
         if (IsCQUI_SmartBanner_Unmanaged_CitizenEnabled()) then
             local tParameters :table = {};
@@ -781,11 +830,13 @@ function CityBanner.UpdateName( self )
     end
 
     -- CQUI: Show leader icon for the suzerain
-    local pPlayerConfig :table = PlayerConfigurations[owner];
-    local isMinorCiv :boolean = pPlayerConfig:GetCivilizationLevelTypeID() ~= CivilizationLevelTypes.CIVILIZATION_LEVEL_FULL_CIV;
-    if (isMinorCiv) then
-        CQUI_UpdateCityStateBannerSuzerain(pPlayer, self);
-        CQUI_UpdateCityStateBannerAtWarIcon(pPlayer, self);
+    if (IsCQUI_CityBannerXMLLoaded()) then
+        local pPlayerConfig :table = PlayerConfigurations[owner];
+        local isMinorCiv :boolean = pPlayerConfig:GetCivilizationLevelTypeID() ~= CivilizationLevelTypes.CIVILIZATION_LEVEL_FULL_CIV;
+        if (isMinorCiv) then
+            CQUI_UpdateCityStateBannerSuzerain(pPlayer, self);
+            CQUI_UpdateCityStateBannerAtWarIcon(pPlayer, self);
+        end
     end
 
     self.m_Instance.CityQuestIcon:SetToolTipString(questTooltip);
@@ -832,7 +883,7 @@ function CityBanner.UpdateReligion(self)
     local religionInfo      :table = {};
     if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
         -- The instance for the basegame banner is built or pointed at later on in this function
-        -- For some reason or other, creating that instance here results in 
+        -- For some reason or other, creating that instance here results in an error
         religionInfo = cityInst.ReligionInfo;
     end
 
@@ -873,9 +924,9 @@ function CityBanner.UpdateReligion(self)
 
     -- Hide the meter and bail out if the religion lens isn't active
     if (not m_isReligionLensActive or table.count(religionsInCity) == 0) then
-        if (g_bIsBaseGame and cityInst[DATA_FIELD_RELIGION_INFO_INSTANCE]) then
+        if (g_bIsBaseGame and cityInst[DATA_FIELD_RELIGION_INFO_INSTANCE] ~= nil and cityInst[DATA_FIELD_RELIGION_INFO_INSTANCE].ReligionInfoContainer ~= nil) then
             cityInst[DATA_FIELD_RELIGION_INFO_INSTANCE].ReligionInfoContainer:SetHide(true);
-        elseif ((g_bIsRiseAndFall or g_bIsGatheringStorm) and religionInfo) then
+        elseif ((g_bIsRiseAndFall or g_bIsGatheringStorm) and religionInfo ~= nil and religionInfo.ReligionInfoContainer ~= nil) then
             religionInfo.ReligionInfoContainer:SetHide(true);
         end
         return;
@@ -975,6 +1026,8 @@ function CityBanner.UpdateReligion(self)
         -- Create or reset icon instance manager
         local iconIM:table = cityInst[DATA_FIELD_RELIGION_ICONS_IM];
         if (iconIM == nil) then
+            -- TODO what happens if this is a thing that does not exist?
+            -- TODO update: it seeed to be okay maybe this just failed and we're proected later
             iconIM = InstanceManager:new("ReligionIconInstance", "ReligionIconContainer", religionInfo.ReligionInfoIconStack);
             cityInst[DATA_FIELD_RELIGION_ICONS_IM] = iconIM;
         else
@@ -1023,11 +1076,15 @@ function CityBanner.UpdateReligion(self)
             iconInst.ReligionIconButton:SetIcon(icon);
             iconInst.ReligionIconButton:SetColor(religionColor);
             iconInst.ReligionIconButtonBacking:SetColor(religionColor);
-            --iconInst.ReligionIconButtonBacking:SetToolTipString(religionName); -- #59 Infixo new field and tooltip
-            iconInst.ReligionIconFollowers:SetText(activeReligionInfo.Followers);
-            iconInst.ReligionIconContainer:SetToolTipString(
-            Locale.Lookup("LOC_CITY_BANNER_FOLLOWER_PRESSURE_TOOLTIP", religionName, activeReligionInfo.Followers, Round(activeReligionInfo.LifetimePressure)).."[NEWLINE]"..
-            Locale.Lookup("LOC_HUD_REPORTS_PER_TURN", "+"..tostring(Round(activeReligionInfo.Pressure, 1))));
+            -- #59 Infixo new field and tooltip
+            if (IsCQUI_CityBannerXMLLoaded()) then
+                iconInst.ReligionIconFollowers:SetText(activeReligionInfo.Followers);
+                iconInst.ReligionIconContainer:SetToolTipString(Locale.Lookup("LOC_CITY_BANNER_FOLLOWER_PRESSURE_TOOLTIP", religionName, activeReligionInfo.Followers, Round(activeReligionInfo.LifetimePressure)).."[NEWLINE]"..
+                                                                Locale.Lookup("LOC_HUD_REPORTS_PER_TURN", "+"..tostring(Round(activeReligionInfo.Pressure, 1))));
+            else
+                -- Apply tooltip to unmodified object
+                iconInst.ReligionIconButtonBacking:SetToolTipString(religionName); 
+            end
             --end
 
             -- Add followers to detailed info list
@@ -1732,17 +1789,19 @@ end
 
 -- ===========================================================================
 function CQUI_UpdateCityStateBannerAtWarIcon( pCityState, bannerInstance )
-    if (IsCQUI_ShowWarIconInCityStateBannerEnabled()) then
-        local localPlayerID = Game.GetLocalPlayer();
-        if (localPlayerID ~= nil 
-        and pCityState:GetDiplomacy() ~= nil
-        and pCityState:GetDiplomacy():IsAtWarWith(localPlayerID)) then
-            bannerInstance.m_Instance.CQUI_AtWarWithCSIcon:SetHide(false);
+    if (IsCQUI_CityBannerXMLLoaded()) then
+        if (IsCQUI_ShowWarIconInCityStateBannerEnabled()) then
+            local localPlayerID = Game.GetLocalPlayer();
+            if (localPlayerID ~= nil
+            and pCityState:GetDiplomacy() ~= nil
+            and pCityState:GetDiplomacy():IsAtWarWith(localPlayerID)) then
+                bannerInstance.m_Instance.CQUI_AtWarWithCSIcon:SetHide(false);
+            else
+                bannerInstance.m_Instance.CQUI_AtWarWithCSIcon:SetHide(true);
+            end
         else
             bannerInstance.m_Instance.CQUI_AtWarWithCSIcon:SetHide(true);
         end
-    else
-        bannerInstance.m_Instance.CQUI_AtWarWithCSIcon:SetHide(true);
     end
 end
 
@@ -1750,6 +1809,10 @@ end
 function CQUI_UpdateCityStateBannerSuzerain( pPlayer:table, bannerInstance )
     -- print("CityBannerManager_CQUI: CQUI_UpdateCityStateBannerSuzerain ENTRY  pPlayer:"..tostring(pPlayer).."  bannerInstance:"..tostring(bannerInstance));
     if (bannerInstance == nil) then
+        return;
+    end
+
+    if (IsCQUI_CityBannerXMLLoaded() == false) then
         return;
     end
 
