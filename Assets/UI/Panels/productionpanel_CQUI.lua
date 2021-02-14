@@ -262,7 +262,7 @@ end
 function PopulateGenericItemData( kInstance:table, kItem:table )
     BASE_PopulateGenericItemData(kInstance, kItem);
 
-    local notEnoughGoldColor = UI.GetColorValueFromHexLiteral(0xFF222258);
+    local notEnoughGoldColor = UI.GetColorValueFromHexLiteral(0x9F1F1FFF);
     local purchaseButtonPadding = 15;
 
   -- CQUI show recommandations check
@@ -649,30 +649,30 @@ print("Hero MODE is:", bIsHeroMODE and "ON" or "off");
 
 if bIsHeroMODE then
 
-include("ToolTipHelper")
-include("ToolTipHelper_Babylon_Heroes");
+    include("ToolTipHelper")
+    include("ToolTipHelper_Babylon_Heroes");
 
-local RightClickProductionItem_BASE = RightClickProductionItem;
+    local RightClickProductionItem_BASE = RightClickProductionItem;
 
--- ===========================================================================
--- Override: when clicking a Hero Devotion project, view the Hero info rather than
--- the project info
-function RightClickProductionItem(sItemType:string)
-	
-	local pProjectInfo = GameInfo.Projects[sItemType];
-	if (pProjectInfo ~= nil) then
-		for row in GameInfo.HeroClasses() do
-			if (row.CreationProjectType == sItemType) then
-				-- View the Hero UnitType instead
-				if (row.UnitType ~= "") then
-					return RightClickProductionItem_BASE(row.UnitType);
-				end
-			end
-		end
-	end
+    -- ===========================================================================
+    -- Override: when clicking a Hero Devotion project, view the Hero info rather than
+    -- the project info
+    function RightClickProductionItem(sItemType:string)
+        
+        local pProjectInfo = GameInfo.Projects[sItemType];
+        if (pProjectInfo ~= nil) then
+            for row in GameInfo.HeroClasses() do
+                if (row.CreationProjectType == sItemType) then
+                    -- View the Hero UnitType instead
+                    if (row.UnitType ~= "") then
+                        return RightClickProductionItem_BASE(row.UnitType);
+                    end
+                end
+            end
+        end
 
-	-- Default
-	return RightClickProductionItem_BASE(sItemType);
-end
+        -- Default
+        return RightClickProductionItem_BASE(sItemType);
+    end
 
 end -- bIsHeroMODE

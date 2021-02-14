@@ -6,31 +6,6 @@
 include("CQUICommon.lua");
 
 -- ===========================================================================
--- Used for checking to see if the XML is actually loaded
-local CQUI_IssuedMissingXMLWarning = false;
-function IsCQUI_CityBannerXMLLoaded()
-    retVal = true;
-
-    if (g_bIsGatheringStorm) then
-        retVal = retVal and (Controls.CQUI_EmptyContainer_CityBannerInstances_Exp2 ~= nil);
-        retVal = retVal and (Controls.CQUI_EmptyContainer_CityReligionInstances_Exp2 ~= nil);
-    elseif (g_bIsRiseAndFall) then
-        retVal = retVal and (Controls.CQUI_EmptyContainer_CityBannerInstances_Exp1 ~= nil);
-        retVal = retVal and (Controls.CQUI_EmptyContainer_CityReligionInstances_Exp1 ~= nil);
-    end
-
-    -- This control is in basegame and the expansions, in CityBannerManager.xml
-    retVal = retVal and (Controls.CQUI_WorkedPlotContainer ~= nil);
-
-    if (retVal == false and CQUI_IssuedMissingXMLWarning == false) then
-        print("****** CQUI ERROR: One or more of the CQUI version of the City Bannner XML files did not load properly!  CQUI affects cannot apply!");
-        CQUI_IssuedMissingXMLWarning = true;
-    end
-
-    return retVal;
-end
-
--- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
 BASE_CQUI_CityBanner_Initialize = CityBanner.Initialize;
@@ -88,11 +63,8 @@ local COLOR_RELIGION_DEFAULT            :number = UI.GetColorValueFromHexLiteral
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
+-- Instantiated in the Initialize function
 local CQUI_PlotIM        = {};
-if (IsCQUI_CityBannerXMLLoaded()) then
-    CQUI_PlotIM = InstanceManager:new( "CQUI_WorkedPlotInstance", "Anchor", Controls.CQUI_WorkedPlotContainer );
-end
-
 local CQUI_UIWorldMap    = {};
 local CQUI_YieldsOn      = false;
 local CQUI_Hovering      = false;
@@ -1925,6 +1897,32 @@ function IsCQUI_ShowWarIconInCityStateBannerEnabled()
 end
 
 -- ===========================================================================
+-- Used for checking to see if the XML is actually loaded
+local CQUI_IssuedMissingXMLWarning = false;
+function IsCQUI_CityBannerXMLLoaded()
+    retVal = true;
+
+    if (g_bIsGatheringStorm) then
+        retVal = retVal and (Controls.CQUI_EmptyContainer_CityBannerInstances_Exp2 ~= nil);
+        retVal = retVal and (Controls.CQUI_EmptyContainer_CityReligionInstances_Exp2 ~= nil);
+    elseif (g_bIsRiseAndFall) then
+        retVal = retVal and (Controls.CQUI_EmptyContainer_CityBannerInstances_Exp1 ~= nil);
+        retVal = retVal and (Controls.CQUI_EmptyContainer_CityReligionInstances_Exp1 ~= nil);
+    end
+
+    -- This control is in basegame and the expansions, in CityBannerManager.xml
+    retVal = retVal and (Controls.CQUI_WorkedPlotContainer ~= nil);
+
+    if (retVal == false and CQUI_IssuedMissingXMLWarning == false) then
+        -- Prints in the log once, so we don't spam the thing
+        print("****** CQUI ERROR: One or more of the CQUI version of the City Bannner XML files did not load properly!  CQUI effects cannot applied!");
+        CQUI_IssuedMissingXMLWarning = true;
+    end
+
+    return retVal;
+end
+
+-- ===========================================================================
 -- Game Engine EVENT
 -- ===========================================================================
 function OnCityWorkerChanged(ownerPlayerID:number, cityID:number)
@@ -1939,7 +1937,11 @@ end
 -- ===========================================================================
 function Initialize_CityBannerManager_CQUI()
     -- print("CityBannerManager_CQUI: Initialize CQUI CityBannerManager");
-    -- CQUI related events
+    if (IsCQUI_CityBannerXMLLoaded()) then
+        CQUI_PlotIM = InstanceManager:new( "CQUI_WorkedPlotInstance", "Anchor", Controls.CQUI_WorkedPlotContainer );
+    end
+
+    -- CQUI related events, which still have some function even if the XML is not loaded
     LuaEvents.CQUI_CityLostTileToCultureBomb.Add(CQUI_OnCityLostTileToCultureBomb);    -- CQUI update close to a culture bomb cities data and real housing from improvements
     LuaEvents.CQUI_CityRangeStrike.Add(CQUI_OnCityRangeStrikeButtonClick); -- AZURENCY : to acces it in the actionpannel on the city range attack button
     LuaEvents.CQUI_DistrictRangeStrike.Add(CQUI_OnDistrictRangeStrikeButtonClick); -- AZURENCY : to acces it in the actionpannel on the district range attack button
@@ -1952,7 +1954,7 @@ function Initialize_CityBannerManager_CQUI()
     Events.LensLayerOff.Add(CQUI_OnLensLayerOff);
     Events.LensLayerOn.Add(CQUI_OnLensLayerOn);
 
-    Events.DiplomacyDeclareWar.Add( CQUI_OnDiplomacyDeclareWarMakePeace );
-    Events.DiplomacyMakePeace.Add( CQUI_OnDiplomacyDeclareWarMakePeace );
+    Events.DiplomacyDeclareWar.Add(CQUI_OnDiplomacyDeclareWarMakePeace);
+    Events.DiplomacyMakePeace.Add(CQUI_OnDiplomacyDeclareWarMakePeace);
 end
 Initialize_CityBannerManager_CQUI();

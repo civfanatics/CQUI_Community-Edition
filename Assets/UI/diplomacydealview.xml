@@ -22,16 +22,14 @@
             <Label ID="AmountText" Style="FontNormalBold16" Anchor="R,B" Offset="-5,-9" FontStyle="Stroke" />
             <Button ID="RemoveButton" Anchor="L,B" Offset ="-10,-10" Texture="Controls_RemoveDealSmall" Size="16,16" ToolTip="LOC_DIPLO_DEAL_REMOVE_ITEM" Hidden="1"/>
             <Button ID="StopAskingButton" Anchor="C,C" Offset ="0,0" Texture="Controls_DontAskAgainSmall" Size="16,16" ToolTip="LOC_DIPLO_DEAL_REMOVE_ITEM" Hidden="1"/>
-            <!-- CQUI : Added Important -->
-            <Label ID="Important" String="[ICON_Exclamation]" Anchor="L,T" Offset="-11,-11" Hidden="1" />
             <!-- CQUI: Workaround for Extended Diplomacy Ribbon (EDR) by Aristos, which adds a TradableIndicator and references it in their ReplaceUIScript -->
-            <!--       This shares the location with the Important icon, but it appears they have different criteria when deciding to show -->
+            <!--       When the CQUI Lua is loaded, this will not show.  If EDR Lua loads with the CQUI XML, this prevents the Diplomacy Deal Screen from becoming non-functional -->
             <Label ID="TradeableIndicator" String="[ICON_New]" Anchor="L,T" Offset="-11,-11" Hidden="1"/>
             <Image ID="UnacceptableIcon" Anchor="R,T" Offset="-8,-8" Texture="Alert18" Size="18,18" ToolTip="LOC_DIPLO_DEAL_UNACCEPTABLE_ITEM_TOOLTIP" Hidden="1"/>
         </GridButton>
     </Instance>
 
-    <!-- Instance for Cities which includes details on population, food, prod, and science -->
+    <!-- CQUI: Instance for Cities which includes details on population, food, prod, and science -->
     <Instance Name="IconAndTextForCities">
         <GridButton ID="SelectButton" Style="ButtonDraggableGrid" Size="parent,58" Anchor="L,T">
             <Stack Size="parent,0" StackGrowth="Right">
@@ -77,7 +75,7 @@
         </GridButton>
     </Instance>
 
-    <!-- Instance for Great Work that include the type icon -->
+    <!-- CQUI: Instance for Great Work that include the type icon -->
     <Instance Name="IconAndTextForGreatWork">
         <GridButton ID="SelectButton" Style="ButtonDraggableGrid" Size="parent,56" Anchor="L,T">
             <Stack Size="parent,0" StackGrowth="Right">
