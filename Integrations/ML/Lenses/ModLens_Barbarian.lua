@@ -1,4 +1,3 @@
-PS A:\temp> A:\Coding\PowershellScripts\LineIndentTwoSpaceToFourSpace.ps1
 local LENS_NAME = "ML_BARBARIAN"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 
@@ -81,6 +80,3 @@ if g_ModLensModalPanel ~= nil then
         {"LOC_TOOLTIP_BARBARIAN_LENS_ENCAPMENT", UI.GetColorValue("COLOR_BARBARIAN_BARB_LENS")}
     }
 end
-
-
-PS A:\temp> 
