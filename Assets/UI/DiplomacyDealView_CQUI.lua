@@ -219,11 +219,9 @@ function CQUI_RenderResourceButton(resource, resourceCategory, iconList, howAcqu
     icon.AmountText:SetColor(UI.GetColorValue(194/255,194/255,204/255)); -- Color : BodyTextCool
     icon.SelectButton:SetTexture("Controls_DraggableButton");
     icon.SelectButton:SetTextureOffsetVal(0, 0);
-    local hideImportantIcon = true;
 
     if (resourceCategory == 'scarce') then
         icon.AmountText:SetColor(UI.GetColorValue(224/255,124/255,124/255,230/255));
-        hideImportantIcon = false;
     elseif (resourceCategory == 'duplicate') then
         icon.SelectButton:SetAlpha(.8);
         icon.AmountText:SetColor(UI.GetColorValue(124/255,154/255,224/255,230/255));
@@ -235,11 +233,6 @@ function CQUI_RenderResourceButton(resource, resourceCategory, iconList, howAcqu
         buttonDisabled = true;
     else
         icon.SelectButton:SetTextureOffsetVal(0, 50);
-    end
-
-    -- CQUI added the "Important" icon, it will not be nil if the CQUI version of the XML is loaded
-    if (icon.Important ~= nil) then
-        icon.Important:SetHide(hideImportantIcon);
     end
 
     SetIconToSize(icon.Icon, "ICON_" .. resourceDesc.ResourceType);
@@ -746,7 +739,7 @@ function PopulateAvailableGreatWorks(player : table, iconList : table)
 end
 
 -- ===========================================================================
-    -- We need to clear hide the important icon and reset the text color (properties only CQUI will set)
+    -- We need to reset the text color as it does not get reset if an instance is next used for gold or diplomatic favor
     -- Note: Calling ResetInstances just puts the already-allocated instances into an available list and does NOT reset these properties changed by CQUI
 function CQUI_CleanAllocatedInstances()
     for i=1, #g_IconOnlyIM.m_AllocatedInstances, 1 do
@@ -756,10 +749,6 @@ function CQUI_CleanAllocatedInstances()
         -- Reset these as well, because it appears it is not always cleared as it should be if that instance ends up as the diplomatic favor or gold button
         inst.UnacceptableIcon:SetHide(true);
         inst.RemoveButton:SetHide(true);
-        -- Important only exists if the CQUI DiplomacyDealView XML was loaded
-        if (inst.Important ~= nil) then
-            inst.Important:SetHide(true);
-        end
     end
 end
 
@@ -784,6 +773,7 @@ function CQUI_OnShowMakeDemand(otherPlayerID)
 end
 
 -- ===========================================================================
+local CQUI_IssuedMissingXMLWarning = false;
 function CQUI_IsCQUIXmlLoaded()
     -- Check and see if the Controls unique to CQUI are not-nil, and if so, the CQUI DiplomacyDealView XML must be loaded
     isCquiXmlActive = true;
@@ -793,6 +783,12 @@ function CQUI_IsCQUIXmlLoaded()
     isCquiXmlActive = isCquiXmlActive and (Controls.OtherPlayerCivIcon ~= nil);
     isCquiXmlActive = isCquiXmlActive and (Controls.OtherPlayerLeaderName ~= nil);
     isCquiXmlActive = isCquiXmlActive and (Controls.OtherPlayerCivName ~= nil);
+
+    if (isCquiXmlActive == false and CQUI_IssuedMissingXMLWarning == false) then
+        -- Prints in the log once, so we don't spam the thing
+        print("****** CQUI ERROR: It appears the CQUI version of the DiplomacyDealView XML file did not load properly!  CQUI effects cannot be applied!");
+        CQUI_IssuedMissingXMLWarning = true;
+    end
 
     return isCquiXmlActive;
 end
