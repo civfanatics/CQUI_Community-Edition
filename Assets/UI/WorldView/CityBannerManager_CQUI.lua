@@ -1,3 +1,4 @@
+print("*** CQUI: CityBannerManager_CQUI.lua File Loaded");
 -- ===========================================================================
 -- CQUI CityBannerManager function extensions/replacements
 -- All of the CityBannerManager code, for both BaseGame and Expansions, in one file
@@ -1296,9 +1297,16 @@ function OnImprovementAddedToMap(locX, locY, eImprovementType, eOwner)
         return;
     end
 
-    -- Right now we're only interested in the Airstrip improvement, or Mountain Tunnel/Road
-    if (improvementData.AirSlots == 0 and improvementData.WeaponSlots == 0 and improvementData.ImprovementType ~= "IMPROVEMENT_MOUNTAIN_TUNNEL" and improvementData.ImprovementType ~= "IMPROVEMENT_MOUNTAIN_ROAD" ) then
-        return;
+    -- Check if the improvement is an Industry or Corporation (note: code copied from Firaxis CityBannerManager_KublaiKhanVietnam_MODE.lua)
+    local bIsIndustry:boolean = false;
+    local bIsCorporation:boolean = false;
+    local improvementDataMODE:table = GameInfo.Improvements_MODE[improvementData.Hash];
+    if (improvementDataMODE ~= nil) then
+        if (improvementDataMODE.Industry) then
+            bIsIndustry = true;
+        elseif (improvementDataMODE.Corporation) then
+            bIsCorporation = true;
+        end
     end
 
     local pPlayer:table = Players[eOwner];
@@ -1317,9 +1325,21 @@ function OnImprovementAddedToMap(locX, locY, eImprovementType, eOwner)
                     -- we're passing the plotID as the districtID argument because we need the location of the improvement
                     AddMiniBannerToMap( eOwner, cityID, plotID, BANNERTYPE_MISSILE_SILO );
                 elseif (improvementData.ImprovementType == "IMPROVEMENT_MOUNTAIN_TUNNEL") then
+                    --we're passing -1 as the cityID and the plotID as the districtID argument since Mountain Tunnels aren't associated with a city or a district
                     AddMiniBannerToMap( eOwner, -1, plotID, BANNERTYPE_MOUNTAIN_TUNNEL );
                 elseif (improvementData.ImprovementType == "IMPROVEMENT_MOUNTAIN_ROAD") then
+                    --we're passing -1 as the cityID and the plotID as the districtID argument since Qhapaq Nans aren't associated with a city or a district
                     AddMiniBannerToMap( eOwner, -1, plotID, BANNERTYPE_QHAPAQ_NAN);
+                elseif ( bIsIndustry ) then
+                    local ownerCity = Cities.GetPlotPurchaseCity(locX, locY);
+                    local cityID = ownerCity:GetID();
+                    -- we're passing the plotID as the districtID argument because we need the location of the improvement
+                    AddMiniBannerToMap( eOwner, cityID, plotID, BANNERTYPE_INDUSTRY );
+                elseif ( bIsCorporation ) then
+                    local ownerCity = Cities.GetPlotPurchaseCity(locX, locY);
+                    local cityID = ownerCity:GetID();
+                    -- we're passing the plotID as the districtID argument because we need the location of the improvement
+                    AddMiniBannerToMap( eOwner, cityID, plotID, BANNERTYPE_CORPORATION );
                 end
             else
                 miniBanner:UpdateStats();
@@ -1447,7 +1467,9 @@ end
 -- When a banner is moused over, display the relevant yields and next culture plot
 function CQUI_OnBannerMouseEnter(playerID: number, cityID: number)
     -- print("CityBannerManager_CQUI: CQUI_OnBannerMouseEnter ENTRY playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
-    if (CQUI_ShowYieldsOnCityHover == false) then
+    if (CQUI_ShowYieldsOnCityHover == false or playerID ~= Game.GetLocalPlayer()) then
+        -- Doesn't make sense to show when not self; if wanting to show an allied player is desired, then code needs some cleanup 
+        -- as it currently shows tiles for the local player city by that city ID value (cityID values are only unique per player, not universally)
         return;
     end
 
