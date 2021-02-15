@@ -1,165 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameData>
-  <BaseGameText>
-    <!-- ENGLISH -->
+    <BaseGameText>
+        <!-- ENGLISH -->
 
-    <!-- Missing Citizen management Lens -->
-    <Row Tag="LOC_HUD_CITIZEN_MANAGEMENT_LENS">
-      <Text>Builder</Text>
-    </Row>
-    <Row Tag="LOC_HUD_CITIZEN_MANAGEMENT_LENS_TOOLTIP">
-      <Text>Highlights what hexes the builder can work on</Text>
-    </Row>
+        <!-- Missing Citizen management Lens -->
+        <Row Tag="LOC_HUD_CITIZEN_MANAGEMENT_LENS">
+            <Text>Builder</Text>
+        </Row>
+        <Row Tag="LOC_HUD_CITIZEN_MANAGEMENT_LENS_TOOLTIP">
+            <Text>Highlights what hexes the builder can work on</Text>
+        </Row>
 
-    <!-- Builder Lens -->
-    <Row Tag="LOC_HUD_BUILDER_LENS">
-      <Text>Builder</Text>
-    </Row>
-    <Row Tag="LOC_HUD_BUILDER_LENS_TOOLTIP">
-      <Text>Highlights what hexes the builder can work on</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_BUILDER_LENS_IMP">
-      <Text>Resource/Pillaged/Unique Ability</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_RECOMFEATURE_LENS_HILL">
-      <Text>Recommended Improve Feature</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_BUILDER_LENS_HILL">
-      <Text>Hill</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_BUILDER_LENS_FEATURE">
-      <Text>Removable Feature</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_BUILDER_LENS_GENERIC">
-      <Text>Generic Tile</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_BUILDER_LENS_NOTHING">
-      <Text>Nothing to do</Text>
-    </Row>
+        <!-- Builder Lens -->
+        <Row Tag="LOC_HUD_BUILDER_LENS">
+            <Text>Builder</Text>
+        </Row>
+        <Row Tag="LOC_HUD_BUILDER_LENS_TOOLTIP">
+            <Text>Highlights what hexes the builder can work on</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_BUILDER_LENS_IMP">
+            <Text>Resource/Pillaged/Unique Ability</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_RECOMFEATURE_LENS_HILL">
+            <Text>Recommended Improve Feature</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_BUILDER_LENS_HILL">
+            <Text>Hill</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_BUILDER_LENS_FEATURE">
+            <Text>Removable Feature</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_BUILDER_LENS_GENERIC">
+            <Text>Generic Tile</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_BUILDER_LENS_NOTHING">
+            <Text>Nothing to do</Text>
+        </Row>
 
-    <!-- Archaeologist Lens -->
-    <Row Tag="LOC_HUD_ARCHAEOLOGIST_LENS">
-      <Text>Archaeologist</Text>
-    </Row>
-    <Row Tag="LOC_HUD_ARCHAEOLOGIST_LENS_TOOLTIP">
-      <Text>Highlights archaeologist dig sites.</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_ARCHAEOLOGIST_LENS_ARTIFACT">
-      <Text>Artifact</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_ARCHAEOLOGIST_LENS_SHIPWRECK">
-      <Text>Shipwreck</Text>
-    </Row>
+        <!-- Archaeologist Lens -->
+        <Row Tag="LOC_HUD_ARCHAEOLOGIST_LENS">
+            <Text>Archaeologist</Text>
+        </Row>
+        <Row Tag="LOC_HUD_ARCHAEOLOGIST_LENS_TOOLTIP">
+            <Text>Highlights archaeologist dig sites.</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_ARCHAEOLOGIST_LENS_ARTIFACT">
+            <Text>Artifact</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_ARCHAEOLOGIST_LENS_SHIPWRECK">
+            <Text>Shipwreck</Text>
+        </Row>
 
-    <!-- City Overlap Lens -->
-    <Row Tag="LOC_HUD_CITYOVERLAP_LENS">
-      <Text>City Overlap</Text>
-    </Row>
-    <Row Tag="LOC_HUD_CITYOVERLAP_LENS_TOOLTIP">
-      <Text>Shows how many cities (in range of 6 hexes) a hex overlaps with</Text>
-    </Row>
-    <Row Tag="LOC_PANEL_CITYOVERLAP_OPTION1">
-      <Text>Highlight outside border</Text>
-    </Row>
-    <Row Tag="LOC_PANEL_CITYOVERLAP_NMOUSE">
-        <Text>No Mouse</Text>
-    </Row>
-    <Row Tag="LOC_PANEL_CITYOVERLAP_RANGE">
-      <Text>Range Mouse</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_CITYOVERLAP_RANGE">
-      <Text>Shows tiles and highlights cities within range (set below) from the tile under the mouse.</Text>
-    </Row>
-    <Row Tag="LOC_PANEL_CITYOVERLAP_RADIUS">
-      <Text>Radius Mouse</Text>
-    </Row>
+        <!-- City Overlap Lens -->
+        <Row Tag="LOC_HUD_CITYOVERLAP_LENS">
+            <Text>City Overlap</Text>
+        </Row>
+        <Row Tag="LOC_HUD_CITYOVERLAP_LENS_TOOLTIP">
+            <Text>Shows how many cities (in range of 6 hexes) a hex overlaps with</Text>
+        </Row>
+        <Row Tag="LOC_PANEL_CITYOVERLAP_OPTION1">
+            <Text>Highlight outside border</Text>
+        </Row>
+        <Row Tag="LOC_PANEL_CITYOVERLAP_NMOUSE">
+            <Text>No Mouse</Text>
+        </Row>
+        <Row Tag="LOC_PANEL_CITYOVERLAP_RANGE">
+            <Text>Range Mouse</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_CITYOVERLAP_RANGE">
+            <Text>Shows tiles and highlights cities within range (set below) from the tile under the mouse.</Text>
+        </Row>
+        <Row Tag="LOC_PANEL_CITYOVERLAP_RADIUS">
+            <Text>Radius Mouse</Text>
+        </Row>
 
-    <!-- Barbarian Lens -->
-    <Row Tag="LOC_HUD_BARBARIAN_LENS">
-      <Text>Barbarian</Text>
-    </Row>
-    <Row Tag="LOC_HUD_BARBARIAN_LENS_TOOLTIP">
-      <Text>Highlights barbarian encampments on the map</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_BARBARIAN_LENS_ENCAPMENT">
-      <Text>Barbarian Encampment</Text>
-    </Row>
+        <!-- Barbarian Lens -->
+        <Row Tag="LOC_HUD_BARBARIAN_LENS">
+            <Text>Barbarian</Text>
+        </Row>
+        <Row Tag="LOC_HUD_BARBARIAN_LENS_TOOLTIP">
+            <Text>Highlights barbarian encampments on the map</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_BARBARIAN_LENS_ENCAPMENT">
+            <Text>Barbarian Encampment</Text>
+        </Row>
 
-    <!-- Resources Lens -->
-    <Row Tag="LOC_HUD_RESOURCE_LENS">
-      <Text>Resources</Text>
-    </Row>
-    <Row Tag="LOC_HUD_RESOURCE_LENS_TOOLTIP">
-      <Text>Highlights resources on the map</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_LUXURY">
-      <Text>Luxury Resource</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_NLUXURY">
-      <Text>Unconnected Luxury</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_STRATEGIC">
-      <Text>Strategic Resource</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_NSTRATEGIC">
-      <Text>Unconnected Strategic Resource</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_BONUS">
-      <Text>Bonus Resource</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_NBONUS">
-      <Text>Unconnected Bonus Resource</Text>
-    </Row>
+        <!-- Resources Lens -->
+        <Row Tag="LOC_HUD_RESOURCE_LENS">
+            <Text>Resources</Text>
+        </Row>
+        <Row Tag="LOC_HUD_RESOURCE_LENS_TOOLTIP">
+            <Text>Highlights resources on the map</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_LUXURY">
+            <Text>Luxury Resource</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_NLUXURY">
+            <Text>Unconnected Luxury</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_STRATEGIC">
+            <Text>Strategic Resource</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_NSTRATEGIC">
+            <Text>Unconnected Strategic Resource</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_BONUS">
+            <Text>Bonus Resource</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_NBONUS">
+            <Text>Unconnected Bonus Resource</Text>
+        </Row>
 
-    <!-- Wonder Lens -->
-    <Row Tag="LOC_HUD_WONDER_LENS">
-      <Text>Wonders</Text>
-    </Row>
-    <Row Tag="LOC_HUD_WONDER_LENS_TOOLTIP">
-      <Text>Highlights natural wonders and built wonders built by players</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_WONDER_LENS_NWONDER">
-      <Text>Natural Wonder</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_PWONDER">
-      <Text>Player-made Wonder</Text>
-    </Row>
+        <!-- Wonder Lens -->
+        <Row Tag="LOC_HUD_WONDER_LENS">
+            <Text>Wonders</Text>
+        </Row>
+        <Row Tag="LOC_HUD_WONDER_LENS_TOOLTIP">
+            <Text>Highlights natural wonders and built wonders built by players</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_WONDER_LENS_NWONDER">
+            <Text>Natural Wonder</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_PWONDER">
+            <Text>Player-made Wonder</Text>
+        </Row>
 
-    <!-- Adjacency Yield Lens -->
-    <Row Tag="LOC_HUD_ADJYIELD_LENS">
-      <Text>Adjacency Yield</Text>
-    </Row>
-    <Row Tag="LOC_HUD_ADJYIELD_LENS_TOOLTIP">
-      <Text>Shows the adjacency yield for districts</Text>
-    </Row>
+        <!-- Adjacency Yield Lens -->
+        <Row Tag="LOC_HUD_ADJYIELD_LENS">
+            <Text>Adjacency Yield</Text>
+        </Row>
+        <Row Tag="LOC_HUD_ADJYIELD_LENS_TOOLTIP">
+            <Text>Shows the adjacency yield for districts</Text>
+        </Row>
 
-    <!-- Scout Lens -->
-    <Row Tag="LOC_HUD_SCOUT_LENS">
-      <Text>Scout</Text>
-    </Row>
-    <Row Tag="LOC_HUD_SCOUT_LENS_TOOLTIP">
-      <Text>Highlights goody huts on the map</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_SCOUT_LENS_GHUT">
-      <Text>Goody Hut</Text>
-    </Row>
+        <!-- Scout Lens -->
+        <Row Tag="LOC_HUD_SCOUT_LENS">
+            <Text>Scout</Text>
+        </Row>
+        <Row Tag="LOC_HUD_SCOUT_LENS_TOOLTIP">
+            <Text>Highlights goody huts on the map</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_SCOUT_LENS_GHUT">
+            <Text>Goody Hut</Text>
+        </Row>
 
-    <!-- Naturalist Lens -->
-    <Row Tag="LOC_HUD_NATURALIST_LENS">
-      <Text>Naturalist</Text>
-    </Row>
-    <Row Tag="LOC_HUD_NATURALIST_LENS_TOOLTIP">
-      <Text>Highlights places where National Parks can be built</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_NATURALIST_LENS_NPARK">
-      <Text>Area is ready for National Park</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_NATURALIST_LENS_OK">
-      <Text>Tile could be used, if some other plot is fixed</Text>
-    </Row>
-    <Row Tag="LOC_TOOLTIP_NATURALIST_LENS_FIXABLE">
-      <Text>Needs fixing to be used for a park</Text>
-    </Row>
+        <!-- Naturalist Lens -->
+        <Row Tag="LOC_HUD_NATURALIST_LENS">
+            <Text>Naturalist</Text>
+        </Row>
+        <Row Tag="LOC_HUD_NATURALIST_LENS_TOOLTIP">
+            <Text>Highlights places where National Parks can be built</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_NATURALIST_LENS_NPARK">
+            <Text>Area is ready for National Park</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_NATURALIST_LENS_OK">
+            <Text>Tile could be used, if some other plot is fixed</Text>
+        </Row>
+        <Row Tag="LOC_TOOLTIP_NATURALIST_LENS_FIXABLE">
+            <Text>Needs fixing to be used for a park</Text>
+        </Row>
 
-  </BaseGameText>
+    </BaseGameText>
 </GameData>
