@@ -215,14 +215,14 @@ function GetData()
     for row in GameInfo.Units() do
         if row.MustPurchase and buildQueue:CanProduce( row.Hash, true ) and row.PurchaseYield == "YIELD_FAITH" then
             local isCanProduceExclusion, results     = buildQueue:CanProduce( row.Hash, false, true );
-            local isDisabled  :boolean = row.MustPurchase;
+            local isDisabled  :boolean = not isCanProduceExclusion;
             local sAllReasons :string = ComposeFailureReasonStrings( isDisabled, results );
             local sToolTip    :string = ToolTipHelper.GetUnitToolTip( row.Hash, MilitaryFormationTypes.STANDARD_MILITARY_FORMATION, buildQueue ) .. sAllReasons;
 
             local nProductionCost     :number = buildQueue:GetUnitCost( row.Index );
             local nProductionProgress :number = buildQueue:GetUnitProgress( row.Index );
             sToolTip = sToolTip .. ComposeProductionCostString( nProductionProgress, nProductionCost );
-                
+
             local kUnit :table = {
                 Type                = row.UnitType, 
                 Name                = row.Name, 
