@@ -15,9 +15,9 @@ BASE_CQUI_OnWonderCompleted = OnWonderCompleted;
 local m_kPopupMgr :table = ExclusivePopupManager:new("WonderBuiltPopup");
 local m_kCurrentPopup :table = nil;
 local m_kQueuedPopups :table = {};
+local m_IsSinglePlayerGame = not GameConfiguration.IsAnyMultiplayer();
 local CQUI_wonderBuiltVisual = m_IsSinglePlayerGame;
 local CQUI_wonderBuiltAudio = m_IsSinglePlayerGame;
-local m_IsSinglePlayerGame = not GameConfiguration.IsAnyMultiplayer();
 
 -- ===========================================================================
 function CQUI_OnSettingsInitialized(isUpdate)
