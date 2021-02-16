@@ -500,10 +500,10 @@ function Initialize()
     --Populating/binding checkboxes...
     PopulateCheckBox(Controls.ProductionQueueCheckbox, "CQUI_ProductionQueue");
     PopulateCheckBox(Controls.InlineCityStateQuest, "CQUI_InlineCityStateQuest");
-    RegisterControl(Controls.ProductionQueueCheckbox, "CQUI_ProductionQueue", UpdateCheckbox);
+    RegisterControl (Controls.ProductionQueueCheckbox, "CQUI_ProductionQueue", UpdateCheckbox);
     PopulateCheckBox(Controls.ShowLuxuryCheckbox, "CQUI_ShowLuxuries");
     PopulateCheckBox(Controls.ShowCultureGrowthCheckbox, "CQUI_ShowCultureGrowth", Locale.Lookup("LOC_CQUI_CITYVIEW_SHOWCULTUREGROWTH_TOOLTIP"));
-    RegisterControl(Controls.ShowCultureGrowthCheckbox, "CQUI_ShowCultureGrowth", UpdateCheckbox);
+    RegisterControl (Controls.ShowCultureGrowthCheckbox, "CQUI_ShowCultureGrowth", UpdateCheckbox);
     PopulateCheckBox(Controls.SmartbannerCheckbox, "CQUI_Smartbanner", Locale.Lookup("LOC_CQUI_CITYVIEW_SMARTBANNER_TOOLTIP"));
     PopulateCheckBox(Controls.SmartbannerUnlockedCitizenCheckbox, "CQUI_Smartbanner_UnlockedCitizen", Locale.Lookup("LOC_CQUI_CITYVIEW_SMARTBANNER_UNLOCKEDCITIZEN_TOOLTIP"));
     PopulateCheckBox(Controls.SmartbannerDistrictsCheckbox, "CQUI_Smartbanner_Districts", Locale.Lookup("LOC_CQUI_CITYVIEW_SMARTBANNER_DISTRICTS_TOOLTIP"));
@@ -518,7 +518,9 @@ function Initialize()
     PopulateCheckBox(Controls.TechVisualCheckbox, "CQUI_TechPopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_TECHVISUAL_TOOLTIP"));
     PopulateCheckBox(Controls.TechAudioCheckbox, "CQUI_TechPopupAudio", Locale.Lookup("LOC_CQUI_POPUPS_TECHAUDIO_TOOLTIP"));
     PopulateCheckBox(Controls.WonderBuiltVisualCheckbox, "CQUI_WonderBuiltPopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_WONDERBUILTVISUAL_TOOLTIP"));
+    RegisterControl (Controls.WonderBuiltVisualCheckbox, "CQUI_WonderBuiltPopupVisual", UpdateCheckbox);
     PopulateCheckBox(Controls.WonderBuiltAudioCheckbox, "CQUI_WonderBuiltPopupAudio", Locale.Lookup("LOC_CQUI_POPUPS_WONDERBUILTAUDIO_TOOLTIP"));
+    RegisterControl (Controls.WonderBuiltAudioCheckbox, "CQUI_WonderBuiltPopupAudio", UpdateCheckbox);
     PopulateCheckBox(Controls.TrimGossipCheckbox, "CQUI_TrimGossip", Locale.Lookup("LOC_CQUI_GOSSIP_TRIMMESSAGE_TOOLTIP"));
 
     -- Lenses
