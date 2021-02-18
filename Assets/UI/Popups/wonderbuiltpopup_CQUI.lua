@@ -9,19 +9,39 @@ include( "ToolTipHelper" );  -- For AddBuildingYieldTooltip()
 -- ===========================================================================
 BASE_CQUI_OnWonderCompleted = OnWonderCompleted;
 
-local m_kPopupMgr :table = ExclusivePopupManager:new("WonderBuiltPopup");
-local m_kCurrentPopup :table = nil;
-local m_kQueuedPopups :table = {};
-
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
-local CQUI_wonderBuiltVisual = true;
-local CQUI_wonderBuiltAudio = true;
+local m_kPopupMgr :table = ExclusivePopupManager:new("WonderBuiltPopup");
+local m_kCurrentPopup :table = nil;
+local m_kQueuedPopups :table = {};
+local m_IsSinglePlayerGame = not GameConfiguration.IsAnyMultiplayer();
+local CQUI_wonderBuiltVisual = m_IsSinglePlayerGame;
+local CQUI_wonderBuiltAudio = m_IsSinglePlayerGame;
 
-function CQUI_OnSettingsUpdate()
+-- ===========================================================================
+function CQUI_OnSettingsInitialized(isUpdate)
     CQUI_wonderBuiltVisual = GameConfiguration.GetValue("CQUI_WonderBuiltPopupVisual");
     CQUI_wonderBuiltAudio = GameConfiguration.GetValue("CQUI_WonderBuiltPopupAudio");
+
+    if (isUpdate == nil) then
+        -- The only time isUpdate should be nil is when CQUI_SettingsInitialized is called by cqui_settingselement.
+        -- If it is multiplayer, we want to default to false.  Otherwise we can accept the Game Config.
+        CQUI_wonderBuiltVisual = CQUI_wonderBuiltVisual and m_IsSinglePlayerGame;
+        CQUI_wonderBuiltAudio = CQUI_wonderBuiltAudio and m_IsSinglePlayerGame;
+
+        GameConfiguration.SetValue("CQUI_WonderBuiltPopupVisual", CQUI_wonderBuiltVisual);
+        GameConfiguration.SetValue("CQUI_WonderBuiltPopupAudio", CQUI_wonderBuiltAudio);
+        -- The checkboxes were registered to react to this callback, so this will cause them to visually match whatever value was applied here
+        LuaEvents.CQUI_SettingsUpdate();
+    end
+end
+
+-- ===========================================================================
+function CQUI_OnSettingsUpdate()
+    -- print("CityBannerManager_CQUI: CQUI_OnSettingsUpdate ENTRY")
+    -- Pass 'true' to indicate this was triggered from the CQUI Settings
+    CQUI_OnSettingsInitialized(true);
 end
 
 -- ===========================================================================
@@ -266,13 +286,11 @@ function Close()
 end
 
 -- ===========================================================================
-function Initialize()
-    if GameConfiguration.IsAnyMultiplayer() then return; end -- Do not use if a multiplayer mode.
-
+function Initialize_WonderBuiltPopup_CQUI()
     Events.WonderCompleted.Remove( BASE_CQUI_OnWonderCompleted );
     Events.WonderCompleted.Add( OnWonderCompleted );
 
     LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
-    LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
+    LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsInitialized );
 end
-Initialize();
+Initialize_WonderBuiltPopup_CQUI();
