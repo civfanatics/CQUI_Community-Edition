@@ -23,6 +23,8 @@
         <Mod id="c9d28cde-61ee-459c-93f5-c734cd392553" title="NQ Enhanced User Interface" />
         <!-- Better Trade Screen is already integrated -->
         <Mod id="8d4fa23a-ef43-440c-8422-2bec11f8f5d7" title="Better Trade Screen" />
+        <!-- CQUI implements the same functionality (current load order is 105) -->
+        <Mod id="5fa339e0-1cef-4a63-abdb-549fadbd670d" title="Suzerain At A Glance" />
     </Blocks>
 
     <!-- ==============================  Modinfo Specific LOC ============================== -->

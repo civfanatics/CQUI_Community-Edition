@@ -135,15 +135,15 @@ end
 -- CityBanner.Initialize --  Register additional actions for both BaseGame and Expansions
 function CityBanner.Initialize(self, playerID, cityID, districtID, bannerType, bannerStyle)
     -- print("CityBannerManager_CQUI: CityBanner:Initialize ENTRY: playerID:"..tostring(playerID).." cityID:"..tostring(cityID).." districtID:"..tostring(districtID).." bannerType:"..tostring(bannerType).." bannerStyle:"..tostring(bannerStyle));
-    -- TODO: LateInitialize is defined by Firaxis for overriding, should we just use that?
     BASE_CQUI_CityBanner_Initialize(self, playerID, cityID, districtID, bannerType, bannerStyle);
 
     if (self.m_Instance.CityNameButton == nil) then
+        -- print("CityBannerManager_CQUI: CityBanner:Initalize EXIT (CityNameButton nil)");
         return;
     end
 
     -- Register the MouseOver callbacks
-    if (bannerType == BANNERTYPE_CITY_CENTER) then
+    if (IsBannerTypeCityCenter(bannerType)) then
         -- Register the callbacks 
         self.m_Instance.CityNameButton:RegisterCallback( Mouse.eMouseEnter, CQUI_OnBannerMouseEnter );
         self.m_Instance.CityNameButton:RegisterCallback( Mouse.eMouseExit,  CQUI_OnBannerMouseExit );
@@ -157,6 +157,8 @@ function CityBanner.Initialize(self, playerID, cityID, districtID, bannerType, b
             self.CQUI_DistrictBuiltIM = InstanceManager:new( "CQUI_DistrictBuilt", "Icon", self.m_Instance.CQUI_Districts );
         end
     end
+
+    -- print("CityBannerManager_CQUI: CityBanner:Initalize EXIT");
 end
 
 -- ===========================================================================
@@ -167,6 +169,7 @@ function CityBanner.UpdateProduction(self)
     if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
         -- The Expansions version of this function include a City object parameter
         local pCity:table = self:GetCity();
+        -- print("CityBannerManager_CQUI: CityBanner.UpdateProduction EXIT (Expansions)");
         return BASE_CQUI_CityBanner_UpdateProduction(self, pCity);
     end
 
@@ -185,6 +188,8 @@ function CityBanner.UpdateProduction(self)
             self.m_Instance.ProductionIndicator:SetHide(false);
         end
     end
+
+    -- print("CityBannerManager_CQUI: CityBanner.UpdateProduction EXIT");
 end
 
 -- ===========================================================================
@@ -210,18 +215,22 @@ function CQUI_CityBanner_UpdateStats_BaseGame(self)
     local localPlayerID :number = Game.GetLocalPlayer();
 
     if (IsBannerTypeCityCenter(self.m_Type) == false) then
+        -- print("CityBannerManager_CQUI: CQUI_CityBanner_UpdateStats_BaseGame EXIT (Not City Center)");
         return;
     end
 
     if (self.m_Player ~= Players[localPlayerID]) then
+        -- print("CityBannerManager_CQUI: CQUI_CityBanner_UpdateStats_BaseGame EXIT (Not LocalPlayerID)");
         return;
     end
 
     if (IsCQUI_CityBannerXMLLoaded() == false) then
+        -- print("CityBannerManager_CQUI: CQUI_CityBanner_UpdateStats_BaseGame EXIT (CQUI XML not loaded)");
         return;
     end
 
     if (IsCQUI_SmartBannerEnabled() == false) then
+        -- print("CityBannerManager_CQUI: CQUI_CityBanner_UpdateStats_BaseGame EXIT (SmartBannerNotEnabled)");
         return;
     end
 
@@ -279,6 +288,8 @@ function CQUI_CityBanner_UpdateStats_BaseGame(self)
     else
         self.m_Instance.CityPopTurnsLeft:SetHide(true);
     end
+
+    -- print("CityBannerManager_CQUI: CQUI_CityBanner_UpdateStats_BaseGame EXIT");
 end
 
 -- ============================================================================
@@ -288,6 +299,7 @@ function CQUI_CityBanner_UpdateStats_Expansions(self)
     -- BASE_CQUI_CityBanner_UpdateStats function was called by CityBanner.UpdateStats
 
     if (IsCQUI_CityBannerXMLLoaded() == false) then
+        -- print("CityBannerManager_CQUI: CQUI_CityBanner_UpdateStats_Expansions EXIT (CQUI XML not loaded)");
         return;
     end
 
@@ -353,6 +365,8 @@ function CQUI_CityBanner_UpdateStats_Expansions(self)
             end
         end
     end
+
+    -- print("CityBannerManager_CQUI: CQUI_CityBanner_UpdateStats_Expansions EXIT");
 end
 
 -- ============================================================================
@@ -365,19 +379,22 @@ function CityBanner.Uninitialize(self)
     if self.CQUI_DistrictBuiltIM then
         self.CQUI_DistrictBuiltIM:DestroyInstances();
     end
+
+    -- print("CityBannerManager_CQUI: CityBanner.Uninitialize EXIT");
 end
 
 -- ============================================================================
--- CityBanner.Uninitialize is called in Expansions only
 function CityBanner.UpdateInfo(self, pCity : table )
     -- print("CityBannerManager_CQUI: CityBanner.UpdateInfo ENTRY  pCity:"..tostring(pCity));
     BASE_CQUI_CityBanner_UpdateInfo(self, pCity);
 
     if (pCity == nil) then
+        -- print("CityBannerManager_CQUI: CityBanner.UpdateInfo EXIT (pCity nil)");
         return;
     end
 
     if (IsCQUI_CityBannerXMLLoaded() == false) then
+        -- print("CityBannerManager_CQUI: CityBanner.UpdateInfo EXIT (CQUI XML not loaded)");
         return;
     end
 
@@ -414,6 +431,7 @@ function CityBanner.UpdateInfo(self, pCity : table )
     -- this piece of code is taken from CityBannerManager.lua to allow an extra line inside a tooltip
     local pPlayer:table = Players[playerID];
     if pPlayer == nil then
+        -- print("CityBannerManager_CQUI: CityBanner.UpdateInfo EXIT (original city owner)");
         return;
     end
     
@@ -463,19 +481,22 @@ function CityBanner.UpdateInfo(self, pCity : table )
     cityIconInstance.Button:SetToolTipString(tooltip);
 
     self:Resize();
+    -- print("CityBannerManager_CQUI: CityBanner.UpdateInfo EXIT");
 end
 
 -- ============================================================================
 -- CityBanner.UpdatePopulation is called in Expansions only
 function CityBanner.UpdatePopulation(self, isLocalPlayer:boolean, pCity:table, pCityGrowth:table)
-    -- print("CityBannerManager_CQUI: CityBanner:UpdatePopulation:  pCity: "..tostring(pCity).."  pCityGrowth:"..tostring(pCityGrowth));
+    -- print("CityBannerManager_CQUI: CityBanner:UpdatePopulation: ENTRY pCity: "..tostring(pCity).."  pCityGrowth:"..tostring(pCityGrowth));
     BASE_CQUI_CityBanner_UpdatePopulation(self, isLocalPlayer, pCity, pCityGrowth);
 
     if (isLocalPlayer == false) then
+        -- print("CityBannerManager_CQUI: CityBanner:UpdatePopulation EXIT (not localplayer)");
         return;
     end
 
     if (IsCQUI_CityBannerXMLLoaded() == false) then
+        -- print("CityBannerManager_CQUI: CityBanner:UpdatePopulation EXIT (CQUI XML not loaded)");
         return;
     end
 
@@ -518,6 +539,8 @@ function CityBanner.UpdatePopulation(self, isLocalPlayer:boolean, pCity:table, p
     else
         populationInstance.CityCultureTurnsLeft:SetHide(true);
     end
+
+    -- print("CityBannerManager_CQUI: CityBanner:UpdatePopulation EXIT");
 end
 
 -- ============================================================================
@@ -529,6 +552,7 @@ function CityBanner.UpdateRangeStrike(self)
 
     local banner = self.m_Instance;
     if (banner == nil) then
+        -- print("CityBannerManager_CQUI: CityBanner.UpdateRangeStrike EXIT (banner nil)");
         return;
     end
 
@@ -548,6 +572,8 @@ function CityBanner.UpdateRangeStrike(self)
             CQUI_SetCityStrikeButtonLocation(banner, 0, CQUI_EncampmentRangeStrikeBottomYOffset, "C,B");
         end
     end
+
+    -- print("CityBannerManager_CQUI: CityBanner.UpdateRangeStrike EXIT");
 end
 
 -- ===========================================================================
@@ -570,6 +596,8 @@ function OnInterfaceModeChanged( oldMode:number, newMode:number )
       CQUI_CityManageAreaShown = false;
       CQUI_CityManageAreaShouldShow = false;
     end
+
+    -- print("CityBannerManager_CQUI: OnInterfaceModeChanged EXIT");
 end
 
 -- ===========================================================================
@@ -581,7 +609,9 @@ end
 -- ===========================================================================
 function OnShutdown()
     -- print("CityBannerManager_CQUI: OnShutdown ENTRY");
-    CQUI_PlotIM:DestroyInstances();
+    if (IsCQUI_CityBannerXMLLoaded()) then
+        CQUI_PlotIM:DestroyInstances();
+    end
 
     BASE_CQUI_OnShutdown();
 end
@@ -604,6 +634,8 @@ function Reload()
             end
         end
     end
+
+    -- print("CityBannerManager_CQUI: Reload EXIT");
 end
 
 -- ===========================================================================
@@ -616,15 +648,18 @@ function CityBanner.UpdateName( self )
 
     -- This code applies to vanilla/basegame only (early return from function!)
     if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
+        -- print("CityBannerManager_CQUI: CityBanner.UpdateName EXIT (Expansions)");
         return BASE_CQUI_CityBanner_UpdateName(self);
     end
 
     if (IsBannerTypeCityCenter(self.m_Type) == false) then
+        -- print("CityBannerManager_CQUI: CityBanner.UpdateName EXIT (Not IsBannerTypeCityCenter)");
         return;
     end
 
     local pCity : table = self:GetCity();
     if (pCity == nil) then
+        -- print("CityBannerManager_CQUI: CityBanner.UpdateName EXIT (city is nil)");
         return;
     end
 
@@ -818,6 +853,7 @@ function CityBanner.UpdateName( self )
     self.m_Instance.CityNameStack:ReprocessAnchoring();
     self.m_Instance.ContentStack:ReprocessAnchoring();
     self:Resize();
+    -- print("CityBannerManager_CQUI: CityBanner.UpdateName EXIT");
 end
 
 -- ===========================================================================
@@ -840,6 +876,8 @@ function CityBanner.SetHealthBarColor( self )
     elseif (percent <= 0.40) then
         self.m_Instance.CityHealthBar:SetColor( COLOR_CITY_RED );
     end
+
+    -- print("CityBannerManager_CQUI: CityBanner.SetHealthBarColor EXIT");
 end
 
 -- ===========================================================================
@@ -902,6 +940,7 @@ function CityBanner.UpdateReligion(self)
         elseif ((g_bIsRiseAndFall or g_bIsGatheringStorm) and religionInfo ~= nil and religionInfo.ReligionInfoContainer ~= nil) then
             religionInfo.ReligionInfoContainer:SetHide(true);
         end
+        -- print("CityBannerManager_CQUI: CityBanner:UpdateReligion EXIT (Lens not active)");
         return;
     end
 
@@ -1000,7 +1039,7 @@ function CityBanner.UpdateReligion(self)
         local iconIM:table = cityInst[DATA_FIELD_RELIGION_ICONS_IM];
         if (iconIM == nil) then
             -- TODO what happens if this is a thing that does not exist?
-            -- TODO update: it seeed to be okay maybe this just failed and we're proected later
+            -- TODO update: it seemed to be okay maybe this just failed and we're protected later
             iconIM = InstanceManager:new("ReligionIconInstance", "ReligionIconContainer", religionInfo.ReligionInfoIconStack);
             cityInst[DATA_FIELD_RELIGION_ICONS_IM] = iconIM;
         else
@@ -1143,6 +1182,8 @@ function CityBanner.UpdateReligion(self)
 
         religionInfo.ReligionInfoContainer:SetHide(false);
     end
+
+    -- print("CityBannerManager_CQUI: CityBanner:UpdateReligion EXIT");
 end
 
 -- ============================================================================
@@ -1218,8 +1259,14 @@ function OnCityStrikeButtonClick( playerID, cityID )
 end
 
 -- ===========================================================================
-function OnDistrictAddedToMap( playerID, districtID, cityID, districtX, districtY, districtType, percentComplete )
+function OnDistrictAddedToMap( playerID: number, districtID : number, cityID :number, districtX : number, districtY : number, districtType:number, percentComplete:number )
     -- print("CityBannerManager_CQUI: OnDistrictAddedToMap ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID).." cityID:"..tostring(cityID).." districtXY:"..tostring(districtX)..","..tostring(districtY).." districtType:"..tostring(districtType).." pctComplete:"..tostring(percentComplete));
+    -- The call from Reload() passes in the value meant for districtX as cityID, and the value meant for districtY as districtX... and this is in the base Firaxis code and makes no sense?
+    if (districtY == nil) then
+        districtY = districtX;
+        districtX = cityID;
+    end
+
     local locX = districtX;
     local locY = districtY;
     local type = districtType;
@@ -1227,11 +1274,13 @@ function OnDistrictAddedToMap( playerID, districtID, cityID, districtX, district
     local pPlayer = Players[playerID];
 
     if (pPlayer == nil) then
+        -- print("CityBannerManager_CQUI: OnDistrictAddedToMap playerID:"..tostring(playerID).." EXIT (player nil)");
         return;
     end
 
     local pDistrict = pPlayer:GetDistricts():FindID(districtID);
     if (pDistrict == nil) then
+        -- print("CityBannerManager_CQUI: OnDistrictAddedToMap playerID:"..tostring(playerID).." EXIT (district nil)");
         return;
     end
 
@@ -1239,6 +1288,7 @@ function OnDistrictAddedToMap( playerID, districtID, cityID, districtX, district
     local cityID = pCity:GetID();
     if (pCity == nil) then
         -- It is possible that the city is not there yet. e.g. city-center district is placed, the city is placed immediately afterward.
+        -- print("CityBannerManager_CQUI: OnDistrictAddedToMap playerID:"..tostring(playerID).." EXIT (city nil)");
         return;
     end
 
@@ -1278,21 +1328,23 @@ function OnDistrictAddedToMap( playerID, districtID, cityID, districtX, district
             miniBanner:UpdateRangeStrike();
         end
     end -- else not city center
+
+    -- print("CityBannerManager_CQUI: OnDistrictAddedToMap playerID:"..tostring(playerID).." EXIT");
 end
 
-
-m4atemp = nil;
 -- ===========================================================================
 function OnImprovementAddedToMap(locX, locY, eImprovementType, eOwner)
     -- print("CityBannerManager_CQUI: OnImprovementAddedToMap ENTRY locXY:"..tostring(locX)..","..tostring(locY).." eImprovementType:"..tostring(eImprovementType).." eOwner:"..tostring(eOwner));
     if eImprovementType == -1 then
         UI.DataError("Received -1 eImprovementType for ("..tostring(locX)..","..tostring(locY)..") and owner "..tostring(eOwner));
+        -- print("CityBannerManager_CQUI: OnImprovementAddedToMap EXIT (invalid improvement type)");
         return;
     end
 
     local improvementData:table = GameInfo.Improvements[eImprovementType];
 
     if improvementData == nil then
+        -- print("CityBannerManager_CQUI: OnImprovementAddedToMap EXIT (invalid improvement data)");
         UI.DataError("No database entry for eImprovementType #"..tostring(eImprovementType).." for ("..tostring(locX)..","..tostring(locY)..") and owner "..tostring(eOwner));
         return;
     end
@@ -1352,6 +1404,8 @@ function OnImprovementAddedToMap(locX, locY, eImprovementType, eOwner)
             end
         end
     end
+
+    -- print("CityBannerManager_CQUI: OnImprovementAddedToMap EXIT");
 end
 
 -- ===========================================================================
@@ -1467,7 +1521,7 @@ end
 -- When a banner is moused over, display the relevant yields and next culture plot
 function CQUI_OnBannerMouseEnter(playerID: number, cityID: number)
     -- print("CityBannerManager_CQUI: CQUI_OnBannerMouseEnter ENTRY playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
-    if (CQUI_ShowYieldsOnCityHover == false or playerID ~= Game.GetLocalPlayer()) then
+    if (CQUI_ShowYieldsOnCityHover == false or playerID ~= Game.GetLocalPlayer() or IsCQUI_CityBannerXMLLoaded() == false) then
         -- Doesn't make sense to show when not self; if wanting to show an allied player is desired, then code needs some cleanup 
         -- as it currently shows tiles for the local player city by that city ID value (cityID values are only unique per player, not universally)
         return;
@@ -1698,7 +1752,7 @@ end
 -- ===========================================================================
 function CQUI_OnDiplomacyDeclareWarMakePeace( firstPlayerID, secondPlayerID )
     local localPlayerID = Game.GetLocalPlayer();
-    if (localPlayerID == nil) then
+    if (localPlayerID == nil or IsCQUI_CityBannerXMLLoaded() == false) then
         -- print("CQUI_OnDiplomacyDeclareWarMakePeace: Game.GetLocalPlayer returned nil!")
         return;
     end
@@ -1803,10 +1857,12 @@ end
 function CQUI_UpdateCityStateBannerSuzerain( pPlayer:table, bannerInstance )
     -- print("CityBannerManager_CQUI: CQUI_UpdateCityStateBannerSuzerain ENTRY  pPlayer:"..tostring(pPlayer).."  bannerInstance:"..tostring(bannerInstance));
     if (bannerInstance == nil) then
+        -- print("CityBannerManager_CQUI: CQUI_UpdateCityStateBannerSuzerain EXIT (bannerInstance is nil)");
         return;
     end
 
     if (IsCQUI_CityBannerXMLLoaded() == false) then
+        -- print("CityBannerManager_CQUI: CQUI_UpdateCityStateBannerSuzerain EXIT (CQUI XML not loaded)");
         return;
     end
 
@@ -1859,6 +1915,16 @@ function CQUI_UpdateCityStateBannerSuzerain( pPlayer:table, bannerInstance )
     else
         bannerInstance.m_Instance.CQUI_CivSuzerain:SetHide(true);
     end
+
+    -- print("CityBannerManager_CQUI: CQUI_UpdateCityStateBannerSuzerain EXIT");
+end
+
+-- ===========================================================================
+function CQUI_OnLoadGameViewStateDone()
+    -- Called when the LoadGame View is completed
+    -- Workaround the weirdness with the City Banners showing up in the wrong place by calling the OnRefreshBannerPositions function,
+    -- which finds all of the banners and updates their positions
+    OnRefreshBannerPositions();
 end
 
 -- ===========================================================================
@@ -1958,7 +2024,7 @@ end
 -- CQUI Initialize Function
 -- ===========================================================================
 function Initialize_CityBannerManager_CQUI()
-    -- print("CityBannerManager_CQUI: Initialize CQUI CityBannerManager");
+    -- print("CityBannerManager_CQUI: Initialize CQUI CityBannerManager ENTRY");
     if (IsCQUI_CityBannerXMLLoaded()) then
         CQUI_PlotIM = InstanceManager:new( "CQUI_WorkedPlotInstance", "Anchor", Controls.CQUI_WorkedPlotContainer );
     end
@@ -1975,8 +2041,11 @@ function Initialize_CityBannerManager_CQUI()
     Events.InfluenceGiven.Add(CQUI_OnInfluenceGiven);
     Events.LensLayerOff.Add(CQUI_OnLensLayerOff);
     Events.LensLayerOn.Add(CQUI_OnLensLayerOn);
+    -- Workaround for issue where the Banners appear in weird places or not at all
+    Events.LoadGameViewStateDone.Add(CQUI_OnLoadGameViewStateDone);
 
     Events.DiplomacyDeclareWar.Add(CQUI_OnDiplomacyDeclareWarMakePeace);
     Events.DiplomacyMakePeace.Add(CQUI_OnDiplomacyDeclareWarMakePeace);
+    -- print("CityBannerManager_CQUI: Initialize CQUI CityBannerManager EXIT");
 end
 Initialize_CityBannerManager_CQUI();
