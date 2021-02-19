@@ -726,6 +726,8 @@
 
         <ReplaceUIScript id="CQUI_DistrictPlotIconManager">
             <Properties>
+                <!-- Ensure CQUI loads after the Vietnam / Kublai Khan mod -->
+                <LoadOrder>50</LoadOrder>
                 <LuaContext>DistrictPlotIconManager</LuaContext>
                 <LuaReplace>Assets/UI/WorldView/districtploticonmanager_CQUI.lua</LuaReplace>
             </Properties>

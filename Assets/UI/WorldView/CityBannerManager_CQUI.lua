@@ -1395,6 +1395,8 @@ function OnImprovementAddedToMap(locX, locY, eImprovementType, eOwner)
                 end
             else
                 miniBanner:UpdateStats();
+                -- Force the position to update as there's some weirdness on gameload
+                miniBanner:UpdatePosition();
                 -- Vanilla/Basegame uses SetColor, Expansions use UpdateColor
                 if (miniBanner.UpdateColor ~= nil) then
                     miniBanner:UpdateColor();

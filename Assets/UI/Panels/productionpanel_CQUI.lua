@@ -110,7 +110,7 @@ function CQUI_ClearDistrictBuildingLayers()
         RealizePlotArtForWonderPlacement();
     end
     LuaEvents.CQUI_RefreshPurchasePlots();
-    LuaEvents.CQUI_DistrictPlotIconManager_ClearEveything();
+    LuaEvents.CQUI_DistrictPlotIconManager_ClearEverything();
     LuaEvents.CQUI_Realize2dArtForDistrictPlacement();
 end
 
@@ -217,7 +217,6 @@ function GetData()
     for row in GameInfo.Units() do
         if row.MustPurchase and buildQueue:CanProduce( row.Hash, true ) and row.PurchaseYield == "YIELD_FAITH" then
             local isCanProduceExclusion, results     = buildQueue:CanProduce( row.Hash, false, true );
-            
             -- If a unit is purchase only, then "isDisabled" needs to be True, as that disables the button control that
             -- allows the religious units to be enqueued
             -- TODO: It'd be nice to remove the unnecessary part about the production cost from the Tooltip string
