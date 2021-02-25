@@ -21,6 +21,8 @@ BASE_CQUI_ZoneDistrict = ZoneDistrict;
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
+-- Show a faith icon instead of the turns-left for the faith-only units
+local CQUI_FAITH_ONLY_TURNS_LEFT = -2;
 local CQUI_PurchaseTable = {}; -- key = item Hash
 local CQUI_ProductionQueue :boolean = true;
 local CQUI_ShowProductionRecommendations :boolean = false;
@@ -108,7 +110,7 @@ function CQUI_ClearDistrictBuildingLayers()
         RealizePlotArtForWonderPlacement();
     end
     LuaEvents.CQUI_RefreshPurchasePlots();
-    LuaEvents.CQUI_DistrictPlotIconManager_ClearEveything();
+    LuaEvents.CQUI_DistrictPlotIconManager_ClearEverything();
     LuaEvents.CQUI_Realize2dArtForDistrictPlacement();
 end
 
@@ -215,13 +217,12 @@ function GetData()
     for row in GameInfo.Units() do
         if row.MustPurchase and buildQueue:CanProduce( row.Hash, true ) and row.PurchaseYield == "YIELD_FAITH" then
             local isCanProduceExclusion, results     = buildQueue:CanProduce( row.Hash, false, true );
-            local isDisabled  :boolean = not isCanProduceExclusion;
+            -- If a unit is purchase only, then "isDisabled" needs to be True, as that disables the button control that
+            -- allows the religious units to be enqueued
+            -- TODO: It'd be nice to remove the unnecessary part about the production cost from the Tooltip string
+            local isDisabled  :boolean = row.MustPurchase -- not isCanProduceExclusion;
             local sAllReasons :string = ComposeFailureReasonStrings( isDisabled, results );
             local sToolTip    :string = ToolTipHelper.GetUnitToolTip( row.Hash, MilitaryFormationTypes.STANDARD_MILITARY_FORMATION, buildQueue ) .. sAllReasons;
-
-            local nProductionCost     :number = buildQueue:GetUnitCost( row.Index );
-            local nProductionProgress :number = buildQueue:GetUnitProgress( row.Index );
-            sToolTip = sToolTip .. ComposeProductionCostString( nProductionProgress, nProductionCost );
 
             local kUnit :table = {
                 Type                = row.UnitType, 
@@ -229,11 +230,11 @@ function GetData()
                 ToolTip             = sToolTip, 
                 Hash                = row.Hash, 
                 Kind                = row.Kind, 
-                TurnsLeft           = buildQueue:GetTurnsLeft( row.Hash ), 
+                TurnsLeft           = CQUI_FAITH_ONLY_TURNS_LEFT,
                 Disabled            = isDisabled, 
                 Civilian            = row.FormationClass == "FORMATION_CLASS_CIVILIAN",
-                Cost                = nProductionCost, 
-                Progress            = nProductionProgress, 
+                Cost                = 0, 
+                Progress            = 0, 
                 Corps               = false,
                 CorpsCost           = 0,
                 CorpsTurnsLeft      = 1,
@@ -253,6 +254,29 @@ function GetData()
     end
 
     return new_data
+end
+
+-- ===========================================================================
+--    CQUI modified GetTurnsToCompleteStrings functiton
+--    add gold and faith purchase in the same list
+-- ===========================================================================
+function GetTurnsToCompleteStrings( turnsToComplete:number )
+    local turnsStr:string = "";
+    local turnsStrTT:string = "";
+
+    if turnsToComplete == -1 then
+        turnsStr = "999+[ICON_Turn]";
+        turnsStrTT = TXT_HUD_CITY_WILL_NOT_COMPLETE;
+    elseif turnsToComplete == -2 then
+        turnsStr = "[ICON_Faith][ICON_Turn]";
+        -- TODO: Build a better string for this?  Or since one isn't needed
+        turnsStrTT = Locale.Lookup("LOC_PRODPANEL_PURCHASE_FAITH");
+    else
+        turnsStr = turnsToComplete .. "[ICON_Turn]";
+        turnsStrTT = turnsToComplete .. Locale.Lookup("LOC_HUD_CITY_TURNS_TO_COMPLETE", turnsToComplete);
+    end
+    
+    return turnsStr, turnsStrTT;
 end
 
 -- ===========================================================================
