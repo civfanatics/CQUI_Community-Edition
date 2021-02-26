@@ -1,13 +1,49 @@
+print("*** CQUI: PlotToolTip_CQUI_Expansion2.lua loaded");
 -- ===========================================================================
 -- Base File
 -- ===========================================================================
-include("PlotToolTip_Expansion2");
+include("PlotToolTip");
+include("CQUICommon.lua");
 
-include("plottooltip_CQUI.lua");
+-- ===========================================================================
+-- CACHE BASE FUNCTIONS
+-- ===========================================================================
+BASE_CQUI_FetchData = FetchData;
+BASE_CQUI_View = View;
 
-local LL = Locale.Lookup;
 --CQUI Use this table to set up a better order of listing the yields... ie Food before Production
 local cquiYieldsOrder:table = { "YIELD_FOOD", "YIELD_PRODUCTION", "YIELD_GOLD", "YIELD_SCIENCE", "YIELD_CULTURE", "YIELD_FAITH" };
+
+-- ===========================================================================
+-- Unmodified from the Firaxis PlotToolTip_Expansion2.lua file, save for the name of the Base version of the function
+function FetchData( pPlot:table )
+    local data :table = BASE_CQUI_FetchData(pPlot);
+
+    data.IsVolcano = MapFeatureManager.IsVolcano(pPlot);
+    data.RiverNames	= RiverManager.GetRiverName(pPlot);
+    data.VolcanoName = MapFeatureManager.GetVolcanoName(pPlot);
+    data.Active = MapFeatureManager.IsActiveVolcano(pPlot);
+    data.Erupting = MapFeatureManager.IsVolcanoErupting(pPlot);
+    data.Storm = GameClimate.GetActiveStormTypeAtPlot(pPlot);
+    data.Drought = GameClimate.GetActiveDroughtTypeAtPlot(pPlot);
+    data.DroughtTurns = GameClimate.GetDroughtTurnsAtPlot(pPlot);
+    data.CoastalLowland = TerrainManager.GetCoastalLowlandType(pPlot);
+    local territory = Territories.GetTerritoryAt(pPlot:GetIndex());
+    if (territory) then
+        data.TerritoryName = territory:GetName();
+    else
+        data.TerritoryName = nil;
+    end
+    if (data.CoastalLowland ~= -1) then
+        data.Flooded = TerrainManager.IsFlooded(pPlot);
+        data.Submerged = TerrainManager.IsSubmerged(pPlot);
+    else
+        data.Flooded = false;
+        data.Submerged = false;
+    end
+
+    return data;
+end
 
 -- ===========================================================================
 --  CQUI modified GetDetails functiton
@@ -44,10 +80,10 @@ function GetDetails(data)
         end
 
         if pPlayer:IsMajor() then
-            szOwnerString = LL("LOC_TOOLTIP_CITY_OWNER", szOwnerString, data.OwningCityName); -- vanilla game
+            szOwnerString = Locale.Lookup("LOC_TOOLTIP_CITY_OWNER", szOwnerString, data.OwningCityName); -- vanilla game
         else
             -- CQUI Remove City Owner if it's a city state as civ name is the same as city owner name
-            szOwnerString = LL("LOC_HUD_CITY_OWNER", szOwnerString);
+            szOwnerString = Locale.Lookup("LOC_HUD_CITY_OWNER", szOwnerString);
         end
         table.insert(details, szOwnerString);
         
@@ -248,12 +284,12 @@ function GetDetails(data)
                                 local iExtraction = kConsumption.ImprovedExtractionRate; -- TODO: there is also BaseExtractionRate but not used currently
                                 if (iExtraction > 0) then
                                     local resourceIcon:string = "[ICON_" .. data.ResourceType .. "]";
-                                    table.insert(details, LL("LOC_RESOURCE_ACCUMULATION_BUILD_IMPROVEMENT", iExtraction, resourceIcon, "[COLOR:Civ6Red]"..LL(resource.Name).."[ENDCOLOR]")); -- {1_Amount} {2_Icon} {3_ResourceName} per turn
+                                    table.insert(details, Locale.Lookup("LOC_RESOURCE_ACCUMULATION_BUILD_IMPROVEMENT", iExtraction, resourceIcon, "[COLOR:Civ6Red]"..Locale.Lookup(resource.Name).."[ENDCOLOR]")); -- {1_Amount} {2_Icon} {3_ResourceName} per turn
                                 end
                             end
                         else
                             if data.Owner == localPlayerID then
-                                table.insert(details, LL("LOC_CQUI_TOOLTIP_PLOT_IMPROVE_RESOURCE"));
+                                table.insert(details, Locale.Lookup("LOC_CQUI_TOOLTIP_PLOT_IMPROVE_RESOURCE"));
                             end
                         end -- if improved
                     end -- has tech
@@ -339,7 +375,7 @@ function GetDetails(data)
         for _,yieldType in ipairs(cquiYieldsOrder) do
             if yields[yieldType] ~= nil then
                 local yield:table = GameInfo.Yields[yieldType];
-                table.insert(details, string.format("%d%s%s", yields[yieldType], yield.IconString, LL(yield.Name)));
+                table.insert(details, string.format("%d%s%s", yields[yieldType], yield.IconString, Locale.Lookup(yield.Name)));
             end
         end
     end
@@ -363,7 +399,7 @@ function GetDetails(data)
         end
 
         -- Inherent district yields
-        local sDistrictName :string = Locale.Lookup(Locale.Lookup(GameInfo.Districts[data.DistrictType].Name));
+        local sDistrictName :string = Locale.Lookup(GameInfo.Districts[data.DistrictType].Name);
         if (data.DistrictPillaged) then
             sDistrictName = sDistrictName .. " " .. Locale.Lookup("LOC_TOOLTIP_PLOT_PILLAGED_TEXT");
         elseif (not data.DistrictComplete) then
@@ -386,10 +422,24 @@ function GetDetails(data)
             if (data.ImprovementPillaged) then
                 improvementStr = improvementStr .. " " .. Locale.Lookup("LOC_TOOLTIP_PLOT_PILLAGED_TEXT");
             end
-            table.insert(details, improvementStr)
-        end
-        ShowYields(details, data.Yields);
 
+            table.insert(details, improvementStr)
+            -- ==== CQUI WORKAROUND: Incorporate inforamtion from  the Barbarian Clans Mode to enable CQUI and that mode to work together ====
+            -- ==== Firaxis added a ReplaceUIScript for PlotToolTip with the Barbarian Clans mode; incorporating this code allows CQUI to load its PlotToolTip
+            if (g_bIsBarbarianClansMode and data.ImprovementType == "IMPROVEMENT_BARBARIAN_CAMP") then
+                local pBarbManager = Game.GetBarbarianManager();
+                local iTribeIndex = pBarbManager:GetTribeIndexAtLocation(data.X, data.Y);
+                if (iTribeIndex >= 0) then
+                    local eTribeName = pBarbManager:GetTribeNameType(iTribeIndex);
+                    if (GameInfo.BarbarianTribeNames[eTribeName] ~= nil) then
+                        local tribeNameStr = Locale.Lookup("LOC_TOOLTIP_BARBARIAN_CLAN_NAME", GameInfo.BarbarianTribeNames[eTribeName].TribeDisplayName);
+                        table.insert(details, tribeNameStr);
+                    end
+                end
+            end
+        end
+
+        ShowYields(details, data.Yields);
     end -- city / district / normal
 
     -- if tile is impassable, add that line
@@ -472,3 +522,19 @@ function GetDetails(data)
 
     return details;
 end
+
+-- ===========================================================================
+--  CQUI modified View functiton
+--  Hide Plotname (https://github.com/CQUI-Org/cqui/issues/232)
+-- ===========================================================================
+function View(data:table, bIsUpdate:boolean)
+    BASE_CQUI_View(data, bIsUpdate);
+
+    Controls.PlotName:SetHide(true)
+end
+
+-- ===========================================================================
+function Initialize_PlotTooltip_CQUI_Exp2()
+    Controls.TooltipMain:SetSpeed(8);  -- CQUI : tooltip spawn faster
+end
+Initialize_PlotTooltip_CQUI_Exp2();

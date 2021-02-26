@@ -165,8 +165,6 @@
                 <File>Assets/UI/productionpanel.xml</File>
                 <File>Assets/UI/toppanel_CQUI_basegame.lua</File>
                 <File>Assets/UI/toppanel_CQUI.lua</File>
-                <File>Assets/UI/unitflagmanager_CQUI.lua</File>
-                <File>Assets/UI/unitflagmanager.xml</File>
                 <File>Assets/UI/worldinput_CQUI_basegame.lua</File>
                 <File>Assets/UI/worldinput_CQUI.lua</File>
                 <File>Assets/UI/WorldTracker_CQUI.lua</File>
@@ -196,8 +194,6 @@
                 <File>Assets/UI/Screens/CivicsTree_CQUI.lua</File>
                 <File>Assets/UI/Screens/governmentscreen_CQUI_basegame.lua</File>
                 <File>Assets/UI/Screens/governmentscreen_CQUI.lua</File>
-                <File>Assets/UI/ToolTips/plottooltip_CQUI_basegame.lua</File>
-                <File>Assets/UI/ToolTips/plottooltip_CQUI.lua</File>
                 <File>Assets/UI/Utilities/extendedrelationship.lua</File>
                 <File>Assets/UI/WorldView/districtploticonmanager_CQUI.lua</File>
                 <File>Assets/UI/WorldView/plotinfo_CQUI.lua</File>
@@ -232,9 +228,17 @@
         </ImportFiles>
 
         <ImportFiles id="CQUI_IMPORT_FILES_CITYBANNERMANAGER_BASEGAME">
+            <Properties>
+                <!-- We need to ensure that the CQUI CityBannerManager.xml loads instead of say, the one from the Barbarian Tribes mode -->
+                <LoadOrder>50</LoadOrder>
+                <Context>InGame</Context>
+            </Properties>
             <Items>
                 <File>Assets/UI/WorldView/CityBannerManager_CQUI.lua</File>
                 <File>Assets/UI/WorldView/citybannermanager.xml</File>
+                <!-- Placeholder for future work -->
+                <!-- <File>Assets/UI/WorldView/CityBannerInstances.xml</File> -->
+                <!-- <File>Assets/UI/WorldView/CityReligionInstances.xml</File> -->
             </Items>
         </ImportFiles>
 
@@ -259,6 +263,40 @@
                 <File>Assets/Expansion2/CityBanners/citybannermanager.xml</File>
                 <File>Assets/Expansion2/CityBanners/CityBannerInstances.xml</File>
                 <File>Assets/Expansion2/CityBanners/CityReligionInstances.xml</File>
+            </Items>
+        </ImportFiles>
+
+        <!-- Firaxis added a ReplaceUIScript for PlotToolTip with LoadOrder 0; CQUI incorporated those changes so both could work together -->
+        <ImportFiles id="CQUI_PLOTTOOLTIP_BASEGAME">
+            <Properties>
+                <LoadOrder>50</LoadOrder>
+                <Context>InGame</Context>
+            </Properties>
+            <Items>
+                <File>Assets/UI/ToolTips/plottooltip_CQUI_basegame.lua</File>
+                <File>Assets/UI/ToolTips/plottooltip_CQUI.lua</File>
+            </Items>
+        </ImportFiles>
+
+        <ImportFiles id="CQUI_PLOTTOOLTIP_EXP2" criteria="Expansion2">
+            <Properties>
+                <LoadOrder>200</LoadOrder>
+                <Context>InGame</Context>
+            </Properties>
+            <Items>
+                <File>Assets/Expansion2/Replacements/plottooltip_CQUI_expansion2.lua</File>
+            </Items>
+        </ImportFiles>
+
+        <!-- Firaxis added a ReplaceUIScript for UnitFlagManager with LoadOrder 0; CQUI incorporated those changes so both could work together -->
+        <ImportFiles id="CQUI_UNITFLAGMANAGER">
+            <Properties>
+                <LoadOrder>50</LoadOrder>
+                <Context>InGame</Context>
+            </Properties>
+            <Items>
+                <File>Assets/UI/unitflagmanager_CQUI.lua</File>
+                <File>Assets/UI/unitflagmanager.xml</File>
             </Items>
         </ImportFiles>
 
@@ -315,7 +353,6 @@
                 <File>Assets/Expansion2/Replacements/ingame.lua</File>
                 <File>Assets/Expansion2/Replacements/launchbar_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/partialscreenhooks_CQUI_expansion2.lua</File>
-                <File>Assets/Expansion2/Replacements/plottooltip_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/toppanel_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/unitpanel_CQUI_expansion2.lua</File>
                 <File>Assets/Expansion2/Replacements/worldinput_CQUI_expansion2.lua</File>
@@ -605,6 +642,8 @@
 
         <ReplaceUIScript id="CQUI_UnitFlagManager">
             <Properties>
+                <!-- Firaxis Barbarians Clans Mode has a LoadOrder 0 for their ReplaceUIScript of UnitFlagManager; files load at 50 above -->
+                <LoadOrder>50</LoadOrder>
                 <LuaContext>UnitFlagManager</LuaContext>
                 <LuaReplace>Assets/UI/unitflagmanager_CQUI.lua</LuaReplace>
             </Properties>
@@ -658,6 +697,8 @@
 
         <ReplaceUIScript id="CQUI_PlotToolTip">
             <Properties>
+                <!-- LoadOrder of 50 to ensure it loads after the Firaxis replacement for PlotToolTip bundled with the Barbarian Clans Mode -->
+                <LoadOrder>50</LoadOrder>
                 <LuaContext>PlotToolTip</LuaContext>
                 <LuaReplace>Assets/UI/ToolTips/plottooltip_CQUI_basegame.lua</LuaReplace>
             </Properties>
@@ -1135,6 +1176,9 @@
         <File>Assets/UI/Utilities/extendedrelationship.lua</File>
         <File>Assets/UI/WorldView/CityBannerManager_CQUI.lua</File>
         <File>Assets/UI/WorldView/citybannermanager.xml</File>
+        <!-- Placeholder for future work -->
+        <!-- <File>Assets/UI/WorldView/CityBannerInstances.xml</File> -->
+        <!-- <File>Assets/UI/WorldView/CityReligionInstances.xml</File> -->
         <File>Assets/UI/WorldView/districtploticonmanager_CQUI.lua</File>
         <File>Assets/UI/WorldView/plotinfo_CQUI.lua</File>
         <File>Assets/UI/WorldView/plotinfo.xml</File>
