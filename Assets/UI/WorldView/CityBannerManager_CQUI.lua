@@ -1261,17 +1261,7 @@ end
 
 -- ===========================================================================
 function OnDistrictAddedToMap( playerID: number, districtID : number, cityID :number, districtX : number, districtY : number, districtType:number, percentComplete:number )
-    -- print("CityBannerManager_CQUI: OnDistrictAddedToMap ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID).." cityID:"..tostring(cityID).." districtXY:"..tostring(districtX)..","..tostring(districtY).." districtType:"..tostring(districtType).." pctComplete:"..tostring(percentComplete));
-    -- The call from Reload() passes in the value meant for districtX as cityID, and the value meant for districtY as districtX... and this is in the base Firaxis code and makes no sense?
-    if (districtY == nil) then
-        districtY = districtX;
-        districtX = cityID;
-    end
-
-    local locX = districtX;
-    local locY = districtY;
-    local type = districtType;
-
+    print("CityBannerManager_CQUI: OnDistrictAddedToMap ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID).." cityID:"..tostring(cityID).." districtXY:"..tostring(districtX)..","..tostring(districtY).." districtType:"..tostring(districtType).." pctComplete:"..tostring(percentComplete));
     local pPlayer = Players[playerID];
 
     if (pPlayer == nil) then
@@ -1335,12 +1325,11 @@ end
 
 -- ===========================================================================
 function OnImprovementAddedToMap(locX, locY, eImprovementType, eOwner)
-    -- print("CityBannerManager_CQUI: OnImprovementAddedToMap ENTRY locXY:"..tostring(locX)..","..tostring(locY).." eImprovementType:"..tostring(eImprovementType).." eOwner:"..tostring(eOwner));
+   -- print("CityBannerManager_CQUI: OnImprovementAddedToMap ENTRY locXY:"..tostring(locX)..","..tostring(locY).." eImprovementType:"..tostring(eImprovementType).." eOwner:"..tostring(eOwner));
     BASE_CQUI_OnImprovementAddedToMap(locX, locY, eImprovementType, eOwner);
 
     -- Get the minibanner to force its position to update in order to work around some weirdness happening when the game is loaded
     local pPlayer:table = Players[eOwner];
-    local localPlayerID:number = Game.GetLocalPlayer();
     if (pPlayer ~= nil) then
         local plotID = Map.GetPlotIndex(locX, locY);
         if (plotID ~= nil) then
@@ -1962,7 +1951,7 @@ end
 -- CQUI Initialize Function
 -- ===========================================================================
 function Initialize_CityBannerManager_CQUI()
-    -- print("CityBannerManager_CQUI: Initialize CQUI CityBannerManager ENTRY");
+    -- print("CityBannerManager_CQUI: Initialize_CityBannerManager_CQUI ENTRY");
     if (IsCQUI_CityBannerXMLLoaded()) then
         CQUI_PlotIM = InstanceManager:new( "CQUI_WorkedPlotInstance", "Anchor", Controls.CQUI_WorkedPlotContainer );
     end

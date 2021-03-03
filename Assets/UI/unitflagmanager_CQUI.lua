@@ -26,6 +26,11 @@ local m_HexColoringReligion:number = UILens.CreateLensLayerHash("Hex_Coloring_Re
 local m_IsReligionLensOn:boolean = false;
 local m_CQUIInitiatedRefresh = false;
 
+-- Constants (from Barbarian Clans mode)
+local BRIBE_STATUS_ICON_NAME				: string = "Bribe22";
+local INCITE_AGAINST_PLAYER_STATUS_ICON_NAME: string = "Incite22";
+local INCITE_BY_PLAYER_STATUS_ICON_NAME		: string = "InciteByMe22";	--TODO: Asset requested
+
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
@@ -572,7 +577,7 @@ function UnitFlag.UpdateName( self )
                 if(barbType >= 0)then
                     local pBarbTribe : table = GameInfo.BarbarianTribeNames[barbType];
                     nameString = nameString .. "[NEWLINE]" .. Locale.Lookup(pBarbTribe.TribeDisplayName);
-    
+
                     --Add any Barbarian Tribe specific statuses (bribed, incited) to the unit tooltip
                     if(bribedTurnsRemaining > 0)then
                         --Add bribe turns remaining to the unit tooltip
