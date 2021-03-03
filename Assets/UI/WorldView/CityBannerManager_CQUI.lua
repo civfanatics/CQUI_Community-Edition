@@ -18,6 +18,7 @@ BASE_CQUI_OnGameDebugReturn = OnGameDebugReturn;
 BASE_CQUI_OnInterfaceModeChanged = OnInterfaceModeChanged;
 BASE_CQUI_OnShutdown = OnShutdown;
 BASE_CQUI_Reload = Reload;
+BASE_CQUI_OnImprovementAddedToMap = OnImprovementAddedToMap;
 
 -- These functions only exist in the Expansions
 BASE_CQUI_CityBanner_Uninitialize = nil;
@@ -1260,17 +1261,7 @@ end
 
 -- ===========================================================================
 function OnDistrictAddedToMap( playerID: number, districtID : number, cityID :number, districtX : number, districtY : number, districtType:number, percentComplete:number )
-    -- print("CityBannerManager_CQUI: OnDistrictAddedToMap ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID).." cityID:"..tostring(cityID).." districtXY:"..tostring(districtX)..","..tostring(districtY).." districtType:"..tostring(districtType).." pctComplete:"..tostring(percentComplete));
-    -- The call from Reload() passes in the value meant for districtX as cityID, and the value meant for districtY as districtX... and this is in the base Firaxis code and makes no sense?
-    if (districtY == nil) then
-        districtY = districtX;
-        districtX = cityID;
-    end
-
-    local locX = districtX;
-    local locY = districtY;
-    local type = districtType;
-
+    print("CityBannerManager_CQUI: OnDistrictAddedToMap ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID).." cityID:"..tostring(cityID).." districtXY:"..tostring(districtX)..","..tostring(districtY).." districtType:"..tostring(districtType).." pctComplete:"..tostring(percentComplete));
     local pPlayer = Players[playerID];
 
     if (pPlayer == nil) then
@@ -1334,75 +1325,17 @@ end
 
 -- ===========================================================================
 function OnImprovementAddedToMap(locX, locY, eImprovementType, eOwner)
-    -- print("CityBannerManager_CQUI: OnImprovementAddedToMap ENTRY locXY:"..tostring(locX)..","..tostring(locY).." eImprovementType:"..tostring(eImprovementType).." eOwner:"..tostring(eOwner));
-    if eImprovementType == -1 then
-        UI.DataError("Received -1 eImprovementType for ("..tostring(locX)..","..tostring(locY)..") and owner "..tostring(eOwner));
-        -- print("CityBannerManager_CQUI: OnImprovementAddedToMap EXIT (invalid improvement type)");
-        return;
-    end
+   -- print("CityBannerManager_CQUI: OnImprovementAddedToMap ENTRY locXY:"..tostring(locX)..","..tostring(locY).." eImprovementType:"..tostring(eImprovementType).." eOwner:"..tostring(eOwner));
+    BASE_CQUI_OnImprovementAddedToMap(locX, locY, eImprovementType, eOwner);
 
-    local improvementData:table = GameInfo.Improvements[eImprovementType];
-
-    if improvementData == nil then
-        -- print("CityBannerManager_CQUI: OnImprovementAddedToMap EXIT (invalid improvement data)");
-        UI.DataError("No database entry for eImprovementType #"..tostring(eImprovementType).." for ("..tostring(locX)..","..tostring(locY)..") and owner "..tostring(eOwner));
-        return;
-    end
-
-    -- Check if the improvement is an Industry or Corporation (note: code copied from Firaxis CityBannerManager_KublaiKhanVietnam_MODE.lua)
-    local bIsIndustry:boolean = false;
-    local bIsCorporation:boolean = false;
-    local improvementDataMODE:table = GameInfo.Improvements_MODE[improvementData.Hash];
-    if (improvementDataMODE ~= nil) then
-        if (improvementDataMODE.Industry) then
-            bIsIndustry = true;
-        elseif (improvementDataMODE.Corporation) then
-            bIsCorporation = true;
-        end
-    end
-
+    -- Get the minibanner to force its position to update in order to work around some weirdness happening when the game is loaded
     local pPlayer:table = Players[eOwner];
-    local localPlayerID:number = Game.GetLocalPlayer();
     if (pPlayer ~= nil) then
         local plotID = Map.GetPlotIndex(locX, locY);
         if (plotID ~= nil) then
             local miniBanner = GetMiniBanner( eOwner, plotID );
-            if (miniBanner == nil) then
-                if (improvementData.AirSlots > 0) then
-                    --we're passing -1 as the cityID and the plotID as the districtID argument since Airstrips aren't associated with a city or a district
-                    AddMiniBannerToMap( eOwner, -1, plotID, BANNERTYPE_AERODROME );
-                elseif (improvementData.WeaponSlots > 0) then
-                    local ownerCity = Cities.GetPlotPurchaseCity(locX, locY);
-                    local cityID = ownerCity:GetID();
-                    -- we're passing the plotID as the districtID argument because we need the location of the improvement
-                    AddMiniBannerToMap( eOwner, cityID, plotID, BANNERTYPE_MISSILE_SILO );
-                elseif (improvementData.ImprovementType == "IMPROVEMENT_MOUNTAIN_TUNNEL") then
-                    --we're passing -1 as the cityID and the plotID as the districtID argument since Mountain Tunnels aren't associated with a city or a district
-                    AddMiniBannerToMap( eOwner, -1, plotID, BANNERTYPE_MOUNTAIN_TUNNEL );
-                elseif (improvementData.ImprovementType == "IMPROVEMENT_MOUNTAIN_ROAD") then
-                    --we're passing -1 as the cityID and the plotID as the districtID argument since Qhapaq Nans aren't associated with a city or a district
-                    AddMiniBannerToMap( eOwner, -1, plotID, BANNERTYPE_QHAPAQ_NAN);
-                elseif ( bIsIndustry ) then
-                    local ownerCity = Cities.GetPlotPurchaseCity(locX, locY);
-                    local cityID = ownerCity:GetID();
-                    -- we're passing the plotID as the districtID argument because we need the location of the improvement
-                    AddMiniBannerToMap( eOwner, cityID, plotID, BANNERTYPE_INDUSTRY );
-                elseif ( bIsCorporation ) then
-                    local ownerCity = Cities.GetPlotPurchaseCity(locX, locY);
-                    local cityID = ownerCity:GetID();
-                    -- we're passing the plotID as the districtID argument because we need the location of the improvement
-                    AddMiniBannerToMap( eOwner, cityID, plotID, BANNERTYPE_CORPORATION );
-                end
-            else
-                miniBanner:UpdateStats();
-                -- Force the position to update as there's some weirdness on gameload
+            if (miniBanner ~= nil) then
                 miniBanner:UpdatePosition();
-                -- Vanilla/Basegame uses SetColor, Expansions use UpdateColor
-                if (miniBanner.UpdateColor ~= nil) then
-                    miniBanner:UpdateColor();
-                else
-                    miniBanner:SetColor();
-                end
             end
         end
     end
@@ -1824,17 +1757,9 @@ end
 
 -- ===========================================================================
 function CQUI_SetCityStrikeButtonLocation(cityBannerInstance, rotate, offsetY, anchor)
-    cityStrikeImage = nil;
-    if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
-        cityStrikeImage = cityBannerInstance.CityStrike;
-    else
-        -- Basegame calls this CityAttackContainer
-        cityStrikeImage = cityBannerInstance.CityAttackContainer;
-    end
-
-    cityStrikeImage:Rotate(rotate);
-    cityStrikeImage:SetOffsetVal(0, offsetY);
-    cityStrikeImage:SetAnchor(anchor);
+    cityBannerInstance.CityStrike:Rotate(rotate);
+    cityBannerInstance.CityStrike:SetOffsetVal(0, offsetY);
+    cityBannerInstance.CityStrike:SetAnchor(anchor);
 end
 
 -- ===========================================================================
@@ -2026,7 +1951,7 @@ end
 -- CQUI Initialize Function
 -- ===========================================================================
 function Initialize_CityBannerManager_CQUI()
-    -- print("CityBannerManager_CQUI: Initialize CQUI CityBannerManager ENTRY");
+    -- print("CityBannerManager_CQUI: Initialize_CityBannerManager_CQUI ENTRY");
     if (IsCQUI_CityBannerXMLLoaded()) then
         CQUI_PlotIM = InstanceManager:new( "CQUI_WorkedPlotInstance", "Anchor", Controls.CQUI_WorkedPlotContainer );
     end

@@ -1,3 +1,6 @@
+<!-- TODO: Firaxis made changes to the City Banner Files for vanilla, using the file layout they use with the Expansions.  -->
+<!--       There appear to be no significant changes with that move, aside from renaming the "CityAttackContainer" to "CityStrike" and "CityRangeStrikeButton" to "CityStrikeButton"  -->
+
 <?xml version="1.0" encoding="utf-8" ?>
 
 <Context>
@@ -128,8 +131,8 @@
                     </Container>
                 </Stack>
 
-                <Image ID="CityAttackContainer" Texture="CityBannerRangeAttackRim" Size="36,45" Anchor="C,B" AnchorSide="I,O" Offset="0,-6">
-                    <Button ID="CityRangeStrikeButton" Style="CityBannerRangeAttack" Anchor="C,B" Offset="0,10" StateOffsetIncrement="0,25" ConsumeMouse="1" ToolTip="LOC_CITY_BANNER_CITY_RANGE_STRIKE"/>
+                <Image ID="CityStrike" Texture="CityBannerRangeAttackRim" Size="36,45" Anchor="C,B" AnchorSide="I,O" Offset="0,-6">
+                    <Button ID="CityStrikeButton" Style="CityBannerRangeAttack" Anchor="C,B" Offset="0,10" StateOffsetIncrement="0,25" ConsumeMouse="1" ToolTip="LOC_CITY_BANNER_CITY_RANGE_STRIKE"/>
                 </Image>
 
                 <Grid ID="BannerStrengthBacking" Texture="Banner_StrengthBacking" Size="55,15" Anchor="C,T" SliceTextureSize="42,15" SliceCorner="21,7" AnchorSide="I,O" Color="255,255,255,150">
@@ -237,8 +240,8 @@
 
                 <Grid ID="CityStateQuest" Texture="CityStateQuest28" SliceTextureSize="28,23" SliceCorner="14,6" Size="28,30" Hidden="1" Offset="-5,-22" />
 
-                <Image ID="CityAttackContainer" Texture="CityBannerRangeAttackRim" Size="36,45" Anchor="C,B" AnchorSide="I,O" Offset="0,-6">
-                    <Button ID="CityRangeStrikeButton" Style="CityBannerRangeAttack" Anchor="C,B" Offset="0,10" StateOffsetIncrement="0,25" ConsumeMouse="1" ToolTip="LOC_CITY_BANNER_CITY_RANGE_STRIKE"/>
+                <Image ID="CityStrike" Texture="CityBannerRangeAttackRim" Size="36,45" Anchor="C,B" AnchorSide="I,O" Offset="0,-6">
+                    <Button ID="CityStrikeButton" Style="CityBannerRangeAttack" Anchor="C,B" Offset="0,10" StateOffsetIncrement="0,25" ConsumeMouse="1" ToolTip="LOC_CITY_BANNER_CITY_RANGE_STRIKE"/>
                 </Image>
 
                 <Grid ID="BannerStrengthBacking" Texture="Banner_StrengthBacking" Size="55,15" Anchor="C,T" SliceTextureSize="42,15" SliceCorner="21,7" AnchorSide="I,O" Color="255,255,255,150">
@@ -396,8 +399,8 @@
                 </Grid>
 
                 <!-- District ranged strike button -->
-                <Image ID="CityAttackContainer" Texture="CityBannerRangeAttackRim" Size="36,45" Anchor="C,B" Offset="0,-4" AnchorSide="I,O">
-                    <Button ID="CityRangeStrikeButton" Style="CityBannerRangeAttack" Anchor="C,B" Offset="0,10" StateOffsetIncrement="0,25" ConsumeMouse="1" ToolTip="LOC_CITY_BANNER_DISTRICT_RANGE_STRIKE"/>
+                <Image ID="CityStrike" Texture="CityBannerRangeAttackRim" Size="36,45" Anchor="C,B" Offset="0,-4" AnchorSide="I,O">
+                    <Button ID="CityStrikeButton" Style="CityBannerRangeAttack" Anchor="C,B" Offset="0,10" StateOffsetIncrement="0,25" ConsumeMouse="1" ToolTip="LOC_CITY_BANNER_DISTRICT_RANGE_STRIKE"/>
                 </Image>
             </Container>
         </ZoomAnchor>
@@ -529,4 +532,19 @@
         </ZoomAnchor>
     </Instance>
 
+    <!-- Barbarian Tribe Minibanner -->
+    <!-- This is in place in order to allow CQUI and the new Barbarian Tribes Mode to co-exist.  This is a copy of the Instance object Firaxis defined in the CityBannerManager.xml that accompanies that new mode. -->
+    <Instance	Name="TribeBanner">
+        <ZoomAnchor ID="Anchor" ZoomOffsetNear="0,0,0" ZoomOffsetFar="0,0,-20">
+            <Container ID="TribeBannerContainer" Anchor="C,C" Size="106,34">
+                <Button ID="TribeBannerButton" Anchor="C,C" Size="parent,parent"/>
+                
+                <Grid ID="Banner_Base"    Size="Parent,Parent" Texture="BannerMini_Base_Combo" SliceCorner="18,9" SliceSize="44,16" SliceTextureSize="80,34"/>
+                <Image ID="TribeIcon" Anchor="L,C" Offset="0,0" Size="30,30" Icon="ICON_DISTRICT_CITY_CENTER"/>
+                <TextureBar Anchor="C,C" Offset="5,0" Size="60,7"	Texture="CityBannerShieldsBar1" Direction="Right" Speed="1" Percent="1.0" Color="40,64,82,200"/>
+                <TextureBar ID="ConversionBar" Anchor="C,C" Offset="5,0"	Size="60,7"	Texture="CityBannerShieldsBar1" Direction="Right" Speed="1" Percent="1.0" Color="120,198,247,255"/>
+
+            </Container>
+        </ZoomAnchor>
+    </Instance>
 </Context>

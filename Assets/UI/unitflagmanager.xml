@@ -7,6 +7,7 @@
     <Container ID="TradeFlags"/>
     <Container ID="SupportFlags"/>
     <Container ID="NavalFlags"/>
+    <Container ID="CQUI_UnitFlagManager_HiddenContainer" Hidden="1"/>
 
     <Instance Name="UnitFlag">
         <!-- TODO clamp zoom level from 0.6 to 1 -->
@@ -58,6 +59,10 @@
                         <Image ID="New_Promotion_Flag" Size="20,25" Texture="UnitFlag_Promo.dds" Hidden="1" Color="255,255,0,255" />
                     </AlphaAnim>
                     <Label ID="UnitNumPromotions" Anchor="C,C" Offset="-1,1" Style="FontFlair20" Color="0,0,0,255"/>
+                </Image>
+                <!-- Imported from the Barbarian Tribes Mode -->
+                <Image ID="TribeStatusFlag" Anchor="R,C" Size="20,25" Offset="-8,0" Texture="UnitFlag_Promo.dds" Hidden="1">
+                    <Image ID="TribeStatusIcon" Anchor="C,C" Offset="-1,0" Size="22,22" Texture="Bribe22"/>
                 </Image>
                 <!-- Corps and Army Indicators -->
                 <Container ID="CorpsMarker" Size="10,10" Anchor="C,T" Hidden="1" Offset="1,4">

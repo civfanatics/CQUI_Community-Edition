@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Context>
     <!-- ====== CQUI CityBannerManager Replacement File ====== -->
-  <Include File="CityBannerInstances"/>
+    <Include File="CityBannerInstances"/>
     <!-- No changes to this file from the unmodified version, aside from adding a hidden container that is used to verify this file was loaded.  -->
     <!-- In Linux especially, the Modding.log file does not always show a failure to load this XML or any of the "Include" files below. -->
     <!-- To see if this file loaded in the Live Tuner, change the Lua State to CityBannerManager and then run the following command: -->
@@ -18,4 +18,19 @@
     <Container ID="CityDistrictIcons"/>
 
     <Container ID="CQUI_WorkedPlotContainer" />
+
+    <!-- Copied from the Barbarian Tribes DLC, so CQUI can work with it -->
+    <Instance Name="TribeBanner">
+        <ZoomAnchor ID="Anchor" ZoomOffsetNear="0,0,0" ZoomOffsetFar="0,0,-20">
+            <Container ID="TribeBannerContainer" Anchor="C,C" Size="106,34">
+                <Button ID="TribeBannerButton" Anchor="C,C" Size="parent,parent"/>
+
+                <Grid ID="Banner_Base" Size="Parent,Parent" Texture="BannerMini_Base_Combo" SliceCorner="18,9" SliceSize="44,16" SliceTextureSize="80,34"/>
+                <Image ID="TribeIcon" Anchor="L,C" Offset="0,0" Size="30,30" Icon="ICON_DISTRICT_CITY_CENTER"/>
+                <TextureBar Anchor="C,C" Offset="5,0" Size="60,7" Texture="CityBannerShieldsBar1" Direction="Right" Speed="1" Percent="1.0" Color="40,64,82,200"/>
+                <TextureBar ID="ConversionBar" Anchor="C,C" Offset="5,0" Size="60,7" Texture="CityBannerShieldsBar1" Direction="Right" Speed="1" Percent="1.0" Color="120,198,247,255"/>
+
+            </Container>
+        </ZoomAnchor>
+    </Instance>
 </Context>

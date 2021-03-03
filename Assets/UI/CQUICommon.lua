@@ -18,6 +18,8 @@
 g_bIsRiseAndFall    = Modding and Modding.IsModActive("1B28771A-C749-434B-9053-D1380C553DE9"); -- Rise & Fall
 g_bIsGatheringStorm = Modding and Modding.IsModActive("4873eb62-8ccc-4574-b784-dda455e74e68"); -- Gathering Storm
 g_bIsBaseGame       = not g_bIsRiseAndFall and not g_bIsGatheringStorm;
+-- Required for Workaround for the Barbarian Clans Mode replacing UnitFlagManager.lua and PlotToolTip.lua via ReplaceUIScript
+g_bIsBarbarianClansMode = Modding and Modding.IsModActive("19ED1A36-D744-4A58-8F8B-0376C2BA86E5"); -- Barbarian Clans Mode
 
 -- ===========================================================================
 -- Debug support

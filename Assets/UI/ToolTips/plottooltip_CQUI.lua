@@ -1,3 +1,6 @@
+print("*** CQUI: PlotToolTip_CQUI.lua loaded");
+include ("CQUICommon.lua");
+
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
@@ -341,6 +344,19 @@ function GetDetails(data)
                 improvementStr = improvementStr .. " " .. Locale.Lookup("LOC_TOOLTIP_PLOT_PILLAGED_TEXT");
             end
             table.insert(details, improvementStr)
+            -- ==== CQUI WORKAROUND: Incorporate inforamtion from  the Barbarian Clans Mode to enable CQUI and that mode to work together ====
+            -- ==== Firaxis added a ReplaceUIScript for PlotToolTip with the Barbarian Clans mode; incorporating this code allows CQUI to load its PlotToolTip
+            if (g_bIsBarbarianClansMode and data.ImprovementType == "IMPROVEMENT_BARBARIAN_CAMP") then
+                local pBarbManager = Game.GetBarbarianManager();
+                local iTribeIndex = pBarbManager:GetTribeIndexAtLocation(data.X, data.Y);
+                if (iTribeIndex >= 0) then
+                    local eTribeName = pBarbManager:GetTribeNameType(iTribeIndex);
+                    if (GameInfo.BarbarianTribeNames[eTribeName] ~= nil) then
+                        local tribeNameStr = Locale.Lookup("LOC_TOOLTIP_BARBARIAN_CLAN_NAME", GameInfo.BarbarianTribeNames[eTribeName].TribeDisplayName);
+                        table.insert(details, tribeNameStr);
+                    end
+                end
+            end
         end
 
         for yieldType, v in pairs(data.Yields) do
@@ -423,7 +439,7 @@ function View(data:table, bIsUpdate:boolean)
     Controls.PlotName:SetHide(true)
 end
 
-function Initialize()
+function Initialize_PlotTooltip_CQUI()
     Controls.TooltipMain:SetSpeed(8);  -- CQUI : tooltip spawn faster
 end
-Initialize();
+Initialize_PlotTooltip_CQUI();
