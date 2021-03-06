@@ -115,7 +115,7 @@ function CQUI_ClearDistrictBuildingLayers()
 end
 
 -- ===========================================================================
---    CQUI modified View functiton
+--    CQUI modified View function
 --    create the list of purchasable items
 -- ===========================================================================
 function View(data)
@@ -200,7 +200,7 @@ function View(data)
 end
 
 -- ===========================================================================
---    CQUI modified GetData functiton
+--    CQUI modified GetData function
 --    add religious units to the unit list
 -- ===========================================================================
 function GetData()
@@ -257,7 +257,7 @@ function GetData()
 end
 
 -- ===========================================================================
---    CQUI modified GetTurnsToCompleteStrings functiton
+--    CQUI modified GetTurnsToCompleteStrings function
 --    add gold and faith purchase in the same list
 -- ===========================================================================
 function GetTurnsToCompleteStrings( turnsToComplete:number )
@@ -280,7 +280,7 @@ function GetTurnsToCompleteStrings( turnsToComplete:number )
 end
 
 -- ===========================================================================
---    CQUI modified PopulateGenericItemData functiton
+--    CQUI modified PopulateGenericItemData function
 --    add gold and faith purchase in the same list
 -- ===========================================================================
 function PopulateGenericItemData( kInstance:table, kItem:table )
@@ -501,7 +501,7 @@ function ZoneDistrict(city, districtEntry)
 end
 
 -- ===========================================================================
---    CQUI modified Close functiton
+--    CQUI modified Close function
 --    Add a check to see if we're placing something down (no need to close)
 --    Changed the condition of closing (not IsReversing)
 -- ===========================================================================
