@@ -228,12 +228,11 @@ function CQUI_OnInterfaceModeChanged( eOldMode:number, eNewMode:number )
         else
             LuaEvents.CQUI_CityviewEnable();
         end
-    elseif (eOldMode == InterfaceModeTypes.CITY_RANGE_ATTACK) then
-        if (eNewMode == InterfaceModeTypes.CITY_MANAGEMENT) then
+    elseif (eNewMode == InterfaceModeTypes.CITY_MANAGEMENT) then
             LuaEvents.CQUI_CityviewEnable(); -- AZURENCY : always show the cityview if new mode is CITY_MANAGEMENT
-        else
-            UI.DeselectAllCities()
-        end
+    --else
+        --    UI.DeselectAllCities()
+        --end
     end
 end
 
@@ -243,40 +242,6 @@ function CQUI_ClearGrowthTile()
     if g_growthPlotId ~= -1 then
         UILens.ClearHex(m_PurchasePlot, g_growthPlotId);
         g_growthPlotId = -1;
-    end
-end
-
--- ===========================================================================
-function CQUI_OnCitySelectionChanged( ownerPlayerID:number, cityID:number, i:number, j:number, k:number, isSelected:boolean, isEditable:boolean)
-    if (ownerPlayerID == Game.GetLocalPlayer()) then
-        if (isSelected) then
-            -- Determine if should switch to cityview mode
-            local shouldSwitchToCityview:boolean = true;
-            if UI.GetInterfaceMode() == InterfaceModeTypes.ICBM_STRIKE then
-                -- During ICBM_STRIKE only switch to cityview if we're selecting a city
-                -- which doesn't own the active missile silo
-                local siloPlotX:number = UI.GetInterfaceModeParameter(CityCommandTypes.PARAM_X0);
-                local siloPlotY:number = UI.GetInterfaceModeParameter(CityCommandTypes.PARAM_Y0);
-                local siloPlot:table = Map.GetPlot(siloPlotX, siloPlotY);
-                if siloPlot then
-                    local owningCity = Cities.GetPlotPurchaseCity(siloPlot);
-                    if owningCity:GetID() == cityID then
-                        shouldSwitchToCityview = false;
-                    end
-                end
-            end
-            if (CQUI_usingStrikeButton) then
-                shouldSwitchToCityview = false;
-                -- AZURENCY : Set the strike mode back to the default value
-                CQUI_usingStrikeButton = false;
-            end
-            if shouldSwitchToCityview then
-                LuaEvents.CQUI_CityviewEnable();
-                Refresh();
-            end
-        else
-            HideGrowthTile();
-        end
     end
 end
 
@@ -354,10 +319,10 @@ end
 -- ===========================================================================
 function Close()
     -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-    Controls.CityPanelAlpha:SetToBeginning();
-    Controls.CityPanelAlpha:Play();
-    Controls.CityPanelSlide:SetToBeginning();
-    Controls.CityPanelSlide:Play();
+    --Controls.CityPanelAlpha:SetToBeginning();
+    --Controls.CityPanelAlpha:Play();
+    --Controls.CityPanelSlide:SetToBeginning();
+    --Controls.CityPanelSlide:Play();
     -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     ContextPtr:SetHide( true );
 end
@@ -451,7 +416,7 @@ function ViewMain( data:table )
     if (m_primaryColor == nil or m_secondaryColor == nil or m_primaryColor == 0 or m_secondaryColor == 0) then
         UI.DataError("Couldn't find player colors for player - " .. (m_pPlayer and tostring(m_pPlayer:GetID()) or "nil"));
     end
-    
+
     local darkerBackColor = UI.DarkenLightenColor(m_primaryColor,-85,100);
     local brighterBackColor = UI.DarkenLightenColor(m_primaryColor,90,255);
     m_CurrentPanelLine = 0;
@@ -1181,11 +1146,69 @@ function OnToggleOverviewPanel()
     end
 end
 
--- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
--- CQUI Replaces this function with CQUI_OnCitySelectionChanged (function header shown here at location it appears in unmodified citypanel.lua)
--- function OnCitySelectionChanged( ownerPlayerID:number, cityID:number, i:number, j:number, k:number, isSelected:boolean, isEditable:boolean)
--- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+function OnCitySelectionChanged( ownerPlayerID:number, cityID:number, i:number, j:number, k:number, isSelected:boolean, isEditable:boolean)
+	if ownerPlayerID == Game.GetLocalPlayer() then
+		if (isSelected) then
+			-- Determine if we should switch to the SELECTION interface mode
+			local shouldSwitchToSelection:boolean = UI.GetInterfaceMode() ~= InterfaceModeTypes.CITY_SELECTION;
+			if UI.GetInterfaceMode() == InterfaceModeTypes.CITY_MANAGEMENT then
+				HideGrowthTile();
+				shouldSwitchToSelection = false;
+			end
+			if UI.GetInterfaceMode() == InterfaceModeTypes.ICBM_STRIKE then
+				-- During ICBM_STRIKE only switch to SELECTION if we're selecting a city
+				-- which doesn't own the active missile silo
+				local siloPlotX:number = UI.GetInterfaceModeParameter(CityCommandTypes.PARAM_X0);
+				local siloPlotY:number = UI.GetInterfaceModeParameter(CityCommandTypes.PARAM_Y0);
+				local siloPlot:table = Map.GetPlot(siloPlotX, siloPlotY);
+				if siloPlot then
+					local owningCity = Cities.GetPlotPurchaseCity(siloPlot);
+					if owningCity:GetID() == cityID then
+						shouldSwitchToSelection = false;
+					end
+				end
+			end
+			if UI.GetInterfaceMode() == InterfaceModeTypes.CITY_RANGE_ATTACK then
+				-- During CITY_RANGE_ATTACK only switch to SELECTION if we're selecting a city
+				-- which can't currently perform a ranged attack
+				if CityManager.CanStartCommand( CityManager.GetCity(owningPlayerID, cityID), CityCommandTypes.RANGE_ATTACK ) then
+						shouldSwitchToSelection = false;
+						--we switch to selection mode briefly so that we can go back into CITY_RANGE_ATTACK with the correct settings
+						UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
+						UI.SetInterfaceMode(InterfaceModeTypes.CITY_RANGE_ATTACK);
+				end
+			end
+			if shouldSwitchToSelection then
+				UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
+			end
 
+			OnToggleOverviewPanel();
+			ContextPtr:SetHide(false);
+
+			-- Handle case where production panel is opened from clicking a city banener directly.
+			local isProductionOpen:boolean = false;
+			local uiProductionPanel:table = ContextPtr:LookUpControl("/InGame/ProductionPanel");
+			if uiProductionPanel and uiProductionPanel:IsHidden()==false then
+				isProductionOpen = true;
+			end
+			if isProductionOpen then
+				AnimateToWithProductionQueue();
+			else
+				AnimateFromCloseToOpen();
+			end
+
+
+			Refresh();
+			if UI.GetInterfaceMode() == InterfaceModeTypes.CITY_MANAGEMENT then
+				DisplayGrowthTile();
+			end
+		else
+			Close();
+			-- Tell the CityPanelOverview a city was deselected
+			LuaEvents.CityPanel_LiveCityDataChanged( nil, false );
+		end
+	end
+end
 -- ===========================================================================
 function AnimateFromCloseToOpen()
     Controls.CityPanelAlpha:SetToBeginning();
@@ -1197,21 +1220,21 @@ function AnimateFromCloseToOpen()
 end
 
 -- ===========================================================================
-function AnimateToWithProductionQueue()                 
+function AnimateToWithProductionQueue()
     if IsRoomToPushOutPanel() then
         Controls.CityPanelSlide:SetEndVal(ANIM_OFFSET_OPEN_WITH_PRODUCTION_LIST,0);
-        Controls.CityPanelSlide:RegisterEndCallback( function() Controls.CityPanelSlide:SetBeginVal(ANIM_OFFSET_OPEN_WITH_PRODUCTION_LIST,0); end );                
+        Controls.CityPanelSlide:RegisterEndCallback( function() Controls.CityPanelSlide:SetBeginVal(ANIM_OFFSET_OPEN_WITH_PRODUCTION_LIST,0); end );
         Controls.CityPanelSlide:SetToBeginning();
         Controls.CityPanelSlide:Play();
     end
 end
 
 -- ===========================================================================
-function AnimateToOpenFromWithProductionQueue() 
+function AnimateToOpenFromWithProductionQueue()
     if IsRoomToPushOutPanel() then
         Controls.CityPanelSlide:SetEndVal(ANIM_OFFSET_OPEN,0);
         Controls.CityPanelSlide:RegisterEndCallback( function() Controls.CityPanelSlide:SetBeginVal(ANIM_OFFSET_OPEN,0); end );
-        Controls.CityPanelSlide:SetToBeginning();     
+        Controls.CityPanelSlide:SetToBeginning();
         Controls.CityPanelSlide:Play();
     end
 end
@@ -1226,7 +1249,7 @@ function IsRoomToPushOutPanel()
     local uiMinimap:table = ContextPtr:LookUpControl("/InGame/MinimapPanel/MinimapContainer");
     if uiMinimap then
         local minimapWidth, minimapHeight = uiMinimap:GetSizeVal();
-        width = width - minimapWidth;     
+        width = width - minimapWidth;
     end
 
     return ( width > 850);    -- Does remaining width have enough space for both?
@@ -1272,9 +1295,6 @@ function OnShutdown()
         -- Game Core Events
     Events.CityAddedToMap.Remove(          OnCityAddedToMap );
     Events.CityNameChanged.Remove(         OnCityNameChanged );
-    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-    Events.CitySelectionChanged.Remove(    CQUI_OnCitySelectionChanged );
-    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     Events.CityFocusChanged.Remove(        OnCityFocusChange );
     Events.CityProductionCompleted.Remove( OnCityProductionCompleted );
     Events.CityProductionUpdated.Remove(   OnCityProductionUpdated );
@@ -1784,9 +1804,7 @@ function Initialize()
     -- Game Core Events
     Events.CityAddedToMap         .Add( OnCityAddedToMap );
     Events.CityNameChanged        .Add( OnCityNameChanged );
-    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-    Events.CitySelectionChanged   .Add( CQUI_OnCitySelectionChanged );
-    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+    Events.CitySelectionChanged   .Add(	OnCitySelectionChanged );
     Events.CityFocusChanged       .Add( OnCityFocusChange );
     Events.CityProductionCompleted.Add( OnCityProductionCompleted );
     Events.CityProductionUpdated  .Add( OnCityProductionUpdated );

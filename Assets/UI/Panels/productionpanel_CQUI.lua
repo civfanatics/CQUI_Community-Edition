@@ -9,7 +9,6 @@ include("StrategicView_MapPlacement");    -- RealizePlotArtForDistrictPlacement,
 -- ===========================================================================
 BASE_OnInterfaceModeChanged = OnInterfaceModeChanged;
 BASE_OnClose = OnClose;
-BASE_OnCityBannerManagerProductionToggle = OnCityBannerManagerProductionToggle;
 BASE_PopulateGenericItemData = PopulateGenericItemData;
 BASE_View = View;
 BASE_GetData = GetData;
@@ -27,17 +26,21 @@ local CQUI_PurchaseTable = {}; -- key = item Hash
 local CQUI_ProductionQueue :boolean = true;
 local CQUI_ShowProductionRecommendations :boolean = false;
 local CQUI_ManagerShowing = false;
+local CQUI_InCityView     :boolean = false;
 local m_AdjacencyBonusDistricts : number = UILens.CreateLensLayerHash("Adjacency_Bonus_Districts");
 local m_Districts : number = UILens.CreateLensLayerHash("Districts");
 
 function CQUI_OnSettingsUpdate()
     CQUI_ProductionQueue = GameConfiguration.GetValue("CQUI_ProductionQueue");
     CQUI_ShowProductionRecommendations = GameConfiguration.GetValue("CQUI_ShowProductionRecommendations") == 1
-    CQUI_SelectRightTab()
+    CQUI_SelectCorrectUnderlyingTab()
+    --UserConfiguration.AutoProdQueueEnabled(CQUI_ProductionQueue);
     Controls.CQUI_ShowManagerButton:SetHide(not CQUI_ProductionQueue);
+    Controls.CQUI_ShowQueueButton:SetSelected(CQUI_ProductionQueue);
 end
 
-function CQUI_SelectRightTab()
+function CQUI_SelectCorrectUnderlyingTab()
+    Controls.CQUI_ShowQueueButton:SetSelected(CQUI_ProductionQueue);
     if (not CQUI_ProductionQueue) then
         OnTabChangeProduction();
     else
@@ -53,6 +56,7 @@ function CQUI_ToggleManager()
         CQUI_ManagerShowing = true;
         OnTabChangeManager();
     end
+    Controls.CQUI_ShowQueueButton:SetSelected(CQUI_ProductionQueue);
     Controls.CQUI_ShowManagerButton:SetSelected(CQUI_ManagerShowing);
 end
 
@@ -98,20 +102,15 @@ end
 
 function CQUI_ClearDistrictBuildingLayers()
     -- Make it's the right mode.
-    if (UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT) then
+    if (UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT or UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT) then
         -- Clear existing art then re-realize
         UILens.ClearLayerHexes( m_AdjacencyBonusDistricts );
         UILens.ClearLayerHexes( m_Districts );
         RealizePlotArtForDistrictPlacement();
-    elseif (UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT) then
-        -- Clear existing art then re-realize
-        UILens.ClearLayerHexes( m_AdjacencyBonusDistricts );
-        UILens.ClearLayerHexes( m_Districts );
-        RealizePlotArtForWonderPlacement();
+        LuaEvents.CQUI_RefreshPurchasePlots();
+        LuaEvents.CQUI_DistrictPlotIconManager_ClearEverything();
+        LuaEvents.CQUI_Realize2dArtForDistrictPlacement();
     end
-    LuaEvents.CQUI_RefreshPurchasePlots();
-    LuaEvents.CQUI_DistrictPlotIconManager_ClearEverything();
-    LuaEvents.CQUI_Realize2dArtForDistrictPlacement();
 end
 
 -- ===========================================================================
@@ -120,7 +119,7 @@ end
 -- ===========================================================================
 function View(data)
     for i, item in ipairs(data.UnitPurchases) do
-        if item.Yield then 
+        if item.Yield then
             if (CQUI_PurchaseTable[item.Hash] == nil) then
                 CQUI_PurchaseTable[item.Hash] = {};
             end
@@ -159,7 +158,7 @@ function View(data)
     end
 
     for i, item in ipairs(data.DistrictPurchases) do
-        if item.Yield then 
+        if item.Yield then
             if (CQUI_PurchaseTable[item.Hash] == nil) then
                 CQUI_PurchaseTable[item.Hash] = {};
             end
@@ -178,7 +177,7 @@ function View(data)
     end
 
     for i, item in ipairs(data.BuildingPurchases) do
-        if item.Yield then 
+        if item.Yield then
             if (CQUI_PurchaseTable[item.Hash] == nil) then
                 CQUI_PurchaseTable[item.Hash] = {};
             end
@@ -225,16 +224,16 @@ function GetData()
             local sToolTip    :string = ToolTipHelper.GetUnitToolTip( row.Hash, MilitaryFormationTypes.STANDARD_MILITARY_FORMATION, buildQueue ) .. sAllReasons;
 
             local kUnit :table = {
-                Type                = row.UnitType, 
-                Name                = row.Name, 
-                ToolTip             = sToolTip, 
-                Hash                = row.Hash, 
-                Kind                = row.Kind, 
+                Type                = row.UnitType,
+                Name                = row.Name,
+                ToolTip             = sToolTip,
+                Hash                = row.Hash,
+                Kind                = row.Kind,
                 TurnsLeft           = CQUI_FAITH_ONLY_TURNS_LEFT,
-                Disabled            = isDisabled, 
+                Disabled            = isDisabled,
                 Civilian            = row.FormationClass == "FORMATION_CLASS_CIVILIAN",
-                Cost                = 0, 
-                Progress            = 0, 
+                Cost                = 0,
+                Progress            = 0,
                 Corps               = false,
                 CorpsCost           = 0,
                 CorpsTurnsLeft      = 1,
@@ -248,7 +247,7 @@ function GetData()
                 ReligiousStrength   = row.ReligiousStrength,
                 IsCurrentProduction = row.Hash == m_CurrentProductionHash
             };
-                
+
             table.insert(new_data.UnitItems, kUnit );
         end
     end
@@ -275,7 +274,7 @@ function GetTurnsToCompleteStrings( turnsToComplete:number )
         turnsStr = turnsToComplete .. "[ICON_Turn]";
         turnsStrTT = turnsToComplete .. Locale.Lookup("LOC_HUD_CITY_TURNS_TO_COMPLETE", turnsToComplete);
     end
-    
+
     return turnsStr, turnsStrTT;
 end
 
@@ -316,7 +315,7 @@ function PopulateGenericItemData( kInstance:table, kItem:table )
     if kInstance.ArmyFaithPurchaseButton then
         kInstance.ArmyFaithPurchaseButton:GetTextControl():SetColor(purchaseGoldFaithColor);
     end
-  
+
     -- Gold purchase button for building, district and units
     if kInstance.PurchaseButton then
         if CQUI_PurchaseTable[kItem.Hash] and CQUI_PurchaseTable[kItem.Hash]["gold"] then
@@ -326,7 +325,7 @@ function PopulateGenericItemData( kInstance:table, kItem:table )
             kInstance.PurchaseButton:SetHide(false);
             kInstance.PurchaseButton:SetDisabled(false);
             kInstance.PurchaseButton:RegisterCallback(Mouse.eLClick, CQUI_PurchaseTable[kItem.Hash]["goldCallback"]);
-            
+
             if CQUI_PurchaseTable[kItem.Hash]["goldCantAfford"] or CQUI_PurchaseTable[kItem.Hash]["goldDisabled"] then
                 kInstance.PurchaseButton:SetDisabled(true);
                 kInstance.PurchaseButton:SetColor(disabledButtonColor);
@@ -388,7 +387,7 @@ function PopulateGenericItemData( kInstance:table, kItem:table )
             kInstance.FaithPurchaseButton:SetHide(false);
             kInstance.FaithPurchaseButton:SetDisabled(false);
             kInstance.FaithPurchaseButton:RegisterCallback(Mouse.eLClick, CQUI_PurchaseTable[kItem.Hash]["faithCallback"]);
-        
+
             if CQUI_PurchaseTable[kItem.Hash]["faithCantAfford"] or CQUI_PurchaseTable[kItem.Hash]["faithDisabled"] then
                 kInstance.FaithPurchaseButton:SetDisabled(true);
                 kInstance.FaithPurchaseButton:SetColor(disabledButtonColor);
@@ -453,7 +452,7 @@ function BuildBuilding(city, buildingEntry)
     local building        :table   = GameInfo.Buildings[buildingEntry.Type];
     local bNeedsPlacement :boolean = building.RequiresPlacement;
 
-    -- UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
+    --UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
 
     local pBuildQueue = city:GetBuildQueue();
     if (pBuildQueue:HasBeenPlaced(buildingEntry.Hash)) then
@@ -471,15 +470,15 @@ function BuildBuilding(city, buildingEntry)
     -- Does the building need to be placed?
     if ( bNeedsPlacement ) then
         -- If so, set the placement mode
-        local tParameters = {}; 
+        local tParameters = {};
         tParameters[CityOperationTypes.PARAM_BUILDING_TYPE] = buildingEntry.Hash;
         GetBuildInsertMode(tParameters);
         UI.SetInterfaceMode(InterfaceModeTypes.BUILDING_PLACEMENT, tParameters);
         Close();
     else
         -- If not, add it to the queue.
-        local tParameters = {}; 
-        tParameters[CityOperationTypes.PARAM_BUILDING_TYPE] = buildingEntry.Hash;    
+        local tParameters = {};
+        tParameters[CityOperationTypes.PARAM_BUILDING_TYPE] = buildingEntry.Hash;
         GetBuildInsertMode(tParameters);
         CityManager.RequestOperation(city, CityOperationTypes.BUILD, tParameters);
         UI.PlaySound("Confirm_Production");
@@ -490,13 +489,12 @@ function BuildBuilding(city, buildingEntry)
 end
 
 -- ===========================================================================
---    CQUI modified ZoneDistrict function : 
---    If already in placing district/building mode, reset the lenses for 
+--    CQUI modified ZoneDistrict function :
+--    If already in placing district/building mode, reset the lenses for
 --    the new district/building
 -- ===========================================================================
 function ZoneDistrict(city, districtEntry)
     BASE_CQUI_ZoneDistrict(city, districtEntry);
-
     CQUI_ClearDistrictBuildingLayers();
 end
 
@@ -506,7 +504,9 @@ end
 --    Changed the condition of closing (not IsReversing)
 -- ===========================================================================
 function Close()
-    if UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT or UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT then
+    -- In CityView, keep the panel open while placing buildings
+    --if (UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT or UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT) then
+    if CQUI_InCityView and (UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT or UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT) then
         return;
     end
 
@@ -515,7 +515,12 @@ function Close()
         Controls.SlideIn:Reverse();
         Controls.AlphaIn:Reverse();
         Controls.PauseDismissWindow:Play();
-        LuaEvents.ProductionPanel_CloseManager();
+        --LuaEvents.ProductionPanel_CloseManager();
+        --Replace this event firing with our wrapper to update our button for the next time the panel opens
+        if (CQUI_ManagerShowing) then
+            CQUI_ToggleManager();
+        end
+        --LuaEvents.CQUI_CityviewDisable(); TODO Should we guarantee we exit cityView?
         LuaEvents.ProductionPanel_Close();
     end
 end
@@ -547,7 +552,7 @@ end
 function Refresh()
     CQUI_PurchaseTable = {};
 
-    BASE_Refresh()
+    BASE_Refresh();
 end
 
 -- ===========================================================================
@@ -559,8 +564,9 @@ function Open()
         UI.PlaySound("Production_Panel_Open");
         Controls.PauseDismissWindow:SetToBeginning(); -- AZURENCY : fix the callback that hide the pannel to be called during the Openning animation
         LuaEvents.ProductionPanel_Open();
+        --UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
         Refresh();
-        CQUI_SelectRightTab();
+        CQUI_SelectCorrectUnderlyingTab();
         ContextPtr:SetHide(false);
         Controls.ProductionListScroll:SetScrollValue(0);
 
@@ -576,23 +582,16 @@ end
 --    CQUI modified OnClose via click
 -- ===========================================================================
 function OnClose()
-    LuaEvents.CQUI_CityPanel_CityviewDisable();
+    Close();
 end
 
 -- ===========================================================================
 --    CQUI modified CloseAfterNewProduction
 -- ===========================================================================
 function CloseAfterNewProduction()
-    return;
-end
-
--- ===========================================================================
---    CQUI modified OnCityBannerManagerProductionToggle
--- ===========================================================================
-function OnCityBannerManagerProductionToggle()
-    if (ContextPtr:IsHidden()) then
-        Open();
-        m_tabs.SelectTab(m_productionTab);
+    -- Emulate default production panel CloseAfterNewProduction() behavior
+    if ((not CQUI_ProductionQueue) and (not CQUI_ManagerShowing)) then
+       Close();
     end
 end
 
@@ -622,10 +621,12 @@ end
 --    CQUI Cityview
 -- ===========================================================================
 function CQUI_OnCityviewEnabled()
+    CQUI_InCityView = true;
     Open();
 end
 
 function CQUI_OnCityviewDisabled()
+    CQUI_InCityView = false;
     Close();
 end
 
@@ -639,27 +640,23 @@ end
 -- ===========================================================================
 --    CQUI modified CreateCorrectTabs : no need for tabs, one unified list
 -- ===========================================================================
-function CreateCorrectTabs()
-end
+--function CreateCorrectTabs()
+--end
 
 function Initialize()
     Events.InterfaceModeChanged.Remove( BASE_OnInterfaceModeChanged );
     Events.InterfaceModeChanged.Add( OnInterfaceModeChanged );
     Events.CityMadePurchase.Add( function() Refresh(); end);
 
-    LuaEvents.CityBannerManager_ProductionToggle.Remove( BASE_OnCityBannerManagerProductionToggle );
-    LuaEvents.CityBannerManager_ProductionToggle.Add( OnCityBannerManagerProductionToggle );
-
     LuaEvents.NotificationPanel_ChooseProduction.Remove( BASE_OnNotificationPanelChooseProduction );
     LuaEvents.NotificationPanel_ChooseProduction.Add( OnNotificationPanelChooseProduction );
 
     LuaEvents.CityBannerManager_ProductionToggle.Remove( BASE_OnCityBannerManagerProductionToggle );
     LuaEvents.CityBannerManager_ProductionToggle.Add( OnCityBannerManagerProductionToggle );
-
     Controls.CloseButton:ClearCallback(Mouse.eLClick);
     Controls.CloseButton:RegisterCallback(Mouse.eLClick, OnClose);
     Controls.CQUI_ShowManagerButton:RegisterCallback(Mouse.eLClick, CQUI_ToggleManager);
-    
+
     LuaEvents.CQUI_ProductionPanel_CityviewEnable.Add( CQUI_OnCityviewEnabled);
     LuaEvents.CQUI_ProductionPanel_CityviewDisable.Add( CQUI_OnCityviewDisabled);
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
@@ -687,7 +684,7 @@ if bIsHeroMODE then
     -- Override: when clicking a Hero Devotion project, view the Hero info rather than
     -- the project info
     function RightClickProductionItem(sItemType:string)
-        
+
         local pProjectInfo = GameInfo.Projects[sItemType];
         if (pProjectInfo ~= nil) then
             for row in GameInfo.HeroClasses() do

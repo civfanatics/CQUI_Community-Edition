@@ -145,7 +145,7 @@ function CityBanner.Initialize(self, playerID, cityID, districtID, bannerType, b
 
     -- Register the MouseOver callbacks
     if (IsBannerTypeCityCenter(bannerType)) then
-        -- Register the callbacks 
+        -- Register the callbacks
         self.m_Instance.CityNameButton:RegisterCallback( Mouse.eMouseEnter, CQUI_OnBannerMouseEnter );
         self.m_Instance.CityNameButton:RegisterCallback( Mouse.eMouseExit,  CQUI_OnBannerMouseExit );
         -- Re-register normal click as it gets hidden by a new button
@@ -320,7 +320,7 @@ function CQUI_CityBanner_UpdateStats_Expansions(self)
                 local districtTooltipString = "";
                 local districtCount = 0;
                 local neighborhoodAdded = false;
-                -- Update the built districts 
+                -- Update the built districts
                 for i, district in pCityDistricts:Members() do
                     local districtType = district:GetType();
                     local districtInfo:table = GameInfo.Districts[districtType];
@@ -435,12 +435,12 @@ function CityBanner.UpdateInfo(self, pCity : table )
         -- print("CityBannerManager_CQUI: CityBanner.UpdateInfo EXIT (original city owner)");
         return;
     end
-    
+
     local tooltip:string, tooltipOrignal:string = "", "";
 
     -- #62 Infixo check if this city was previously owned by someone else
     local originalOwner:number = pCity:GetOriginalOwner();
-    
+
     if originalOwner ~= playerID then
         if pCity:IsOriginalCapital() then
             tooltipOrignal = Locale.Lookup("LOC_CQUI_CITY_BANNER_ORIGINAL_CAPITAL_TT", PlayerConfigurations[originalOwner]:GetCivilizationShortDescription());
@@ -604,7 +604,26 @@ end
 -- ===========================================================================
 function OnProductionClick( playerID, cityID )
     -- print("CityBannerManager_CQUI: OnProductionClick ENTRY");
-    OnCityBannerClick( playerID, cityID);
+    --OnCityBannerClick( playerID, cityID);
+    local pPlayer = Players[playerID];
+    if (pPlayer == nil) then
+        return;
+    end
+
+    local pCity = pPlayer:GetCities():FindID(cityID);
+    if (pCity == nil) then
+        return;
+    end
+
+    if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
+        if (pPlayer:IsFreeCities()) then
+            UI.LookAtPlotScreenPosition( pCity:GetX(), pCity:GetY(), 0.5, 0.5 );
+            return;
+        end
+    end
+
+    UI.SelectCity( pCity );
+    LuaEvents.CityBannerManager_ProductionToggle();
 end
 
 -- ===========================================================================
@@ -628,7 +647,7 @@ function Reload()
         for i, player in ipairs(players) do
             local playerID      :number = player:GetID();
             local pPlayerCities :table = players[i]:GetCities();
-      
+
             for _, city in pPlayerCities:Members() do
                 local cityID:number = city:GetID();
                 RefreshBanner(playerID, cityID) -- CQUI : refresh the banner info
@@ -697,7 +716,7 @@ function CityBanner.UpdateName( self )
     else
         self.m_Instance.CityUnderSiegeIcon:SetHide(true);
     end
-    
+
     -- Update district icons
     local districts = {};
     if (IsCQUI_CityBannerXMLLoaded()) then
@@ -768,7 +787,7 @@ function CityBanner.UpdateName( self )
                 local districtInfo:table = GameInfo.Districts[districtType];
                 local isBuilt = pCityDistricts:HasDistrict(districtInfo.Index, true);
                 if (isBuilt) then
-                    -- Items in the districts table are populated above; it does not include City Center or 
+                    -- Items in the districts table are populated above; it does not include City Center or
                     if (districts[districtType] ~= nil
                        and (districts[districtType].Instance ~= self.m_Instance.CityBuiltDistrictNeighborhood or neighborhoodAdded == false)) then
                         districtTooltipString = districtTooltipString .. districts[districtType].Icon .. " " .. Locale.Lookup(districtInfo.Name) .. "[NEWLINE]";
@@ -926,13 +945,13 @@ function CityBanner.UpdateReligion(self)
         else
             self.m_Instance.ReligionBannerIconContainer:SetHide(true);
         end
-     
+
         self:Resize();
     else
         -- Only called in the Expansions code
         self:UpdateInfo(pCity);
     end
-    
+
 
     -- Hide the meter and bail out if the religion lens isn't active
     if (not m_isReligionLensActive or table.count(religionsInCity) == 0) then
@@ -950,7 +969,7 @@ function CityBanner.UpdateReligion(self)
     if (eMajorityReligion >= 0) then
         majorityReligionColor = UI.GetColorValue(GameInfo.Religions[eMajorityReligion].Color);
     end
-    
+
     -- Preallocate total fill so we can stagger the meters
     local totalFillPercent:number = 0;
     local iCityPopulation:number = pCity:GetPopulation();
@@ -1073,7 +1092,7 @@ function CityBanner.UpdateReligion(self)
 
             local icon = "ICON_" .. religionDef.ReligionType;
             local religionColor = UI.GetColorValue(religionDef.Color);
-        
+
             -- The first index is the predominant religion. Label it as such.
             local religionName = "";
             if i == 1 then
@@ -1096,7 +1115,7 @@ function CityBanner.UpdateReligion(self)
                                                                 Locale.Lookup("LOC_HUD_REPORTS_PER_TURN", "+"..tostring(Round(activeReligionInfo.Pressure, 1))));
             else
                 -- Apply tooltip to unmodified object
-                iconInst.ReligionIconButtonBacking:SetToolTipString(religionName); 
+                iconInst.ReligionIconButtonBacking:SetToolTipString(religionName);
             end
             --end
 
@@ -1206,7 +1225,7 @@ function OnCityBannerClick( playerID, cityID )
             return;
         end
     end
-    
+
     local localPlayerID;
     if (WorldBuilder.IsActive()) then
         localPlayerID = playerID;   -- If WorldBuilder is active, allow the user to select the city
@@ -1215,11 +1234,16 @@ function OnCityBannerClick( playerID, cityID )
     end
 
     if (pPlayer:GetID() == localPlayerID) then
-        UI.SelectCity( pCity );
         UI.SetCycleAdvanceTimer(0);     -- Cancel any auto-advance timer
-        UI.SetInterfaceMode(InterfaceModeTypes.CITY_MANAGEMENT);
-    elseif (localPlayerID == PlayerTypes.OBSERVER 
-            or localPlayerID == PlayerTypes.NONE 
+        local beforeSelectedCity = UI.GetHeadSelectedCity();
+        if (beforeSelectedCity == pCity) then
+            UI.SetInterfaceMode(InterfaceModeTypes.CITY_MANAGEMENT);
+            --LuaEvents.CQUI_CityviewEnable();
+        else
+            UI.SelectCity( pCity );
+        end
+    elseif (localPlayerID == PlayerTypes.OBSERVER
+            or localPlayerID == PlayerTypes.NONE
             or pPlayer:GetDiplomacy():HasMet(localPlayerID)) then
         LuaEvents.CQUI_CityviewDisable(); -- Make sure the cityview is disable
         local pPlayerConfig :table   = PlayerConfigurations[playerID];
@@ -1228,8 +1252,8 @@ function OnCityBannerClick( playerID, cityID )
 
         if UI.GetInterfaceMode() == InterfaceModeTypes.MAKE_TRADE_ROUTE then
             local plotID = Map.GetPlotIndex(pCity:GetX(), pCity:GetY());
-            LuaEvents.CityBannerManager_MakeTradeRouteDestination( plotID );    
-        else        
+            LuaEvents.CityBannerManager_MakeTradeRouteDestination( plotID );
+        else
             if isMinorCiv then
                 if UI.GetInterfaceMode() ~= InterfaceModeTypes.SELECTION then
                     UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
@@ -1239,7 +1263,7 @@ function OnCityBannerClick( playerID, cityID )
                 LuaEvents.CityBannerManager_TalkToLeader( playerID );
             end
         end
-        
+
     end
 end
 
@@ -1367,7 +1391,7 @@ end
 function CQUI_GetDistrictIndexSafe(sDistrict)
     if GameInfo.Districts[sDistrict] == nil then
         return -1;
-    else 
+    else
         return GameInfo.Districts[sDistrict].Index;
     end
 end
@@ -1457,7 +1481,7 @@ end
 function CQUI_OnBannerMouseEnter(playerID: number, cityID: number)
     -- print("CityBannerManager_CQUI: CQUI_OnBannerMouseEnter ENTRY playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
     if (CQUI_ShowYieldsOnCityHover == false or playerID ~= Game.GetLocalPlayer() or IsCQUI_CityBannerXMLLoaded() == false) then
-        -- Doesn't make sense to show when not self; if wanting to show an allied player is desired, then code needs some cleanup 
+        -- Doesn't make sense to show when not self; if wanting to show an allied player is desired, then code needs some cleanup
         -- as it currently shows tiles for the local player city by that city ID value (cityID values are only unique per player, not universally)
         return;
     end
@@ -1733,7 +1757,7 @@ function CQUI_OnDistrictRangeStrikeButtonClick( playerID, districtID )
         UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
         return;
     end
-    
+
     UI.DeselectAll();
     UI.SelectDistrict(pDistrict);
     -- CQUI (Azurency) : Look at the district plot
@@ -1829,7 +1853,7 @@ function CQUI_UpdateCityStateBannerSuzerain( pPlayer:table, bannerInstance )
             if (suzerainID == Game.GetLocalPlayer()) then
                 bannerInstance.m_Instance.CQUI_LocalPlayerEnvoys:SetHide(true);
             else
-                bannerInstance.m_Instance.CQUI_LocalPlayerEnvoys:SetText("[COLOR_RED]" .. localPlayerTokens .. "[ENDCOLOR]"); 
+                bannerInstance.m_Instance.CQUI_LocalPlayerEnvoys:SetText("[COLOR_RED]" .. localPlayerTokens .. "[ENDCOLOR]");
                 bannerInstance.m_Instance.CQUI_LocalPlayerEnvoys:SetHide(false);
             end
         else
