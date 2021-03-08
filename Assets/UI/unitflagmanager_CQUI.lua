@@ -10,7 +10,6 @@ include("CQUICommon.lua");
 BASE_CQUI_SetColor = UnitFlag.SetColor;
 BASE_CQUI_UpdateStats = UnitFlag.UpdateStats;
 BASE_CQUI_OnUnitSelectionChanged = OnUnitSelectionChanged;
-BASE_CQUI_OnPlayerTurnActivated = OnPlayerTurnActivated;
 BASE_CQUI_OnUnitPromotionChanged = OnUnitPromotionChanged;
 BASE_CQUI_UpdateFlagType = UnitFlag.UpdateFlagType;
 BASE_CQUI_OnLensLayerOn = OnLensLayerOn;
@@ -299,41 +298,8 @@ function UnitFlag.UpdatePromotions( self )
         -- WORKAROUND: The Barbarian Clans Mode also uses ReplaceUIScript for UnitFlagManager
         --             This code is copied from the UnitFlagManager_BarbarianClansMode.lua
         if (g_bIsBarbarianClansMode) then
-            self.m_Instance.TribeStatusFlag:SetHide(true);
-            local tribeIndex : number = pUnit:GetBarbarianTribeIndex();
-            if(tribeIndex >= 0)then
-    
-                local pBarbarianTribeManager : table = Game.GetBarbarianManager();
-                local bribedTurnsRemaining : number = pBarbarianTribeManager:GetTribeBribeTurnsRemaining(tribeIndex, localPlayerID);
-                self.m_Instance.Promotion_Flag:SetHide(true);
-    
-                --Show any Barbarian Tribe specific status icons (bribed, incited)
-                if(bribedTurnsRemaining > 0)then
-                    --Show bribe icon w/ turns remaining tooltip
-                    self.m_Instance.TribeStatusFlag:SetHide(false);
-                    self.m_Instance.TribeStatusIcon:SetTexture(BRIBE_STATUS_ICON_NAME);
-                    return;
-                else
-                    local inciteTargetID : number = pBarbarianTribeManager:GetTribeInciteTargetPlayer(tribeIndex);
-                    if (inciteTargetID >= 0) then
-                        if(inciteTargetID == localPlayerID)then
-                            --Show incited against us icon
-                            self.m_Instance.TribeStatusFlag:SetHide(false);
-                            self.m_Instance.TribeStatusIcon:SetTexture(INCITE_AGAINST_PLAYER_STATUS_ICON_NAME);
-                            return;
-                        else
-                            local inciteSourceID : number = pBarbarianTribeManager:GetTribeInciteSourcePlayer(tribeIndex);
-                            if(inciteSourceID == localPlayerID)then
-                                --Show we incited them icon
-                                self.m_Instance.TribeStatusFlag:SetHide(false);
-                                self.m_Instance.TribeStatusFlag:SetTexture(INCITE_BY_PLAYER_STATUS_ICON_NAME);
-                                return;
-                            end
-                        end
-                    end
-                end
-            end
-        end -- BarbarianClansMode Loaded
+            UnitFlag.UpdatePromotionsBarbarianClansMode(self, pUnit);
+        end
     end
 end
 
@@ -408,20 +374,6 @@ function OnUnitChargesChanged(player, unitID)
 end
 
 -- ===========================================================================
---  CQUI modified OnPlayerTurnActivated functiton
---  AutoPlay mod compatibility
--- ===========================================================================
-function OnPlayerTurnActivated( ePlayer:number, bFirstTimeThisTurn:boolean )
-
-    local idLocalPlayer = Game.GetLocalPlayer();
-    if idLocalPlayer < 0 then
-        return;
-    end
-
-    BASE_CQUI_OnPlayerTurnActivated(ePlayer, bFirstTimeThisTurn);
-end
-
--- ===========================================================================
 --  CQUI modified OnUnitPromotionChanged functiton
 --  Refresh the flag promotion sign
 -- ===========================================================================
@@ -434,7 +386,7 @@ function OnUnitPromotionChanged( playerID : number, unitID : number )
             if (flag ~= nil) then
                 --flag:UpdateStats();
                 -- AZURENCY : request a refresh on the next frame (to update the promotion flag and remove + sign)
-                ContextPtr:RequestRefresh()
+                ContextPtr:RequestRefresh();
             end
         end
     end
@@ -552,6 +504,56 @@ end
 -- ReplaceUIScript can only happen once, so in order to get their additions to work with CQUI, we have to copy that code
 -- The functions below pull those changes from Barbarian Clans mode in to CQUI so they can work together
 -- ===========================================================================
+function UnitFlag.UpdatePromotionsBarbarianClansMode(self, pUnit)
+    -- This is the code specific to the Barbarian Clans Mode from that DLC that is added to the UnitFlag.UpdatePromotions function.
+    self.m_Instance.TribeStatusFlag:SetHide(true);
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    self.m_Instance.TribeInidcatorFlag:SetHide(true);
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+    local tribeIndex : number = pUnit:GetBarbarianTribeIndex();
+    if (tribeIndex >= 0) then
+
+        local pBarbarianTribeManager : table = Game.GetBarbarianManager();
+        local bribedTurnsRemaining : number = pBarbarianTribeManager:GetTribeBribeTurnsRemaining(tribeIndex, localPlayerID);
+        self.m_Instance.Promotion_Flag:SetHide(true);
+
+        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+        -- CQUI Specific Change: Show the barbarian clan (so we know who we're dealing with without having to mouse-over)
+        local barbType : number = pBarbarianTribeManager:GetTribeNameType(tribeIndex);
+        local pBarbTribe : table = GameInfo.BarbarianTribeNames[barbType];
+        self.m_Instance.TribeInidcatorFlag:SetHide(false);
+        self.m_Instance.TribeIndicatorIcon:SetIcon("ICON_" .. pBarbTribe.TribeNameType);
+        -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+
+        --Show any Barbarian Tribe specific status icons (bribed, incited)
+        if (bribedTurnsRemaining > 0) then
+            --Show bribe icon w/ turns remaining tooltip
+            self.m_Instance.TribeStatusFlag:SetHide(false);
+            self.m_Instance.TribeStatusIcon:SetTexture(BRIBE_STATUS_ICON_NAME);
+            return;
+        else
+            local inciteTargetID : number = pBarbarianTribeManager:GetTribeInciteTargetPlayer(tribeIndex);
+            if (inciteTargetID >= 0) then
+                if(inciteTargetID == localPlayerID)then
+                    --Show incited against us icon
+                    self.m_Instance.TribeStatusFlag:SetHide(false);
+                    self.m_Instance.TribeStatusIcon:SetTexture(INCITE_AGAINST_PLAYER_STATUS_ICON_NAME);
+                    return;
+                else
+                    local inciteSourceID : number = pBarbarianTribeManager:GetTribeInciteSourcePlayer(tribeIndex);
+                    if(inciteSourceID == localPlayerID)then
+                        --Show we incited them icon
+                        self.m_Instance.TribeStatusFlag:SetHide(false);
+                        self.m_Instance.TribeStatusIcon:SetTexture(INCITE_BY_PLAYER_STATUS_ICON_NAME);
+                        return;
+                    end
+                end
+            end
+        end
+    end
+end -- BarbarianClansMode Loaded
+
+-- ===========================================================================
 function UnitFlag.UpdateName( self )
     BASE_CQUI_UpdateName(self);
 
@@ -568,7 +570,6 @@ function UnitFlag.UpdateName( self )
         if(pUnit ~= nil)then
             local tribeIndex : number = pUnit:GetBarbarianTribeIndex();
             if(tribeIndex >= 0)then
-                
                 local pBarbarianTribeManager : table = Game.GetBarbarianManager();
                 local bribedTurnsRemaining : number = pBarbarianTribeManager:GetTribeBribeTurnsRemaining(tribeIndex, localPlayerID);
                 local nameString = self.m_Instance.UnitIcon:GetToolTipString();
@@ -611,8 +612,8 @@ end
 
 -- ===========================================================================
 function OnPlayerOperationComplete(playerID : number, operation : number)
-    --Update Barbarian UnitFlag tooltip and status icons in case we have Bribed or Incited them
-    if(operation == PlayerOperations.BRIBE_CLAN or operation == PlayerOperations.INCITE_CLAN)then
+    -- Update Barbarian UnitFlag tooltip and status icons in case we have Bribed or Incited them
+    if (operation == PlayerOperations.BRIBE_CLAN or operation == PlayerOperations.INCITE_CLAN) then
         local pBarbarianPlayer = Players[PlayerTypes.BARBARIAN]
         local pBarbarianUnits:table = pBarbarianPlayer:GetUnits();
         for i, pUnit in pBarbarianUnits:Members() do
@@ -651,8 +652,6 @@ function Initialize_UnitFlagManager_CQUI()
     Events.UnitChargesChanged.Add(OnUnitChargesChanged);
     Events.UnitSelectionChanged.Remove(BASE_CQUI_OnUnitSelectionChanged);
     Events.UnitSelectionChanged.Add(OnUnitSelectionChanged);
-    Events.PlayerTurnActivated.Remove(BASE_CQUI_OnPlayerTurnActivated);
-    Events.PlayerTurnActivated.Add(OnPlayerTurnActivated);
     Events.UnitPromoted.Remove(BASE_CQUI_OnUnitPromotionChanged);
     Events.UnitPromoted.Add(OnUnitPromotionChanged);
 
