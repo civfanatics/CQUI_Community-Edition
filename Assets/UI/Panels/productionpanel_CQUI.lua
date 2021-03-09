@@ -97,11 +97,16 @@ end
 
 function CQUI_ClearDistrictBuildingLayers()
     -- Make it's the right mode.
-    if (UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT or UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT) then
+    if (UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT) then
         -- Clear existing art then re-realize
         UILens.ClearLayerHexes( m_AdjacencyBonusDistricts );
         UILens.ClearLayerHexes( m_Districts );
         RealizePlotArtForDistrictPlacement();
+    elseif (UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT) then
+        -- Clear existing art then re-realize
+        UILens.ClearLayerHexes( m_AdjacencyBonusDistricts );
+        UILens.ClearLayerHexes( m_Districts );
+        RealizePlotArtForWonderPlacement();
     end
     LuaEvents.CQUI_RefreshPurchasePlots();
     LuaEvents.CQUI_DistrictPlotIconManager_ClearEverything();
