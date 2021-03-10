@@ -387,7 +387,150 @@ end
 -- ============================================================================
 function CityBanner.UpdateInfo(self, pCity : table )
     -- print("CityBannerManager_CQUI: CityBanner.UpdateInfo ENTRY  pCity:"..tostring(pCity));
-    BASE_CQUI_CityBanner_UpdateInfo(self, pCity);
+    self.m_CivIconInstance = nil;
+	self.m_InfoIconIM:ResetInstances();
+	self.m_InfoConditionIM:ResetInstances();
+
+	if pCity ~= nil then
+		local playerID		:number = pCity:GetOwner();
+		local cityID		:number = pCity:GetID();
+		local pPlayer		:table	= Players[playerID];
+		local pPlayerConfig	:table	= PlayerConfigurations[playerID];
+
+		-- CAPITAL ICON
+		if pPlayer then
+			local instance:table = self.m_InfoIconIM:GetInstance();
+			local tooltip:string = "";
+
+			if pPlayer:IsMajor() then
+				if pCity:IsOriginalCapital() and pCity:GetOriginalOwner() == pCity:GetOwner() then
+					if pCity:IsCapital() then
+						-- Original capitial still owned by original owner
+						instance.Icon:SetIcon("ICON_CITY_CAPITAL");
+					else
+						-- Former original capital
+						instance.Icon:SetIcon("ICON_FORMER_CAPITAL");
+					end
+					tooltip = tooltip .. Locale.Lookup("LOC_CITY_BANNER_ORIGINAL_CAPITAL_TT", pPlayerConfig:GetCivilizationShortDescription());
+				elseif pCity:IsCapital() then
+					-- New capital
+					instance.Icon:SetIcon("ICON_NEW_CAPITAL");
+					tooltip = tooltip .. Locale.Lookup("LOC_CITY_BANNER_NEW_CAPITAL_TT", pPlayerConfig:GetCivilizationShortDescription());
+				else
+					-- Other cities
+					instance.Icon:SetIcon("ICON_OTHER_CITIES");
+					tooltip = tooltip .. Locale.Lookup("LOC_CITY_BANNER_OTHER_CITY_TT", pPlayerConfig:GetCivilizationShortDescription());
+				end
+
+			elseif pPlayer:IsFreeCities() then
+				instance.Icon:SetIcon("ICON_CIVILIZATION_FREE_CITIES");
+				tooltip = tooltip .. Locale.Lookup("LOC_CITY_BANNER_FREE_CITY_TT");
+			else
+				instance.Icon:SetIcon("ICON_CITY_STATE");
+				tooltip = tooltip .. Locale.Lookup("LOC_CITY_BANNER_CITY_STATE_TT");
+			end
+
+			instance.Button:SetTexture("Banner_TypeSlot");
+			instance.Button:RegisterCallback(Mouse.eLClick, OnCapitalIconClicked);
+			instance.Button:SetVoid1(playerID);
+			instance.Button:SetVoid2(cityID);
+			instance.Button:SetToolTipString(tooltip);
+
+			-- ORIGINAL OWNER CAPITAL ICON
+			if pCity:GetOwner() ~= pCity:GetOriginalOwner() and pCity:IsOriginalCapital() then
+				local pOriginalOwner:table = Players[pCity:GetOriginalOwner()];
+				-- Only show the captured capital icon for major civs
+				if pOriginalOwner:IsMajor() then
+					local instance:table = self.m_InfoIconIM:GetInstance();
+					instance.Icon:SetIcon("ICON_CAPTURED_CAPITAL");
+					local pOriginalOwnerConfig:table = PlayerConfigurations[pCity:GetOriginalOwner()];
+					instance.Button:SetToolTipString(Locale.Lookup("LOC_CITY_BANNER_CAPTURED_CAPITAL_TT", pOriginalOwnerConfig:GetCivilizationShortDescription()));
+					instance.Button:RegisterCallback(Mouse.eLClick, OnCapitalIconClicked);
+					instance.Button:SetVoid1(pCity:GetOriginalOwner());
+					instance.Button:SetVoid2(cityID);
+				end
+			end
+		end
+
+		-- CIV ICON
+		local civType:string = pPlayerConfig:GetCivilizationTypeName();
+		if civType ~= nil then
+			self.m_CivIconInstance = self.m_InfoConditionIM:GetInstance();
+			self.m_CivIconInstance.Icon:SetIcon("ICON_" .. civType);
+			self.m_CivIconInstance.Button:SetTexture("Banner_TypeSlot");
+
+			local tooltip, isLoyaltyRising, isLoyaltyFalling = GetLoyaltyStatusTooltip(pCity);
+			-- Add belongs to string at the beginning of the tooltip
+			if civType == "CIVILIZATION_FREE_CITIES" then
+				tooltip = Locale.Lookup("LOC_CITY_BELONGS_FREECITY_TT") .. "[NEWLINE]" .. tooltip;
+			else
+				tooltip = Locale.Lookup("LOC_CITY_BELONGS_TT", pPlayerConfig:GetCivilizationShortDescription()) .. "[NEWLINE]" .. tooltip;
+			end
+
+			self.m_CivIconInstance.ConditionRising:SetHide(not isLoyaltyRising or isLoyaltyFalling);
+			self.m_CivIconInstance.ConditionFalling:SetHide(not isLoyaltyFalling or isLoyaltyRising);
+			self.m_CivIconInstance.Button:SetToolTipString(tooltip);
+
+			self.m_CivIconInstance.Button:RegisterCallback( Mouse.eLClick, OnCivIconClicked );
+			self.m_CivIconInstance.Button:SetVoid1(playerID);
+			self.m_CivIconInstance.Button:SetVoid2(cityID);
+		else
+			if WorldBuilder.IsActive()==false then
+				UI.DataError("Invalid type name returned by GetCivilizationTypeName");
+			end
+		end
+
+		-- RELIGION ICON
+		local pCityReligion:table = pCity:GetReligion();
+		local eMajorityReligion:number = self.m_eMajorityReligion;
+		if (eMajorityReligion > 0) then
+			local instance:table = self.m_InfoConditionIM:GetInstance();
+			local majorityReligionColor:number = UI.GetColorValue(GameInfo.Religions[eMajorityReligion].Color);
+			instance.Icon:SetColor(majorityReligionColor and majorityReligionColor or COLOR_HOLY_SITE);
+			instance.Icon:SetIcon("ICON_" .. GameInfo.Religions[eMajorityReligion].ReligionType);
+			instance.Button:SetTexture("Banner_TypeSlot_Religion");
+			instance.Button:SetToolTipString(Locale.Lookup("LOC_HUD_CITY_RELIGION_TT", Game.GetReligion():GetName(eMajorityReligion)));
+			instance.Button:RegisterCallback( Mouse.eLClick, OnReligionIconClicked );
+			instance.Button:SetVoid1(playerID);
+			instance.Button:SetVoid2(cityID);
+
+			-- Get a list of religions present in this city
+			local otherReligionPressure:number = 0;
+			local pReligionsInCity:table = pCityReligion:GetReligionsInCity();
+			for _, cityReligion in pairs(pReligionsInCity) do
+				local religion:number = cityReligion.Religion;
+				if religion >= 0 and religion ~= eMajorityReligion then
+					otherReligionPressure = otherReligionPressure + pCityReligion:GetTotalPressureOnCity(religion);
+				end
+			end
+
+			local majorityPressure:number = pCityReligion:GetTotalPressureOnCity(eMajorityReligion);
+
+			local isPressureRising:boolean = majorityPressure > otherReligionPressure;
+			local isPressureFalling:boolean = majorityPressure < otherReligionPressure;
+
+			instance.ConditionRising:SetHide(not isPressureRising or isPressureFalling);
+			instance.ConditionFalling:SetHide(not isPressureFalling or isPressureRising);
+		else
+			local activePantheon:number = pCityReligion:GetActivePantheon();
+			if (activePantheon >= 0) then
+				local instance:table = self.m_InfoIconIM:GetInstance();
+				instance.Icon:SetIcon("ICON_" .. GameInfo.Religions[0].ReligionType);
+				instance.Icon:SetColor(COLOR_HOLY_SITE);
+				instance.Button:SetTexture("Banner_TypeSlot_Religion");
+				instance.Button:SetToolTipString(Locale.Lookup("LOC_HUD_CITY_PANTHEON_TT", GameInfo.Beliefs[activePantheon].Name));
+				instance.Button:RegisterCallback( Mouse.eLClick, OnReligionIconClicked );
+				instance.Button:SetVoid1(playerID);
+				instance.Button:SetVoid2(cityID);
+			end
+		end
+
+		-- LOYALTY WARNING
+		self:UpdateLoyaltyWarning();
+	end
+
+	self:Resize();
+    --BASE_CQUI_CityBanner_UpdateInfo(self, pCity);
 
     if (pCity == nil) then
         -- print("CityBannerManager_CQUI: CityBanner.UpdateInfo EXIT (pCity nil)");
@@ -599,31 +742,6 @@ function OnInterfaceModeChanged( oldMode:number, newMode:number )
     end
 
     -- print("CityBannerManager_CQUI: OnInterfaceModeChanged EXIT");
-end
-
--- ===========================================================================
-function OnProductionClick( playerID, cityID )
-    -- print("CityBannerManager_CQUI: OnProductionClick ENTRY");
-    --OnCityBannerClick( playerID, cityID);
-    local pPlayer = Players[playerID];
-    if (pPlayer == nil) then
-        return;
-    end
-
-    local pCity = pPlayer:GetCities():FindID(cityID);
-    if (pCity == nil) then
-        return;
-    end
-
-    if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
-        if (pPlayer:IsFreeCities()) then
-            UI.LookAtPlotScreenPosition( pCity:GetX(), pCity:GetY(), 0.5, 0.5 );
-            return;
-        end
-    end
-
-    UI.SelectCity( pCity );
-    LuaEvents.CityBannerManager_ProductionToggle();
 end
 
 -- ===========================================================================
@@ -1284,6 +1402,119 @@ function OnCityStrikeButtonClick( playerID, cityID )
 end
 
 -- ===========================================================================
+function OnProductionClick( playerID, cityID )
+    -- print("CityBannerManager_CQUI: OnProductionClick ENTRY");
+    --OnCityBannerClick( playerID, cityID);
+    local pPlayer = Players[playerID];
+    if (pPlayer == nil) then
+        return;
+    end
+
+    local pCity = pPlayer:GetCities():FindID(cityID);
+    if (pCity == nil) then
+        return;
+    end
+
+    if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
+        if (pPlayer:IsFreeCities()) then
+            UI.LookAtPlotScreenPosition( pCity:GetX(), pCity:GetY(), 0.5, 0.5 );
+            return;
+        end
+    end
+
+    UI.SelectCity( pCity );
+    LuaEvents.CityBannerManager_ProductionToggle();
+end
+
+-- ===========================================================================
+-- We need to remove the simulated banner click here and manually select the city instead, since OnCityBannerClick can now trigger overview to open as well
+function OnCapitalIconClicked( playerID:number, cityID:number )
+	if (playerID == Game.GetLocalPlayer()) then
+        local pPlayer = Players[playerID];
+        if (pPlayer == nil) then
+            return;
+        end
+
+        local pCity = pPlayer:GetCities():FindID(cityID);
+        if (pCity == nil) then
+            return;
+        end
+
+        if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
+            if (pPlayer:IsFreeCities()) then
+                UI.LookAtPlotScreenPosition( pCity:GetX(), pCity:GetY(), 0.5, 0.5 );
+                return;
+            end
+        end
+
+        UI.SelectCity( pCity );
+	    LuaEvents.CityBannerManager_CityPanelOverview();
+	else
+		OnCityBannerLookAt(playerID, cityID);
+	end
+end
+
+-- ===========================================================================
+-- We need to remove the simulated banner click here and manually select the city instead, since OnCityBannerClick can now trigger overview to open as well
+function OnCivIconClicked(playerID: number, cityID: number)
+	if (playerID == Game.GetLocalPlayer()) then
+		--OnCityBannerClick(playerID, cityID);
+        local pPlayer = Players[playerID];
+        if (pPlayer == nil) then
+            return;
+        end
+
+        local pCity = pPlayer:GetCities():FindID(cityID);
+        if (pCity == nil) then
+            return;
+        end
+
+        if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
+            if (pPlayer:IsFreeCities()) then
+                UI.LookAtPlotScreenPosition( pCity:GetX(), pCity:GetY(), 0.5, 0.5 );
+                return;
+            end
+        end
+
+        UI.SelectCity( pCity );
+    	LuaEvents.CityPanel_ToggleOverviewLoyalty();
+	else
+		OnCityBannerLookAt(playerID, cityID);
+		LuaEvents.OnViewLoyaltyLens();
+	end
+end
+
+-- ===========================================================================
+-- We need to remove the simulated banner click here and manually select the city instead, since OnCityBannerClick can now trigger overview to open as well
+function OnReligionIconClicked(playerID: number, cityID: number)
+	if (playerID == Game.GetLocalPlayer()) then
+		--OnCityBannerClick(playerID, cityID);
+        local pPlayer = Players[playerID];
+        if (pPlayer == nil) then
+            return;
+        end
+
+        local pCity = pPlayer:GetCities():FindID(cityID);
+        if (pCity == nil) then
+            return;
+        end
+
+        if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
+            if (pPlayer:IsFreeCities()) then
+                UI.LookAtPlotScreenPosition( pCity:GetX(), pCity:GetY(), 0.5, 0.5 );
+                return;
+            end
+        end
+
+        UI.SelectCity( pCity );
+		LuaEvents.CityPanel_ToggleOverviewReligion();
+	else
+		OnCityBannerLookAt(playerID, cityID);
+		LuaEvents.OnViewReligionLens();
+	end
+end
+
+-- ===========================================================================
 function OnDistrictAddedToMap( playerID: number, districtID : number, cityID :number, districtX : number, districtY : number, districtType:number, percentComplete:number )
     print("CityBannerManager_CQUI: OnDistrictAddedToMap ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID).." cityID:"..tostring(cityID).." districtXY:"..tostring(districtX)..","..tostring(districtY).." districtType:"..tostring(districtType).." pctComplete:"..tostring(percentComplete));
     local pPlayer = Players[playerID];
@@ -1455,7 +1686,7 @@ function CQUI_GetInstanceAt( plotIndex:number )
         local worldX:number, worldY:number = UI.GridToWorld( plotIndex );
         pInstance.Anchor:SetWorldPositionVal( worldX, worldY, 20 );
         -- Make it so that the button can't be clicked while it's in this temporary state, this stops it from blocking clicks intended for the citybanner
-        pInstance.CitizenButton:SetConsumeMouseButton(false);
+        --pInstance.CitizenButton:SetConsumeMouseButton(false);
         pInstance.Anchor:SetHide( false );
     end
 
@@ -1471,7 +1702,7 @@ function CQUI_ReleaseInstanceAt( plotIndex:number)
     if (pInstance ~= nil) then
         pInstance.Anchor:SetHide( true );
         -- Return the button to normal so that it can be clicked again
-        pInstance.CitizenButton:SetConsumeMouseButton(true);
+        --pInstance.CitizenButton:SetConsumeMouseButton(true);
         CQUI_UIWorldMap[plotIndex] = nil;
     end
 end
