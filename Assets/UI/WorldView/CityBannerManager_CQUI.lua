@@ -1264,7 +1264,7 @@ end
 
 -- ===========================================================================
 function OnDistrictAddedToMap( playerID: number, districtID : number, cityID :number, districtX : number, districtY : number, districtType:number, percentComplete:number )
-    print("CityBannerManager_CQUI: OnDistrictAddedToMap ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID).." cityID:"..tostring(cityID).." districtXY:"..tostring(districtX)..","..tostring(districtY).." districtType:"..tostring(districtType).." pctComplete:"..tostring(percentComplete));
+    -- print("CityBannerManager_CQUI: OnDistrictAddedToMap ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID).." cityID:"..tostring(cityID).." districtXY:"..tostring(districtX)..","..tostring(districtY).." districtType:"..tostring(districtType).." pctComplete:"..tostring(percentComplete));
     local pPlayer = Players[playerID];
 
     if (pPlayer == nil) then
@@ -1320,6 +1320,7 @@ function OnDistrictAddedToMap( playerID: number, districtID : number, cityID :nu
         elseif (miniBanner ~= nil and pDistrict:IsComplete()) then
             miniBanner:UpdateStats();
             miniBanner:UpdateRangeStrike();
+            miniBanner:UpdatePosition();
         end
     end -- else not city center
 
