@@ -116,10 +116,25 @@ end
 
 -- ===========================================================================
 function CQUI_CityviewDisableManager()
+    if (CQUI_cityview) then
+        CQUI_SignalOtherPanelsDisableCityViewAndUpdateLocals();
+        LuaEvents.CQUI_CityPanel_CityviewDisable();
+    end
+end
+
+-- Same as a disable, but don't deselect the city and don't set the interface mode
+function CQUI_CityviewHideManager()
+    if (CQUI_cityview) then
+        print("citypanel CQUI_CityviewHideManager");
+        CQUI_SignalOtherPanelsDisableCityViewAndUpdateLocals();
+        CQUI_CloseCityPanelAndHideManagement();
+    end
+end
+
+function CQUI_SignalOtherPanelsDisableCityViewAndUpdateLocals()
     CQUI_cityview = false;
     CQUI_wonderMode = false;
     LuaEvents.CQUI_ProductionPanel_CityviewDisable();
-    LuaEvents.CQUI_CityPanel_CityviewDisable();
     LuaEvents.CQUI_CityPanelOverview_CityviewDisable();
     LuaEvents.CQUI_WorldInput_CityviewDisable();
 end
@@ -139,19 +154,13 @@ function CQUI_OnCityviewEnabled()
     UI.SetFixedTiltMode(true);
     DisplayGrowthTile();
     UI.SetInterfaceMode(InterfaceModeTypes.CITY_MANAGEMENT);
-
 end
 
 -- ===========================================================================
 function CQUI_OnCityviewDisabled()
-    Close();
-    UI.DeselectAllCities();
-    UILens.ToggleLayerOff(m_PurchasePlot);
-    UILens.ToggleLayerOff(m_CitizenManagement);
-    UI.SetFixedTiltMode(false);
+    CQUI_CloseCityPanelAndHideManagement();
     UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
 end
-
 -- ===========================================================================
 function CQUI_WonderModeEnabled()
     CQUI_cityview = false;
@@ -161,35 +170,41 @@ function CQUI_WonderModeEnabled()
     UILens.ToggleLayerOff(m_CitizenManagement);
 end
 
--- ===========================================================================
--- AZURENCY : CQUI_CityviewDisableManager() call an unwanted UI.SetInterfaceMode(InterfaceModeTypes.SELECTION), this does not
-function CQUI_HideCityInterface()
-    CQUI_cityview = false;
-    CQUI_wonderMode = false;
-    LuaEvents.CQUI_ProductionPanel_CityviewDisable();
+function CQUI_CloseCityPanelAndHideManagement()
     Close();
+    UI.DeselectAllCities();
     UILens.ToggleLayerOff(m_PurchasePlot);
     UILens.ToggleLayerOff(m_CitizenManagement);
     UI.SetFixedTiltMode(false);
-    LuaEvents.CQUI_CityPanelOverview_CityviewDisable();
-    LuaEvents.CQUI_WorldInput_CityviewDisable();
-    HideGrowthTile(); -- AZURENCY : added the clear ClearGrowthTile() because why might not deselect the city but still want it hidden
+    HideGrowthTile();
 end
 
 LuaEvents.CQUI_CityPanel_CityviewEnable.Add( CQUI_OnCityviewEnabled);
 LuaEvents.CQUI_CityPanel_CityviewDisable.Add( CQUI_OnCityviewDisabled);
 LuaEvents.CQUI_CityviewDisable.Add( CQUI_CityviewDisableManager);
 LuaEvents.CQUI_CityviewEnable.Add( CQUI_CityviewEnableManager);
-LuaEvents.CQUI_CityviewHide.Add(CQUI_HideCityInterface);
+LuaEvents.CQUI_CityviewHide.Add(CQUI_CityviewHideManager);
 LuaEvents.CQUI_Strike_Enter.Add (function() CQUI_usingStrikeButton = true; end)
 LuaEvents.CQUI_Strike_Exit.Add (function() CQUI_usingStrikeButton = false; end)
 
 -- ===========================================================================
 function CQUI_OnInterfaceModeChanged( eOldMode:number, eNewMode:number )
+    --[[
+    -- Just entered ranged attack
     if (eNewMode == InterfaceModeTypes.CITY_RANGE_ATTACK or eNewMode == InterfaceModeTypes.DISTRICT_RANGE_ATTACK or CQUI_usingStrikeButton) then
         LuaEvents.CQUI_CityviewHide(); -- AZURENCY : always hide the cityview if new mode is CITY_RANGE_ATTACK
-    elseif (eOldMode == InterfaceModeTypes.CITY_MANAGEMENT or eOldMode == InterfaceModeTypes.DISTRICT_PLACEMENT or eOldMode == InterfaceModeTypes.BUILDING_PLACEMENT) then
-        if (eNewMode == InterfaceModeTypes.DISTRICT_PLACEMENT or eNewMode == InterfaceModeTypes.BUILDING_PLACEMENT) then
+        return;
+    end
+
+    -- Just left ranged attack
+    if (eOldMode == InterfaceModeTypes.CITY_RANGE_ATTACK) then
+        CQUI_ResetInterfaceMode();
+        return;
+    end]]
+
+    -- Leaving city management or building/district placement
+    if (eOldMode == InterfaceModeTypes.CITY_MANAGEMENT or eOldMode == InterfaceModeTypes.DISTRICT_PLACEMENT or eOldMode == InterfaceModeTypes.BUILDING_PLACEMENT) then
+        if (eNewMode == InterfaceModeTypes.DISTRICT_PLACEMENT or eNewMode == InterfaceModeTypes.BUILDING_PLACEMENT) then -- Just selected a new building/district to try and place 
             CQUI_WonderModeEnabled();
             HideGrowthTile();
 
@@ -197,45 +212,71 @@ function CQUI_OnInterfaceModeChanged( eOldMode:number, eNewMode:number )
                 UI.GetHeadSelectedCity();
             end
 
-            if g_pCity ~= nil then
-                local newGrowthPlot:number = g_pCity:GetCulture():GetNextPlot();  --show the growth tile if the district or wonder can be placed there
-                if (newGrowthPlot ~= -1) then
-                    if (eNewMode == InterfaceModeTypes.DISTRICT_PLACEMENT) then
-                        local districtHash:number = UI.GetInterfaceModeParameter(CityOperationTypes.PARAM_DISTRICT_TYPE);
-                        local district:table      = GameInfo.Districts[districtHash];
-                        local kPlot   :table      = Map.GetPlotByIndex(newGrowthPlot);
-                        if kPlot:CanHaveDistrict(district.Index, m_pPlayer, g_pCity:GetID()) then
-                            DisplayGrowthTile();
-                        end
-                    elseif (eNewMode == InterfaceModeTypes.BUILDING_PLACEMENT) then
-                        local buildingHash :number = UI.GetInterfaceModeParameter(CityOperationTypes.PARAM_BUILDING_TYPE);
-                        local building = GameInfo.Buildings[buildingHash];
-                        local kPlot       :table          = Map.GetPlotByIndex(newGrowthPlot);
-                        if kPlot:CanHaveWonder(building.Index, m_pPlayer, g_pCity:GetID()) then
-                            DisplayGrowthTile();
-                        end
+            if g_pCity == nil then
+                print("-- CQUI CityPanel.lua CQUI_OnInterfaceModeChanged: g_pCity is nil");
+                return;
+            end
+
+            local newGrowthPlot:number = g_pCity:GetCulture():GetNextPlot();  --show the growth tile if the district or wonder can be placed there
+            if (newGrowthPlot ~= -1) then
+                if (eNewMode == InterfaceModeTypes.DISTRICT_PLACEMENT) then
+                    local districtHash:number = UI.GetInterfaceModeParameter(CityOperationTypes.PARAM_DISTRICT_TYPE);
+                    local district:table      = GameInfo.Districts[districtHash];
+                    local kPlot   :table      = Map.GetPlotByIndex(newGrowthPlot);
+                    if kPlot:CanHaveDistrict(district.Index, m_pPlayer, g_pCity:GetID()) then
+                        DisplayGrowthTile();
+                    end
+                elseif (eNewMode == InterfaceModeTypes.BUILDING_PLACEMENT) then
+                    local buildingHash :number = UI.GetInterfaceModeParameter(CityOperationTypes.PARAM_BUILDING_TYPE);
+                    local building = GameInfo.Buildings[buildingHash];
+                    local kPlot       :table          = Map.GetPlotByIndex(newGrowthPlot);
+                    if kPlot:CanHaveWonder(building.Index, m_pPlayer, g_pCity:GetID()) then
+                        DisplayGrowthTile();
                     end
                 end
-            else
-                print("-- CQUI CityPanel.lua CQUI_OnInterfaceModeChanged: g_pCity is nil");
             end
-        elseif (eNewMode ~= InterfaceModeTypes.CITY_MANAGEMENT) then
-            if (CQUI_wonderMode) then
-                LuaEvents.CQUI_CityviewEnable();
-            else
-                LuaEvents.CQUI_CityviewDisable();
-            end
-        else
-            LuaEvents.CQUI_CityviewEnable();
+
+            return;
+        end;
+
+        --exiting cityview or exiting placement of a building/district
+        --We don't want to follow up an InterfaceModeChanged by setting InterfaceMode.SELECTION, so we hide instead
+
+
+        --[[
+        if (eNewMode == InterfaceModeTypes.VIEW_MODAL_LENS) then
+            --We don't want to follow up an InterfaceModeChanged by setting InterfaceMode.SELECTION, so we hide instead
+            print("citypanel triggering CQUI_CityviewHide due to interface mode change");
+            LuaEvents.CQUI_CityviewHide();
+            return;
         end
-    elseif (eNewMode == InterfaceModeTypes.CITY_MANAGEMENT) then
-            LuaEvents.CQUI_CityviewEnable(); -- AZURENCY : always show the cityview if new mode is CITY_MANAGEMENT
-    --else
-        --    UI.DeselectAllCities()
-        --end
+            
+        LuaEvents.CQUI_CityviewDisable();
+        return;]]
+    end
+
+    -- Entering City Management from anywhere
+    if (eNewMode == InterfaceModeTypes.CITY_MANAGEMENT  or CQUI_wonderMode) then
+        LuaEvents.CQUI_CityviewEnable();
+        return
+    end
+
+    -- Changing modes to any other mode
+    --We don't want to follow up an InterfaceModeChanged by setting InterfaceMode.SELECTION, so we hide instead
+    if (CQUI_cityview) then
+        print("citypanel triggering CQUI_CityviewHide due to InterfaceModeChanged");
+        LuaEvents.CQUI_CityviewHide(); -- Still deselects?
     end
 end
 
+--[[
+function CQUI_ResetInterfaceMode( eOldMode:number, eNewMode:number )
+    if (eNewMode == InterfaceModeTypes.CITY_MANAGEMENT) then
+        LuaEvents.CQUI_CityviewEnable();
+    else
+        UI.DeselectAllCities()
+    end
+end]]
 -- ===========================================================================
 -- Clear city culture growth tile overlay if one exists
 function CQUI_ClearGrowthTile()
@@ -932,6 +973,8 @@ function Refresh()
     m_pPlayer = Players[eLocalPlayer];
     g_pCity   = UI.GetHeadSelectedCity();
 
+    print("Refresh g_pCity", g_pCity);
+    print("Refresh g_pCity", g_pCity);
     if m_pPlayer ~= nil and g_pCity ~= nil then
         m_kData = GetCityData( g_pCity );
         if m_kData == nil then
@@ -1147,9 +1190,11 @@ function OnToggleOverviewPanel()
 end
 
 function OnCitySelectionChanged( ownerPlayerID:number, cityID:number, i:number, j:number, k:number, isSelected:boolean, isEditable:boolean)
+    print("OnCitySelectionChanged");
 	if ownerPlayerID == Game.GetLocalPlayer() then
 		if (isSelected) then
 			-- Determine if we should switch to the SELECTION interface mode
+            print("previous mode before setting shouldSwitchToSelection", UI.GetInterfaceMode());
 			local shouldSwitchToSelection:boolean = UI.GetInterfaceMode() ~= InterfaceModeTypes.CITY_SELECTION;
 			if UI.GetInterfaceMode() == InterfaceModeTypes.CITY_MANAGEMENT then
 				HideGrowthTile();
@@ -1179,6 +1224,11 @@ function OnCitySelectionChanged( ownerPlayerID:number, cityID:number, i:number, 
 				end
 			end
 			if shouldSwitchToSelection then
+                print("InterfaceModeTypes.CITY_MANAGEMENT", InterfaceModeTypes.CITY_MANAGEMENT);
+                print("InterfaceModeTypes.VIEW_MODAL_LENS", InterfaceModeTypes.VIEW_MODAL_LENS);
+                print("InterfaceModeTypes.SELECTION", InterfaceModeTypes.SELECTION);
+                print("previous mode before setting selection", UI.GetInterfaceMode());
+                print("citypanel setting InterfaceModeTypes.SELECTION due to OnCitySelectionChanged");
 				UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
 			end
 
@@ -1197,7 +1247,7 @@ function OnCitySelectionChanged( ownerPlayerID:number, cityID:number, i:number, 
 				AnimateFromCloseToOpen();
 			end
 
-
+            print("citypanel OnCitySelectionChanged refresh");
 			Refresh();
 			if UI.GetInterfaceMode() == InterfaceModeTypes.CITY_MANAGEMENT then
 				DisplayGrowthTile();
@@ -1207,6 +1257,7 @@ function OnCitySelectionChanged( ownerPlayerID:number, cityID:number, i:number, 
 			-- Tell the CityPanelOverview a city was deselected
 			LuaEvents.CityPanel_LiveCityDataChanged( nil, false );
 		end
+        print("completed OnCitySelectionChanged");
 	end
 end
 -- ===========================================================================

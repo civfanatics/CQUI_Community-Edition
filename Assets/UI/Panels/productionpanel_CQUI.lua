@@ -510,6 +510,12 @@ function Close()
         return;
     end
 
+    if CQUI_InCityView then
+         -- If closed in CityView, abort cityView. ProductionPanel is first to close, so this avoids having to capture escape key presses while in city view and rerouting them to closing city view.
+        LuaEvents.CQUI_CityviewDisable();
+        return;
+    end
+
     if (not Controls.SlideIn:IsReversing()) then -- Need to check to make sure that we have not already begun the transition before attempting to close the panel.
         UI.PlaySound("Production_Panel_Closed");
         Controls.SlideIn:Reverse();
@@ -521,7 +527,7 @@ function Close()
             CQUI_ToggleManager();
         end
         --LuaEvents.CQUI_CityviewDisable(); TODO Should we guarantee we exit cityView?
-        LuaEvents.ProductionPanel_Close();
+        LuaEvents.ProductionPanel_Close(); -- Tell the CityPanel to shift to the right
     end
 end
 
@@ -634,7 +640,14 @@ end
 --    CQUI modified OnInterfaceModeChanged
 -- ===========================================================================
 function OnInterfaceModeChanged( eOldMode:number, eNewMode:number )
-    return;
+    -- If this is raised while the city panel is up; selecting to purchase a
+	-- plot or manage citizens will close it.
+	if eNewMode == InterfaceModeTypes.VIEW_MODAL_LENS then
+        -- We don't want to close on plot purchase, since we allow this from the CityView
+		if not ContextPtr:IsHidden() then
+			Close();
+		end
+	end
 end
 
 -- ===========================================================================

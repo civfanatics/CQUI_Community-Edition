@@ -111,7 +111,7 @@ LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 -- ====================CQUI Cityview==========================================
 function CQUI_OnCityviewEnabled()
         OnShowOverviewPanel(true);
-        OnSelectHealthTab(); -- TODO animation of the slider left behind
+        m_tabs.SelectTab(Controls.HealthButton);
 end
 
 -- ===========================================================================
@@ -153,7 +153,7 @@ function SetDesiredLens(desiredLens)
             UILens.SetActive(m_desiredLens);
         end
 
-        ContextPtr:SetUpdate(EnsureDesiredLens);
+        --ContextPtr:SetUpdate(EnsureDesiredLens);
     else
         UILens.SetActive(m_desiredLens);
     end
@@ -952,12 +952,21 @@ function Close()
     --local offsetx = Controls.OverviewSlide:GetOffsetX();
     --if (offsetx == 0) then
     -- AZURENCY : only check if it's not already reversing
+    --[[
     if not Controls.OverviewSlide:IsReversing() then
         Controls.OverviewSlide:Reverse();
         UI.PlaySound("UI_CityPanel_Closed");
         SetDesiredLens("Default");
-    end
+    end]]
     -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+    local offsetx = Controls.OverviewSlide:GetOffsetX();
+	if(offsetx ~= 0) then
+		Controls.OverviewSlide:SetToEnd();
+	end
+	Controls.OverviewSlide:Reverse();
+	UI.PlaySound("UI_CityPanel_Closed");
+	UILens.SetActive("Default");
+	--UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
 end
 
 -- ===========================================================================
@@ -969,6 +978,7 @@ end
 function OnCloseButtonClicked()
     -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     -- CQUI change the behavior of when the Close button is clicked
+    Close();
     LuaEvents.CQUI_CityviewDisable();
     -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 end
@@ -1044,6 +1054,7 @@ end
 -- ===========================================================================
 -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
 -- CQUI behavior for OnInputHandler differs from unmodified, adding this KeyHandler wrapper function called by OnInputHandler
+--[[
 function KeyHandler( key:number )
     if key == Keys.VK_ESCAPE then
         if ( m_isShowingPanel ) then
@@ -1056,13 +1067,25 @@ function KeyHandler( key:number )
     return false;
 end
 
+
 -- ===========================================================================
 function OnInputHandler( pInputStruct:table )
     local uiMsg = pInputStruct:GetMessageType();
     if (uiMsg == KeyEvents.KeyUp) then return KeyHandler( pInputStruct:GetKey() ); end;
     return false;
-end
+end]]
 -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+
+function OnInputHandler( pInputStruct:table )
+	local uiMsg = pInputStruct:GetMessageType();
+	if (uiMsg == MouseEvents.RButtonUp) or (uiMsg == KeyEvents.KeyUp and pInputStruct:GetKey() == Keys.VK_ESCAPE) then
+		if ( m_isShowingPanel ) then
+			OnCloseButtonClicked();
+			return true;
+		end
+	end
+	return false;
+end 
 
 -- ===========================================================================
 -- Resize Handler
@@ -1219,8 +1242,6 @@ function OnHide()
     Controls.PauseDismissWindow:SetToBeginning();
 end
 
--- ===========================================================================
--- CQUI does not use this function, this is found in the unmodified CityPanelOverview.lua file
  function OnLensChanged( newLensName:string, oldLensName:string )
      -- When a new city is selected we're always sent back to Default lens which overrides Overview lenses
      -- This switches back to the proper Overview lens we were forced to switch away from
@@ -1228,7 +1249,6 @@ end
          UILens.SetActive(oldLensName);
      end
  end
--- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
 -- ===========================================================================
 --  UI Callback
@@ -1268,10 +1288,7 @@ function LateInitialize()
     Events.ResearchCompleted.Add( OnResearchCompleted );
     Events.GovernmentPolicyChanged.Add( OnPolicyChanged );
     Events.GovernmentPolicyObsoleted.Add( OnPolicyChanged );
-    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-    -- CQUI has no such event registration for OnLensChanged (unmodified does)
     Events.LensChanged.Add( OnLensChanged );
-    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     -- Populate tabs
     AddTab( Controls.HealthButton, OnSelectHealthTab );
@@ -1313,10 +1330,7 @@ function OnShutdown()
     Events.ResearchCompleted.Remove( OnResearchCompleted );
     Events.GovernmentPolicyChanged.Remove( OnPolicyChanged );
     Events.GovernmentPolicyObsoleted.Remove( OnPolicyChanged );
-    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-    -- CQUI has no such event registration removal for OnLensChanged (unmodified does)
     Events.LensChanged.Remove( OnLensChanged );
-    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 end
 
 -- ===========================================================================

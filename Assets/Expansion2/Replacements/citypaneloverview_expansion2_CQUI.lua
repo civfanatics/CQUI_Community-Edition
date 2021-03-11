@@ -15,7 +15,7 @@ end
 function RefreshPowerPanel()
     -- Replace with our Lens hack (See note in citypaneloverview.lua)
     --UILens.SetActive("Power");
+    print("RefreshPowerPanel");
     SetDesiredLens("Power");
     LuaEvents.CityPanelTabRefresh();
 end
-
