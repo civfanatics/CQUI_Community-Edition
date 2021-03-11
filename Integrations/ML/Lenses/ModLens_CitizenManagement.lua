@@ -73,7 +73,9 @@ function ClearCitizenManagementLens()
   if UILens.IsLayerOn(ML_LENS_LAYER) then
     UILens.ToggleLayerOff(ML_LENS_LAYER);
   end
-  LuaEvents.MinimapPanel_SetActiveModLens("NONE");
+  if (UI.GetInterfaceMode() ~= InterfaceModeTypes.VIEW_MODAL_LENS) then
+    LuaEvents.MinimapPanel_SetActiveModLens("NONE");
+  end
   m_cityID = -1;
 end
 

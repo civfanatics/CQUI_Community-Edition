@@ -307,8 +307,7 @@ end
 -- ===========================================================================
 function ToggleReligionLens()
   if Controls.ReligionLensButton:IsChecked() then
-    UILens.SetActive("Religion");
-    RefreshInterfaceMode();
+    CQUI_ToggleLensWrapper("Religion");
   else
     g_shouldCloseLensMenu = false; --When toggling the lens off, shouldn't close the menu.
     if UI.GetInterfaceMode() == InterfaceModeTypes.VIEW_MODAL_LENS then
@@ -320,8 +319,7 @@ end
 -- ===========================================================================
 function ToggleContinentLens()
   if Controls.ContinentLensButton:IsChecked() then
-    UILens.SetActive("Continent");
-    RefreshInterfaceMode();
+    CQUI_ToggleLensWrapper("Continent");
   else
     g_shouldCloseLensMenu = false;
     if UI.GetInterfaceMode() == InterfaceModeTypes.VIEW_MODAL_LENS then
@@ -333,7 +331,6 @@ end
 -- ===========================================================================
 function ToggleAppealLens()
   if Controls.AppealLensButton:IsChecked() then
-
     -- Begin Astog Mod --------------------------------------------------------------------------------------------------
     SetActiveModdedLens("VANILLA_APPEAL");
 
@@ -344,8 +341,7 @@ function ToggleAppealLens()
     end
     -- End Astog Mod ------------------------------------------------------------------------------------------------
 
-    UILens.SetActive("Appeal");
-    RefreshInterfaceMode();
+    CQUI_ToggleLensWrapper("Appeal");
   else
     g_shouldCloseLensMenu = false;
     if UI.GetInterfaceMode() == InterfaceModeTypes.VIEW_MODAL_LENS then
@@ -357,8 +353,7 @@ end
 -- ===========================================================================
 function ToggleWaterLens()
   if Controls.WaterLensButton:IsChecked() then
-    UILens.SetActive("WaterAvailability");
-    RefreshInterfaceMode();
+    CQUI_ToggleLensWrapper("WaterAvailability");
   else
     g_shouldCloseLensMenu = false;
     if UI.GetInterfaceMode() == InterfaceModeTypes.VIEW_MODAL_LENS then
@@ -370,8 +365,7 @@ end
 -- ===========================================================================
 function ToggleGovernmentLens()
   if Controls.GovernmentLensButton:IsChecked() then
-    UILens.SetActive("Government");
-    RefreshInterfaceMode();
+    CQUI_ToggleLensWrapper("Government");
   else
     g_shouldCloseLensMenu = false;
     if UI.GetInterfaceMode() == InterfaceModeTypes.VIEW_MODAL_LENS then
@@ -383,8 +377,7 @@ end
 -- ===========================================================================
 function ToggleOwnerLens()
   if Controls.OwnerLensButton:IsChecked() then
-    UILens.SetActive("OwningCiv");
-    RefreshInterfaceMode();
+    CQUI_ToggleLensWrapper("OwningCiv");
   else
     g_shouldCloseLensMenu = false;
     if UI.GetInterfaceMode() == InterfaceModeTypes.VIEW_MODAL_LENS then
@@ -396,8 +389,7 @@ end
 -- ===========================================================================
 function ToggleTourismLens()
   if Controls.TourismLensButton:IsChecked() then
-    UILens.SetActive("Tourism");
-    RefreshInterfaceMode();
+    CQUI_ToggleLensWrapper("Tourism");
   else
     g_shouldCloseLensMenu = false;
     if UI.GetInterfaceMode() == InterfaceModeTypes.VIEW_MODAL_LENS then
@@ -409,8 +401,7 @@ end
 -- ===========================================================================
 function ToggleEmpireLens()
   if Controls.EmpireLensButton:IsChecked() then
-    UILens.SetActive("EmpireDetails");
-    RefreshInterfaceMode();
+    CQUI_ToggleLensWrapper("EmpireDetails");
   else
     g_shouldCloseLensMenu = false;
     if UI.GetInterfaceMode() == InterfaceModeTypes.VIEW_MODAL_LENS then
@@ -419,6 +410,12 @@ function ToggleEmpireLens()
   end
 end
 
+function CQUI_ToggleLensWrapper(lensName) 
+  -- We need to hide the city view before we do anything, because when it closes it sets default lens
+  LuaEvents.CQUI_CityviewHide();
+  UILens.SetActive(lensName);
+  RefreshInterfaceMode();
+end
 -- ===========================================================================
 function ToggleGrid()
   local bShouldShowGrid = not UserConfiguration.ShowMapGrid();
@@ -509,8 +506,15 @@ end
 
 -- ===========================================================================
 function RefreshInterfaceMode()
+  --print("RefreshInterfaceMode");
   if UI.GetInterfaceMode() ~= InterfaceModeTypes.VIEW_MODAL_LENS then
     UI.SetInterfaceMode(InterfaceModeTypes.VIEW_MODAL_LENS);
+  else
+    --There is a bug present in the main game here. There are two possibilities where VIEW_MODAL_LENS may already be set:
+    --1. Switching between lenses in the modal lens panel (works in the base game)
+    --2. Using a keyboard shortcut to load a lens while you have the city overview up (fails in the base game)
+    --In the base game, situation 2 fails to apply the lens because it closes the overview in a way that resets the InterfaceModeTypes.
+    --To fix this without breaking situation 1, we need to close the city interface without changing the InterfaceModeTypes.
   end
 end
 

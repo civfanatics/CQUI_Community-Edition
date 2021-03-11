@@ -39,8 +39,8 @@ local m_KeyStackIM:table = InstanceManager:new( "KeyEntry", "KeyColorImage", Con
 
 --============================================================================
 function Close()
-  --ContextPtr:SetHide(true);
-  UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
+  ContextPtr:SetHide(true);
+  --UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
 end
 
 --============================================================================
