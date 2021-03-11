@@ -534,16 +534,36 @@
 
     <!-- Barbarian Tribe Minibanner -->
     <!-- This is in place in order to allow CQUI and the new Barbarian Tribes Mode to co-exist.  This is a copy of the Instance object Firaxis defined in the CityBannerManager.xml that accompanies that new mode. -->
-    <Instance	Name="TribeBanner">
+    <!-- CQUI Added modifications to show icons in the Banner -->
+    <Instance Name="TribeBanner">
         <ZoomAnchor ID="Anchor" ZoomOffsetNear="0,0,0" ZoomOffsetFar="0,0,-20">
             <Container ID="TribeBannerContainer" Anchor="C,C" Size="106,34">
-                <Button ID="TribeBannerButton" Anchor="C,C" Size="parent,parent"/>
-                
-                <Grid ID="Banner_Base"    Size="Parent,Parent" Texture="BannerMini_Base_Combo" SliceCorner="18,9" SliceSize="44,16" SliceTextureSize="80,34"/>
-                <Image ID="TribeIcon" Anchor="L,C" Offset="0,0" Size="30,30" Icon="ICON_DISTRICT_CITY_CENTER"/>
-                <TextureBar Anchor="C,C" Offset="5,0" Size="60,7"	Texture="CityBannerShieldsBar1" Direction="Right" Speed="1" Percent="1.0" Color="40,64,82,200"/>
-                <TextureBar ID="ConversionBar" Anchor="C,C" Offset="5,0"	Size="60,7"	Texture="CityBannerShieldsBar1" Direction="Right" Speed="1" Percent="1.0" Color="120,198,247,255"/>
-
+                <Button ID="TribeBannerButton" Anchor="C,C" Size="parent,parent">
+                    <Grid ID="Banner_Base" Size="parent,parent" Texture="BannerMini_Base_Combo" SliceCorner="18,9" SliceSize="44,16" SliceTextureSize="80,34"/>
+                    <Stack ID="TribeStatusStack" Anchor="L,C" StackGrowth="Right" StackPadding="1">
+                        <Container Size="30,30" Offset="4,0">
+                            <Image ID="TribeIcon" Size="30,30" Offset="0,0" Icon="ICON_DISTRICT_CITY_CENTER"/>
+                            <Label ID="CanHireUnit" Anchor="L,T" Offset="2,0" FontSize="20" FontStyle="Stroke" Color0="224,224,0,255" Color1="112,112,0,255"/>
+                        </Container>
+                        <Image ID="TribeIconBribedBacking" Anchor="C,C" Offset="0,0" Size="22,22" Texture="CircleBacking22.dds" Color="20,20,20,255" Hidden="1">
+                            <Image ID="TribeIconBribed" Anchor="C,C" Offset="-1,0" Size="22,22" Texture="Bribe22"/>
+                            <Label ID="BribedTurnsLeft" Anchor="R,B" Offset="0,-2" Style="StrongSmall2"/>
+                        </Image>
+                        <Image ID="TribeIconIncitedAgainstUsBacking" Anchor="C,C" Size="22,22" Offset="0,0" Texture="CircleBacking22.dds" Color="20,20,20,255" Hidden="1">
+                            <Image ID="TribeIconIncitedAgainstUs" Anchor="C,C" Offset="-1,0" Size="22,22" Texture="Incite22"/>
+                        </Image>
+                        <Image ID="TribeIconIncitedByUsBacking" Anchor="C,C" Size="22,22" Offset="0,0" Texture="CircleBacking22.dds" Color="20,20,20,255" Hidden="1">
+                            <Image ID="TribeIconIncitedByUs" Anchor="C,C" Offset="-1,0" Size="22,22" Texture="InciteByMe22"/>
+                        </Image>
+                        <Image ID="TribeRansomUnitBacking" Anchor="C,C" Size="22,22" Offset="0,0" Texture="CircleBacking22.dds" Color="20,20,20,255" Hidden="1">
+                            <Image ID="TribeRansomUnit" Anchor="L,C" Size="22,22" Icon="Exclamation" Color="255,255,0,255"/>
+                        </Image>
+                        <Container ID="ConversionBarContainer" Size="60,7" Anchor="R,C" Offset="-2,0">
+                            <TextureBar Anchor="C,C" Offset="5,0" Size="60,7" Texture="CityBannerShieldsBar1" Direction="Right" Speed="1" Percent="1.0" Color="40,64,82,200"/>
+                            <TextureBar ID="ConversionBar" Anchor="C,C" Offset="5,0" Size="60,7" Texture="CityBannerShieldsBar1" Direction="Right" Speed="1" Percent="1.0" Color="120,198,247,255"/>
+                        </Container>
+                    </Stack>
+                </Button>
             </Container>
         </ZoomAnchor>
     </Instance>

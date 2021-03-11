@@ -61,9 +61,14 @@
                     <Label ID="UnitNumPromotions" Anchor="C,C" Offset="-1,1" Style="FontFlair20" Color="0,0,0,255"/>
                 </Image>
                 <!-- Imported from the Barbarian Tribes Mode -->
-                <Image ID="TribeStatusFlag" Anchor="R,C" Size="20,25" Offset="-8,0" Texture="UnitFlag_Promo.dds" Hidden="1">
+                <Image ID="TribeStatusFlag" Anchor="R,C" Size="20,25" Offset="-8,0" Texture="UnitFlag_Promo.dds" Color="220,220,220,255" Hidden="1">
                     <Image ID="TribeStatusIcon" Anchor="C,C" Offset="-1,0" Size="22,22" Texture="Bribe22"/>
                 </Image>
+                <!-- CQUI: Show the Barbarian tribe (note: normal size for these icons is 30) -->
+                <Image ID="TribeInidcatorFlag" Anchor="L,T" Size="22,22" Offset="0,2" Texture="CircleBacking22.dds" Color="200,20,21,255" Hidden="1">
+                    <Image ID="TribeIndicatorIcon" Anchor="C,C" Offset="0,0" Size="22,22" IconSize="22" Icon="ICON_BARBARIAN_CLAN_NAVAL_3"/>
+                </Image>
+
                 <!-- Corps and Army Indicators -->
                 <Container ID="CorpsMarker" Size="10,10" Anchor="C,T" Hidden="1" Offset="1,4">
                     <Label Anchor="C,C" Offset="-1,0" String="[ICON_Corps]"/>
