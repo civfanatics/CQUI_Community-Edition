@@ -31,6 +31,9 @@ if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
     BASE_CQUI_CityBanner_UpdatePopulation = CityBanner.UpdatePopulation;
 end
 
+-- CQUI Enhancements for Barbarian Clans Mode
+BASE_CQUI_UpdateTribeBannerConversionBar = UpdateTribeBannerConversionBar;
+
 -- ===========================================================================
 --  CONSTANTS
 -- ===========================================================================
@@ -53,14 +56,14 @@ local CQUI_CityRangeStrikeBottomYOffset       = -6;
 local CQUI_EncampmentRangeStrikeTopYOffset    = 10;
 local CQUI_EncampmentRangeStrikeBottomYOffset = -4;
 
-local m_isReligionLensActive:boolean = false;
-local m_HexColoringReligion:number = UILens.CreateLensLayerHash("Hex_Coloring_Religion");
-local DATA_FIELD_RELIGION_ICONS_IM:string = "m_IconsIM";
+local m_isReligionLensActive:boolean              = false;
+local m_HexColoringReligion:number                = UILens.CreateLensLayerHash("Hex_Coloring_Religion");
+local DATA_FIELD_RELIGION_ICONS_IM:string         = "m_IconsIM";
 local DATA_FIELD_RELIGION_FOLLOWER_LIST_IM:string = "m_FollowerListIM";
-local DATA_FIELD_RELIGION_POP_CHART_IM  :string = "m_PopChartIM";
-local DATA_FIELD_RELIGION_INFO_INSTANCE :string = "m_ReligionInfoInst";
-local RELIGION_POP_CHART_TOOLTIP_HEADER :string = Locale.Lookup("LOC_CITY_BANNER_FOLLOWER_PRESSURE_TOOLTIP_HEADER");
-local COLOR_RELIGION_DEFAULT            :number = UI.GetColorValueFromHexLiteral(0x02000000);
+local DATA_FIELD_RELIGION_POP_CHART_IM:string     = "m_PopChartIM";
+local DATA_FIELD_RELIGION_INFO_INSTANCE:string    = "m_ReligionInfoInst";
+local RELIGION_POP_CHART_TOOLTIP_HEADER:string    = Locale.Lookup("LOC_CITY_BANNER_FOLLOWER_PRESSURE_TOOLTIP_HEADER");
+local COLOR_RELIGION_DEFAULT:number               = UI.GetColorValueFromHexLiteral(0x02000000);
 
 -- ===========================================================================
 -- CQUI Members
@@ -119,8 +122,8 @@ function CQUI_OnSettingsInitialized()
     CQUI_SmartWorkIconSize  = GameConfiguration.GetValue("CQUI_SmartWorkIconSize");
     CQUI_SmartWorkIconAlpha = GameConfiguration.GetValue("CQUI_SmartWorkIconAlpha") / 100;
 
-    CQUI_RelocateCityStrike            = GameConfiguration.GetValue("CQUI_RelocateCityStrike");
-    CQUI_RelocateEncampmentStrike      = GameConfiguration.GetValue("CQUI_RelocateEncampmentStrike");
+    CQUI_RelocateCityStrike       = GameConfiguration.GetValue("CQUI_RelocateCityStrike");
+    CQUI_RelocateEncampmentStrike = GameConfiguration.GetValue("CQUI_RelocateEncampmentStrike");
 end
 
 -- ===========================================================================
@@ -1516,7 +1519,7 @@ end
 
 -- ===========================================================================
 function OnDistrictAddedToMap( playerID: number, districtID : number, cityID :number, districtX : number, districtY : number, districtType:number, percentComplete:number )
-    print("CityBannerManager_CQUI: OnDistrictAddedToMap ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID).." cityID:"..tostring(cityID).." districtXY:"..tostring(districtX)..","..tostring(districtY).." districtType:"..tostring(districtType).." pctComplete:"..tostring(percentComplete));
+    -- print("CityBannerManager_CQUI: OnDistrictAddedToMap ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID).." cityID:"..tostring(cityID).." districtXY:"..tostring(districtX)..","..tostring(districtY).." districtType:"..tostring(districtType).." pctComplete:"..tostring(percentComplete));
     local pPlayer = Players[playerID];
 
     if (pPlayer == nil) then
@@ -1572,6 +1575,7 @@ function OnDistrictAddedToMap( playerID: number, districtID : number, cityID :nu
         elseif (miniBanner ~= nil and pDistrict:IsComplete()) then
             miniBanner:UpdateStats();
             miniBanner:UpdateRangeStrike();
+            miniBanner:UpdatePosition();
         end
     end -- else not city center
 
@@ -2107,6 +2111,96 @@ function CQUI_OnLoadGameViewStateDone()
     -- Workaround the weirdness with the City Banners showing up in the wrong place by calling the OnRefreshBannerPositions function,
     -- which finds all of the banners and updates their positions
     OnRefreshBannerPositions();
+end
+
+-- ===========================================================================
+-- CQUI Enhancements for Barbarian Clans Mode
+-- ===========================================================================
+-- This is called every turn and whenever an action associated with the Barbarian clans happens
+-- it has enough information for us to do things with those banners
+function UpdateTribeBannerConversionBar(barbarianTribeEntry : table)
+    -- print("CityBannerManager_CQUI: UpdateTribeBannerConversionBar ENTRY");
+    BASE_CQUI_UpdateTribeBannerConversionBar(barbarianTribeEntry);
+
+    if (IsCQUI_CityBannerXMLLoaded() == false) then
+        -- print("CityBannerManager_CQUI: UpdateTribeBannerConversionBar EXIT (CQUI XML not loaded)");
+        return;
+    end
+
+    barbarianTribeEntry.BannerInstance.TribeIconBribedBacking:SetHide(true);
+    barbarianTribeEntry.BannerInstance.BribedTurnsLeft:SetHide(true);
+    barbarianTribeEntry.BannerInstance.TribeIconIncitedAgainstUsBacking:SetHide(true);
+    barbarianTribeEntry.BannerInstance.TribeIconIncitedByUsBacking:SetHide(true);
+    barbarianTribeEntry.BannerInstance.TribeRansomUnitBacking:SetHide(true);
+    barbarianTribeEntry.BannerInstance.CanHireUnit:SetHide(true);
+
+    local pBarbarianManager : table = Game.GetBarbarianManager();
+    local tribeIndex : number = pBarbarianManager:GetTribeIndexAtLocation(barbarianTribeEntry.Plot:GetX(),barbarianTribeEntry.Plot:GetY());
+    if (tribeIndex == nil) then
+        print("** Could not find tribeIndex at plot: "..tostring(barbarianTribeEntry.Plot:GetX())..","..tostring(barbarianTribeEntry.Plot:GetY()));
+        return;
+    end
+
+    local localPlayerID : number = Game.GetLocalPlayer();
+    local bribedTurnsRemaining : number = pBarbarianManager:GetTribeBribeTurnsRemaining(tribeIndex, localPlayerID);
+    if (bribedTurnsRemaining > 0) then
+        barbarianTribeEntry.BannerInstance.TribeIconBribedBacking:SetHide(false);
+        barbarianTribeEntry.BannerInstance.BribedTurnsLeft:SetHide(false);
+        barbarianTribeEntry.BannerInstance.BribedTurnsLeft:SetText(bribedTurnsRemaining);
+        -- TODO: This string says "you bribed this unit", which doesn't make sense on the city banner, so it needs a custom string
+        barbarianTribeEntry.BannerInstance.TribeIconBribedBacking:SetToolTipString(Locale.Lookup("LOC_BARBARIAN_STATUS_BRIBED", bribedTurnsRemaining));
+    end
+
+    -- Check if we incited them or if they were incited against us
+    local inciteTargetID : number = pBarbarianManager:GetTribeInciteTargetPlayer(tribeIndex);
+    if (inciteTargetID >= 0) then
+        if (inciteTargetID == localPlayerID) then
+            --Add incited against us to the unit tooltip
+            local inciteSourcePlayer : table = PlayerConfigurations[pBarbarianManager:GetTribeInciteSourcePlayer(tribeIndex)];
+            local inciteSourcePlayerName : string = inciteSourcePlayer:GetPlayerName();
+            local toolTipString = Locale.Lookup("LOC_BARBARIAN_STATUS_INCITED_AGAINST_YOU", inciteSourcePlayerName);
+            barbarianTribeEntry.BannerInstance.TribeIconIncitedAgainstUsBacking:SetHide(false);
+            barbarianTribeEntry.BannerInstance.TribeIconIncitedAgainstUsBacking:SetToolTipString(toolTipString);
+        else
+            local inciteSourceID : number = pBarbarianManager:GetTribeInciteSourcePlayer(tribeIndex);
+            if(inciteSourceID == localPlayerID)then
+                --Add incited by us to the unit tooltip
+                local inciteTargetPlayer : table = PlayerConfigurations[pBarbarianManager:GetTribeInciteTargetPlayer(tribeIndex)];
+                local inciteTargetPlayerName : string = inciteTargetPlayer:GetPlayerName();
+                local toolTipString = Locale.Lookup("LOC_BARBARIAN_STATUS_INCITED_BY_YOU", inciteTargetPlayerName);
+                barbarianTribeEntry.BannerInstance.TribeIconIncitedByUsBacking:SetHide(false);
+                barbarianTribeEntry.BannerInstance.TribeIconIncitedByUsBacking:SetToolTipString(toolTipString);
+            end
+        end
+    end
+
+    -- Check if they have a unit we can ransom, or if they can be hired
+    local pTribePlotIndex = Map.GetPlotIndex(barbarianTribeEntry.Plot:GetX(),barbarianTribeEntry.Plot:GetY());
+    local tParameters : table = {};
+    tParameters[PlayerOperations.PARAM_PLOT_ONE] = pTribePlotIndex;
+    if (localPlayerID ~= -1) then
+        local bShowRansom = UI.CanStartPlayerOperation(localPlayerID, PlayerOperations.RANSOM_CLAN, tParameters, true);
+        if (bShowRansom) then
+            barbarianTribeEntry.BannerInstance.TribeRansomUnitBacking:SetHide(false);
+            -- TODO: Add a string here for the ToolTip (this just says "Ransom Unit")
+            barbarianTribeEntry.BannerInstance.TribeRansomUnitBacking:SetToolTipString(Locale.Lookup("LOC_UNITCOMMAND_TREAT_WITH_CLAN_RANSOM_DESCRIPTION"));
+        end
+
+        local bCanStartHire = UI.CanStartPlayerOperation(localPlayerID, PlayerOperations.HIRE_CLAN, tParameters, false);
+        if (bCanStartHire) then
+            -- I don't want an icon that shows on the bar like the others as this (you can hire a unit) would be something that is very common
+            -- As the gold icons and similar cannot be made smaller than they already are... use an asterisk, consider something better later on?
+            barbarianTribeEntry.BannerInstance.CanHireUnit:SetHide(false);
+            barbarianTribeEntry.BannerInstance.CanHireUnit:SetText("*");
+            -- TODO: Add a string for the tool tip - this just says "Hire Clan"
+            barbarianTribeEntry.BannerInstance.CanHireUnit:SetToolTipString(Locale.Lookup("LOC_UNITCOMMAND_TREAT_WITH_CLAN_HIRE_DESCRIPTION"));
+        end
+    end
+
+    -- Calculate and set the proper width of the banner
+    barbarianTribeEntry.BannerInstance.TribeStatusStack:CalculateSize();
+    barbarianTribeEntry.BannerInstance.Banner_Base:SetSizeX(barbarianTribeEntry.BannerInstance.TribeStatusStack:GetSizeX() + 10);
+    -- print("CityBannerManager_CQUI - UpdateTribeBannerConversionBar EXIT");
 end
 
 -- ===========================================================================

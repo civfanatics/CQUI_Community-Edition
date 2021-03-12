@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Mod id="1d44b5e7-753e-405b-af24-5ee634ec8a01" version="2.4">
+<Mod id="1d44b5e7-753e-405b-af24-5ee634ec8a01" version="3.0">
     <!-- ==============================  Basic Mod Information ============================== -->
     <Properties>
         <AffectsSavedGames>0</AffectsSavedGames>
@@ -237,8 +237,8 @@
                 <File>Assets/UI/WorldView/CityBannerManager_CQUI.lua</File>
                 <File>Assets/UI/WorldView/citybannermanager.xml</File>
                 <!-- Placeholder for future work -->
-                <!-- <File>Assets/UI/WorldView/CityBannerInstances.xml</File> -->
-                <!-- <File>Assets/UI/WorldView/CityReligionInstances.xml</File> -->
+                <!-- <File>Assets/UI/WorldView/citybannerinstances.xml</File> -->
+                <!-- <File>Assets/UI/WorldView/cityreligioninstances.xml</File> -->
             </Items>
         </ImportFiles>
 
@@ -249,8 +249,8 @@
             </Properties>
             <Items>
                 <File>Assets/Expansion1/CityBanners/citybannermanager.xml</File>
-                <File>Assets/Expansion1/CityBanners/CityBannerInstances.xml</File>
-                <File>Assets/Expansion1/CityBanners/CityReligionInstances.xml</File>
+                <File>Assets/Expansion1/CityBanners/citybannerinstances.xml</File>
+                <File>Assets/Expansion1/CityBanners/cityreligioninstances.xml</File>
             </Items>
         </ImportFiles>
 
@@ -261,8 +261,8 @@
             </Properties>
             <Items>
                 <File>Assets/Expansion2/CityBanners/citybannermanager.xml</File>
-                <File>Assets/Expansion2/CityBanners/CityBannerInstances.xml</File>
-                <File>Assets/Expansion2/CityBanners/CityReligionInstances.xml</File>
+                <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
+                <File>Assets/Expansion2/CityBanners/cityreligioninstances.xml</File>
             </Items>
         </ImportFiles>
 
@@ -1025,8 +1025,8 @@
 
         <!-- EXP 1 -->
         <File>Assets/Expansion1/CityBanners/citybannermanager.xml</File>
-        <File>Assets/Expansion1/CityBanners/CityBannerInstances.xml</File>
-        <File>Assets/Expansion1/CityBanners/CityReligionInstances.xml</File>
+        <File>Assets/Expansion1/CityBanners/citybannerinstances.xml</File>
+        <File>Assets/Expansion1/CityBanners/cityreligioninstances.xml</File>
         <File>Assets/Expansion1/Replacements/citypanelculture_CQUI.lua</File>
         <File>Assets/Expansion1/Replacements/citypaneloverview_expansion1_CQUI.lua</File>
         <File>Assets/Expansion1/Replacements/citystates.xml</File>
@@ -1056,8 +1056,8 @@
         <File>Assets/Expansion2/Replacements/unitpanel_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/worldinput_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/CityBanners/citybannermanager.xml</File>
-        <File>Assets/Expansion2/CityBanners/CityBannerInstances.xml</File>
-        <File>Assets/Expansion2/CityBanners/CityReligionInstances.xml</File>
+        <File>Assets/Expansion2/CityBanners/citybannerinstances.xml</File>
+        <File>Assets/Expansion2/CityBanners/cityreligioninstances.xml</File>
         <File>Assets/Expansion2/Data/Expansion2_Icons_FontIcons_CQUI.xml</File>
 
         <!-- Heroes Mode -->
@@ -1177,8 +1177,8 @@
         <File>Assets/UI/WorldView/CityBannerManager_CQUI.lua</File>
         <File>Assets/UI/WorldView/citybannermanager.xml</File>
         <!-- Placeholder for future work -->
-        <!-- <File>Assets/UI/WorldView/CityBannerInstances.xml</File> -->
-        <!-- <File>Assets/UI/WorldView/CityReligionInstances.xml</File> -->
+        <!-- <File>Assets/UI/WorldView/citybannerinstances.xml</File> -->
+        <!-- <File>Assets/UI/WorldView/cityreligioninstances.xml</File> -->
         <File>Assets/UI/WorldView/districtploticonmanager_CQUI.lua</File>
         <File>Assets/UI/WorldView/plotinfo_CQUI.lua</File>
         <File>Assets/UI/WorldView/plotinfo.xml</File>
