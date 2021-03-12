@@ -85,6 +85,24 @@
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_CULTURAL_TOOLTIP" Language="de_DE">
       <Text>Zeige die Rundenzahl bis zur Grenzausdehnung an.</Text>
     </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_DISTRICTS_AVAILABLE" Language="de_DE">
+      <Text>Verfügbare Bezirke</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_DISTRICTS_AVAILABLE_TOOLTIP" Language="de_DE">
+      <Text>Zeigt ein Symbol an wenn ein Bezirk in der Stadt errichtet werden kann.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="de_DE">
+      <Text>Suzerain im Stadtstaat-Banner</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="de_DE">
+      <Text>Zeigt das Zivilisationssymbol oder Herrscherbild des Suzeräns des Stadtstaats im Banner an.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="de_DE">
+      <Text>Kriegssymbol im Stadtstaat-Banner</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="de_DE">
+      <Text>Zeigt im Stadtstaat-Banner ein Kriegssymbol an, wenn Ihr Euch im Krieg mit dem Stadtstaat befindet.</Text>
+    </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTWORKICON" Language="de_DE">
       <Text>Smart Bürger-Icons</Text>
     </Row>
@@ -172,6 +190,18 @@
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO_TOOLTIP" Language="de_DE">
       <Text>Automatische Wiedergabe von Audio-Voiceovers, wenn das Technol./Ausr. popup angezeigt wird</Text>
     </Row>
+    <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTVISUAL" Language="de_DE">
+      <Text>Wunderfilm Popup</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTVISUAL_TOOLTIP" Language="de_DE">
+      <Text>Umschalten, ob ein Wunderfilm bei errichtung eines Wunders gezeigt wird.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTAUDIO" Language="de_DE">
+      <Text>Wunder-Audio</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTAUDIO_TOOLTIP" Language="de_DE">
+      <Text>Umschalten, ob Audio nach der Errichtung eines Wunders gespielt wird. Dies ist unabhängig vom Wunderfilm und kann auch ohne den Film gespielt werden.</Text>
+    </Row>
     <Row Tag="LOC_CQUI_SETTINGS_REMINDER" Language="de_DE">
       <Text>Merke: CQUI Einstellungen werden im individuellen Savegame gespeichert![NEWLINE]Wenn Du die Einstellungen dauerhaft ändern möchtest, dann befolge bitte die Anweisungen [NEWLINE]in der Datei cqui_settings.sql im Verzeichnis [MOD INSTALL DIRECTORY]/CQUI/Assets.</Text>
     </Row>
@@ -226,38 +256,91 @@
     <Row Tag="LOC_CQUI_RECOMMENDATIONS_SHOWCITYDETAILADVISOR" Language="de_DE">
       <Text>Zeige Stadt-Ratgeber</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="de_DE">
-    <Text>Suzerain in CityState Banner</Text>
+    <Row Tag="LOC_CQUI_CANCEL_COMMAND" Language="de_DE">
+      <Text>Aktion aus der Einheiten-Aufgabenliste streichen</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="de_DE">
-        <Text>Kriegssymbol in CityState Banner</Text>
+    <Row Tag="LOC_CQUI_REMOVE_HARVEST" Language="de_DE">
+      <Text>Merkmal entfernen / Ressource ernten</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="de_DE">
-        <Text>Wenn Sie sich im Krieg mit einem Stadtstaat befinden, zeigen Sie die Kriegsikone im Stadtbanner dieses Stadtstaates</Text>
+    <Row Tag="LOC_CQUI_BUILD_FISHING" Language="de_DE">
+      <Text>Fischerboote bauen</Text>
     </Row>
-    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="de_DE">
-        <Text>Suzerain Envoy Labels anzeigen</Text>
+    <Row Tag="LOC_CQUI_BUILD_FORT" Language="de_DE">
+      <Text>Fort bauen</Text>
     </Row>
-    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON_TOOLTIP" Language="de_DE">
-        <Text>Zeigen Suzerain Gesandten Etiketten in CityState Banner[NEWLINE]Wenn Sie Suzerain sind, zeigt die Zahl oben rechts des Symbols gesandte Gesandte an.[NEWLINE]Wenn Sie nicht Suzerain sind, zeigen Ihre Gesandten oben links, Suzerain Gesandte oben rechts.</Text>
+    <Row Tag="LOC_CQUI_BUILD_CAMP" Language="de_DE">
+      <Text>Jagdlager errichten</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_CIV_ICON" Language="de_DE">
-        <Text>Show Civilization Icon</Text>
+    <Row Tag="LOC_CQUI_BUILD_FARM" Language="de_DE">
+      <Text>Bauernhof errichten</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_MILL" Language="de_DE">
+      <Text>Sägewerk errichten</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_OIL" Language="de_DE">
+      <Text>Ölquelle / Ölplattform errichten</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_PASTURE" Language="de_DE">
+      <Text>Weide errichten</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_PLANTATION" Language="de_DE">
+      <Text>Plantage errichten</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_QUARRY" Language="de_DE">
+      <Text>Steinbruch errichten</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_RAILROAD" Language="de_DE">
+      <Text>Eisenbahn errichten</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_MINE" Language="de_DE">
+      <Text>Mine errichten</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_NUKE" Language="de_DE">
+      <Text>Massenvernichtungswaffe: Atombombe</Text>
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_DISABLED" Language="de_DE">
-        <Text>Suzerain nicht anzeigen</Text>
+      <Text>Suzerän nicht anzeigen</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="de_DE">
-        <Text>Zeige die Zivilisations- oder Leader-Ikone des Suzerains im CityState Banner</Text>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_CIV_ICON" Language="de_DE">
+      <Text>Zeige Zivilisationssymbol</Text>
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="de_DE">
-        <Text>Show Leader Icon</Text>
+      <Text>Zeige Herrscherbild</Text>
+    </Row>
+   <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="de_DE">
+        <Text>Suzerän entsendete Gesandten anzeigen</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON_TOOLTIP" Language="de_DE">
+        <Text>Zeigt die Anzahl der Gesandten im Stadtstaat-Banner rechts über dem Suzerän an.[NEWLINE]Wenn Ihr der Suzerän seid, zeigt die Zahl die Anzahl der entsendeten Gesandte,[NEWLINE]wenn nicht, stehen Eure Gesandten links oberhalb, die des Suzeräns rechts oberhalb.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_THERMO_NUKE" Language="de_DE">
+      <Text>Massenvernichtungswaffe: Thermonukleare Bombe</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_REBASE" Language="de_DE">
+      <Text>Rebase</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_PLACE_PIN" Language="de_DE">
+      <Text>Landkartennadel setzen</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_INLINE_CITY_STATE_QUEST" Language="de_DE">
+      <Text>Stadtstaaten Quest in Stadtstaaten-Liste</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_INLINE_CITY_STATE_QUEST_FONT_SIZE" Language="de_DE">
+      <Text>Schriftgröße der Quest-Anzeige:</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="de_DE">
-      <Text>Religion Objektiv Einheit Flagge Stil</Text>
+      <Text>Religionslinse: Stil der Einheiten-Fahne</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="de_DE">
-      <Text>Der Stil für Einheitsflaggensymbole nicht-religiöser Einheiten, wenn die Religionslinse eingeschaltet ist[NEWLINE]Festkörper: Einheitenflags bleiben sichtbar, unverändert[NEWLINE]Transparent: Unit Flags werden transparent[NEWLINE]Versteckt: Einheitenflags werden ausgeblendet</Text>
+      <Text>Der Stil für Einheitsflaggen nicht-religiöser Einheiten, wenn die Religionslinse eingeschaltet ist[NEWLINE]Opaque:: Einheitenflaggen bleiben unverändert sichtbar,[NEWLINE]Transparent: Einheitenflaggen werden transparent[NEWLINE]Versteckt: Einheitenflaggen werden ausgeblendet</Text>
     </Row>
+    <Row Tag="LOC_CQUI_SPREAD_RELIGION" Language="de_DE">
+      <Text>Religion verbreiten</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_REMOVE_HERESY" Language="de_DE">
+      <Text>Ketzerei entfernen</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_REST_HEAL" Language="de_DE">
+      <Text>Bis zur Heilung verschanzen</Text>
   </LocalizedText>
 </GameData>

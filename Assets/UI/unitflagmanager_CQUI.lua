@@ -10,7 +10,6 @@ include("CQUICommon.lua");
 BASE_CQUI_SetColor = UnitFlag.SetColor;
 BASE_CQUI_UpdateStats = UnitFlag.UpdateStats;
 BASE_CQUI_OnUnitSelectionChanged = OnUnitSelectionChanged;
-BASE_CQUI_OnPlayerTurnActivated = OnPlayerTurnActivated;
 BASE_CQUI_OnUnitPromotionChanged = OnUnitPromotionChanged;
 BASE_CQUI_UpdateFlagType = UnitFlag.UpdateFlagType;
 BASE_CQUI_OnLensLayerOn = OnLensLayerOn;
@@ -18,9 +17,7 @@ BASE_CQUI_OnLensLayerOff = OnLensLayerOff;
 BASE_CQUI_ShouldHideFlag = ShouldHideFlag;
 BASE_CQUI_Subscribe = Subscribe;
 BASE_CQUI_Unsubscribe = Unsubscribe;
-BASE_CQUI_UpdateIconStack = UpdateIconStack;
 BASE_CQUI_UpdateName = UnitFlag.UpdateName;
-BASE_CQUI_Refresh = Refresh;
 
 local m_HexColoringReligion:number = UILens.CreateLensLayerHash("Hex_Coloring_Religion");
 local m_IsReligionLensOn:boolean = false;
@@ -63,23 +60,44 @@ function CQUI_OnSettingsUpdate()
     CQUI_ReligionLensUnitFlagStyle = GameConfiguration.GetValue("CQUI_ReligionLensUnitFlagStyle");
     --print("********* m_IsReligionLensOn: "..tostring(m_IsReligionLensOn).." curHideUnitsValue:"..tostring(curHideUnitsValue).." CQUI_ReligionLensUnitFlagStyle:"..tostring(CQUI_ReligionLensUnitFlagStyle))
     if (m_IsReligionLensOn and curHideUnitsValue ~= CQUI_ReligionLensUnitFlagStyle) then
-        -- Call the Refresh, which will update the unit flags based on the setting that changed
-        CQUI_RefreshForReligionLensUpdate();
+        -- Call the CQUI_Refresh, which will update the unit flags based on the setting that changed
+        CQUI_Refresh();
     end
 end
 
 -- ===========================================================================
+-- Update the stats of the flags (Azurency) and update the flag transparency if Religion Lens is displayed (the_m4a)
 function CQUI_Refresh()
-    -- AZURENCY : update the stats of the flags on refresh
     local unitList = Players[Game.GetLocalPlayer()]:GetUnits();
     if unitList ~= nil then
+        local applyDimming = false;
+        if (m_IsReligionLensOn and (CQUI_ReligionLensUnitFlagStyle == CQUI_RELIGIONLENS_UNITFLAGSTYLE_TRANSPARENT)) then
+            applyDimming = true;
+        end
+
         for _,pUnit in unitList:Members() do
             local eUnitID = pUnit:GetID();
             local eOwner  = pUnit:GetOwner();
 
-            local pFlag = GetUnitFlag( eOwner, eUnitID );
-            if pFlag ~= nil then
-                pFlag:UpdateStats();
+            local flag = GetUnitFlag( eOwner, eUnitID );
+            if flag ~= nil then
+                flag:UpdateStats();
+
+                if (flag.m_eVisibility == RevealedState.VISIBLE and flag.m_Style ~= FLAGSTYLE_RELIGION) then
+                    if (applyDimming) then
+                        flag.m_Instance.FlagRoot:SetToEnd();
+                        flag.m_Instance.FlagRoot:SetAlpha(ALPHA_DIM / 2); -- 1/2 of the "normal" dim
+                        flag.m_Instance.HealthBar:SetAlpha(ALPHA_DIM / 2);
+                    elseif (flag.m_IsDimmed and not flag.m_OverrideDimmed) then
+                        -- When Religion lens is off, we need to reapply the usual dimming level to units that should have it
+                        flag.m_Instance.FlagRoot:SetToEnd();
+                        flag.m_Instance.FlagRoot:SetAlpha(ALPHA_DIM);
+                        flag.m_Instance.HealthBar:SetAlpha(ALPHA_DIM);
+                    else
+                        flag.m_Instance.FlagRoot:SetAlpha(1.0);
+                        flag.m_Instance.HealthBar:SetAlpha(1.0);
+                    end
+                end
             end
         end
     end
@@ -280,60 +298,17 @@ function UnitFlag.UpdatePromotions( self )
                 --end
                 --ARISTOS: if already promoted, or no promotion available, show # of proms
                 elseif (#promotionList > 0) then
-                    --[[
-                    local tooltipString :string = "";
-                    for i, promotion in ipairs(promotionList) do
-                        tooltipString = tooltipString .. Locale.Lookup(GameInfo.UnitPromotions[promotion].Name);
-                        if (i < #promotionList) then
-                            tooltipString = tooltipString .. "[NEWLINE]";
-                        end
-                    end
-                    self.m_Instance.Promotion_Flag:SetToolTipString(tooltipString);
-                    --]]
                     self.m_Instance.UnitNumPromotions:SetText(#promotionList);
                     self.m_Instance.Promotion_Flag:SetHide(false);
                 end
             end
         end
 
-        -- WORKAROUND: The Barbarian Clans Mode also uses ReplaceUIScript for UnitFlagManager
+        -- WORKAROUND: The Barbarian Clans Mode also uses ReplaceUIScript for UnitFlagManager, so to use both that code was integrated with CQUI.
         --             This code is copied from the UnitFlagManager_BarbarianClansMode.lua
         if (g_bIsBarbarianClansMode) then
-            self.m_Instance.TribeStatusFlag:SetHide(true);
-            local tribeIndex : number = pUnit:GetBarbarianTribeIndex();
-            if(tribeIndex >= 0)then
-    
-                local pBarbarianTribeManager : table = Game.GetBarbarianManager();
-                local bribedTurnsRemaining : number = pBarbarianTribeManager:GetTribeBribeTurnsRemaining(tribeIndex, localPlayerID);
-                self.m_Instance.Promotion_Flag:SetHide(true);
-    
-                --Show any Barbarian Tribe specific status icons (bribed, incited)
-                if(bribedTurnsRemaining > 0)then
-                    --Show bribe icon w/ turns remaining tooltip
-                    self.m_Instance.TribeStatusFlag:SetHide(false);
-                    self.m_Instance.TribeStatusIcon:SetTexture(BRIBE_STATUS_ICON_NAME);
-                    return;
-                else
-                    local inciteTargetID : number = pBarbarianTribeManager:GetTribeInciteTargetPlayer(tribeIndex);
-                    if (inciteTargetID >= 0) then
-                        if(inciteTargetID == localPlayerID)then
-                            --Show incited against us icon
-                            self.m_Instance.TribeStatusFlag:SetHide(false);
-                            self.m_Instance.TribeStatusIcon:SetTexture(INCITE_AGAINST_PLAYER_STATUS_ICON_NAME);
-                            return;
-                        else
-                            local inciteSourceID : number = pBarbarianTribeManager:GetTribeInciteSourcePlayer(tribeIndex);
-                            if(inciteSourceID == localPlayerID)then
-                                --Show we incited them icon
-                                self.m_Instance.TribeStatusFlag:SetHide(false);
-                                self.m_Instance.TribeStatusFlag:SetTexture(INCITE_BY_PLAYER_STATUS_ICON_NAME);
-                                return;
-                            end
-                        end
-                    end
-                end
-            end
-        end -- BarbarianClansMode Loaded
+            UnitFlag.UpdatePromotionsBarbarianClansMode(self, pUnit);
+        end
     end
 end
 
@@ -408,20 +383,6 @@ function OnUnitChargesChanged(player, unitID)
 end
 
 -- ===========================================================================
---  CQUI modified OnPlayerTurnActivated functiton
---  AutoPlay mod compatibility
--- ===========================================================================
-function OnPlayerTurnActivated( ePlayer:number, bFirstTimeThisTurn:boolean )
-
-    local idLocalPlayer = Game.GetLocalPlayer();
-    if idLocalPlayer < 0 then
-        return;
-    end
-
-    BASE_CQUI_OnPlayerTurnActivated(ePlayer, bFirstTimeThisTurn);
-end
-
--- ===========================================================================
 --  CQUI modified OnUnitPromotionChanged functiton
 --  Refresh the flag promotion sign
 -- ===========================================================================
@@ -434,7 +395,7 @@ function OnUnitPromotionChanged( playerID : number, unitID : number )
             if (flag ~= nil) then
                 --flag:UpdateStats();
                 -- AZURENCY : request a refresh on the next frame (to update the promotion flag and remove + sign)
-                ContextPtr:RequestRefresh()
+                ContextPtr:RequestRefresh();
             end
         end
     end
@@ -452,7 +413,7 @@ function OnLensLayerOn( layerNum:number )
         -- Call Refresh, which will cycle through all of the units visible to the current player
         -- OnUnitVisibilityChanged will be called for every unit the player can see, where the
         -- icon can be dimmed due to the religion lens being selected.
-        CQUI_RefreshForReligionLensUpdate();
+        CQUI_Refresh();
     end
 end
 
@@ -466,7 +427,7 @@ function OnLensLayerOff( layerNum:number )
     if (layerNum == m_HexColoringReligion) then
         m_IsReligionLensOn = false;
         -- See note in OnLensLayerOn as for why we call refresh here
-        CQUI_RefreshForReligionLensUpdate();
+        CQUI_Refresh();
     end
 end
 
@@ -486,71 +447,62 @@ function ShouldHideFlag(pUnit:table)
     return retVal;
 end
 
--- ===========================================================================
-function CQUI_RefreshForReligionLensUpdate()
-    -- Track that this refresh was initiated by CQUI, so the work of dimming or hiding the icons can be done
-    m_CQUIInitiatedRefresh = true;
-    Refresh();
-end
-
--- ===========================================================================
--- CQUI modified Refresh function
--- Whenever Refresh is completed, mark m_CQUIInitiatedRefresh as false 
--- ===========================================================================
-function Refresh()
-    BASE_CQUI_Refresh();
-    m_CQUIInitiatedRefresh = false;
-end
-
--- ===========================================================================
--- CQUI modified UpdateIconStack
--- When a Refresh() has been initiated by CQUI, cycle through the visible units and update their transparency based on CQUI_ReligionLensUnitFlagStyle setting
--- ===========================================================================
-function UpdateIconStack( plotX:number, plotY:number )
-    BASE_CQUI_UpdateIconStack(plotX, plotY);
-
-    if m_CQUIInitiatedRefresh == false then
-        -- Don't do the extra work if CQUI didn't initiate the refresh
-        return;
-    end
-
-    local applyDimming = false;
-    if (m_IsReligionLensOn and (CQUI_ReligionLensUnitFlagStyle == CQUI_RELIGIONLENS_UNITFLAGSTYLE_TRANSPARENT)) then
-        applyDimming = true;
-    end
-
-    local unitList:table = Units.GetUnitsInPlotLayerID( plotX, plotY, MapLayers.ANY );
-    if (unitList ~= nil) then
-        for _, pUnit in ipairs(unitList) do
-            -- Cache commonly used values (optimization)
-            local unitID:number = pUnit:GetID();
-            local unitOwner:number = pUnit:GetOwner();
-            local flag = GetUnitFlag( unitOwner, unitID );
-            if (flag ~= nil and flag.m_eVisibility == RevealedState.VISIBLE and flag.m_Style ~= FLAGSTYLE_RELIGION) then
-                -- print("**** unitID: "..tostring(unitID).."  CQUI_ReligionLensUnitFlagStyle:"..tostring(CQUI_ReligionLensUnitFlagStyle).."  applyDimming:"..tostring(applyDimming).." m_IsDimmed:"..tostring(flag.m_IsDimmed).." m_OverrideDimmed:"..tostring(flag.m_OverrideDimmed));
-                if (applyDimming) then
-                    flag.m_Instance.FlagRoot:SetToEnd();
-                    flag.m_Instance.FlagRoot:SetAlpha(ALPHA_DIM / 2); -- 1/2 of the "normal" dim
-                    flag.m_Instance.HealthBar:SetAlpha(ALPHA_DIM / 2);
-                elseif (flag.m_IsDimmed and not flag._OverrideDimmed) then
-                    -- When Religion lens is off, we need to reapply the usual dimming level to units that should have it
-                    flag.m_Instance.FlagRoot:SetToEnd();
-                    flag.m_Instance.FlagRoot:SetAlpha(ALPHA_DIM);
-                    flag.m_Instance.HealthBar:SetAlpha(ALPHA_DIM);
-                else
-                    flag.m_Instance.FlagRoot:SetAlpha(1.0);
-                    flag.m_Instance.HealthBar:SetAlpha(1.0);
-                end
-            end
-        end
-    end
-end
 
 -- ===========================================================================
 -- IMPORTS FROM THE BARBARIAN CLANS MODE
 -- Firaxis implemented the Barbarian Clans Mode using a ReplaceUIScript with UnitFlagManager
 -- ReplaceUIScript can only happen once, so in order to get their additions to work with CQUI, we have to copy that code
 -- The functions below pull those changes from Barbarian Clans mode in to CQUI so they can work together
+-- ===========================================================================
+function UnitFlag.UpdatePromotionsBarbarianClansMode(self, pUnit)
+    -- This is the code specific to the Barbarian Clans Mode from that DLC that is added to the UnitFlag.UpdatePromotions function.
+    self.m_Instance.TribeStatusFlag:SetHide(true);
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    self.m_Instance.TribeInidcatorFlag:SetHide(true);
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+    local tribeIndex : number = pUnit:GetBarbarianTribeIndex();
+    if (tribeIndex >= 0) then
+
+        local pBarbarianTribeManager : table = Game.GetBarbarianManager();
+        local bribedTurnsRemaining : number = pBarbarianTribeManager:GetTribeBribeTurnsRemaining(tribeIndex, localPlayerID);
+        self.m_Instance.Promotion_Flag:SetHide(true);
+
+        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+        -- CQUI Specific Change: Show the barbarian clan (so we know who we're dealing with without having to mouse-over)
+        local barbType : number = pBarbarianTribeManager:GetTribeNameType(tribeIndex);
+        local pBarbTribe : table = GameInfo.BarbarianTribeNames[barbType];
+        self.m_Instance.TribeInidcatorFlag:SetHide(false);
+        self.m_Instance.TribeIndicatorIcon:SetIcon("ICON_" .. pBarbTribe.TribeNameType);
+        -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+
+        --Show any Barbarian Tribe specific status icons (bribed, incited)
+        if (bribedTurnsRemaining > 0) then
+            --Show bribe icon w/ turns remaining tooltip
+            self.m_Instance.TribeStatusFlag:SetHide(false);
+            self.m_Instance.TribeStatusIcon:SetTexture(BRIBE_STATUS_ICON_NAME);
+            return;
+        else
+            local inciteTargetID : number = pBarbarianTribeManager:GetTribeInciteTargetPlayer(tribeIndex);
+            if (inciteTargetID >= 0) then
+                if(inciteTargetID == localPlayerID)then
+                    --Show incited against us icon
+                    self.m_Instance.TribeStatusFlag:SetHide(false);
+                    self.m_Instance.TribeStatusIcon:SetTexture(INCITE_AGAINST_PLAYER_STATUS_ICON_NAME);
+                    return;
+                else
+                    local inciteSourceID : number = pBarbarianTribeManager:GetTribeInciteSourcePlayer(tribeIndex);
+                    if(inciteSourceID == localPlayerID)then
+                        --Show we incited them icon
+                        self.m_Instance.TribeStatusFlag:SetHide(false);
+                        self.m_Instance.TribeStatusIcon:SetTexture(INCITE_BY_PLAYER_STATUS_ICON_NAME);
+                        return;
+                    end
+                end
+            end
+        end
+    end
+end -- BarbarianClansMode Loaded
+
 -- ===========================================================================
 function UnitFlag.UpdateName( self )
     BASE_CQUI_UpdateName(self);
@@ -568,7 +520,6 @@ function UnitFlag.UpdateName( self )
         if(pUnit ~= nil)then
             local tribeIndex : number = pUnit:GetBarbarianTribeIndex();
             if(tribeIndex >= 0)then
-                
                 local pBarbarianTribeManager : table = Game.GetBarbarianManager();
                 local bribedTurnsRemaining : number = pBarbarianTribeManager:GetTribeBribeTurnsRemaining(tribeIndex, localPlayerID);
                 local nameString = self.m_Instance.UnitIcon:GetToolTipString();
@@ -611,8 +562,8 @@ end
 
 -- ===========================================================================
 function OnPlayerOperationComplete(playerID : number, operation : number)
-    --Update Barbarian UnitFlag tooltip and status icons in case we have Bribed or Incited them
-    if(operation == PlayerOperations.BRIBE_CLAN or operation == PlayerOperations.INCITE_CLAN)then
+    -- Update Barbarian UnitFlag tooltip and status icons in case we have Bribed or Incited them
+    if (operation == PlayerOperations.BRIBE_CLAN or operation == PlayerOperations.INCITE_CLAN) then
         local pBarbarianPlayer = Players[PlayerTypes.BARBARIAN]
         local pBarbarianUnits:table = pBarbarianPlayer:GetUnits();
         for i, pUnit in pBarbarianUnits:Members() do
@@ -651,8 +602,6 @@ function Initialize_UnitFlagManager_CQUI()
     Events.UnitChargesChanged.Add(OnUnitChargesChanged);
     Events.UnitSelectionChanged.Remove(BASE_CQUI_OnUnitSelectionChanged);
     Events.UnitSelectionChanged.Add(OnUnitSelectionChanged);
-    Events.PlayerTurnActivated.Remove(BASE_CQUI_OnPlayerTurnActivated);
-    Events.PlayerTurnActivated.Add(OnPlayerTurnActivated);
     Events.UnitPromoted.Remove(BASE_CQUI_OnUnitPromotionChanged);
     Events.UnitPromoted.Add(OnUnitPromotionChanged);
 
