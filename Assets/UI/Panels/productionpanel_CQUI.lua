@@ -489,7 +489,7 @@ function BuildBuilding(city, buildingEntry)
         UI.PlaySound("Confirm_Production");
         CloseAfterNewProduction();
     end
-    
+
     CQUI_ClearDistrictBuildingLayers();
 end
 
