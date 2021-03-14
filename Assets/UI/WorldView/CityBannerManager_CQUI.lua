@@ -1931,14 +1931,18 @@ function UpdateTribeBannerConversionBar(barbarianTribeEntry : table)
             barbarianTribeEntry.BannerInstance.TribeRansomUnitBacking:SetToolTipString(Locale.Lookup("LOC_UNITCOMMAND_TREAT_WITH_CLAN_RANSOM_DESCRIPTION"));
         end
 
-        local bCanStartHire = UI.CanStartPlayerOperation(localPlayerID, PlayerOperations.HIRE_CLAN, tParameters, false);
-        if (bCanStartHire) then
-            -- I don't want an icon that shows on the bar like the others as this (you can hire a unit) would be something that is very common
-            -- As the gold icons and similar cannot be made smaller than they already are... use an asterisk, consider something better later on?
-            barbarianTribeEntry.BannerInstance.CanHireUnit:SetHide(false);
-            barbarianTribeEntry.BannerInstance.CanHireUnit:SetText("*");
-            -- TODO: Add a string for the tool tip - this just says "Hire Clan"
-            barbarianTribeEntry.BannerInstance.CanHireUnit:SetToolTipString(Locale.Lookup("LOC_UNITCOMMAND_TREAT_WITH_CLAN_HIRE_DESCRIPTION"));
+        -- Calling HIRE_CLAN if you do not have a city will result in the game crashing
+        local pActivePlayer = Players[localPlayerID];
+        if (pActivePlayer:GetCities():GetCount() >= 1) then
+            local bCanStartHire = UI.CanStartPlayerOperation(localPlayerID, PlayerOperations.HIRE_CLAN, tParameters, false);
+            if (bCanStartHire) then
+                -- I don't want an icon that shows on the bar like the others as this (you can hire a unit) would be something that is very common
+                -- As the gold icons and similar cannot be made smaller than they already are... use an asterisk, consider something better later on?
+                barbarianTribeEntry.BannerInstance.CanHireUnit:SetHide(false);
+                barbarianTribeEntry.BannerInstance.CanHireUnit:SetText("*");
+                -- TODO: Add a string for the tool tip - this just says "Hire Clan"
+                barbarianTribeEntry.BannerInstance.CanHireUnit:SetToolTipString(Locale.Lookup("LOC_UNITCOMMAND_TREAT_WITH_CLAN_HIRE_DESCRIPTION"));
+            end
         end
     end
 
