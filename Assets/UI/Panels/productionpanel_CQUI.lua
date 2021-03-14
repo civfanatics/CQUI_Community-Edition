@@ -9,7 +9,6 @@ include("StrategicView_MapPlacement");    -- RealizePlotArtForDistrictPlacement,
 -- ===========================================================================
 BASE_OnInterfaceModeChanged = OnInterfaceModeChanged;
 BASE_OnClose = OnClose;
-BASE_OnCityBannerManagerProductionToggle = OnCityBannerManagerProductionToggle;
 BASE_PopulateGenericItemData = PopulateGenericItemData;
 BASE_View = View;
 BASE_GetData = GetData;
@@ -120,7 +119,7 @@ end
 -- ===========================================================================
 function View(data)
     for i, item in ipairs(data.UnitPurchases) do
-        if item.Yield then 
+        if item.Yield then
             if (CQUI_PurchaseTable[item.Hash] == nil) then
                 CQUI_PurchaseTable[item.Hash] = {};
             end
@@ -159,7 +158,7 @@ function View(data)
     end
 
     for i, item in ipairs(data.DistrictPurchases) do
-        if item.Yield then 
+        if item.Yield then
             if (CQUI_PurchaseTable[item.Hash] == nil) then
                 CQUI_PurchaseTable[item.Hash] = {};
             end
@@ -178,7 +177,7 @@ function View(data)
     end
 
     for i, item in ipairs(data.BuildingPurchases) do
-        if item.Yield then 
+        if item.Yield then
             if (CQUI_PurchaseTable[item.Hash] == nil) then
                 CQUI_PurchaseTable[item.Hash] = {};
             end
@@ -225,16 +224,16 @@ function GetData()
             local sToolTip    :string = ToolTipHelper.GetUnitToolTip( row.Hash, MilitaryFormationTypes.STANDARD_MILITARY_FORMATION, buildQueue ) .. sAllReasons;
 
             local kUnit :table = {
-                Type                = row.UnitType, 
-                Name                = row.Name, 
-                ToolTip             = sToolTip, 
-                Hash                = row.Hash, 
-                Kind                = row.Kind, 
+                Type                = row.UnitType,
+                Name                = row.Name,
+                ToolTip             = sToolTip,
+                Hash                = row.Hash,
+                Kind                = row.Kind,
                 TurnsLeft           = CQUI_FAITH_ONLY_TURNS_LEFT,
-                Disabled            = isDisabled, 
+                Disabled            = isDisabled,
                 Civilian            = row.FormationClass == "FORMATION_CLASS_CIVILIAN",
-                Cost                = 0, 
-                Progress            = 0, 
+                Cost                = 0,
+                Progress            = 0,
                 Corps               = false,
                 CorpsCost           = 0,
                 CorpsTurnsLeft      = 1,
@@ -248,7 +247,7 @@ function GetData()
                 ReligiousStrength   = row.ReligiousStrength,
                 IsCurrentProduction = row.Hash == m_CurrentProductionHash
             };
-                
+
             table.insert(new_data.UnitItems, kUnit );
         end
     end
@@ -275,7 +274,7 @@ function GetTurnsToCompleteStrings( turnsToComplete:number )
         turnsStr = turnsToComplete .. "[ICON_Turn]";
         turnsStrTT = turnsToComplete .. Locale.Lookup("LOC_HUD_CITY_TURNS_TO_COMPLETE", turnsToComplete);
     end
-    
+
     return turnsStr, turnsStrTT;
 end
 
@@ -316,7 +315,7 @@ function PopulateGenericItemData( kInstance:table, kItem:table )
     if kInstance.ArmyFaithPurchaseButton then
         kInstance.ArmyFaithPurchaseButton:GetTextControl():SetColor(purchaseGoldFaithColor);
     end
-  
+
     -- Gold purchase button for building, district and units
     if kInstance.PurchaseButton then
         if CQUI_PurchaseTable[kItem.Hash] and CQUI_PurchaseTable[kItem.Hash]["gold"] then
@@ -326,7 +325,7 @@ function PopulateGenericItemData( kInstance:table, kItem:table )
             kInstance.PurchaseButton:SetHide(false);
             kInstance.PurchaseButton:SetDisabled(false);
             kInstance.PurchaseButton:RegisterCallback(Mouse.eLClick, CQUI_PurchaseTable[kItem.Hash]["goldCallback"]);
-            
+
             if CQUI_PurchaseTable[kItem.Hash]["goldCantAfford"] or CQUI_PurchaseTable[kItem.Hash]["goldDisabled"] then
                 kInstance.PurchaseButton:SetDisabled(true);
                 kInstance.PurchaseButton:SetColor(disabledButtonColor);
@@ -388,7 +387,7 @@ function PopulateGenericItemData( kInstance:table, kItem:table )
             kInstance.FaithPurchaseButton:SetHide(false);
             kInstance.FaithPurchaseButton:SetDisabled(false);
             kInstance.FaithPurchaseButton:RegisterCallback(Mouse.eLClick, CQUI_PurchaseTable[kItem.Hash]["faithCallback"]);
-        
+
             if CQUI_PurchaseTable[kItem.Hash]["faithCantAfford"] or CQUI_PurchaseTable[kItem.Hash]["faithDisabled"] then
                 kInstance.FaithPurchaseButton:SetDisabled(true);
                 kInstance.FaithPurchaseButton:SetColor(disabledButtonColor);
@@ -471,27 +470,27 @@ function BuildBuilding(city, buildingEntry)
     -- Does the building need to be placed?
     if ( bNeedsPlacement ) then
         -- If so, set the placement mode
-        local tParameters = {}; 
+        local tParameters = {};
         tParameters[CityOperationTypes.PARAM_BUILDING_TYPE] = buildingEntry.Hash;
         GetBuildInsertMode(tParameters);
         UI.SetInterfaceMode(InterfaceModeTypes.BUILDING_PLACEMENT, tParameters);
         Close();
     else
         -- If not, add it to the queue.
-        local tParameters = {}; 
-        tParameters[CityOperationTypes.PARAM_BUILDING_TYPE] = buildingEntry.Hash;    
+        local tParameters = {};
+        tParameters[CityOperationTypes.PARAM_BUILDING_TYPE] = buildingEntry.Hash;
         GetBuildInsertMode(tParameters);
         CityManager.RequestOperation(city, CityOperationTypes.BUILD, tParameters);
         UI.PlaySound("Confirm_Production");
         CloseAfterNewProduction();
     end
-    
+
     CQUI_ClearDistrictBuildingLayers();
 end
 
 -- ===========================================================================
---    CQUI modified ZoneDistrict function : 
---    If already in placing district/building mode, reset the lenses for 
+--    CQUI modified ZoneDistrict function :
+--    If already in placing district/building mode, reset the lenses for
 --    the new district/building
 -- ===========================================================================
 function ZoneDistrict(city, districtEntry)
@@ -587,16 +586,6 @@ function CloseAfterNewProduction()
 end
 
 -- ===========================================================================
---    CQUI modified OnCityBannerManagerProductionToggle
--- ===========================================================================
-function OnCityBannerManagerProductionToggle()
-    if (ContextPtr:IsHidden()) then
-        Open();
-        m_tabs.SelectTab(m_productionTab);
-    end
-end
-
--- ===========================================================================
 --    CQUI modified OnNotificationPanelChooseProduction : Removed tab selection
 -- ===========================================================================
 function OnNotificationPanelChooseProduction()
@@ -647,9 +636,6 @@ function Initialize()
     Events.InterfaceModeChanged.Add( OnInterfaceModeChanged );
     Events.CityMadePurchase.Add( function() Refresh(); end);
 
-    LuaEvents.CityBannerManager_ProductionToggle.Remove( BASE_OnCityBannerManagerProductionToggle );
-    LuaEvents.CityBannerManager_ProductionToggle.Add( OnCityBannerManagerProductionToggle );
-
     LuaEvents.NotificationPanel_ChooseProduction.Remove( BASE_OnNotificationPanelChooseProduction );
     LuaEvents.NotificationPanel_ChooseProduction.Add( OnNotificationPanelChooseProduction );
 
@@ -659,7 +645,7 @@ function Initialize()
     Controls.CloseButton:ClearCallback(Mouse.eLClick);
     Controls.CloseButton:RegisterCallback(Mouse.eLClick, OnClose);
     Controls.CQUI_ShowManagerButton:RegisterCallback(Mouse.eLClick, CQUI_ToggleManager);
-    
+
     LuaEvents.CQUI_ProductionPanel_CityviewEnable.Add( CQUI_OnCityviewEnabled);
     LuaEvents.CQUI_ProductionPanel_CityviewDisable.Add( CQUI_OnCityviewDisabled);
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
@@ -687,7 +673,7 @@ if bIsHeroMODE then
     -- Override: when clicking a Hero Devotion project, view the Hero info rather than
     -- the project info
     function RightClickProductionItem(sItemType:string)
-        
+
         local pProjectInfo = GameInfo.Projects[sItemType];
         if (pProjectInfo ~= nil) then
             for row in GameInfo.HeroClasses() do
