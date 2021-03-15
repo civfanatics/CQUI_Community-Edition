@@ -240,9 +240,6 @@
                     <Button ID="CQUI_ShowManagerButton" Offset="0,2" Anchor="L,T" Size="44,44" Texture="LaunchBar_Hook_ButtonMedium" Style="ButtonNormalText" ToolTip="LOC_PRODUCTION_PANEL_MULTI_QUEUE">
                         <Image Offset="0,-1" Texture="Stats32" Size="32,32" Anchor="C,C" Icon="ICON_QUEUE"/>
                     </Button>
-                    <Button ID="CQUI_ShowQueueButton" Offset="0,10" Anchor="L,T" Size="44,44" Texture="LaunchBar_Hook_ButtonMedium" Style="ButtonNormalText" ToolTip="QUEUE BUTTON">
-                        <Image Offset="0,-1" Texture="Stats32" Size="32,32" Anchor="C,C" Icon="ICON_QUEUE"/>
-                    </Button>
                     <Container Anchor="L,T" Size="parent-20,parent-27">
                         <Label ID="HeaderLabel" Anchor="C,T" Offset="10,10" Style="BannerHeaderText" String="LOC_HUD_CHOOSE_PRODUCTION" />
                     </Container>

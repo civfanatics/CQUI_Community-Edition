@@ -34,13 +34,10 @@ function CQUI_OnSettingsUpdate()
     CQUI_ProductionQueue = GameConfiguration.GetValue("CQUI_ProductionQueue");
     CQUI_ShowProductionRecommendations = GameConfiguration.GetValue("CQUI_ShowProductionRecommendations") == 1
     CQUI_SelectCorrectUnderlyingTab()
-    --UserConfiguration.AutoProdQueueEnabled(CQUI_ProductionQueue);
     Controls.CQUI_ShowManagerButton:SetHide(not CQUI_ProductionQueue);
-    Controls.CQUI_ShowQueueButton:SetSelected(CQUI_ProductionQueue);
 end
 
 function CQUI_SelectCorrectUnderlyingTab()
-    Controls.CQUI_ShowQueueButton:SetSelected(CQUI_ProductionQueue);
     if (not CQUI_ProductionQueue) then
         OnTabChangeProduction();
     else
@@ -56,7 +53,6 @@ function CQUI_ToggleManager()
         CQUI_ManagerShowing = true;
         OnTabChangeManager();
     end
-    Controls.CQUI_ShowQueueButton:SetSelected(CQUI_ProductionQueue);
     Controls.CQUI_ShowManagerButton:SetSelected(CQUI_ManagerShowing);
 end
 
@@ -510,13 +506,12 @@ end
 -- ===========================================================================
 function Close()
     -- In CityView, keep the panel open while placing buildings
-    --if (UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT or UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT) then
     if CQUI_InCityView and (UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT or UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT) then
         return;
     end
 
     if CQUI_InCityView then
-         -- If closed in CityView, abort cityView. ProductionPanel is first to close, so this avoids having to capture escape key presses while in city view and rerouting them to closing city view.
+        -- If closing in CityView, disable cityView. ProductionPanel is first to close, so this avoids having to capture escape key presses while in city view and rerouting them to closing city view.
         LuaEvents.CQUI_CityviewDisable();
         return;
     end
@@ -531,7 +526,6 @@ function Close()
         if (CQUI_ManagerShowing) then
             CQUI_ToggleManager();
         end
-        --LuaEvents.CQUI_CityviewDisable(); TODO Should we guarantee we exit cityView?
         LuaEvents.ProductionPanel_Close(); -- Tell the CityPanel to shift to the right
     end
 end

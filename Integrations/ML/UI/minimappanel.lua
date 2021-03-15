@@ -14,6 +14,7 @@ include("ModLens_Archaeologist.lua")
 include("ModLens_Wonder.lua")
 include("Modlens_CitizenManagement.lua")
 include("ModLens_Barbarian.lua")
+include("ModLens_Preserve.lua")
 include("ModLens_Naturalist.lua")
 include("ModLens_Builder.lua")
 -- ModLens_Builder has an include for ModLens_Builder_Config_Default.lua

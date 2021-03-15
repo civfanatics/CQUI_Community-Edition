@@ -110,7 +110,7 @@ LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 
 -- ====================CQUI Cityview==========================================
 function CQUI_OnCityviewEnabled()
-        OnShowOverviewPanel(true);
+        OnShowOverviewPanel(true)
         m_tabs.SelectTab(Controls.HealthButton);
 end
 
@@ -124,12 +124,8 @@ LuaEvents.CQUI_CityPanelOverview_CityviewEnable.Add( CQUI_OnCityviewEnabled);
 LuaEvents.CQUI_CityPanelOverview_CityviewDisable.Add( CQUI_OnCityviewDisabled);
 
 -- ===========================================================================
--- HACK: Something in the event city selection event chain is overriding the active lens after we open this screen
---       Check lens next frame to ensure we end up with the correct lens active
--- TODO: We need to do figure out why this is happening, having it reactivate the lens every frame does not play well
---       with everywhere else that uses lenses, border growth, minimap panel, religious units, etc.
 function SetDesiredLens(desiredLens)
-    print("SetDesiredLens", desiredLens)
+    --print("SetDesiredLens", desiredLens)
     -- CQUI (Azurency) : Don't reset the lens if in district or building placement mode
     if UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT or UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT then
         return;
@@ -152,25 +148,9 @@ function SetDesiredLens(desiredLens)
         else
             UILens.SetActive(m_desiredLens);
         end
-
-        --ContextPtr:SetUpdate(EnsureDesiredLens);
     else
         UILens.SetActive(m_desiredLens);
     end
-end
-
--- ===========================================================================
-function EnsureDesiredLens()
-    if m_isShowingPanel then
-        if m_desiredLens == "CityManagement" then
-            UILens.SetActive("Default");
-            LuaEvents.CQUI_RefreshCitizenManagement(m_pCity:GetID());
-            UILens.SetActive("Appeal");
-        else
-            UILens.SetActive(m_desiredLens);
-        end
-    end
-    ContextPtr:ClearUpdate();
 end
 -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
@@ -199,7 +179,7 @@ end
 
 -- ===========================================================================
 function OnSelectHealthTab()
-    print("OnSelectHealthTab");
+    --print("OnSelectHealthTab");
     HideAll();
     -- TODO For some reason having two calls to SetDesiredLens works, but just the below one is insufficient
     SetDesiredLens("CityManagement");
@@ -231,7 +211,7 @@ end
 
 -- ===========================================================================
 function OnSelectBuildingsTab()
-    print("OnSelectBuildingsTab");
+    --print("OnSelectBuildingsTab");
     HideAll();
     -- TODO For some reason having two calls to SetDesiredLens works, but just the below one is insufficient
     SetDesiredLens("CityManagement");
@@ -946,19 +926,8 @@ function Close()
     if m_isShowingPanel == false then
         return;
     end
+
     m_isShowingPanel = false;
-    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-    -- CQUI change the behavior of the close function
-    --local offsetx = Controls.OverviewSlide:GetOffsetX();
-    --if (offsetx == 0) then
-    -- AZURENCY : only check if it's not already reversing
-    --[[
-    if not Controls.OverviewSlide:IsReversing() then
-        Controls.OverviewSlide:Reverse();
-        UI.PlaySound("UI_CityPanel_Closed");
-        SetDesiredLens("Default");
-    end]]
-    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
     local offsetx = Controls.OverviewSlide:GetOffsetX();
 	if(offsetx ~= 0) then
 		Controls.OverviewSlide:SetToEnd();
@@ -1052,30 +1021,6 @@ end
 --  Input
 --  UI Event Handler
 -- ===========================================================================
--- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
--- CQUI behavior for OnInputHandler differs from unmodified, adding this KeyHandler wrapper function called by OnInputHandler
---[[
-function KeyHandler( key:number )
-    if key == Keys.VK_ESCAPE then
-        if ( m_isShowingPanel ) then
-            -- CQUI behavior change handling escape
-            UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
-            return true;
-        end
-    end
-
-    return false;
-end
-
-
--- ===========================================================================
-function OnInputHandler( pInputStruct:table )
-    local uiMsg = pInputStruct:GetMessageType();
-    if (uiMsg == KeyEvents.KeyUp) then return KeyHandler( pInputStruct:GetKey() ); end;
-    return false;
-end]]
--- ==== CQUI CUSTOMIZATION END ======================================================================================== --
-
 function OnInputHandler( pInputStruct:table )
 	local uiMsg = pInputStruct:GetMessageType();
 	if (uiMsg == MouseEvents.RButtonUp) or (uiMsg == KeyEvents.KeyUp and pInputStruct:GetKey() == Keys.VK_ESCAPE) then
@@ -1142,40 +1087,6 @@ function OnUpdateUI( type:number, tag:string, iData1:number, iData2:number, strD
         Resize();
     end
 end
-
---[[
-function OnShowOverviewPanel( isShowing: boolean )
-    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-    if (isShowing) then
-        m_isShowingPanel = true;
-        -- CQUI adds this if clause and adds the two lines immediately following the if statement
-        -- unmodified always runs code here starting with the "Refresh()" line
-        if ContextPtr:IsHidden() or Controls.OverviewSlide:IsReversing() then
-            Controls.PauseDismissWindow:SetToBeginning();
-            ContextPtr:SetHide(false);
-            Refresh();
-            Controls.OverviewSlide:SetToBeginning();
-            Controls.OverviewSlide:Play();
-            UI.PlaySound("UI_CityPanel_Open");
-            -- CQUI Does not set the Interface mode here (unmodified does)
-            -- UI.SetInterfaceMode(InterfaceModeTypes.CITY_SELECTION);
-        end
-    else
-        --local offsetx = Controls.OverviewSlide:GetOffsetX();
-        --if (offsetx == 0 and not Controls.OverviewSlide:IsReversing()) then
-        -- AZURENCY : only check if it's not already reversing
-        if not Controls.OverviewSlide:IsReversing() then
-            Controls.PauseDismissWindow:Play();
-            Close();
-        end
-    end
-    -- Ensure button state in CityPanel is correct
-    LuaEvents.CityPanel_SetOverViewState(m_isShowingPanel);
-    -- CQUI does not call this event (unmodified does)
-    -- LuaEvents.CityPanelOverview_Opened();
-    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
-end
-]]
 
 function OnShowOverviewPanel( isShowing: boolean )
 	if (isShowing) then

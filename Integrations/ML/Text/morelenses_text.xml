@@ -161,5 +161,12 @@
       <Text>Needs fixing to be used for a park</Text>
     </Row>
 
+    <!-- Preserve Lens -->
+    <Row Tag="LOC_HUD_PRESERVE_LENS">
+      <Text>Preserve</Text>
+    </Row>
+    <Row Tag="LOC_HUD_PRESERVE_LENS_TOOLTIP">
+      <Text>Highlights best places for Preserves</Text>
+    </Row>
   </BaseGameText>
 </GameData>

@@ -127,7 +127,7 @@ function CQUI_CityviewHideManager()
     if (CQUI_cityview) then
         print("citypanel CQUI_CityviewHideManager");
         CQUI_SignalOtherPanelsDisableCityViewAndUpdateLocals();
-        CQUI_CloseCityPanelAndHideManagement();
+        CQUI_CloseCityPanelAndHideManagementLens();
     end
 end
 
@@ -158,7 +158,7 @@ end
 
 -- ===========================================================================
 function CQUI_OnCityviewDisabled()
-    CQUI_CloseCityPanelAndHideManagement();
+    CQUI_CloseCityPanelAndHideManagementLens();
     UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
 end
 -- ===========================================================================
@@ -170,9 +170,9 @@ function CQUI_WonderModeEnabled()
     UILens.ToggleLayerOff(m_CitizenManagement);
 end
 
-function CQUI_CloseCityPanelAndHideManagement()
+function CQUI_CloseCityPanelAndHideManagementLens()
     Close();
-    UI.DeselectAllCities();
+    UI.DeselectAllCities(); -- Always deselect when closing
     UILens.ToggleLayerOff(m_PurchasePlot);
     UILens.ToggleLayerOff(m_CitizenManagement);
     UI.SetFixedTiltMode(false);
@@ -189,19 +189,6 @@ LuaEvents.CQUI_Strike_Exit.Add (function() CQUI_usingStrikeButton = false; end)
 
 -- ===========================================================================
 function CQUI_OnInterfaceModeChanged( eOldMode:number, eNewMode:number )
-    --[[
-    -- Just entered ranged attack
-    if (eNewMode == InterfaceModeTypes.CITY_RANGE_ATTACK or eNewMode == InterfaceModeTypes.DISTRICT_RANGE_ATTACK or CQUI_usingStrikeButton) then
-        LuaEvents.CQUI_CityviewHide(); -- AZURENCY : always hide the cityview if new mode is CITY_RANGE_ATTACK
-        return;
-    end
-
-    -- Just left ranged attack
-    if (eOldMode == InterfaceModeTypes.CITY_RANGE_ATTACK) then
-        CQUI_ResetInterfaceMode();
-        return;
-    end]]
-
     -- Leaving city management or building/district placement
     if (eOldMode == InterfaceModeTypes.CITY_MANAGEMENT or eOldMode == InterfaceModeTypes.DISTRICT_PLACEMENT or eOldMode == InterfaceModeTypes.BUILDING_PLACEMENT) then
         if (eNewMode == InterfaceModeTypes.DISTRICT_PLACEMENT or eNewMode == InterfaceModeTypes.BUILDING_PLACEMENT) then -- Just selected a new building/district to try and place 
@@ -236,23 +223,9 @@ function CQUI_OnInterfaceModeChanged( eOldMode:number, eNewMode:number )
                 end
             end
 
+            -- From a city management mode to another city management mode
             return;
         end;
-
-        --exiting cityview or exiting placement of a building/district
-        --We don't want to follow up an InterfaceModeChanged by setting InterfaceMode.SELECTION, so we hide instead
-
-
-        --[[
-        if (eNewMode == InterfaceModeTypes.VIEW_MODAL_LENS) then
-            --We don't want to follow up an InterfaceModeChanged by setting InterfaceMode.SELECTION, so we hide instead
-            print("citypanel triggering CQUI_CityviewHide due to interface mode change");
-            LuaEvents.CQUI_CityviewHide();
-            return;
-        end
-            
-        LuaEvents.CQUI_CityviewDisable();
-        return;]]
     end
 
     -- Entering City Management from anywhere
@@ -269,14 +242,6 @@ function CQUI_OnInterfaceModeChanged( eOldMode:number, eNewMode:number )
     end
 end
 
---[[
-function CQUI_ResetInterfaceMode( eOldMode:number, eNewMode:number )
-    if (eNewMode == InterfaceModeTypes.CITY_MANAGEMENT) then
-        LuaEvents.CQUI_CityviewEnable();
-    else
-        UI.DeselectAllCities()
-    end
-end]]
 -- ===========================================================================
 -- Clear city culture growth tile overlay if one exists
 function CQUI_ClearGrowthTile()
@@ -1190,11 +1155,9 @@ function OnToggleOverviewPanel()
 end
 
 function OnCitySelectionChanged( ownerPlayerID:number, cityID:number, i:number, j:number, k:number, isSelected:boolean, isEditable:boolean)
-    print("OnCitySelectionChanged");
 	if ownerPlayerID == Game.GetLocalPlayer() then
 		if (isSelected) then
 			-- Determine if we should switch to the SELECTION interface mode
-            print("previous mode before setting shouldSwitchToSelection", UI.GetInterfaceMode());
 			local shouldSwitchToSelection:boolean = UI.GetInterfaceMode() ~= InterfaceModeTypes.CITY_SELECTION;
 			if UI.GetInterfaceMode() == InterfaceModeTypes.CITY_MANAGEMENT then
 				HideGrowthTile();
@@ -1224,11 +1187,6 @@ function OnCitySelectionChanged( ownerPlayerID:number, cityID:number, i:number, 
 				end
 			end
 			if shouldSwitchToSelection then
-                print("InterfaceModeTypes.CITY_MANAGEMENT", InterfaceModeTypes.CITY_MANAGEMENT);
-                print("InterfaceModeTypes.VIEW_MODAL_LENS", InterfaceModeTypes.VIEW_MODAL_LENS);
-                print("InterfaceModeTypes.SELECTION", InterfaceModeTypes.SELECTION);
-                print("previous mode before setting selection", UI.GetInterfaceMode());
-                print("citypanel setting InterfaceModeTypes.SELECTION due to OnCitySelectionChanged");
 				UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
 			end
 
@@ -1247,7 +1205,6 @@ function OnCitySelectionChanged( ownerPlayerID:number, cityID:number, i:number, 
 				AnimateFromCloseToOpen();
 			end
 
-            print("citypanel OnCitySelectionChanged refresh");
 			Refresh();
 			if UI.GetInterfaceMode() == InterfaceModeTypes.CITY_MANAGEMENT then
 				DisplayGrowthTile();
@@ -1257,7 +1214,6 @@ function OnCitySelectionChanged( ownerPlayerID:number, cityID:number, i:number, 
 			-- Tell the CityPanelOverview a city was deselected
 			LuaEvents.CityPanel_LiveCityDataChanged( nil, false );
 		end
-        print("completed OnCitySelectionChanged");
 	end
 end
 -- ===========================================================================
@@ -1405,9 +1361,13 @@ end
 function OnProductionPanelClose()
     -- If no longer checked, make sure the side Production Panel closes.
     -- Clear the checks, even if hidden, the Production Pane can close after the City Panel has already been closed.
+    
+    -- CQUI: These controls don't currently exist so attempting to check them crashes this thread
+    --[[
     Controls.ChangeProductionCheck:SetCheck( false );
     Controls.ProduceWithFaithCheck:SetCheck( false );
     Controls.ProduceWithGoldCheck:SetCheck( false );
+    ]]
 
     AnimateToOpenFromWithProductionQueue();
 end

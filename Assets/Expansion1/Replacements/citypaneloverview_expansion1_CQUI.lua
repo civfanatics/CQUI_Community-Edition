@@ -15,7 +15,6 @@ end
 function RefreshCulturalIdentityPanel()
     -- Replace with our Lens hack (See note in citypaneloverview.lua)
     --UILens.SetActive("Loyalty");
-    print("RefreshCulturalIdentityPanel");
     SetDesiredLens("Loyalty");
     LuaEvents.CityPanelTabRefresh();
 end
