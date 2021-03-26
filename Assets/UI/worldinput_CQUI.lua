@@ -10,6 +10,7 @@ BASE_CQUI_DefaultKeyDownHandler    = DefaultKeyDownHandler;
 BASE_CQUI_DefaultKeyUpHandler      = DefaultKeyUpHandler;
 BASE_CQUI_ClearAllCachedInputState = ClearAllCachedInputState;
 BASE_CQUI_OnUserRequestClose       = OnUserRequestClose;
+BASE_CQUI_LateInitialize           = LateInitialize;
 
 -- ===========================================================================
 -- CQUI Members
@@ -702,8 +703,8 @@ end
 -- ===========================================================================
 
 -- ===========================================================================
-function Initialize()
-    print_debug("INITIALIZE: WorldInput_CQUI");
+function LateInitialize()
+    BASE_CQUI_LateInitialize();
 
     -- Pre-process the SQL key binding data
     CQUI_keyMaps = {};
@@ -735,4 +736,3 @@ function Initialize()
     LuaEvents.CQUI_showUnitPath.Add(RealizeMovementPath);
     LuaEvents.CQUI_clearUnitPath.Add(ClearMovementPath);
 end
-Initialize();

@@ -2083,6 +2083,9 @@ end
 -- CQUI Initialize Function
 -- ===========================================================================
 function Initialize()
+    -- Note: since the Firaxis CityBannerManager.lua does an "Include" of this file
+    --       the existing "Initialize" can be replaced in this manner.
+    --       "Inititalize" is not called by that original CityBannerManager.lua file until after the Include is done.
     -- print("CityBannerManager_CQUI: Initialize ENTRY");
     BASE_CQUI_Initialize();
     if (IsCQUI_CityBannerXMLLoaded()) then

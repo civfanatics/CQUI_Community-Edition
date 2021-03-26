@@ -8,6 +8,7 @@ include("CQUICommon.lua");
 -- Cached Base Functions
 -- ===========================================================================
 BASE_CQUI_SetResourceIcon = SetResourceIcon;
+BASE_CQUI_LateInitialize = LateInitialize;
 
 -- ===========================================================================
 -- CQUI Members
@@ -17,6 +18,7 @@ local CQUI_RESOURCEICONSTYLE_TRANSPARENT = 1;
 local CQUI_RESOURCEICONSTYLE_HIDDEN = 2;
 
 local CQUI_ResourceIconStyle = CQUI_RESOURCEICONSTYLE_TRANSPARENT;
+local m_LoadGameViewStateComplete = false;
 
 -- ===========================================================================
 function CQUI_GetSettingsValues()
@@ -30,7 +32,11 @@ end
 -- ===========================================================================
 function CQUI_OnIconStyleSettingsUpdate()
     CQUI_GetSettingsValues();
-    Rebuild();
+    if (m_LoadGameViewStateComplete == true) then
+        -- Calling this before the load game view state appears to make the resource icons
+        -- not appear at all on the very first loading after starting Civ6
+        Rebuild();
+    end
 end
 
 -- ===========================================================================
@@ -115,7 +121,7 @@ end
 
 -- ===========================================================================
 function CQUI_OnImprovementChanged(locationX, locationY, isAdded)
-    -- print_debug("CQUI_OnImprovementChanged ENTRY. x:"..locationX.."  y:"..locationY);
+    -- print_debug("CQUI_OnImprovementChanged ENTRY. x:"..locationX.."  y:"..locationY.." isAdded:"..tostring(isAdded));
 
     local plot = Map.GetPlot(locationX, locationY);
     local resourceType = plot:GetResourceType();
@@ -130,10 +136,18 @@ function CQUI_OnImprovementChanged(locationX, locationY, isAdded)
 end
 
 -- ===========================================================================
-function Initialize()
+function CQUI_OnLoadGameViewStateDone()
+    -- Called when the LoadGame View is completed
+    m_LoadGameViewStateComplete = true;
+    CQUI_OnIconStyleSettingsUpdate();
+end
+
+-- ===========================================================================
+function LateInitialize()
+    BASE_CQUI_LateInitialize();
     LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnIconStyleSettingsUpdate );
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_GetSettingsValues);
     Events.ImprovementAddedToMap.Add(CQUI_OnImprovementAdded);
     Events.ImprovementRemovedFromMap.Add(CQUI_OnImprovementRemoved);
+    Events.LoadGameViewStateDone.Add(CQUI_OnLoadGameViewStateDone);
 end
-Initialize();

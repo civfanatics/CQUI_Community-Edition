@@ -169,10 +169,10 @@ end
 -- ===========================================================================
 --  CQUI Initialize Function
 -- ===========================================================================
-function Initialize_CQUI()
+function Initialize_CityStates_CQUI()
     print_debug("citystates_CQUI: Initialize_CQUI CQUI CityStates (Common File)")
     -- CQUI related events
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
 end
-Initialize_CQUI();
+Initialize_CityStates_CQUI();

@@ -4,6 +4,7 @@ include( "GameCapabilities" );
 -- Cached Base Functions
 -- ===========================================================================
 BASE_CQUI_OnOpen = OnOpen;
+BASE_CQUI_LateInitialize = LateInitialize;
 
 -- ===========================================================================
 -- CQUI Members
@@ -214,8 +215,8 @@ end
 -- ===========================================================================
 -- CQUI: Initialize Function
 -- ===========================================================================
-function Initialize()
-
+function LateInitialize()
+    BASE_CQUI_LateInitialize();
     Controls.LaunchExtraShow:RegisterCallback( Mouse.eLClick, OnToggleExtras );
     Controls.LaunchExtraShow:SetHide(true); -- will be enabled only if any entries will be registered
 
@@ -223,6 +224,4 @@ function Initialize()
     LuaEvents.LaunchBar_AddExtra.Add( OnAddExtraEntry );
     LuaEvents.LaunchBar_AddIcon.Add( OnAddLaunchbarIcon );
     --TestLaunchBarExtension();
-    
 end
-Initialize();

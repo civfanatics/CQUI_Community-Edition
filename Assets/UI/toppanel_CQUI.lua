@@ -83,8 +83,9 @@ end
 function OnToggleReportsScreen()
 end
 
+-- ===========================================================================
 function LateInitialize()
-    BASE_CQUI_LateInitialize()
+    BASE_CQUI_LateInitialize();
 
     LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsInitialized ); -- Infixo, issue #44
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
