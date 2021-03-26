@@ -1,9 +1,8 @@
-print("*** CQUI: CityBannerManager_CQUI.lua File Loaded");
 -- ===========================================================================
 -- CQUI CityBannerManager function extensions/replacements
 -- All of the CityBannerManager code, for both BaseGame and Expansions, in one file
 -- because the Firaxis CityBannerManager.lua now calls 'Include("CityBannerManager_", true)' at the end of their file
-
+print("*** CQUI: CityBannerManager_CQUI.lua File Loaded");
 include("CQUICommon.lua");
 
 -- ===========================================================================
@@ -17,8 +16,7 @@ BASE_CQUI_CityBanner_UpdateStats = CityBanner.UpdateStats;
 BASE_CQUI_OnGameDebugReturn = OnGameDebugReturn;
 BASE_CQUI_OnInterfaceModeChanged = OnInterfaceModeChanged;
 BASE_CQUI_OnShutdown = OnShutdown;
-BASE_CQUI_Reload = Reload;
-BASE_CQUI_OnImprovementAddedToMap = OnImprovementAddedToMap;
+BASE_CQUI_Initialize = Initialize;
 
 -- These functions only exist in the Expansions
 BASE_CQUI_CityBanner_Uninitialize = nil;
@@ -56,6 +54,7 @@ local CQUI_CityRangeStrikeBottomYOffset       = -6;
 local CQUI_EncampmentRangeStrikeTopYOffset    = 10;
 local CQUI_EncampmentRangeStrikeBottomYOffset = -4;
 
+local m_LoadGameViewStateComplete:boolean         = false;
 local m_isReligionLensActive:boolean              = false;
 local m_HexColoringReligion:number                = UILens.CreateLensLayerHash("Hex_Coloring_Religion");
 local DATA_FIELD_RELIGION_ICONS_IM:string         = "m_IconsIM";
@@ -124,13 +123,19 @@ function CQUI_OnSettingsInitialized()
 
     CQUI_RelocateCityStrike       = GameConfiguration.GetValue("CQUI_RelocateCityStrike");
     CQUI_RelocateEncampmentStrike = GameConfiguration.GetValue("CQUI_RelocateEncampmentStrike");
+    -- print("CityBannerManager_CQUI: CQUI_OnSettingsInitialized EXIT")
 end
 
 -- ===========================================================================
 function CQUI_OnSettingsUpdate()
     -- print("CityBannerManager_CQUI: CQUI_OnSettingsUpdate ENTRY")
     CQUI_OnSettingsInitialized();
-    Reload();
+    -- Only refresh the banners when the Load Game state is done
+    if (m_LoadGameViewStateComplete) then
+        CQUI_Refresh_Banners();
+    end
+
+    -- print("CityBannerManager_CQUI: CQUI_OnSettingsUpdate EXIT")
 end
 
 -- ============================================================================
@@ -199,6 +204,7 @@ end
 -- ===========================================================================
 -- CityBanner.UpdateStats -- different things are done for the basegame and for the expansions, so call out to the appropriate function
 function CityBanner.UpdateStats(self)
+    -- print("CityBannerManager_CQUI: CityBanner.UpdateStats ENTRY");
     BASE_CQUI_CityBanner_UpdateStats(self);
 
     if (g_bIsBaseGame) then
@@ -206,6 +212,8 @@ function CityBanner.UpdateStats(self)
     else
         CQUI_CityBanner_UpdateStats_Expansions(self);
     end
+
+    -- print("CityBannerManager_CQUI: CityBanner.UpdateStats EXIT");
 end
 
 -- ===========================================================================
@@ -732,6 +740,7 @@ function OnGameDebugReturn( context:string, contextTable:table )
     end
 
     BASE_CQUI_OnGameDebugReturn(context, contextTable);
+    -- print("CityBannerManager_CQUI: OnGameDebugReturn EXIT");
 end
 
 -- ===========================================================================
@@ -745,6 +754,31 @@ function OnInterfaceModeChanged( oldMode:number, newMode:number )
     end
 
     -- print("CityBannerManager_CQUI: OnInterfaceModeChanged EXIT");
+end
+
+-- ===========================================================================
+function OnProductionClick( playerID, cityID )
+    -- print("CityBannerManager_CQUI: OnProductionClick ENTRY");
+    --OnCityBannerClick( playerID, cityID);
+    local pPlayer = Players[playerID];
+    if (pPlayer == nil) then
+        return;
+    end
+
+    local pCity = pPlayer:GetCities():FindID(cityID);
+    if (pCity == nil) then
+        return;
+    end
+
+    if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
+        if (pPlayer:IsFreeCities()) then
+            UI.LookAtPlotScreenPosition( pCity:GetX(), pCity:GetY(), 0.5, 0.5 );
+            return;
+        end
+    end
+
+    UI.SelectCity( pCity );
+    LuaEvents.CityBannerManager_ProductionToggle();
 end
 
 -- ===========================================================================
@@ -1337,12 +1371,14 @@ function OnCityBannerClick( playerID, cityID )
 
     local pCity = pPlayer:GetCities():FindID(cityID);
     if (pCity == nil) then
+        -- print("CityBannerManager_CQUI: OnCityBannerClick EXIT (pCity nil)");
         return;
     end
 
     if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
         if (pPlayer:IsFreeCities()) then
             UI.LookAtPlotScreenPosition( pCity:GetX(), pCity:GetY(), 0.5, 0.5 );
+            -- print("CityBannerManager_CQUI: OnCityBannerClick EXIT (FreeCity)");
             return;
         end
     end
@@ -1384,17 +1420,19 @@ function OnCityBannerClick( playerID, cityID )
                 LuaEvents.CityBannerManager_TalkToLeader( playerID );
             end
         end
-
     end
+
+    -- print("CityBannerManager_CQUI: OnCityBannerClick EXIT");
 end
 
 -- ===========================================================================
 -- Basegame and Expansions call this two different things (OnCityRangeStrikeButtonClick and OnCityStrikeButtonClick, respectively)
 function OnCityRangeStrikeButtonClick( playerID, cityID )
-    -- print("CityBannerManager_CQUI: OnCityRangeStrikeButtonClick ENTRY");
+    -- print("CityBannerManager_CQUI: OnCityRangeStrikeButtonClick ENTRY playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
 
     -- Call the common code for handling the City Strike button
     CQUI_OnCityRangeStrikeButtonClick(playerID, cityID);
+    -- print("CityBannerManager_CQUI: OnCityRangeStrikeButtonClick EXIT");
 end
 
 -- ===========================================================================
@@ -1402,31 +1440,7 @@ end
 function OnCityStrikeButtonClick( playerID, cityID )
     -- print("CityBannerManager_CQUI: OnCityStrikeButtonClick ENTRY playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
     CQUI_OnCityRangeStrikeButtonClick(playerID, cityID);
-end
-
--- ===========================================================================
-function OnProductionClick( playerID, cityID )
-    -- print("CityBannerManager_CQUI: OnProductionClick ENTRY");
-    --OnCityBannerClick( playerID, cityID);
-    local pPlayer = Players[playerID];
-    if (pPlayer == nil) then
-        return;
-    end
-
-    local pCity = pPlayer:GetCities():FindID(cityID);
-    if (pCity == nil) then
-        return;
-    end
-
-    if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
-        if (pPlayer:IsFreeCities()) then
-            UI.LookAtPlotScreenPosition( pCity:GetX(), pCity:GetY(), 0.5, 0.5 );
-            return;
-        end
-    end
-
-    UI.SelectCity( pCity );
-    LuaEvents.CityBannerManager_ProductionToggle();
+    -- print("CityBannerManager_CQUI: OnCityStrikeButtonClick EXIT");
 end
 
 -- ===========================================================================
@@ -1583,43 +1597,27 @@ function OnDistrictAddedToMap( playerID: number, districtID : number, cityID :nu
 end
 
 -- ===========================================================================
-function OnImprovementAddedToMap(locX, locY, eImprovementType, eOwner)
-   -- print("CityBannerManager_CQUI: OnImprovementAddedToMap ENTRY locXY:"..tostring(locX)..","..tostring(locY).." eImprovementType:"..tostring(eImprovementType).." eOwner:"..tostring(eOwner));
-    BASE_CQUI_OnImprovementAddedToMap(locX, locY, eImprovementType, eOwner);
-
-    -- Get the minibanner to force its position to update in order to work around some weirdness happening when the game is loaded
-    local pPlayer:table = Players[eOwner];
-    if (pPlayer ~= nil) then
-        local plotID = Map.GetPlotIndex(locX, locY);
-        if (plotID ~= nil) then
-            local miniBanner = GetMiniBanner( eOwner, plotID );
-            if (miniBanner ~= nil) then
-                miniBanner:UpdatePosition();
-            end
-        end
-    end
-
-    -- print("CityBannerManager_CQUI: OnImprovementAddedToMap EXIT");
-end
-
--- ===========================================================================
 -- CQUI Custom Functions
 -- ===========================================================================
 function CQUI_OnLensLayerOn( layerNum:number )
-    -- print("CityBannerManager_CQUI: OnLensLayerOn ENTRY, layerNum: ", layerNum);
+    -- print("CityBannerManager_CQUI: CQUI_OnLensLayerOn ENTRY, layerNum: ", layerNum);
     if layerNum == m_HexColoringReligion then
         m_isReligionLensActive = true;
         RealizeReligion();
     end
+
+    -- print("CityBannerManager_CQUI: CQUI_OnLensLayerOn EXIT");
 end
 
 -- ===========================================================================
 function CQUI_OnLensLayerOff( layerNum:number )
-    -- print("CityBannerManager_CQUI: OnLensLayerOff ENTRY, layerNum:", layerNum);
+    -- print("CityBannerManager_CQUI: CQUI_OnLensLayerOff ENTRY, layerNum:", layerNum);
     if layerNum == m_HexColoringReligion then
         m_isReligionLensActive = false;
         RealizeReligion();
     end
+
+    -- print("CityBannerManager_CQUI: CQUI_OnLensLayerOff EXIT");
 end
 
 -- ===========================================================================
@@ -1661,6 +1659,7 @@ function CQUI_GetHousingString(pCity, cqui_HousingFromImprovementsCalc)
     local housingString = "[COLOR:"..housingLeftColor.."]"..housingLeft.."[ENDCOLOR]";
 
     -- returning two values, the UI string and the housing remaining value that was calculated
+    -- print("CityBannerManager_CQUI: CQUI_GetHousingString EXIT");
     return housingString, housingLeft;
 end
 
@@ -1680,7 +1679,7 @@ end
 function CQUI_GetInstanceAt( plotIndex:number )
     -- Obtain an existing instance of plot info or allocate one if it doesn't already exist.
     -- plotIndex Game engine index of the plot (taken from PlotInfo)
-    -- Enabling this -- print is very noisy
+    -- Enabling this print is very noisy
     -- print("CityBannerManager_CQUI: CQUI_GetInstanceAt ENTRY plotIndex:"..tostring(plotIndex));
     local pInstance:table = CQUI_UIWorldMap[plotIndex];
 
@@ -1694,12 +1693,34 @@ function CQUI_GetInstanceAt( plotIndex:number )
         pInstance.Anchor:SetHide( false );
     end
 
+    -- print("CityBannerManager_CQUI: CQUI_GetInstanceAt EXIT");
     return pInstance;
 end
 
 -- ===========================================================================
+function CQUI_Refresh_Banners()
+    -- print("CityBannerManager_CQUI: CQUI_Refresh_Banners ENTRY");
+
+    local pLocalPlayerVis:table = PlayersVisibility[Game.GetLocalPlayer()];
+    if (pLocalPlayerVis ~= nil) then
+        local players = Game.GetPlayers();
+        for i, player in ipairs(players) do
+            local playerID      :number = player:GetID();
+            local pPlayerCities :table = players[i]:GetCities();
+      
+            for _, city in pPlayerCities:Members() do
+                local cityID:number = city:GetID();
+                RefreshBanner(playerID, cityID) -- CQUI : refresh the banner info
+            end
+        end
+    end
+
+    -- print("CityBannerManager_CQUI: CQUI_Refresh_Banners EXIT");
+end
+
+-- ===========================================================================
 function CQUI_ReleaseInstanceAt( plotIndex:number)
-    -- Enabling this -- print is very noisy
+    -- Enabling this print is very noisy
     -- print("CityBannerManager_CQUI: CQUI_ReleaseInstanceAt ENTRY plotIndex:"..tostring(plotIndex));
     local pInstance :table = CQUI_UIWorldMap[plotIndex];
 
@@ -1709,6 +1730,8 @@ function CQUI_ReleaseInstanceAt( plotIndex:number)
         --pInstance.CitizenButton:SetConsumeMouseButton(true);
         CQUI_UIWorldMap[plotIndex] = nil;
     end
+
+    -- print("CityBannerManager_CQUI: CQUI_ReleaseInstanceAt EXIT");
 end
 
 -- ===========================================================================
@@ -1718,6 +1741,7 @@ function CQUI_OnBannerMouseEnter(playerID: number, cityID: number)
     if (CQUI_ShowYieldsOnCityHover == false or playerID ~= Game.GetLocalPlayer() or IsCQUI_CityBannerXMLLoaded() == false) then
         -- Doesn't make sense to show when not self; if wanting to show an allied player is desired, then code needs some cleanup
         -- as it currently shows tiles for the local player city by that city ID value (cityID values are only unique per player, not universally)
+        -- print("CityBannerManager_CQUI: CQUI_OnBannerMouseEnter EXIT (ShowYieldsOnCityHover/CQUIXmlLoaded is false)");
         return;
     end
 
@@ -1744,6 +1768,7 @@ function CQUI_OnBannerMouseEnter(playerID: number, cityID: number)
     local tResults  :table = CityManager.GetCommandTargets( kCity, CityCommandTypes.MANAGE, tParameters );
     if tResults == nil then
         -- Add error message here
+        -- print("CityBannerManager_CQUI: CQUI_OnBannerMouseEnter EXIT (No command targets for Manage)");
         return;
     end
 
@@ -1802,6 +1827,7 @@ function CQUI_OnBannerMouseEnter(playerID: number, cityID: number)
 
     tResults = CityManager.GetCommandTargets(kCity, CityCommandTypes.PURCHASE, tParameters);
     if tResults == nil then
+        -- print("CityBannerManager_CQUI: CQUI_OnBannerMouseEnter EXIT (No command targets for Purchase)");
         return;
     end
 
@@ -1833,6 +1859,8 @@ function CQUI_OnBannerMouseEnter(playerID: number, cityID: number)
         UILens.SetLayerHexesArea(CQUI_CityYields, Game.GetLocalPlayer(), yields);
         UILens.ToggleLayerOn( CQUI_CityYields );
     end
+
+    -- print("CityBannerManager_CQUI: CQUI_OnBannerMouseEnter EXIT");
 end
 
 -- ===========================================================================
@@ -1840,6 +1868,7 @@ end
 function CQUI_OnBannerMouseExit(playerID: number, cityID: number)
     -- print("CityBannerManager_CQUI: CQUI_OnBannerMouseExit ENTRY playerID:"..tostring(playerID).." cityID:"..tostring(cityID));
     if (not CQUI_Hovering) then
+        -- print("CityBannerManager_CQUI: CQUI_OnBannerMouseExit EXIT (not CQUI_Hovering)");
         return;
     end
 
@@ -1860,7 +1889,7 @@ function CQUI_OnBannerMouseExit(playerID: number, cityID: number)
     local tResults  :table = CityManager.GetCommandTargets( kCity, CityCommandTypes.MANAGE, tParameters );
 
     if tResults == nil then
-        -- print("CQUI_OnBannerMouseExit: CityManager.GetCommandTargets returned nil!");
+        -- print("CityBannerManager_CQUI: CQUI_OnBannerMouseExit EXIT: CityManager.GetCommandTargets for type Manage returned nil!");
         return;
     end
 
@@ -1896,6 +1925,8 @@ function CQUI_OnBannerMouseExit(playerID: number, cityID: number)
         pInstance = CQUI_ReleaseInstanceAt(CQUI_NextPlot4Away);
         CQUI_NextPlot4Away = nil;
     end
+
+    -- print("CityBannerManager_CQUI: CQUI_OnBannerMouseExit EXIT");
 end
 
 -- ===========================================================================
@@ -1909,6 +1940,8 @@ function CQUI_OnCityLostTileToCultureBomb(localPlayerID, x, y)
             CityManager.RequestCommand(pCity, CityCommandTypes.SET_FOCUS, nil);
         end
     end
+
+    -- print("CityBannerManager_CQUI: CQUI_OnCityLostTileToCultureBomb EXIT");
 end
 
 -- ===========================================================================
@@ -1922,6 +1955,7 @@ function CQUI_OnCityRangeStrikeButtonClick( playerID, cityID )
 
     local pCity = pPlayer:GetCities():FindID(cityID);
     if (pCity == nil) then
+        -- print("CityBannerManager_CQUI: CQUI_OnCityRangeStrikeButtonClick EXIT (City not found)");
         return;
     end
 
@@ -1929,6 +1963,7 @@ function CQUI_OnCityRangeStrikeButtonClick( playerID, cityID )
     if UI.GetInterfaceMode() == InterfaceModeTypes.CITY_RANGE_ATTACK then
         UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
         LuaEvents.CQUI_Strike_Exit();
+        -- print("CityBannerManager_CQUI: CQUI_OnCityRangeStrikeButtonClick EXIT (Leave StrikeRange Mode)");
         return;
     end
 
@@ -1941,13 +1976,16 @@ function CQUI_OnCityRangeStrikeButtonClick( playerID, cityID )
     UI.DeselectAll();
     UI.SelectCity( pCity );
     UI.SetInterfaceMode(InterfaceModeTypes.CITY_RANGE_ATTACK);
+
+    -- print("CityBannerManager_CQUI: CQUI_OnCityRangeStrikeButtonClick EXIT");
 end
 
 -- ===========================================================================
 function CQUI_OnDiplomacyDeclareWarMakePeace( firstPlayerID, secondPlayerID )
+    -- print("CityBannerManager_CQUI: CQUI_OnDiplomacyDeclareWarMakePeace ENTRY  firstplayerID:"..tostring(firstPlayerID).."  secondPlayerID:"..tostring(secondPlayerID));
     local localPlayerID = Game.GetLocalPlayer();
     if (localPlayerID == nil or IsCQUI_CityBannerXMLLoaded() == false) then
-        -- print("CQUI_OnDiplomacyDeclareWarMakePeace: Game.GetLocalPlayer returned nil!")
+        -- print("CityBannerManager_CQUI: CQUI_OnDiplomacyDeclareWarMakePeace EXIT: Game.GetLocalPlayer returned nil!")
         return;
     end
 
@@ -1958,7 +1996,7 @@ function CQUI_OnDiplomacyDeclareWarMakePeace( firstPlayerID, secondPlayerID )
         pOtherPlayerID = firstPlayerID;
     else
         -- Do nothing, return
-        -- print("CQUI_OnDiplomacyDeclareWarMakePeace: Local Player is neither firstPlayerID ("..tostring(firstPlayerID)..") nor secondPlayerID ("..tostring(secondPlayerID)..")");
+        -- print("CityBannerManager_CQUI: CQUI_OnDiplomacyDeclareWarMakePeace EXIT: Local Player is neither firstPlayerID ("..tostring(firstPlayerID)..") nor secondPlayerID ("..tostring(secondPlayerID)..")");
         return;
     end
 
@@ -1971,6 +2009,8 @@ function CQUI_OnDiplomacyDeclareWarMakePeace( firstPlayerID, secondPlayerID )
             RefreshBanner(pOtherPlayerID, cityInstance:GetID())
         end
     end
+
+    -- print("CityBannerManager_CQUI: CQUI_OnDiplomacyDeclareWarMakePeace EXIT");
 end
 
 -- ===========================================================================
@@ -1979,17 +2019,20 @@ function CQUI_OnDistrictRangeStrikeButtonClick( playerID, districtID )
     -- print("CityBannerManager_CQUI: CQUI_OnDistrictRangeStrikeButtonClick ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID));
     local pPlayer = Players[playerID];
     if (pPlayer == nil) then
+        -- print("CityBannerManager_CQUI: CQUI_OnDistrictRangeStrikeButtonClick EXIT (pPlayer == nil)");
         return;
     end
 
     local pDistrict = pPlayer:GetDistricts():FindID(districtID);
     if (pDistrict == nil) then
+        -- print("CityBannerManager_CQUI: CQUI_OnDistrictRangeStrikeButtonClick EXIT (pDistrict == nil)");
         return;
     end;
 
     -- allow to leave the strike range mode on 2nd click
     if UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_RANGE_ATTACK then
         UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
+        -- print("CityBannerManager_CQUI: CQUI_OnDistrictRangeStrikeButtonClick EXIT (interface mode, leave on 2nd click)");
         return;
     end
 
@@ -1998,6 +2041,7 @@ function CQUI_OnDistrictRangeStrikeButtonClick( playerID, districtID )
     -- CQUI (Azurency) : Look at the district plot
     UI.LookAtPlot(pDistrict:GetX(), pDistrict:GetY());
     UI.SetInterfaceMode(InterfaceModeTypes.DISTRICT_RANGE_ATTACK);
+    -- print("CityBannerManager_CQUI: CQUI_OnDistrictRangeStrikeButtonClick EXIT");
 end
 
 -- ===========================================================================
@@ -2012,6 +2056,8 @@ function CQUI_OnInfluenceGiven()
             CQUI_UpdateCityStateBannerSuzerain(pPlayer, bannerInstance);
         end
     end
+
+    -- print("CityBannerManager_CQUI: CQUI_OnInfluenceGiven EXIT");
 end
 
 -- ===========================================================================
@@ -2023,12 +2069,13 @@ end
 
 -- ===========================================================================
 function CQUI_UpdateCityStateBannerAtWarIcon( pCityState, bannerInstance )
+    -- print("CityBannerManager_CQUI: CQUI_UpdateCityStateBannerAtWarIcon ENTRY");
     if (IsCQUI_CityBannerXMLLoaded()) then
         if (IsCQUI_ShowWarIconInCityStateBannerEnabled()) then
             local localPlayerID = Game.GetLocalPlayer();
             if (localPlayerID ~= nil
-            and pCityState:GetDiplomacy() ~= nil
-            and pCityState:GetDiplomacy():IsAtWarWith(localPlayerID)) then
+                and pCityState:GetDiplomacy() ~= nil
+                and pCityState:GetDiplomacy():IsAtWarWith(localPlayerID)) then
                 bannerInstance.m_Instance.CQUI_AtWarWithCSIcon:SetHide(false);
             else
                 bannerInstance.m_Instance.CQUI_AtWarWithCSIcon:SetHide(true);
@@ -2037,6 +2084,8 @@ function CQUI_UpdateCityStateBannerAtWarIcon( pCityState, bannerInstance )
             bannerInstance.m_Instance.CQUI_AtWarWithCSIcon:SetHide(true);
         end
     end
+
+    -- print("CityBannerManager_CQUI: CQUI_UpdateCityStateBannerAtWarIcon EXIT");
 end
 
 -- ===========================================================================
@@ -2110,7 +2159,9 @@ function CQUI_OnLoadGameViewStateDone()
     -- Called when the LoadGame View is completed
     -- Workaround the weirdness with the City Banners showing up in the wrong place by calling the OnRefreshBannerPositions function,
     -- which finds all of the banners and updates their positions
+    m_LoadGameViewStateComplete = true;
     OnRefreshBannerPositions();
+    CQUI_Refresh_Banners();
 end
 
 -- ===========================================================================
@@ -2137,7 +2188,8 @@ function UpdateTribeBannerConversionBar(barbarianTribeEntry : table)
     local pBarbarianManager : table = Game.GetBarbarianManager();
     local tribeIndex : number = pBarbarianManager:GetTribeIndexAtLocation(barbarianTribeEntry.Plot:GetX(),barbarianTribeEntry.Plot:GetY());
     if (tribeIndex == nil) then
-        print("** Could not find tribeIndex at plot: "..tostring(barbarianTribeEntry.Plot:GetX())..","..tostring(barbarianTribeEntry.Plot:GetY()));
+        -- print("** Could not find tribeIndex at plot: "..tostring(barbarianTribeEntry.Plot:GetX())..","..tostring(barbarianTribeEntry.Plot:GetY()));
+        -- print("CityBannerManager_CQUI: UpdateTribeBannerConversionBar EXIT (no tribeIndex at plot)");
         return;
     end
 
@@ -2186,14 +2238,18 @@ function UpdateTribeBannerConversionBar(barbarianTribeEntry : table)
             barbarianTribeEntry.BannerInstance.TribeRansomUnitBacking:SetToolTipString(Locale.Lookup("LOC_UNITCOMMAND_TREAT_WITH_CLAN_RANSOM_DESCRIPTION"));
         end
 
-        local bCanStartHire = UI.CanStartPlayerOperation(localPlayerID, PlayerOperations.HIRE_CLAN, tParameters, false);
-        if (bCanStartHire) then
-            -- I don't want an icon that shows on the bar like the others as this (you can hire a unit) would be something that is very common
-            -- As the gold icons and similar cannot be made smaller than they already are... use an asterisk, consider something better later on?
-            barbarianTribeEntry.BannerInstance.CanHireUnit:SetHide(false);
-            barbarianTribeEntry.BannerInstance.CanHireUnit:SetText("*");
-            -- TODO: Add a string for the tool tip - this just says "Hire Clan"
-            barbarianTribeEntry.BannerInstance.CanHireUnit:SetToolTipString(Locale.Lookup("LOC_UNITCOMMAND_TREAT_WITH_CLAN_HIRE_DESCRIPTION"));
+        -- Calling HIRE_CLAN if you do not have a city will result in the game crashing
+        local pActivePlayer = Players[localPlayerID];
+        if (pActivePlayer:GetCities():GetCount() >= 1) then
+            local bCanStartHire = UI.CanStartPlayerOperation(localPlayerID, PlayerOperations.HIRE_CLAN, tParameters, false);
+            if (bCanStartHire) then
+                -- I don't want an icon that shows on the bar like the others as this (you can hire a unit) would be something that is very common
+                -- As the gold icons and similar cannot be made smaller than they already are... use an asterisk, consider something better later on?
+                barbarianTribeEntry.BannerInstance.CanHireUnit:SetHide(false);
+                barbarianTribeEntry.BannerInstance.CanHireUnit:SetText("*");
+                -- TODO: Add a string for the tool tip - this just says "Hire Clan"
+                barbarianTribeEntry.BannerInstance.CanHireUnit:SetToolTipString(Locale.Lookup("LOC_UNITCOMMAND_TREAT_WITH_CLAN_HIRE_DESCRIPTION"));
+            end
         end
     end
 
@@ -2278,7 +2334,7 @@ function IsCQUI_CityBannerXMLLoaded()
     retVal = retVal and (Controls.CQUI_WorkedPlotContainer ~= nil);
 
     if (retVal == false and CQUI_IssuedMissingXMLWarning == false) then
-        -- Prints in the log once, so we don't spam the thing
+        -- prints in the log once, so we don't spam the thing
         print("****** CQUI ERROR: One or more of the CQUI version of the City Bannner XML files did not load properly!  CQUI effects cannot applied!");
         CQUI_IssuedMissingXMLWarning = true;
     end
@@ -2294,13 +2350,16 @@ function OnCityWorkerChanged(ownerPlayerID:number, cityID:number)
     if (Game.GetLocalPlayer() == ownerPlayerID) then
         RefreshBanner( ownerPlayerID, cityID )
     end
+
+    -- print("CityBannerManager_CQUI: OnCityWorkerChanged EXIT");
 end
 
 -- ===========================================================================
 -- CQUI Initialize Function
 -- ===========================================================================
-function Initialize_CityBannerManager_CQUI()
-    -- print("CityBannerManager_CQUI: Initialize_CityBannerManager_CQUI ENTRY");
+function Initialize()
+    -- print("CityBannerManager_CQUI: Initialize ENTRY");
+    BASE_CQUI_Initialize();
     if (IsCQUI_CityBannerXMLLoaded()) then
         CQUI_PlotIM = InstanceManager:new( "CQUI_WorkedPlotInstance", "Anchor", Controls.CQUI_WorkedPlotContainer );
     end
@@ -2319,9 +2378,7 @@ function Initialize_CityBannerManager_CQUI()
     Events.LensLayerOn.Add(CQUI_OnLensLayerOn);
     -- Workaround for issue where the Banners appear in weird places or not at all
     Events.LoadGameViewStateDone.Add(CQUI_OnLoadGameViewStateDone);
-
     Events.DiplomacyDeclareWar.Add(CQUI_OnDiplomacyDeclareWarMakePeace);
     Events.DiplomacyMakePeace.Add(CQUI_OnDiplomacyDeclareWarMakePeace);
-    -- print("CityBannerManager_CQUI: Initialize CQUI CityBannerManager EXIT");
+    -- print("CityBannerManager_CQUI: Initialize EXIT");
 end
-Initialize_CityBannerManager_CQUI();

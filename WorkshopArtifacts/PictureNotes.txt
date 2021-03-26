@@ -1,0 +1,5 @@
+Font: Sitka Display
+ - Most text is size 20
+ - Larger caps size 28
+
+Most work done in Paint.net

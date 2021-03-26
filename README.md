@@ -27,42 +27,54 @@ See CQUI_Settings_Local section later in this document.
 ## Key Features
 
 - Civ V Style Cityview _- [image](https://camo.githubusercontent.com/e39306c882c0f9b95494ea391cee0baa838d3072/687474703a2f2f692e696d6775722e636f6d2f583571427a6a612e6a7067)_
-  - Production panel elements compressed and reordered _- [image](http://i.imgur.com/DpZ0kcn.png)_
-- Toggle-able "Smart" City Banners showing useful info in the banner and in tooltips _- [image](https://i.imgur.com/Xdt33Nw.gif)_
-  - Built Districts (with full list in tooltip)
-  - Population-required Districts available for building icon (with tooltip showing built and available)
-  - Original City Founder (if City was captured)
-  - Turns before population increase, turns before border expansion, and housing available
+  - Produce or buy units with gold and faith from a single production panel
+  - Production panel elements compressed and reordered
+  - Improved amenities city details screen (clean icons) _- [image](https://i.imgur.com/UA1NrR5.png)_
+  - Growth/Production progress is enumerated in the city panel
+- "Smart" City Banners that show useful info in the banner and in tooltips _- [image](https://i.imgur.com/Xdt33Nw.gif)_
+  - Icons showing districts built and if more are available to be built
+  - Housing, turns until population growth, turns until culture growth displayed in banners _- [image](http://i.imgur.com/8CUJSB6.png)_
+  - City State banners show Suzerain icon (Configurable: Civ Symbol or Leaderhead)
+  - City State banners display an icon when at war with you
+- Additional Tooltips to quickly find information:
+  - Tooltip on City Banner showing districts built, districts available, housing, turns until growth
+  - Tooltip on Unit upgrade includes maintenance costs (current and upgraded unit)
+  - Tooltip in City State list shows all envoys sent from all Civs
+  - Tooltip on Plot shows additional information, such as Tourism generated
+- Improvements for Units
+  - Builders, Engineers, and Religious units show the remaining number of charges on the Unit flag
+  - Non-religious unit flags are dimmed when Religion lens applied (with option to hide completely)
+  - Unit actions are no longer hidden behind an expand button _- [image](http://i.imgur.com/x1xZtyY.png)_
+  - Unit XP bars are twice as tall _- [image](http://i.imgur.com/TeWR0VA.png)_
+  - Unit flags show a "+" icon when able to be promoted
+  - Hero units have a brighter glow    
 - Great Person panel revamped _- [image](https://user-images.githubusercontent.com/8012430/31862025-75a4cb88-b737-11e7-9b0f-57129f114f59.jpg)_
-  - No more side scrolling
+  - Reduced or eliminate side scrolling
   - Adapts to the screen height
+  - Heroes entries are twice as wide for better readability
 - Policy Reminder Popup _- [image](https://user-images.githubusercontent.com/8012430/31861779-17cd1758-b733-11e7-8b16-b4422999c8af.png)_
-- Improved amenities city details screen (Clean Icons) _- [image](https://i.imgur.com/UA1NrR5.png)_
-- City State Envoy list also shows 2nd place Suzerain and tooltip lists all Envoys sent to that City State _- [image](https://user-images.githubusercontent.com/8787640/89607786-33594000-d828-11ea-9252-def0707c5bea.png)_
+  - If new policies are available, a popup reminds you to check them out
+- City State Panel shows additional information
+  - Envoy list also shows 2nd place Suzerain and tooltip lists all Envoys sent to that City State
+  - City State quests are shown in-line with a resizable font
 - "My Government" tab removed from Government panel _- [image](http://i.imgur.com/168ThOx.jpg)_
 - Leaderheads expanded tooltips _- [image](https://user-images.githubusercontent.com/8012430/31861835-17537960-b734-11e7-8ae4-08e7e3f19cc4.png)_
 - Map Pinning system enhanced _- [image](http://i.imgur.com/M11tac6.png)_
   - New pins
   - Long pinlists are now scrollable
-  - Right click in pinlist to quickly delete pins
+  - Shift-Right click to quickly delete pins
   - Enter key now bound to finalizing a pin in pin creation menu
 - Tech/Civic Tree and Civilopedia now autofocus the search bar
-- Dedicated mod settings menu _- [image](https://user-images.githubusercontent.com/8787640/89606291-67cafd00-d824-11ea-91b2-25b1fdab39d6.png)_
-  - Civic/Tech popups can be disabled. Optionally, the voiceover can still be kept even without the popup.
-  - Recommendation UI can be enabled/disabled
-  - Minimap size can be changed
-- Civic/Tech notifications spawned at 50%/100% research progress
+- Civic/Tech popups can be disabled
+  - Civic/Tech voice-overs can be set to only play manually
+- Recommendation UI can be enabled/disabled
 - Citizen management icons are overhauled to make seeing yield info easier _-[ image](http://i.imgur.com/gbA4z3s.png)_
 - Growth/Production progress is enumerated in the city panel _- [image](http://i.imgur.com/3kYsEIf.png)_
 - Improved resource icons are dimmed to emphasize unutilized resources _- [image](http://i.imgur.com/m32xtQr.png)_
-- Civ V keybinding options
-  - Classic, a faithful recreation of the Civ V binding scheme
-- Unit actions like sell/delete are no longer hidden behind an expando _- [image](http://i.imgur.com/x1xZtyY.png)_
-- Unit XP bars are twice as tall _- [image](http://i.imgur.com/TeWR0VA.png)_
-- Growth/Amenities/Bordergrowth info baked into city banners _- [image](http://i.imgur.com/8CUJSB6.png)_
-
+- Available customized key bindings
 - Luxury resources are displayed in the top bar alongside strategic resources _-[ image](http://i.imgur.com/ebYO8l4.png)_
 - Right clicking the action panel (bottom right button) instantly ends turn even when things like production/research/unit moves have not been decided
+- Dedicated mod settings menu _- [image](https://user-images.githubusercontent.com/8787640/89606291-67cafd00-d824-11ea-91b2-25b1fdab39d6.png)_
 
 ## Integrations
 
@@ -131,15 +143,6 @@ Mod by [astog](https://github.com/astog), you can find it [on github](https://gi
   - Allows you to filter the cities based on their districts
   - You can also filter based on civilizations
 - Mission list is shown as a side screen, rather than replacing the destination list
-
-### Production Queue
-Mod by [kblease](https://github.com/kblease), you can find it [on github](https://github.com/kblease/ProductionQueue). It adds production queuing to Civ 6.
-
-![productionqueue](https://user-images.githubusercontent.com/8012430/31861663-7fbc2400-b731-11e7-9a64-fca8e3ef8cfd.jpg)
-
-- Add a production queue to the Cityview (can be toggled in the settings)
-- The production queue can be reordered
-- Units in a city's queue which become obsolete will be automatically switched to the unit that is replacing it
 
 ### Divine Yuri's Custom City Panel
 Mod by [Divine Yuri](https://forums.civfanatics.com/members/divine-yuri.263736/), you can find it [on civfanatics](https://forums.civfanatics.com/resources/divine-yuris-custom-city-panel.25430/). The mod adds additional tooltips to the city panel.

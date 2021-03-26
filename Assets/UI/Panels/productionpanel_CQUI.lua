@@ -267,7 +267,7 @@ function GetTurnsToCompleteStrings( turnsToComplete:number )
     if turnsToComplete == -1 then
         turnsStr = "999+[ICON_Turn]";
         turnsStrTT = TXT_HUD_CITY_WILL_NOT_COMPLETE;
-    elseif turnsToComplete == -2 then
+    elseif turnsToComplete == CQUI_FAITH_ONLY_TURNS_LEFT then
         turnsStr = "[ICON_Faith][ICON_Turn]";
         -- TODO: Build a better string for this?  Or since one isn't needed
         turnsStrTT = Locale.Lookup("LOC_PRODPANEL_PURCHASE_FAITH");
