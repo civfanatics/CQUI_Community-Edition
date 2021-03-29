@@ -631,7 +631,8 @@ end
 function CreateCorrectTabs()
 end
 
-function Initialize()
+-- ===========================================================================
+function Initialize_ProductionPanel_CQUI()
     Events.InterfaceModeChanged.Remove( BASE_OnInterfaceModeChanged );
     Events.InterfaceModeChanged.Add( OnInterfaceModeChanged );
     Events.CityMadePurchase.Add( function() Refresh(); end);
@@ -651,8 +652,7 @@ function Initialize()
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 end
-Initialize();
-
+Initialize_ProductionPanel_CQUI();
 
 -- ===========================================================================
 -- 2020-11-22 Support for the Hero Mode

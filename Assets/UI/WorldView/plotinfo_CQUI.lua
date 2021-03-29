@@ -6,12 +6,13 @@ include("PlotInfo");
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
-BASE_OnClickSwapTile = OnClickSwapTile;
-BASE_OnClickPurchasePlot = OnClickPurchasePlot;
-BASE_ShowCitizens = ShowCitizens;
-BASE_OnDistrictAddedToMap = OnDistrictAddedToMap;
-BASE_AggregateLensHexes = AggregateLensHexes;
-BASE_RealizeTilt = RealizeTilt;
+BASE_CQUI_OnClickSwapTile = OnClickSwapTile;
+BASE_CQUI_OnClickPurchasePlot = OnClickPurchasePlot;
+BASE_CQUI_ShowCitizens = ShowCitizens;
+BASE_CQUI_OnDistrictAddedToMap = OnDistrictAddedToMap;
+BASE_CQUI_AggregateLensHexes = AggregateLensHexes;
+BASE_CQUI_RealizeTilt = RealizeTilt;
+BASE_CQUI_Initialize = Initialize;
 
 -- ===========================================================================
 -- CQUI Members
@@ -75,7 +76,7 @@ end
 --  Update citizens, data and real housing for both cities
 -- ===========================================================================
 function OnClickSwapTile( plotId:number )
-    local result = BASE_OnClickSwapTile(plotId);
+    local result = BASE_CQUI_OnClickSwapTile(plotId);
 
     local pSelectedCity :table = UI.GetHeadSelectedCity();
     local kPlot :table = Map.GetPlotByIndex(plotId);
@@ -98,7 +99,7 @@ function OnClickPurchasePlot( plotId:number )
         return;
     end
 
-    local result = BASE_OnClickPurchasePlot(plotId);
+    local result = BASE_CQUI_OnClickPurchasePlot(plotId);
 
     OnClickCitizen();  -- CQUI : update selected city citizens and data
 
@@ -109,7 +110,7 @@ end
 --  CQUI modified ShowCitizens function : Customize the citizen icon and Hide the city center icon
 -- ===========================================================================
 function ShowCitizens()
-    BASE_ShowCitizens();
+    BASE_CQUI_ShowCitizens();
 
     local pSelectedCity :table = UI.GetHeadSelectedCity();
     if pSelectedCity == nil then
@@ -164,7 +165,7 @@ end
 --  we use it only to update real housing for a city that loses a 3rd radius tile to a city that is founded within 4 tiles
 -- ===========================================================================
 function OnDistrictAddedToMap( playerID: number, districtID : number, cityID :number, districtX : number, districtY : number, districtType:number )
-    BASE_OnDistrictAddedToMap(playerID, districtID, cityID, districtX, districtY, districtType);
+    BASE_CQUI_OnDistrictAddedToMap(playerID, districtID, cityID, districtX, districtY, districtType);
     
     if districtType == CITY_CENTER_DISTRICT_INDEX and playerID == Game.GetLocalPlayer() then
         CQUI_UpdateCloseCitiesCitizensWhenCityFounded(playerID, cityID);
@@ -175,7 +176,7 @@ end
 --  CQUI modified AggregateLensHexes function : Remove duplicate entry
 -- ===========================================================================
 function AggregateLensHexes(keys:table)
-    return CQUI_RemoveDuplicates(BASE_AggregateLensHexes(keys));
+    return CQUI_RemoveDuplicates(BASE_CQUI_AggregateLensHexes(keys));
 end
 
 -- ===========================================================================
@@ -186,11 +187,14 @@ function RealizeTilt()
     if UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT or UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT then
         return;
     end
-    BASE_RealizeTilt();
+    BASE_CQUI_RealizeTilt();
 end
 
-function Initialize()
-    Events.DistrictAddedToMap.Remove(BASE_OnDistrictAddedToMap);
+-- ===========================================================================
+function Initialize_PlotInfo_CQUI()
+    -- Note: Replacing the existing Initialize function does not work unless it's called at the end of this file
+    --       As such, it does not have to be called "Initialize", any name will do.
+    Events.DistrictAddedToMap.Remove(BASE_CQUI_OnDistrictAddedToMap);
     Events.DistrictAddedToMap.Add(OnDistrictAddedToMap);
 
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
@@ -198,4 +202,4 @@ function Initialize()
     LuaEvents.CQUI_StartDragMap.Add(CQUI_StartDragMap);
     LuaEvents.CQUI_RefreshPurchasePlots.Add(RefreshPurchasePlots);
 end
-Initialize();
+Initialize_PlotInfo_CQUI();

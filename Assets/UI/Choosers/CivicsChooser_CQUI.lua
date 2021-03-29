@@ -86,7 +86,7 @@ end
 -- ===========================================================================
 --  CQUI Functions
 -- ===========================================================================
-function CQUI_Initialize()
+function Initialize_CivicsChooser_CQUI()
     -- CQUI events
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
@@ -97,4 +97,4 @@ function CQUI_Initialize()
     LuaEvents.WorldTracker_OpenChooseCivic.Remove(BASE_CQUI_OnOpenPanel);
     LuaEvents.WorldTracker_OpenChooseCivic.Add(OnOpenPanel);
 end
-CQUI_Initialize();
+Initialize_CivicsChooser_CQUI();

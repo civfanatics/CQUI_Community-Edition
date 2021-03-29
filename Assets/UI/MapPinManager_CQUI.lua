@@ -53,7 +53,7 @@ end
 
 
 -- ===========================================================================
-function CQUI_Initialize()
+function Initialize_MapPinManager_CQUI()
     ContextPtr:SetInputHandler( OnInputHandler, true );
 end
-CQUI_Initialize();
+Initialize_MapPinManager_CQUI();

@@ -44,7 +44,7 @@
                             <Image ID="TribeRansomUnit" Anchor="L,C" Size="22,22" Icon="Exclamation" Color="255,255,0,255"/>
                         </Image>
                         <Container ID="ConversionBarContainer" Size="60,7" Anchor="R,C" Offset="-2,0">
-                            <TextureBar Anchor="C,C" Offset="5,0" Size="60,7" Texture="CityBannerShieldsBar1" Direction="Right" Speed="1" Percent="1.0" Color="40,64,82,200"/>
+                            <TextureBar ID="ConversionBarBG" Anchor="C,C" Offset="5,0" Size="60,7" Texture="CityBannerShieldsBar1" Direction="Right" Speed="1" Percent="1.0" Color="40,64,82,200"/>
                             <TextureBar ID="ConversionBar" Anchor="C,C" Offset="5,0" Size="60,7" Texture="CityBannerShieldsBar1" Direction="Right" Speed="1" Percent="1.0" Color="120,198,247,255"/>
                         </Container>
                     </Stack>

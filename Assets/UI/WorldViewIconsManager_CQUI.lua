@@ -8,6 +8,7 @@ include("CQUICommon.lua");
 -- Cached Base Functions
 -- ===========================================================================
 BASE_CQUI_SetResourceIcon = SetResourceIcon;
+BASE_CQUI_LateInitialize = LateInitialize;
 
 -- ===========================================================================
 -- CQUI Members
@@ -17,6 +18,7 @@ local CQUI_RESOURCEICONSTYLE_TRANSPARENT = 1;
 local CQUI_RESOURCEICONSTYLE_HIDDEN = 2;
 
 local CQUI_ResourceIconStyle = CQUI_RESOURCEICONSTYLE_TRANSPARENT;
+local m_LoadGameViewStateComplete = false;
 
 -- ===========================================================================
 function CQUI_GetSettingsValues()
@@ -30,7 +32,11 @@ end
 -- ===========================================================================
 function CQUI_OnIconStyleSettingsUpdate()
     CQUI_GetSettingsValues();
-    Rebuild();
+    if (m_LoadGameViewStateComplete == true) then
+        -- Calling this before the load game view state appears to make the resource icons
+        -- not appear at all on the very first loading after starting Civ6
+        Rebuild();
+    end
 end
 
 -- ===========================================================================
@@ -58,6 +64,7 @@ end
 --  CQUI modified SetResourceIcon functiton : Improved resource icon dimming/hiding
 -- ===========================================================================
 function SetResourceIcon( pInstance:table, pPlot, type, state)
+    -- print("** CQUI: SetResourceIcon ENTRY Plot x,y:"..tostring(pPlot:GetX())..","..tostring(pPlot:GetY()).." type:"..tostring(type).." state:"..tostring(state));
     BASE_CQUI_SetResourceIcon(pInstance, pPlot, type, state);
     CQUI_SetResourceIconStyle(pInstance, pPlot, type, state, CQUI_ResourceIconStyle);
 end
@@ -66,29 +73,16 @@ end
 function CQUI_SetResourceIconStyle(pInstance, pPlot, type, state, iconStyle)
     local resourceInfo = GameInfo.Resources[type];
     if (pPlot and resourceInfo ~= nil) then
-        local resourceType:string = resourceInfo.ResourceType;
-        local iconName = "ICON_" .. resourceType;
-        if (state == RevealedState.REVEALED) then
-            iconName = iconName .. "_FOW";
-        end
-
-        local textureOffsetX, textureOffsetY, textureSheet = IconManager:FindIconAtlas(iconName, 256);
-        if (textureSheet ~= nil) then
-            if (pPlot:GetOwner() == Game.GetLocalPlayer()) then --Only affects plots we own
-                if (iconStyle == CQUI_RESOURCEICONSTYLE_SOLID) then
-                    pInstance.ResourceIcon:SetColor(1,1,1,1);
-                elseif (iconStyle == CQUI_RESOURCEICONSTYLE_TRANSPARENT) then
-                    if (CQUI_IsResourceOptimalImproved(resourceInfo, pPlot)) then
-                        pInstance.ResourceIcon:SetColor(1,1,1,0.5);
-                    else
-                        pInstance.ResourceIcon:SetColor(nil);
-                    end
-                elseif (iconStyle == CQUI_RESOURCEICONSTYLE_HIDDEN) then
-                    if (CQUI_IsResourceOptimalImproved(resourceInfo, pPlot)) then
-                        pInstance.ResourceIcon:SetColor(1,1,1,0);
-                    else
-                        pInstance.ResourceIcon:SetColor(nil);
-                    end
+        if (pPlot:GetOwner() == Game.GetLocalPlayer()) then --Only affects plots we own
+            if (iconStyle == CQUI_RESOURCEICONSTYLE_SOLID) then
+                pInstance.ResourceIcon:SetColor(1,1,1,1);
+            elseif (iconStyle == CQUI_RESOURCEICONSTYLE_TRANSPARENT) then
+                if (CQUI_IsResourceOptimalImproved(resourceInfo, pPlot)) then
+                    pInstance.ResourceIcon:SetColor(1,1,1,0.66);
+                end
+            elseif (iconStyle == CQUI_RESOURCEICONSTYLE_HIDDEN) then
+                if (CQUI_IsResourceOptimalImproved(resourceInfo, pPlot)) then
+                    pInstance.ResourceIcon:SetColor(1,1,1,0);
                 end
             end
         end
@@ -115,8 +109,7 @@ end
 
 -- ===========================================================================
 function CQUI_OnImprovementChanged(locationX, locationY, isAdded)
-    -- print_debug("CQUI_OnImprovementChanged ENTRY. x:"..locationX.."  y:"..locationY);
-
+    -- print_debug("CQUI_OnImprovementChanged ENTRY. x:"..locationX.."  y:"..locationY.." isAdded:"..tostring(isAdded));
     local plot = Map.GetPlot(locationX, locationY);
     local resourceType = plot:GetResourceType();
     local plotIndex = Map.GetPlotIndex(locationX, locationY);
@@ -130,10 +123,17 @@ function CQUI_OnImprovementChanged(locationX, locationY, isAdded)
 end
 
 -- ===========================================================================
-function Initialize()
+function CQUI_OnLoadGameViewStateDone()
+    -- Called when the LoadGame View is completed
+    m_LoadGameViewStateComplete = true;
+end
+
+-- ===========================================================================
+function LateInitialize()
+    BASE_CQUI_LateInitialize();
     LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnIconStyleSettingsUpdate );
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_GetSettingsValues);
     Events.ImprovementAddedToMap.Add(CQUI_OnImprovementAdded);
     Events.ImprovementRemovedFromMap.Add(CQUI_OnImprovementRemoved);
+    Events.LoadGameViewStateDone.Add(CQUI_OnLoadGameViewStateDone);
 end
-Initialize();

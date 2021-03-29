@@ -46,7 +46,7 @@ function OnRefresh()
 end
 
 -- ===========================================================================
-function Initialize()
+function Initialize_CityPanelCulture_CQUI()
     LuaEvents.CityPanelTabRefresh.Remove(BASE_CQUI_OnRefresh);
     Events.GovernorAssigned.Remove( BASE_CQUI_OnRefresh );
     Events.GovernorChanged.Remove( BASE_CQUI_OnRefresh );
@@ -61,4 +61,4 @@ function Initialize()
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 end
-Initialize();
+Initialize_CityPanelCulture_CQUI();
