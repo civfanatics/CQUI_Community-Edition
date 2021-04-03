@@ -33,7 +33,7 @@ end
 function CQUI_OnIconStyleSettingsUpdate()
     CQUI_GetSettingsValues();
     if (m_LoadScreenClosed == true) then
-        -- Calling this before the load game view state appears to make the resource icons
+        -- Calling this before the load game view state completes appears to make the resource icons
         -- not appear at all on the very first loading after starting Civ6
         Rebuild();
     end
