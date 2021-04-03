@@ -76,7 +76,7 @@
           <Grid Size="parent,parent-296" Anchor="L,T" Offset="-7,-1" Texture="Controls_ContainerBlue" SliceStart="0,0" SliceCorner="3,3" SliceSize="9,9" SliceTextureSize="16,16">
 
             <!-- Filter Pulldown -->
-            <PullDown ID="DestinationFilterPulldown" ConsumeMouse="0" Offset="5,28" Anchor="C,T" Size="360,30" AutoSizePopUp="1" AutoFlip="1" ScrollThreshold="400">
+            <PullDown ID="DestinationFilterPulldown" ConsumeMouse="0" Offset="12,28" Anchor="L,T" Size="346,30" AutoSizePopUp="1" AutoFlip="1" ScrollThreshold="400">
               <ButtonData>
                 <GridButton   ID="FilterButton" TextAnchor="R,C" TextOffset="15,0" Style="FontNormal14" FontStyle="Shadow" EffectColor="0,0,0,255" Offset="0,-25" Size="50,-20" Texture="Controls_ButtonControl.dds" SliceCorner="10,10" SliceSize="1,1" SliceTextureSize="24,24" />
               </ButtonData>
@@ -100,6 +100,9 @@
               <Image ID="PulldownOpenedArrow" Texture="Controls_ButtonExtendSmall2" TextureOffset="0,0" Size="20,16" Anchor="L,T" Offset="7,-18"/>
               <Image ID="PulldownClosedArrow" Texture="Controls_ButtonExtendSmall2" TextureOffset="0,60" Size="20,16" Anchor="L,T" Offset="7,-22"/>
             </PullDown>
+
+            <!-- BTS Settings Button is not needed in CQUI -->
+            <!-- <Button ID="SettingsButton" Size="29,29" Anchor="R,T" Offset="5,3" Texture="TopBar_MenuButton" ToolTip="LOC_BTS_SETTINGS_PANEL_HEADER"/> -->
 
             <!-- Sort Yield Stack -->
             <Container ID="RouteContainer" Anchor="L,T" Offset="17,0">
