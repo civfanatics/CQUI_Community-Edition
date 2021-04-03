@@ -78,7 +78,7 @@ See CQUI_Settings_Local section later in this document.
 
 ## Integrations
 
-Over the time, some other UI mods were integrated into CQUI.
+Below are a list of mods that have been integrated into CQUI.  **You do not have to download these mods separately.**  Downloading and using these mods at the same time as CQUI may cause those mods or CQUI to not function correctly.
 
 ### Improved Deal Screen
 Mod originally by mironos (on the Steam Workshop), now incorporated into and maintained as part of CQUI.  A totally revamped diplomatic deals screen, with an improved and expanded layout, easier to read and navigate offer area, color-coded icons, and more in-depth information.
@@ -100,7 +100,7 @@ Mod originally by mironos (on the Steam Workshop), now incorporated into and mai
 - Artifacts include civ leader names so you can tell at a glance what nation or city state the artifact originated from, as well as the artifact's era.
 
 ### Better Trade Screen
-Mod by [astog](https://github.com/astog), you can find it [on github](https://github.com/astog/BTS). The goal of this mod is to improve the trade screens in Civilization VI and help manage and monitor running trade routes.
+Mod by [astog](https://github.com/astog), the stand-alone version can be found [on github](https://github.com/astog/BTS). The goal of this mod is to improve the trade screens in Civilization VI and help manage and monitor running trade routes.
 
 ![](http://i.imgur.com/8DXfZx3.png)
 
@@ -121,7 +121,7 @@ Mod by [astog](https://github.com/astog), you can find it [on github](https://gi
 - Cancel the automated trader from the My Routes tab in Trade Overview screen
 
 ### More Lenses
-Mod by [astog](https://github.com/astog), you can find it [on github](https://github.com/astog/MoreLenses). The goal of this mod is to add more lenses to the game, that help with empire management and in general quality of life improvements.
+Mod by [astog](https://github.com/astog), the stand-alone version can be found [on github](https://github.com/astog/MoreLenses). The goal of this mod is to add more lenses to the game, that help with empire management and in general quality of life improvements.
 
 ![morelenses](https://user-images.githubusercontent.com/8012430/31861684-d04142de-b731-11e7-97c7-6e8359d47f96.jpg)
 
@@ -135,7 +135,7 @@ Mod by [astog](https://github.com/astog), you can find it [on github](https://gi
 - Add a Scout Lens to highlight goody huts on the map. Automatically applies when a scout/ranger is selected (can be toggled in the settings)
 
 ### Better Espionage Screen
-Mod by [astog](https://github.com/astog), you can find it [on github](https://github.com/astog/BES). The Espionage Screens are overhauled to reduce the number of clicks and find the right information quickly.
+Mod by [astog](https://github.com/astog), the stand-alone version can be found [on github](https://github.com/astog/BES). The Espionage Screens are overhauled to reduce the number of clicks and find the right information quickly.
 
 ![](https://camo.githubusercontent.com/763167a1fb61481c0e9a60888d30687f51c3e919/687474703a2f2f692e696d6775722e636f6d2f705435617352652e6a7067)
 
@@ -145,7 +145,7 @@ Mod by [astog](https://github.com/astog), you can find it [on github](https://gi
 - Mission list is shown as a side screen, rather than replacing the destination list
 
 ### Divine Yuri's Custom City Panel
-Mod by [Divine Yuri](https://forums.civfanatics.com/members/divine-yuri.263736/), you can find it [on civfanatics](https://forums.civfanatics.com/resources/divine-yuris-custom-city-panel.25430/). The mod adds additional tooltips to the city panel.
+Mod by [Divine Yuri](https://forums.civfanatics.com/members/divine-yuri.263736/), the stand-alone version can be found [on civfanatics](https://forums.civfanatics.com/resources/divine-yuris-custom-city-panel.25430/). The mod adds additional tooltips to the city panel.
 
 ![Amenities tooltip](http://i.imgur.com/qHjdmUG.png)
 
