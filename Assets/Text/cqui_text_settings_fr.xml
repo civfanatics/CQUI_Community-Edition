@@ -199,5 +199,11 @@
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="fr_FR">
       <Text>Le style pour les icônes de drapeau d’unité des unités non-religieuses lorsque l’objectif de religion est sur[NEWLINE]Solide : les indicateurs d’unité restent visibles, inchangés[NEWLINE]Transparent : les indicateurs d’unité deviennent transparents[NEWLINE]Masqué : les indicateurs d’unité sont masqués</Text>
     </Row>
+    <Row Tag="LOC_CQUI_SETTINGS" Language="fr_FR">
+      <Text>PARAMÈTRES CQUI</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SETTINGS_MOVED" Language="fr_FR">
+      <Text>Les paramètres CQUI peuvent maintenant être trouvés en sélectionnant des options dans le menu du jeu, puis le bouton Paramètres CQUI</Text>
+    </Row>
   </LocalizedText>
 </GameData>

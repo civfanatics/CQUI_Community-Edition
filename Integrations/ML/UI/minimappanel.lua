@@ -1528,8 +1528,8 @@ end
 
   -- Begin CQUI Mod ------------------------------------------------------------------------------------
   -- Requires the CQUI Database and CQUICommon files have been loaded before this (<LoadOrder>)
-  -- CQUI Options Button
-  Controls.CQUI_OptionsButton:RegisterCallback( Mouse.eLClick, function() LuaEvents.CQUI_ToggleSettings() end);
+  -- CQUI Options Button (true indicates this will cause the popup about the CQUI Settings Menu moving to appear)
+  Controls.CQUI_OptionsButton:RegisterCallback( Mouse.eLClick, function() LuaEvents.CQUI_ToggleSettings(true) end);
   Controls.CQUI_OptionsButton:RegisterCallback( Mouse.eMouseEnter, function() UI.PlaySound("Main_Menu_Mouse_Over"); end)  
   -- CQUI Handlers
   LuaEvents.CQUI_Option_ToggleYields.Add( ToggleYieldIcons );

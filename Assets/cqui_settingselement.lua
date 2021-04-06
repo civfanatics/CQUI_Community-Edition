@@ -448,6 +448,14 @@ function OnShow()
 end
 
 -- ===========================================================================
+function OnSettingsButtonClicked( showUseMenuOption:boolean )
+    -- Clicking the icon above the minimap will cause this message to show (showUseMenuOption will be true)
+    Controls.CQUISettingsMoved:SetShow(showUseMenuOption);
+    -- Display the settings dialog
+    ContextPtr:SetHide(not ContextPtr:IsHidden());
+end
+
+-- ===========================================================================
 function Initialize()
     print_debug("ENTRY: CQUI_SettingsElement Initialize")
     ContextPtr:SetHide(true);
@@ -560,11 +568,7 @@ function Initialize()
     ContextPtr:SetInputHandler( OnInputHandler, true );
 
     --Bind CQUI events
-    LuaEvents.CQUI_ToggleSettings.Add(
-        function()
-            ContextPtr:SetHide(not ContextPtr:IsHidden());
-        end
-    );
+    LuaEvents.CQUI_ToggleSettings.Add(OnSettingsButtonClicked);
     LuaEvents.CQUI_SettingsUpdate.Add(ToggleSmartbannerCheckboxes);
     LuaEvents.CQUI_SettingsUpdate.Add(ToggleSmartWorkIconSettings);
     LuaEvents.CQUI_SettingsUpdate.Add(ToggleSuzerainOptionsCheckboxes);

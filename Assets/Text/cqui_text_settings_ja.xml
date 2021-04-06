@@ -271,5 +271,11 @@
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="ja_JP">
       <Text>宗教レンズがオンのときの非宗教的単位のユニットフラグアイコンのスタイル[NEWLINE]ソリッド: ユニット フラグは表示されたまま、変更されない[NEWLINE]透明: 単位フラグが透明になる[NEWLINE]非表示: ユニットフラグは非表示です</Text>
     </Row>
+    <Row Tag="LOC_CQUI_SETTINGS" Language="ja_JP">
+      <Text>CQUI 設定</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SETTINGS_MOVED" Language="ja_JP">
+      <Text>ゲームメニューからオプションを選択し、次にCQUI設定ボタンを選択して、CQUI設定を見つけることができます</Text>
+    </Row>
   </LocalizedText>
 </GameData>
