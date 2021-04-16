@@ -1,0 +1,567 @@
+<!-- Copy of the Firaxis Options.xml, with single modification for CQUI Settings button, called out below -->
+<?xml version="1.0" encoding="utf-8"?>
+<Context Name="Options">
+
+    <Include File="PopupDialog"/>
+
+    <Box ID="MainGrid" Style="ShellBGBox">
+
+        <Container ID="MainWindow" Size="1024,768" Anchor="C,B">
+            <Grid ID="LogoContainer" Style="SubContainer4" Size="parent-10,116" Anchor="C,T" Color="7,28,50" AnchorSide="I,O" Offset="0,4">
+                <Image ID="Logo" Anchor="C,C" Texture="MainLogo.dds" StretchMode="Auto"/>
+            </Grid>
+
+            <Container ID="Header" Style="ShellHeaderContainer">
+                <Grid Style="ShellHeaderButtonGrid">
+                    <GridButton ID="WindowCloseButton" Style="ShellButtonOrnateFlat" Anchor="R,C" Offset="1,0" String="LOC_MULTIPLAYER_BACK"/>
+                </Grid>
+                <Label ID="WindowTitle" Style="ShellHeader" Anchor="C,C" String="{LOC_OPTIONS_TITLE:upper}"/>
+            </Container>
+
+            <Grid ID="Content" Style="SubContainer4" Size="parent-10,670" Anchor="C,T" Color="7,28,50" Offset="0,55">
+
+                <!--Options Tabs-->
+                <Grid Style="SubContainerFill" Size="210,parent-6" Offset="3,3" Color="6,36,57,150">
+                    <Grid Style="SubContainer3" Size="parent-6,parent-6" Anchor="C,C" Color="13,70,82,255">
+                        <Stack ID="TabStack" StackGrowth="Down" Anchor="C,T" Padding="10">
+                            <GridButton ID="GameTab" Style="ShellTabSmall" String="{LOC_OPTIONS_GAME:upper}" Hidden="1" Size="200,32"/>
+                            <GridButton ID="GraphicsTab" Style="ShellTabSmall" String="{LOC_OPTIONS_GRAPHICS:upper}" Hidden="1" Size="200,32"/>
+                            <GridButton ID="AudioTab" Style="ShellTabSmall" String="{LOC_OPTIONS_AUDIO:upper}" Hidden="1" Size="200,32"/>
+                            <GridButton ID="LanguageTab" Style="ShellTabSmall" String="{LOC_OPTIONS_LANGUAGE:upper}" Hidden="1" Size="200,32"/>
+                            <GridButton ID="InterfaceTab" Style="ShellTabSmall" String="{LOC_OPTIONS_INTERFACE:upper}" Hidden="1" Size="200,32"/>
+                            <GridButton ID="KeyBindingsTab" Style="ShellTabSmall" String="{LOC_OPTIONS_KEY_BINDINGS:upper}" Hidden="1" Size="200,32"/>
+                            <GridButton ID="AppTab" Style="ShellTabSmall" String="{LOC_OPTIONS_APPLICATION:upper}" Hidden="1" Size="200,32"/>
+                            <!-- ==== BEGIN CQUI CUSTOMIZATION  ==================================================================================== -->
+                            <GridButton ID="CQUISettings" Style="ShellTabSmall" String="{LOC_CQUI_SETTINGS:upper}" Hidden="1" Size="200,32"/>
+                            <!-- ==== END CQUI CUSTOMIZATION  ====================================================================================== -->
+                        </Stack>
+                        <GridButton ID="ResetButton" Size="150,22" Style="ShellButton" Anchor="C,B" Offset="0,2" String="LOC_SETUP_RESTORE_DEFAULT" ToolTip="LOC_SETUP_RESTORE_DEFAULT_TT"/>
+                    </Grid>
+                </Grid>
+
+                <!--************************************ GAME OPTIONS *******************************************-->
+                <Container Anchor="R,T" Size="parent-215,parent-6">
+                    <Container ID="GameOptions" Size="parent,parent" Hidden="0">
+                        <ScrollPanel ID="GameOptionsScrollPanel" Offset="20,3" Size="parent-40,parent" AutoScrollBar="1" Vertical="1" Anchor="R,T">
+                            <Stack Anchor="L,T" StackGrowth="Down" Padding="5" Offset="0,25" Size="parent-24,auto">
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <PullDown ID="QuickCombatPullDown" Style="PullDownBlue" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                    <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_QUICK_COMBAT"/>
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <PullDown ID="QuickMovementPullDown" Style="PullDownBlue" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                    <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_QUICK_MOVEMENT"/>
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <PullDown ID="AutoEndTurnPullDown" Style="PullDownBlue" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                    <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_AUTO_END_TURN"/>
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <PullDown ID="CityRangeAttackTurnBlockingPullDown" Style="PullDownBlue" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                    <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_CITY_RANGE_ATTACK" ToolTip="LOC_OPTIONS_CITY_RANGE_ATTACK_TOOLTIP"/>
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <PullDown ID="TunerPullDown" Style="PullDownBlue" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                    <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_TUNER"/>
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <PullDown ID="AutoDownloadPullDown" Style="PullDownBlue" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                    <Label Anchor="L,C" ID="AutoDownloadLabel" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_AUTO_DOWNLOAD_ADDITIONAL_CONTENT" ToolTip="LOC_OPTIONS_AUTO_DOWNLOAD_ADDITIONAL_CONTENT_TOOLTIP"/>
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <PullDown ID="TutorialPullDown" Style="PullDownBlue" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                    <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_TUTORIAL"/>
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <PullDown ID="SaveFrequencyPullDown" Style="PullDownBlue" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                    <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_TURNS_BETWEEN_AUTOSAVES"/>
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <PullDown ID="SaveKeepPullDown" Style="PullDownBlue" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                    <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_AUTOSAVES_TO_KEEP"/>
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <Container Anchor="R,C" Size="400,32" Padding="5">
+                                        <Slider Style="SliderControl" Anchor="R,C" Size="320,13" Offset="5,0" SpaceForScroll="0" ID="TODSlider" />
+                                        <Label String="00:00 am" Style="ShellOptionText" WrapWidth="350" Anchor="L,C" ID="TODText" Offset="3,0" />
+                                    </Container>
+                                    <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_TIME_OF_DAY"/>
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="TimeOfDayCheckbox" Anchor="L,C" Offset="0,0" Size="400,24" Style="CheckBoxControl" String="LOC_OPTIONS_TIME_OF_DAY_TEXT" />
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <Grid Style="EditTextArea" Size="400,30" InnerPadding="6,6">
+                                        <EditBox ID="LANPlayerNameEdit" Anchor="L,C" Offset="0,0" Size="parent,23" EditMode="1" Style="FontNormal14" ColorSet="BodyTextCool" FontStyle="stroke" MaxLength="22"/>
+                                    </Grid>
+                                    <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_LAN_PLAYER_NAME"/>
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <Grid Style="EditTextArea" Size="400,30" InnerPadding="6,6">
+                                        <EditBox ID="PBCTurnWebhookEdit" Anchor="L,C" Offset="0,0" Size="parent,23" EditMode="1" Style="FontNormal14" ColorSet="BodyTextCool" FontStyle="stroke" MaxLength="2000"/>
+                                    </Grid>
+                                    <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_WEBHOOK_URL"/>
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <PullDown ID="TurnWebhookFreqPullDown" Style="PullDownBlue" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                    <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_WEBHOOK_FREQ"/>
+                                </Stack>
+
+                                <Container ID="GameSetupContainer" Size="auto,auto">
+                                    <Grid Size="567,21" Texture="Shell_SectionHeader" SliceCorner="154,10" SliceTextureSize="308,21" Color="20,144,140,100" Offset="0,8">
+                                        <Image Texture="Controls_Gradient_HalfRadial" Color="20,144,140,100" FlipY="1" Anchor="C,T" Size="225,94"/>
+                                        <Label Anchor="C,C" Style="ShellOptionText" WrapWidth="320" String="LOC_MP_GAME_SUMMARY_GAME_SETTINGS"/>
+                                    </Grid>
+
+                                    <Stack ID="ParametersStack" Anchor="L,T" Offset="0,42" Size="parent,auto" Padding="0" StackGrowth="Bottom">
+                                        <!-- Primary Parameters Stack -->
+                                        <Stack Anchor="L,T" Padding="5" Size="parent,auto" StackGrowth="Bottom" ID="PrimaryParametersStack"/>
+                                        <Stack Anchor="L,T" Padding="5" Size="parent,auto" StackGrowth="Bottom" ID="VictoryParameterStack" />
+                                        <Stack Anchor="L,T" Padding="5" Size="parent,auto" StackGrowth="Bottom" ID="SecondaryParametersStack"/>
+
+                                    </Stack>
+                                </Container>
+                            </Stack>
+
+                            <ScrollBar Style="Slider_Blue" Anchor="R,C" AnchorSide="O,I"/>
+                        </ScrollPanel>
+                    </Container>
+
+                    <!--********************************** GRAPHICS OPTIONS *****************************************-->
+                    <Container ID="GraphicsOptions" Size="parent,parent" Hidden="1">
+                        <ScrollPanel ID="GraphicsOptionsPanel" Offset="20,3" Size="parent-20,parent" AutoScrollBar="1" Vertical="1" Anchor="R,T">
+                            <Stack ID="GraphicsOptionsStack" Anchor="C,T" StackGrowth="Down" Padding="5" Offset="0,50">
+
+                                <!-- Main Options -->
+
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                    <PullDown ID="AdapterPullDown" Style="PullDownBlue" ScrollThreshold="400" Size="300,24" Offset="0,0" SpaceForScroll="0" ToolTip="LOC_OPTIONS_VIDEO_ADAPTER_TOOLTIP"/>
+                                    <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_VIDEO_ADAPTER_TEXT"/>
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                    <GridButton ID="MultiGPUCheckbox" Anchor="L,L" Offset="5,0" Size="300,24" Style="CheckBoxControl" String="LOC_OPTIONS_VIDEO_MULTI_GPU_TEXT" ToolTip="LOC_OPTIONS_VIDEO_MULTI_GPU_TOOLTIP"/>
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                    <PullDown ID="ResolutionPullDown" Style="PullDownBlue" ScrollThreshold="400" Size="300,24" Offset="0,0" SpaceForScroll="0" ToolTip="LOC_OPTIONS_VIDEO_RESOLUTION_TOOLTIP"/>
+                                    <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_VIDEO_RESOLUTION_TEXT"/>
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                    <PullDown ID="UIScalePulldown" Style="PullDownBlue" ScrollThreshold="400" Size="300,24" Offset="0,0" SpaceForScroll="0" ToolTip="LOC_OPTIONS_VIDEO_UI_UPSCALE_TOOLTIP"/>
+                                    <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_VIDEO_UI_UPSCALE_TEXT"/>
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                    <PullDown ID="FullScreenPullDown" Style="PullDownBlue" ScrollThreshold="400" Size="300,24" Offset="0,0" SpaceForScroll="0" ToolTip="LOC_OPTIONS_VIDEO_WINDOW_MODE_TOOLTIP"/>
+                                    <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_VIDEO_WINDOW_MODE_TEXT"/>
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                    <PullDown ID="MSAAPullDown" Style="PullDownBlue" Anchor="R,T" ScrollThreshold="400" Size="300,24" Offset="0,0" SpaceForScroll="0" ToolTip="LOC_OPTIONS_VIDEO_MSAA_TOOLTIP"/>
+                                    <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_VIDEO_MSAA_TEXT"/>
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Right" Padding="5" Offset="175,0">
+                                    <Label Style="ShellOptionText" String="LOC_OPTIONS_VIDEO_PERFORMANCE_TEXT"/>
+                                    <Slider Style="SliderControl" Offset="5,0" Size="300,13" ID="PerformanceSlider" Steps="5" ToolTip="LOC_OPTIONS_VIDEO_PERFORMANCE_TOOLTIP"/>
+                                    <Container ID="DontResizeMeBro1" Size="60,18">
+                                        <Label Style="ShellOptionText" String="UNSET" ID="PerformanceValue" />
+                                    </Container>
+                                </Stack>
+                                <Stack Anchor="R,B" StackGrowth="Right" Padding="5" Offset="175,0">
+                                    <Label Style="ShellOptionText" String="LOC_OPTIONS_VIDEO_MEMORY_TEXT"/>
+                                    <Slider Style="SliderControl" Offset="5,0" Size="300,13" ID="MemorySlider" Steps="5" ToolTip="LOC_OPTIONS_VIDEO_MEMORY_TOOLTIP"/>
+                                    <Container ID="DontResizeMeBro2" Size="60,18">
+                                        <Label Style="ShellOptionText" String="UNSET" ID="MemoryValue" />
+                                    </Container>
+                                </Stack>
+
+                                <!-- Advanced Options -->
+
+                                <Container Size="parent,44">
+                                    <GridButton ID="AdvancedGraphicsOptions" Size="parent-200,22" Style="ShellButton" Anchor="C,C" String="LOC_OPTIONS_SHOW_ADVANCED_GRAPHICS"/>
+                                </Container>
+
+                                <Container Size="auto,auto" ID="AdvancedOptionsContainer" Hidden="1">
+                                    <Stack Anchor="C,T" StackGrowth="Down" Padding="5">
+
+                                        <Grid Size="parent,21" Texture="Shell_SectionHeader" SliceCorner="154,10" SliceTextureSize="308,21" Color="20,144,140,100" Offset="0,8">
+                                            <Image Texture="Controls_Gradient_HalfRadial" Color="20,144,140,100" FlipY="1" Anchor="C,T" Size="225,94"/>
+                                            <Label Anchor="C,C" Style="ShellOptionText" WrapWidth="320" String="LOC_OPTIONS_ADVANCED_GRAPHICS"/>
+                                        </Grid>
+
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <GridButton ID="VSyncEnabledCheckbox" Anchor="L,L" Offset="5,0" Size="300,24" Style="CheckBoxControl" String="LOC_OPTIONS_VIDEO_VSYNC_ENABLED_TEXT" ToolTip="LOC_OPTIONS_VIDEO_VSYNC_ENABLED_TOOLTIP"/>
+                                        </Stack>
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <PullDown ID="TickIntervalPullDown" Style="PullDownBlue" Anchor="R,T" ScrollThreshold="400" Size="300,24" Offset="0,0" SpaceForScroll="0" ToolTip="LOC_OPTIONS_PERFORMANCE_TICK_INTERVAL_TOOLTIP"/>
+                                            <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_PERFORMANCE_TICK_INTERVAL_TEXT"/>
+                                        </Stack>
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <GridButton ID="AssetTextureResolutionCheckbox" Anchor="L,L" Offset="5,0" Size="300,24" Style="CheckBoxControl" String="LOC_OPTIONS_VIDEO_HIGH_RESOLUTION_ASSET_TEXTURES_TEXT" ToolTip="LOC_OPTIONS_VIDEO_HIGH_RESOLUTION_ASSET_TEXTURES_TOOLTIP"/>
+                                        </Stack>
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <PullDown ID="VFXDetailLevelPullDown" Style="PullDownBlue" Anchor="R,T" ScrollThreshold="400" Size="300,24" Offset="0,0" SpaceForScroll="0" ToolTip="LOC_OPTIONS_VIDEO_VFX_DETAIL_LEVEL_TOOLTIP"/>
+                                            <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_VIDEO_VFX_DETAIL_LEVEL_TEXT"/>
+                                        </Stack>
+
+                                        <!-- Advanced Options - Lighting -->
+
+                                        <Grid Size="parent,21" Texture="Shell_SectionHeader" SliceCorner="154,10" SliceTextureSize="308,21" Color="20,144,140,100" Offset="0,8">
+                                            <Image Texture="Controls_Gradient_HalfRadial" Color="20,144,140,100" FlipY="1" Anchor="C,T" Size="225,94"/>
+                                            <Label Anchor="C,C" Style="ShellOptionText" WrapWidth="320" String="LOC_OPTIONS_LIGHTING"/>
+                                        </Grid>
+
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <GridButton ID="LightingBloomEnabledCheckbox" Anchor="L,L" Offset="5,0" Size="300,24" Style="CheckBoxControl" String="LOC_OPTIONS_LIGHTING_BLOOM_ENABLED_TEXT" ToolTip="LOC_OPTIONS_LIGHTING_BLOOM_ENABLED_TOOLTIP"/>
+                                        </Stack>
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <GridButton ID="LightingDynamicLightingEnabledCheckbox" Anchor="L,L" Offset="5,0" Size="300,24" Style="CheckBoxControl" String="LOC_OPTIONS_LIGHTING_DYNAMIC_LIGHTING_ENABLED_TEXT" ToolTip="LOC_OPTIONS_LIGHTING_DYNAMIC_LIGHTING_ENABLED_TOOLTIP"/>
+                                        </Stack>
+
+                                        <!-- Advanced Options - Shadows -->
+
+                                        <Grid Size="parent,21" Texture="Shell_SectionHeader" SliceCorner="154,10" SliceTextureSize="308,21" Color="20,144,140,100" Offset="0,8">
+                                            <Image Texture="Controls_Gradient_HalfRadial" Color="20,144,140,100" FlipY="1" Anchor="C,T" Size="225,94"/>
+                                            <Label Anchor="C,C" Style="ShellOptionText" WrapWidth="320" String="LOC_OPTIONS_SHADOWS"/>
+                                        </Grid>
+
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <GridButton ID="ShadowsEnabledCheckbox" Anchor="L,L" Offset="5,0" Size="300,24" Style="CheckBoxControl" String="LOC_OPTIONS_SHADOWS_ENABLED_TEXT" ToolTip="LOC_OPTIONS_SHADOWS_ENABLED_TOOLTIP"/>
+                                        </Stack>
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <PullDown ID="ShadowsResolutionPullDown" Style="PullDownBlue" Anchor="R,T" ScrollThreshold="400" Size="300,24" Offset="0,0" SpaceForScroll="0" ToolTip="LOC_OPTIONS_SHADOWS_RESOLUTION_TOOLTIP"/>
+                                            <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_SHADOWS_RESOLUTION_TEXT"/>
+                                        </Stack>
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <GridButton ID="CloudShadowsEnabledCheckbox" Anchor="L,L" Offset="5,0" Size="300,24" Style="CheckBoxControl" String="LOC_OPTIONS_CLOUD_SHADOWS_ENABLED_TEXT" ToolTip="LOC_OPTIONS_CLOUD_SHADOWS_ENABLED_TOOLTIP"/>
+                                        </Stack>
+
+                                        <!-- Advanced Options - Overlay -->
+
+                                        <Grid Size="parent,21" Texture="Shell_SectionHeader" SliceCorner="154,10" SliceTextureSize="308,21" Color="20,144,140,100" Offset="0,8">
+                                            <Image Texture="Controls_Gradient_HalfRadial" Color="20,144,140,100" FlipY="1" Anchor="C,T" Size="225,94"/>
+                                            <Label Anchor="C,C" Style="ShellOptionText" WrapWidth="320" String="LOC_OPTIONS_OVERLAY"/>
+                                        </Grid>
+
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <GridButton ID="SSOverlayEnabledCheckbox" Anchor="L,L" Offset="5,0" Size="300,24" Style="CheckBoxControl" String="LOC_OPTIONS_SSOVERLAY_ENABLED_TEXT" ToolTip="LOC_OPTIONS_SSOVERLAY_ENABLED_TOOLTIP"/>
+                                        </Stack>
+
+                                        <!-- Advanced Options - Terrain -->
+
+                                        <Grid Size="parent,21" Texture="Shell_SectionHeader" SliceCorner="154,10" SliceTextureSize="308,21" Color="20,144,140,100" Offset="0,8">
+                                            <Image Texture="Controls_Gradient_HalfRadial" Color="20,144,140,100" FlipY="1" Anchor="C,T" Size="225,94"/>
+                                            <Label Anchor="C,C" Style="ShellOptionText" WrapWidth="320" String="LOC_OPTIONS_TERRAIN"/>
+                                        </Grid>
+
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <PullDown ID="TerrainQualityPullDown" Style="PullDownBlue" Anchor="R,T" ScrollThreshold="400" Size="300,24" Offset="0,0" SpaceForScroll="0" AutoFlip="1" ToolTip="LOC_OPTIONS_TERRAIN_QUALITY_TOOLTIP"/>
+                                            <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_TERRAIN_QUALITY_TEXT"/>
+                                        </Stack>
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <GridButton ID="TerrainSynthesisCheckbox" Anchor="L,L" Offset="5,0" Size="300,24" Style="CheckBoxControl" String="LOC_OPTIONS_TERRAIN_HIGH_RESOLUTION_TEXT" ToolTip="LOC_OPTIONS_TERRAIN_HIGH_RESOLUTION_TOOLTIP"/>
+                                        </Stack>
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <GridButton ID="TerrainTextureResolutionCheckbox" Anchor="L,L" Offset="5,0" Size="300,24" Style="CheckBoxControl" String="LOC_OPTIONS_TERRAIN_HIGH_RESOLUTION_TEXTURES_TEXT" ToolTip="LOC_OPTIONS_TERRAIN_HIGH_RESOLUTION_TEXTURES_TOOLTIP"/>
+                                        </Stack>
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <GridButton ID="TerrainShaderCheckbox" Anchor="L,L" Offset="5,0" Size="300,24" Style="CheckBoxControl" String="LOC_OPTIONS_TERRAIN_HIGH_QUALITY_SHADER_TEXT" ToolTip="LOC_OPTIONS_TERRAIN_HIGH_QUALITY_SHADER_TOOLTIP"/>
+                                        </Stack>
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <GridButton ID="TerrainAOEnabledCheckbox" Anchor="L,L" Offset="5,0" Size="300,24" Style="CheckBoxControl" String="LOC_OPTIONS_LIGHTING_AO_ENABLED_TEXT" ToolTip="LOC_OPTIONS_LIGHTING_AO_ENABLED_TOOLTIP"/>
+                                        </Stack>
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <PullDown ID="TerrainAOResolutionPullDown" Style="PullDownBlue" Anchor="R,T" ScrollThreshold="400" Size="300,24" Offset="0,0" SpaceForScroll="0" AutoFlip="1" ToolTip="LOC_OPTIONS_LIGHTING_AO_RENDER_RESOLUTION_TOOLTIP"/>
+                                            <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_LIGHTING_AO_RENDER_RESOLUTION_TEXT"/>
+                                        </Stack>
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <GridButton ID="TerrainClutterCheckbox" Anchor="L,L" Offset="5,0" Size="300,24" Style="CheckBoxControl" String="LOC_OPTIONS_TERRAIN_HIGH_DETAIL_CLUTTER_TEXT" ToolTip="LOC_OPTIONS_TERRAIN_HIGH_DETAIL_CLUTTER_TOOLTIP"/>
+                                        </Stack>
+
+                                        <!-- Advanced Options - Water -->
+
+                                        <Grid Size="parent,21" Texture="Shell_SectionHeader" SliceCorner="154,10" SliceTextureSize="308,21" Color="20,144,140,100" Offset="0,8">
+                                            <Image Texture="Controls_Gradient_HalfRadial" Color="20,144,140,100" FlipY="1" Anchor="C,T" Size="225,94"/>
+                                            <Label Anchor="C,C" Style="ShellOptionText" WrapWidth="320" String="LOC_OPTIONS_WATER"/>
+                                        </Grid>
+
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <GridButton ID="WaterResolutionCheckbox" Anchor="L,L" Offset="5,0" Size="300,24" Style="CheckBoxControl" String="LOC_OPTIONS_WATER_HIGH_RESOLUTION_TEXT" ToolTip="LOC_OPTIONS_WATER_HIGH_RESOLUTION_TOOLTIP"/>
+                                        </Stack>
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <GridButton ID="WaterShaderCheckbox" Anchor="L,L" Offset="5,0" Size="300,24" Style="CheckBoxControl" String="LOC_OPTIONS_WATER_HIGH_QUALITY_SHADER_TEXT" ToolTip="LOC_OPTIONS_WATER_HIGH_QUALITY_SHADER_TOOLTIP"/>
+                                        </Stack>
+
+                                        <!-- Advanced Options - Reflections -->
+
+                                        <Grid Size="parent,21" Texture="Shell_SectionHeader" SliceCorner="154,10" SliceTextureSize="308,21" Color="20,144,140,100" Offset="0,8">
+                                            <Image Texture="Controls_Gradient_HalfRadial" Color="20,144,140,100" FlipY="1" Anchor="C,T" Size="225,94"/>
+                                            <Label Anchor="C,C" Style="ShellOptionText" WrapWidth="320" String="LOC_OPTIONS_REFLECTIONS"/>
+                                        </Grid>
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <PullDown ID="ReflectionPassesPullDown" Style="PullDownBlue" Anchor="R,T" ScrollThreshold="400" Size="300,24" Offset="0,0" SpaceForScroll="0" AutoFlip="1" ToolTip="LOC_OPTIONS_REFLECTION_PASSES_TOOLTIP"/>
+                                            <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_REFLECTION_PASSES_TEXT"/>
+                                        </Stack>-->
+
+                                        <!-- Advanced Options - Leaders -->
+
+                                        <Grid Size="parent,21" Texture="Shell_SectionHeader" SliceCorner="154,10" SliceTextureSize="308,21" Color="20,144,140,100" Offset="0,8">
+                                            <Image Texture="Controls_Gradient_HalfRadial" Color="20,144,140,100" FlipY="1" Anchor="C,T" Size="225,94"/>
+                                            <Label Anchor="C,C" Style="ShellOptionText" WrapWidth="320" String="LOC_OPTIONS_LEADERS"/>
+                                        </Grid>
+
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <PullDown ID="LeaderQualityPullDown" Style="PullDownBlue" Anchor="R,T" ScrollThreshold="400" Size="300,24" Offset="0,0" SpaceForScroll="0" ToolTip="LOC_OPTIONS_LEADER_QUALITY_TOOLTIP" AutoFlip="1"/>
+                                            <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_LEADER_QUALITY_TEXT"/>
+                                        </Stack>
+
+                                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" Offset="200,0">
+                                            <GridButton ID="MotionBlurEnabledCheckbox" Anchor="L,L" Offset="5,0" Size="300,24" Style="CheckBoxControl" String="LOC_OPTIONS_LEADER_MOTIONBLUR_TEXT" ToolTip="LOC_OPTIONS_LEADER_MOTIONBLUR_TOOLTIP"/>
+                                        </Stack>
+                                    </Stack>
+                                </Container>
+                            </Stack>
+
+                            <!-- Scroll Controls -->
+                            <ScrollBar Style="Slider_Blue" Anchor="R,C" AnchorSide="O,I"/>
+                        </ScrollPanel>
+                    </Container>
+
+                    <!--************************************ AUDIO OPTIONS ******************************************-->
+                    <Container ID="AudioOptions" Size="parent,parent" Hidden="1">
+                        <Stack Anchor="C,T" StackGrowth="Down" Padding="10" Offset="0,50">
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <Slider Style="SliderControl" Anchor="C,C" Offset="5,0" Size="300,13" ID="MasterVolSlider" />
+                                <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_MASTER_VOLUME"/>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <Slider Style="SliderControl" Anchor="C,C" Offset="5,0" Size="300,13" ID="MusicVolSlider" />
+                                <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_MUSIC_VOLUME"/>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <Slider Style="SliderControl" Anchor="C,C" Offset="5,0" Size="300,13" ID="SFXVolSlider" />
+                                <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_EFFECTS_VOLUME"/>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <Slider Style="SliderControl" Anchor="C,C" Offset="5,0" Size="300,13" ID="AmbVolSlider" />
+                                <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_AMBIENT_VOLUME"/>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <Slider Style="SliderControl" Anchor="C,C" Offset="5,0" Size="300,13" ID="SpeechVolSlider" />
+                                <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_SPEECH_VOLUME"/>
+                            </Stack>
+                            <GridButton ID="MuteFocusCheckbox" Anchor="r,t" Offset="5,0" Size="300,24" Style="CheckBoxControl" String="LOC_OPTIONS_MUTE_FOCUS" />
+                        </Stack>
+                    </Container>
+                    <Container ID="LanguageOptions" Size="parent,parent" Hidden="1">
+                        <Stack Anchor="C,T" StackGrowth="Down" Padding="5" Offset="0,50">
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <PullDown ID="DisplayLanguagePullDown" Style="PullDownBlue" ScrollThreshold="400" Size="300,24" Offset="0,0" SpaceForScroll="0"/>
+                                <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_DISPLAY_LANGUAGE"/>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <PullDown ID="SpokenLanguagePullDown" Style="PullDownBlue" ScrollThreshold="400" Size="300,24" Offset="0,0" SpaceForScroll="0"/>
+                                <Label Anchor="L,C" Style="ShellOptionText" String="LOC_OPTIONS_SPOKEN_LANGUAGE"/>
+                            </Stack>
+                            <GridButton ID="EnableSubtitlesCheckbox" Anchor="R,T" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_OPTIONS_SUBTITLES" />
+                        </Stack>
+                    </Container>
+
+                    <!--********************************** INTERFACE OPTIONS ****************************************-->
+                    <Container ID="InterfaceOptions" Size="parent,parent" Hidden="1">
+                        <Stack Anchor="L,T" StackGrowth="Down" Padding="5" Offset="0,24" Size="parent-24,auto">
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <PullDown ID="ClockFormat" Style="PullDownBlue" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_INTERFACE_CLOCK_FORMAT"/>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <PullDown ID="StartInStrategicView" Style="PullDownBlue" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_STRATEGIC_VIEW_START"/>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <PullDown ID="MouseGrabPullDown" Style="PullDownBlue" Anchor="R,T" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_INTERFACE_GRAB_MOUSE"/>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <PullDown ID="EdgeScrollPullDown" Style="PullDownBlue" Anchor="R,T" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_INTERFACE_EDGE_SCROLL"/>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <PullDown ID="AutoProdQueuePullDown" Style="PullDownBlue" Anchor="R,T" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_INTERFACE_OPEN_TO_PROD_QUEUE"/>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <PullDown ID="ReplaceDragWithClickPullDown" Style="PullDownBlue" Anchor="R,T" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_INTERFACE_FORCE_CLICK_TO_DRAG" ToolTip="LOC_OPTIONS_INTERFACE_FORCE_CLICK_TO_DRAG_TT"/>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <PullDown ID="UnitCyclingPullDown" Style="PullDownBlue" Anchor="R,T" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_AUTO_UNIT_CYCLING"/>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <PullDown ID="RibbonStatsPullDown" Style="PullDownBlue" Anchor="R,T" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_RIBBON_STATS_LABEL"/>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Right" Padding="5">
+                                <Label Style="ShellOptionText" WrapWidth="350" Anchor="C,C" String="LOC_OPTIONS_CHAT_TEXT_SIZE"/>
+                                <Container Size="400,24">
+                                    <Label ID="ChatTextValue" Style="ShellOptionText" WrapWidth="350" Anchor="L,C" String="UNSET" />
+                                    <Slider ID="ChatTextSizeSlider" Style="SliderControl" Anchor="R,C" Size="350,13" Steps="3" />
+                                </Container>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Right" Padding="5">
+                                <Label Style="ShellOptionText" WrapWidth="350" Anchor="C,C" String="LOC_OPTIONS_INTERFACE_MINIMAP_SIZE"/>
+                                <Container Size="400,24">
+                                    <Slider ID="MinimapSizeSlider" Style="SliderControl" Anchor="C,C" Size="400,13" Steps="100" />
+                                </Container>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Right" Padding="5">
+                                <Label Style="ShellOptionText" WrapWidth="350" Anchor="C,C" String="LOC_OPTIONS_PLOT_TOOLTIP_DELAY"/>
+                                <Container Size="400,24">
+                                    <Label ID="PlotToolTipDelayValue" Style="ShellOptionText" WrapWidth="350" Anchor="L,C" String="UNSET" />
+                                    <Slider ID="PlotToolTipDelaySlider" Style="SliderControl" Anchor="R,C" Size="350,13" Steps="10" />
+                                </Container>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Right" Padding="5">
+                                <Label Style="ShellOptionText" Anchor="C,C" String="LOC_OPTIONS_SCROLL_SPEED"/>
+                                <Container Size="400,24">
+                                    <Label ID="ScrollSpeedValue" Style="ShellOptionText" WrapWidth="350" Anchor="L,C" String="UNSET" />
+                                    <Slider ID="ScrollSpeedSlider" Style="SliderControl" Anchor="R,C" Size="350,13" />
+                                </Container>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Right" Padding="5">
+                                <Label Style="ShellOptionText" Anchor="C,C" String="LOC_OPTIONS_SCROLL_TEXT_SPEED"/>
+                                <Container Size="400,24">
+                                    <Label ID="ScrollTextSpeedValue" Style="ShellOptionText" WrapWidth="350" Anchor="L,C" String="UNSET" />
+                                    <Slider ID="ScrollTextSpeedSlider" Style="SliderControl" Anchor="R,C" Size="350,13" />
+                                </Container>
+                            </Stack>
+                            <Stack ID="TouchInputStack" Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <GridButton ID="TouchInputCheckbox" Anchor="L,C" Offset="0,0" Size="400,24" Style="CheckBoxControl" String="LOC_OPTIONS_TOUCH_ENABLED" />
+                            </Stack>
+                            <Stack ID="HistoricMomentsAnimStack" Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <GridButton ID="HistoricMomentsAnimCheckbox" Anchor="L,C" Offset="0,0" Size="400,24" Style="CheckBoxControl" String="LOC_OPTIONS_HISTORIC_MOMENT_ANIMATION" />
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <PullDown ID="PlayByCloudEndTurnBehavior" Style="PullDownBlue" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_INTERFACE_PLAYBYCLOUD_END_TURN_BEHAVIOR"/>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <PullDown ID="PlayByCloudClientReadyBehavior" Style="PullDownBlue" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_INTERFACE_PLAYBYCLOUD_READY_BEHAVIOR"/>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <PullDown ID="ColorblindAdaptation" Style="PullDownBlue" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_INTERFACE_COLOR_BLINDNESS_ADAPTATION"/>
+                            </Stack>
+                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                <PullDown ID="RGBControl" Style="PullDownBlue" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+                                <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_INTERFACE_LIGHTING" ToolTip="LOC_OPTIONS_INTERFACE_LIGHTING_TOOLTIP"/>
+                            </Stack>
+                            <Container Size="parent,44" Hidden="1">
+                                <GridButton ID="SwitchUILayout" Size="parent-200,22" Style="ShellButton" Anchor="C,C" String="LOC_OPTIONS_SWITCH_UI_LAYOUT"/>
+                            </Container>
+                        </Stack>
+                    </Container>
+                    <Container ID="KeyBindings" Size="parent,parent" Hidden="1">
+                        <ScrollPanel ID="KeyBindingsScrollPanel" Offset="20,3" Size="parent-40,parent" AutoScrollBar="1" Vertical="1" Anchor="R,T">
+                            <Stack ID="KeyBindingsStack" Anchor="L,T" StackGrowth="Bottom" Size="parent,0" Offset="60,0" Padding="10">
+                                <Label ID="SteamControllerMessage" Anchor="C,T" Offset="0,10" WrapWidth="parent-110" String="LOC_OPTIONS_STEAM_CONTROLLER_MESSAGE" Style="BlueGlow"/>
+                                <Stack ID="BindColHdr" Anchor="R,T" StackGrowth="Right" Padding="200" Offset="-20,0">
+                                    <Label Anchor="C,T" Offset="80,0" String="LOC_OPTIONS_BIND_HEADER_PRIMARY" Style="BlueGlow"/>
+                                    <Label Anchor="C,T" Offset="-80,0" String="LOC_OPTIONS_BIND_HEADER_ALT" Style="BlueGlow"/>
+                                </Stack>
+                            </Stack>
+                            <ScrollBar Style="Slider_Blue" Anchor="R,C" AnchorSide="O,I"/>
+                        </ScrollPanel>
+
+                    </Container>
+                </Container>
+
+                <!--********************************* APPLICATION OPTIONS ***************************************-->
+                <Container ID="ApplicationOptions" Size="parent,parent" Hidden="1">
+                    <Stack Anchor="L,T" StackGrowth="Down" Padding="5" Offset="0,24" Size="parent-24,auto">
+                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                            <PullDown ID="ShowIntroPullDown" Style="PullDownBlue" ScrollThreshold="450" Size="450,24" Offset="0,0" SpaceForScroll="0"/>
+                            <Label Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="LOC_OPTIONS_APP_SHOW_MOVIE"/>
+                        </Stack>
+                        <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                            <GridButton ID="WarnAboutModsCheckbox" Anchor="L,C" Offset="0,0" Size="450,24" Style="CheckBoxControl" String="LOC_OPTIONS_APP_WARN_MOD_COMPATIBILITY" />
+                        </Stack>
+                    </Stack>
+                </Container>
+                <GridButton ID="ConfirmButton" Style="ButtonConfirm" AnchorSide="I,O" Anchor="c,b" String="LOC_GENERIC_CONFIRM_BUTTON" Size="300,41"/>
+            </Grid>
+        </Container>
+    </Box>
+
+    <!-- Are you sure dialog LOC_OPTIONS_SET_KEY_BINDING_TEXT -->
+    <Box ID="KeyBindingPopup" Color="0,0,0,150" Size="parent,parent" ConsumeMouse="1" Hidden="1" IgnoreTutorial="1">
+        <AlphaAnim ID="KeyBindingAlpha" AlphaBegin="0" AlphaEnd="1" Speed="3" Function="Root" Cycle="Once" Size="parent,parent">
+            <SlideAnim ID="KeyBindingSlide" Start="0,-20" End="0,0" Speed="3" Function="Root" Cycle="Once" Size="parent,parent">
+                <Grid Size="500,250" Anchor="C,C" Offset="0,0" Style="DropShadow2" Hidden="0" Color="255,255,255,200">
+                    <Grid ID="KeyBindingPopupWindow" Size="parent-50,auto" Anchor="C,C" Offset="0,-50" SizePadding="0,20" Style="WindowFrameTitle" Hidden="0">
+                        <Label ID="BindingTitle" Anchor="C,T" String="Title of Window" Align="Center" Style="BlueGlow" Offset="0,15"/>
+                        <Stack Offset="0,60" Size="parent,0" StackGrowth="Down" Anchor="C,T" Padding="15">
+                            <Label ID="Message" Anchor="C,T" WrapWidth="400" String="LOC_OPTIONS_SET_KEY_BINDING_TEXT" Style="BodyTextDark18" Align="Center"/>
+                            <Container Size="parent,50" Anchor="C,T">
+                                <GridButton ID="CancelBindingButton" Style="MainButton" Size="200,41" Offset="10,0" Anchor="L,T" String="LOC_CANCEL"/>
+                                <GridButton ID="ClearBindingButton" Style="ButtonRed" Size="200,41" Offset="10,0" Anchor="R,T" String="LOC_OPTIONS_CLEAR"/>
+                            </Container>
+                        </Stack>
+                    </Grid>
+                </Grid>
+            </SlideAnim>
+        </AlphaAnim>
+    </Box>
+
+    <Instance Name="KeyBindingCategory">
+        <Label ID="CategoryName" Anchor="C,T" Offset="0,10" FontSize="20" String="CategoryName" Style="ShellOptionText"/>
+    </Instance>
+    <Instance Name="KeyBindingAction">
+        <Stack ID="Root" Size="210,auto" Anchor="R,T" StackGrowth="Left" Padding="5" Offset="120,0">
+            <GridButton ID="AltBinding" Style="ButtonControl" Size="210,30" String="AltBinding" TruncateWidth="205" />
+            <GridButton ID="Binding" Style="ButtonControl" Size="210,30" String="Binding" TruncateWidth="205" />
+            <Stack Size="200,auto" StackGrowth="Down" Padding="1">
+                <Label ID="ActionName" Anchor="L,C" Style="ShellOptionText" String="ActionName"/>
+            </Stack>
+        </Stack>
+    </Instance>
+
+    <!-- Game Settings Instances (largely duplicated from GameSetupInstances.xml) -->
+
+    <!-- Instance for a boolean parameters -->
+    <Instance Name="BooleanParameterInstance">
+        <GridButton ID="CheckBox" Anchor="R,T" Size="400,24" Style="CheckBoxControl" />
+    </Instance>
+
+    <!-- Slider with number display -->
+    <Instance Name="SliderParameterInstance">
+        <Stack ID="Root" StackGrowth="Left" Size="auto,55" Anchor="R,T">
+            <Image Texture="Controls_CircleCompass" Size="52,53" Color="ShellControl">
+                <Label ID="NumberDisplay" Style="FontFlair40" String="10" Anchor="C,C" FontStyle="stroke" Color0="208,212,217,255" Color1="0,0,0,50"/>
+            </Image>
+            <Slider ID="OptionSlider" Style="SliderControl" Size="198,13" Anchor="L,C" />
+            <Label ID="OptionTitle" Style="ShellOptionText" Anchor="L,C" String=""/>
+        </Stack>
+    </Instance>
+
+    <!-- Instance for a string parameters -->
+    <Instance Name="StringParameterInstance">
+        <Stack Anchor="R,T" StackGrowth="Left" Padding="5" ID="StringRoot">
+            <Grid Style="EditTextArea" Size="400,30" InnerPadding="6,6">
+                <EditBox ID="StringEdit" Anchor="L,C" Offset="0,0" Size="parent,23" EditMode="1" Style="FontNormal14" ColorSet="BodyTextCool" FontStyle="stroke" MaxLength="2000"/>
+            </Grid>
+            <Label ID="StringName" Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String="UNKNOWN_EDIT_BOX"/>
+        </Stack>
+    </Instance>
+
+    <!-- Instance for a parameter that has multiple choices for the value, displayed as a dropdown -->
+    <Instance Name="PullDownParameterInstance">
+        <Stack ID="Root" Anchor="R,T" StackGrowth="Left" Padding="5">
+            <PullDown ID="PullDown" Style="PullDownBlue" ScrollThreshold="400" Size="400,24" Offset="0,0" SpaceForScroll="0"/>
+            <Label ID="StringName" Anchor="L,C" Style="ShellOptionText" WrapWidth="350" String=""/>
+        </Stack>
+    </Instance>
+
+    <!-- Dialog Support -->
+    <MakeInstance Name="PopupDialog" />
+
+</Context>

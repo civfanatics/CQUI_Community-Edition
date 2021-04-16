@@ -327,5 +327,11 @@
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="ru_RU">
       <Text>Стиль для флага нерелигиозных юнитов[NEWLINE]при включённой линзе религии[NEWLINE]Полный: флаг юнитов остаётся видимым, без изменений[NEWLINE]Прозрачный: флаг юнитов становится прозрачным[NEWLINE]Скрытый: флаг юнитов скрыт</Text>
     </Row>
+    <Row Tag="LOC_CQUI_SETTINGS" Language="ru_RU">
+      <Text>НАСТРОЙКИ CQUI</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SETTINGS_MOVED" Language="ru_RU">
+      <Text>Настройки CQUI теперь можно найти, выбрав параметры из меню игры, а затем кнопку настройки CQUI</Text>
+    </Row>
   </LocalizedText>
 </GameData>

@@ -205,5 +205,11 @@
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="pl_PL">
       <Text>Styl ikon flagi jednostki jednostek niereligijnych, gdy obiektyw religii jest włączony[NEWLINE]Bryła: Flagi jednostki pozostają widoczne, niezmienione[NEWLINE]Przezroczysty: Flagi jednostek stają się przezroczyste[NEWLINE]Ukryte: Flagi jednostek są ukryte</Text>
     </Row>
+    <Row Tag="LOC_CQUI_SETTINGS" Language="pl_PL">
+      <Text>USTAWIENIA CQUI</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SETTINGS_MOVED" Language="pl_PL">
+      <Text>Ustawienia CQUI można teraz znaleźć, wybierając opcje z menu gry, a następnie przycisk Ustawienia CQUI</Text>
+    </Row>
   </LocalizedText>
 </GameData>

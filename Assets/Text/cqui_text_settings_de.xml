@@ -342,5 +342,12 @@
     </Row>
     <Row Tag="LOC_CQUI_REST_HEAL" Language="de_DE">
       <Text>Bis zur Heilung verschanzen</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SETTINGS" Language="de_DE">
+      <Text>CQUI SETTINGS</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SETTINGS_MOVED" Language="de_DE">
+      <Text>CQUI-Einstellungen können Sie nun finden, indem Sie Optionen aus dem Spielmenü und dann die Schaltfläche CQUI-Einstellungen</Text>
+    </Row>
   </LocalizedText>
 </GameData>

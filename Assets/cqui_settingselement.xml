@@ -5,7 +5,7 @@
 <Context Name="CQUI_SettingsElement">
     <Container Style="FullScreenVignetteConsumer" />
     <Box ID="MainGrid" Style="ShellBGBox">
-        <Container ID="MainWindow" Style="ShellWindowContainer">
+        <Container ID="MainWindow" Style="ShellWindowContainer" >
             <Container ID="Header" Style="ShellHeaderContainer">
                 <Grid Style="ShellHeaderButtonGrid">
                 </Grid>
@@ -479,9 +479,12 @@
                         </Stack>
                     </Container>
                 </Container>
-                <GridButton ID="ConfirmButton" Style="ButtonConfirm" AnchorSide="I,O" Anchor="c,b" String="LOC_GENERIC_CONFIRM_BUTTON" Size="300,41"/>
-                <Label Anchor="c,b" AnchorSide="I,O" Style="FontNormal14" String="LOC_CQUI_SETTINGS_REMINDER" Offset="0,50" Color="102,122,145"/>
             </Grid>
+            <Stack StackGrowth="Down" Anchor="C,B" Offset="0,-80" Padding="10">
+                <GridButton ID="ConfirmButton"  Style="ButtonConfirm" Anchor="C,T" String="LOC_GENERIC_CONFIRM_BUTTON" Size="200,41"/>
+                <Label ID="CQUISettingsMoved" Style="FontNormal14" String="LOC_CQUI_SETTINGS_MOVED" Color="220,220,145"/>
+                <Label Style="FontNormal14" String="LOC_CQUI_SETTINGS_REMINDER" Color="102,122,145"/>
+            </Stack>
         </Container>
     </Box>
 

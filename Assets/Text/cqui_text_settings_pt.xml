@@ -259,5 +259,11 @@
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="pt_BR">
       <Text>O estilo para ícones de bandeira de unidades não-religiosas quando a Lente de Religião está em[NEWLINE]Sólido: As bandeiras da unidade permanecem visíveis, inalteradas[NEWLINE]Transparente: Bandeiras unitárias tornam-se transparentes[NEWLINE]Escondido: As bandeiras da unidade estão escondidas</Text>
     </Row>
+    <Row Tag="LOC_CQUI_SETTINGS" Language="pt_BR">
+      <Text>CONFIGURAÇÕES DO CQUI</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SETTINGS_MOVED" Language="pt_BR">
+      <Text>As configurações do CQUI agora podem ser encontradas selecionando opções no menu do jogo e, em seguida, o botão Configurações do CQUI</Text>
+    </Row>
   </LocalizedText>
 </GameData>

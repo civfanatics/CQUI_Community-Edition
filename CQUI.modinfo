@@ -149,6 +149,14 @@
             </Items>
         </ImportFiles>
 
+        <ImportFiles id="CQUI_IMPORT_FILES_OPTIONS_MENU">
+            <Items>
+                <File>Assets/UI/Options_CQUI.lua</File>
+                <File>Assets/UI/Options.xml</File>
+                <File>Assets/UI/Menus/InGameTopOptionsMenu_CQUI.lua</File>
+            </Items>
+        </ImportFiles>
+
         <!-- ============================== CQUI Base Game and Base/Exp1/Exp2 Common files ============================== -->
         <ImportFiles id="CQUI_IMPORT_FILES_ACTIONPANEL">
             <Items>
@@ -911,6 +919,14 @@
             </Properties>
         </ReplaceUIScript>
 
+        <ReplaceUIScript id="CQUI_InGameTopOptionsMenu">
+            <Properties>
+                <LoadOrder>200</LoadOrder>
+                <LuaContext>InGameTopOptionsMenu</LuaContext>
+                <LuaReplace>Assets/UI/Menus/InGameTopOptionsMenu_CQUI.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
         <ReplaceUIScript id="CQUI_LaunchBar">
             <Properties>
                 <LuaContext>LaunchBar</LuaContext>
@@ -938,6 +954,13 @@
             <Properties>
                 <LuaContext>MapPinManager</LuaContext>
                 <LuaReplace>Assets/UI/MapPinManager_CQUI.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
+        <ReplaceUIScript id="CQUI_Options">
+            <Properties>
+                <LuaContext>Options</LuaContext>
+                <LuaReplace>Assets/UI/Options_CQUI.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
 
@@ -1329,6 +1352,9 @@
         <File>Assets/cqui_toplayer.xml</File>
         <File>Assets/cqui_toplayer.lua</File>
         <File>Assets/UI/CQUICommon.lua</File>
+        <File>Assets/UI/Options_CQUI.lua</File>
+        <File>Assets/UI/Options.xml</File>
+        <File>Assets/UI/Menus/InGameTopOptionsMenu_CQUI.lua</File>
 
         <!-- EXP 1 -->
         <File>Assets/Expansion1/CityBanners/citybannermanager.xml</File>
