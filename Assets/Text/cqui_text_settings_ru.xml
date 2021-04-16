@@ -331,7 +331,7 @@
       <Text>НАСТРОЙКИ CQUI</Text>
     </Row>
     <Row Tag="LOC_CQUI_SETTINGS_MOVED" Language="ru_RU">
-      <Text>Настройки C-2 теперь можно найти, выбрав параметры из меню игры, а затем кнопку настройки C</Text>
+      <Text>Настройки CQUI теперь можно найти, выбрав параметры из меню игры, а затем кнопку настройки CQUI</Text>
     </Row>
   </LocalizedText>
 </GameData>
