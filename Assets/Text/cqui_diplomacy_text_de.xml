@@ -14,7 +14,7 @@
             <Text>nicht handelbar</Text>
         </Replace>
         <Replace Tag="LOC_IDS_DEAL_DUPLICATE" Language="de_DE">
-            <Text>Wiederholen</Text>
+            <Text>Duplikat</Text>
         </Replace>
     </LocalizedText>
 </GameData>
