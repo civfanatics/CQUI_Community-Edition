@@ -73,7 +73,7 @@
 
     <!-- Smartbanner unlocked citizen -->
     <Row Tag="LOC_CQUI_SMARTBANNER_UNLOCKEDCITIZEN_TOOLTIP" Language="de_DE">
-      <Text>Es gibt neue Bewohner, die automatisch von der KI des Stadtgouverneurs zugeteilt wurden.</Text>
+      <Text>Es gibt neue Bewohner, die automatisch von der Stadtverwalter-KI zugeteilt wurden.</Text>
     </Row>
     
     <!-- #62 Infixo original owner tooltip -->
