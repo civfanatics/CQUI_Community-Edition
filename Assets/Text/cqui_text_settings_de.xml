@@ -10,7 +10,7 @@
       <Text>Voreinstellungen (s.a. Tooltip!)</Text>
     </Row>
     <Row Tag="LOC_CQUI_BINDINGS_DROPDOWN_TOOLTIP" Language="de_DE">
-      <Text>Standard: Unverändert[NEWLINE]Klassisch: Civ V Belegung[NEWLINE]Erweitert: Civ V Belegung mit folgenden Veränderungen[NEWLINE]  WASD → Kamera-Kontrolle[NEWLINE]  Q/E → vorherige/nächste Einheit oder Stadt [NEWLINE]  Umschalt → Wechsel Stadt/Einheit Auswahl[NEWLINE]  Alt + Q/S → Verfolgung/Airstrike[NEWLINE] [NEWLINE]Hinweis: Lösche die Belegung von W und E in den Einstellungen!</Text>
+      <Text>Standard: Unverändert[NEWLINE]Klassisch: Civ V Belegung[NEWLINE]Erweitert: Civ V Belegung mit folgenden Veränderungen[NEWLINE]  WASD → Kamera-Kontrolle[NEWLINE]  Q/E → vorherige/nächste Einheit oder Stadt [NEWLINE]  Umschalt → Wechsel Stadt/Einheit Auswahl[NEWLINE]  Alt + Q/S → Verfolgung/Luftangriff[NEWLINE] [NEWLINE]HINWEIS: LÖSCHE ALLE TASTENBELEGUNGEN VON W/E IN DEN EINSTELLUNGEN!</Text>
     </Row>
     <Row Tag="LOC_CQUI_BINDINGS_CLASSIC" Language="de_DE">
       <Text>Klassisch</Text>
@@ -26,16 +26,16 @@
     </Row>
     <!-- Relocate City Strike and Encampment Strike button translations done via Google Translate -->
     <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="de_DE">
-      <Text>City Strike-Schaltfläche verschieben</Text>
+      <Text>Stadtangriff-Schaltfläche verschieben</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP" Language="de_DE">
-      <Text>Aktivieren Sie diese Option, um den City Strike-Button über den Gesundheits- und Verteidigungsbalken zu verschieben</Text>
+      <Text>Diese Option aktivieren, um die Stadtangriffs-Schaltfläche über den Gesundheits- und Verteidigungsbalken zu verschieben</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" Language="de_DE">
-      <Text>Verschieben Sie die Schaltfläche "Streik im Lager"</Text>
+      <Text>Lagerangriff-Schaltfläche verschieben</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="de_DE">
-      <Text>Aktivieren Sie diese Option, um die Schaltfläche "Streik des Lagers" über den Gesundheits- und Verteidigungsbalken zu verschieben</Text>
+      <Text>Diese Option aktivieren, um die Lagerangriffs-Schaltfläche über den Gesundheits- und Verteidigungsbalken zu verschieben</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_PRODUCTIONQUEUE" Language="de_DE">
       <Text>Produktionsliste einschalten</Text>
@@ -44,25 +44,25 @@
       <Text>Zeige Grenzausdehnungs-Overlay</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWCULTUREGROWTH_TOOLTIP" Language="de_DE">
-      <Text>Kann auch aktiviert werden per Anklicken des Grenzausdehnungssymbols in der Stadtansicht.</Text>
+      <Text>Kann auch durch Anklicken des Grenzausdehnungssymbols in der Stadtansicht ein- und ausgeblendet werden.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWYIELDSONCITYHOVER" Language="de_DE">
       <Text>Zeige Info zu Stadt-Management beim Hovern</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWYIELDSONCITYHOVER_TOOLTIP" Language="de_DE">
-      <Text>Zeige Bürger-Icons, Erträge pro Feld und Grenzausdehnung, wenn die Maus über dem Stadtbanner steht.</Text>
+      <Text>Zeigt Stadt-Management Symbole, Erträge pro Feld und Grenzausdehnung, wenn die Maus über dem Stadtbanner steht.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITIZENICONSONHOVER" Language="de_DE">
       <Text>Zeige Bürger-Icons beim Hovern</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITIZENICONSONHOVER_TOOLTIP" Language="de_DE">
-      <Text>Zeige Bürger-Icons, wenn die Maus über dem Stadtbanner steht.</Text>
+      <Text>Zeigt Bürger-Icons, wenn die Maus über dem Stadtbanner steht.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEONHOVER" Language="de_DE">
       <Text>Zeige Stadtgebiet beim Hovern.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEONHOVER_TOOLTIP" Language="de_DE">
-      <Text>Zeige die Gebiete, an denen Einwohner arbeiten, wenn die Maus über dem Stadtbanner steht.</Text>
+      <Text>Zeigt die Gebiete an denen Einwohner arbeiten, wenn die Maus über dem Stadtbanner steht.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_HEADER" Language="de_DE">
       <Text>Smartbanner</Text>
@@ -71,31 +71,31 @@
       <Text>Aktiviere Smartbanner</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_TOOLTIP" Language="de_DE">
-      <Text>Zeige zusätzliche Symbole und Informationen im Stadtbanner an.</Text>
+      <Text>Zeigt zusätzliche Symbole und Informationen im Stadtbanner an.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_UNLOCKEDCITIZEN_TOOLTIP" Language="de_DE">
-      <Text>Zeige ein [ICON_EXCLAMATION], immer wenn ein frei verfügbarer Bürger automatisch von der Stadtverwaltungs-KI zugewiesen wurde.</Text>
+      <Text>Zeigt ein [ICON_EXCLAMATION], sobald ein frei verfügbarer Bürger automatisch von der Stadtverwaltungs-KI zugewiesen wurde.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_DISTRICTS_TOOLTIP" Language="de_DE">
-      <Text>Zeige die errichteten Bezirke als Symbole im Banner an.</Text>
+      <Text>Zeigt die errichteten Bezirke als Symbole im Banner an.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_POPULATION_TOOLTIP" Language="de_DE">
-      <Text>Zeige die Rundenzahl bis zum Bevölkerungswachstum und die Wohnraumbelegung an.</Text>
+      <Text>Zeigt die Rundenzahl bis zum Bevölkerungswachstum und die Wohnraumbelegung an.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_CULTURAL_TOOLTIP" Language="de_DE">
-      <Text>Zeige die Rundenzahl bis zur Grenzausdehnung an.</Text>
+      <Text>Zeigt die Rundenzahl bis zur Grenzausdehnung an.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_DISTRICTS_AVAILABLE" Language="de_DE">
       <Text>Verfügbare Bezirke</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_DISTRICTS_AVAILABLE_TOOLTIP" Language="de_DE">
-      <Text>Zeigt ein Symbol an wenn ein Bezirk in der Stadt errichtet werden kann.</Text>
+      <Text>Zeigt ein Symbol an, wenn ein Bezirk in der Stadt errichtet werden kann.</Text>
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="de_DE">
-      <Text>Suzerain im Stadtstaat-Banner</Text>
+      <Text>Suzerän im Stadtstaat-Banner</Text>
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="de_DE">
-      <Text>Zeigt das Zivilisationssymbol oder Herrscherbild des Suzeräns des Stadtstaats im Banner an.</Text>
+      <Text>Zeigt das Zivilisationssymbol oder Herrscherbild des Suzeräns im Banner des Stadtstaats an.</Text>
     </Row>
     <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="de_DE">
       <Text>Kriegssymbol im Stadtstaat-Banner</Text>
@@ -107,7 +107,7 @@
       <Text>Smart Bürger-Icons</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTWORKICON_TOOLTIP" Language="de_DE">
-      <Text>Zeige bearbeitete Bürger-Icons in spezieller Transparenz und Größe.</Text>
+      <Text>Zeigt bearbeitete Bürger-Icons in spezieller Transparenz und Größe an.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTWORKICONALPHA" Language="de_DE">
       <Text>Transparenz der Smart Bürger-Icon </Text>
@@ -134,16 +134,16 @@
       <Text>Größe der Minimap</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_RESOURCEDIMMINGSTYLE" Language="de_DE">
-      <Text>Erschlossene Ressourcensymbole</Text>
+      <Text>Symbolstil erschlossener Ressourcen</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_RESOURCEDIMMINGSTYLE_TOOLTIP" Language="de_DE">
-      <Text>Opak: Zeige immer Ressourcensymbole.[NEWLINE]Transparent: Erschlossene Ressourcensymbole sind transparent.[NEWLINE]Versteckt: Erschlossene Ressourcensymbole werden nicht angezeigt.</Text>
+      <Text>Sichtbar: Zeigt immer alle Ressourcensymbole.[NEWLINE]Transparent: Erschlossene Ressourcensymbole sind transparent.[NEWLINE]Versteckt: Erschlossene Ressourcensymbole werden nicht angezeigt.</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_SHOWLUXURY" Language="de_DE">
-      <Text>Zeige Luxusgüter im Top-Panel.</Text>
+      <Text>Zeige Luxusgüter in der oberen Leiste.</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_SOLID" Language="de_DE">
-      <Text>Opak</Text>
+      <Text>Sichtbar</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_TOGGLEYIELDSONLOAD" Language="de_DE">
       <Text>Erträge-Anzeige immer AN</Text>
@@ -176,43 +176,43 @@
       <Text>Popups</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_ALWAYSOPENTECHTREES" Language="de_DE">
-      <Text>Zeige immer ganze Bäume statt Popup.</Text>
+      <Text>Zeige immer Forschungsbaum statt Popup.</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHVISUAL" Language="de_DE">
       <Text>Popup-Anzeige bei Technol./Ausr.</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHVISUAL_TOOLTIP" Language="de_DE">
-      <Text>Zeige das Popup an, das erscheint, wenn eine neue Technologie oder Ausrichtung abgeschlossen wurde</Text>
+      <Text>Zeigt das Popup an, das erscheint, wenn eine neue Technologie oder Ausrichtung abgeschlossen wurde</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO" Language="de_DE">
-      <Text>Spielen Sie Audio mit Technol./Ausr. Popup</Text>
+      <Text>Audio mit Technol./Ausr. Popup abspielen</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO_TOOLTIP" Language="de_DE">
-      <Text>Automatische Wiedergabe von Audio-Voiceovers, wenn das Technol./Ausr. popup angezeigt wird</Text>
+      <Text>Automatische Wiedergabe des Voiceovers, wenn das Technol./Ausr. Popup angezeigt wird</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTVISUAL" Language="de_DE">
-      <Text>Wunderfilm Popup</Text>
+      <Text>Sequenz bei Wunder Popup</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTVISUAL_TOOLTIP" Language="de_DE">
-      <Text>Umschalten, ob ein Wunderfilm bei errichtung eines Wunders gezeigt wird.</Text>
+      <Text>Entscheidet, ob eine Videosequenz bei Errichtung eines Wunders gezeigt wird.</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTAUDIO" Language="de_DE">
       <Text>Wunder-Audio</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTAUDIO_TOOLTIP" Language="de_DE">
-      <Text>Umschalten, ob Audio nach der Errichtung eines Wunders gespielt wird. Dies ist unabhängig vom Wunderfilm und kann auch ohne den Film gespielt werden.</Text>
+      <Text>Entscheidet, ob das Voiceover nach Errichtung eines Wunders gespielt wird. Diese Einstellung ist unabhängig von der Videoequenz und kann auch ohne sie abgespielt werden.</Text>
     </Row>
     <Row Tag="LOC_CQUI_SETTINGS_REMINDER" Language="de_DE">
-      <Text>Merke: CQUI Einstellungen werden im individuellen Savegame gespeichert![NEWLINE]Wenn Du die Einstellungen dauerhaft ändern möchtest, dann befolge bitte die Anweisungen [NEWLINE]in der Datei cqui_settings.sql im Verzeichnis [MOD INSTALL DIRECTORY]/CQUI/Assets.</Text>
+      <Text>Merke: CQUI Einstellungen werden im individuellen Speicherstand gespeichert![NEWLINE]Wenn Ihr die Einstellungen dauerhaft ändern möchtet, dann befolgt bitte die Anweisungen [NEWLINE]in der Datei cqui_settings.sql im Verzeichnis [MOD INSTALL DIRECTORY]/CQUI/Assets.</Text>
     </Row>
     <Row Tag="LOC_CQUI_UNITS" Language="de_DE">
       <Text>Einheiten</Text>
     </Row>
     <Row Tag="LOC_CQUI_UNITS_SHOWUNITPATHS" Language="de_DE">
-      <Text>Einheit-Wegepfad bei Anwahl oder Hover</Text>
+      <Text>Einheit-Wegepfad bei Auswahl oder Hover</Text>
     </Row>
     <Row Tag="LOC_CQUI_UNITS_AUTOEXPANDUNITACTIONS" Language="de_DE">
-      <Text>Ansicht aller Befehle im Einheiten-Panel</Text>
+      <Text>Immer alle Befehle im Einheiten-Panel</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_SHOWPRD" Language="de_DE">
       <Text>Zeige Politik-Erinnerungs-Pop-Up</Text>
@@ -230,10 +230,10 @@
       <Text>Zeigt die Sortierung der verschiedenen Erträge in den Händler-Bildschirmen.</Text>
     </Row>
     <Row Tag="LOC_CQUI_TRADER_COLOR_YIELDS" Language="de_DE">
-      <Text>Färbe Erträge</Text>
+      <Text>Erträge einfärben</Text>
     </Row>
     <Row Tag="LOC_CQUI_TRADER_COLOR_YIELDS_TOOLTIP" Language="de_DE">
-      <Text>Färbt die Werte der Erträge je nach Ertrags-Typ. ZB. Nahrungserträge werden grün dargestellt.</Text>
+      <Text>Färbt die Werte der Erträge je nach Ertrags-Typ. Bsp.: Nahrungserträge werden grün dargestellt.</Text>
     </Row>
     <Row Tag="LOC_CQUI_TRADER_ADD_DIVIDER" Language="de_DE">
       <Text>Trenner zwischen Gruppen</Text>
@@ -245,10 +245,10 @@
       <Text>Ratschläge</Text>
     </Row>
     <Row Tag="LOC_CQUI_RECOMMENDATIONS_SHOWPRODUCTION" Language="de_DE">
-      <Text>Zeige Ratschläge</Text>
+      <Text>Zeige Ratschläge zu Produktionen</Text>
     </Row>
     <Row Tag="LOC_CQUI_RECOMMENDATIONS_SHOWTECH" Language="de_DE">
-      <Text>Ratschläge zu Technol./Ausricht.</Text>
+      <Text>Zeige Ratschläge zu Technol./Ausricht.</Text>
     </Row>
     <Row Tag="LOC_CQUI_RECOMMENDATIONS_SHOWIMPROVEMENTS" Language="de_DE">
       <Text>Zeige Ratschläge zu Felder-Verbesserungen</Text>
@@ -296,7 +296,7 @@
       <Text>Mine errichten</Text>
     </Row>
     <Row Tag="LOC_CQUI_NUKE" Language="de_DE">
-      <Text>Massenvernichtungswaffe: Atombombe</Text>
+      <Text>ABC-Angriff: Atombombe</Text>
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_DISABLED" Language="de_DE">
       <Text>Suzerän nicht anzeigen</Text>
@@ -311,13 +311,13 @@
         <Text>Suzerän entsendete Gesandten anzeigen</Text>
     </Row>
     <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON_TOOLTIP" Language="de_DE">
-        <Text>Zeigt die Anzahl der Gesandten im Stadtstaat-Banner rechts über dem Suzerän an.[NEWLINE]Wenn Ihr der Suzerän seid, zeigt die Zahl die Anzahl der entsendeten Gesandte,[NEWLINE]wenn nicht, stehen Eure Gesandten links oberhalb, die des Suzeräns rechts oberhalb.</Text>
+        <Text>Zeigt die Anzahl der Gesandten im Stadtstaat-Banner rechts über dem Suzerän an.[NEWLINE]Wenn Ihr der Suzerän seid, zeigt die Zahl die Anzahl der entsendeten Gesandte,[NEWLINE]wenn nicht, stehen Eure Gesandten links oben, die des Suzeräns rechts oben.</Text>
     </Row>
     <Row Tag="LOC_CQUI_THERMO_NUKE" Language="de_DE">
-      <Text>Massenvernichtungswaffe: Thermonukleare Bombe</Text>
+      <Text>ABC-Angriff: Thermonukleare Bombe</Text>
     </Row>
     <Row Tag="LOC_CQUI_REBASE" Language="de_DE">
-      <Text>Rebase</Text>
+      <Text>Versetzen</Text>
     </Row>
     <Row Tag="LOC_CQUI_PLACE_PIN" Language="de_DE">
       <Text>Landkartennadel setzen</Text>
@@ -332,7 +332,7 @@
       <Text>Religionslinse: Stil der Einheiten-Fahne</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="de_DE">
-      <Text>Der Stil für Einheitsflaggen nicht-religiöser Einheiten, wenn die Religionslinse eingeschaltet ist[NEWLINE]Opaque:: Einheitenflaggen bleiben unverändert sichtbar,[NEWLINE]Transparent: Einheitenflaggen werden transparent[NEWLINE]Versteckt: Einheitenflaggen werden ausgeblendet</Text>
+      <Text>Der Stil für Einheitsflaggen nicht-religiöser Einheiten, wenn die Religionslinse eingeschaltet ist[NEWLINE]Sichtbar: Einheitenflaggen bleiben unverändert,[NEWLINE]Transparent: Einheitenflaggen werden transparent[NEWLINE]Versteckt: Einheitenflaggen werden ausgeblendet</Text>
     </Row>
     <Row Tag="LOC_CQUI_SPREAD_RELIGION" Language="de_DE">
       <Text>Religion verbreiten</Text>
@@ -344,10 +344,10 @@
       <Text>Bis zur Heilung verschanzen</Text>
     </Row>
     <Row Tag="LOC_CQUI_SETTINGS" Language="de_DE">
-      <Text>CQUI SETTINGS</Text>
+      <Text>CQUI EINSTELLUNGEN</Text>
     </Row>
     <Row Tag="LOC_CQUI_SETTINGS_MOVED" Language="de_DE">
-      <Text>CQUI-Einstellungen können Sie nun finden, indem Sie Optionen aus dem Spielmenü und dann die Schaltfläche CQUI-Einstellungen</Text>
+      <Text>CQUI-Einstellungen befinden sich jetzt in den Optionen unter CQUI EINSTELLUNGEN</Text>
     </Row>
   </LocalizedText>
 </GameData>
