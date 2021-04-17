@@ -14,7 +14,7 @@
       <Text>Die Erforschung der Technologie "</Text>
     </Replace>
     <Replace Tag="LOC_CQUI_HALF_MESSAGE_E" Language="de_DE">
-      <Text>" ist eine Runde von maximaler Inspirations-Bonus entfernt.</Text>
+      <Text>" ist eine Runde vom maximalen Inspirations-Bonus entfernt.</Text>
     </Replace>
     <Replace Tag="LOC_CQUI_FINISH_MESSAGE_E" Language="de_DE">
       <Text>" ist abgeschlossen.</Text>
@@ -65,6 +65,40 @@
     <Replace Tag="LOC_POLICY_REMINDER_ACTION_BUTTON_TOOLTIP" Language="de_DE">
       <Text>Die Politik kann diese Runder verändert werden.</Text>
     </Replace>
+    
+    <!-- Diplomacy View -->
+    <Row Tag="LOC_CQUI_DIPLOMACY_VIEW_TOTAL_SCORE_PER_TURN_TEXT" Language="de_DE">
+      <Text>Gesammt</Text>
+    </Row>
+
+    <!-- Smartbanner unlocked citizen -->
+    <Row Tag="LOC_CQUI_SMARTBANNER_UNLOCKEDCITIZEN_TOOLTIP" Language="de_DE">
+      <Text>Es gibt neue Bewohner, die automatisch von der KI des Stadtgouverneurs zugeteilt wurden.</Text>
+    </Row>
+    
+    <!-- #62 Infixo original owner tooltip -->
+    <Row Tag="LOC_CQUI_CITY_BANNER_ORIGINAL_CAPITAL_TT" Language="de_DE">
+        <Text>[NEWLINE][ICON_Bullet]Ursprüngliche Hauptstadt von {1_OriginalOwner}</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITY_BANNER_ORIGINAL_CITY_TT" Language="de_DE">
+        <Text>[NEWLINE][ICON_Bullet]Ursprüngliche Stadt von {1_OriginalOwner}</Text>
+    </Row>
+    
+    <!-- #75 Infixo tourism info in the plot tooltip -->
+    <Row Tag="LOC_CQUI_TOOLTIP_PLOT_IMPROVE_RESOURCE" Language="de_DE">
+        <Text>[COLOR:Civ6Red]Verbessere oder repariere das Feld, um die Ressource zu gewinnen[ENDCOLOR]</Text>
+    </Row>
+    
+    <!-- #177 Infixo goody hut rewards -->
+    <Row Tag="LOC_GOODYHUT_CIVIC_BOOST_DESCRIPTION" Language="de_DE">
+        <Text>Der [ICON_CivicBoosted] Inspirationsmoment für {1_Num} {1_Num: plural 1?random Ausrichtung; other?random Ausrichtungen;}</Text>
+    </Row>
+    <Row Tag="LOC_GOODYHUT_TECH_BOOST_DESCRIPTION" Language="de_DE">
+        <Text>Der [ICON_TechBoosted] Heurekamoment für {1_Num} {1_Num: plural 1?random Technologie; other?random Technologien;}</Text>
+    </Row>
+    <Row Tag="LOC_GOODYHUT_STRATEGIC_RESOURCES_DESCRIPTION" Language="de_DE">
+        <Text>+{1_Num} fortgeschrittenste strategische Ressourcen</Text>
+    </Row>
 
   </LocalizedText>
 </GameData>
