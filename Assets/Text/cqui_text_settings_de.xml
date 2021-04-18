@@ -47,7 +47,7 @@
       <Text>Kann auch durch Anklicken des Grenzausdehnungssymbols in der Stadtansicht ein- und ausgeblendet werden.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWYIELDSONCITYHOVER" Language="de_DE">
-      <Text>Zeige Info zu Stadt-Management beim Hovern</Text>
+      <Text>Zeige Stadtinfos beim Hovern</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWYIELDSONCITYHOVER_TOOLTIP" Language="de_DE">
       <Text>Zeigt Stadt-Management Symbole, Erträge pro Feld und Grenzausdehnung, wenn die Maus über dem Stadtbanner steht.</Text>
@@ -176,7 +176,7 @@
       <Text>Popups</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_ALWAYSOPENTECHTREES" Language="de_DE">
-      <Text>Zeige immer Forschungsbaum statt Popup.</Text>
+      <Text>Zeige Forschungsbaum statt Popup</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHVISUAL" Language="de_DE">
       <Text>Popup-Anzeige bei Technol./Ausr.</Text>
@@ -209,7 +209,7 @@
       <Text>Einheiten</Text>
     </Row>
     <Row Tag="LOC_CQUI_UNITS_SHOWUNITPATHS" Language="de_DE">
-      <Text>Einheit-Wegepfad bei Auswahl oder Hover</Text>
+      <Text>Einheitenpfad bei Auswahl oder Hover</Text>
     </Row>
     <Row Tag="LOC_CQUI_UNITS_AUTOEXPANDUNITACTIONS" Language="de_DE">
       <Text>Immer alle Befehle im Einheiten-Panel</Text>
@@ -308,7 +308,7 @@
       <Text>Zeige Herrscherbild</Text>
     </Row>
    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="de_DE">
-        <Text>Suzerän entsendete Gesandten anzeigen</Text>
+        <Text>Zeige suzerän entsendete Gesandte</Text>
     </Row>
     <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON_TOOLTIP" Language="de_DE">
         <Text>Zeigt die Anzahl der Gesandten im Stadtstaat-Banner rechts über dem Suzerän an.[NEWLINE]Wenn Ihr der Suzerän seid, zeigt die Zahl die Anzahl der entsendeten Gesandte,[NEWLINE]wenn nicht, stehen Eure Gesandten links oben, die des Suzeräns rechts oben.</Text>
@@ -323,7 +323,7 @@
       <Text>Landkartennadel setzen</Text>
     </Row>
     <Row Tag="LOC_CQUI_INLINE_CITY_STATE_QUEST" Language="de_DE">
-      <Text>Stadtstaaten Quest in Stadtstaaten-Liste</Text>
+      <Text>Zeige Stadtstaaten Quest in Übersicht</Text>
     </Row>
     <Row Tag="LOC_CQUI_INLINE_CITY_STATE_QUEST_FONT_SIZE" Language="de_DE">
       <Text>Schriftgröße der Quest-Anzeige:</Text>
