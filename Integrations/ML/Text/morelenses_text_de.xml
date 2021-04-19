@@ -22,7 +22,7 @@
       <Text>Ressource/Geplündert/Einzigartige Fähigkeit</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_RECOMFEATURE_LENS_HILL" Language="de_DE">
-      <Text>Vorgeschlagene Geländeverbesserungen</Text>
+      <Text>Verbesserung empohlen</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_HILL" Language="de_DE">
       <Text>Hügel</Text>
@@ -59,7 +59,7 @@
       <Text>Zeigt, wie viele Städte überlappen (Abstand: 6 Felder)</Text>
     </Replace>
     <Replace Tag="LOC_PANEL_CITYOVERLAP_OPTION1" Language="de_DE">
-      <Text>Äußere Grenze hervorheben</Text>
+      <Text>Werte außerhalb der Landesgrenze</Text>
     </Replace>
     <Replace Tag="LOC_PANEL_CITYOVERLAP_NMOUSE" Language="de_DE">
         <Text>Keine Maus</Text>
@@ -155,10 +155,10 @@
       <Text>Gebiet bereit für einen Nationalpark</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_NATURALIST_LENS_OK" Language="de_DE">
-      <Text>Feld als Nationalpark tauglich, wenn umliegende Grundstücke verbessert werden</Text>
+      <Text>Umliegende Felder müssen verbessert werden</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_NATURALIST_LENS_FIXABLE" Language="de_DE">
-      <Text>Benötigt Verbesserung, um zum Nationalpark zu werden</Text>
+      <Text>Kann für Nationalpark verbessert werden</Text>
     </Replace>
 
   </LocalizedText>
