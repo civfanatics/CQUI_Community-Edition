@@ -11,7 +11,7 @@
       <Text>Zeigt besondere Felder auf der Karte an, wo gebaut werden kann.</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_IMP" Language="de_DE">
-      <Text>Ressource/Einzig. Fähigkeit/Geplündert</Text>  
+      <Text>Ressource, Einzig. Fähigk., Geplündert</Text>  
     </Replace>
     <Replace Tag="LOC_TOOLTIP_RECOMFEATURE_LENS_HILL" Language="de_DE">
       <Text>Verbesserung empohlen</Text>
