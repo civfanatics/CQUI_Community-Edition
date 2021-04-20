@@ -11,7 +11,7 @@
       <Text>Zeigt besondere Felder auf der Karte an, wo gebaut werden kann.</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_IMP" Language="de_DE">
-      <Text>Ressource/Geplündert/Einzigartige Fähigkeit</Text>
+      <Text>Ressource/Einzig. Fähigkeit/Geplündert</Text>  
     </Replace>
     <Replace Tag="LOC_TOOLTIP_RECOMFEATURE_LENS_HILL" Language="de_DE">
       <Text>Verbesserung empohlen</Text>
@@ -91,7 +91,7 @@
       <Text>Unerschlossene Luxusressource</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_STRATEGIC" Language="de_DE">
-      <Text>Strategische Ressource</Text>
+      <Text>Strateg. Ressource</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_NSTRATEGIC" Language="de_DE">
       <Text>Unerschlossene strateg. Ressource</Text>
@@ -150,7 +150,7 @@
       <Text>Umliegende Felder müssen verbessert werden</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_NATURALIST_LENS_FIXABLE" Language="de_DE">
-      <Text>Kann für Nationalpark verbessert werden</Text>
+      <Text>Feld kann verbessert werden</Text>
     </Replace>
 
   </LocalizedText>
