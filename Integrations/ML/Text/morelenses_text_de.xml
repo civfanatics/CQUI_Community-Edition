@@ -2,14 +2,6 @@
 <GameData>
   <LocalizedText>
     <!-- GERMAN -->
-    
-    <!-- Missing Citizen management Lens -->
-    <Row Tag="LOC_HUD_CITIZEN_MANAGEMENT_LENS">
-      <Text>Handwerker</Text>
-    </Row>
-    <Row Tag="LOC_HUD_CITIZEN_MANAGEMENT_LENS_TOOLTIP">
-      <Text>Zeigt besondere Felder auf der Karte an, wo gebaut werden kann.</Text>
-    </Row>
 
     <!-- Builder Lens -->
     <Replace Tag="LOC_HUD_BUILDER_LENS" Language="de_DE">
