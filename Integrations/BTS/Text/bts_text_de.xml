@@ -136,11 +136,11 @@
     </Replace>
 
     <Replace Tag="LOC_TRADE_ORIGIN_CHOOSER_HEADER_LABEL_TEXT" Language="de_DE">
-        <Text>Transferiere den Händler nach...</Text>
+        <Text>Transferiere Händler nach...</Text>
     </Replace>
 
     <Replace Tag="LOC_ORIGIN_CHOOSER_CHANGE_DESTINATION_BUTTON" Language="de_DE">
-        <Text>Bestätige</Text>
+        <Text>Annehmen</Text>
     </Replace>
 
   </LocalizedText>

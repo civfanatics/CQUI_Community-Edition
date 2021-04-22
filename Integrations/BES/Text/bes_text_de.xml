@@ -8,5 +8,8 @@
     <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_SHOW_CITIES" Language="de_DE">
       <Text>Zeige Städte</Text>
     </Replace>
+    <Row Tag="LOC_ESPIONAGECHOOSER_FILTER_INTERNATIONAL" Language="de_DE">
+      <Text>International</Text>
+    </Row>
   </LocalizedText>
 </GameData>
