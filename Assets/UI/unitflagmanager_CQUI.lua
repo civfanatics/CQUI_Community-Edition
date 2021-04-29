@@ -18,6 +18,8 @@ BASE_CQUI_ShouldHideFlag = ShouldHideFlag;
 BASE_CQUI_Subscribe = Subscribe;
 BASE_CQUI_Unsubscribe = Unsubscribe;
 BASE_CQUI_UpdateName = UnitFlag.UpdateName;
+BASE_CQUI_UpdateVisibility = UnitFlag.UpdateVisibility;
+BASE_CQUI_UpdateDimmedState = UnitFlag.UpdateDimmedState;
 
 local m_HexColoringReligion:number = UILens.CreateLensLayerHash("Hex_Coloring_Religion");
 local m_IsReligionLensOn:boolean = false;
@@ -84,22 +86,56 @@ function CQUI_Refresh()
                 flag:UpdateStats();
 
                 if (flag.m_eVisibility == RevealedState.VISIBLE and flag.m_Style ~= FLAGSTYLE_RELIGION) then
-                    if (applyDimming) then
+                    if (m_IsReligionLensOn and (CQUI_ReligionLensUnitFlagStyle == CQUI_RELIGIONLENS_UNITFLAGSTYLE_TRANSPARENT)) then
                         flag.m_Instance.FlagRoot:SetToEnd();
                         flag.m_Instance.FlagRoot:SetAlpha(ALPHA_DIM / 2); -- 1/2 of the "normal" dim
                         flag.m_Instance.HealthBar:SetAlpha(ALPHA_DIM / 2);
-                    elseif (flag.m_IsDimmed and not flag.m_OverrideDimmed) then
-                        -- When Religion lens is off, we need to reapply the usual dimming level to units that should have it
+                        if (flag.m_Instance.Promotion_Flag ~= nil and flag.m_Instance.Promotion_Flag:IsVisible()) then
+                            flag.m_Instance.Promotion_Flag:SetAlpha(ALPHA_DIM / 2);
+                        end
+                    elseif (m_IsReligionLensOn and (CQUI_ReligionLensUnitFlagStyle == CQUI_RELIGIONLENS_UNITFLAGSTYLE_HIDDEN)) then
                         flag.m_Instance.FlagRoot:SetToEnd();
-                        flag.m_Instance.FlagRoot:SetAlpha(ALPHA_DIM);
-                        flag.m_Instance.HealthBar:SetAlpha(ALPHA_DIM);
+                        flag.m_Instance.FlagRoot:SetAlpha(0.0); -- 1/2 of the "normal" dim
+                        flag.m_Instance.HealthBar:SetAlpha(0.0);
+                        if (flag.m_Instance.Promotion_Flag ~= nil and flag.m_Instance.Promotion_Flag:IsVisible()) then
+                            flag.m_Instance.Promotion_Flag:SetAlpha(0.0);
+                        end
                     else
-                        flag.m_Instance.FlagRoot:SetAlpha(1.0);
-                        flag.m_Instance.HealthBar:SetAlpha(1.0);
+                        -- Handle the "normal" dimmed or undimmed state
+                        flag:UpdateDimmedState();
                     end
                 end
             end
         end
+    end
+end
+
+-- ===========================================================================
+function CQUI_UpdateDimmedStateOnFlags(self)
+    if (self.m_IsDimmed and not self.m_OverrideDimmed) then
+        if (self.m_Instance.Promotion_Flag:IsVisible()) then
+             self.m_Instance.Promotion_Flag:SetAlpha(ALPHA_DIM);
+        end
+
+        if (self.m_Instance.TribeStatusFlag:IsVisible()) then
+            self.m_Instance.TribeStatusFlag:SetAlpha(ALPHA_DIM);
+        end
+
+        if (self.m_Instance.TribeInidcatorFlag:IsVisible()) then
+           self.m_Instance.TribeInidcatorFlag:SetAlpha(ALPHA_DIM);
+        end
+    else
+        if (self.m_Instance.Promotion_Flag:IsVisible()) then
+            self.m_Instance.Promotion_Flag:SetAlpha(1.0);
+       end
+
+       if (self.m_Instance.TribeStatusFlag:IsVisible()) then
+           self.m_Instance.TribeStatusFlag:SetAlpha(1.0);
+       end
+
+       if (self.m_Instance.TribeInidcatorFlag:IsVisible()) then
+          self.m_Instance.TribeInidcatorFlag:SetAlpha(1.0);
+       end
     end
 end
 
@@ -198,8 +234,30 @@ end
 -- ===========================================================================
 function UnitFlag.UpdateStats( self )
     BASE_CQUI_UpdateStats(self);
+
+    local pUnit : table = self:GetUnit();
     if (pUnit ~= nil) then
         self:SetColor();
+    end
+end
+
+-- ===========================================================================
+--  CQUI modified UnitFlag.UpdateDimmedState functiton
+--  Ensure the additional Flags (Unit promotions, barbarian flags) are dimmed accordingly
+-- ===========================================================================
+function UnitFlag.UpdateDimmedState( self )
+    BASE_CQUI_UpdateDimmedState(self);
+    CQUI_UpdateDimmedStateOnFlags(self);
+end
+
+-- ===========================================================================
+--  CQUI modified UnitFlag.UpdateVisibility functiton
+--  Ensure the additional Flags (Unit promotions, barbarian flags) are dimmed accordingly
+-- ===========================================================================
+function UnitFlag.UpdateVisibility( self )
+    BASE_CQUI_UpdateVisibility(self);
+    if (not self.m_IsForceHide and self.m_IsCurrentlyVisible) then
+        CQUI_UpdateDimmedStateOnFlags(self);
     end
 end
 
@@ -446,7 +504,6 @@ function ShouldHideFlag(pUnit:table)
 
     return retVal;
 end
-
 
 -- ===========================================================================
 -- IMPORTS FROM THE BARBARIAN CLANS MODE
