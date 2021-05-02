@@ -15,7 +15,7 @@
       <Container Anchor="C,B" Offset="-5,50" Size="parent-45,70">
         <Grid Texture="Controls_SeparatorAngled" TextureSize="14,6" Anchor="C,T" Size="parent,6" SliceCorner="6,4" Offset="0,0"/>
 
-        <Label Anchor="C,T" Offset="0,15" String="RANGE" WrapWidth="Parent-40" Align="Center" Style="FontFlair16" Color2="143,122,82,255" Color0="106,93,69,230" SmallCaps="20" SmallCapsLeading="0" SmallCapsType="EveryWord" KerningAdjustment="0" />
+        <Label Anchor="C,T" Offset="0,15" String="LOC_PANEL_CITYOVERLAP_RANGE" WrapWidth="Parent-40" Align="Center" Style="FontFlair16" Color2="143,122,82,255" Color0="106,93,69,230" SmallCaps="20" SmallCapsLeading="0" SmallCapsType="EveryWord" KerningAdjustment="0" />
 
         <Button ID="OverlapRangeDown" Style="ArrowButtonLeft" Offset="20,24" Anchor="L,C"/>
         <Button ID="OverlapRangeUp" Style="ArrowButtonRight" Offset="20,24" Anchor="R,C"/>
