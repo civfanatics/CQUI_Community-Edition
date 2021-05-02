@@ -163,14 +163,42 @@
       <Text>Lenses</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYARCHAEOLOGISTLENS" Language="en_US">
-      <Text>Autoapply archaeologist lens</Text>
+      <Text>Auto-apply Archaeologist lens</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYARCHAEOLOGISTLENS_TOOLTIP" Language="en_US">
+      <Text>Auto-apply Archaeologist lens when the Archaeologist unit is selected.</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYBUILDERLENS" Language="en_US">
-      <Text>Autoapply builder lens</Text>
+      <Text>Auto-apply Builder lens</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYBUILDERLENS_TOOLTIP">
+      <Text>Enable this to automatically apply the Builder lens when selecting a builder.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLENOTHING">
+      <Text>Builder lens: Disable nothing plot highlight</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLENOTHING_TOOLTIP">
+      <Text>Disable highlighting of plots that have nothing to do.[NEWLINE]Enable this if the lens takes a long time to apply.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS">
+      <Text>Builder lens: Disable dangerous plot highlight.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS_TOOLTIP">
+      <Text>Disable highlighting of plots that are adjacent an enemy.[NEWLINE]Enable this if the lens takes a long time to apply.</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS" Language="en_US">
-      <Text>Autoapply scout lens</Text>
+      <Text>Auto-apply Scout lens</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_TOOLTIP">
+      <Text>Enable this to automatically apply the Scout lens when selecting a recon unit class.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA">
+      <Text>Auto-apply Scout lens (Extra)</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA_TOOLTIP">
+      <Text>Enable this to automatically apply the Scout lens when selecting all military units.</Text>
+    </Row>
+
     <Row Tag="LOC_CQUI_POPUPS" Language="en_US">
       <Text>Popups</Text>
     </Row>

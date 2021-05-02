@@ -532,9 +532,12 @@ function Initialize()
     PopulateCheckBox(Controls.TrimGossipCheckbox, "CQUI_TrimGossip", Locale.Lookup("LOC_CQUI_GOSSIP_TRIMMESSAGE_TOOLTIP"));
 
     -- Lenses
-    PopulateCheckBox(Controls.AutoapplyArchaeologistLensCheckbox, "CQUI_AutoapplyArchaeologistLens");
-    PopulateCheckBox(Controls.AutoapplyBuilderLensCheckbox, "CQUI_AutoapplyBuilderLens");
-    PopulateCheckBox(Controls.AutoapplyScoutLensCheckbox, "CQUI_AutoapplyScoutLens");
+    PopulateCheckBox(Controls.AutoapplyArchaeologistLensCheckbox, "CQUI_AutoapplyArchaeologistLens", Locale.Lookup("LOC_CQUI_LENSES_AUTOAPPLYARCHAEOLOGISTLENS_TOOLTIP"));
+    PopulateCheckBox(Controls.AutoapplyBuilderLensCheckbox, "CQUI_AutoapplyBuilderLens", Locale.Lookup("LOC_CQUI_LENSES_AUTOAPPLYBUILDERLENS_TOOLTIP"));
+    PopulateCheckBox(Controls.BuilderLensDisableNothingPlotCheckbox, "CQUI_BuilderLensDisableNothingPlot", Locale.Lookup("LOC_CQUI_LENSES_BUILDERDISABLENOTHING_TOOLTIP"));
+    PopulateCheckBox(Controls.BuilderLensDisableDangerousPlotCheckbox, "CQUI_BuilderLensDisableDangerousPlot", Locale.Lookup("LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS_TOOLTIP"));
+    PopulateCheckBox(Controls.AutoapplyScoutLensCheckbox, "CQUI_AutoapplyScoutLens", Locale.Lookup("LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_TOOLTIP"));
+    PopulateCheckBox(Controls.AutoapplyScoutLensExtraCheckbox, "CQUI_AutoapplyScoutLensExtra", Locale.Lookup("LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENSEXTRA_TOOLTIP"));
     PopulateComboBox(Controls.ReligionLensHideUnits, icon_style_options, "CQUI_ReligionLensUnitFlagStyle", Locale.Lookup("LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP"));
 
     PopulateCheckBox(Controls.ShowYieldsOnCityHoverCheckbox, "CQUI_ShowYieldsOnCityHover", Locale.Lookup("LOC_CQUI_CITYVIEW_SHOWYIELDSONCITYHOVER_TOOLTIP"));

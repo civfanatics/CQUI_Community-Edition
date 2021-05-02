@@ -2,8 +2,17 @@ local LENS_NAME = "ML_SCOUT"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 
 -- Should the scout lens auto apply, when a scout/ranger is selected.
-local AUTO_APPLY_SCOUT_LENS:boolean = GameConfiguration.GetValue("ML_AutoApplyScoutLens")
-local AUTO_APPLY_SCOUT_LENS_EXTRA:boolean = GameConfiguration.GetValue("ML_AutoApplyScoutLensExtra")
+local AUTO_APPLY_SCOUT_LENS:boolean = true; 
+-- Should the scout lens auto-apply with any military unit
+local AUTO_APPLY_SCOUT_LENS_EXTRA:boolean = false;
+-- ==== BEGIN CQUI: Integration Modification =================================
+function CQUI_OnSettingsUpdate()
+    -- Should the builder lens auto apply, when a builder is selected.
+    AUTO_APPLY_SCOUT_LENS = GameConfiguration.GetValue("CQUI_AutoapplyScoutLens");
+    AUTO_APPLY_SCOUT_LENS_EXTRA = GameConfiguration.GetValue("CQUI_AutoapplyScoutLensExtra");
+end
+-- ==== END CQUI: Integration Modification ===================================
+
 
 -- ===========================================================================
 -- Scout Lens Support
@@ -140,7 +149,8 @@ local function OnInitialize()
     Events.UnitRemovedFromMap.Add( OnUnitRemovedFromMap )
     Events.UnitMoveComplete.Add( OnUnitMoveComplete )
     Events.GoodyHutReward.Add( OnGoodyHutReward )
-    LuaEvents.ML_SettingsUpdate.Add( OnLensSettingsUpdate )
+    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 end
 
 local ScoutLensEntry = {

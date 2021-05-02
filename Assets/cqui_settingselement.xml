@@ -418,17 +418,27 @@
                     </Container>
                     <Container ID="LensesOptions" Size="parent,parent" Hidden="1">
                         <Stack Anchor="C,T" StackGrowth="Down" Padding="5" Offset="0,50">
-                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                            <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
                                 <GridButton ID="AutoapplyArchaeologistLensCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_AUTOAPPLYARCHAEOLOGISTLENS"/>
                             </Stack>
-                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                            <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
                                 <GridButton ID="AutoapplyBuilderLensCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_AUTOAPPLYBUILDERLENS"/>
                             </Stack>
-                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                            <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
+                                <GridButton ID="BuilderLensDisableNothingPlotCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_BUILDERDISABLENOTHING"/>
+                            </Stack>
+                            <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
+                                <GridButton ID="BuilderLensDisableDangerousPlotCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS"/>
+                            </Stack>
+                            <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
                                 <GridButton ID="AutoapplyScoutLensCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS"/>
                             </Stack>
-                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
-                                <PullDown ID="ReligionLensHideUnits" Style="PullDownBlue" ScrollThreshold="400" Size="300,24" Offset="0,0" SpaceForScroll="0"/>
+                            <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
+                                <GridButton ID="AutoapplyScoutLensExtraCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA"/>
+                            </Stack>
+
+                            <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
+                                <PullDown ID="ReligionLensHideUnits" Style="PullDownBlue" ScrollThreshold="400" Size="200,24" Offset="0,0" SpaceForScroll="0"/>
                                 <Label Anchor="L,C" Style="ShellOptionText" String="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE"/>
                             </Stack>
                         </Stack>

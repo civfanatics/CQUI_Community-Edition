@@ -43,15 +43,18 @@ include("BuilderLens_Config_", true)
 local LENS_NAME = "ML_BUILDER"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 
--- Disables the nothing color being highlted by the builder
-local DISABLE_NOTHING_PLOT_HIGHLIGHT:boolean = GameConfiguration.GetValue("ML_BuilderLensDisableNothingHighlight")
--- Disables the dangerous plots highlted by the builder (barbs/military units at war with)
-local DISABLE_DANGEROUS_PLOT_HIGHLIGHT:boolean = GameConfiguration.GetValue("ML_BuilderLensDisableDangerousHighlight")
+local AUTO_APPLY_BUILDER_LENS:boolean = true;
+local DISABLE_NOTHING_PLOT_HIGHLIGHT:boolean = true;
+local DISABLE_DANGEROUS_PLOT_HIGHLIGHT:boolean = false;
 
 -- ==== BEGIN CQUI: Integration Modification =================================
-local function CQUI_OnSettingsUpdate()
+function CQUI_OnSettingsUpdate()
     -- Should the builder lens auto apply, when a builder is selected.
     AUTO_APPLY_BUILDER_LENS = GameConfiguration.GetValue("CQUI_AutoapplyBuilderLens");
+    -- Disables the nothing color being highlted by the builder
+    DISABLE_NOTHING_PLOT_HIGHLIGHT = GameConfiguration.GetValue("CQUI_BuilderLensDisableNothingPlot");
+    -- Disables the dangerous plots highlted by the builder (barbs/military units at war with)
+    DISABLE_DANGEROUS_PLOT_HIGHLIGHT = GameConfiguration.GetValue("CQUI_BuilderLensDisableDangerousPlot");
 end
 -- ==== END CQUI: Integration Modification ===================================
 
@@ -224,22 +227,13 @@ local function OnUnitRemovedFromMap( playerID: number, unitID : number )
     end
 end
 
-local function OnLensSettingsUpdate()
-    -- Refresh our local settings from updated GameConfig
-    AUTO_APPLY_BUILDER_LENS = GameConfiguration.GetValue("ML_AutoApplyBuilderLens")
-    DISABLE_NOTHING_PLOT_HIGHLIGHT = GameConfiguration.GetValue("ML_BuilderLensDisableNothingHighlight")
-    DISABLE_DANGEROUS_PLOT_HIGHLIGHT = GameConfiguration.GetValue("ML_BuilderLensDisableDangerousHighlight")
-    print(AUTO_APPLY_BUILDER_LENS)
-    print(DISABLE_NOTHING_PLOT_HIGHLIGHT)
-    print(DISABLE_DANGEROUS_PLOT_HIGHLIGHT)
-end
-
 local function OnInitialize()
     Events.UnitSelectionChanged.Add( OnUnitSelectionChanged );
     Events.UnitCaptured.Add( OnUnitCaptured );
     Events.UnitChargesChanged.Add( OnUnitChargesChanged );
     Events.UnitRemovedFromMap.Add( OnUnitRemovedFromMap );
-    LuaEvents.ML_SettingsUpdate.Add( OnLensSettingsUpdate )
+    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 end
 
 local BuilderLensEntry = {
