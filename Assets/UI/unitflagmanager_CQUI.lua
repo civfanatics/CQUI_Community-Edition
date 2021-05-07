@@ -162,9 +162,7 @@ function CQUI_OnUnitFlagPointerEntered(playerID:number, unitID:number)
     end
 
     if CQUI_ShowPaths and not CQUI_IsFlagHover then
-        if not CQUI_SelectionMade then
-            LuaEvents.CQUI_showUnitPath(true, unitID);
-        end
+        LuaEvents.CQUI_showUnitPath(true, unitID);
 
         CQUI_IsFlagHover = true;
     end
@@ -177,9 +175,7 @@ function CQUI_OnUnitFlagPointerExited(playerID:number, unitID:number)
     end
 
     if CQUI_ShowPaths and CQUI_IsFlagHover and not m_IsReligionLensOn then
-        if not CQUI_SelectionMade then
-            LuaEvents.CQUI_clearUnitPath();
-        end
+        LuaEvents.CQUI_clearUnitPath();
 
         CQUI_IsFlagHover = false;
     end

@@ -1,22 +1,39 @@
 -- Colors for lenses. (alpha value does not seem to change anything)
 
 -- Builder lens
+-- Priority - Outside
+-- INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
+-- VALUES                  (   'COLOR_BUILDER_PO_LENS',            '0',        '0',        '0',        '0.5');
+-- Priority - Dangerous (Red color)
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_RESOURCE_BUILDER_LENS',      '1',        '0',        '1',        '0.5');
+VALUES                  (   'COLOR_BUILDER_LENS_PD',            '1',        '0',        '0',        '0.5');
+-- Priority - 1 (Purple)
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_DAMAGED_BUILDER_LENS',       '0.56',     '0.0',      '0.98',     '0.5');
+VALUES                  (   'COLOR_BUILDER_LENS_P1',            '1',        '0.2',      '1',        '0.5');
+-- Priority - 1- (Purple but whitened to show lower priority)
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_HILL_BUILDER_LENS',          '0',        '1',        '0',        '0.5');
+VALUES                  (   'COLOR_BUILDER_LENS_P1N',           '1',        '0.5',      '1',        '0.5');
+-- Priority - 2 (Violet)
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_FEATURE_BUILDER_LENS',       '0',        '0',        '1',        '0.5');
+VALUES                  (   'COLOR_BUILDER_LENS_P2',            '0.6',      '0.2',      '1',        '0.5');
+-- Priority - 3 (Blue)
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_RECOMMENDED_BUILDER_LENS',   '0',        '1',        '1',        '0.5');
+VALUES                  (   'COLOR_BUILDER_LENS_P3',            '0.2',      '0.2',      '1',        '0.5');
+-- Priority - 4 (Teal)
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_GENERIC_BUILDER_LENS',       '0.67',     '0.67',     '0.67',     '0.5');
+VALUES                  (   'COLOR_BUILDER_LENS_P4',            '0',        '0.8',      '0.8',      '0.5');
+-- Priority - 5 (Green)
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_NOTHING_BUILDER_LENS',       '0.33',     '0.33',     '0.33',     '0.5');
+VALUES                  (   'COLOR_BUILDER_LENS_P5',            '0.4',      '1',        '0.4',      '0.5');
+-- Priority - 6 (Yellow)
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_OUTSIDE_BUILDER_LENS',       '0',        '0',        '0',        '0.5');
+VALUES                  (   'COLOR_BUILDER_LENS_P6',            '1',        '1',        '0',        '0.5');
+-- Priority - 7 (White'ish)
+INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
+VALUES                  (   'COLOR_BUILDER_LENS_P7',            '0.67',     '0.67',     '0.67',     '0.5');
+-- Priority - Nothing (Grey color)
+INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
+VALUES                  (   'COLOR_BUILDER_LENS_PN',            '0.33',     '0.33',     '0.33',     '0.5');
 
 -- Archeologist lens
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
@@ -96,7 +113,9 @@ VALUES                  (   'COLOR_ALT_SETTLER_UNUSABLE',       '1',        '0',
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
 VALUES                  (   'COLOR_ALT_SETTLER_OVERLAP',        '0.5',      '0',        '0',        '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_ALT_SETTLER_REGULAR',        '0',        '0.75',     '0',        '0.5');
+VALUES                  (   'COLOR_ALT_SETTLER_HILL',           '0',        '1',        '0',        '0.5');
+INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
+VALUES                  (   'COLOR_ALT_SETTLER_REGULAR',        '0.75',     '0.75',     '0.75',     '0.5');
 
 -- Test Colors
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)

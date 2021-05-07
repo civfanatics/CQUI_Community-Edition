@@ -79,7 +79,7 @@ function playerCanHave(pPlayer:table, xmlEntry:table)
         -- Special handler for city state traits.
         local spitResult = Split(xmlEntry.TraitType, "_")
         if spitResult[1] == "MINOR" then
-            local traitLeaderType
+            local traitLeaderType = nil
             for traitInfo in GameInfo.LeaderTraits() do
                 if traitInfo.TraitType == xmlEntry.TraitType then
                     traitLeaderType = traitInfo.LeaderType
@@ -233,6 +233,7 @@ function GetUnitTypeFromIDs( playerID: number, unitID : number )
             return GameInfo.Units[pUnit:GetUnitType()].UnitType;
         end
     end
+    return nil
 end
 
 function getUnitType(pUnit:table)
