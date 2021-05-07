@@ -36,12 +36,6 @@
         <Row Tag="LOC_TOOLTIP_BUILDER_LENS_NOTHING">
             <Text>Nothing to do</Text>
         </Row>
-        <Row Tag="LOC_HUD_BUILDER_LENS">
-            <Text>Builder</Text>
-        </Row>
-        <Row Tag="LOC_HUD_BUILDER_LENS_TOOLTIP">
-            <Text>Highlights what hexes the builder can work on</Text>
-        </Row>
         <Row Tag="LOC_HUD_BUILDER_LENS_PN">
             <Text>Nothing</Text>
         </Row>
@@ -58,7 +52,7 @@
             <Text>Recommended/Pillaged/Unique Ability</Text>
         </Row>
         <Row Tag="LOC_HUD_BUILDER_LENS_P3">
-            <Text>Currently Worked / Wonder-Buffed</Text>
+            <Text>Currently Worked/Wonder-Buffed</Text>
         </Row>
         <Row Tag="LOC_HUD_BUILDER_LENS_P4">
             <Text>Hills</Text>
@@ -67,9 +61,9 @@
             <Text>Feature Extraction</Text>
         </Row>
         <!-- Nothing to add here atm -->
-        <Row Tag="LOC_HUD_BUILDER_LENS_P6">
-            <Text></Text>
-        </Row>
+        <!-- <Row Tag="LOC_HUD_BUILDER_LENS_P6"> -->
+            <!-- <Text></Text> -->
+        <!-- </Row> -->
         <Row Tag="LOC_HUD_BUILDER_LENS_P7">
             <Text>General</Text>
         </Row>

@@ -5,7 +5,7 @@
 <Context Name="CQUI_SettingsElement">
     <Container Style="FullScreenVignetteConsumer" />
     <Box ID="MainGrid" Style="ShellBGBox">
-        <Container ID="MainWindow" Style="ShellWindowContainer" >
+        <Container ID="MainWindow" Style="ShellWindowContainer">
             <Container ID="Header" Style="ShellHeaderContainer">
                 <Grid Style="ShellHeaderButtonGrid">
                 </Grid>
@@ -409,7 +409,7 @@
                                 <Label Anchor="L,C" Style="ShellOptionText" String="LOC_CQUI_BINDINGS_DROPDOWN"/>
                             </Stack>
                             <ScrollPanel ID="KeyBindingsScrollPanel" Offset="0,20" Size="50,parent-200" AutoScrollBar="1" Vertical="1" Anchor="R,T">
-                                <Stack ID="KeyBindingsStack" Anchor="L,T" StackGrowth="Bottom" Size="parent,0" Offset="60,0" Padding="10" >
+                                <Stack ID="KeyBindingsStack" Anchor="L,T" StackGrowth="Bottom" Size="parent,0" Offset="60,0" Padding="10">
                                 </Stack>
                                 <ScrollBar Style="Slider_Blue" Anchor="R,C" AnchorSide="O,I"/>
                             </ScrollPanel>
@@ -419,28 +419,39 @@
                     <Container ID="LensesOptions" Size="parent,parent" Hidden="1">
                         <Stack Anchor="C,T" StackGrowth="Down" Padding="5" Offset="0,50">
                             <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
-                                <GridButton ID="AutoapplyArchaeologistLensCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_AUTOAPPLYARCHAEOLOGISTLENS"/>
+                                <GridButton ID="AutoapplyArchaeologistLensCheckbox" Anchor="L,C" Offset="0,0" Size="400,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_AUTOAPPLYARCHAEOLOGISTLENS"/>
                             </Stack>
                             <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
-                                <GridButton ID="AutoapplyBuilderLensCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_AUTOAPPLYBUILDERLENS"/>
+                                <GridButton ID="AutoapplyBuilderLensCheckbox" Anchor="L,C" Offset="0,0" Size="400,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_AUTOAPPLYBUILDERLENS"/>
                             </Stack>
                             <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
-                                <GridButton ID="BuilderLensDisableNothingPlotCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_BUILDERDISABLENOTHING"/>
+                                <GridButton ID="BuilderLensDisableNothingPlotCheckbox" Anchor="L,C" Offset="0,0" Size="400,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_BUILDERDISABLENOTHING"/>
                             </Stack>
                             <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
-                                <GridButton ID="BuilderLensDisableDangerousPlotCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS"/>
+                                <GridButton ID="BuilderLensDisableDangerousPlotCheckbox" Anchor="L,C" Offset="0,0" Size="400,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS"/>
                             </Stack>
                             <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
-                                <GridButton ID="AutoapplyScoutLensCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS"/>
+                                <GridButton ID="AutoapplyScoutLensCheckbox" Anchor="L,C" Offset="0,0" Size="400,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS"/>
                             </Stack>
                             <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
-                                <GridButton ID="AutoapplyScoutLensExtraCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA"/>
+                                <GridButton ID="AutoapplyScoutLensExtraCheckbox" Anchor="L,C" Offset="0,0" Size="400,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA"/>
                             </Stack>
 
                             <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
                                 <PullDown ID="ReligionLensHideUnits" Style="PullDownBlue" ScrollThreshold="400" Size="200,24" Offset="0,0" SpaceForScroll="0"/>
                                 <Label Anchor="L,C" Style="ShellOptionText" String="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE"/>
                             </Stack>
+
+                            <Stack Anchor="C,C" StackGrowth="Left">
+                                <Label Anchor="C,C" Style="ShellOptionText" String="Builder Lenses RGB Color Settings" Offset="0,10"/>
+                                <!-- TODO: Loc text here and other places below-->
+                            </Stack>
+                            <Line Anchor="C,C" Start="0,5" End="300,5" Width="2" Color="84,77,66,255" />
+                            <ScrollPanel ID="LensRGBColorScrollPanel" Offset="0,0" Size="parent,Auto" AutoScrollBar="1" Vertical="1" Anchor="C,C">
+                                <Stack ID="LensRGBColorStack" Anchor="L,T" StackGrowth="Bottom" Size="parent,0" Offset="0,0" Padding="10">
+                                </Stack>
+                                <ScrollBar Style="Slider_Blue" Anchor="R,C" AnchorSide="O,I"/>
+                            </ScrollPanel>
                         </Stack>
                     </Container>
                     <Container ID="TraderScreenOption" Size="parent,parent" Hidden="1">
@@ -476,8 +487,8 @@
                     <!-- NOTIFICATIONS -->
                     <Container ID="NotificationsOptions" Size="parent,parent" Hidden="1">
                         <Stack Anchor="C,T" StackGrowth="Down" Padding="5" Offset="0,50">
-                            <GridButton ID="NotificationGoodyHutCheckbox"   Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_NOTIFICATION_DISCOVER_GOODY_HUT_MESSAGE" />
-                            <!--<GridButton ID="NotificationTradeDealCheckbox"  Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="(reserved)Trade Deal" />-->
+                            <GridButton ID="NotificationGoodyHutCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_NOTIFICATION_DISCOVER_GOODY_HUT_MESSAGE" />
+                            <!--<GridButton ID="NotificationTradeDealCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="(reserved)Trade Deal" />-->
                             <!--<GridButton ID="NotificationPopulationCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="(reserved)Population" />-->
                             <!--<GridButton ID="NotificationCityBorderCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="(reserved)City Border" />-->
                         </Stack>
@@ -491,7 +502,7 @@
                 </Container>
             </Grid>
             <Stack StackGrowth="Down" Anchor="C,B" Offset="0,-80" Padding="10">
-                <GridButton ID="ConfirmButton"  Style="ButtonConfirm" Anchor="C,T" String="LOC_GENERIC_CONFIRM_BUTTON" Size="200,41"/>
+                <GridButton ID="ConfirmButton" Style="ButtonConfirm" Anchor="C,T" String="LOC_GENERIC_CONFIRM_BUTTON" Size="200,41"/>
                 <Label ID="CQUISettingsMoved" Style="FontNormal14" String="LOC_CQUI_SETTINGS_MOVED" Color="220,220,145"/>
                 <Label Style="FontNormal14" String="LOC_CQUI_SETTINGS_REMINDER" Color="102,122,145"/>
             </Stack>
@@ -502,6 +513,29 @@
         <Stack ID="Root" Size="210,auto" Anchor="R,T" StackGrowth="Left" Padding="5" Offset="120,0">
             <GridButton ID="Binding" Style="ButtonControl" Size="210,30" String="Binding" TruncateWidth="205" />
             <Label ID="ActionName" Anchor="L,C" Style="ShellOptionText" String="ActionName"/>
+        </Stack>
+    </Instance>
+
+    <Instance Name="LensRGBColorInstance">
+        <!-- TODO: Each one of the Label stack and slider combo things could probably be its own instance, too... -->
+        <Stack ID="LensRGBColorInstanceRoot" Anchor="C,C" StackGrowth="Right" Padding="5" Size="parent-10,30">
+            <Label ID="RowLabel" Align="right" Style="FontNormal12" MinSize="180,24" ColorSet="ShellOptionText" String="ROW_LABEL" />
+            <Stack ID="SliderWithLabelAndEditBoxStack" Anchor="C,C" StackGrowth="Right" Padding="5" Size="auto,30">
+            </Stack>
+            <Box ID="ColorPreviewBox" Anchor="R,C" Offset="0,0" Size="22,22" Color="0,0,0,128"/>
+            <GridButton ID="RestoreDefaultButton" Anchor="R,C" Style="ButtonControl" Size="50,22" FontSize="10" String="LOC_DEFAULT_BUTTON" />
+        </Stack>
+    </Instance>
+
+    <Instance Name="SliderWithLabelAndEditBox">
+        <Stack ID="SliderWithLabelAndEditBoxRoot" Anchor="C,C" StackGrowth="Right" Padding="1">
+            <Stack ID="LabelStack" Anchor="L,C" StackGrowth="Right" Padding="5">
+                <Label ID="LabelCtrl" Anchor="L,C" Style="StrongSmall2" ColorSet="ShellOptionText" String="LABEL_STACK"/>
+                <Grid Anchor="R,C" Texture="Controls_Filter" InnerPadding="5,6" Size="26,24">
+                    <EditBox ID="EditBoxCtrl" Anchor="C,C" EditMode="1" MinSize="28,24" Style="WhiteSemiBold12" String="0" MaxLength="3" />
+                </Grid>
+            </Stack>
+            <Slider ID="SliderCtrl" Anchor="L,C" Style="SliderControl" Size="80,13" Offset="-5,0" SpaceForScroll="0" Steps="255" d="1"/>
         </Stack>
     </Instance>
 

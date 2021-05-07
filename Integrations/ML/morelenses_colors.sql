@@ -26,8 +26,9 @@ VALUES                  (   'COLOR_BUILDER_LENS_P4',            '0',        '0.8
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
 VALUES                  (   'COLOR_BUILDER_LENS_P5',            '0.4',      '1',        '0.4',      '0.5');
 -- Priority - 6 (Yellow)
-INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_BUILDER_LENS_P6',            '1',        '1',        '0',        '0.5');
+-- NOT CURRENTLY IMPLEMENTED
+-- INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
+-- VALUES                  (   'COLOR_BUILDER_LENS_P6',            '1',        '1',        '0',        '0.5');
 -- Priority - 7 (White'ish)
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
 VALUES                  (   'COLOR_BUILDER_LENS_P7',            '0.67',     '0.67',     '0.67',     '0.5');
