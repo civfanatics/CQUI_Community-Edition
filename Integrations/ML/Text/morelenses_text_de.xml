@@ -36,9 +36,6 @@
     <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_NOTHING" Language="de_DE">
       <Text>Nichts zu tun</Text>
     </Replace>
-    <Replace Tag="LOC_HUD_BUILDER_LENS_TOOLTIP" Language="de_DE">
-       <Text>Hebt Felder hervor, auf denen der Handwerker etwas machen kann</Text>
-    </Replace>
     <Replace Tag="LOC_HUD_BUILDER_LENS_PN" Language="de_DE">
        <Text>Nichts</Text>
     </Replace>
