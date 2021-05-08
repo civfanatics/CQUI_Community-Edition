@@ -36,12 +36,6 @@
         <Row Tag="LOC_TOOLTIP_BUILDER_LENS_NOTHING">
             <Text>Nothing to do</Text>
         </Row>
-        <Row Tag="LOC_HUD_BUILDER_LENS">
-            <Text>Builder</Text>
-        </Row>
-        <Row Tag="LOC_HUD_BUILDER_LENS_TOOLTIP">
-            <Text>Highlights what hexes the builder can work on</Text>
-        </Row>
         <Row Tag="LOC_HUD_BUILDER_LENS_PN">
             <Text>Nothing</Text>
         </Row>
