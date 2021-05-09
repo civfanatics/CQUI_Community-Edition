@@ -762,7 +762,7 @@ function ViewMain( data:table )
     Controls.AmenitiesButton:SetOffsetY(PANEL_BUTTON_LOCATIONS[m_CurrentPanelLine].y);
     m_CurrentPanelLine = m_CurrentPanelLine + 1;
 	
-	Controls.ReligionNum:SetText( data.ReligionFollowers );
+    Controls.ReligionNum:SetText( data.ReligionFollowers );
 
     Controls.HousingNum:SetText( data.Population );
     colorName = GetPercentGrowthColor( data.HousingMultiplier );
