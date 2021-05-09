@@ -2,6 +2,14 @@
 <GameData>
   <LocalizedText>
     <!-- GERMAN -->
+    
+    <!-- Missing Citizen management Lens -->
+    <Replace Tag="LOC_HUD_CITIZEN_MANAGEMENT_LENS" Language="de_DE">
+       <Text>Handwerker</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITIZEN_MANAGEMENT_LENS_TOOLTIP" Language="de_DE">
+       <Text>Zeigt besondere Felder auf der Karte an, wo gebaut werden kann.</Text>
+    </Replace>
 
     <!-- Builder Lens -->
     <Replace Tag="LOC_HUD_BUILDER_LENS" Language="de_DE">
@@ -27,6 +35,37 @@
     </Replace>
     <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_NOTHING" Language="de_DE">
       <Text>Nichts zu tun</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_PN" Language="de_DE">
+       <Text>Nichts</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_PD" Language="de_DE">
+       <Text>Gefährlich</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P1" Language="de_DE">
+       <Text>Ressourcen</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P1N" Language="de_DE">
+       <Text>Ressource außer Reichweite</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P2" Language="de_DE">
+       <Text>Ressource, Einzig. Fähigk., Geplündert</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P3" Language="de_DE">
+       <Text>Currently Worked, Wonder-Buffed</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P4" Language="de_DE">
+       <Text>Hügel</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P5" Language="de_DE">
+       <Text>Entfernbare Geländeart</Text>
+    </Replace>
+    <!-- Nothing to add here atm -->
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P6" Language="de_DE">
+       <Text></Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P7" Language="de_DE">
+       <Text>Allgemein</Text>
     </Replace>
 
     <!-- Archaeologist Lens -->
