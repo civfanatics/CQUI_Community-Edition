@@ -181,7 +181,7 @@
       <Text>Disable highlighting of plots that have nothing to do.[NEWLINE]Enable this if the lens takes a long time to apply.</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS" Language="en_US">
-      <Text>Builder lens: Disable dangerous plot highlight.</Text>
+      <Text>Builder lens: Disable dangerous plot highlight</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS_TOOLTIP" Language="en_US">
       <Text>Disable highlighting of plots that are adjacent an enemy.[NEWLINE]Enable this if the lens takes a long time to apply.</Text>

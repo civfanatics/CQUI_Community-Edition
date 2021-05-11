@@ -14,7 +14,7 @@ g_ModLensModalPanel = {} -- Populated by ModLens_*.lua scripts
 -- include( "ModLens_", true )
 include("ModLens_Archaeologist.lua")
 include("ModLens_Wonder.lua")
-include("Modlens_CitizenManagement.lua")
+include("Modlens_CQUI_CitizenManagement.lua")
 include("ModLens_Barbarian.lua")
 include("ModLens_Naturalist.lua")
 include("ModLens_Builder.lua")
