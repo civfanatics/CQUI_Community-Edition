@@ -19,7 +19,7 @@
             <Text>Highlights what hexes the builder can work on</Text>
         </Row>
         <Row Tag="LOC_TOOLTIP_BUILDER_LENS_IMP">
-            <Text>Resource/Pillaged/Unique Ability</Text>
+            <Text>Resource / Pillaged / Unique Ability</Text>
         </Row>
         <Row Tag="LOC_TOOLTIP_RECOMFEATURE_LENS_HILL">
             <Text>Recommended Improve Feature</Text>
@@ -49,10 +49,10 @@
             <Text>Resources outside range</Text>
         </Row>
         <Row Tag="LOC_HUD_BUILDER_LENS_P2">
-            <Text>Recommended/Pillaged/Unique Ability</Text>
+            <Text>Recommended / Pillaged / Unique Ability</Text>
         </Row>
         <Row Tag="LOC_HUD_BUILDER_LENS_P3">
-            <Text>Currently Worked/Wonder-Buffed</Text>
+            <Text>Currently Worked / Wonder-Buffed</Text>
         </Row>
         <Row Tag="LOC_HUD_BUILDER_LENS_P4">
             <Text>Hills</Text>
@@ -60,10 +60,9 @@
         <Row Tag="LOC_HUD_BUILDER_LENS_P5">
             <Text>Feature Extraction</Text>
         </Row>
-        <!-- Nothing to add here atm -->
-        <!-- <Row Tag="LOC_HUD_BUILDER_LENS_P6"> -->
-            <!-- <Text></Text> -->
-        <!-- </Row> -->
+        <Row Tag="LOC_HUD_BUILDER_LENS_P6">
+            <Text></Text>
+        </Row>
         <Row Tag="LOC_HUD_BUILDER_LENS_P7">
             <Text>General</Text>
         </Row>

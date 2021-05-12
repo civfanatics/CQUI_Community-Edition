@@ -430,3 +430,21 @@ end
         end
     end
 -- End of iterator code --------------------
+
+function GetLensColorFromSettings(lensName)
+    -- A lens color can be set by the CQUI Settings elements
+    local lensData = GameConfiguration.GetValue(lensName);
+    if (lensData == nil) then
+        lensData = GameInfo.Colors[lensName];
+        if (lensData == nil) then
+            lensData = {}
+            lensData["Red"] = 0;
+            lensData["Blue"] = 0;
+            lensData["Green"] = 0;
+        end
+
+        GameConfiguration.SetValue(lensName, lensData);
+    end
+
+    return UI.GetColorValue(lensData["Red"], lensData["Green"], lensData["Blue"]);
+end

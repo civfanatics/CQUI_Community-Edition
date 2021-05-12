@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!--Custom localized text is broken after reloading right now, so even though cutom localizations are ready, they're commented out-->
-
 <Context Name="CQUI_SettingsElement">
     <Container Style="FullScreenVignetteConsumer" />
     <Box ID="MainGrid" Style="ShellBGBox">
@@ -413,7 +410,6 @@
                                 </Stack>
                                 <ScrollBar Style="Slider_Blue" Anchor="R,C" AnchorSide="O,I"/>
                             </ScrollPanel>
-
                         </Stack>
                     </Container>
                     <Container ID="LensesOptions" Size="parent,parent" Hidden="1">
@@ -436,19 +432,17 @@
                             <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
                                 <GridButton ID="AutoapplyScoutLensExtraCheckbox" Anchor="L,C" Offset="0,0" Size="400,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA"/>
                             </Stack>
-
                             <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
                                 <PullDown ID="ReligionLensHideUnits" Style="PullDownBlue" ScrollThreshold="400" Size="200,24" Offset="0,0" SpaceForScroll="0"/>
                                 <Label Anchor="L,C" Style="ShellOptionText" String="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE"/>
                             </Stack>
-
-                            <Stack Anchor="C,C" StackGrowth="Left">
-                                <Label Anchor="C,C" Style="ShellOptionText" String="Builder Lenses RGB Color Settings" Offset="0,10"/>
-                                <!-- TODO: Loc text here and other places below-->
-                            </Stack>
-                            <Line Anchor="C,C" Start="0,5" End="300,5" Width="2" Color="84,77,66,255" />
-                            <ScrollPanel ID="LensRGBColorScrollPanel" Offset="0,0" Size="parent,Auto" AutoScrollBar="1" Vertical="1" Anchor="C,C">
-                                <Stack ID="LensRGBColorStack" Anchor="L,T" StackGrowth="Bottom" Size="parent,0" Offset="0,0" Padding="10">
+                            <!-- Lenses Color Settings -->
+                            <!-- <Stack Anchor="C,C" StackGrowth="Left"> -->
+                            <Label Anchor="C,C" Style="ShellOptionText" Offset="0,0" String="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS"/>
+                            <!-- </Stack> -->
+                            <Line Anchor="C,C" Start="0,5" End="300,5" Width="2" Color="84,77,66,255"/>
+                            <ScrollPanel ID="LensRGBColorScrollPanel" Anchor="L,C" Offset="10,0" Size="parent-20,Auto" AutoScrollBar="1" Vertical="1">
+                                <Stack ID="LensRGBColorCategoryStack" Anchor="L,T" StackGrowth="Down" Size="parent,0" Offset="0,0" Padding="5">
                                 </Stack>
                                 <ScrollBar Style="Slider_Blue" Anchor="R,C" AnchorSide="O,I"/>
                             </ScrollPanel>
@@ -516,27 +510,39 @@
         </Stack>
     </Instance>
 
-    <Instance Name="LensRGBColorInstance">
-        <!-- TODO: Each one of the Label stack and slider combo things could probably be its own instance, too... -->
-        <Stack ID="LensRGBColorInstanceRoot" Anchor="C,C" StackGrowth="Right" Padding="5" Size="parent-10,30">
-            <Label ID="RowLabel" Align="right" Style="FontNormal12" MinSize="180,24" ColorSet="ShellOptionText" String="ROW_LABEL" />
-            <Stack ID="SliderWithLabelAndEditBoxStack" Anchor="C,C" StackGrowth="Right" Padding="5" Size="auto,30">
+    <!-- More Lenses Color Editing Controls -->
+    <!-- Each Category instance contains a label and rows for each lens -->
+    <!-- Each row (LensRGBColorInstance) contains three elements (SliderWithLabelAndEditBox) to control the red, green, and blue values -->
+    <!-- Each SliderWithLabelAndEditBox has a slider control (0 to 255) and an edit box to allow typing of values -->
+    <Instance Name="LensRGBColorCategoryInstance">
+        <Stack ID="LensRGBColorCategoryInstanceRoot" Anchor="L,C" StackGrowth="Down" Padding="5" Size="parent-10,30">
+            <Label ID="CategoryLabelCtrl" Anchor="C,T" Style="ShellOptionText" String=""/>
+            <Stack ID="LensRGBColorInstanceStack" Anchor="L,C" StackGrowth="Down" Padding="2" Size="auto,30">
             </Stack>
-            <Box ID="ColorPreviewBox" Anchor="R,C" Offset="0,0" Size="22,22" Color="0,0,0,128"/>
-            <GridButton ID="RestoreDefaultButton" Anchor="R,C" Style="ButtonControl" Size="50,22" FontSize="10" String="LOC_DEFAULT_BUTTON" />
+        </Stack>
+    </Instance>
+
+    <Instance Name="LensRGBColorInstance">
+        <Stack ID="LensRGBColorInstanceRoot" Anchor="C,C" StackGrowth="Left" Padding="5" Size="parent-10,30">
+            <GridButton ID="RestoreDefaultButton" Anchor="R,C" Style="ButtonControl" Size="50,22" FontSize="10" String="LOC_DEFAULT_BUTTON"/>
+            <Box ID="ColorPreviewBox" Anchor="R,C" Size="22,22" Color="0,0,0,128"/>
+            <Stack ID="SliderWithLabelAndEditBoxStack" Anchor="C,C" StackGrowth="Right" Padding="2" Size="auto,30">
+            </Stack>
+            <Label ID="RowLabel" Anchor="L,C" Align="left" Style="FontNormal12" WrapWidth="192" ColorSet="ShellOptionText" String=""/>
         </Stack>
     </Instance>
 
     <Instance Name="SliderWithLabelAndEditBox">
-        <Stack ID="SliderWithLabelAndEditBoxRoot" Anchor="C,C" StackGrowth="Right" Padding="1">
+        <Stack ID="SliderWithLabelAndEditBoxRoot" Anchor="C,C" StackGrowth="Right" Padding="5">
             <Stack ID="LabelStack" Anchor="L,C" StackGrowth="Right" Padding="5">
-                <Label ID="LabelCtrl" Anchor="L,C" Style="StrongSmall2" ColorSet="ShellOptionText" String="LABEL_STACK"/>
-                <Grid Anchor="R,C" Texture="Controls_Filter" InnerPadding="5,6" Size="26,24">
-                    <EditBox ID="EditBoxCtrl" Anchor="C,C" EditMode="1" MinSize="28,24" Style="WhiteSemiBold12" String="0" MaxLength="3" />
+                <Label ID="LabelCtrl" Anchor="L,C" Style="WhiteSemiBold12" String=""/>
+                <Grid Anchor="R,C" Texture="EditTextArea" InnerPadding="6,6" Size="28,18">
+                    <ColorBox Color="0,0,0,90" Anchor="C,C" Size="auto,auto" SizePadding="1,1" >
+                        <EditBox ID="EditBoxCtrl" Anchor="C,C" EditMode="1" MinSize="22,12" Style="WhiteSemiBold12" String="0" MaxLength="3"/>
+                    </ColorBox>
                 </Grid>
             </Stack>
-            <Slider ID="SliderCtrl" Anchor="L,C" Style="SliderControl" Size="80,13" Offset="-5,0" SpaceForScroll="0" Steps="255" d="1"/>
+            <Slider ID="SliderCtrl" Anchor="L,C" Style="SliderControl" Size="100,13" Offset="0,0" SpaceForScroll="0" Steps="255"/>
         </Stack>
     </Instance>
-
 </Context>
