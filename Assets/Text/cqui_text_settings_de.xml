@@ -166,11 +166,38 @@
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYARCHAEOLOGISTLENS" Language="de_DE">
       <Text>Automat. Archäologen-Linse</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYARCHAEOLOGISTLENS_TOOLTIP" Language="de_DE">
+      <Text>Archäologen-Linse automatisch anwenden, sobald ein Archäologe ausgewählt wurde.</Text>
+    </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYBUILDERLENS" Language="de_DE">
       <Text>Automat. Handwerker-Linse</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYBUILDERLENS_TOOLTIP" Language="de_DE">
+      <Text>Handwerker-Linse automatisch anwenden, sobald ein Archäologe ausgewählt wurde.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLENOTHING" Language="de_DE">
+      <Text>Handwerker-Linse: Untätige Felder ausblenden</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLENOTHING_TOOLTIP" Language="de_DE">
+      <Text>Blendet Felder aus, auf denen es nichts zu tun gibt aus.[NEWLINE]Aktivieren, wenn das Anwenden der Linse länger dauert.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS" Language="de_DE">
+      <Text>Handwerker-Linse: Untätige Felder ausblenden</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS_TOOLTIP" Language="de_DE">
+      <Text>Blendet Felder aus, die sich neben einem Feind befinden.[NEWLINE]Aktivieren, wenn das Anwenden der Linse länger dauert.</Text>
+    </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS" Language="de_DE">
       <Text>Automat. Späher-Linse</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_TOOLTIP" Language="de_DE">
+      <Text>Späher-Linse automatisch anwenden, sobald eine Aufklärungseinheit ausgewählt wurde.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA" Language="de_DE">
+      <Text>Automat. Späher-Linse (Extra)</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA_TOOLTIP" Language="de_DE">
+      <Text>Späher-Linse automatisch anwenden, sobald eine beliebige Militäreinheit ausgewählt wurde.</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS" Language="de_DE">
       <Text>Popups</Text>
