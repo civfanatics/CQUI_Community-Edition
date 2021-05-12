@@ -103,7 +103,7 @@
       <Text>Показывает знак войны на городской вывеске города-государства, когда вы находитесь в состоянии войны с этим городом-государством.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTWORKICON" Language="ru_RU">
-      <Text>Умные значки горожан</Text>	  
+      <Text>Умные значки горожан</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTWORKICON_TOOLTIP" Language="ru_RU">
       <Text>Придаёт особый размер и прозрачность значкам работающих горожан</Text>
@@ -146,7 +146,7 @@
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_TOGGLEYIELDSONLOAD" Language="ru_RU">
       <Text>Включить выработку по умолчанию</Text>
-    </Row>	
+    </Row>
     <Row Tag="LOC_CQUI_GENERAL_TRANSPARENT" Language="ru_RU">
       <Text>Прозрачный</Text>
     </Row>
@@ -165,12 +165,40 @@
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYARCHAEOLOGISTLENS" Language="ru_RU">
       <Text>Автоприменение линзы археолога</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYARCHAEOLOGISTLENS_TOOLTIP" Language="ru_RU">
+      <Text>Автоприменение линзы археолога, когда выбран археолог.</Text>
+    </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYBUILDERLENS" Language="ru_RU">
       <Text>Автоприменение линзы строителя</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYBUILDERLENS_TOOLTIP" Language="ru_RU">
+      <Text>Включи, чтобы автоматически применять линзу строителя при выборе строителя.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLENOTHING" Language="ru_RU">
+      <Text>Линза строителя: Откл. подсветки клеток где нечего делать</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLENOTHING_TOOLTIP" Language="ru_RU">
+      <Text>Отключение подсветки клеток где нечего делать.[NEWLINE]Включи, если линза слишком долго применяется.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS" Language="ru_RU">
+      <Text>Линза строителя: Откл. подсветки опасных клеток</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS_TOOLTIP" Language="ru_RU">
+      <Text>Отключает подсветку клеток рядом с врагом.[NEWLINE]Включи, если линза слишком долго применяется.</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS" Language="ru_RU">
       <Text>Автоприменение линзы разведчика</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_TOOLTIP" Language="ru_RU">
+      <Text>Включи, чтобы автоматически применять линзу разведчика при выборе любого юнита разведки.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA" Language="ru_RU">
+      <Text>Автоприменение линзы разведчика (доп.)</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA_TOOLTIP" Language="ru_RU">
+      <Text>Включи, чтобы автоматически применять линзу разведчика при выборе любого военного юнита.</Text>
+    </Row>
+
     <Row Tag="LOC_CQUI_POPUPS" Language="ru_RU">
       <Text>Всплывающие окна</Text>
     </Row>
@@ -239,7 +267,7 @@
     </Row>
     <Row Tag="LOC_CQUI_TRADER_ADD_DIVIDER_TOOLTIP" Language="ru_RU">
       <Text>Добавляет разделитель между группами в панель обзора торговли</Text>
-    </Row>	
+    </Row>
     <Row Tag="LOC_CQUI_RECOMMENDATIONS_SCREEN" Language="ru_RU">
       <Text>Рекомендации</Text>
     </Row>
@@ -321,11 +349,26 @@
     <Row Tag="LOC_CQUI_PLACE_PIN" Language="ru_RU">
       <Text>Добавить метку</Text>
     </Row>
+    <Row Tag="LOC_CQUI_INLINE_CITY_STATE_QUEST" Language="ru_RU">
+      <Text>Показывать квест ГГ строчкой</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_INLINE_CITY_STATE_QUEST_FONT_SIZE" Language="ru_RU">
+      <Text>Размер шрифта строчного квеста ГГ:</Text>
+    </Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="ru_RU">
       <Text>Стиль флага юнитов для линзы религии</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="ru_RU">
       <Text>Стиль для флага нерелигиозных юнитов[NEWLINE]при включённой линзе религии[NEWLINE]Полный: флаг юнитов остаётся видимым, без изменений[NEWLINE]Прозрачный: флаг юнитов становится прозрачным[NEWLINE]Скрытый: флаг юнитов скрыт</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SPREAD_RELIGION" Language="ru_RU">
+      <Text>Распространить религию</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_REMOVE_HERESY" Language="ru_RU">
+      <Text>Очистить от ереси</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_REST_HEAL" Language="ru_RU">
+      <Text>Отдых и ремонт</Text>
     </Row>
     <Row Tag="LOC_CQUI_SETTINGS" Language="ru_RU">
       <Text>НАСТРОЙКИ CQUI</Text>
