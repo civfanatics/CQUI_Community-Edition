@@ -462,8 +462,6 @@ function UpdateLensConfiguredColors(lensEntitiesTable, modLensModalPanelTable, l
         -- Not sure there's a better way to do this and also keep the structure of g_ModLensModalPanel?
         -- defined only by modellenspanel.lua, so only gets called when in the modellenspanel context
         if modLensModalPanelTable ~= nil then
-            -- TEMP
-            print("**** modLensModalPanelTable is not nil")
             lensLegend = modLensModalPanelTable[lens_name].Legend;
             for idx, entry in ipairs(modLensModalPanelTable[lens_name].Legend) do
                 locVal, colorVal = unpack(entry);
