@@ -18,24 +18,6 @@
         <Row Tag="LOC_HUD_BUILDER_LENS_TOOLTIP">
             <Text>Highlights what hexes the builder can work on</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_BUILDER_LENS_IMP">
-            <Text>Resource / Pillaged / Unique Ability</Text>
-        </Row>
-        <Row Tag="LOC_TOOLTIP_RECOMFEATURE_LENS_HILL">
-            <Text>Recommended Improve Feature</Text>
-        </Row>
-        <Row Tag="LOC_TOOLTIP_BUILDER_LENS_HILL">
-            <Text>Hill</Text>
-        </Row>
-        <Row Tag="LOC_TOOLTIP_BUILDER_LENS_FEATURE">
-            <Text>Removable Feature</Text>
-        </Row>
-        <Row Tag="LOC_TOOLTIP_BUILDER_LENS_GENERIC">
-            <Text>Generic Tile</Text>
-        </Row>
-        <Row Tag="LOC_TOOLTIP_BUILDER_LENS_NOTHING">
-            <Text>Nothing to do</Text>
-        </Row>
         <Row Tag="LOC_HUD_BUILDER_LENS_PN">
             <Text>Nothing</Text>
         </Row>
@@ -150,10 +132,10 @@
         <Row Tag="LOC_HUD_WONDER_LENS_TOOLTIP">
             <Text>Highlights natural wonders and built wonders built by players</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_WONDER_LENS_NWONDER">
+        <Row Tag="LOC_HUD_WONDER_LENS_NATURAL">
             <Text>Natural Wonder</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_PWONDER">
+        <Row Tag="LOC_HUD_WONDER_LENS_PLAYER">
             <Text>Player-made Wonder</Text>
         </Row>
 
@@ -191,6 +173,22 @@
         </Row>
         <Row Tag="LOC_TOOLTIP_NATURALIST_LENS_FIXABLE">
             <Text>Needs fixing to be used for a park</Text>
+        </Row>
+
+        <Row Tag="LOC_HUD_CITY_PLOT_LENS">
+            <Text>City Plot</Text>
+        </Row>
+        <Row Tag="LOC_HUD_CITY_PLOT_LENS_TOOLTIP">
+            <Text>Highlight the worked and locked hexes of a city plot</Text>
+        </Row>
+        <Row Tag="LOC_HUD_CITY_PLOT_LENS_WORKING">
+            <Text>Worked Plot</Text>
+        </Row>
+        <Row Tag="LOC_HUD_CITY_PLOT_LENS_LOCKED">
+            <Text>Locked Plot</Text>
+        </Row>
+        <Row Tag="LOC_HUD_CITY_PLOT_LENS_CULTURE">
+            <Text>Next Culture Plot Growth</Text>
         </Row>
 
         <!-- Settings Panel strings are in the cqui_text_settings.xml file -->

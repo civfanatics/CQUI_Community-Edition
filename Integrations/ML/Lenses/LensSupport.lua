@@ -448,3 +448,30 @@ function GetLensColorFromSettings(lensName)
 
     return UI.GetColorValue(lensData["Red"], lensData["Green"], lensData["Blue"]);
 end
+
+-- lensEntitiesTable is a table structured like what is seen in ModLens_Builder or CQUI_CitizenManagement - the list of Lens Entities (Colors) for that Particular Lens
+-- modLensModalPanelTable is the table used by modalpanel.lua to construct the Key table for any lens
+-- lens_name is the LENS_NAME value from that lens
+function UpdateLensConfiguredColors(lensEntitiesTable, modLensModalPanelTable, lens_name)
+    -- Called whenever we want to force the Lens Colors to be refreshed
+    -- GetLensColorFromSettings will get the value if stored by GameConfiguration.SetValue,
+    -- otherwise it will load the value from the GameInfo.Colors table that was updated by the MoreLenses SQL file
+    for lensKey, lensConfig in pairs(lensEntitiesTable) do
+        lensColor = GetLensColorFromSettings(lensKey);
+        lensEntitiesTable[lensKey].ConfiguredColor = lensColor;
+        -- Not sure there's a better way to do this and also keep the structure of g_ModLensModalPanel?
+        -- defined only by modellenspanel.lua, so only gets called when in the modellenspanel context
+        if modLensModalPanelTable ~= nil then
+            -- TEMP
+            print("**** modLensModalPanelTable is not nil")
+            lensLegend = modLensModalPanelTable[lens_name].Legend;
+            for idx, entry in ipairs(modLensModalPanelTable[lens_name].Legend) do
+                locVal, colorVal = unpack(entry);
+                if locVal == lensEntitiesTable[lensKey].LocName then
+                    modLensModalPanelTable[lens_name].Legend[idx] = {lensEntitiesTable[lensKey].LocName, lensColor};
+                    break;
+                end
+            end
+        end
+    end
+end

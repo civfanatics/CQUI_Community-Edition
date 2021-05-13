@@ -11,23 +11,6 @@ local m_tabs;
 local m_keyBindingActionsIM = InstanceManager:new("KeyBindingAction", "Root", Controls.KeyBindingsStack);
 local m_lensColorSettingsIM = InstanceManager:new("LensRGBColorCategoryInstance", "LensRGBColorCategoryInstanceRoot", Controls.LensRGBColorCategoryStack);
 -- ===========================================================================
--- Map of Lens names to 
-local m_colorSettingToLocaleStringMap = {
-    COLOR_BUILDER_LENS_PN = "LOC_HUD_BUILDER_LENS_PN",
-    COLOR_BUILDER_LENS_PD = "LOC_HUD_BUILDER_LENS_PD",
-    COLOR_BUILDER_LENS_P1 = "LOC_HUD_BUILDER_LENS_P1",
-    COLOR_BUILDER_LENS_P1N = "LOC_HUD_BUILDER_LENS_P1N",
-    COLOR_BUILDER_LENS_P2 = "LOC_HUD_BUILDER_LENS_P2",
-    COLOR_BUILDER_LENS_P3 = "LOC_HUD_BUILDER_LENS_P3",
-    COLOR_BUILDER_LENS_P4 = "LOC_HUD_BUILDER_LENS_P4",
-    COLOR_BUILDER_LENS_P5 = "LOC_HUD_BUILDER_LENS_P5",
-    COLOR_BUILDER_LENS_P6 = "LOC_HUD_BUILDER_LENS",
-    COLOR_BUILDER_LENS_P7 = "LOC_HUD_BUILDER_LENS_P7",
-    };
-
-function GetLensFriendlyLabel(lensName)
-    return m_colorSettingToLocaleStringMap[lensName];
-end
 
 local suzerain_icon_options = {
     {"LOC_CQUI_SHOW_SUZERAIN_DISABLED",    0},
@@ -371,7 +354,7 @@ function LensRGBColorSliderCallback(sliderCtrl, editBoxCtrl, previewBoxCtrl, con
         previewBoxCtrl:SetColor(UI.GetColorValue(lensData["Red"], lensData["Green"], lensData["Blue"]));
 
         GameConfiguration.SetValue(settingName, lensData);
-        -- Note: Calling the CQUI_SettingsUpdate API here is very slow and ultimately unnecessary
+        -- Note: Calling the CQUI_SettingsUpdate LuaEvent here is not necessary as it will trigger all other subscribers to that event
         --       update the Lens color settings once the CQUI Settings panel is closed
     end
 end
@@ -804,29 +787,34 @@ function Initialize()
     LuaEvents.CQUI_SettingsInitialized(); --Tell other elements that the settings have been initialized and it's safe to try accessing settings now
 end
 
+-- ===========================================================================
 function PopulateLensRGBSettings()
     m_lensColorSettingsIM:ResetInstances();
 
     -- TODO: foreach of the Category types
-    local categoryTypes = {"Builder Lenses"};
-    for _,catType in pairs(categoryTypes) do
+    -- TODO: Loc Values for the Titles
+    local categoryTypes = {
+        { Title = "LOC_HUD_BUILDER_LENS", LensBaseName = "COLOR_BUILDER_LENS" },
+        { Title = "LOC_HUD_CITY_PLOT_LENS", LensBaseName = "COLOR_CITY_PLOT_LENS" },
+        { Title = "LOC_HUD_WONDER_LENS", LensBaseName = "COLOR_WONDER_LENS"}
+    };
+
+    for _,catType in ipairs(categoryTypes) do
         -- catEntry is an entry for the category, containing 1-to-n rows of RGB Sliders
-        local catEntry = m_lensColorSettingsIM:GetInstance();
+        local categoryInstance = m_lensColorSettingsIM:GetInstance();
         -- TODO: LOC strings should be used here for the category types
         -- TODO: Need a map or similar to match the lens category
-        catEntry.CategoryLabelCtrl:SetText(catType);
-        local colorStackIM = InstanceManager:new("LensRGBColorInstance", "LensRGBColorInstanceRoot", catEntry.LensRGBColorInstanceStack);
+        categoryInstance.CategoryLabelCtrl:SetText(Locale.Lookup(catType.Title));
+        local lensColorSettingIM = InstanceManager:new("LensRGBColorInstance", "LensRGBColorInstanceRoot", categoryInstance.LensRGBColorInstanceStack);
         -- MoreLenses updates the GameInfo.Colors table
         for lensColorRow in GameInfo.Colors() do
             -- TODO: For now, just match the Builder lenses
-            if (string.find(lensColorRow["Type"], "COLOR_BUILDER_LENS")) then
+            if (string.find(lensColorRow["Type"], catType.LensBaseName)) then
                 -- TODO: The name format of the LOC string should probably be consistent everywhere... this relies on the Builder naming scheme
                 local rowLabel = Locale.Lookup(string.gsub(lensColorRow["Type"], "COLOR", "LOC_HUD"));
-                print("******* rowLabel:"..tostring(rowLabel))
                 if (rowLabel ~= nil and string.len(rowLabel) > 0) then
-                    print("     **  got here")
-                    local entry = colorStackIM:GetInstance();
-                    PopulateLensRGBColorPickerInstance(entry, lensColorRow["Type"], SliderControlConverter, "");
+                    local lensColorSettingInstance = lensColorSettingIM:GetInstance();
+                    PopulateLensRGBColorPickerInstance(lensColorSettingInstance, lensColorRow["Type"], SliderControlConverter, "");
                 end
             end
         end
@@ -843,7 +831,7 @@ function ToggleSmartbannerCheckboxes()
     Controls.CityViewStack:ReprocessAnchoring();
 end
 
--- -- ===========================================================================
+-- ===========================================================================
 function ToggleSuzerainOptionsCheckboxes()
     local selected = (GameConfiguration.GetValue("CQUI_ShowSuzerainInCityStateBanner") ~= 0);  -- 0 is Do Not Show
     Controls.CityStateSuzerainOptions:SetHide(not selected);

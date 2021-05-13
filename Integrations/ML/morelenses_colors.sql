@@ -81,9 +81,9 @@ VALUES                  (   'COLOR_BONUSNCONNECTED_RES_LENS',   '0',        '1',
 
 -- Wonder Lens
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_NATURAL_WONDER_LENS',        '0',        '1',        '0',        '0.5');
+VALUES                  (   'COLOR_WONDER_LENS_NATURAL',        '0',        '1',        '0',        '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_PLAYER_WONDER_LENS',         '1',        '0',        '1',        '0.5');
+VALUES                  (   'COLOR_WONDER_LENS_PLAYER',         '1',        '0',        '1',        '0.5');
 
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
 VALUES                  (   'COLOR_GHUT_SCOUT_LENS',            '1',        '0',        '1',        '0.5');
@@ -99,9 +99,11 @@ VALUES                  (   'COLOR_FIXABLE_NATURALIST_LENS',    '0.56',     '0.0
 
 -- City Manager Colors
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_CITY_PLOT_WORKING',          '1',        '0.5',      '0',        '0.2');
+VALUES                  (   'COLOR_CITY_PLOT_LENS_WORKING',          '1',        '0.5',      '0',        '0.2');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_CITY_PLOT_LOCKED',           '0',        '1',        '0',        '0.2');
+VALUES                  (   'COLOR_CITY_PLOT_LENS_LOCKED',           '0',        '1',        '0',        '0.2');
+INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
+VALUES                  (   'COLOR_CITY_PLOT_LENS_CULTURE',          '0.89',      '0.431',   '0.862',    '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
 VALUES                  (   'COLOR_AREA_LENS_NEUTRAL',          '0',        '0',        '0',        '0.0');
 

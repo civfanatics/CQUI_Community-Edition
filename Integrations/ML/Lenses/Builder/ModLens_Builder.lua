@@ -52,28 +52,6 @@ local LENS_NAME = "ML_BUILDER"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 
 -- ==== BEGIN CQUI: Integration Modification =================================
-function UpdateLensConfiguredColors()
-    -- Called whenever we want to force the Lens Colors to be refreshed
-    -- GetLensColorFromSettings will get the value if stored by GameConfiguration.SetValue,
-    -- otherwise it will load the value from the GameInfo.Colors table that was updated by the MoreLenses SQL file
-    for lensKey, lensConfig in pairs(g_ModLenses_Builder_Lenses) do
-        lensColor = GetLensColorFromSettings(lensKey);
-        g_ModLenses_Builder_Lenses[lensKey].ConfiguredColor = lensColor;
-        -- Not sure there's a better way to do this and also keep the structure of g_ModLensModalPanel?
-        -- defined only by modellenspanel.lua, so only gets called when in the modellenspanel context
-        if g_ModLensModalPanel ~= nil then
-            lensLegend = g_ModLensModalPanel[LENS_NAME].Legend;
-            for idx, entry in ipairs(g_ModLensModalPanel[LENS_NAME].Legend) do
-                locVal, colorVal = unpack(entry);
-                if locVal == g_ModLenses_Builder_Lenses[lensKey].LocName then
-                    g_ModLensModalPanel[LENS_NAME].Legend[idx] = {g_ModLenses_Builder_Lenses[lensKey].LocName, lensColor};
-                    break;
-                end
-            end
-        end
-    end
-end
-
 -- ===========================================================================
 function CQUI_ModLens_Builder_OnSettingsInitialized()
     -- Should the builder lens auto apply, when a builder is selected.
@@ -82,7 +60,7 @@ function CQUI_ModLens_Builder_OnSettingsInitialized()
     DISABLE_NOTHING_PLOT_HIGHLIGHT = GameConfiguration.GetValue("CQUI_BuilderLensDisableNothingPlot");
     -- Disables the dangerous plots highlted by the builder (barbs/military units at war with)
     DISABLE_DANGEROUS_PLOT_HIGHLIGHT = GameConfiguration.GetValue("CQUI_BuilderLensDisableDangerousPlot");
-    UpdateLensConfiguredColors();
+    UpdateLensConfiguredColors(g_ModLenses_Builder_Lenses, g_ModLensModalPanel, LENS_NAME);
 end
 
 -- ===========================================================================
@@ -266,7 +244,7 @@ local function OnInitialize()
     -- CQUI Settings Updates occur below, depending on the file that Included this one
 end
 
-function CQUI_SettingsPanelClosed()
+local function CQUI_SettingsPanelClosed()
     if UILens.IsLayerOn(ML_LENS_LAYER) then
         -- Hide and show the builder lens to update the coloring
         ClearBuilderLens();

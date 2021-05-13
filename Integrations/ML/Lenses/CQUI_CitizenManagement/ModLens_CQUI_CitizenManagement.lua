@@ -1,8 +1,14 @@
+include("LensSupport");
 local LENS_NAME = "CQUI_CITIZEN_MANAGEMENT"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 
 local m_cityID :number = -1;
 
+local m_ModLenses_CityView_Lenses = {
+    ["COLOR_CITY_PLOT_WORKING"] =  { Index = 0x01, ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_WORKING"),  ConfigRules = {}, LocName = "LOC_HUD_CITY_PLOT_WORKING" },
+    ["COLOR_CITY_PLOT_LOCKED"]  =  { Index = 0x02, ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_LOCKED"),   ConfigRules = {}, LocName = "LOC_HUD_CITY_PLOT_LOCKED" },
+    ["COLOR_CITY_PLOT_CULTURE"] =  { Index = 0x10, ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_CULTURE"),  ConfigRules = {}, LocName = "LOC_HUD_CITY_PLOT_CULTURE" }
+}
 -- ===========================================================================
 -- Exported functions
 -- ===========================================================================
@@ -19,8 +25,8 @@ function OnGetColorPlotTable()
         local cityPlotID = Map.GetPlot(pCity:GetX(), pCity:GetY()):GetIndex();
         tParameters[CityCommandTypes.PARAM_MANAGE_CITIZEN] = UI.GetInterfaceModeParameter(CityCommandTypes.PARAM_MANAGE_CITIZEN);
 
-        local workingColor:number = UI.GetColorValue("COLOR_CITY_PLOT_WORKING");
-        local lockedColor:number = UI.GetColorValue("COLOR_CITY_PLOT_LOCKED");
+        local workingColor:number = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_WORKING");
+        local lockedColor:number = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_LOCKED");
         colorPlot[workingColor] = {};
         colorPlot[lockedColor] = {};
 
@@ -48,7 +54,7 @@ function OnGetColorPlotTable()
         -- Next culture expansion plot, show it only if not in city panel
         if UI.GetHeadSelectedCity() == nil then
             local pCityCulture:table    = pCity:GetCulture();
-            local culturePlotColor:number = UI.GetColorValue(0.890, 0.431, 0.862);
+            local culturePlotColor:number = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_CULTURE");
             if pCityCulture ~= nil then
                 local pNextPlotID:number = pCityCulture:GetNextPlot();
                 if pNextPlotID ~= nil and Map.IsPlot(pNextPlotID) then
@@ -83,11 +89,24 @@ function RefreshCitizenManagementLens(cityID:number)
     ShowCitizenManagementLens(cityID);
 end
 
+-- ===========================================================================
+function CQUI_ModLens_CQUI_CitizenManagement_OnSettingsInitialized()
+    UpdateLensConfiguredColors(m_ModLenses_CityView_Lenses, nil, nil);
+end
+
+-- ===========================================================================
+function CQUI_ModLens_CQUI_CitizenManagement_OnSettingsUpdate()
+    CQUI_ModLens_CQUI_CitizenManagement_OnSettingsInitialized();
+end
+
 local function OnInitialize()
     -- CQUI Handlers
     LuaEvents.CQUI_ShowCitizenManagement.Add( ShowCitizenManagementLens );
     LuaEvents.CQUI_RefreshCitizenManagement.Add( RefreshCitizenManagementLens );
     LuaEvents.CQUI_ClearCitizenManagement.Add( ClearCitizenManagementLens );
+
+    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_ModLens_CQUI_CitizenManagement_OnSettingsUpdate);
+    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_ModLens_CQUI_CitizenManagement_OnSettingsInitialized);
 end
 
 local CitizenManagementEntry = {
