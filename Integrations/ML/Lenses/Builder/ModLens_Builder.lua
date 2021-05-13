@@ -263,9 +263,7 @@ local function OnInitialize()
     Events.UnitCaptured.Add( OnUnitCaptured );
     Events.UnitChargesChanged.Add( OnUnitChargesChanged );
     Events.UnitRemovedFromMap.Add( OnUnitRemovedFromMap );
-    -- LuaEvents.CQUI_SettingsUpdate.Add(CQUI_ModLens_Builder_OnSettingsUpdate);
-    -- LuaEvents.CQUI_SettingsInitialized.Add(CQUI_ModLens_Builder_OnSettingsInitialized);
-    -- LuaEvents.CQUI_SettingsPanelClosed.Add(CQUI_SettingsPanelClosed);
+    -- CQUI Settings Updates occur below, depending on the file that Included this one
 end
 
 function CQUI_SettingsPanelClosed()
@@ -311,5 +309,4 @@ if g_ModLensModalPanel ~= nil then
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_ModLens_Builder_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_ModLens_Builder_OnSettingsInitialized);
     LuaEvents.CQUI_SettingsPanelClosed.Add(CQUI_SettingsPanelClosed);
-
 end

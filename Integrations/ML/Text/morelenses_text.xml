@@ -60,6 +60,7 @@
         <Row Tag="LOC_HUD_BUILDER_LENS_P5">
             <Text>Feature Extraction</Text>
         </Row>
+        <!-- Nothing to add here atm -->
         <Row Tag="LOC_HUD_BUILDER_LENS_P6">
             <Text></Text>
         </Row>

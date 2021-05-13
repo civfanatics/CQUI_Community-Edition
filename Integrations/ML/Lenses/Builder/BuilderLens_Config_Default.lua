@@ -217,7 +217,7 @@ table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P3"].ConfigRules,
                 local farmImprovInfo = GameInfo.Improvements["IMPROVEMENT_FARM"]
                 local spitResult = Split(featureInfo.FeatureType, "_")
                 if #spitResult > 1 and spitResult[2] == "FLOODPLAINS" and playerCanHave(pPlayer, farmImprovInfo) then
-                    return g_ColorBuilderLens_P3
+                    return g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P3"].ConfiguredColor
                 end
             ]]
 
