@@ -6,7 +6,7 @@ local AUTO_APPLY_ARCHEOLOGIST_LENS:boolean = false
 
 -- ==== BEGIN CQUI: Integration Modification =================================
 local function CQUI_OnSettingsUpdate()
-        AUTO_APPLY_ARCHEOLOGIST_LENS = GameConfiguration.GetValue("CQUI_AutoapplyArchaeologistLens");
+    AUTO_APPLY_ARCHEOLOGIST_LENS = GameConfiguration.GetValue("CQUI_AutoapplyArchaeologistLens");
 end
 -- ==== END CQUI: Integration Modification ===================================
 -- ===========================================================================
@@ -39,8 +39,8 @@ local function OnGetColorPlotTable()
     local pPlayer:table = Players[localPlayer]
     local localPlayerVis:table = PlayersVisibility[localPlayer]
 
-    local AntiquityColor = UI.GetColorValue("COLOR_ARTIFACT_ARCH_LENS")
-    local ShipwreckColor = UI.GetColorValue("COLOR_SHIPWRECK_ARCH_LENS")
+    local AntiquityColor = UI.GetColorValue("COLOR_ARCHAEOLOGIST_LENS_ARTIFACT")
+    local ShipwreckColor = UI.GetColorValue("COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK")
     local IgnoreColor = UI.GetColorValue("COLOR_MORELENSES_GREY")
     local colorPlot = {}
     colorPlot[AntiquityColor] = {}
@@ -150,7 +150,7 @@ if g_ModLensModalPanel ~= nil then
     g_ModLensModalPanel[LENS_NAME] = {}
     g_ModLensModalPanel[LENS_NAME].LensTextKey = "LOC_HUD_ARCHAEOLOGIST_LENS"
     g_ModLensModalPanel[LENS_NAME].Legend = {
-        {"LOC_TOOLTIP_ARCHAEOLOGIST_LENS_ARTIFACT",     UI.GetColorValue("COLOR_ARTIFACT_ARCH_LENS")},
-        {"LOC_TOOLTIP_ARCHAEOLOGIST_LENS_SHIPWRECK",    UI.GetColorValue("COLOR_SHIPWRECK_ARCH_LENS")}
+        {"LOC_HUD_ARCHAEOLOGIST_LENS_ARTIFACT",     UI.GetColorValue("COLOR_ARCHAEOLOGIST_LENS_ARTIFACT")},
+        {"LOC_HUD_ARCHAEOLOGIST_LENS_SHIPWRECK",    UI.GetColorValue("COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK")}
     }
 end

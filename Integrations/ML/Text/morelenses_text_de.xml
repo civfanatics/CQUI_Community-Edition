@@ -75,10 +75,10 @@
     <Replace Tag="LOC_HUD_ARCHAEOLOGIST_LENS_TOOLTIP" Language="de_DE">
       <Text>Zeigt Ausgrabungsstätten auf der Karte.</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_ARCHAEOLOGIST_LENS_ARTIFACT" Language="de_DE">
+    <Replace Tag="LOC_HUD_ARCHAEOLOGIST_LENS_ARTIFACT" Language="de_DE">
       <Text>Artefakt</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_ARCHAEOLOGIST_LENS_SHIPWRECK" Language="de_DE">
+    <Replace Tag="LOC_HUD_ARCHAEOLOGIST_LENS_SHIPWRECK" Language="de_DE">
       <Text>Schiffswrack</Text>
     </Replace>
 
@@ -112,7 +112,7 @@
     <Replace Tag="LOC_HUD_BARBARIAN_LENS_TOOLTIP" Language="de_DE">
       <Text>Zeigt Barbaren-Lager auf der Karte.</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_BARBARIAN_LENS_ENCAPMENT" Language="de_DE">
+    <Replace Tag="LOC_HUD_BARBARIAN_LENS_ENCAMPMENT" Language="de_DE">
       <Text>Barbaren-Lager</Text>
     </Replace>
 
@@ -123,22 +123,22 @@
     <Replace Tag="LOC_HUD_RESOURCE_LENS_TOOLTIP" Language="de_DE">
       <Text>Zeigt Ressourcenfelder.</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_LUXURY" Language="de_DE">
+    <Replace Tag="LOC_HUD_RESOURCE_LENS_LUXCONNECTED" Language="de_DE">
       <Text>Luxusressource</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_NLUXURY" Language="de_DE">
+    <Replace Tag="LOC_HUD_RESOURCE_LENS_LUXNCONNECTED" Language="de_DE">
       <Text>Unerschlossene Luxusressource</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_STRATEGIC" Language="de_DE">
+    <Replace Tag="LOC_HUD_RESOURCE_LENS_STRATCONNECTED" Language="de_DE">
       <Text>Strateg. Ressource</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_NSTRATEGIC" Language="de_DE">
+    <Replace Tag="LOC_HUD_RESOURCE_LENS_STRATNCONNECTED" Language="de_DE">
       <Text>Unerschlossene strateg. Ressource</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_BONUS" Language="de_DE">
+    <Replace Tag="LOC_HUD_RESOURCE_LENS_BONUSCONNECTED" Language="de_DE">
       <Text>Bonusressource</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_NBONUS" Language="de_DE">
+    <Replace Tag="LOC_HUD_RESOURCE_LENS_BONUSNCONNECTED" Language="de_DE">
       <Text>Unerschlossene Bonusressource</Text>
     </Replace>
 
@@ -149,10 +149,10 @@
     <Replace Tag="LOC_HUD_WONDER_LENS_TOOLTIP" Language="de_DE">
       <Text>Zeigt Naturwunder und errichtete Wunder auf der Karte.</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_WONDER_LENS_NWONDER" Language="de_DE">
+    <Replace Tag="LOC_HUD_WONDER_LENS_NATURAL" Language="de_DE">
       <Text>Naturwunder</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_PWONDER" Language="de_DE">
+    <Replace Tag="LOC_HUD_WONDER_LENS_PLAYER" Language="de_DE">
       <Text>Errichtete Wunder</Text>
     </Replace>
 
@@ -171,7 +171,7 @@
     <Replace Tag="LOC_HUD_SCOUT_LENS_TOOLTIP" Language="de_DE">
       <Text>Zeigt Stammesdörfer auf der Karte.</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_SCOUT_LENS_GHUT" Language="de_DE">
+    <Replace Tag="LOC_HUD_SCOUT_LENS_GHUT" Language="de_DE">
       <Text>Stammesdorf</Text>
     </Replace>
 
@@ -182,13 +182,13 @@
     <Replace Tag="LOC_HUD_NATURALIST_LENS_TOOLTIP" Language="de_DE">
       <Text>Zeigt geeignete Plätze zum Bau von Nationalparks</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_NATURALIST_LENS_NPARK" Language="de_DE">
+    <Replace Tag="LOC_HUD_NATURALIST_LENS_PARK" Language="de_DE">
       <Text>Gebiet bereit für einen Nationalpark</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_NATURALIST_LENS_OK" Language="de_DE">
+    <Replace Tag="LOC_HUD_NATURALIST_LENS_OK" Language="de_DE">
       <Text>Umliegende Felder müssen verbessert werden</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_NATURALIST_LENS_FIXABLE" Language="de_DE">
+    <Replace Tag="LOC_HUD_NATURALIST_LENS_FIXABLE" Language="de_DE">
       <Text>Feld kann verbessert werden</Text>
     </Replace>
 

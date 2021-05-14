@@ -22,7 +22,7 @@ local function OnGetColorPlotTable()
     local localPlayer   :number = Game.GetLocalPlayer()
     local localPlayerVis:table = PlayersVisibility[localPlayer]
 
-    local BarbarianColor = UI.GetColorValue("COLOR_BARBARIAN_BARB_LENS")
+    local BarbarianColor = UI.GetColorValue("COLOR_BARBARIAN_LENS")
     local IgnoreColor = UI.GetColorValue("COLOR_MORELENSES_GREY")
     local colorPlot:table = {}
     colorPlot[BarbarianColor] = {}
@@ -77,6 +77,6 @@ if g_ModLensModalPanel ~= nil then
     g_ModLensModalPanel[LENS_NAME] = {}
     g_ModLensModalPanel[LENS_NAME].LensTextKey = "LOC_HUD_BARBARIAN_LENS"
     g_ModLensModalPanel[LENS_NAME].Legend = {
-        {"LOC_TOOLTIP_BARBARIAN_LENS_ENCAPMENT", UI.GetColorValue("COLOR_BARBARIAN_BARB_LENS")}
+        {"LOC_HUD_BARBARIAN_LENS_ENCAMPMENT", UI.GetColorValue("COLOR_BARBARIAN_LENS")}
     }
 end

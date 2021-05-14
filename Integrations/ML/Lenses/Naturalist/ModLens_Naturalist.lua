@@ -36,9 +36,9 @@ local function OnGetColorPlotTable()
     local localPlayer:number = Game.GetLocalPlayer()
     local localPlayerVis:table = PlayersVisibility[localPlayer]
 
-    local parkPlotColor:number = UI.GetColorValue("COLOR_PARK_NATURALIST_LENS")
-    local OkColor:number = UI.GetColorValue("COLOR_OK_NATURALIST_LENS")
-    local FixableColor:number = UI.GetColorValue("COLOR_FIXABLE_NATURALIST_LENS")
+    local parkPlotColor:number = UI.GetColorValue("COLOR_NATURALIST_LENS_PARK")
+    local OkColor:number = UI.GetColorValue("COLOR_NATURALIST_LENS_OK")
+    local FixableColor:number = UI.GetColorValue("COLOR_NATURALIST_LENS_FIXABLE")
 
     local colorPlot = {}
     colorPlot[OkColor] = {}
@@ -216,8 +216,8 @@ if g_ModLensModalPanel ~= nil then
     g_ModLensModalPanel[LENS_NAME] = {}
     g_ModLensModalPanel[LENS_NAME].LensTextKey = "LOC_HUD_NATURALIST_LENS"
     g_ModLensModalPanel[LENS_NAME].Legend = {
-        {"LOC_TOOLTIP_NATURALIST_LENS_NPARK", UI.GetColorValue("COLOR_PARK_NATURALIST_LENS")},
-        {"LOC_TOOLTIP_NATURALIST_LENS_OK", UI.GetColorValue("COLOR_OK_NATURALIST_LENS")},
-        {"LOC_TOOLTIP_NATURALIST_LENS_FIXABLE", UI.GetColorValue("COLOR_FIXABLE_NATURALIST_LENS")}
+        {"LOC_HUD_NATURALIST_LENS_PARK", UI.GetColorValue("COLOR_NATURALIST_LENS_PARK")},
+        {"LOC_HUD_NATURALIST_LENS_OK", UI.GetColorValue("COLOR_NATURALIST_LENS_OK")},
+        {"LOC_HUD_NATURALIST_LENS_FIXABLE", UI.GetColorValue("COLOR_NATURALIST_LENS_FIXABLE")}
     }
 end

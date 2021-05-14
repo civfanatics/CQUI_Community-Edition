@@ -5,9 +5,9 @@ local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 local m_cityID :number = -1;
 
 local m_ModLenses_CityView_Lenses = {
-    ["COLOR_CITY_PLOT_WORKING"] =  { Index = 0x01, ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_WORKING"),  ConfigRules = {}, LocName = "LOC_HUD_CITY_PLOT_WORKING" },
-    ["COLOR_CITY_PLOT_LOCKED"]  =  { Index = 0x02, ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_LOCKED"),   ConfigRules = {}, LocName = "LOC_HUD_CITY_PLOT_LOCKED" },
-    ["COLOR_CITY_PLOT_CULTURE"] =  { Index = 0x10, ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_CULTURE"),  ConfigRules = {}, LocName = "LOC_HUD_CITY_PLOT_CULTURE" }
+    ["COLOR_CITY_PLOT_LENS_WORKING"] =  { Index = 0x01, ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_WORKING"),  ConfigRules = {}, LocName = "LOC_HUD_CITY_PLOT_LENS_WORKING" },
+    ["COLOR_CITY_PLOT_LENS_LOCKED"]  =  { Index = 0x02, ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_LOCKED"),   ConfigRules = {}, LocName = "LOC_HUD_CITY_PLOT_LENS_LOCKED" },
+    ["COLOR_CITY_PLOT_LENS_CULTURE"] =  { Index = 0x10, ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_CULTURE"),  ConfigRules = {}, LocName = "LOC_HUD_CITY_PLOT_LENS_CULTURE" }
 }
 -- ===========================================================================
 -- Exported functions
@@ -25,8 +25,8 @@ function OnGetColorPlotTable()
         local cityPlotID = Map.GetPlot(pCity:GetX(), pCity:GetY()):GetIndex();
         tParameters[CityCommandTypes.PARAM_MANAGE_CITIZEN] = UI.GetInterfaceModeParameter(CityCommandTypes.PARAM_MANAGE_CITIZEN);
 
-        local workingColor:number = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_WORKING");
-        local lockedColor:number = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_LOCKED");
+        local workingColor:number = m_ModLenses_CityView_Lenses["COLOR_CITY_PLOT_LENS_WORKING"].ConfiguredColor;
+        local lockedColor:number = m_ModLenses_CityView_Lenses["COLOR_CITY_PLOT_LENS_LOCKED"].ConfiguredColor;
         colorPlot[workingColor] = {};
         colorPlot[lockedColor] = {};
 
@@ -54,7 +54,7 @@ function OnGetColorPlotTable()
         -- Next culture expansion plot, show it only if not in city panel
         if UI.GetHeadSelectedCity() == nil then
             local pCityCulture:table    = pCity:GetCulture();
-            local culturePlotColor:number = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_CULTURE");
+            local culturePlotColor:number = m_ModLenses_CityView_Lenses["COLOR_CITY_PLOT_LENS_CULTURE"].ConfiguredColor;
             if pCityCulture ~= nil then
                 local pNextPlotID:number = pCityCulture:GetNextPlot();
                 if pNextPlotID ~= nil and Map.IsPlot(pNextPlotID) then

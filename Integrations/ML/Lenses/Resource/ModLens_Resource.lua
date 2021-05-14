@@ -387,12 +387,12 @@ function SetResourceLens()
     local pPlayer:table = Players[localPlayer]
     local localPlayerVis:table = PlayersVisibility[localPlayer]
 
-    local LuxConnectedColor   :number = UI.GetColorValue("COLOR_LUXCONNECTED_RES_LENS")
-    local StratConnectedColor :number = UI.GetColorValue("COLOR_STRATCONNECTED_RES_LENS")
-    local BonusConnectedColor :number = UI.GetColorValue("COLOR_BONUSCONNECTED_RES_LENS")
-    local LuxNConnectedColor  :number = UI.GetColorValue("COLOR_LUXNCONNECTED_RES_LENS")
-    local StratNConnectedColor  :number = UI.GetColorValue("COLOR_STRATNCONNECTED_RES_LENS")
-    local BonusNConnectedColor  :number = UI.GetColorValue("COLOR_BONUSNCONNECTED_RES_LENS")
+    local LuxConnectedColor   :number = UI.GetColorValue("COLOR_RESOURCE_LENS_LUXCONNECTED")
+    local StratConnectedColor :number = UI.GetColorValue("COLOR_RESOURCE_LENS_STRATCONNECTED")
+    local BonusConnectedColor :number = UI.GetColorValue("COLOR_RESOURCE_LENS_BONUSCONNECTED")
+    local LuxNConnectedColor  :number = UI.GetColorValue("COLOR_RESOURCE_LENS_LUXNCONNECTED")
+    local StratNConnectedColor:number = UI.GetColorValue("COLOR_RESOURCE_LENS_STRATNCONNECTED")
+    local BonusNConnectedColor:number = UI.GetColorValue("COLOR_RESOURCE_LENS_BONUSNCONNECTED")
     local IgnoreColor         :number = UI.GetColorValue("COLOR_MORELENSES_GREY")
 
     local ConnectedLuxury       = {}
@@ -826,12 +826,12 @@ local ResourceLensEntry = {
 local ResourceLensModalPanelEntry = {}
 ResourceLensModalPanelEntry.LensTextKey = "LOC_HUD_RESOURCE_LENS"
 ResourceLensModalPanelEntry.Legend = {
-    {"LOC_TOOLTIP_RESOURCE_LENS_LUXURY",        UI.GetColorValue("COLOR_LUXCONNECTED_RES_LENS")},
-    {"LOC_TOOLTIP_RESOURCE_LENS_NLUXURY",       UI.GetColorValue("COLOR_LUXNCONNECTED_RES_LENS")},
-    {"LOC_TOOLTIP_RESOURCE_LENS_BONUS",         UI.GetColorValue("COLOR_BONUSCONNECTED_RES_LENS")},
-    {"LOC_TOOLTIP_RESOURCE_LENS_NBONUS",        UI.GetColorValue("COLOR_BONUSNCONNECTED_RES_LENS")},
-    {"LOC_TOOLTIP_RESOURCE_LENS_STRATEGIC",     UI.GetColorValue("COLOR_STRATCONNECTED_RES_LENS")},
-    {"LOC_TOOLTIP_RESOURCE_LENS_NSTRATEGIC",    UI.GetColorValue("COLOR_STRATNCONNECTED_RES_LENS")}
+    {"LOC_HUD_RESOURCE_LENS_LUXCONNECTED",    UI.GetColorValue("COLOR_RESOURCE_LENS_LUXCONNECTED")},
+    {"LOC_HUD_RESOURCE_LENS_LUXNCONNECTED",   UI.GetColorValue("COLOR_RESOURCE_LENS_LUXNCONNECTED")},
+    {"LOC_HUD_RESOURCE_LENS_BONUSCONNECTED",  UI.GetColorValue("COLOR_RESOURCE_LENS_BONUSCONNECTED")},
+    {"LOC_HUD_RESOURCE_LENS_BONUSNCONNECTED", UI.GetColorValue("COLOR_RESOURCE_LENS_BONUSNCONNECTED")},
+    {"LOC_HUD_RESOURCE_LENS_STRATCONNECTED",  UI.GetColorValue("COLOR_RESOURCE_LENS_STRATCONNECTED")},
+    {"LOC_HUD_RESOURCE_LENS_STRATNCONNECTED", UI.GetColorValue("COLOR_RESOURCE_LENS_STRATNCONNECTED")}
 }
 
 -- Don't import this into g_ModLenses, since this for the UI (ie not lens)

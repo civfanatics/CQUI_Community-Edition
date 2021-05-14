@@ -36,7 +36,7 @@ local function OnGetColorPlotTable()
     local localPlayer   :number = Game.GetLocalPlayer()
     local localPlayerVis:table = PlayersVisibility[localPlayer]
 
-    local GoodyHutColor   :number = UI.GetColorValue("COLOR_GHUT_SCOUT_LENS")
+    local GoodyHutColor   :number = UI.GetColorValue("COLOR_SCOUT_LENS_GHUT")
     local colorPlot = {}
     colorPlot[GoodyHutColor] = {}
 
@@ -170,6 +170,6 @@ if g_ModLensModalPanel ~= nil then
     g_ModLensModalPanel[LENS_NAME] = {}
     g_ModLensModalPanel[LENS_NAME].LensTextKey = "LOC_HUD_SCOUT_LENS"
     g_ModLensModalPanel[LENS_NAME].Legend = {
-        {"LOC_TOOLTIP_SCOUT_LENS_GHUT", UI.GetColorValue("COLOR_GHUT_SCOUT_LENS")}
+        {"LOC_HUD_SCOUT_LENS_GHUT", UI.GetColorValue("COLOR_SCOUT_LENS_GHUT")}
     }
 end

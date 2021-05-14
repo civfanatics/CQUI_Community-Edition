@@ -20,8 +20,8 @@ local function OnGetColorPlotTable()
     local localPlayer   :number = Game.GetLocalPlayer()
     local localPlayerVis:table = PlayersVisibility[localPlayer]
 
-    local NaturalWonderColor  :number = GetLensColorFromSettings("COLOR_WONDER_LENS_NATURAL")
-    local PlayerWonderColor   :number = GetLensColorFromSettings("COLOR_WONDER_LENS_PLAYER")
+    local NaturalWonderColor  :number = m_ModLenses_Wonder_Lenses["COLOR_WONDER_LENS_NATURAL"].ConfiguredColor
+    local PlayerWonderColor   :number = m_ModLenses_Wonder_Lenses["COLOR_WONDER_LENS_PLAYER"].ConfiguredColor
     local IgnoreColor = UI.GetColorValue("COLOR_MORELENSES_GREY")
     local colorPlot:table = {}
     colorPlot[NaturalWonderColor] = {}

@@ -277,7 +277,8 @@ function PopulateLensRGBColorPickerInstance(pickerInstance, setting_name, data_c
     --This is necessary because RegisterSliderCallback fires twice when releasing the mouse cursor for some reason
     local hasScrolled = false;
     local lensColorData = GameConfiguration.GetValue(setting_name);
-    if (lensColorData == nil) then
+    if (lensColorData == nil or lensColorData["Red"] == nil) then
+        -- if one of the fields (like Red) is nil, then the entire data structure may be corrupt, so get the default one
         -- MoreLenses added values to the existing Colors table
         if (GameInfo.Colors[setting_name]) then
             lensColorData = GameInfo.Colors[setting_name];
