@@ -1,5 +1,5 @@
 include("LensSupport")
-print("LOADFILE: ModLens_Builder")
+-- Note: Include for BuilderLens_Config and BuilderLens_Support occurs below, as supporting calls need to be added first
 -- ==== BEGIN CQUI: Integration Modification =================================
 -- CQUI: Allow Customized Color Scheme for Plots
 -- Builder Lens Colors can be configured from the Settings menu
@@ -32,28 +32,42 @@ local AUTO_APPLY_BUILDER_LENS:boolean = true;
 local DISABLE_DANGEROUS_PLOT_HIGHLIGHT:boolean = false;
 local IGNORE_PLOT_COLOR:number = -2
 
---------------------------------------
+-- ==== Functions called by the "include" Files
+-- ===========================================================================
 function GetColorForNothingPlot()
     if DISABLE_NOTHING_PLOT_HIGHLIGHT then
-        return IGNORE_PLOT_COLOR
+        return IGNORE_PLOT_COLOR;
     else
-        return g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_PN"].ConfiguredColor
+        return g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_PN"].ConfiguredColor;
     end
 end
 
+-- ===========================================================================
 function GetIgnorePlotColor()
-    return IGNORE_PLOT_COLOR
+    return IGNORE_PLOT_COLOR;
 end
 
+-- ===========================================================================
+function GetConfigRules(lensName)
+    return g_ModLenses_Builder_Lenses[lensName].ConfigRules;
+end
+
+-- ===========================================================================
+function GetConfiguredColor(lensName)
+    return g_ModLenses_Builder_Lenses[lensName].ConfiguredColor;
+end
+
+-- ===========================================================================
 -- Import config files for builder lens
 include("BuilderLens_Config_", true)
+-- ===========================================================================
 
 local LENS_NAME = "ML_BUILDER"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 
 -- ==== BEGIN CQUI: Integration Modification =================================
 -- ===========================================================================
-function CQUI_ModLens_Builder_OnSettingsInitialized()
+local function CQUI_OnSettingsInitialized()
     -- Should the builder lens auto apply, when a builder is selected.
     AUTO_APPLY_BUILDER_LENS = GameConfiguration.GetValue("CQUI_AutoapplyBuilderLens");
     -- Disables the nothing color being highlted by the builder
@@ -64,8 +78,8 @@ function CQUI_ModLens_Builder_OnSettingsInitialized()
 end
 
 -- ===========================================================================
-function CQUI_ModLens_Builder_OnSettingsUpdate()
-    CQUI_ModLens_Builder_OnSettingsInitialized();
+local function CQUI_OnSettingsUpdate()
+    CQUI_OnSettingsInitialized();
 end
 -- ==== END CQUI: Integration Modification ===================================
 
@@ -236,14 +250,6 @@ local function OnUnitRemovedFromMap( playerID: number, unitID : number )
     end
 end
 
-local function OnInitialize()
-    Events.UnitSelectionChanged.Add( OnUnitSelectionChanged );
-    Events.UnitCaptured.Add( OnUnitCaptured );
-    Events.UnitChargesChanged.Add( OnUnitChargesChanged );
-    Events.UnitRemovedFromMap.Add( OnUnitRemovedFromMap );
-    -- CQUI Settings Updates occur below, depending on the file that Included this one
-end
-
 local function CQUI_SettingsPanelClosed()
     if UILens.IsLayerOn(ML_LENS_LAYER) then
         -- Hide and show the builder lens to update the coloring
@@ -251,6 +257,17 @@ local function CQUI_SettingsPanelClosed()
         ShowBuilderLens();
     end
 end
+
+local function OnInitialize()
+    Events.UnitSelectionChanged.Add( OnUnitSelectionChanged );
+    Events.UnitCaptured.Add( OnUnitCaptured );
+    Events.UnitChargesChanged.Add( OnUnitChargesChanged );
+    Events.UnitRemovedFromMap.Add( OnUnitRemovedFromMap );
+    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);
+    LuaEvents.CQUI_SettingsPanelClosed.Add(CQUI_SettingsPanelClosed);
+end
+
 
 local BuilderLensEntry = {
     LensButtonText = "LOC_HUD_BUILDER_LENS",
@@ -264,9 +281,6 @@ if g_ModLenses ~= nil then
     g_ModLenses[LENS_NAME] = BuilderLensEntry
     -- We only get into this code path via the Include call in minimappanel.lua
     -- Add the settings callback hooks for that minimappanel context
-    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_ModLens_Builder_OnSettingsUpdate);
-    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_ModLens_Builder_OnSettingsInitialized);
-    LuaEvents.CQUI_SettingsPanelClosed.Add(CQUI_SettingsPanelClosed);
 end
 
 -- modallenspanel.lua
@@ -281,10 +295,4 @@ if g_ModLensModalPanel ~= nil then
             table.insert(g_ModLensModalPanel[LENS_NAME].Legend, {lensData.LocName, lensData.ConfiguredColor});
         end
     end
-
-    -- We only get into this code path via the Include call in modallenspanel.lua
-    -- Add the settings callback hooks for that modallenspanel context
-    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_ModLens_Builder_OnSettingsUpdate);
-    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_ModLens_Builder_OnSettingsInitialized);
-    LuaEvents.CQUI_SettingsPanelClosed.Add(CQUI_SettingsPanelClosed);
 end

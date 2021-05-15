@@ -793,25 +793,26 @@ function PopulateLensRGBSettings()
     m_lensColorSettingsIM:ResetInstances();
 
     -- TODO: foreach of the Category types
-    -- TODO: Loc Values for the Titles
     local categoryTypes = {
-        { Title = "LOC_HUD_BUILDER_LENS", LensBaseName = "COLOR_BUILDER_LENS" },
-        { Title = "LOC_HUD_CITY_PLOT_LENS", LensBaseName = "COLOR_CITY_PLOT_LENS" },
-        { Title = "LOC_HUD_WONDER_LENS", LensBaseName = "COLOR_WONDER_LENS"}
+        { Title = "LOC_HUD_ARCHAEOLOGIST_LENS", LensBaseName = "COLOR_ARCHAEOLOGIST_LENS"},
+        { Title = "LOC_HUD_BARBARIAN_LENS",     LensBaseName = "COLOR_BARBARIAN_LENS"},
+        { Title = "LOC_HUD_BUILDER_LENS",       LensBaseName = "COLOR_BUILDER_LENS" },
+        { Title = "LOC_HUD_CITY_PLOT_LENS",     LensBaseName = "COLOR_CITY_PLOT_LENS" },
+        { Title = "LOC_HUD_NATURALIST_LENS",    LensBaseName = "COLOR_NATURALIST_LENS"},
+        { Title = "LOC_HUD_RESOURCE_LENS",      LensBaseName = "COLOR_RESOURCE_LENS"},
+        { Title = "LOC_HUD_SCOUT_LENS",         LensBaseName = "COLOR_SCOUT_LENS"},
+        { Title = "LOC_HUD_WONDER_LENS",        LensBaseName = "COLOR_WONDER_LENS"}
     };
 
     for _,catType in ipairs(categoryTypes) do
         -- catEntry is an entry for the category, containing 1-to-n rows of RGB Sliders
         local categoryInstance = m_lensColorSettingsIM:GetInstance();
-        -- TODO: LOC strings should be used here for the category types
-        -- TODO: Need a map or similar to match the lens category
         categoryInstance.CategoryLabelCtrl:SetText(Locale.Lookup(catType.Title));
         local lensColorSettingIM = InstanceManager:new("LensRGBColorInstance", "LensRGBColorInstanceRoot", categoryInstance.LensRGBColorInstanceStack);
         -- MoreLenses updates the GameInfo.Colors table
         for lensColorRow in GameInfo.Colors() do
-            -- TODO: For now, just match the Builder lenses
+            -- If LensBaseName is COLOR_FOO, then this matches COLOR_FOO_BAR
             if (string.find(lensColorRow["Type"], catType.LensBaseName)) then
-                -- TODO: The name format of the LOC string should probably be consistent everywhere... this relies on the Builder naming scheme
                 local rowLabel = Locale.Lookup(string.gsub(lensColorRow["Type"], "COLOR", "LOC_HUD"));
                 if (rowLabel ~= nil and string.len(rowLabel) > 0) then
                     local lensColorSettingInstance = lensColorSettingIM:GetInstance();
