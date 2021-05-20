@@ -1,12 +1,32 @@
+include("LensSupport")
 local LENS_NAME = "ML_ARCHAEOLOGIST"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
+
+local m_LensSettings = {
+    ["COLOR_ARCHAEOLOGIST_LENS_ARTIFACT"]  = { ConfiguredColor = GetLensColorFromSettings("COLOR_ARCHAEOLOGIST_LENS_ARTIFACT"), LocName = "LOC_HUD_ARCHAEOLOGIST_LENS_ARTIFACT" },
+    ["COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK"] = { ConfiguredColor = GetLensColorFromSettings("COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK"), LocName = "LOC_HUD_ARCHAEOLOGIST_LENS_SHIPWRECK" }
+}
 
 -- Should the archaeologist lens auto apply, when a archaeologist is selected.
 local AUTO_APPLY_ARCHEOLOGIST_LENS:boolean = false
 
 -- ==== BEGIN CQUI: Integration Modification =================================
-local function CQUI_OnSettingsUpdate()
+local function CQUI_OnSettingsInitialized()
     AUTO_APPLY_ARCHEOLOGIST_LENS = GameConfiguration.GetValue("CQUI_AutoapplyArchaeologistLens");
+    UpdateLensConfiguredColors(m_LensSettings, g_ModLensModalPanel, LENS_NAME);
+end
+
+local function CQUI_OnSettingsUpdate()
+    CQUI_OnSettingsInitialized();
+end
+
+-- TODO: Likely don't need this, verify that
+local function CQUI_SettingsPanelClosed()
+    if UILens.IsLayerOn(ML_LENS_LAYER) then
+        -- Hide and show the builder lens to update the coloring
+        ClearArchaeologistLens();
+        ShowArchaeologistLens();
+    end
 end
 -- ==== END CQUI: Integration Modification ===================================
 -- ===========================================================================
@@ -39,8 +59,8 @@ local function OnGetColorPlotTable()
     local pPlayer:table = Players[localPlayer]
     local localPlayerVis:table = PlayersVisibility[localPlayer]
 
-    local AntiquityColor = UI.GetColorValue("COLOR_ARCHAEOLOGIST_LENS_ARTIFACT")
-    local ShipwreckColor = UI.GetColorValue("COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK")
+    local AntiquityColor = m_LensSettings["COLOR_ARCHAEOLOGIST_LENS_ARTIFACT"].ConfiguredColor
+    local ShipwreckColor = m_LensSettings["COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK"].ConfiguredColor
     local IgnoreColor = UI.GetColorValue("COLOR_MORELENSES_GREY")
     local colorPlot = {}
     colorPlot[AntiquityColor] = {}
@@ -125,12 +145,6 @@ local function OnInitialize()
     Events.UnitSelectionChanged.Add( OnUnitSelectionChanged )
     Events.UnitRemovedFromMap.Add( OnUnitRemovedFromMap )
     Events.UnitCaptured.Add( OnUnitCaptured )
-
--- ==== BEGIN CQUI: Integration Modification =================================
-    -- CQUI Handlers
-    LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
-    Events.LoadScreenClose.Add( CQUI_OnSettingsUpdate ); -- Astog: Update settings when load screen close
--- ==== END CQUI: Integration Modification ===================================
 end
 
 local ArchaeologistLensEntry = {
@@ -150,7 +164,12 @@ if g_ModLensModalPanel ~= nil then
     g_ModLensModalPanel[LENS_NAME] = {}
     g_ModLensModalPanel[LENS_NAME].LensTextKey = "LOC_HUD_ARCHAEOLOGIST_LENS"
     g_ModLensModalPanel[LENS_NAME].Legend = {
-        {"LOC_HUD_ARCHAEOLOGIST_LENS_ARTIFACT",     UI.GetColorValue("COLOR_ARCHAEOLOGIST_LENS_ARTIFACT")},
-        {"LOC_HUD_ARCHAEOLOGIST_LENS_SHIPWRECK",    UI.GetColorValue("COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK")}
+        {m_LensSettings["COLOR_ARCHAEOLOGIST_LENS_ARTIFACT"].LocName, m_LensSettings["COLOR_ARCHAEOLOGIST_LENS_ARTIFACT"].ConfiguredColor},
+        {m_LensSettings["COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK"].LocName, m_LensSettings["COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK"].ConfiguredColor}
     }
 end
+
+-- Add CQUI LuaEvent Hooks for minimappanel and modallenspanel contexts
+LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);
+LuaEvents.CQUI_SettingsPanelClosed.Add(CQUI_SettingsPanelClosed);

@@ -28,18 +28,27 @@ local m_resourceExclusionList:table = {
     "RESOURCE_SHIPWRECK"
 }
 
+local m_LensSettings = {
+    ["COLOR_RESOURCE_LENS_LUXCONNECTED"]    =  { ConfiguredColor = GetLensColorFromSettings("COLOR_RESOURCE_LENS_LUXCONNECTED"),    LocName = "LOC_HUD_RESOURCE_LENS_LUXCONNECTED" },
+    ["COLOR_RESOURCE_LENS_STRATCONNECTED"]  =  { ConfiguredColor = GetLensColorFromSettings("COLOR_RESOURCE_LENS_STRATCONNECTED"),  LocName = "LOC_HUD_RESOURCE_LENS_STRATCONNECTED" },
+    ["COLOR_RESOURCE_LENS_BONUSCONNECTED"]  =  { ConfiguredColor = GetLensColorFromSettings("COLOR_RESOURCE_LENS_BONUSCONNECTED"),  LocName = "LOC_HUD_RESOURCE_LENS_BONUSCONNECTED" },
+    ["COLOR_RESOURCE_LENS_LUXNCONNECTED"]   =  { ConfiguredColor = GetLensColorFromSettings("COLOR_RESOURCE_LENS_LUXNCONNECTED"),   LocName = "LOC_HUD_RESOURCE_LENS_LUXNCONNECTED" },
+    ["COLOR_RESOURCE_LENS_STRATNCONNECTED"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_RESOURCE_LENS_STRATNCONNECTED"), LocName = "LOC_HUD_RESOURCE_LENS_STRATNCONNECTED" },
+    ["COLOR_RESOURCE_LENS_BONUSNCONNECTED"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_RESOURCE_LENS_BONUSNCONNECTED"), LocName = "LOC_HUD_RESOURCE_LENS_BONUSNCONNECTED" }
+}
+
 -- ===========================================================================
 --  Resource Support functions
 -- ===========================================================================
 
 local function ShowResourceLens()
-    print("Showing " .. LENS_NAME)
+    -- print("Showing " .. LENS_NAME)
     LuaEvents.MinimapPanel_SetActiveModLens(LENS_NAME)
     UILens.ToggleLayerOn(ML_LENS_LAYER)
 end
 
 local function ClearResourceLens()
-    print("Clearing " .. LENS_NAME)
+    -- print("Clearing " .. LENS_NAME)
     if UILens.IsLayerOn(ML_LENS_LAYER) then
         UILens.ToggleLayerOff(ML_LENS_LAYER)
     else
@@ -387,12 +396,12 @@ function SetResourceLens()
     local pPlayer:table = Players[localPlayer]
     local localPlayerVis:table = PlayersVisibility[localPlayer]
 
-    local LuxConnectedColor   :number = UI.GetColorValue("COLOR_RESOURCE_LENS_LUXCONNECTED")
-    local StratConnectedColor :number = UI.GetColorValue("COLOR_RESOURCE_LENS_STRATCONNECTED")
-    local BonusConnectedColor :number = UI.GetColorValue("COLOR_RESOURCE_LENS_BONUSCONNECTED")
-    local LuxNConnectedColor  :number = UI.GetColorValue("COLOR_RESOURCE_LENS_LUXNCONNECTED")
-    local StratNConnectedColor:number = UI.GetColorValue("COLOR_RESOURCE_LENS_STRATNCONNECTED")
-    local BonusNConnectedColor:number = UI.GetColorValue("COLOR_RESOURCE_LENS_BONUSNCONNECTED")
+    local LuxConnectedColor   :number = m_LensSettings["COLOR_RESOURCE_LENS_LUXCONNECTED"].ConfiguredColor
+    local StratConnectedColor :number = m_LensSettings["COLOR_RESOURCE_LENS_STRATCONNECTED"].ConfiguredColor
+    local BonusConnectedColor :number = m_LensSettings["COLOR_RESOURCE_LENS_BONUSCONNECTED"].ConfiguredColor
+    local LuxNConnectedColor  :number = m_LensSettings["COLOR_RESOURCE_LENS_LUXNCONNECTED"].ConfiguredColor
+    local StratNConnectedColor:number = m_LensSettings["COLOR_RESOURCE_LENS_STRATNCONNECTED"].ConfiguredColor
+    local BonusNConnectedColor:number = m_LensSettings["COLOR_RESOURCE_LENS_BONUSNCONNECTED"].ConfiguredColor
     local IgnoreColor         :number = UI.GetColorValue("COLOR_MORELENSES_GREY")
 
     local ConnectedLuxury       = {}
@@ -795,6 +804,14 @@ local function ChangeContainer()
     Controls.ResourceLensOptionsPanel:ChangeParent(hudContainer)
 end
 
+local function CQUI_OnSettingsInitialized()
+    UpdateLensConfiguredColors(m_LensSettings, ResourceLensModalPanelEntry, LENS_NAME);
+end
+
+local function CQUI_OnSettingsUpdate()
+    CQUI_OnSettingsInitialized();
+end
+
 local function OnInit(isReload:boolean)
     if isReload then
         ChangeContainer()
@@ -823,16 +840,24 @@ local ResourceLensEntry = {
 }
 
 -- modallenspanel.lua
+-- TODO: The colors in the Modal Panel for the Resources do not light up correctly
+--       There is a wapper that points at this object but it only sets that
+--       update when Events.LoadScreenClose fires
+-- g_ModLensModalPanel[LENS_NAME]
 local ResourceLensModalPanelEntry = {}
 ResourceLensModalPanelEntry.LensTextKey = "LOC_HUD_RESOURCE_LENS"
 ResourceLensModalPanelEntry.Legend = {
-    {"LOC_HUD_RESOURCE_LENS_LUXCONNECTED",    UI.GetColorValue("COLOR_RESOURCE_LENS_LUXCONNECTED")},
-    {"LOC_HUD_RESOURCE_LENS_LUXNCONNECTED",   UI.GetColorValue("COLOR_RESOURCE_LENS_LUXNCONNECTED")},
-    {"LOC_HUD_RESOURCE_LENS_BONUSCONNECTED",  UI.GetColorValue("COLOR_RESOURCE_LENS_BONUSCONNECTED")},
-    {"LOC_HUD_RESOURCE_LENS_BONUSNCONNECTED", UI.GetColorValue("COLOR_RESOURCE_LENS_BONUSNCONNECTED")},
-    {"LOC_HUD_RESOURCE_LENS_STRATCONNECTED",  UI.GetColorValue("COLOR_RESOURCE_LENS_STRATCONNECTED")},
-    {"LOC_HUD_RESOURCE_LENS_STRATNCONNECTED", UI.GetColorValue("COLOR_RESOURCE_LENS_STRATNCONNECTED")}
+    {m_LensSettings["COLOR_RESOURCE_LENS_LUXCONNECTED"].LocName, m_LensSettings["COLOR_RESOURCE_LENS_LUXCONNECTED"].ConfiguredColor},
+    {m_LensSettings["COLOR_RESOURCE_LENS_LUXNCONNECTED"].LocName, m_LensSettings["COLOR_RESOURCE_LENS_LUXNCONNECTED"].ConfiguredColor},
+    {m_LensSettings["COLOR_RESOURCE_LENS_BONUSCONNECTED"].LocName, m_LensSettings["COLOR_RESOURCE_LENS_BONUSCONNECTED"].ConfiguredColor},
+    {m_LensSettings["COLOR_RESOURCE_LENS_BONUSNCONNECTED"].LocName, m_LensSettings["COLOR_RESOURCE_LENS_BONUSNCONNECTED"].ConfiguredColor},
+    {m_LensSettings["COLOR_RESOURCE_LENS_STRATCONNECTED"].LocName, m_LensSettings["COLOR_RESOURCE_LENS_STRATCONNECTED"].ConfiguredColor},
+    {m_LensSettings["COLOR_RESOURCE_LENS_STRATNCONNECTED"].LocName, m_LensSettings["COLOR_RESOURCE_LENS_STRATNCONNECTED"].ConfiguredColor}
 }
+
+-- Add CQUI LuaEvent Hooks for minimappanel and modallenspanel contexts
+LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);
 
 -- Don't import this into g_ModLenses, since this for the UI (ie not lens)
 local function Initialize()

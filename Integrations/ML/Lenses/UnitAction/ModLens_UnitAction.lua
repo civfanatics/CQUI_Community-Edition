@@ -1,8 +1,13 @@
+include("LensSupport")
 local LENS_NAME = "ML_UNITACTION"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 
 -- Should the scout lens auto apply, when a scout/ranger is selected.
 local AUTO_APPLY_SCOUT_LENS:boolean = true
+
+local m_LensSettings = {
+    ["COLOR_SCOUT_LENS_GHUT"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_SCOUT_LENS_GHUT"), LocName = "LOC_HUD_SCOUT_LENS_GHUT" }
+}
 
 -- ===========================================================================
 -- Scout Lens Support
@@ -26,7 +31,7 @@ local function OnGetColorPlotTable()
     local localPlayer   :number = Game.GetLocalPlayer()
     local localPlayerVis:table = PlayersVisibility[localPlayer]
 
-    local GoodyHutColor   :number = UI.GetColorValue("COLOR_SCOUT_LENS_GHUT")
+    local GoodyHutColor   :number = m_LensSettings["COLOR_SCOUT_LENS_GHUT"].ConfiguredColor
     local colorPlot = {}
     colorPlot[GoodyHutColor] = {}
 
@@ -116,6 +121,14 @@ local function OnGoodyHutReward( playerID:number )
     end
 end
 
+local function CQUI_OnSettingsInitialized()
+    UpdateLensConfiguredColors(m_LensSettings, g_ModLensModalPanel, LENS_NAME);
+end
+
+local function CQUI_OnSettingsUpdate()
+    CQUI_OnSettingsInitialized();
+end
+
 local function OnInitialize()
     Events.UnitSelectionChanged.Add( OnUnitSelectionChanged )
     Events.UnitRemovedFromMap.Add( OnUnitRemovedFromMap )
@@ -140,6 +153,10 @@ if g_ModLensModalPanel ~= nil then
     g_ModLensModalPanel[LENS_NAME] = {}
     g_ModLensModalPanel[LENS_NAME].LensTextKey = "LOC_HUD_SCOUT_LENS"
     g_ModLensModalPanel[LENS_NAME].Legend = {
-        {"LOC_HUD_SCOUT_LENS_GHUT", UI.GetColorValue("COLOR_SCOUT_LENS_GHUT")}
+        {m_LensSettings["COLOR_SCOUT_LENS_GHUT"].LocName, m_LensSettings["COLOR_SCOUT_LENS_GHUT"].ConfiguredColor}
     }
 end
+
+-- Add CQUI LuaEvent Hooks for minimappanel and modallenspanel contexts
+LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);

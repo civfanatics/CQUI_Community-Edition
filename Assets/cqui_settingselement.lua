@@ -1,7 +1,8 @@
 -- TODO (2020-05): Custom localizations are temporarily disabled due to reloads breaking them at the moment. Localizations are complete, so remember to enable them once Firaxis fixes this!
-include( "Civ6Common" );
-include( "CQUICommon.lua" );
+include("Civ6Common");
+include("CQUICommon.lua");
 include("InstanceManager");
+-- note: cqui_settingselement_lenscolors.lua is included at the end of this file, so it can make use of some of the functions defined here
 
 -- ============================================================================
 -- VARIABLE DECLARATIONS
@@ -9,7 +10,7 @@ include("InstanceManager");
 --Add new options tabs to this in Initialize function
 local m_tabs;
 local m_keyBindingActionsIM = InstanceManager:new("KeyBindingAction", "Root", Controls.KeyBindingsStack);
-local m_lensColorSettingsIM = InstanceManager:new("LensRGBColorCategoryInstance", "LensRGBColorCategoryInstanceRoot", Controls.LensRGBColorCategoryStack);
+--local m_lensRGBSettingsIM = InstanceManager:new("LensRGBPickerLensGroupInstance", "LensRGBPickerLensGroupInstanceRoot", Controls.LensRGBPickerLensGroupStack);
 -- ===========================================================================
 
 local suzerain_icon_options = {
@@ -53,6 +54,11 @@ local SliderControlConverter = {
             return out;
         end
 };
+
+-- This exists so it can be made available to the lenscolors lua file
+function GetSliderControlConverter()
+    return SliderControlConverter;
+end
 
 -- ============================================================================
 -- FUNCTIONS
@@ -261,174 +267,8 @@ function PopulateSlider(control, label, setting_name, data_converter, tooltip, m
         end
     );
 
-    if (tooltip ~= nil)then
+    if (tooltip ~= nil) then
         control:SetToolTipString(tooltip);
-    end
-end
-
--- ===========================================================================
---Used to populate the Lens RGB Color Pickers
---data_converter is a table containing two functions: ToStep and ToValue, which describe how to handle converting from the incremental slider steps to a setting value, think of it as a less elegant inner class
---Optional third function: ToString. When included, this function will handle how the value is converted to a display value, otherwise this defaults to using the value from ToValue
-function PopulateLensRGBColorPickerInstance(pickerInstance, setting_name, data_converter, tooltip)
-    -- print_debug("ENTRY: CQUICommon - PopulateLensRGBColorPickerInstance");
-    local minvalue = 0;
-    local maxvalue = 255;
-    --This is necessary because RegisterSliderCallback fires twice when releasing the mouse cursor for some reason
-    local hasScrolled = false;
-    local lensColorData = GameConfiguration.GetValue(setting_name);
-    if (lensColorData == nil or lensColorData["Red"] == nil) then
-        -- if one of the fields (like Red) is nil, then the entire data structure may be corrupt, so get the default one
-        -- MoreLenses added values to the existing Colors table
-        if (GameInfo.Colors[setting_name]) then
-            lensColorData = GameInfo.Colors[setting_name];
-        else
-            -- Somehow this value does not exist.  Manually create it.  Note, there are missing fields, but we don't touch them, so...
-            lensColorData = { Type = setting_name, Red = 0, Green = 0, Blue = 0, Alpha = 0.5}
-        end
-
-        GameConfiguration.SetValue(setting_name, lensColorData);
-    end
-
-    -- TODO: When additional Lenses are added, need to make sure the string pattern works with this!
-    pickerInstance.RowLabel:SetText(Locale.Lookup(string.gsub(setting_name, "COLOR", "LOC_HUD")));
-
-    -- Add the instances of the slider controls (with their edit boxes and labels)
-    local sliderInstanceBoxIM = InstanceManager:new("SliderWithLabelAndEditBox", "SliderWithLabelAndEditBoxRoot", pickerInstance.SliderWithLabelAndEditBoxStack);
-    local sliderInstanceArray = {Red = sliderInstanceBoxIM:GetInstance(), Green = sliderInstanceBoxIM:GetInstance(), Blue = sliderInstanceBoxIM:GetInstance()};
-    for color, sliderInstance in pairs(sliderInstanceArray) do
-        sliderInstance.LabelCtrl:SetText(Locale.Lookup("LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_" .. string.upper(color)));
-        PopulateLensRGBColorPickerSliderInstance(sliderInstance.SliderCtrl,   sliderInstance.EditBoxCtrl, pickerInstance.ColorPreviewBox, setting_name, data_converter, lensColorData[color], color);
-        PopulateLensRGBColorPickerEditBoxInstance(sliderInstance.EditBoxCtrl, sliderInstance.SliderCtrl,  pickerInstance.ColorPreviewBox, setting_name, lensColorData[color], color, "LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_EDITBOX_TOOLTIP");
-        sliderInstance.LabelStack:CalculateSize();
-    end
-
-    pickerInstance.SliderWithLabelAndEditBoxStack:CalculateSize();
- 
-    -- Give the color preview box its initial coloring
-    pickerInstance.ColorPreviewBox:SetColor(UI.GetColorValue(lensColorData["Red"], lensColorData["Green"], lensColorData["Blue"]));
-
-    -- Configure the click action for the Default button, which will reset the color preview box as well as the slider control and edit boxes
-    pickerInstance.RestoreDefaultButton:RegisterCallback(Mouse.eLClick, LensRGBColorPickerRestoreDefaultButtonCallback(pickerInstance, sliderInstanceArray, setting_name, data_converter));
-
-    if (tooltip ~= nil and string.len(tooltip) > 0) then
-        pickerInstance.RowLabel:SetToolTipString(tooltip);
-    end
-end
-
--- ===============================================================================================
-function LensRGBColorPickerRestoreDefaultButtonCallback(pickerInstance, sliderInstanceArray, setting_name, data_converter)
-    return function()
-        -- Get the default value from the GameInfo.Colors DB, then set the setting by the same name in GameConfiguration to that value.
-        lensColorData = GameInfo.Colors[setting_name];
-        GameConfiguration.SetValue(setting_name, lensColorData);
-        -- Update all of the controls
-        pickerInstance.ColorPreviewBox:SetColor(UI.GetColorValue(lensColorData["Red"], lensColorData["Green"], lensColorData["Blue"]));
-        for color, sliderInstance in pairs(sliderInstanceArray) do
-            -- This is effectively how to round a value in lua
-            current_value = math.floor((lensColorData[color] * 255) + 0.5);
-            sliderInstance.SliderCtrl:SetStep(data_converter.ToSteps(current_value, 0, 255, sliderInstance.SliderCtrl:GetNumSteps()));
-            sliderInstance.EditBoxCtrl:SetText(current_value);
-        end
-    end
-end
-
--- ===============================================================================================
-function PopulateLensRGBColorPickerSliderInstance(sliderCtrl, editBoxCtrl, previewBoxCtrl, settingName, dataConverterFunc, currentValue, controlColor)
-    -- currentValue is a float that requires conversion; this accomplishes rounding the value correctly, as well
-    currentValue = math.floor((currentValue * 255) + 0.5);
-    sliderCtrl:SetStep(dataConverterFunc.ToSteps(currentValue, 0, 255, sliderCtrl:GetNumSteps()));
-    editBoxCtrl:SetText(currentValue);
-
-    -- Callback function called whenever the slider changes
-    sliderCtrl:RegisterSliderCallback(LensRGBColorSliderCallback(sliderCtrl, editBoxCtrl, previewBoxCtrl, controlColor, settingName, dataConverterFunc));
-end
-
--- ===========================================================================
-function LensRGBColorSliderCallback(sliderCtrl, editBoxCtrl, previewBoxCtrl, controlColor, settingName, dataConverterFunc)
-    return function()
-        local value = dataConverterFunc.ToValue(sliderCtrl:GetStep(), 0, 255, sliderCtrl:GetNumSteps());
-        editBoxCtrl:SetText(value);
-
-        local lensData = GameConfiguration.GetValue(settingName);
-        lensData[controlColor] = value / 255.0;
-        previewBoxCtrl:SetColor(UI.GetColorValue(lensData["Red"], lensData["Green"], lensData["Blue"]));
-
-        GameConfiguration.SetValue(settingName, lensData);
-        -- Note: Calling the CQUI_SettingsUpdate LuaEvent here is not necessary as it will trigger all other subscribers to that event
-        --       update the Lens color settings once the CQUI Settings panel is closed
-    end
-end
-
--- ===========================================================================
-function PopulateLensRGBColorPickerEditBoxInstance(editBoxControl, sliderControl, previewBoxControl, lensName, currentValue, controlColor, toolTipString)
-    -- print_debug("ENTRY: CQUICommon - PopulateLensRGBColorPickerEditBoxInstance");
-    local lensColorData = GameConfiguration.GetValue(lensName);
-
-    if (lensColorData == nil) then
-        --LY Checks if this setting has a default state defined in the database
-        if (GameInfo.Colors[lensName]) then
-            lensColorData = GameInfo.Colors[lensName];
-        else
-            -- If it's not there, that's bad...
-            lensColorData = {Type = lensName, Red = 0, Green = 0, Blue = 0, Alpha = 0.5};
-        end
-    end
-
-    GameConfiguration.SetValue(lensName, lensColorData);
-    -- the Value passed in will be a float between 0 and 1.
-    -- this lua implementation has no "round" function so this is something that can be done to achieve the same effect
-    currentValue = math.floor((currentValue * 255) + 0.5);
-    editBoxControl:SetText(currentValue);
-
-    editBoxControl:RegisterStringChangedCallback(LensRGBColorEditBoxChangedCallback(sliderControl, previewBoxControl, lensName, controlColor));
-
-    if (tooltip ~= nil and string.len(tooltip) > 0) then
-        editBoxControl:SetToolTipString(toolTipString);
-    end
-end
-
--- ===========================================================================
-function LensRGBColorEditBoxChangedCallback(sliderControl, previewBoxControl, lensName, controlColor)
-    return function(editBox)
-        local minVal = 0;
-        local maxVal = 255;
-        local numVal:number = 0;
-        local userInput:string = editBox:GetText();
-        if (string.len(userInput) > 0 and tonumber(userInput) == nil) then
-            -- Box isn't blank, but also not a number
-            editBox:SetText("0");
-        else
-            numVal = tonumber(userInput);
-            if (numVal < minVal) then
-                editBox:SetText(tostring(minVal));
-                numVal = minVal;
-            elseif (numVal > maxVal) then
-                editBox:SetText(tostring(maxVal));
-                numVal = maxVal;
-            end
-        end
-
-        -- The fields in the GameInfo.Colors table are "Red", "Green", and "Blue". 
-        -- We *can* put code here to ensure casing is correct, but that's not going to be the most efficient code...
-        if (controlColor == "Red" or controlColor == "Green" or controlColor == "Blue") then
-            local lensData = GameConfiguration.GetValue(lensName);
-            if (lensData == nil) then
-                lensData = GameInfo.Colors[lensName];
-                -- if still not found, that's bad.
-            end
-
-            lensData[controlColor] = numVal / 255.0;
-            GameConfiguration.SetValue(lensName, lensData);
-
-            previewBoxControl:SetColor(UI.GetColorValue(lensData["Red"], lensData["Green"], lensData["Blue"]));
-            sliderControl:SetStep(SliderControlConverter.ToSteps(numVal, minVal, maxVal, sliderControl:GetNumSteps()));
-            -- putting this here seeems to be really slow and mostly unnecessary.  The Build Lens module will call this when the confirm button is hit.
-            -- LuaEvents.CQUI_SettingsUpdate();
-        else
-            print("*** ERROR: LensRGBColorPickerEditBoxChangedCallback value of controlColor is not recognized: "..tostring(controlColor));
-        end
-
     end
 end
 
@@ -743,8 +583,7 @@ function Initialize()
     PopulateComboBox(Controls.ReligionLensHideUnits, icon_style_options, "CQUI_ReligionLensUnitFlagStyle", Locale.Lookup("LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP"));
     
     -- Add Individual Builder Lenses
-    PopulateLensRGBSettings();
-
+    PopulateLensRGBPickerSettings();
 
     PopulateCheckBox(Controls.ShowYieldsOnCityHoverCheckbox, "CQUI_ShowYieldsOnCityHover", Locale.Lookup("LOC_CQUI_CITYVIEW_SHOWYIELDSONCITYHOVER_TOOLTIP"));
     PopulateCheckBox(Controls.ShowCitizenIconsOnHoverCheckbox, "CQUI_ShowCitizenIconsOnCityHover", Locale.Lookup("LOC_CQUI_CITYVIEW_SHOWCITIZENICONSONHOVER_TOOLTIP"));
@@ -786,43 +625,6 @@ function Initialize()
     LuaEvents.CQUI_SettingsUpdate.Add(ToggleCityBannerHoverOptions);
 
     LuaEvents.CQUI_SettingsInitialized(); --Tell other elements that the settings have been initialized and it's safe to try accessing settings now
-end
-
--- ===========================================================================
-function PopulateLensRGBSettings()
-    m_lensColorSettingsIM:ResetInstances();
-
-    -- TODO: foreach of the Category types
-    -- TODO: Loc Values for the Titles
-    local categoryTypes = {
-        { Title = "LOC_HUD_BUILDER_LENS", LensBaseName = "COLOR_BUILDER_LENS" },
-        { Title = "LOC_HUD_CITY_PLOT_LENS", LensBaseName = "COLOR_CITY_PLOT_LENS" },
-        { Title = "LOC_HUD_WONDER_LENS", LensBaseName = "COLOR_WONDER_LENS"}
-    };
-
-    for _,catType in ipairs(categoryTypes) do
-        -- catEntry is an entry for the category, containing 1-to-n rows of RGB Sliders
-        local categoryInstance = m_lensColorSettingsIM:GetInstance();
-        -- TODO: LOC strings should be used here for the category types
-        -- TODO: Need a map or similar to match the lens category
-        categoryInstance.CategoryLabelCtrl:SetText(Locale.Lookup(catType.Title));
-        local lensColorSettingIM = InstanceManager:new("LensRGBColorInstance", "LensRGBColorInstanceRoot", categoryInstance.LensRGBColorInstanceStack);
-        -- MoreLenses updates the GameInfo.Colors table
-        for lensColorRow in GameInfo.Colors() do
-            -- TODO: For now, just match the Builder lenses
-            if (string.find(lensColorRow["Type"], catType.LensBaseName)) then
-                -- TODO: The name format of the LOC string should probably be consistent everywhere... this relies on the Builder naming scheme
-                local rowLabel = Locale.Lookup(string.gsub(lensColorRow["Type"], "COLOR", "LOC_HUD"));
-                if (rowLabel ~= nil and string.len(rowLabel) > 0) then
-                    local lensColorSettingInstance = lensColorSettingIM:GetInstance();
-                    PopulateLensRGBColorPickerInstance(lensColorSettingInstance, lensColorRow["Type"], SliderControlConverter, "");
-                end
-            end
-        end
-    end
-
-    Controls.LensRGBColorCategoryStack:CalculateSize();
-    Controls.LensRGBColorScrollPanel:CalculateSize();
 end
 
 -- ===========================================================================
@@ -868,5 +670,8 @@ function UpdateKeyBindingsDisplay()
 end
 
 -- ===========================================================================
+
+-- Include the logic specific to the Lenses color settings
+include("cqui_settingselement_lenscolors.lua");
 
 Initialize();

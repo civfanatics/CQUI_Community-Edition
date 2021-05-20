@@ -61,7 +61,7 @@ VALUES                  (   'COLOR_GRADIENT8_8',                '0.98',     '0.0
 
 -- Barbarian Lens
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_BARBARIAN_LENS',             '1',        '0',        '0',        '0.5');
+VALUES                  (   'COLOR_BARBARIAN_LENS_ENCAMPMENT',  '1',        '0',        '0',        '0.5');
 
 -- Resources Lens
 INSERT INTO Colors      (   Type,                                 Red,      Green,      Blue,       Alpha)

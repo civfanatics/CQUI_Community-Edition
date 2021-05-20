@@ -35,7 +35,7 @@ end
 
 -- NATIONAL PARK
 --------------------------------------
-table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_PN"].ConfigRules,
+table.insert(GetConfigRules("COLOR_BUILDER_LENS_PN"),
     function(pPlot)
         local localPlayer = Game.GetLocalPlayer()
         if pPlot:GetOwner() == localPlayer then
@@ -49,7 +49,7 @@ table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_PN"].ConfigRules,
 
 -- RESOURCE
 --------------------------------------
-table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P1"].ConfigRules,
+table.insert(GetConfigRules("COLOR_BUILDER_LENS_P1"),
     function(pPlot)
         local localPlayer = Game.GetLocalPlayer()
         local pPlayer:table = Players[localPlayer]
@@ -64,12 +64,12 @@ table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P1"].ConfigRules,
                 if plotResourceImprovable(pPlayer, pPlot) then
                     -- If the plot is within working range go ahead with correct highlight
                     if plotWithinWorkingRange(pPlayer, pPlot) then
-                        return g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P1"].ConfiguredColor
+                        return GetConfiguredColor("COLOR_BUILDER_LENS_P1")
                     else
                         -- If the plot is outside working range, it is less important
                         -- We still might want to suggest it because of vital strategic resource / luxury, or a unique wonder
                         -- that can provide bonuses to it example (Temple of Artemis)
-                        return g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P1N"].ConfiguredColor
+                        return GetConfiguredColor("COLOR_BUILDER_LENS_P1N")
                     end
                 else
                     return GetColorForNothingPlot()
@@ -83,7 +83,7 @@ table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P1"].ConfigRules,
 -- GEOTHERMAL PLANTS (Only add if exists)
 --------------------------------------
 if GameInfo.Improvements["IMPROVEMENT_GEOTHERMAL_PLANT"] ~= nil then
-    table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P2"].ConfigRules,
+    table.insert(GetConfigRules("COLOR_BUILDER_LENS_P2"),
         function(pPlot)
             local localPlayer = Game.GetLocalPlayer()
             local pPlayer:table = Players[localPlayer]
@@ -94,7 +94,7 @@ if GameInfo.Improvements["IMPROVEMENT_GEOTHERMAL_PLANT"] ~= nil then
                 if featureInfo.FeatureType == "FEATURE_GEOTHERMAL_FISSURE" then
                     local plantImprovInfo = GameInfo.Improvements["IMPROVEMENT_GEOTHERMAL_PLANT"]
                     if playerCanHave(pPlayer, plantImprovInfo) then
-                        return g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P2"].ConfiguredColor
+                        return GetConfiguredColor("COLOR_BUILDER_LENS_P2")
                     end
                 end
             end
@@ -104,7 +104,7 @@ end
 
 -- SEASIDE RESORTS
 --------------------------------------
-table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P2"].ConfigRules,
+table.insert(GetConfigRules("COLOR_BUILDER_LENS_P2"),
     function(pPlot)
         local localPlayer = Game.GetLocalPlayer()
         local pPlayer:table = Players[localPlayer]
@@ -115,7 +115,7 @@ table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P2"].ConfigRules,
                 and pPlot:GetImprovementType() ~= resortImprovInfo.Index then
 
             if plotCanHaveImprovement(pPlayer, pPlot, resortImprovInfo) then
-                return g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P2"].ConfiguredColor
+                return GetConfiguredColor("COLOR_BUILDER_LENS_P2")
             end
         end
     end)
@@ -124,7 +124,7 @@ table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P2"].ConfigRules,
 -- SKI RESORTS (Only add if exists)
 --------------------------------------
 if GameInfo.Improvements["IMPROVEMENT_SKI_RESORT"] ~= nil then
-    table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P2"].ConfigRules,
+    table.insert(GetConfigRules("COLOR_BUILDER_LENS_P2"),
         function(pPlot)
             local localPlayer = Game.GetLocalPlayer()
             local pPlayer:table = Players[localPlayer]
@@ -134,7 +134,7 @@ if GameInfo.Improvements["IMPROVEMENT_SKI_RESORT"] ~= nil then
                 local resortImprovInfo = GameInfo.Improvements["IMPROVEMENT_SKI_RESORT"]
                 if plotCanHaveImprovement(pPlayer, pPlot, resortImprovInfo)
                         and not plotHasAdjImprovement(pPlot, "IMPROVEMENT_SKI_RESORT") then
-                    return g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P2"].ConfiguredColor
+                    return GetConfiguredColor("COLOR_BUILDER_LENS_P2")
                 end
             end
         end)
@@ -143,12 +143,12 @@ end
 
 -- PILLAGED / UA
 --------------------------------------
-table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P2"].ConfigRules,
+table.insert(GetConfigRules("COLOR_BUILDER_LENS_P2"),
     function(pPlot)
         local localPlayer = Game.GetLocalPlayer()
         if pPlot:GetOwner() == localPlayer and not plotHasDistrict(pPlot) then
             if plotHasImprovement(pPlot) and pPlot:IsImprovementPillaged() then
-                return g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P2"].ConfiguredColor
+                return GetConfiguredColor("COLOR_BUILDER_LENS_P2")
             end
         end
         return -1
@@ -157,7 +157,7 @@ table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P2"].ConfigRules,
 
 -- IGNORE PLOTS (Performance optimizations)
 --------------------------------------
-table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P3"].ConfigRules,
+table.insert(GetConfigRules("COLOR_BUILDER_LENS_P3"),
     function(pPlot)
         -- Non local player plots
         local localPlayer = Game.GetLocalPlayer()
@@ -191,7 +191,7 @@ table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P3"].ConfigRules,
 -- RECOMMENDED PLOTS
 --------------------------------------
 -- These are generic plots, but have some buff on it that can make it desirable to improve
-table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P3"].ConfigRules,
+table.insert(GetConfigRules("COLOR_BUILDER_LENS_P3"),
     function(pPlot)
         local localPlayer = Game.GetLocalPlayer()
         local pPlayer:table = Players[localPlayer]
@@ -209,7 +209,7 @@ table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P3"].ConfigRules,
                     and featureInfo.FeatureType == "FEATURE_FOREST" and pPlot:IsRiver()
                     and playerCanHave(pPlayer, lumberImprovInfo) then
 
-                return g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P3"].ConfiguredColor
+                return GetConfiguredColor("COLOR_BUILDER_LENS_P3")
             end
 
             -- 2. Floodplains
@@ -217,7 +217,7 @@ table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P3"].ConfigRules,
                 local farmImprovInfo = GameInfo.Improvements["IMPROVEMENT_FARM"]
                 local spitResult = Split(featureInfo.FeatureType, "_")
                 if #spitResult > 1 and spitResult[2] == "FLOODPLAINS" and playerCanHave(pPlayer, farmImprovInfo) then
-                    return g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P3"].ConfiguredColor
+                    return GetConfiguredColor("COLOR_BUILDER_LENS_P3")
                 end
             ]]
 
@@ -225,18 +225,18 @@ table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P3"].ConfigRules,
 
             -- 3. Volconic soil or tile next to buffing wonder
             if featureInfo.FeatureType == "FEATURE_VOLCANIC_SOIL" and canHaveImpr then
-                return g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P3"].ConfiguredColor
+                return GetConfiguredColor("COLOR_BUILDER_LENS_P3")
             end
 
             -- 4. Wonder buffed tile
             if plotNextToBuffingWonder(pPlot) and canHaveImpr then
-                return g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P3"].ConfiguredColor
+                return GetConfiguredColor("COLOR_BUILDER_LENS_P3")
             end
         end
 
         -- 5. Currently worked tile that does not have a improvement but can have one
         if plotWorkedByCitizen(pPlot) and plotCanHaveSomeImprovement(pPlayer, pPlot) then
-            return g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P3"].ConfiguredColor
+            return GetConfiguredColor("COLOR_BUILDER_LENS_P3")
         end
         return -1
     end)
@@ -245,12 +245,12 @@ table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P3"].ConfigRules,
 -- HILLS
 --------------------------------------
 -- Typically hills have a base +1 Production hence any improvement on top of it is desirable
-table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P4"].ConfigRules,
+table.insert(GetConfigRules("COLOR_BUILDER_LENS_P4"),
     function(pPlot)
         local localPlayer = Game.GetLocalPlayer()
         local pPlayer:table = Players[localPlayer]
         if pPlot:IsHills() and plotCanHaveSomeImprovement(pPlayer, pPlot) then
-            return g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P4"].ConfiguredColor
+            return GetConfiguredColor("COLOR_BUILDER_LENS_P4")
         end
         return -1
     end)
@@ -258,12 +258,12 @@ table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P4"].ConfigRules,
 
 -- EXTRACTABLE FEATURE
 --------------------------------------
-table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P5"].ConfigRules,
+table.insert(GetConfigRules("COLOR_BUILDER_LENS_P5"),
     function(pPlot)
         local localPlayer = Game.GetLocalPlayer()
         local pPlayer:table = Players[localPlayer]
         if plotHasYieldExtractingFeature(pPlayer, pPlot) then
-            return g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P5"].ConfiguredColor
+            return GetConfiguredColor("COLOR_BUILDER_LENS_P5")
         end
         return -1
     end)
@@ -271,14 +271,14 @@ table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P5"].ConfigRules,
 
 -- GENERIC (Last rule)
 --------------------------------------
-table.insert(g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P7"].ConfigRules,
+table.insert(GetConfigRules("COLOR_BUILDER_LENS_P7"),
     function(pPlot)
         local localPlayer = Game.GetLocalPlayer()
         local pPlayer:table = Players[localPlayer]
 
         -- Can we build any improvement add it here
         if plotCanHaveSomeImprovement(pPlayer, pPlot) then
-            return g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_P7"].ConfiguredColor
+            return GetConfiguredColor("COLOR_BUILDER_LENS_P7")
         end
 
         -- Assume at this point we can't do anything

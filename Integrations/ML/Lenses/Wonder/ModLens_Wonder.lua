@@ -2,9 +2,9 @@ include("LensSupport")
 
 local LENS_NAME = "ML_WONDER"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
-local m_ModLenses_Wonder_Lenses = {
-    ["COLOR_WONDER_LENS_NATURAL"] =  { Index = 0x01, ConfiguredColor = GetLensColorFromSettings("COLOR_WONDER_LENS_NATURAL"),  ConfigRules = {}, LocName = "LOC_HUD_WONDER_LENS_NATURAL" },
-    ["COLOR_WONDER_LENS_PLAYER"]  =  { Index = 0x02, ConfiguredColor = GetLensColorFromSettings("COLOR_WONDER_LENS_PLAYER"),   ConfigRules = {}, LocName = "LOC_HUD_WONDER_LENS_PLAYER" }
+local m_LensSettings = {
+    ["COLOR_WONDER_LENS_NATURAL"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_WONDER_LENS_NATURAL"), LocName = "LOC_HUD_WONDER_LENS_NATURAL" },
+    ["COLOR_WONDER_LENS_PLAYER"]  =  { ConfiguredColor = GetLensColorFromSettings("COLOR_WONDER_LENS_PLAYER"),  LocName = "LOC_HUD_WONDER_LENS_PLAYER" }
 }
 
 -- ===========================================================================
@@ -20,8 +20,8 @@ local function OnGetColorPlotTable()
     local localPlayer   :number = Game.GetLocalPlayer()
     local localPlayerVis:table = PlayersVisibility[localPlayer]
 
-    local NaturalWonderColor  :number = m_ModLenses_Wonder_Lenses["COLOR_WONDER_LENS_NATURAL"].ConfiguredColor
-    local PlayerWonderColor   :number = m_ModLenses_Wonder_Lenses["COLOR_WONDER_LENS_PLAYER"].ConfiguredColor
+    local NaturalWonderColor  :number = m_LensSettings["COLOR_WONDER_LENS_NATURAL"].ConfiguredColor
+    local PlayerWonderColor   :number = m_LensSettings["COLOR_WONDER_LENS_PLAYER"].ConfiguredColor
     local IgnoreColor = UI.GetColorValue("COLOR_MORELENSES_GREY")
     local colorPlot:table = {}
     colorPlot[NaturalWonderColor] = {}
@@ -67,21 +67,14 @@ local function OnInitialize()
 end
 ]]
 
-function CQUI_ModLens_Wonder_OnSettingsInitialized()
-    UpdateLensConfiguredColors(m_ModLenses_Wonder_Lenses, g_ModLensModalPanel, LENS_NAME);
+-- ===========================================================================
+local function CQUI_OnSettingsInitialized()
+    UpdateLensConfiguredColors(m_LensSettings, g_ModLensModalPanel, LENS_NAME);
 end
 
 -- ===========================================================================
-function CQUI_ModLens_Wonder_OnSettingsUpdate()
-    CQUI_ModLens_Wonder_OnSettingsInitialized();
-end
-
-local function CQUI_SettingsPanelClosed()
-    if UILens.IsLayerOn(ML_LENS_LAYER) then
-        -- Hide and show the builder lens to update the coloring
-        ClearBuilderLens();
-        ShowBuilderLens();
-    end
+local function CQUI_OnSettingsUpdate()
+    CQUI_OnSettingsInitialized();
 end
 
 local WonderLensEntry = {
@@ -94,11 +87,6 @@ local WonderLensEntry = {
 -- minimappanel.lua
 if g_ModLenses ~= nil then
     g_ModLenses[LENS_NAME] = WonderLensEntry
-    -- We only get into this code path via the Include call in minimappanel.lua
-    -- Add the settings callback hooks for that minimappanel context
-    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_ModLens_Wonder_OnSettingsUpdate);
-    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_ModLens_Wonder_OnSettingsInitialized);
-    LuaEvents.CQUI_SettingsPanelClosed.Add(CQUI_SettingsPanelClosed);
 end
 
 -- modallenspanel.lua
@@ -106,12 +94,11 @@ if g_ModLensModalPanel ~= nil then
     g_ModLensModalPanel[LENS_NAME] = {}
     g_ModLensModalPanel[LENS_NAME].LensTextKey = "LOC_HUD_WONDER_LENS"
     g_ModLensModalPanel[LENS_NAME].Legend = {
-        {m_ModLenses_Wonder_Lenses["COLOR_WONDER_LENS_NATURAL"].LocName, m_ModLenses_Wonder_Lenses["COLOR_WONDER_LENS_NATURAL"].ConfiguredColor},
-        {m_ModLenses_Wonder_Lenses["COLOR_WONDER_LENS_PLAYER"].LocName, m_ModLenses_Wonder_Lenses["COLOR_WONDER_LENS_PLAYER"].ConfiguredColor}
+        {m_LensSettings["COLOR_WONDER_LENS_NATURAL"].LocName, m_LensSettings["COLOR_WONDER_LENS_NATURAL"].ConfiguredColor},
+        {m_LensSettings["COLOR_WONDER_LENS_PLAYER"].LocName, m_LensSettings["COLOR_WONDER_LENS_PLAYER"].ConfiguredColor}
     }
-    -- We only get into this code path via the Include call in modallenspanel.lua
-    -- Add the settings callback hooks for that modallenspanel context
-    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_ModLens_Wonder_OnSettingsUpdate);
-    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_ModLens_Wonder_OnSettingsInitialized);
-    LuaEvents.CQUI_SettingsPanelClosed.Add(CQUI_SettingsPanelClosed);
 end
+
+-- Add CQUI LuaEvent Hooks for minimappanel and modallenspanel contexts
+LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);

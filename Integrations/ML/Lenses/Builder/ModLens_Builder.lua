@@ -1,5 +1,5 @@
 include("LensSupport")
-print("LOADFILE: ModLens_Builder")
+-- Note: Include for BuilderLens_Config and BuilderLens_Support occurs below, as supporting calls need to be added first
 -- ==== BEGIN CQUI: Integration Modification =================================
 -- CQUI: Allow Customized Color Scheme for Plots
 -- Builder Lens Colors can be configured from the Settings menu
@@ -8,7 +8,7 @@ print("LOADFILE: ModLens_Builder")
 -- CQUI Change: these values, used as indexes in the g_ModLenses_Builder_Config table, are now static
 -- Key: PN = Nothing    PD = Dangerous    P1 = Resources    P1N = Resources Outside Range    P2 = Recommended/Pillaged/Unique
 --      P3 = Currently Worked / Wonder-Buffed    P4 = Hills    P5 = Feature Extraction    P6 = Nothing(Disabled)    P7 = General
-g_ModLenses_Builder_Lenses = {
+local m_LensSettings = {
     ["COLOR_BUILDER_LENS_PN"]  =  { Index = 0x01, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_PN"),  ConfigRules = {}, LocName = "LOC_HUD_BUILDER_LENS_PN" },
     ["COLOR_BUILDER_LENS_PD"]  =  { Index = 0x02, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_PD"),  ConfigRules = {}, LocName = "LOC_HUD_BUILDER_LENS_PD" },
     ["COLOR_BUILDER_LENS_P1"]  =  { Index = 0x10, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P1"),  ConfigRules = {}, LocName = "LOC_HUD_BUILDER_LENS_P1" },
@@ -21,51 +21,65 @@ g_ModLenses_Builder_Lenses = {
     ["COLOR_BUILDER_LENS_P7"]  =  { Index = 0x70, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P7"),  ConfigRules = {}, LocName = "LOC_HUD_BUILDER_LENS_P7" }
 }
 
-g_ModLenses_Builder_Lenses_SortedIndexMap = {}
-for k,v in pairs(g_ModLenses_Builder_Lenses) do
-    table.insert(g_ModLenses_Builder_Lenses_SortedIndexMap, {Index = g_ModLenses_Builder_Lenses[k].Index, Key = k});
+local m_LensSettings_SortedIndexMap = {}
+for k,v in pairs(m_LensSettings) do
+    table.insert(m_LensSettings_SortedIndexMap, {Index = m_LensSettings[k].Index, Key = k});
 end
-table.sort(g_ModLenses_Builder_Lenses_SortedIndexMap, function(a,b) return a.Index < b.Index end)
+table.sort(m_LensSettings_SortedIndexMap, function(a,b) return a.Index < b.Index end)
 
 local DISABLE_NOTHING_PLOT_HIGHLIGHT:boolean = true;
 local AUTO_APPLY_BUILDER_LENS:boolean = true;
 local DISABLE_DANGEROUS_PLOT_HIGHLIGHT:boolean = false;
 local IGNORE_PLOT_COLOR:number = -2
 
---------------------------------------
+-- ==== Functions called by the "include" Files
+-- ===========================================================================
 function GetColorForNothingPlot()
     if DISABLE_NOTHING_PLOT_HIGHLIGHT then
-        return IGNORE_PLOT_COLOR
+        return IGNORE_PLOT_COLOR;
     else
-        return g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_PN"].ConfiguredColor
+        return m_LensSettings["COLOR_BUILDER_LENS_PN"].ConfiguredColor;
     end
 end
 
+-- ===========================================================================
 function GetIgnorePlotColor()
-    return IGNORE_PLOT_COLOR
+    return IGNORE_PLOT_COLOR;
 end
 
+-- ===========================================================================
+function GetConfigRules(lensName)
+    return m_LensSettings[lensName].ConfigRules;
+end
+
+-- ===========================================================================
+function GetConfiguredColor(lensName)
+    return m_LensSettings[lensName].ConfiguredColor;
+end
+
+-- ===========================================================================
 -- Import config files for builder lens
 include("BuilderLens_Config_", true)
+-- ===========================================================================
 
 local LENS_NAME = "ML_BUILDER"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 
 -- ==== BEGIN CQUI: Integration Modification =================================
 -- ===========================================================================
-function CQUI_ModLens_Builder_OnSettingsInitialized()
+local function CQUI_OnSettingsInitialized()
     -- Should the builder lens auto apply, when a builder is selected.
     AUTO_APPLY_BUILDER_LENS = GameConfiguration.GetValue("CQUI_AutoapplyBuilderLens");
     -- Disables the nothing color being highlted by the builder
     DISABLE_NOTHING_PLOT_HIGHLIGHT = GameConfiguration.GetValue("CQUI_BuilderLensDisableNothingPlot");
     -- Disables the dangerous plots highlted by the builder (barbs/military units at war with)
     DISABLE_DANGEROUS_PLOT_HIGHLIGHT = GameConfiguration.GetValue("CQUI_BuilderLensDisableDangerousPlot");
-    UpdateLensConfiguredColors(g_ModLenses_Builder_Lenses, g_ModLensModalPanel, LENS_NAME);
+    UpdateLensConfiguredColors(m_LensSettings, g_ModLensModalPanel, LENS_NAME);
 end
 
 -- ===========================================================================
-function CQUI_ModLens_Builder_OnSettingsUpdate()
-    CQUI_ModLens_Builder_OnSettingsInitialized();
+local function CQUI_OnSettingsUpdate()
+    CQUI_OnSettingsInitialized();
 end
 -- ==== END CQUI: Integration Modification ===================================
 
@@ -82,7 +96,7 @@ local function OnGetColorPlotTable()
 
     local colorPlot:table = {}
     local dangerousPlotsHash:table = {}
-    local fallbackColorIndex = g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_PN"].Index;
+    local fallbackColorIndex = m_LensSettings["COLOR_BUILDER_LENS_PN"].Index;
     colorPlot[fallbackColorIndex] = {}
 
     if not DISABLE_DANGEROUS_PLOT_HIGHLIGHT then
@@ -127,8 +141,8 @@ local function OnGetColorPlotTable()
         local pPlot:table = Map.GetPlotByIndex(i)
         if dangerousPlotsHash[i] == nil and localPlayerVis:IsRevealed(pPlot:GetX(), pPlot:GetY()) then
             local bPlotColored:boolean = false
-            for _, lensEntry in ipairs(g_ModLenses_Builder_Lenses_SortedIndexMap) do
-                config = g_ModLenses_Builder_Lenses[lensEntry.Key].ConfigRules
+            for _, lensEntry in ipairs(m_LensSettings_SortedIndexMap) do
+                config = m_LensSettings[lensEntry.Key].ConfigRules
                 if config ~= nil and table.count(config) > 0 then
                     for _, rule in ipairs(config) do
                         if rule ~= nil then
@@ -165,7 +179,7 @@ local function OnGetColorPlotTable()
 
     if not DISABLE_DANGEROUS_PLOT_HIGHLIGHT then
         -- From hash build our colorPlot entry
-        local pdLensIndex = g_ModLenses_Builder_Lenses["COLOR_BUILDER_LENS_PD"].Index;
+        local pdLensIndex = m_LensSettings["COLOR_BUILDER_LENS_PD"].Index;
         colorPlot[pdLensIndex] = {}
         for iPlot, _ in pairs(dangerousPlotsHash) do
             table.insert(colorPlot[pdLensIndex], iPlot)
@@ -182,7 +196,6 @@ local function ShowBuilderLens()
 end
 
 local function ClearBuilderLens()
-    -- print("Clearing builder lens")
     if UILens.IsLayerOn(ML_LENS_LAYER) then
         UILens.ToggleLayerOff(ML_LENS_LAYER);
     end
@@ -236,21 +249,26 @@ local function OnUnitRemovedFromMap( playerID: number, unitID : number )
     end
 end
 
+-- TODO: likely don't need this
+-- local function CQUI_SettingsPanelClosed()
+--     print("CQUI Settings Panel Closed Called")
+--     local lens = {}
+--     LuaEvents.MinimapPanel_GetActiveModLens(lens)
+--     if playerID == localPlayer then
+--         if lens[1] == LENS_NAME then
+--             ClearBuilderLens();
+--             --ShowBuilderLens();
+--         end
+--     end
+-- end
+
 local function OnInitialize()
     Events.UnitSelectionChanged.Add( OnUnitSelectionChanged );
     Events.UnitCaptured.Add( OnUnitCaptured );
     Events.UnitChargesChanged.Add( OnUnitChargesChanged );
     Events.UnitRemovedFromMap.Add( OnUnitRemovedFromMap );
-    -- CQUI Settings Updates occur below, depending on the file that Included this one
 end
 
-local function CQUI_SettingsPanelClosed()
-    if UILens.IsLayerOn(ML_LENS_LAYER) then
-        -- Hide and show the builder lens to update the coloring
-        ClearBuilderLens();
-        ShowBuilderLens();
-    end
-end
 
 local BuilderLensEntry = {
     LensButtonText = "LOC_HUD_BUILDER_LENS",
@@ -262,11 +280,6 @@ local BuilderLensEntry = {
 -- minimappanel.lua
 if g_ModLenses ~= nil then
     g_ModLenses[LENS_NAME] = BuilderLensEntry
-    -- We only get into this code path via the Include call in minimappanel.lua
-    -- Add the settings callback hooks for that minimappanel context
-    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_ModLens_Builder_OnSettingsUpdate);
-    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_ModLens_Builder_OnSettingsInitialized);
-    LuaEvents.CQUI_SettingsPanelClosed.Add(CQUI_SettingsPanelClosed);
 end
 
 -- modallenspanel.lua
@@ -275,16 +288,14 @@ if g_ModLensModalPanel ~= nil then
     g_ModLensModalPanel[LENS_NAME].LensTextKey = "LOC_HUD_BUILDER_LENS"
     g_ModLensModalPanel[LENS_NAME].Legend = {}
     -- Insert in priority order and only those with Rules that do coloring
-    for _,lensInfo in ipairs(g_ModLenses_Builder_Lenses_SortedIndexMap) do
-        local lensData = g_ModLenses_Builder_Lenses[lensInfo.Key];
+    for _,lensInfo in ipairs(m_LensSettings_SortedIndexMap) do
+        local lensData = m_LensSettings[lensInfo.Key];
         if (#lensData.ConfigRules > 0) then
             table.insert(g_ModLensModalPanel[LENS_NAME].Legend, {lensData.LocName, lensData.ConfiguredColor});
         end
     end
-
-    -- We only get into this code path via the Include call in modallenspanel.lua
-    -- Add the settings callback hooks for that modallenspanel context
-    LuaEvents.CQUI_SettingsUpdate.Add(CQUI_ModLens_Builder_OnSettingsUpdate);
-    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_ModLens_Builder_OnSettingsInitialized);
-    LuaEvents.CQUI_SettingsPanelClosed.Add(CQUI_SettingsPanelClosed);
 end
+
+-- Add CQUI LuaEvent Hooks for minimappanel and modallenspanel contexts
+LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);

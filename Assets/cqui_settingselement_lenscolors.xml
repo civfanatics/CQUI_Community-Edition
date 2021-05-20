@@ -1,0 +1,40 @@
+<Include File="CQUI_SettingsElement_LensColors">
+    <!-- Hidden container just to provide a mechanism to ensure this file loaded -->
+    <Container ID="CQUI_SettingsElement_LensColors" Hidden="1"/>
+
+    <!-- More Lenses Color Editing Controls -->
+    <!-- Each Category instance contains a label and rows for each lens -->
+    <!-- Each row (LensRGBPickerRowInstance) contains three elements (LensRGBPickerLabelEditBoxSliderInstance) to control the red, green, and blue values -->
+    <!-- Each LensRGBPickerLabelEditBoxSliderInstance has a slider control (0 to 255) and an edit box to allow typing of values -->
+    <Instance Name="LensRGBPickerLensGroupInstance">
+        <Stack ID="LensRGBPickerLensGroupInstanceRoot" Anchor="L,C" StackGrowth="Down" Padding="5" Size="parent-10,30">
+            <Label ID="LensGroupLabel" Anchor="C,T" Style="ShellOptionText" String=""/>
+            <Stack ID="LensRGBPickerRowInstanceStack" Anchor="L,C" StackGrowth="Down" Padding="2" Size="auto,30">
+            </Stack>
+        </Stack>
+    </Instance>
+
+    <Instance Name="LensRGBPickerRowInstance">
+        <Stack ID="LensRGBPickerRowInstanceRoot" Anchor="C,C" StackGrowth="Left" Padding="5" Size="parent-10,30">
+            <GridButton ID="RestoreDefaultButton" Anchor="R,C" Style="ButtonControl" Size="50,22" FontSize="10" String="LOC_DEFAULT_BUTTON"/>
+            <Box ID="ColorPreviewBox" Anchor="R,C" Size="22,22" Color="0,0,0,128"/>
+            <Stack ID="LensRGBPickerLabelEditBoxSliderInstanceStack" Anchor="C,C" StackGrowth="Right" Padding="2" Size="auto,30">
+            </Stack>
+            <Label ID="RowLabel" Anchor="L,C" Align="left" Style="FontNormal12" WrapWidth="192" ColorSet="ShellOptionText" String=""/>
+        </Stack>
+    </Instance>
+
+    <Instance Name="LensRGBPickerLabelEditBoxSliderInstance">
+        <Stack ID="LensRGBPickerLabelEditBoxSliderInstanceRoot" Anchor="C,C" StackGrowth="Right" Padding="5">
+            <Stack ID="LabelStack" Anchor="L,C" StackGrowth="Right" Padding="5">
+                <Label ID="LabelCtrl" Anchor="L,C" Style="WhiteSemiBold12" String=""/>
+                <Grid Anchor="R,C" Texture="EditTextArea" InnerPadding="6,6" Size="28,18">
+                    <ColorBox Color="0,0,0,90" Anchor="C,C" Size="auto,auto" SizePadding="1,1">
+                        <EditBox ID="EditBoxCtrl" Anchor="C,C" EditMode="1" MinSize="22,12" Style="WhiteSemiBold12" String="0" MaxLength="3"/>
+                    </ColorBox>
+                </Grid>
+            </Stack>
+            <Slider ID="SliderCtrl" Anchor="L,C" Style="SliderControl" Size="100,13" Offset="0,0" SpaceForScroll="0" Steps="255"/>
+        </Stack>
+    </Instance>
+</Include>

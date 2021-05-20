@@ -994,10 +994,10 @@ function SetModLens()
         elseif funNonStandard ~= nil then
             funNonStandard()
         else
-            print("ERROR: SetModLens - No Plot Color Function")
+            print("ERROR: SetModLens - No Plot Color Function for "..tostring(m_CurrentModdedLensOn))
         end
     else
-        print("ERROR: SetModLens - Given lens has no entry")
+        print("ERROR: SetModLens - Given lens '"..tostring(m_CurrentModdedLensOn).."' has no entry")
     end
 end
 
@@ -1018,6 +1018,8 @@ end
 
 -- ===========================================================================
 function SetActiveModdedLens(lensName:string)
+    -- TEMP
+    print("***** SetActiveModdedLens entry: lensName:"..tostring(lensName))
     m_CurrentModdedLensOn = lensName
     LuaEvents.MinimapPanel_ModdedLensOn(lensName)
 end
@@ -1590,7 +1592,7 @@ function Initialize()
         Controls.SwitcherImage:SetTextureOffsetVal(0,24);
     end
 
-  LuaEvents.EndGameMenu_StartObserverMode.Add(OnStartObserverMode);
+    LuaEvents.EndGameMenu_StartObserverMode.Add(OnStartObserverMode);
     LuaEvents.MinimapPanel_CloseAllLenses.Add( CloseAllLenses );
     LuaEvents.MinimapPanel_RefreshMinimapOptions.Add( RefreshMinimapOptions );
     LuaEvents.MinimapPanel_ToggleGrid.Add( ToggleGrid );

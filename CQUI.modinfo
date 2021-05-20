@@ -99,7 +99,9 @@
             </Items>
         </UpdateDatabase>
         <UpdateDatabase id="CQUI_Database">
-            <Properties><LoadOrder>1</LoadOrder></Properties>
+            <Properties>
+                <LoadOrder>1</LoadOrder>
+            </Properties>
             <Items>
                 <File>Assets/cqui_data.sql</File>
             </Items>
@@ -740,6 +742,13 @@
         </LocalizedText>
 
         <!-- ============================== CQUI specific UIs ============================== -->
+        <ImportFiles id="CQUI_IMPORT_FILES_CQUI_SETTINGS_LENSCOLORS">
+            <Items>
+                <File>Assets/cqui_settingselement_lenscolors.xml</File>
+                <File>Assets/cqui_settingselement_lenscolors.lua</File>
+            </Items>
+        </ImportFiles>
+
         <AddUserInterfaces id="CQUI_UI">
             <Properties>
                 <Context>InGame</Context>
@@ -748,6 +757,7 @@
             <Items>
                 <File>Assets/cqui_settingselement.xml</File>
                 <!-- <File>Assets/cqui_settingselement.lua</File> --> <!-- implied load -->
+                <!-- cqui_settingselement_lenscolors XML and Lua are loaded by the respective cqui_settingselement XML and Lua via the Include mechanism -->
                 <File>Assets/cqui_toplayer.xml</File>
                 <File>Assets/UI/Popups/policyreminderpopup.xml</File>
                 <!--the lua files are taken as implied-->
@@ -1350,6 +1360,8 @@
         <File>Assets/cqui_settings.sql</File>
         <File>Assets/cqui_settingselement.lua</File>
         <File>Assets/cqui_settingselement.xml</File>
+        <File>Assets/cqui_settingselement_lenscolors.lua</File>
+        <File>Assets/cqui_settingselement_lenscolors.xml</File>
         <File>Assets/cqui_main.lua</File>
         <File>Assets/cqui_toplayer.xml</File>
         <File>Assets/cqui_toplayer.lua</File>
