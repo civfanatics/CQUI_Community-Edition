@@ -805,6 +805,7 @@ local function ChangeContainer()
 end
 
 local function CQUI_OnSettingsInitialized()
+    -- TODO: using the g_ModalLensPanel or whatever it's called may be the way to go here, not the ResourceLEnsModal thing
     UpdateLensConfiguredColors(m_LensSettings, ResourceLensModalPanelEntry, LENS_NAME);
 end
 
