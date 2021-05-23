@@ -35,7 +35,7 @@ local m_MapHexMask : number = UILens.CreateLensLayerHash("Map_Hex_Mask");
 --  CONSTANTS
 -- ===========================================================================
 local MINIMAP_COLLAPSED_OFFSETY     :number = -180;
-local LENS_PANEL_OFFSET             :number = 50;
+local LENS_PANEL_OFFSET             :number = 65; -- Infixo, was 50 - needed more so the scrollbar can hide
 local MINIMAP_BACKING_PADDING_SIZEY :number = 54;
 local MAP_OPTIONS_PADDING           :number = 80;
 
@@ -226,6 +226,12 @@ function OnToggleLensList()
     Controls.LensButton:SetSelected( not Controls.LensPanel:IsHidden() );
     if Controls.LensPanel:IsHidden() then
         CloseLensList();
+    else
+        Controls.LensToggleStack:CalculateSize();
+
+        -- Astog: Disable increasing size of panel, since now we have a scrollbar
+		-- Infixo: re-enable (I don't want a scrollbar)
+        Controls.LensPanel:SetSizeY(Controls.LensToggleStack:GetSizeY() + LENS_PANEL_OFFSET);
     end
 end
 
