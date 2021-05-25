@@ -2,10 +2,6 @@ include("LensSupport")
 -- Note: Include for BuilderLens_Config and BuilderLens_Support occurs below, as supporting calls need to be added first
 -- ==== BEGIN CQUI: Integration Modification =================================
 -- CQUI: Allow Customized Color Scheme for Plots
--- Builder Lens Colors can be configured from the Settings menu
--- TODO: Color for other lenses, some way to save/load these values in Game setup
-
--- CQUI Change: these values, used as indexes in the g_ModLenses_Builder_Config table, are now static
 -- Key: PN = Nothing    PD = Dangerous    P1 = Resources    P1N = Resources Outside Range    P2 = Recommended/Pillaged/Unique
 --      P3 = Currently Worked / Wonder-Buffed    P4 = Hills    P5 = Feature Extraction    P6 = Nothing(Disabled)    P7 = General
 local m_LensSettings = {
@@ -249,26 +245,12 @@ local function OnUnitRemovedFromMap( playerID: number, unitID : number )
     end
 end
 
--- TODO: likely don't need this
--- local function CQUI_SettingsPanelClosed()
---     print("CQUI Settings Panel Closed Called")
---     local lens = {}
---     LuaEvents.MinimapPanel_GetActiveModLens(lens)
---     if playerID == localPlayer then
---         if lens[1] == LENS_NAME then
---             ClearBuilderLens();
---             --ShowBuilderLens();
---         end
---     end
--- end
-
 local function OnInitialize()
     Events.UnitSelectionChanged.Add( OnUnitSelectionChanged );
     Events.UnitCaptured.Add( OnUnitCaptured );
     Events.UnitChargesChanged.Add( OnUnitChargesChanged );
     Events.UnitRemovedFromMap.Add( OnUnitRemovedFromMap );
 end
-
 
 local BuilderLensEntry = {
     LensButtonText = "LOC_HUD_BUILDER_LENS",

@@ -10,7 +10,6 @@ include("InstanceManager");
 --Add new options tabs to this in Initialize function
 local m_tabs;
 local m_keyBindingActionsIM = InstanceManager:new("KeyBindingAction", "Root", Controls.KeyBindingsStack);
---local m_lensRGBSettingsIM = InstanceManager:new("LensRGBPickerLensGroupInstance", "LensRGBPickerLensGroupInstanceRoot", Controls.LensRGBPickerLensGroupStack);
 -- ===========================================================================
 
 local suzerain_icon_options = {

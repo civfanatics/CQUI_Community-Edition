@@ -49,8 +49,11 @@ function PopulateLensRGBPickerSettings()
                     rowLabel = Locale.Lookup(string.gsub(lensColorEntry["Type"], lensGroup.LensBaseName, lensGroup.LensGroupName));
                 end
 
-                local lensRGBPickerRowInstance = lensRGBPickerRowIM:GetInstance();
-                PopulateLensRGBPickerRowInstance(lensRGBPickerRowInstance, lensColorEntry["Type"], rowLabel);
+                -- Skip any entries that have a blank row label
+                if (string.len(rowLabel) > 0) then
+                    local lensRGBPickerRowInstance = lensRGBPickerRowIM:GetInstance();
+                    PopulateLensRGBPickerRowInstance(lensRGBPickerRowInstance, lensColorEntry["Type"], rowLabel);
+                end
             end
         end
     end

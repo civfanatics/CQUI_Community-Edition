@@ -19,15 +19,6 @@ end
 local function CQUI_OnSettingsUpdate()
     CQUI_OnSettingsInitialized();
 end
-
--- TODO: Likely don't need this, verify that
-local function CQUI_SettingsPanelClosed()
-    if UILens.IsLayerOn(ML_LENS_LAYER) then
-        -- Hide and show the builder lens to update the coloring
-        ClearArchaeologistLens();
-        ShowArchaeologistLens();
-    end
-end
 -- ==== END CQUI: Integration Modification ===================================
 -- ===========================================================================
 -- Archaeologist Lens Support
@@ -172,4 +163,3 @@ end
 -- Add CQUI LuaEvent Hooks for minimappanel and modallenspanel contexts
 LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
 LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);
-LuaEvents.CQUI_SettingsPanelClosed.Add(CQUI_SettingsPanelClosed);

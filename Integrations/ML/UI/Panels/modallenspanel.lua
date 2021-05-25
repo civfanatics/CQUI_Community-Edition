@@ -201,7 +201,7 @@ end
 --============================================================================
 function ShowModLensKey(lensName:string)
     -- This is printed even if the modal panel is hidden
-     print("Showing " .. lensName .. " modal panel")
+    -- print("Showing " .. lensName .. " modal panel")
 
     if g_ModLensModalPanel[lensName] ~= nil then
         ResetKeyStackIM();
