@@ -253,7 +253,7 @@
                             </Container>
                             <Container Size="5,10" />
                             
-                            <!-- Infixo GREAT WORKS -->
+                            <!-- CQUI Infixo GREAT WORKS -->
                             <Grid ID="GreatWorksHeader" Anchor="L,T" Size="parent,24" Style="DivHeader">
                                 <Container Size="parent,24">
                                     <Image Texture="Controls_Gradient_HalfRadial" Size="parent, 120" FlipY="1" Anchor="C,T" Color="72,103,130,255" />
@@ -496,6 +496,25 @@
         </Grid>
     </Instance>
 
+    <!-- CQUI Infixo Great Works - buiilding -->
+    <Instance Name="GWBuildingInstance">
+        <Grid ID="Top" Size="parent,auto" Style="CityPanelSubPanelContainer" AutoSizePadding="0,2" MinSize="24,24">
+            <Image ID="Icon" Anchor="L,T" Offset="-2,0" Texture="Districts32" Size="32,32">
+                <Label ID="BuildingName" Anchor="R,C" Style="CityPanelText" String="$BuildingName$" WrapWidth="200" AnchorSide="O,I" />
+            </Image>
+            <Label ID="NumGreatWorks" Anchor="R,T" Offset="4,7" Style="CityPanelText" String="$NumGreatWorks$" WrapWidth="parent-200" />
+            <Stack ID="SlotStack" Offset="0,36" Padding="3" />
+        </Grid>
+    </Instance>
+    
+    <!-- CQUI Infixo Great Works - slot -->
+    <Instance Name="GWSlotInstance">
+        <Grid ID="Top" Offset="15,0" Size="parent-15,auto" Style="CityPanelSubPanelContainer" AutoSizePadding="0,0" MinSize="24,24">
+            <Label ID="SlotType" Anchor="L,C" Offset="1,0" Style="CityPanelText" String="$SlotType$" WrapWidth="160" />
+            <Label ID="GreatWorkName" Anchor="R,C" Offset="1,0" Style="CityPanelText" String="$GreatWorkName$" WrapWidth="parent-100" />
+        </Grid>
+    </Instance>
+    
     <Instance Name="CQUI_BubbleInstance">
         <Grid ID="Top" Anchor="L,T" MinSize="70,65" AutoSize="H" Color="0,0,0,0">
             <Image ID="BubbleContainer" Size="50,50" Anchor="C,T" Texture="CityPanel_StatusIcon">
