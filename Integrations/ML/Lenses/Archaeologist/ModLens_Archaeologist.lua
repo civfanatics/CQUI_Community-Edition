@@ -3,8 +3,8 @@ local LENS_NAME = "ML_ARCHAEOLOGIST"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 
 local m_LensSettings = {
-    ["COLOR_ARCHAEOLOGIST_LENS_ARTIFACT"]  = { ConfiguredColor = GetLensColorFromSettings("COLOR_ARCHAEOLOGIST_LENS_ARTIFACT"), LocName = "LOC_HUD_ARCHAEOLOGIST_LENS_ARTIFACT" },
-    ["COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK"] = { ConfiguredColor = GetLensColorFromSettings("COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK"), LocName = "LOC_HUD_ARCHAEOLOGIST_LENS_SHIPWRECK" }
+    ["COLOR_ARCHAEOLOGIST_LENS_ARTIFACT"]  = { ConfiguredColor = GetLensColorFromSettings("COLOR_ARCHAEOLOGIST_LENS_ARTIFACT"), KeyLabel = "LOC_HUD_ARCHAEOLOGIST_LENS_ARTIFACT" },
+    ["COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK"] = { ConfiguredColor = GetLensColorFromSettings("COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK"), KeyLabel = "LOC_HUD_ARCHAEOLOGIST_LENS_SHIPWRECK" }
 }
 
 -- Should the archaeologist lens auto apply, when a archaeologist is selected.
@@ -164,8 +164,8 @@ if g_ModLensModalPanel ~= nil then
     g_ModLensModalPanel[LENS_NAME] = {}
     g_ModLensModalPanel[LENS_NAME].LensTextKey = "LOC_HUD_ARCHAEOLOGIST_LENS"
     g_ModLensModalPanel[LENS_NAME].Legend = {
-        {m_LensSettings["COLOR_ARCHAEOLOGIST_LENS_ARTIFACT"].LocName, m_LensSettings["COLOR_ARCHAEOLOGIST_LENS_ARTIFACT"].ConfiguredColor},
-        {m_LensSettings["COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK"].LocName, m_LensSettings["COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK"].ConfiguredColor}
+        {m_LensSettings["COLOR_ARCHAEOLOGIST_LENS_ARTIFACT"].KeyLabel, m_LensSettings["COLOR_ARCHAEOLOGIST_LENS_ARTIFACT"].ConfiguredColor},
+        {m_LensSettings["COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK"].KeyLabel, m_LensSettings["COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK"].ConfiguredColor}
     }
 end
 

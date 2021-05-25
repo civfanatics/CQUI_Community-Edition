@@ -205,5 +205,22 @@
     <Row Tag="LOC_CQUI_SETTINGS_MOVED" Language="fr_FR">
       <Text>Les paramètres CQUI peuvent maintenant être trouvés en sélectionnant des options dans le menu du jeu, puis le bouton Paramètres CQUI</Text>
     </Row>
+
+    <!-- More Lenses Color Slider Controls -->
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS" Language="fr_FR">
+        <Text>Paramètres de couleur RVB pour lentilles personnalisées</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_BLUE" Language="fr_FR">
+        <Text>Bleu</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_EDITBOX_TOOLTIP" Language="fr_FR">
+        <Text>Entrez une valeur comprise entre 0 et 255</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_GREEN" Language="fr_FR">
+        <Text>Vert</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_RED" Language="fr_FR">
+        <Text>Rouge</Text>
+    </Row>
   </LocalizedText>
 </GameData>

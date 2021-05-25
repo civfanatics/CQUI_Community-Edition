@@ -465,8 +465,8 @@ function UpdateLensConfiguredColors(lensEntitiesTable, modLensModalPanelTable, l
             lensLegend = modLensModalPanelTable[lens_name].Legend;
             for idx, entry in ipairs(modLensModalPanelTable[lens_name].Legend) do
                 locVal, colorVal = unpack(entry);
-                if locVal == lensEntitiesTable[lensKey].LocName then
-                    modLensModalPanelTable[lens_name].Legend[idx] = {lensEntitiesTable[lensKey].LocName, lensColor};
+                if locVal == lensEntitiesTable[lensKey].KeyLabel then
+                    modLensModalPanelTable[lens_name].Legend[idx] = {lensEntitiesTable[lensKey].KeyLabel, lensColor};
                     break;
                 end
             end

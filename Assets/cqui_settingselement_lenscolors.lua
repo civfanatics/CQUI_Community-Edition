@@ -20,31 +20,37 @@ function PopulateLensRGBPickerSettings()
     -- Where a Lens "Base Name" has COLOR_LENSNAME_LENS, and all items for that lens are COLOR_LENSNAME_LENS_ITEM
     -- For example, COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK is for all of the ShipWreck tiles shown by the Archaeologist lens
     local lensGroups = {
-        { Title = "LOC_HUD_ARCHAEOLOGIST_LENS", LensBaseName = "COLOR_ARCHAEOLOGIST_LENS"},
-        { Title = "LOC_HUD_BARBARIAN_LENS",     LensBaseName = "COLOR_BARBARIAN_LENS"},
-        { Title = "LOC_HUD_BUILDER_LENS",       LensBaseName = "COLOR_BUILDER_LENS" },
-        { Title = "LOC_HUD_CITY_PLOT_LENS",     LensBaseName = "COLOR_CITY_PLOT_LENS" },
-        { Title = "LOC_HUD_NATURALIST_LENS",    LensBaseName = "COLOR_NATURALIST_LENS"},
-        { Title = "LOC_HUD_RESOURCE_LENS",      LensBaseName = "COLOR_RESOURCE_LENS"},
-        { Title = "LOC_HUD_SCOUT_LENS",         LensBaseName = "COLOR_SCOUT_LENS"},
-        { Title = "LOC_HUD_WONDER_LENS",        LensBaseName = "COLOR_WONDER_LENS"}
+        { LensGroupName = "LOC_HUD_ARCHAEOLOGIST_LENS", LensBaseName = "COLOR_ARCHAEOLOGIST_LENS"},
+        { LensGroupName = "LOC_HUD_BARBARIAN_LENS",     LensBaseName = "COLOR_BARBARIAN_LENS"},
+        { LensGroupName = "LOC_HUD_BUILDER_LENS",       LensBaseName = "COLOR_BUILDER_LENS" },
+        { LensGroupName = "LOC_HUD_CITYOVERLAP_LENS",   LensBaseName = "COLOR_CITYOVERLAP_LENS", RowLabelFunc = GenerateCityOverlapRowLabel},
+        { LensGroupName = "LOC_HUD_CITY_PLOT_LENS",     LensBaseName = "COLOR_CITY_PLOT_LENS" },
+        { LensGroupName = "LOC_HUD_NATURALIST_LENS",    LensBaseName = "COLOR_NATURALIST_LENS"},
+        { LensGroupName = "LOC_HUD_RESOURCE_LENS",      LensBaseName = "COLOR_RESOURCE_LENS"},
+        { LensGroupName = "LOC_HUD_SCOUT_LENS",         LensBaseName = "COLOR_SCOUT_LENS"},
+        { LensGroupName = "LOC_HUD_WONDER_LENS",        LensBaseName = "COLOR_WONDER_LENS"}
     };
 
     for _,lensGroup in ipairs(lensGroups) do
         -- catEntry is an entry for the category, containing 1-to-n rows of RGB Sliders
         local lensGroupInstance = m_lensRGBSettingsIM:GetInstance();
-        lensGroupInstance.LensGroupLabel:SetText(Locale.Lookup(lensGroup.Title));
+        lensGroupInstance.LensGroupLabel:SetText(Locale.Lookup(lensGroup.LensGroupName));
         local lensRGBPickerRowIM = InstanceManager:new("LensRGBPickerRowInstance", "LensRGBPickerRowInstanceRoot", lensGroupInstance.LensRGBPickerRowInstanceStack);
         -- MoreLenses adds its colors into the GameInfo.Colors table, so cycling through that list will get us the lens items in each lens category
         for lensColorEntry in GameInfo.Colors() do
-            -- If LensBaseName is COLOR_FOO, then this matches COLOR_FOO_BAR, COLOR_FOO_STUFF, COLOR_FOO_THING for the Type field of the item in GameInfo.Colors
+            -- If LensBaseName is COLOR_FOO_LENS, then this matches COLOR_FOO_LENS_BAR, COLOR_FOO_LENS_STUFF, etc for the Type field of the item in GameInfo.Colors
             if (string.find(lensColorEntry["Type"], lensGroup.LensBaseName)) then
-                local rowLabel = Locale.Lookup(string.gsub(lensColorEntry["Type"], "COLOR", "LOC_HUD"));
-                if (rowLabel ~= nil and string.len(rowLabel) > 0) then
-                    local lensRGBPickerRowInstance = lensRGBPickerRowIM:GetInstance();
-                    -- GetSliderControlConverter calls back into CQUI_SettingsElement.lua
-                    PopulateLensRGBPickerRowInstance(lensRGBPickerRowInstance, lensColorEntry["Type"]);
+                local rowLabel = "";
+                if (lensGroup.RowLabelFunc ~= nil) then
+                    -- This lens group has a custom function for assigning the Row Label
+                    rowLabel = lensGroup.RowLabelFunc(lensColorEntry["Type"]);
+                else
+                    -- This turns COLOR_FOO_LENS_BAR into LOC_HUD_FOO_LENS_BAR
+                    rowLabel = Locale.Lookup(string.gsub(lensColorEntry["Type"], lensGroup.LensBaseName, lensGroup.LensGroupName));
                 end
+
+                local lensRGBPickerRowInstance = lensRGBPickerRowIM:GetInstance();
+                PopulateLensRGBPickerRowInstance(lensRGBPickerRowInstance, lensColorEntry["Type"], rowLabel);
             end
         end
     end
@@ -58,8 +64,8 @@ end
 -- Used to populate the Lens RGB Color Pickers asdf(each row item added to the settings control)
 -- pickerRowInstance: The instance returned by the lensColorSetting:GetInstance() call
 -- settingName: The name of the lens color item to be retrieved (e.g. COLOR_WONDER_LENS_NATURAL)
-function PopulateLensRGBPickerRowInstance(pickerRowInstance, settingName)
-    -- print_debug("ENTRY: CQUICommon - PopulateLensRGBPickerRowInstance");
+-- rowLabel: The label for that row
+function PopulateLensRGBPickerRowInstance(pickerRowInstance, settingName, rowLabel)
     local lensItemColorData = GameConfiguration.GetValue(settingName);
     if (lensItemColorData == nil or lensItemColorData["Red"] == nil) then
         -- if lensItemColor data is nil, then it has not yet been added to this GameConfiguration...
@@ -75,8 +81,7 @@ function PopulateLensRGBPickerRowInstance(pickerRowInstance, settingName)
         GameConfiguration.SetValue(settingName, lensItemColorData);
     end
 
-    -- Set the label at the beginning of the row by subbing in LOC_HUD for color.  For example COLOR_WONDER_LENS_NATURAL the loc is LOC_HUD_WONDER_LENS_NATURAL
-    pickerRowInstance.RowLabel:SetText(Locale.Lookup(string.gsub(settingName, "COLOR", "LOC_HUD")));
+    pickerRowInstance.RowLabel:SetText(rowLabel);
 
     -- Add 3 instances of the Label/EditBox/Slider control, one each for Red, Green, and Blue
     local lesIM = InstanceManager:new("LensRGBPickerLabelEditBoxSliderInstance", "LensRGBPickerLabelEditBoxSliderInstanceRoot", pickerRowInstance.LensRGBPickerLabelEditBoxSliderInstanceStack);
@@ -111,6 +116,7 @@ function PopulateLensRGBPickerRowInstance(pickerRowInstance, settingName)
 end
 
 -- ===============================================================================================
+-- Callback function for when the Restore Default button is clicked
 function LensRGBPickerRestoreDefaultButtonCallback(pickerRowInstance, lesArray, settingName)
     return function()
         -- Get the default value from the GameInfo.Colors DB (as set by morelenses_colors.sql),
@@ -129,6 +135,7 @@ function LensRGBPickerRestoreDefaultButtonCallback(pickerRowInstance, lesArray, 
 end
 
 -- ===========================================================================
+-- Callback function for when a Slider control is being manipulated
 function LensRGBPickerSliderCallback(lesInstance, previewBoxCtrl, settingName, controlColor)
     return function()
         m_sliderUpdating = true;
@@ -153,6 +160,7 @@ function LensRGBPickerSliderCallback(lesInstance, previewBoxCtrl, settingName, c
 end
 
 -- ===========================================================================
+-- Callback function for when a text box is being edited
 function LensRGBPickerEditBoxCallback(lesInstance, previewBoxCtrl, settingName, controlColor)
     return function()
         m_editBoxUpdating = true;
@@ -190,3 +198,14 @@ function LensRGBPickerEditBoxCallback(lesInstance, previewBoxCtrl, settingName, 
     end
 end
 
+-- ===========================================================================
+-- Generate the Row Label for the City Overlap entry
+function GenerateCityOverlapRowLabel(lensTypeName)
+    -- CityOverlap has a special case handling for the KeyLabel
+    --     ["COLOR_CITYOVERLAP_LENS_1"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_CITYOVERLAP_LENS_1"), KeyLabel = "LOC_WORLDBUILDER_TAB_CITIES".." +1" },
+    -- So, if lensTypeName is COLOR_CITYOVERLAP_LENS_1, the row Label should be "Cities +1", which uses the LOC_WORLDBUILDER_TAB_CITIES string
+    -- This gets the last two characters in the string, so it would get 1 from COLOR_CITYOVERLAP_LENS_1
+    local cityOverlapLensRow = string.sub(lensTypeName, -1);
+    local rowLabel = Locale.Lookup("LOC_WORLDBUILDER_TAB_CITIES").." +"..cityOverlapLensRow;
+    return rowLabel;
+end

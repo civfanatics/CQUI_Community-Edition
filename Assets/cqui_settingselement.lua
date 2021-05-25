@@ -669,8 +669,6 @@ function UpdateKeyBindingsDisplay()
     Controls.KeyBindingsScrollPanel:SetHide(not selected);
 end
 
--- ===========================================================================
-
 -- Include the logic specific to the Lenses color settings
 include("cqui_settingselement_lenscolors.lua");
 

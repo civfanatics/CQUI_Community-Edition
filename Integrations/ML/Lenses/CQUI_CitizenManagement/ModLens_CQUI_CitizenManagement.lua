@@ -5,9 +5,9 @@ local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 local m_cityID :number = -1;
 
 local m_LensSettings = {
-    ["COLOR_CITY_PLOT_LENS_WORKING"] =  { Index = 0x01, ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_WORKING"),  ConfigRules = {}, LocName = "LOC_HUD_CITY_PLOT_LENS_WORKING" },
-    ["COLOR_CITY_PLOT_LENS_LOCKED"]  =  { Index = 0x02, ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_LOCKED"),   ConfigRules = {}, LocName = "LOC_HUD_CITY_PLOT_LENS_LOCKED" },
-    ["COLOR_CITY_PLOT_LENS_CULTURE"] =  { Index = 0x10, ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_CULTURE"),  ConfigRules = {}, LocName = "LOC_HUD_CITY_PLOT_LENS_CULTURE" }
+    ["COLOR_CITY_PLOT_LENS_WORKING"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_WORKING"), KeyLabel = "LOC_HUD_CITY_PLOT_LENS_WORKING" },
+    ["COLOR_CITY_PLOT_LENS_LOCKED"]  =  { ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_LOCKED"),  KeyLabel = "LOC_HUD_CITY_PLOT_LENS_LOCKED" },
+    ["COLOR_CITY_PLOT_LENS_CULTURE"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_CULTURE"), KeyLabel = "LOC_HUD_CITY_PLOT_LENS_CULTURE" }
 }
 -- ===========================================================================
 -- Exported functions

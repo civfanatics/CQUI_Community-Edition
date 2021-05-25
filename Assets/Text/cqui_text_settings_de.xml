@@ -376,5 +376,22 @@
     <Row Tag="LOC_CQUI_SETTINGS_MOVED" Language="de_DE">
       <Text>CQUI-Einstellungen befinden sich jetzt in den Optionen unter CQUI EINSTELLUNGEN</Text>
     </Row>
+
+    <!-- More Lenses Color Slider Controls -->
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS" Language="de_DE">
+      <Text>RGB-Farbeinstellungen für benutzerdefinierte Objektive</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_BLUE" Language="de_DE">
+      <Text>Blau</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_EDITBOX_TOOLTIP" Language="de_DE">
+      <Text>Geben Sie einen Wert zwischen 0 und 255 ein.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_GREEN" Language="de_DE">
+      <Text>Grün</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_RED" Language="de_DE">
+      <Text>Rot</Text>
+    </Row>
   </LocalizedText>
 </GameData>

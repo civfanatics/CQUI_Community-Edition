@@ -379,7 +379,7 @@
 
     <!-- More Lenses Color Slider Controls -->
     <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS" Language="en_US">
-      <Text>RGB Color Settings for Lenses</Text>
+      <Text>RGB Color Settings for Custom Lenses</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_RED" Language="en_US">
       <Text>Red</Text>

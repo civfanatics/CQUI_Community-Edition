@@ -16,6 +16,18 @@ local m_isOpen:boolean = false
 local m_cityOverlapRange:number = DEFAULT_OVERLAP_RANGE
 local m_currentCursorPlotID:number = -1
 
+local m_LensSettings = {
+    -- Note the special case handling with the KeyLabel
+    ["COLOR_CITYOVERLAP_LENS_1"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_CITYOVERLAP_LENS_1"), KeyLabel = "LOC_WORLDBUILDER_TAB_CITIES".." +1" },
+    ["COLOR_CITYOVERLAP_LENS_2"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_CITYOVERLAP_LENS_2"), KeyLabel = "LOC_WORLDBUILDER_TAB_CITIES".." +2" },
+    ["COLOR_CITYOVERLAP_LENS_3"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_CITYOVERLAP_LENS_3"), KeyLabel = "LOC_WORLDBUILDER_TAB_CITIES".." +3" },
+    ["COLOR_CITYOVERLAP_LENS_4"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_CITYOVERLAP_LENS_4"), KeyLabel = "LOC_WORLDBUILDER_TAB_CITIES".." +4" },
+    ["COLOR_CITYOVERLAP_LENS_5"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_CITYOVERLAP_LENS_5"), KeyLabel = "LOC_WORLDBUILDER_TAB_CITIES".." +5" },
+    ["COLOR_CITYOVERLAP_LENS_6"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_CITYOVERLAP_LENS_6"), KeyLabel = "LOC_WORLDBUILDER_TAB_CITIES".." +6" },
+    ["COLOR_CITYOVERLAP_LENS_7"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_CITYOVERLAP_LENS_7"), KeyLabel = "LOC_WORLDBUILDER_TAB_CITIES".." +7" },
+    ["COLOR_CITYOVERLAP_LENS_8"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_CITYOVERLAP_LENS_8"), KeyLabel = "LOC_WORLDBUILDER_TAB_CITIES".." +8" }
+}
+
 -- ===========================================================================
 --  City Overlap Support functions
 -- ===========================================================================
@@ -55,10 +67,11 @@ local function SetModalKey(maxCityOverlap)
     local CityOverlapLensModalPanelEntry = {}
     CityOverlapLensModalPanelEntry.Legend = {}
     CityOverlapLensModalPanelEntry.LensTextKey = "LOC_HUD_CITYOVERLAP_LENS"
+    -- NOTE: Not using the KeyLabel here, in order to place the bonus value on the next line
     for i = 1, 8 do
         local params:table = {
             "LOC_WORLDBUILDER_TAB_CITIES",
-            UI.GetColorValue("COLOR_GRADIENT8_" .. tostring(i)),
+            m_LensSettings["COLOR_CITYOVERLAP_LENS_" .. tostring(i)].ConfiguredColor,
             nil,  -- bonus icon
             "+ " .. tostring(i + (maxCityOverlap - 8))  -- bonus value
         }
@@ -122,8 +135,8 @@ local function SetCityOverlapLens()
         local relativeNumCities:number = numCityEntries[i] - cityOffset
 
         if relativeNumCities > 0 then
-            local colorLookup:string = "COLOR_GRADIENT8_" .. tostring(relativeNumCities)
-            local color:number = UI.GetColorValue(colorLookup)
+            local colorLookup:string = "COLOR_CITYOVERLAP_LENS_" .. tostring(relativeNumCities)
+            local color:number = m_LensSettings[colorLookup].ConfiguredColor
             UILens.SetLayerHexesColoredArea( ML_LENS_LAYER, localPlayer, {plotEntries[i]}, color )
         end
     end
@@ -153,12 +166,12 @@ local function SetRangeMouseLens(range)
     end
 
     if (table.count(cityPlots) > 0) then
-        local plotColor:number = UI.GetColorValue("COLOR_GRADIENT8_1")
+        local plotColor:number = m_LensSettings["COLOR_CITYOVERLAP_LENS_1"].ConfiguredColor
         UILens.SetLayerHexesColoredArea( ML_LENS_LAYER, localPlayer, cityPlots, plotColor )
     end
 
     if (table.count(normalPlot) > 0) then
-        local plotColor:number = UI.GetColorValue("COLOR_GRADIENT8_3")
+        local plotColor:number = m_LensSettings["COLOR_CITYOVERLAP_LENS_3"].ConfiguredColor
         UILens.SetLayerHexesColoredArea( ML_LENS_LAYER, localPlayer, normalPlot, plotColor )
     end
 end
@@ -284,6 +297,17 @@ local function OnShutdown()
     end
 end
 
+local function CQUI_OnSettingsInitialized()
+    -- NOTE: Do not update the g_ModLensModalPanel directly, use the local function to handle that
+    --       as it has special-case handling for the Modal Panel key text
+    UpdateLensConfiguredColors(m_LensSettings, nil, LENS_NAME);
+    SetModalKey(maxCityOverlap);
+end
+
+local function CQUI_OnSettingsUpdate()
+    CQUI_OnSettingsInitialized();
+end
+
 -- ===========================================================================
 --  Init
 -- ===========================================================================
@@ -296,6 +320,10 @@ local CityOverlapLensEntry = {
     OnToggle = TogglePanel,
     GetColorPlotTable = nil  -- Pass nil since we have our own trigger
 }
+
+-- Add CQUI LuaEvent Hooks for minimappanel and modallenspanel contexts
+LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);
 
 -- Don't import this into g_ModLenses, since this for the UI (ie not lens)
 local function Initialize()

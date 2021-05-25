@@ -3,7 +3,7 @@ local LENS_NAME = "ML_BARBARIAN"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 
 local m_LensSettings = {
-    ["COLOR_BARBARIAN_LENS_ENCAMPMENT"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_BARBARIAN_LENS_ENCAMPMENT"), LocName = "LOC_HUD_BARBARIAN_LENS_ENCAMPMENT" }
+    ["COLOR_BARBARIAN_LENS_ENCAMPMENT"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_BARBARIAN_LENS_ENCAMPMENT"), KeyLabel = "LOC_HUD_BARBARIAN_LENS_ENCAMPMENT" }
 }
 
 -- ===========================================================================
@@ -93,7 +93,7 @@ if g_ModLensModalPanel ~= nil then
     g_ModLensModalPanel[LENS_NAME] = {}
     g_ModLensModalPanel[LENS_NAME].LensTextKey = "LOC_HUD_BARBARIAN_LENS"
     g_ModLensModalPanel[LENS_NAME].Legend = {
-        {m_LensSettings["COLOR_BARBARIAN_LENS_ENCAMPMENT"].LocName, m_LensSettings["COLOR_BARBARIAN_LENS_ENCAMPMENT"].ConfiguredColor}
+        {m_LensSettings["COLOR_BARBARIAN_LENS_ENCAMPMENT"].KeyLabel, m_LensSettings["COLOR_BARBARIAN_LENS_ENCAMPMENT"].ConfiguredColor}
     }
 end
 

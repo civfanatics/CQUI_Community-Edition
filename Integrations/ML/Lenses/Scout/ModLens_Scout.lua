@@ -3,7 +3,7 @@ local LENS_NAME = "ML_SCOUT"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 
 local m_LensSettings = {
-    ["COLOR_SCOUT_LENS_GHUT"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_SCOUT_LENS_GHUT"), LocName = "LOC_HUD_SCOUT_LENS_GHUT" }
+    ["COLOR_SCOUT_LENS_GHUT"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_SCOUT_LENS_GHUT"), KeyLabel = "LOC_HUD_SCOUT_LENS_GHUT" }
 }
 
 -- Should the scout lens auto apply, when a scout/ranger is selected.
@@ -178,7 +178,7 @@ if g_ModLensModalPanel ~= nil then
     g_ModLensModalPanel[LENS_NAME] = {}
     g_ModLensModalPanel[LENS_NAME].LensTextKey = "LOC_HUD_SCOUT_LENS"
     g_ModLensModalPanel[LENS_NAME].Legend = {
-        {m_LensSettings["COLOR_SCOUT_LENS_GHUT"].LocName, m_LensSettings["COLOR_SCOUT_LENS_GHUT"].ConfiguredColor}
+        {m_LensSettings["COLOR_SCOUT_LENS_GHUT"].KeyLabel, m_LensSettings["COLOR_SCOUT_LENS_GHUT"].ConfiguredColor}
     }
 end
 

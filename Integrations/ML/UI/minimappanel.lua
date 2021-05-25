@@ -1018,8 +1018,6 @@ end
 
 -- ===========================================================================
 function SetActiveModdedLens(lensName:string)
-    -- TEMP
-    print("***** SetActiveModdedLens entry: lensName:"..tostring(lensName))
     m_CurrentModdedLensOn = lensName
     LuaEvents.MinimapPanel_ModdedLensOn(lensName)
 end

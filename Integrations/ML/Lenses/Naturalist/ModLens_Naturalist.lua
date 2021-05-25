@@ -4,9 +4,9 @@ local LENS_NAME = "ML_NATURALIST"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 
 local m_LensSettings = {
-    ["COLOR_NATURALIST_LENS_PARK"] =    { ConfiguredColor = GetLensColorFromSettings("COLOR_NATURALIST_LENS_PARK"),    LocName = "LOC_HUD_NATURALIST_LENS_PARK" },
-    ["COLOR_NATURALIST_LENS_OK"]  =     { ConfiguredColor = GetLensColorFromSettings("COLOR_NATURALIST_LENS_OK"),      LocName = "LOC_HUD_NATURALIST_LENS_OK" },
-    ["COLOR_NATURALIST_LENS_FIXABLE"] = { ConfiguredColor = GetLensColorFromSettings("COLOR_NATURALIST_LENS_FIXABLE"), LocName = "LOC_HUD_NATURALIST_LENS_FIXABLE" }
+    ["COLOR_NATURALIST_LENS_PARK"] =    { ConfiguredColor = GetLensColorFromSettings("COLOR_NATURALIST_LENS_PARK"),    KeyLabel = "LOC_HUD_NATURALIST_LENS_PARK" },
+    ["COLOR_NATURALIST_LENS_OK"]  =     { ConfiguredColor = GetLensColorFromSettings("COLOR_NATURALIST_LENS_OK"),      KeyLabel = "LOC_HUD_NATURALIST_LENS_OK" },
+    ["COLOR_NATURALIST_LENS_FIXABLE"] = { ConfiguredColor = GetLensColorFromSettings("COLOR_NATURALIST_LENS_FIXABLE"), KeyLabel = "LOC_HUD_NATURALIST_LENS_FIXABLE" }
 }
 
 -- ===========================================================================
@@ -232,9 +232,9 @@ if g_ModLensModalPanel ~= nil then
     g_ModLensModalPanel[LENS_NAME] = {}
     g_ModLensModalPanel[LENS_NAME].LensTextKey = "LOC_HUD_NATURALIST_LENS"
     g_ModLensModalPanel[LENS_NAME].Legend = {
-        {m_LensSettings["COLOR_NATURALIST_LENS_PARK"].LocName, m_LensSettings["COLOR_NATURALIST_LENS_PARK"].ConfiguredColor},
-        {m_LensSettings["COLOR_NATURALIST_LENS_OK"].LocName, m_LensSettings["COLOR_NATURALIST_LENS_OK"].ConfiguredColor},
-        {m_LensSettings["COLOR_NATURALIST_LENS_FIXABLE"].LocName, m_LensSettings["COLOR_NATURALIST_LENS_FIXABLE"].ConfiguredColor}
+        {m_LensSettings["COLOR_NATURALIST_LENS_PARK"].KeyLabel, m_LensSettings["COLOR_NATURALIST_LENS_PARK"].ConfiguredColor},
+        {m_LensSettings["COLOR_NATURALIST_LENS_OK"].KeyLabel, m_LensSettings["COLOR_NATURALIST_LENS_OK"].ConfiguredColor},
+        {m_LensSettings["COLOR_NATURALIST_LENS_FIXABLE"].KeyLabel, m_LensSettings["COLOR_NATURALIST_LENS_FIXABLE"].ConfiguredColor}
     }
 end
 

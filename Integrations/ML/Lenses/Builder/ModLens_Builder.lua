@@ -9,16 +9,16 @@ include("LensSupport")
 -- Key: PN = Nothing    PD = Dangerous    P1 = Resources    P1N = Resources Outside Range    P2 = Recommended/Pillaged/Unique
 --      P3 = Currently Worked / Wonder-Buffed    P4 = Hills    P5 = Feature Extraction    P6 = Nothing(Disabled)    P7 = General
 local m_LensSettings = {
-    ["COLOR_BUILDER_LENS_PN"]  =  { Index = 0x01, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_PN"),  ConfigRules = {}, LocName = "LOC_HUD_BUILDER_LENS_PN" },
-    ["COLOR_BUILDER_LENS_PD"]  =  { Index = 0x02, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_PD"),  ConfigRules = {}, LocName = "LOC_HUD_BUILDER_LENS_PD" },
-    ["COLOR_BUILDER_LENS_P1"]  =  { Index = 0x10, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P1"),  ConfigRules = {}, LocName = "LOC_HUD_BUILDER_LENS_P1" },
-    ["COLOR_BUILDER_LENS_P1N"] =  { Index = 0x11, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P1N"), ConfigRules = {}, LocName = "LOC_HUD_BUILDER_LENS_P1N"},
-    ["COLOR_BUILDER_LENS_P2"]  =  { Index = 0x20, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P2"),  ConfigRules = {}, LocName = "LOC_HUD_BUILDER_LENS_P2" },
-    ["COLOR_BUILDER_LENS_P3"]  =  { Index = 0x30, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P3"),  ConfigRules = {}, LocName = "LOC_HUD_BUILDER_LENS_P3" },
-    ["COLOR_BUILDER_LENS_P4"]  =  { Index = 0x40, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P4"),  ConfigRules = {}, LocName = "LOC_HUD_BUILDER_LENS_P4" },
-    ["COLOR_BUILDER_LENS_P5"]  =  { Index = 0x50, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P5"),  ConfigRules = {}, LocName = "LOC_HUD_BUILDER_LENS_P5" },
-    ["COLOR_BUILDER_LENS_P6"]  =  { Index = 0x60, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P6"),  ConfigRules = {}, LocName = "LOC_HUD_BUILDER_LENS_P6" },
-    ["COLOR_BUILDER_LENS_P7"]  =  { Index = 0x70, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P7"),  ConfigRules = {}, LocName = "LOC_HUD_BUILDER_LENS_P7" }
+    ["COLOR_BUILDER_LENS_PN"]  =  { Index = 0x01, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_PN"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_PN" },
+    ["COLOR_BUILDER_LENS_PD"]  =  { Index = 0x02, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_PD"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_PD" },
+    ["COLOR_BUILDER_LENS_P1"]  =  { Index = 0x10, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P1"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P1" },
+    ["COLOR_BUILDER_LENS_P1N"] =  { Index = 0x11, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P1N"), ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P1N"},
+    ["COLOR_BUILDER_LENS_P2"]  =  { Index = 0x20, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P2"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P2" },
+    ["COLOR_BUILDER_LENS_P3"]  =  { Index = 0x30, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P3"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P3" },
+    ["COLOR_BUILDER_LENS_P4"]  =  { Index = 0x40, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P4"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P4" },
+    ["COLOR_BUILDER_LENS_P5"]  =  { Index = 0x50, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P5"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P5" },
+    ["COLOR_BUILDER_LENS_P6"]  =  { Index = 0x60, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P6"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P6" },
+    ["COLOR_BUILDER_LENS_P7"]  =  { Index = 0x70, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P7"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P7" }
 }
 
 local m_LensSettings_SortedIndexMap = {}
@@ -291,7 +291,7 @@ if g_ModLensModalPanel ~= nil then
     for _,lensInfo in ipairs(m_LensSettings_SortedIndexMap) do
         local lensData = m_LensSettings[lensInfo.Key];
         if (#lensData.ConfigRules > 0) then
-            table.insert(g_ModLensModalPanel[LENS_NAME].Legend, {lensData.LocName, lensData.ConfiguredColor});
+            table.insert(g_ModLensModalPanel[LENS_NAME].Legend, {lensData.KeyLabel, lensData.ConfiguredColor});
         end
     end
 end

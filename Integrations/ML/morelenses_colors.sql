@@ -43,21 +43,21 @@ VALUES                  (   'COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK', '0',      '1',
 
 -- Gradient 8
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_GRADIENT8_1',                '0.9',      '0.0',      '0.05',     '0.5');
+VALUES                  (   'COLOR_CITYOVERLAP_LENS_1',         '0.9',      '0.0',      '0.05',     '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_GRADIENT8_2',                '0.8',      '0.48',     '0.0',      '0.5');
+VALUES                  (   'COLOR_CITYOVERLAP_LENS_2',         '0.8',      '0.48',     '0.0',      '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_GRADIENT8_3',                '0.75',     '0.75',     '0.75',     '0.5');
+VALUES                  (   'COLOR_CITYOVERLAP_LENS_3',         '0.75',     '0.75',     '0.75',     '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_GRADIENT8_4',                '0.5',      '1',        '0.5',      '0.5');
+VALUES                  (   'COLOR_CITYOVERLAP_LENS_4',         '0.5',      '1',        '0.5',      '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_GRADIENT8_5',                '0',        '1',        '0',        '0.5');
+VALUES                  (   'COLOR_CITYOVERLAP_LENS_5',         '0',        '1',        '0',        '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_GRADIENT8_6',                '0.0',      '0.98',     '0.93',     '0.5');
+VALUES                  (   'COLOR_CITYOVERLAP_LENS_6',         '0.0',      '0.98',     '0.93',     '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_GRADIENT8_7',                '0.56',     '0.0',      '0.98',     '0.5');
+VALUES                  (   'COLOR_CITYOVERLAP_LENS_7',         '0.56',     '0.0',      '0.98',     '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_GRADIENT8_8',                '0.98',     '0.0',      '0.81',     '0.5');
+VALUES                  (   'COLOR_CITYOVERLAP_LENS_8',         '0.98',     '0.0',      '0.81',     '0.5');
 
 -- Barbarian Lens
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)

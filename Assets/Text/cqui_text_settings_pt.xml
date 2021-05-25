@@ -265,5 +265,22 @@
     <Row Tag="LOC_CQUI_SETTINGS_MOVED" Language="pt_BR">
       <Text>As configurações do CQUI agora podem ser encontradas selecionando opções no menu do jogo e, em seguida, o botão Configurações do CQUI</Text>
     </Row>
+
+    <!-- More Lenses Color Slider Controls -->
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS" Language="pt_BR">
+      <Text>Configurações de cores RGB para lentes personalizadas</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_BLUE" Language="pt_BR">
+      <Text>Azul</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_EDITBOX_TOOLTIP" Language="pt_BR">
+      <Text>Digite um valor entre 0 e 255</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_GREEN" Language="pt_BR">
+      <Text>Verde</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_RED" Language="pt_BR">
+      <Text>Vermelho</Text>
+    </Row>
   </LocalizedText>
 </GameData>

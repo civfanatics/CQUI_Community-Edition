@@ -29,12 +29,12 @@ local m_resourceExclusionList:table = {
 }
 
 local m_LensSettings = {
-    ["COLOR_RESOURCE_LENS_LUXCONNECTED"]    =  { ConfiguredColor = GetLensColorFromSettings("COLOR_RESOURCE_LENS_LUXCONNECTED"),    LocName = "LOC_HUD_RESOURCE_LENS_LUXCONNECTED" },
-    ["COLOR_RESOURCE_LENS_STRATCONNECTED"]  =  { ConfiguredColor = GetLensColorFromSettings("COLOR_RESOURCE_LENS_STRATCONNECTED"),  LocName = "LOC_HUD_RESOURCE_LENS_STRATCONNECTED" },
-    ["COLOR_RESOURCE_LENS_BONUSCONNECTED"]  =  { ConfiguredColor = GetLensColorFromSettings("COLOR_RESOURCE_LENS_BONUSCONNECTED"),  LocName = "LOC_HUD_RESOURCE_LENS_BONUSCONNECTED" },
-    ["COLOR_RESOURCE_LENS_LUXNCONNECTED"]   =  { ConfiguredColor = GetLensColorFromSettings("COLOR_RESOURCE_LENS_LUXNCONNECTED"),   LocName = "LOC_HUD_RESOURCE_LENS_LUXNCONNECTED" },
-    ["COLOR_RESOURCE_LENS_STRATNCONNECTED"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_RESOURCE_LENS_STRATNCONNECTED"), LocName = "LOC_HUD_RESOURCE_LENS_STRATNCONNECTED" },
-    ["COLOR_RESOURCE_LENS_BONUSNCONNECTED"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_RESOURCE_LENS_BONUSNCONNECTED"), LocName = "LOC_HUD_RESOURCE_LENS_BONUSNCONNECTED" }
+    ["COLOR_RESOURCE_LENS_LUXCONNECTED"]    =  { ConfiguredColor = GetLensColorFromSettings("COLOR_RESOURCE_LENS_LUXCONNECTED"),    KeyLabel = "LOC_HUD_RESOURCE_LENS_LUXCONNECTED" },
+    ["COLOR_RESOURCE_LENS_STRATCONNECTED"]  =  { ConfiguredColor = GetLensColorFromSettings("COLOR_RESOURCE_LENS_STRATCONNECTED"),  KeyLabel = "LOC_HUD_RESOURCE_LENS_STRATCONNECTED" },
+    ["COLOR_RESOURCE_LENS_BONUSCONNECTED"]  =  { ConfiguredColor = GetLensColorFromSettings("COLOR_RESOURCE_LENS_BONUSCONNECTED"),  KeyLabel = "LOC_HUD_RESOURCE_LENS_BONUSCONNECTED" },
+    ["COLOR_RESOURCE_LENS_LUXNCONNECTED"]   =  { ConfiguredColor = GetLensColorFromSettings("COLOR_RESOURCE_LENS_LUXNCONNECTED"),   KeyLabel = "LOC_HUD_RESOURCE_LENS_LUXNCONNECTED" },
+    ["COLOR_RESOURCE_LENS_STRATNCONNECTED"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_RESOURCE_LENS_STRATNCONNECTED"), KeyLabel = "LOC_HUD_RESOURCE_LENS_STRATNCONNECTED" },
+    ["COLOR_RESOURCE_LENS_BONUSNCONNECTED"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_RESOURCE_LENS_BONUSNCONNECTED"), KeyLabel = "LOC_HUD_RESOURCE_LENS_BONUSNCONNECTED" }
 }
 
 -- ===========================================================================
@@ -481,6 +481,9 @@ function SetResourceLens()
     if table.count(IgnorePlots) > 0 then
         UILens.SetLayerHexesColoredArea( ML_LENS_LAYER, localPlayer, IgnorePlots, IgnoreColor )
     end
+
+    -- This takes care of updating the colors in the Modal Lens Key Panel
+    SetModalKeyResourceLens()
 end
 
 function RefreshResourcePicker()
@@ -805,8 +808,9 @@ local function ChangeContainer()
 end
 
 local function CQUI_OnSettingsInitialized()
-    -- TODO: using the g_ModalLensPanel or whatever it's called may be the way to go here, not the ResourceLEnsModal thing
-    UpdateLensConfiguredColors(m_LensSettings, ResourceLensModalPanelEntry, LENS_NAME);
+    -- NOTE: This lens uses a special case to do the color key for the Modal Lens panel (as this lens is its own Context)
+    -- It will update the modal panel key when function to show the lens is called
+    UpdateLensConfiguredColors(m_LensSettings, nil, LENS_NAME);
 end
 
 local function CQUI_OnSettingsUpdate()
@@ -841,20 +845,21 @@ local ResourceLensEntry = {
 }
 
 -- modallenspanel.lua
--- TODO: The colors in the Modal Panel for the Resources do not light up correctly
---       There is a wapper that points at this object but it only sets that
---       update when Events.LoadScreenClose fires
--- g_ModLensModalPanel[LENS_NAME]
+function SetModalKeyResourceLens()
 local ResourceLensModalPanelEntry = {}
 ResourceLensModalPanelEntry.LensTextKey = "LOC_HUD_RESOURCE_LENS"
 ResourceLensModalPanelEntry.Legend = {
-    {m_LensSettings["COLOR_RESOURCE_LENS_LUXCONNECTED"].LocName, m_LensSettings["COLOR_RESOURCE_LENS_LUXCONNECTED"].ConfiguredColor},
-    {m_LensSettings["COLOR_RESOURCE_LENS_LUXNCONNECTED"].LocName, m_LensSettings["COLOR_RESOURCE_LENS_LUXNCONNECTED"].ConfiguredColor},
-    {m_LensSettings["COLOR_RESOURCE_LENS_BONUSCONNECTED"].LocName, m_LensSettings["COLOR_RESOURCE_LENS_BONUSCONNECTED"].ConfiguredColor},
-    {m_LensSettings["COLOR_RESOURCE_LENS_BONUSNCONNECTED"].LocName, m_LensSettings["COLOR_RESOURCE_LENS_BONUSNCONNECTED"].ConfiguredColor},
-    {m_LensSettings["COLOR_RESOURCE_LENS_STRATCONNECTED"].LocName, m_LensSettings["COLOR_RESOURCE_LENS_STRATCONNECTED"].ConfiguredColor},
-    {m_LensSettings["COLOR_RESOURCE_LENS_STRATNCONNECTED"].LocName, m_LensSettings["COLOR_RESOURCE_LENS_STRATNCONNECTED"].ConfiguredColor}
+    {m_LensSettings["COLOR_RESOURCE_LENS_LUXCONNECTED"].KeyLabel, m_LensSettings["COLOR_RESOURCE_LENS_LUXCONNECTED"].ConfiguredColor},
+    {m_LensSettings["COLOR_RESOURCE_LENS_LUXNCONNECTED"].KeyLabel, m_LensSettings["COLOR_RESOURCE_LENS_LUXNCONNECTED"].ConfiguredColor},
+    {m_LensSettings["COLOR_RESOURCE_LENS_BONUSCONNECTED"].KeyLabel, m_LensSettings["COLOR_RESOURCE_LENS_BONUSCONNECTED"].ConfiguredColor},
+    {m_LensSettings["COLOR_RESOURCE_LENS_BONUSNCONNECTED"].KeyLabel, m_LensSettings["COLOR_RESOURCE_LENS_BONUSNCONNECTED"].ConfiguredColor},
+    {m_LensSettings["COLOR_RESOURCE_LENS_STRATCONNECTED"].KeyLabel, m_LensSettings["COLOR_RESOURCE_LENS_STRATCONNECTED"].ConfiguredColor},
+    {m_LensSettings["COLOR_RESOURCE_LENS_STRATNCONNECTED"].KeyLabel, m_LensSettings["COLOR_RESOURCE_LENS_STRATNCONNECTED"].ConfiguredColor}
 }
+
+    -- -- overwrite the old entry and refresh key panel
+    LuaEvents.ModalLensPanel_AddLensEntry(LENS_NAME, ResourceLensModalPanelEntry, true)
+end
 
 -- Add CQUI LuaEvent Hooks for minimappanel and modallenspanel contexts
 LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
@@ -876,7 +881,7 @@ local function Initialize()
         function()
             ChangeContainer()
             LuaEvents.MinimapPanel_AddLensEntry(LENS_NAME, ResourceLensEntry)
-            LuaEvents.ModalLensPanel_AddLensEntry(LENS_NAME, ResourceLensModalPanelEntry)
+            SetModalKeyResourceLens()
         end
     )
     Events.LensLayerOn.Add( OnLensLayerOn )

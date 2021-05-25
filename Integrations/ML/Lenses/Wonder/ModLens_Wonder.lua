@@ -3,8 +3,8 @@ include("LensSupport")
 local LENS_NAME = "ML_WONDER"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 local m_LensSettings = {
-    ["COLOR_WONDER_LENS_NATURAL"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_WONDER_LENS_NATURAL"), LocName = "LOC_HUD_WONDER_LENS_NATURAL" },
-    ["COLOR_WONDER_LENS_PLAYER"]  =  { ConfiguredColor = GetLensColorFromSettings("COLOR_WONDER_LENS_PLAYER"),  LocName = "LOC_HUD_WONDER_LENS_PLAYER" }
+    ["COLOR_WONDER_LENS_NATURAL"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_WONDER_LENS_NATURAL"), KeyLabel = "LOC_HUD_WONDER_LENS_NATURAL" },
+    ["COLOR_WONDER_LENS_PLAYER"]  =  { ConfiguredColor = GetLensColorFromSettings("COLOR_WONDER_LENS_PLAYER"),  KeyLabel = "LOC_HUD_WONDER_LENS_PLAYER" }
 }
 
 -- ===========================================================================
@@ -94,8 +94,8 @@ if g_ModLensModalPanel ~= nil then
     g_ModLensModalPanel[LENS_NAME] = {}
     g_ModLensModalPanel[LENS_NAME].LensTextKey = "LOC_HUD_WONDER_LENS"
     g_ModLensModalPanel[LENS_NAME].Legend = {
-        {m_LensSettings["COLOR_WONDER_LENS_NATURAL"].LocName, m_LensSettings["COLOR_WONDER_LENS_NATURAL"].ConfiguredColor},
-        {m_LensSettings["COLOR_WONDER_LENS_PLAYER"].LocName, m_LensSettings["COLOR_WONDER_LENS_PLAYER"].ConfiguredColor}
+        {m_LensSettings["COLOR_WONDER_LENS_NATURAL"].KeyLabel, m_LensSettings["COLOR_WONDER_LENS_NATURAL"].ConfiguredColor},
+        {m_LensSettings["COLOR_WONDER_LENS_PLAYER"].KeyLabel, m_LensSettings["COLOR_WONDER_LENS_PLAYER"].ConfiguredColor}
     }
 end
 

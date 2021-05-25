@@ -445,8 +445,8 @@
                                 <!-- Categories each with 1 or more controls contained within -->
                                 <Stack ID="LensRGBPickerLensGroupStack" Anchor="L,T" StackGrowth="Down" Size="parent,0" Offset="0,0" Padding="5">
                                 </Stack>
-                                <ScrollBar Style="Slider_Blue" Anchor="R,C" AnchorSide="O,I"/>
                             </Stack>
+                            <ScrollBar Style="Slider_Blue" Anchor="R,C" AnchorSide="O,I"/>
                         </ScrollPanel>
                     </Container>
                     <Container ID="TraderScreenOption" Size="parent,parent" Hidden="1">
