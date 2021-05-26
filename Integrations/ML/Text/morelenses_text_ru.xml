@@ -10,19 +10,19 @@
     <Replace Tag="LOC_HUD_BUILDER_LENS_TOOLTIP" Language="ru_RU">
       <Text>Выделяет на каких клетках строитель может работать</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_IMP" Language="ru_RU">
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P2" Language="ru_RU">
       <Text>Ресурс / Разграблено / Уникальная способность</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_HILL" Language="ru_RU">
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P4" Language="ru_RU">
       <Text>Холм</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_FEATURE" Language="ru_RU">
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P5" Language="ru_RU">
       <Text>Удаляемая особенность</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_GENERIC" Language="ru_RU">
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P7" Language="ru_RU">
       <Text>Универсальная Клетка</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_NOTHING" Language="ru_RU">
+    <Replace Tag="LOC_HUD_BUILDER_LENS_PN" Language="ru_RU">
       <Text>Нечего строить</Text>
     </Replace>
 
@@ -33,10 +33,10 @@
     <Replace Tag="LOC_HUD_ARCHAEOLOGIST_LENS_TOOLTIP" Language="ru_RU">
       <Text>Выделяет места раскопок.</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_ARCHAEOLOGIST_LENS_ARTIFACT" Language="ru_RU">
+    <Replace Tag="LOC_HUD_ARCHAEOLOGIST_LENS_ARTIFACT" Language="ru_RU">
       <Text>Артефакт</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_ARCHAEOLOGIST_LENS_SHIPWRECK" Language="ru_RU">
+    <Replace Tag="LOC_HUD_ARCHAEOLOGIST_LENS_SHIPWRECK" Language="ru_RU">
       <Text>Кораблекрушение</Text>
     </Replace>
 
@@ -63,7 +63,7 @@
     <Replace Tag="LOC_HUD_BARBARIAN_LENS_TOOLTIP" Language="ru_RU">
       <Text>Выделяет лагеря варваров на карте</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_BARBARIAN_LENS_ENCAPMENT" Language="ru_RU">
+    <Replace Tag="LOC_HUD_BARBARIAN_LENS_ENCAMPMENT" Language="ru_RU">
       <Text>Лагерь Варваров</Text>
     </Replace>
 
@@ -74,22 +74,22 @@
     <Replace Tag="LOC_HUD_RESOURCE_LENS_TOOLTIP" Language="ru_RU">
       <Text>Выделяет ресурсы на карте</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_LUXURY" Language="ru_RU">
+    <Replace Tag="LOC_HUD_RESOURCE_LENS_LUXCONNECTED" Language="ru_RU">
       <Text>Редкий</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_NLUXURY" Language="ru_RU">
+    <Replace Tag="LOC_HUD_RESOURCE_LENS_LUXNCONNECTED" Language="ru_RU">
       <Text>Необработанный редкий</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_STRATEGIC" Language="ru_RU">
+    <Replace Tag="LOC_HUD_RESOURCE_LENS_STRATCONNECTED" Language="ru_RU">
       <Text>Стратегический</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_NSTRATEGIC" Language="ru_RU">
+    <Replace Tag="LOC_HUD_RESOURCE_LENS_STRATNCONNECTED" Language="ru_RU">
       <Text>Необработанный стратегический</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_BONUS" Language="ru_RU">
+    <Replace Tag="LOC_HUD_RESOURCE_LENS_BONUSCONNECTED" Language="ru_RU">
       <Text>Бонусный</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_NBONUS" Language="ru_RU">
+    <Replace Tag="LOC_HUD_RESOURCE_LENS_BONUSNCONNECTED" Language="ru_RU">
       <Text>Необработанный бонусный</Text>
     </Replace>
 
@@ -100,10 +100,10 @@
     <Replace Tag="LOC_HUD_WONDER_LENS_TOOLTIP" Language="ru_RU">
       <Text>Выделяет чудеса природы и чудеса света, построенные игроками</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_WONDER_LENS_NWONDER" Language="ru_RU">
+    <Replace Tag="LOC_HUD_WONDER_LENS_NATURAL" Language="ru_RU">
       <Text>Чудо природы</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_PWONDER" Language="ru_RU">
+    <Replace Tag="LOC_HUD_WONDER_LENS_PLAYER" Language="ru_RU">
       <Text>Чудо света</Text>
     </Replace>
 
@@ -122,7 +122,7 @@
     <Replace Tag="LOC_HUD_SCOUT_LENS_TOOLTIP" Language="ru_RU">
       <Text>Выделяет племенные поселения на карте</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_SCOUT_LENS_GHUT" Language="ru_RU">
+    <Replace Tag="LOC_HUD_SCOUT_LENS_GHUT" Language="ru_RU">
       <Text>Племенное поселение</Text>
     </Replace>
 

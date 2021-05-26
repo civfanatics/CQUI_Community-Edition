@@ -1,5 +1,10 @@
+include("LensSupport")
 local LENS_NAME = "ML_BARBARIAN"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
+
+local m_LensSettings = {
+    ["COLOR_BARBARIAN_LENS_ENCAMPMENT"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_BARBARIAN_LENS_ENCAMPMENT"), KeyLabel = "LOC_HUD_BARBARIAN_LENS_ENCAMPMENT" }
+}
 
 -- ===========================================================================
 -- Barbarian Lens Support
@@ -22,7 +27,7 @@ local function OnGetColorPlotTable()
     local localPlayer   :number = Game.GetLocalPlayer()
     local localPlayerVis:table = PlayersVisibility[localPlayer]
 
-    local BarbarianColor = UI.GetColorValue("COLOR_BARBARIAN_BARB_LENS")
+    local BarbarianColor = m_LensSettings["COLOR_BARBARIAN_LENS_ENCAMPMENT"].ConfiguredColor
     local IgnoreColor = UI.GetColorValue("COLOR_MORELENSES_GREY")
     local colorPlot:table = {}
     colorPlot[BarbarianColor] = {}
@@ -58,6 +63,7 @@ end
 local function OnInitialize()
     -- Nothing to do
 end
+
 ]]
 
 local BarbarianLensEntry = {
@@ -66,6 +72,16 @@ local BarbarianLensEntry = {
     Initialize = nil,
     GetColorPlotTable = OnGetColorPlotTable
 }
+
+-- ===========================================================================
+local function CQUI_OnSettingsInitialized()
+    UpdateLensConfiguredColors(m_LensSettings, g_ModLensModalPanel, LENS_NAME);
+end
+
+-- ===========================================================================
+local function CQUI_OnSettingsUpdate()
+    CQUI_OnSettingsInitialized();
+end
 
 -- minimappanel.lua
 if g_ModLenses ~= nil then
@@ -77,6 +93,10 @@ if g_ModLensModalPanel ~= nil then
     g_ModLensModalPanel[LENS_NAME] = {}
     g_ModLensModalPanel[LENS_NAME].LensTextKey = "LOC_HUD_BARBARIAN_LENS"
     g_ModLensModalPanel[LENS_NAME].Legend = {
-        {"LOC_TOOLTIP_BARBARIAN_LENS_ENCAPMENT", UI.GetColorValue("COLOR_BARBARIAN_BARB_LENS")}
+        {m_LensSettings["COLOR_BARBARIAN_LENS_ENCAMPMENT"].KeyLabel, m_LensSettings["COLOR_BARBARIAN_LENS_ENCAMPMENT"].ConfiguredColor}
     }
 end
+
+-- Add CQUI LuaEvent Hooks for minimappanel and modallenspanel contexts
+LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);

@@ -358,6 +358,37 @@ function AddLensEntry(lensKey:string, lensEntry:table, refreshPanel)
 end
 
 -- ===========================================================================
+function RefreshLensKey(lensKey:string)
+    ResetKeyStackIM();
+    ShowModLensKey(lensKey);
+end
+
+-- ===========================================================================
+function CQUI_SettingsPanelClosed()
+    -- Get the active lens and refresh it, updating any color changes made
+    local activeModLens = {};
+    LuaEvents.MinimapPanel_GetActiveModLens(activeModLens);
+    if (activeModLens[1] ~= nil and activeModLens[1] ~= "NONE") then
+        if (UILens.IsLensActive("Appeal")) then
+            -- Lens is enabled via the Lenses list
+            RefreshLensKey(activeModLens[1]);
+            -- Turn off and Turn on the Appeal Lens to refresh the colors
+            UILens.SetActive("Default");
+            LuaEvents.MinimapPanel_SetActiveModLens(activeModLens[1]);
+            -- Appeal is used for all of the Modded Lenses
+            UILens.SetActive("Appeal");
+        elseif (UILens.IsLensActive("Default")) then
+            -- Lens is enabled because of a selected unit (e.g. Builder, Scout)
+            local hash = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
+            UILens.ToggleLayerOff(hash);
+            UILens.ToggleLayerOn(hash);
+        else
+            print("!! ERROR: ActiveModLens is "..tostring(activeModLens[1]).."  but UILens is not Appeal or Default!");
+        end
+    end
+end
+
+-- ===========================================================================
 function LateInitialize()
     if (Game.GetLocalPlayer() == -1) then
         return;
@@ -369,7 +400,9 @@ function LateInitialize()
     Events.LensLayerOn.Add( OnLensLayerOn );
 
     -- Mod Lens Support
-    LuaEvents.ModalLensPanel_AddLensEntry.Add( AddLensEntry )
+    LuaEvents.ModalLensPanel_AddLensEntry.Add( AddLensEntry );
+    -- Support for updating Mod Lens Colors
+    LuaEvents.CQUI_SettingsPanelClosed.Add( CQUI_SettingsPanelClosed );
 
     LuaEvents.MinimapPanel_AddContinentColorPair.Add(OnAddContinentColorPair);
 end

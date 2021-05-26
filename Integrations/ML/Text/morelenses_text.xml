@@ -18,24 +18,6 @@
         <Row Tag="LOC_HUD_BUILDER_LENS_TOOLTIP">
             <Text>Highlights what hexes the builder can work on</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_BUILDER_LENS_IMP">
-            <Text>Resource/Pillaged/Unique Ability</Text>
-        </Row>
-        <Row Tag="LOC_TOOLTIP_RECOMFEATURE_LENS_HILL">
-            <Text>Recommended Improve Feature</Text>
-        </Row>
-        <Row Tag="LOC_TOOLTIP_BUILDER_LENS_HILL">
-            <Text>Hill</Text>
-        </Row>
-        <Row Tag="LOC_TOOLTIP_BUILDER_LENS_FEATURE">
-            <Text>Removable Feature</Text>
-        </Row>
-        <Row Tag="LOC_TOOLTIP_BUILDER_LENS_GENERIC">
-            <Text>Generic Tile</Text>
-        </Row>
-        <Row Tag="LOC_TOOLTIP_BUILDER_LENS_NOTHING">
-            <Text>Nothing to do</Text>
-        </Row>
         <Row Tag="LOC_HUD_BUILDER_LENS_PN">
             <Text>Nothing</Text>
         </Row>
@@ -49,7 +31,7 @@
             <Text>Resources outside range</Text>
         </Row>
         <Row Tag="LOC_HUD_BUILDER_LENS_P2">
-            <Text>Recommended/Pillaged/Unique Ability</Text>
+            <Text>Recommended / Pillaged / Unique Ability</Text>
         </Row>
         <Row Tag="LOC_HUD_BUILDER_LENS_P3">
             <Text>Currently Worked / Wonder-Buffed</Text>
@@ -76,10 +58,10 @@
         <Row Tag="LOC_HUD_ARCHAEOLOGIST_LENS_TOOLTIP">
             <Text>Highlights archaeologist dig sites.</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_ARCHAEOLOGIST_LENS_ARTIFACT">
+        <Row Tag="LOC_HUD_ARCHAEOLOGIST_LENS_ARTIFACT">
             <Text>Artifact</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_ARCHAEOLOGIST_LENS_SHIPWRECK">
+        <Row Tag="LOC_HUD_ARCHAEOLOGIST_LENS_SHIPWRECK">
             <Text>Shipwreck</Text>
         </Row>
 
@@ -113,7 +95,7 @@
         <Row Tag="LOC_HUD_BARBARIAN_LENS_TOOLTIP">
             <Text>Highlights barbarian encampments on the map</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_BARBARIAN_LENS_ENCAPMENT">
+        <Row Tag="LOC_HUD_BARBARIAN_LENS_ENCAMPMENT">
             <Text>Barbarian Encampment</Text>
         </Row>
 
@@ -124,22 +106,22 @@
         <Row Tag="LOC_HUD_RESOURCE_LENS_TOOLTIP">
             <Text>Highlights resources on the map</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_LUXURY">
+        <Row Tag="LOC_HUD_RESOURCE_LENS_LUXCONNECTED">
             <Text>Luxury Resource</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_NLUXURY">
+        <Row Tag="LOC_HUD_RESOURCE_LENS_LUXNCONNECTED">
             <Text>Unconnected Luxury</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_STRATEGIC">
+        <Row Tag="LOC_HUD_RESOURCE_LENS_STRATCONNECTED">
             <Text>Strategic Resource</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_NSTRATEGIC">
+        <Row Tag="LOC_HUD_RESOURCE_LENS_STRATNCONNECTED">
             <Text>Unconnected Strategic Resource</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_BONUS">
+        <Row Tag="LOC_HUD_RESOURCE_LENS_BONUSCONNECTED">
             <Text>Bonus Resource</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_NBONUS">
+        <Row Tag="LOC_HUD_RESOURCE_LENS_BONUSNCONNECTED">
             <Text>Unconnected Bonus Resource</Text>
         </Row>
 
@@ -150,10 +132,10 @@
         <Row Tag="LOC_HUD_WONDER_LENS_TOOLTIP">
             <Text>Highlights natural wonders and built wonders built by players</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_WONDER_LENS_NWONDER">
+        <Row Tag="LOC_HUD_WONDER_LENS_NATURAL">
             <Text>Natural Wonder</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_RESOURCE_LENS_PWONDER">
+        <Row Tag="LOC_HUD_WONDER_LENS_PLAYER">
             <Text>Player-made Wonder</Text>
         </Row>
 
@@ -172,7 +154,7 @@
         <Row Tag="LOC_HUD_SCOUT_LENS_TOOLTIP">
             <Text>Highlights goody huts on the map</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_SCOUT_LENS_GHUT">
+        <Row Tag="LOC_HUD_SCOUT_LENS_GHUT">
             <Text>Goody Hut</Text>
         </Row>
 
@@ -183,14 +165,30 @@
         <Row Tag="LOC_HUD_NATURALIST_LENS_TOOLTIP">
             <Text>Highlights places where National Parks can be built</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_NATURALIST_LENS_NPARK">
+        <Row Tag="LOC_HUD_NATURALIST_LENS_PARK">
             <Text>Area is ready for National Park</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_NATURALIST_LENS_OK">
+        <Row Tag="LOC_HUD_NATURALIST_LENS_OK">
             <Text>Tile could be used, if some other plot is fixed</Text>
         </Row>
-        <Row Tag="LOC_TOOLTIP_NATURALIST_LENS_FIXABLE">
+        <Row Tag="LOC_HUD_NATURALIST_LENS_FIXABLE">
             <Text>Needs fixing to be used for a park</Text>
+        </Row>
+
+        <Row Tag="LOC_HUD_CITY_PLOT_LENS">
+            <Text>City Plot</Text>
+        </Row>
+        <Row Tag="LOC_HUD_CITY_PLOT_LENS_TOOLTIP">
+            <Text>Highlight the worked and locked hexes of a city plot</Text>
+        </Row>
+        <Row Tag="LOC_HUD_CITY_PLOT_LENS_WORKING">
+            <Text>Worked Plot</Text>
+        </Row>
+        <Row Tag="LOC_HUD_CITY_PLOT_LENS_LOCKED">
+            <Text>Locked Plot</Text>
+        </Row>
+        <Row Tag="LOC_HUD_CITY_PLOT_LENS_CULTURE">
+            <Text>Next Culture Plot Growth</Text>
         </Row>
 
         <!-- Settings Panel strings are in the cqui_text_settings.xml file -->

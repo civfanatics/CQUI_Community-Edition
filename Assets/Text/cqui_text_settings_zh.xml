@@ -211,5 +211,22 @@
     <Row Tag="LOC_CQUI_SETTINGS_MOVED" Language="zh_Hans">
       <Text>CQUI 设置现在可以通过从游戏菜单中选择选项，然后通过 CQUI 设置按钮找到</Text>
     </Row>
+
+    <!-- More Lenses Color Slider Controls -->
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS" Language="zh_Hans">
+      <Text>用于自定义镜头的 RGB 颜色设置</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_BLUE" Language="zh_Hans">
+      <Text>蓝</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_EDITBOX_TOOLTIP" Language="zh_Hans">
+      <Text>输入 0 和 255 之间的值</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_GREEN" Language="zh_Hans">
+      <Text>绿</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_RED" Language="zh_Hans">
+      <Text>红</Text>
+    </Row>
   </LocalizedText>
 </GameData>

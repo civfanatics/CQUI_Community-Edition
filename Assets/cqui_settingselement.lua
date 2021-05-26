@@ -1,14 +1,16 @@
 -- TODO (2020-05): Custom localizations are temporarily disabled due to reloads breaking them at the moment. Localizations are complete, so remember to enable them once Firaxis fixes this!
-include( "Civ6Common" );
-include( "CQUICommon.lua" );
+include("Civ6Common");
+include("CQUICommon.lua");
 include("InstanceManager");
+-- note: cqui_settingselement_lenscolors.lua is included at the end of this file, so it can make use of some of the functions defined here
 
 -- ============================================================================
 -- VARIABLE DECLARATIONS
 -- ============================================================================
 --Add new options tabs to this in Initialize function
 local m_tabs;
-local _KeyBindingActions = InstanceManager:new("KeyBindingAction", "Root", Controls.KeyBindingsStack);
+local m_keyBindingActionsIM = InstanceManager:new("KeyBindingAction", "Root", Controls.KeyBindingsStack);
+-- ===========================================================================
 
 local suzerain_icon_options = {
     {"LOC_CQUI_SHOW_SUZERAIN_DISABLED",    0},
@@ -51,6 +53,11 @@ local SliderControlConverter = {
             return out;
         end
 };
+
+-- This exists so it can be made available to the lenscolors lua file
+function GetSliderControlConverter()
+    return SliderControlConverter;
+end
 
 -- ============================================================================
 -- FUNCTIONS
@@ -188,11 +195,43 @@ function PopulateCheckBox(control, setting_name, tooltip)
 end
 
 -- ===========================================================================
+--Used to populate Generic Edit Boxes
+function PopulateEditBox(control, setting_name, commit_callback, string_changed_callback, tooltip)
+    -- print_debug("ENTRY: CQUICommon - PopulateCheckBox");
+    local current_value = GameConfiguration.GetValue(setting_name);
+
+    if (current_value == nil) then
+        --LY Checks if this setting has a default state defined in the database
+        if (GameInfo.CQUI_Settings[setting_name]) then
+            current_value = GameInfo.CQUI_Settings[setting_name].Value;
+        else
+            current_value = "";
+        end
+
+        GameConfiguration.SetValue(setting_name, current_value);
+    end
+
+    if (commit_callback ~= nil) then
+        control:RegisterCommitCallback(commit_callback);
+    end
+
+    if (string_changed_callback ~= nil) then
+        control:RegisterStringChangedCallback(string_changed_callback);
+    end
+
+    control:SetText(current_value);
+
+    if (tooltip ~= nil)then
+        control:SetToolTipString(tooltip);
+    end
+end
+
+-- ===========================================================================
 --Used to populate sliders. data_converter is a table containing two functions: ToStep and ToValue, which describe how to handle converting from the incremental slider steps to a setting value, think of it as a less elegant inner class
 --Optional third function: ToString. When included, this function will handle how the value is converted to a display value, otherwise this defaults to using the value from ToValue
 function PopulateSlider(control, label, setting_name, data_converter, tooltip, minvalue, maxvalue)
     -- print_debug("ENTRY: CQUICommon - PopulateSlider");
-    --This is necessary because RegisterSliderCallback fires twice when releasing the mouse cursor for some reason
+    -- This is necessary because RegisterSliderCallback fires twice when releasing the mouse cursor for some reason
     local hasScrolled = false;
     local current_value = GameConfiguration.GetValue(setting_name);
     if (current_value == nil) then
@@ -227,12 +266,12 @@ function PopulateSlider(control, label, setting_name, data_converter, tooltip, m
         end
     );
 
-    if (tooltip ~= nil)then
+    if (tooltip ~= nil) then
         control:SetToolTipString(tooltip);
     end
 end
 
-
+-- ===========================================================================
 --Used to switch active panels/tabs in the settings panel
 function ShowTab(button, panel)
     -- print_debug("CQUI_SettingsElement: ShowTab Function Entry");
@@ -437,6 +476,8 @@ end
 function Close()
     UI.PlaySound("UI_Pause_Menu_On");
     ContextPtr:SetHide(true);
+    LuaEvents.CQUI_SettingsUpdate();
+    LuaEvents.CQUI_SettingsPanelClosed();
 end
 
 -- ===========================================================================
@@ -488,9 +529,9 @@ function Initialize()
 
     --Populating/binding comboboxes...
     PopulateComboBox(Controls.BindingsPullDown, boolean_options, "CQUI_BindingsMode");
-    _KeyBindingActions:ResetInstances();
+    m_keyBindingActionsIM:ResetInstances();
     for currentBinding in GameInfo.CQUI_Bindings() do
-        local entry = _KeyBindingActions:GetInstance();
+        local entry = m_keyBindingActionsIM:GetInstance();
         entry.ActionName:SetText(Locale.Lookup(currentBinding["ActionDesc"]));
         entry.Binding:SetText(currentBinding["Keys"]);
     end
@@ -539,6 +580,9 @@ function Initialize()
     PopulateCheckBox(Controls.AutoapplyScoutLensCheckbox, "CQUI_AutoapplyScoutLens", Locale.Lookup("LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_TOOLTIP"));
     PopulateCheckBox(Controls.AutoapplyScoutLensExtraCheckbox, "CQUI_AutoapplyScoutLensExtra", Locale.Lookup("LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA_TOOLTIP"));
     PopulateComboBox(Controls.ReligionLensHideUnits, icon_style_options, "CQUI_ReligionLensUnitFlagStyle", Locale.Lookup("LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP"));
+    
+    -- Add Individual Builder Lenses
+    PopulateLensRGBPickerSettings();
 
     PopulateCheckBox(Controls.ShowYieldsOnCityHoverCheckbox, "CQUI_ShowYieldsOnCityHover", Locale.Lookup("LOC_CQUI_CITYVIEW_SHOWYIELDSONCITYHOVER_TOOLTIP"));
     PopulateCheckBox(Controls.ShowCitizenIconsOnHoverCheckbox, "CQUI_ShowCitizenIconsOnCityHover", Locale.Lookup("LOC_CQUI_CITYVIEW_SHOWCITIZENICONSONHOVER_TOOLTIP"));
@@ -589,7 +633,7 @@ function ToggleSmartbannerCheckboxes()
     Controls.CityViewStack:ReprocessAnchoring();
 end
 
--- -- ===========================================================================
+-- ===========================================================================
 function ToggleSuzerainOptionsCheckboxes()
     local selected = (GameConfiguration.GetValue("CQUI_ShowSuzerainInCityStateBanner") ~= 0);  -- 0 is Do Not Show
     Controls.CityStateSuzerainOptions:SetHide(not selected);
@@ -623,5 +667,8 @@ function UpdateKeyBindingsDisplay()
     local selected = (GameConfiguration.GetValue("CQUI_BindingsMode") ~= 0);
     Controls.KeyBindingsScrollPanel:SetHide(not selected);
 end
+
+-- Include the logic specific to the Lenses color settings
+include("cqui_settingselement_lenscolors.lua");
 
 Initialize();

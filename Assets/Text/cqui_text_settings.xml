@@ -178,13 +178,13 @@
       <Text>Builder lens: Disable nothing plot highlight</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLENOTHING_TOOLTIP" Language="en_US">
-      <Text>Disable highlighting of plots that have nothing to do.[NEWLINE]Enable this if the lens takes a long time to apply.</Text>
+      <Text>Disable highlighting of plots that have nothing to do.</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS" Language="en_US">
       <Text>Builder lens: Disable dangerous plot highlight</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS_TOOLTIP" Language="en_US">
-      <Text>Disable highlighting of plots that are adjacent an enemy.[NEWLINE]Enable this if the lens takes a long time to apply.</Text>
+      <Text>Disable highlighting of plots that are adjacent an enemy.</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS" Language="en_US">
       <Text>Auto-apply Scout lens</Text>
@@ -376,5 +376,25 @@
     <Row Tag="LOC_CQUI_SETTINGS_MOVED" Language="en_US">
       <Text>CQUI Settings can now be found by selecting "Options" from the Game Menu, then the CQUI Settings button</Text>
     </Row>
+
+    <!-- More Lenses Color Slider Controls -->
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS" Language="en_US">
+      <Text>RGB Color Settings for Custom Lenses</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_RED" Language="en_US">
+      <Text>Red</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_GREEN" Language="en_US">
+      <Text>Green</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_BLUE" Language="en_US">
+      <Text>Blue</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_EDITBOX_TOOLTIP" Language="en_US">
+      <Text>Enter a value between 0 and 255</Text>
+    </Row>
+
+
+
   </LocalizedText>
 </GameData>

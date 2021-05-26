@@ -10,22 +10,22 @@
     <Replace Tag="LOC_HUD_BUILDER_LENS_TOOLTIP" Language="pt_BR">
       <Text>Destaques sobre quais hexagonos o construtor pode trabalhar</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_IMP" Language="pt_BR">
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P2" Language="pt_BR">
       <Text>Recurso/Saqueado/Habilidade Única</Text>
     </Replace>
     <Replace Tag="LOC_TOOLTIP_RECOMFEATURE_LENS_HILL" Language="pt_BR">
       <Text>Recomendado Melhorar o Recurso</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_HILL" Language="pt_BR">
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P4" Language="pt_BR">
       <Text>Colina</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_FEATURE" Language="pt_BR">
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P5" Language="pt_BR">
       <Text>Recurso Removível</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_GENERIC" Language="pt_BR">
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P7" Language="pt_BR">
       <Text>Lote genérico</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_NOTHING" Language="pt_BR">
+    <Replace Tag="LOC_HUD_BUILDER_LENS_PN" Language="pt_BR">
       <Text>Nada para fazer</Text>
     </Replace>
 
@@ -36,10 +36,10 @@
     <Replace Tag="LOC_HUD_ARCHAEOLOGIST_LENS_TOOLTIP" Language="pt_BR">
       <Text>Destaques de sites de escavação do arqueologista.</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_ARCHAEOLOGIST_LENS_ARTIFACT" Language="pt_BR">
+    <Replace Tag="LOC_HUD_ARCHAEOLOGIST_LENS_ARTIFACT" Language="pt_BR">
       <Text>Artefato</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_ARCHAEOLOGIST_LENS_SHIPWRECK" Language="pt_BR">
+    <Replace Tag="LOC_HUD_ARCHAEOLOGIST_LENS_SHIPWRECK" Language="pt_BR">
       <Text>Naufrágio</Text>
     </Replace>
 
@@ -73,7 +73,7 @@
     <Replace Tag="LOC_HUD_BARBARIAN_LENS_TOOLTIP" Language="pt_BR">
       <Text>Destaca acampamentos bárbaros no mapa</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_BARBARIAN_LENS_ENCAPMENT" Language="pt_BR">
+    <Replace Tag="LOC_HUD_BARBARIAN_LENS_ENCAMPMENT" Language="pt_BR">
       <Text>Acampamento Bárbaro</Text>
     </Replace>
 
@@ -84,22 +84,22 @@
     <Replace Tag="LOC_HUD_RESOURCE_LENS_TOOLTIP" Language="pt_BR">
       <Text>Destaca recursos no mapa</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_LUXURY" Language="pt_BR">
+    <Replace Tag="LOC_HUD_RESOURCE_LENS_LUXCONNECTED" Language="pt_BR">
       <Text>Recursos de Luxo</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_NLUXURY" Language="pt_BR">
+    <Replace Tag="LOC_HUD_RESOURCE_LENS_LUXNCONNECTED" Language="pt_BR">
       <Text>Luxo Desconectado</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_STRATEGIC" Language="pt_BR">
+    <Replace Tag="LOC_HUD_RESOURCE_LENS_STRATCONNECTED" Language="pt_BR">
       <Text>Recursos Estratégicos</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_NSTRATEGIC" Language="pt_BR">
+    <Replace Tag="LOC_HUD_RESOURCE_LENS_STRATNCONNECTED" Language="pt_BR">
       <Text>Recurso Estratégico Desconectado</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_BONUS" Language="pt_BR">
+    <Replace Tag="LOC_HUD_RESOURCE_LENS_BONUSCONNECTED" Language="pt_BR">
       <Text>Recursos bônus</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_NBONUS" Language="pt_BR">
+    <Replace Tag="LOC_HUD_RESOURCE_LENS_BONUSNCONNECTED" Language="pt_BR">
       <Text>Recurso bônus desconectado</Text>
     </Replace>
 
@@ -110,10 +110,10 @@
     <Replace Tag="LOC_HUD_WONDER_LENS_TOOLTIP" Language="pt_BR">
       <Text>Destaca maravilhas naturais e maravilhas construída por jogadores</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_WONDER_LENS_NWONDER" Language="pt_BR">
+    <Replace Tag="LOC_HUD_WONDER_LENS_NATURAL" Language="pt_BR">
       <Text>Maravilha Natural</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RESOURCE_LENS_PWONDER" Language="pt_BR">
+    <Replace Tag="LOC_HUD_WONDER_LENS_PLAYER" Language="pt_BR">
       <Text>Maravilha feita por jogador</Text>
     </Replace>
 
@@ -132,7 +132,7 @@
     <Replace Tag="LOC_HUD_SCOUT_LENS_TOOLTIP" Language="pt_BR">
       <Text>Destaca as aldeias no mapa</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_SCOUT_LENS_GHUT" Language="pt_BR">
+    <Replace Tag="LOC_HUD_SCOUT_LENS_GHUT" Language="pt_BR">
       <Text>Aldeias</Text>
     </Replace>
 

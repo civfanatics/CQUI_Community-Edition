@@ -36,72 +36,74 @@ INSERT INTO Colors      (   Type,                               Red,        Gree
 VALUES                  (   'COLOR_BUILDER_LENS_PN',            '0.33',     '0.33',     '0.33',     '0.5');
 
 -- Archeologist lens
-INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_ARTIFACT_ARCH_LENS',         '1',        '0',        '0',        '0.5');
-INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_SHIPWRECK_ARCH_LENS',        '0',        '1',        '0',        '0.5');
+INSERT INTO Colors      (   Type,                                 Red,      Green,      Blue,       Alpha)
+VALUES                  (   'COLOR_ARCHAEOLOGIST_LENS_ARTIFACT',  '1',      '0',        '0',        '0.5');
+INSERT INTO Colors      (   Type,                                 Red,      Green,      Blue,       Alpha)
+VALUES                  (   'COLOR_ARCHAEOLOGIST_LENS_SHIPWRECK', '0',      '1',        '0',        '0.5');
 
 -- Gradient 8
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_GRADIENT8_1',                '0.9',      '0.0',      '0.05',     '0.5');
+VALUES                  (   'COLOR_CITYOVERLAP_LENS_1',         '0.9',      '0.0',      '0.05',     '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_GRADIENT8_2',                '0.8',      '0.48',     '0.0',      '0.5');
+VALUES                  (   'COLOR_CITYOVERLAP_LENS_2',         '0.8',      '0.48',     '0.0',      '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_GRADIENT8_3',                '0.75',     '0.75',     '0.75',     '0.5');
+VALUES                  (   'COLOR_CITYOVERLAP_LENS_3',         '0.75',     '0.75',     '0.75',     '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_GRADIENT8_4',                '0.5',      '1',        '0.5',      '0.5');
+VALUES                  (   'COLOR_CITYOVERLAP_LENS_4',         '0.5',      '1',        '0.5',      '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_GRADIENT8_5',                '0',        '1',        '0',        '0.5');
+VALUES                  (   'COLOR_CITYOVERLAP_LENS_5',         '0',        '1',        '0',        '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_GRADIENT8_6',                '0.0',      '0.98',     '0.93',     '0.5');
+VALUES                  (   'COLOR_CITYOVERLAP_LENS_6',         '0.0',      '0.98',     '0.93',     '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_GRADIENT8_7',                '0.56',     '0.0',      '0.98',     '0.5');
+VALUES                  (   'COLOR_CITYOVERLAP_LENS_7',         '0.56',     '0.0',      '0.98',     '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_GRADIENT8_8',                '0.98',     '0.0',      '0.81',     '0.5');
+VALUES                  (   'COLOR_CITYOVERLAP_LENS_8',         '0.98',     '0.0',      '0.81',     '0.5');
 
 -- Barbarian Lens
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_BARBARIAN_BARB_LENS',        '1',        '0',        '0',        '0.5');
+VALUES                  (   'COLOR_BARBARIAN_LENS_ENCAMPMENT',  '1',        '0',        '0',        '0.5');
 
 -- Resources Lens
-INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_LUXCONNECTED_RES_LENS',      '0.82',     '0.65',     '0.96',     '0.5');
-INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_LUXNCONNECTED_RES_LENS',     '1',        '0',        '1',        '0.5');
+INSERT INTO Colors      (   Type,                                 Red,      Green,      Blue,       Alpha)
+VALUES                  (   'COLOR_RESOURCE_LENS_LUXCONNECTED',   '0.82',   '0.65',     '0.96',     '0.5');
+INSERT INTO Colors      (   Type,                                 Red,      Green,      Blue,       Alpha) 
+VALUES                  (   'COLOR_RESOURCE_LENS_LUXNCONNECTED',  '1',      '0',        '1',        '0.5');
 
-INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_STRATCONNECTED_RES_LENS',    '0.96',     '0.54',     '0.54',     '0.5');
-INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_STRATNCONNECTED_RES_LENS',   '1',        '0',        '0',        '0.5');
+INSERT INTO Colors      (   Type,                                 Red,      Green,      Blue,       Alpha)
+VALUES                  (   'COLOR_RESOURCE_LENS_STRATCONNECTED', '0.96',   '0.54',     '0.54',     '0.5');
+INSERT INTO Colors      (   Type,                                 Red,      Green,      Blue,       Alpha)
+VALUES                  (   'COLOR_RESOURCE_LENS_STRATNCONNECTED','1',      '0',        '0',        '0.5');
 
-INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_BONUSCONNECTED_RES_LENS',    '0.5',      '1',        '0.5',      '0.5');
-INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_BONUSNCONNECTED_RES_LENS',   '0',        '1',        '0',        '0.5');
+INSERT INTO Colors      (   Type,                                 Red,      Green,      Blue,       Alpha)
+VALUES                  (   'COLOR_RESOURCE_LENS_BONUSCONNECTED', '0.5',    '1',        '0.5',      '0.5');
+INSERT INTO Colors      (   Type,                                 Red,      Green,      Blue,       Alpha)
+VALUES                  (   'COLOR_RESOURCE_LENS_BONUSNCONNECTED','0',      '1',        '0',        '0.5');
 
 -- Wonder Lens
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_NATURAL_WONDER_LENS',        '0',        '1',        '0',        '0.5');
+VALUES                  (   'COLOR_WONDER_LENS_NATURAL',        '0',        '1',        '0',        '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_PLAYER_WONDER_LENS',         '1',        '0',        '1',        '0.5');
+VALUES                  (   'COLOR_WONDER_LENS_PLAYER',         '1',        '0',        '1',        '0.5');
 
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_GHUT_SCOUT_LENS',            '1',        '0',        '1',        '0.5');
+VALUES                  (   'COLOR_SCOUT_LENS_GHUT',            '1',        '0',        '1',        '0.5');
 
 -- Naturalist Lens
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_PARK_NATURALIST_LENS',       '0',        '1',        '0',        '0.5');
+VALUES                  (   'COLOR_NATURALIST_LENS_PARK',       '0',        '1',        '0',        '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_OK_NATURALIST_LENS',         '0',        '1',        '1',        '0.5');
+VALUES                  (   'COLOR_NATURALIST_LENS_OK',         '0',        '1',        '1',        '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_FIXABLE_NATURALIST_LENS',    '0.56',     '0.0',      '0.98',     '0.5');
+VALUES                  (   'COLOR_NATURALIST_LENS_FIXABLE',    '0.56',     '0.0',      '0.98',     '0.5');
 
 
 -- City Manager Colors
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_CITY_PLOT_WORKING',          '1',        '0.5',      '0',        '0.2');
+VALUES                  (   'COLOR_CITY_PLOT_LENS_WORKING',     '1',        '0.5',      '0',        '0.2');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_CITY_PLOT_LOCKED',           '0',        '1',        '0',        '0.2');
+VALUES                  (   'COLOR_CITY_PLOT_LENS_LOCKED',      '0',        '1',        '0',        '0.2');
+INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
+VALUES                  (   'COLOR_CITY_PLOT_LENS_CULTURE',     '0.89',     '0.431',   '0.862',    '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
 VALUES                  (   'COLOR_AREA_LENS_NEUTRAL',          '0',        '0',        '0',        '0.0');
 

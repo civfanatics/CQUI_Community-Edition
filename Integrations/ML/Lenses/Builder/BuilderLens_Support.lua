@@ -1,6 +1,3 @@
-include("LensSupport")
---TEMP
-print("LOADFILE: BuilderLens_Support.lua")
 -- ===========================================================================
 -- Helpers
 -- ===========================================================================
@@ -388,6 +385,7 @@ function plotResourceImprovable(pPlayer:table, pPlot:table)
         local improvementType = nil
         for validResourceInfo in GameInfo.Improvement_ValidResources() do
             if validResourceInfo ~= nil and validResourceInfo.ResourceType == resourceInfo.ResourceType then
+                -- TODO: ResourceClassType will indicate if it's Bonus, Luxury, or Strategic... could differentiate lens colors by that
                 improvementType = validResourceInfo.ImprovementType
                 if improvementType ~= nil then
                     local improvementInfo = GameInfo.Improvements[improvementType]

@@ -277,5 +277,21 @@
     <Row Tag="LOC_CQUI_SETTINGS_MOVED" Language="ja_JP">
       <Text>ゲームメニューからオプションを選択し、次にCQUI設定ボタンを選択して、CQUI設定を見つけることができます</Text>
     </Row>
+    <!-- More Lenses Color Slider Controls -->
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS" Language="ja_JP">
+      <Text>カスタムレンズの RGB カラー設定</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_BLUE" Language="ja_JP">
+      <Text>青い</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_EDITBOX_TOOLTIP" Language="ja_JP">
+      <Text>0 ~ 255 の値を入力してください</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_GREEN" Language="ja_JP">
+      <Text>緑</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_RED" Language="ja_JP">
+      <Text>赤い</Text>
+    </Row>
   </LocalizedText>
 </GameData>

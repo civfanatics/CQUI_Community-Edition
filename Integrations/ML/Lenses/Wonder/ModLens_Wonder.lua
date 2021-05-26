@@ -2,6 +2,10 @@ include("LensSupport")
 
 local LENS_NAME = "ML_WONDER"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
+local m_LensSettings = {
+    ["COLOR_WONDER_LENS_NATURAL"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_WONDER_LENS_NATURAL"), KeyLabel = "LOC_HUD_WONDER_LENS_NATURAL" },
+    ["COLOR_WONDER_LENS_PLAYER"]  =  { ConfiguredColor = GetLensColorFromSettings("COLOR_WONDER_LENS_PLAYER"),  KeyLabel = "LOC_HUD_WONDER_LENS_PLAYER" }
+}
 
 -- ===========================================================================
 -- Wonder Lens Support
@@ -16,8 +20,8 @@ local function OnGetColorPlotTable()
     local localPlayer   :number = Game.GetLocalPlayer()
     local localPlayerVis:table = PlayersVisibility[localPlayer]
 
-    local NaturalWonderColor  :number = UI.GetColorValue("COLOR_NATURAL_WONDER_LENS")
-    local PlayerWonderColor   :number = UI.GetColorValue("COLOR_PLAYER_WONDER_LENS")
+    local NaturalWonderColor  :number = m_LensSettings["COLOR_WONDER_LENS_NATURAL"].ConfiguredColor
+    local PlayerWonderColor   :number = m_LensSettings["COLOR_WONDER_LENS_PLAYER"].ConfiguredColor
     local IgnoreColor = UI.GetColorValue("COLOR_MORELENSES_GREY")
     local colorPlot:table = {}
     colorPlot[NaturalWonderColor] = {}
@@ -63,6 +67,16 @@ local function OnInitialize()
 end
 ]]
 
+-- ===========================================================================
+local function CQUI_OnSettingsInitialized()
+    UpdateLensConfiguredColors(m_LensSettings, g_ModLensModalPanel, LENS_NAME);
+end
+
+-- ===========================================================================
+local function CQUI_OnSettingsUpdate()
+    CQUI_OnSettingsInitialized();
+end
+
 local WonderLensEntry = {
     LensButtonText = "LOC_HUD_WONDER_LENS",
     LensButtonTooltip = "LOC_HUD_WONDER_LENS_TOOLTIP",
@@ -80,7 +94,11 @@ if g_ModLensModalPanel ~= nil then
     g_ModLensModalPanel[LENS_NAME] = {}
     g_ModLensModalPanel[LENS_NAME].LensTextKey = "LOC_HUD_WONDER_LENS"
     g_ModLensModalPanel[LENS_NAME].Legend = {
-        {"LOC_TOOLTIP_WONDER_LENS_NWONDER", UI.GetColorValue("COLOR_NATURAL_WONDER_LENS")},
-        {"LOC_TOOLTIP_RESOURCE_LENS_PWONDER", UI.GetColorValue("COLOR_PLAYER_WONDER_LENS")}
+        {m_LensSettings["COLOR_WONDER_LENS_NATURAL"].KeyLabel, m_LensSettings["COLOR_WONDER_LENS_NATURAL"].ConfiguredColor},
+        {m_LensSettings["COLOR_WONDER_LENS_PLAYER"].KeyLabel, m_LensSettings["COLOR_WONDER_LENS_PLAYER"].ConfiguredColor}
     }
 end
+
+-- Add CQUI LuaEvent Hooks for minimappanel and modallenspanel contexts
+LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);

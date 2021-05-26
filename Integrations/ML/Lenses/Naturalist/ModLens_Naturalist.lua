@@ -3,6 +3,12 @@ include("LensSupport")
 local LENS_NAME = "ML_NATURALIST"
 local ML_LENS_LAYER = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level")
 
+local m_LensSettings = {
+    ["COLOR_NATURALIST_LENS_PARK"] =    { ConfiguredColor = GetLensColorFromSettings("COLOR_NATURALIST_LENS_PARK"),    KeyLabel = "LOC_HUD_NATURALIST_LENS_PARK" },
+    ["COLOR_NATURALIST_LENS_OK"]  =     { ConfiguredColor = GetLensColorFromSettings("COLOR_NATURALIST_LENS_OK"),      KeyLabel = "LOC_HUD_NATURALIST_LENS_OK" },
+    ["COLOR_NATURALIST_LENS_FIXABLE"] = { ConfiguredColor = GetLensColorFromSettings("COLOR_NATURALIST_LENS_FIXABLE"), KeyLabel = "LOC_HUD_NATURALIST_LENS_FIXABLE" }
+}
+
 -- ===========================================================================
 -- Naturalist Lens Support
 -- ===========================================================================
@@ -36,9 +42,9 @@ local function OnGetColorPlotTable()
     local localPlayer:number = Game.GetLocalPlayer()
     local localPlayerVis:table = PlayersVisibility[localPlayer]
 
-    local parkPlotColor:number = UI.GetColorValue("COLOR_PARK_NATURALIST_LENS")
-    local OkColor:number = UI.GetColorValue("COLOR_OK_NATURALIST_LENS")
-    local FixableColor:number = UI.GetColorValue("COLOR_FIXABLE_NATURALIST_LENS")
+    local parkPlotColor:number = m_LensSettings["COLOR_NATURALIST_LENS_PARK"].ConfiguredColor
+    local OkColor:number =       m_LensSettings["COLOR_NATURALIST_LENS_OK"].ConfiguredColor
+    local FixableColor:number =  m_LensSettings["COLOR_NATURALIST_LENS_FIXABLE"].ConfiguredColor
 
     local colorPlot = {}
     colorPlot[OkColor] = {}
@@ -195,7 +201,7 @@ local function ClearNaturalistLens()
 end
 
 local function OnInitialize()
-    -- Nothing to do
+  -- Nothing to do
 end
 ]]
 
@@ -205,6 +211,16 @@ local NaturalistLensEntry = {
     Initialize = nil,
     GetColorPlotTable = OnGetColorPlotTable
 }
+
+-- ===========================================================================
+local function CQUI_OnSettingsInitialized()
+    UpdateLensConfiguredColors(m_LensSettings, g_ModLensModalPanel, LENS_NAME);
+end
+
+-- ===========================================================================
+local function CQUI_OnSettingsUpdate()
+    CQUI_OnSettingsInitialized();
+end
 
 -- minimappanel.lua
 if g_ModLenses ~= nil then
@@ -216,8 +232,12 @@ if g_ModLensModalPanel ~= nil then
     g_ModLensModalPanel[LENS_NAME] = {}
     g_ModLensModalPanel[LENS_NAME].LensTextKey = "LOC_HUD_NATURALIST_LENS"
     g_ModLensModalPanel[LENS_NAME].Legend = {
-        {"LOC_TOOLTIP_NATURALIST_LENS_NPARK", UI.GetColorValue("COLOR_PARK_NATURALIST_LENS")},
-        {"LOC_TOOLTIP_NATURALIST_LENS_OK", UI.GetColorValue("COLOR_OK_NATURALIST_LENS")},
-        {"LOC_TOOLTIP_NATURALIST_LENS_FIXABLE", UI.GetColorValue("COLOR_FIXABLE_NATURALIST_LENS")}
+        {m_LensSettings["COLOR_NATURALIST_LENS_PARK"].KeyLabel, m_LensSettings["COLOR_NATURALIST_LENS_PARK"].ConfiguredColor},
+        {m_LensSettings["COLOR_NATURALIST_LENS_OK"].KeyLabel, m_LensSettings["COLOR_NATURALIST_LENS_OK"].ConfiguredColor},
+        {m_LensSettings["COLOR_NATURALIST_LENS_FIXABLE"].KeyLabel, m_LensSettings["COLOR_NATURALIST_LENS_FIXABLE"].ConfiguredColor}
     }
 end
+
+-- Add CQUI LuaEvent Hooks for minimappanel and modallenspanel contexts
+LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
+LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);
