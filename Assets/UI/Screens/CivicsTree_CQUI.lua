@@ -9,6 +9,21 @@ else
 end
 
 
+-- CQUI Infixo 2021-0528 fix for Game Seed = 0
+local m_kScrambledRowLookup	:table  = {-1,-3,2,0,1,-2,3};		-- To help scramble modulo rows
+local m_gameSeed			:number = GameConfiguration.GetValue("GAME_SYNC_RANDOM_SEED");
+if m_gameSeed == nil then m_gameSeed = 0; end
+
+-- ===========================================================================
+--	Get visual row for tech.
+-- ===========================================================================
+function GetRandomizedTreeRow( uirow:number )
+	local range :number = (ROW_MAX - ROW_MIN);
+	local index	:number = ((uirow + m_gameSeed) % range) + 1;
+	uirow = m_kScrambledRowLookup[index];
+	return uirow;
+end
+
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
