@@ -80,6 +80,11 @@ local m_kTradingPostsIM     :table = InstanceManager:new( "TradingPostInstance",
 local m_kWondersIM          :table = InstanceManager:new( "WonderInstance", "Top", Controls.WondersStack );
 local m_kKeyStackIM         :table = InstanceManager:new( "KeyEntry", "KeyColorImage", Controls.KeyStack );
 
+-- CQUI Infixo Great Works
+local m_kGWBuildingIM       :table = InstanceManager:new( "GWBuildingInstance", "Top", Controls.GreatWorksStack );
+local m_kGWSlotIM           :table = InstanceManager:new( "GWSlotInstance", "Top");
+
+
 local m_isInitializing  :boolean = false;
 local m_kData           :table = nil;
 local m_pCity           :table = nil;
@@ -170,6 +175,88 @@ function EnsureDesiredLens()
         end
     end
     ContextPtr:ClearUpdate();
+end
+-- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+
+
+-- ==== CQUI CUSTOMIZATION BEGIN ======================================================================================== --
+-- Infixo Great Works
+
+local tSlotTypes:table = {};
+
+function InitializeSlotTypes()
+    for row in GameInfo.GreatWork_ValidSubTypes() do
+        local sGWSlotType:string = row.GreatWorkSlotType;
+        if tSlotTypes[sGWSlotType] == nil then
+            tSlotTypes[sGWSlotType] = { Num = 0, Icons = "", IconsTT = "" };
+        end
+        local slotType:table = tSlotTypes[sGWSlotType];
+        slotType.Num = slotType.Num + 1;
+        local gwObject:table = GameInfo.GreatWorkObjectTypes[ row.GreatWorkObjectType ];
+        slotType.Icons = slotType.Icons..gwObject.IconString;
+        slotType.IconsTT = slotType.IconsTT..(slotType.IconsTT == "" and "" or "[NEWLINE]")..gwObject.IconString..Locale.Lookup(gwObject.Name);
+    end
+    for _,slotType in pairs(tSlotTypes) do
+        if slotType.Num == 1 then slotType.Icons = slotType.IconsTT; slotType.IconsTT = ""; end
+    end
+end
+
+function AppendGreatWorksData( data:table )
+    data.GreatWorks = {};
+    local pCity:table = data.City;
+    local pCityBldgs:table = pCity:GetBuildings();
+    -- iterate buildings
+	for buildingInfo in GameInfo.Buildings() do
+		local buildingIndex:number = buildingInfo.Index;
+		local buildingType:string = buildingInfo.BuildingType;
+		if pCityBldgs:HasBuilding(buildingIndex) then
+			local numSlots:number = pCityBldgs:GetNumGreatWorkSlots(buildingIndex);
+			if numSlots ~= nil and numSlots > 0 then
+                local buildingData:table = {
+                    Icon = "ICON_"..buildingInfo.BuildingType,
+                    Index = buildingIndex,
+                    Name = Locale.Lookup(buildingInfo.Name),
+                    BuildingType = buildingInfo.BuildingType,
+                    SlotType = "",
+                    NumSlots = numSlots,
+                    NumGreatWorks = 0,
+                    Slots = {},
+                };
+                -- find slot type - a bit tricky
+                for row in GameInfo.Building_GreatWorks() do
+                    if row.BuildingType == buildingType then buildingData.SlotType = row.GreatWorkSlotType; break; end
+                end
+                -- populate great works
+                for slotIndex:number=0, numSlots - 1 do
+                    local slotData:table = {
+                        SlotType = string.gsub(buildingData.SlotType, "GREATWORKSLOT_", ""),
+                        SlotIcons = tSlotTypes[buildingData.SlotType].Icons,
+                        SlotIconsTT = tSlotTypes[buildingData.SlotType].IconsTT,
+                        HasGreatWork = false,
+                        GreatWorkObjectType = "",
+                        GreatWorkObjectIcon = "",
+                        GreatWorkObjectName = "",
+                        GreatWorkType = -1, -- from GetGreatWorkTypeFromIndex
+                        GreatWorkName = "",
+                    };
+                    local greatWorkIndex:number = pCityBldgs:GetGreatWorkInSlot(buildingIndex, slotIndex);
+                    if greatWorkIndex ~= -1 then
+                        slotData.HasGreatWork = true;
+                        buildingData.NumGreatWorks = buildingData.NumGreatWorks + 1;
+                        slotData.GreatWorkType = pCityBldgs:GetGreatWorkTypeFromIndex(greatWorkIndex);
+                        local greatWorkInfo:table = GameInfo.GreatWorks[slotData.GreatWorkType];
+                        slotData.GreatWorkName = Locale.Lookup(greatWorkInfo.Name);
+                        slotData.GreatWorkObjectType = greatWorkInfo.GreatWorkObjectType;
+                        slotData.GreatWorkObjectIcon = GameInfo.GreatWorkObjectTypes[ slotData.GreatWorkObjectType ].IconString;
+                        slotData.GreatWorkObjectName = Locale.Lookup( GameInfo.GreatWorkObjectTypes[ slotData.GreatWorkObjectType ].Name );
+                    end
+                    table.insert(buildingData.Slots, slotData); --GameInfo.GreatWorks[greatWorkType]);
+                end
+                table.insert(data.GreatWorks, buildingData);
+			end -- numSlots > 0
+		end -- has building
+    end -- for all buildings
+    --dshowrectable(data.GreatWorks); -- debug
 end
 -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
@@ -275,6 +362,8 @@ function ViewPanelBreakdown( data:table )
     m_kDistrictsIM:ResetInstances();
     m_kTradingPostsIM:ResetInstances();
     m_kWondersIM:ResetInstances();
+    m_kGWBuildingIM:ResetInstances(); -- CQUI Infixo
+    m_kGWSlotIM:ResetInstances(); -- CQUI Infixo
     local playerID = Game.GetLocalPlayer();
 
     -- Add districts (and their buildings)
@@ -374,6 +463,40 @@ function ViewPanelBreakdown( data:table )
             kInstanceTradingPost.TradingPostName:SetText( playerName );
         end
     end
+    
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- 2021-05-23 Infixo add great works
+    if #data.GreatWorks > 0 then
+        -- there are buildings that can hold GWs
+        Controls.NoGreatWorksArea:SetHide(true);
+        Controls.GreatWorksArea:SetHide(false);
+        -- Add buildings (and their slots)
+        for _, building in ipairs(data.GreatWorks) do
+            local kInstBldg:table = m_kGWBuildingIM:GetInstance();
+            kInstBldg.BuildingName:SetText( building.Name );
+            kInstBldg.NumGreatWorks:SetText( string.format("%d / %d", building.NumGreatWorks, building.NumSlots) );
+            kInstBldg.Icon:SetIcon( building.Icon );
+            for _,slot in ipairs(building.Slots) do
+                local kInstSlot:table = m_kGWSlotIM:GetInstance(kInstBldg.SlotStack);
+                if slot.HasGreatWork then
+                    -- filled slot
+                    kInstSlot.SlotType:SetText( slot.GreatWorkObjectIcon..slot.GreatWorkObjectName );
+                    kInstSlot.GreatWorkName:SetText( slot.GreatWorkName );
+                else
+                    -- empty slot
+                    kInstSlot.SlotType:SetText( slot.SlotIcons );
+                    kInstSlot.SlotType:SetToolTipString( slot.SlotIconsTT );
+                    kInstSlot.GreatWorkName:SetText( "[ICON_CheckFail]" );
+                end
+            end
+            kInstBldg.SlotStack:CalculateSize();
+        end
+    else
+        -- there aro no buildings with slots for GWs
+        Controls.NoGreatWorksArea:SetHide(false);
+        Controls.GreatWorksArea:SetHide(true);
+    end
+    -- ==== CQUI CUSTOMIZATION END ====================================================================================== --
 end
 
 -- ===========================================================================
@@ -1008,6 +1131,7 @@ function Refresh()
         m_pCity = m_kEspionageViewManager:GetEspionageViewCity();
         if m_pCity ~= nil then
             m_kData = GetCityData( m_pCity );
+            AppendGreatWorksData( m_kData ); -- CQUI Infixo
         end
     else
         m_kEspionageViewManager:ClearEspionageViewCity();
@@ -1074,6 +1198,7 @@ function OnLiveCityDataChanged( data:table, isSelected:boolean)
         end
     else
         m_kData = data;
+        AppendGreatWorksData( m_kData ); -- CQUI Infixo
         Refresh();
     end
 end
@@ -1296,5 +1421,6 @@ function Initialize()
     ContextPtr:SetHide(false);
     ContextPtr:SetShutdown(OnShutdown);
     LuaEvents.GameDebug_Return.Add(OnGameDebugReturn);        
+    InitializeSlotTypes(); -- CQUI Infixo
 end
 Initialize();

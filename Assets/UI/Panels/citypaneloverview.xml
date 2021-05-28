@@ -252,6 +252,24 @@
                                 <Stack ID="TradingPostsStack" StackGrowth="Bottom" />
                             </Container>
                             <Container Size="5,10" />
+                            
+                            <!-- CQUI Infixo GREAT WORKS -->
+                            <Grid ID="GreatWorksHeader" Anchor="L,T" Size="parent,24" Style="DivHeader">
+                                <Container Size="parent,24">
+                                    <Image Texture="Controls_Gradient_HalfRadial" Size="parent, 120" FlipY="1" Anchor="C,T" Color="72,103,130,255" />
+                                </Container>
+                                <Label Anchor="C,C" Style="CityPanelSubPanelTitle" String="LOC_GREAT_WORKS" />
+                            </Grid>
+                            <Container ID="NoGreatWorksArea" Size="parent,auto" InnerPadding="0,10" Hidden="1">
+                                <Grid Anchor="C,T" Size="parent-10,auto" InnerPadding="40,30" Texture="Controls_DecoFrame" SliceCorner="20,19" SliceSize="1,1" SliceTextureSize="40,38" Color="255,255,255,50">
+                                    <Label Style="CityPanelText" Anchor="C,C" WrapWidth="parent" String="LOC_GREAT_PEOPLE_NONE_AVAILABLE" />
+                                </Grid>
+                            </Container>
+                            <Container ID="GreatWorksArea" Anchor="L,T" Size="parent,auto">
+                                <Stack ID="GreatWorksStack" StackGrowth="Bottom" />
+                            </Container>
+                            <Container Size="5,5" />
+                            
                         </Stack>
                     </Grid>
 
@@ -478,6 +496,25 @@
         </Grid>
     </Instance>
 
+    <!-- CQUI Infixo Great Works - buiilding -->
+    <Instance Name="GWBuildingInstance">
+        <Grid ID="Top" Size="parent,auto" Style="CityPanelSubPanelContainer" AutoSizePadding="0,2" MinSize="24,24">
+            <Image ID="Icon" Anchor="L,T" Offset="-2,0" Texture="Districts32" Size="32,32">
+                <Label ID="BuildingName" Anchor="R,C" Style="CityPanelText" String="$BuildingName$" WrapWidth="200" AnchorSide="O,I" />
+            </Image>
+            <Label ID="NumGreatWorks" Anchor="R,T" Offset="4,7" Style="CityPanelText" String="$NumGreatWorks$" WrapWidth="parent-200" />
+            <Stack ID="SlotStack" Offset="0,36" Padding="3" />
+        </Grid>
+    </Instance>
+    
+    <!-- CQUI Infixo Great Works - slot -->
+    <Instance Name="GWSlotInstance">
+        <Grid ID="Top" Offset="15,0" Size="parent-15,auto" Style="CityPanelSubPanelContainer" AutoSizePadding="0,0" MinSize="24,24">
+            <Label ID="SlotType" Anchor="L,C" Offset="1,0" Style="CityPanelText" String="$SlotType$" WrapWidth="160" />
+            <Label ID="GreatWorkName" Anchor="R,C" Offset="1,0" Style="CityPanelText" String="$GreatWorkName$" WrapWidth="parent-100" />
+        </Grid>
+    </Instance>
+    
     <Instance Name="CQUI_BubbleInstance">
         <Grid ID="Top" Anchor="L,T" MinSize="70,65" AutoSize="H" Color="0,0,0,0">
             <Image ID="BubbleContainer" Size="50,50" Anchor="C,T" Texture="CityPanel_StatusIcon">
