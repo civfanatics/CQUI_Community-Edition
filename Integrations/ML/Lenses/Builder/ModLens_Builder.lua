@@ -2,13 +2,16 @@ include("LensSupport")
 -- Note: Include for BuilderLens_Config and BuilderLens_Support occurs below, as supporting calls need to be added first
 -- ==== BEGIN CQUI: Integration Modification =================================
 -- CQUI: Allow Customized Color Scheme for Plots
--- Key: PN = Nothing    PD = Dangerous    P1 = Resources    P1N = Resources Outside Range    P2 = Recommended/Pillaged/Unique
+-- Key: PN = Nothing    PD = Dangerous    P1 = Resources  P1B = Bonus  P1L = Luxury  P1S = Strategic    P2 = Recommended/Pillaged/Unique
 --      P3 = Currently Worked / Wonder-Buffed    P4 = Hills    P5 = Feature Extraction    P6 = Nothing(Disabled)    P7 = General
 local m_LensSettings = {
     ["COLOR_BUILDER_LENS_PN"]  =  { Index = 0x01, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_PN"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_PN" },
     ["COLOR_BUILDER_LENS_PD"]  =  { Index = 0x02, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_PD"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_PD" },
+    -- Holder for all of the "P1" Resource colors, no actual color shown for P1 
     ["COLOR_BUILDER_LENS_P1"]  =  { Index = 0x10, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P1"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P1" },
-    ["COLOR_BUILDER_LENS_P1N"] =  { Index = 0x11, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P1N"), ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P1N"},
+    ["COLOR_BUILDER_LENS_P1B"] =  { Index = 0x11, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P1N"), ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P1B"},
+    ["COLOR_BUILDER_LENS_P1L"] =  { Index = 0x12, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P1N"), ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P1L"},
+    ["COLOR_BUILDER_LENS_P1S"] =  { Index = 0x13, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P1N"), ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P1S"},
     ["COLOR_BUILDER_LENS_P2"]  =  { Index = 0x20, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P2"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P2" },
     ["COLOR_BUILDER_LENS_P3"]  =  { Index = 0x30, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P3"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P3" },
     ["COLOR_BUILDER_LENS_P4"]  =  { Index = 0x40, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P4"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P4" },
@@ -92,7 +95,7 @@ local function OnGetColorPlotTable()
 
     local colorPlot:table = {}
     local dangerousPlotsHash:table = {}
-    local fallbackColorIndex = m_LensSettings["COLOR_BUILDER_LENS_PN"].Index;
+    local fallbackColorIndex = GetColorForNothingPlot();
     colorPlot[fallbackColorIndex] = {}
 
     if not DISABLE_DANGEROUS_PLOT_HIGHLIGHT then
@@ -163,6 +166,9 @@ local function OnGetColorPlotTable()
                 end
 
                 if bPlotColored then
+                    -- TEMP
+                    --print("plot "..pPlot:GetX()..","..pPlot:GetY().." Color: "..tostring(ruleColor));
+
                     break
                 end
             end

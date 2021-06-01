@@ -33,6 +33,16 @@ end
 -- Add rules for builder lens
 -- ===========================================================================
 
+-- Debugging to check a single plot... set plotCheckX to -1 to check all plots
+local plotCheckX = -1;
+local plotCheckY = 14;
+function PrintPlotCheck(pPlot, msg)
+    -- Uncomment next 3 lines to enable
+    if (plotCheckX == -1 or (pPlot:GetX() == plotCheckX and pPlot:GetY() == plotCheckY)) then 
+        print("Check Plot: "..tostring(pPlot:GetX())..","..tostring(pPlot:GetY())..": "..msg)
+    end
+end
+
 -- NATIONAL PARK
 --------------------------------------
 table.insert(GetConfigRules("COLOR_BUILDER_LENS_PN"),
@@ -51,40 +61,45 @@ table.insert(GetConfigRules("COLOR_BUILDER_LENS_PN"),
 --------------------------------------
 table.insert(GetConfigRules("COLOR_BUILDER_LENS_P1"),
     function(pPlot)
+        PrintPlotCheck(pPlot, "P1 Resources check");
         local localPlayer = Game.GetLocalPlayer()
         local pPlayer:table = Players[localPlayer]
         if pPlot:GetOwner() == localPlayer and not plotHasDistrict(pPlot) then
             if playerHasDiscoveredResource(pPlayer, pPlot) then
                 if plotHasImprovement(pPlot) then
-                    if plotHasCorrectImprovement(pPlot) then
+                    if plotHasCorrectImprovement(pPlot) and not pPlot:IsImprovementPillaged() then
+                        PrintPlotCheck(pPlot, "P1 Assign Nothing Plot Color");
                         return GetColorForNothingPlot()
                     end
                 end
 
-                if plotResourceImprovable(pPlayer, pPlot) then
-                    -- If the plot is within working range go ahead with correct highlight
-                    if plotWithinWorkingRange(pPlayer, pPlot) then
-                        return GetConfiguredColor("COLOR_BUILDER_LENS_P1")
-                    else
-                        -- If the plot is outside working range, it is less important
-                        -- We still might want to suggest it because of vital strategic resource / luxury, or a unique wonder
-                        -- that can provide bonuses to it example (Temple of Artemis)
-                        return GetConfiguredColor("COLOR_BUILDER_LENS_P1N")
+                if plotResourceImprovable(pPlayer, pPlot) and not pPlot:IsImprovementPillaged() then
+                    resInfo = GameInfo.Resources[pPlot:GetResourceType()]
+                    if resInfo ~= nil then
+                        if resInfo.ResourceClassType == "RESOURCECLASS_BONUS" then
+                            PrintPlotCheck(pPlot, "P1 Assign Bonus Plot Color")
+                            return GetConfiguredColor("COLOR_BUILDER_LENS_P1B")
+                        elseif resInfo.ResourceClassType == "RESOURCECLASS_LUXURY" then
+                            PrintPlotCheck(pPlot, "P1 Assign Luxury Plot Color")
+                            return GetConfiguredColor("COLOR_BUILDER_LENS_P1L")
+                        else -- Must be strategic
+                            PrintPlotCheck(pPlot, "P1 Assign Strategic Plot Color")
+                            return GetConfiguredColor("COLOR_BUILDER_LENS_P1S")
+                        end
                     end
-                else
-                    return GetColorForNothingPlot()
                 end
             end
         end
+
         return -1
     end)
-
 
 -- GEOTHERMAL PLANTS (Only add if exists)
 --------------------------------------
 if GameInfo.Improvements["IMPROVEMENT_GEOTHERMAL_PLANT"] ~= nil then
     table.insert(GetConfigRules("COLOR_BUILDER_LENS_P2"),
         function(pPlot)
+            PrintPlotCheck(pPlot, "P2 Geothermal Plant check");
             local localPlayer = Game.GetLocalPlayer()
             local pPlayer:table = Players[localPlayer]
             if pPlot:GetOwner() == localPlayer and not plotHasDistrict(pPlot) and not plotHasImprovement(pPlot)
@@ -94,6 +109,7 @@ if GameInfo.Improvements["IMPROVEMENT_GEOTHERMAL_PLANT"] ~= nil then
                 if featureInfo.FeatureType == "FEATURE_GEOTHERMAL_FISSURE" then
                     local plantImprovInfo = GameInfo.Improvements["IMPROVEMENT_GEOTHERMAL_PLANT"]
                     if playerCanHave(pPlayer, plantImprovInfo) then
+                        PrintPlotCheck(pPlot, "Assign P2 Color");
                         return GetConfiguredColor("COLOR_BUILDER_LENS_P2")
                     end
                 end
@@ -106,6 +122,8 @@ end
 --------------------------------------
 table.insert(GetConfigRules("COLOR_BUILDER_LENS_P2"),
     function(pPlot)
+        PrintPlotCheck(pPlot, "P2 Seaside Resort check");
+
         local localPlayer = Game.GetLocalPlayer()
         local pPlayer:table = Players[localPlayer]
         local resortImprovInfo = GameInfo.Improvements["IMPROVEMENT_BEACH_RESORT"]
@@ -126,6 +144,7 @@ table.insert(GetConfigRules("COLOR_BUILDER_LENS_P2"),
 if GameInfo.Improvements["IMPROVEMENT_SKI_RESORT"] ~= nil then
     table.insert(GetConfigRules("COLOR_BUILDER_LENS_P2"),
         function(pPlot)
+            PrintPlotCheck(pPlot, "P2 Ski Resort check");
             local localPlayer = Game.GetLocalPlayer()
             local pPlayer:table = Players[localPlayer]
             if pPlot:GetOwner() == localPlayer and not plotHasDistrict(pPlot) and not plotHasImprovement(pPlot)
@@ -145,9 +164,15 @@ end
 --------------------------------------
 table.insert(GetConfigRules("COLOR_BUILDER_LENS_P2"),
     function(pPlot)
+        PrintPlotCheck(pPlot, "P2 Pillaged / Unique Ability check");
         local localPlayer = Game.GetLocalPlayer()
+             -- TEMP
+             --print("checking: plot "..pPlot:GetX()..","..pPlot:GetY().." HasImprovement: "..tostring(plotHasImprovement(pPlot)).." Owner: "..tostring(pPlot:GetOwner()));
         if pPlot:GetOwner() == localPlayer and not plotHasDistrict(pPlot) then
+
             if plotHasImprovement(pPlot) and pPlot:IsImprovementPillaged() then
+                -- TEMP
+                print("plot "..pPlot:GetX()..","..pPlot:GetY().." pillaged!");
                 return GetConfiguredColor("COLOR_BUILDER_LENS_P2")
             end
         end
@@ -159,6 +184,7 @@ table.insert(GetConfigRules("COLOR_BUILDER_LENS_P2"),
 --------------------------------------
 table.insert(GetConfigRules("COLOR_BUILDER_LENS_P3"),
     function(pPlot)
+        PrintPlotCheck(pPlot, "P3 Ignore Plots check");
         -- Non local player plots
         local localPlayer = Game.GetLocalPlayer()
         if pPlot:GetOwner() ~= localPlayer then
@@ -193,6 +219,7 @@ table.insert(GetConfigRules("COLOR_BUILDER_LENS_P3"),
 -- These are generic plots, but have some buff on it that can make it desirable to improve
 table.insert(GetConfigRules("COLOR_BUILDER_LENS_P3"),
     function(pPlot)
+        PrintPlotCheck(pPlot, "P3 Recommended Plots check");
         local localPlayer = Game.GetLocalPlayer()
         local pPlayer:table = Players[localPlayer]
 
@@ -247,6 +274,7 @@ table.insert(GetConfigRules("COLOR_BUILDER_LENS_P3"),
 -- Typically hills have a base +1 Production hence any improvement on top of it is desirable
 table.insert(GetConfigRules("COLOR_BUILDER_LENS_P4"),
     function(pPlot)
+        PrintPlotCheck(pPlot, "P4 Hills check");
         local localPlayer = Game.GetLocalPlayer()
         local pPlayer:table = Players[localPlayer]
         if pPlot:IsHills() and plotCanHaveSomeImprovement(pPlayer, pPlot) then
@@ -260,6 +288,7 @@ table.insert(GetConfigRules("COLOR_BUILDER_LENS_P4"),
 --------------------------------------
 table.insert(GetConfigRules("COLOR_BUILDER_LENS_P5"),
     function(pPlot)
+        PrintPlotCheck(pPlot, "P5 Extractable check");
         local localPlayer = Game.GetLocalPlayer()
         local pPlayer:table = Players[localPlayer]
         if plotHasYieldExtractingFeature(pPlayer, pPlot) then
@@ -273,6 +302,7 @@ table.insert(GetConfigRules("COLOR_BUILDER_LENS_P5"),
 --------------------------------------
 table.insert(GetConfigRules("COLOR_BUILDER_LENS_P7"),
     function(pPlot)
+        PrintPlotCheck(pPlot, "P7 General check");
         local localPlayer = Game.GetLocalPlayer()
         local pPlayer:table = Players[localPlayer]
 

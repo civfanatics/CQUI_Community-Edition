@@ -7,12 +7,15 @@
 -- Priority - Dangerous (Red color)
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
 VALUES                  (   'COLOR_BUILDER_LENS_PD',            '1',        '0',        '0',        '0.5');
--- Priority - 1 (Purple)
+-- Priority - 1 (Resources - Bonus - Purple)
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_BUILDER_LENS_P1',            '1',        '0.2',      '1',        '0.5');
--- Priority - 1- (Purple but whitened to show lower priority)
+VALUES                  (   'COLOR_BUILDER_LENS_P1B',            '1',        '0.2',      '1',        '0.5');
+-- Priority - 1 (Resources - Luxury - Yellow)
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_BUILDER_LENS_P1N',           '1',        '0.5',      '1',        '0.5');
+VALUES                  (   'COLOR_BUILDER_LENS_P1L',            '1',        '1',        '0',        '0.5');
+-- Priority - 1 (Resources - Strategic - Orange)
+INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
+VALUES                  (   'COLOR_BUILDER_LENS_P1S',            '1',       '0.42',      '0',        '0.5');
 -- Priority - 2 (Violet)
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
 VALUES                  (   'COLOR_BUILDER_LENS_P2',            '0.6',      '0.2',      '1',        '0.5');
