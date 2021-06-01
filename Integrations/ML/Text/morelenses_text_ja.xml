@@ -143,13 +143,13 @@
     <Replace Tag="LOC_HUD_NATURALIST_LENS_TOOLTIP" Language="ja_JP">
       <Text>国立公園が建設できるタイルを表示します。</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_NATURALIST_LENS_NPARK" Language="ja_JP">
+    <Replace Tag="LOC_HUD_NATURALIST_LENS_PARK" Language="ja_JP">
       <Text>国立公園が建設可能</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_NATURALIST_LENS_OK" Language="ja_JP">
+    <Replace Tag="LOC_HUD_NATURALIST_LENS_OK" Language="ja_JP">
       <Text>他のタイルを修正すれば建設可能</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_NATURALIST_LENS_FIXABLE" Language="ja_JP">
+    <Replace Tag="LOC_HUD_NATURALIST_LENS_FIXABLE" Language="ja_JP">
       <Text>要修正タイル</Text>
     </Replace>
 

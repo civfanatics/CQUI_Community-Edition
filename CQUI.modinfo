@@ -154,7 +154,7 @@
         <ImportFiles id="CQUI_IMPORT_FILES_OPTIONS_MENU">
             <Items>
                 <File>Assets/UI/Options_CQUI.lua</File>
-                <File>Assets/UI/Options.xml</File>
+                <File>Assets/UI/options.xml</File>
                 <File>Assets/UI/Menus/InGameTopOptionsMenu_CQUI.lua</File>
             </Items>
         </ImportFiles>
@@ -1367,7 +1367,7 @@
         <File>Assets/cqui_toplayer.lua</File>
         <File>Assets/UI/CQUICommon.lua</File>
         <File>Assets/UI/Options_CQUI.lua</File>
-        <File>Assets/UI/Options.xml</File>
+        <File>Assets/UI/options.xml</File>
         <File>Assets/UI/Menus/InGameTopOptionsMenu_CQUI.lua</File>
 
         <!-- EXP 1 -->
