@@ -25,10 +25,17 @@
             <Text>Dangerous</Text>
         </Row>
         <Row Tag="LOC_HUD_BUILDER_LENS_P1">
-            <Text>Resources</Text>
+            <!-- Intentionally empty so it does not appear on the CQUI Settings menu -->
+            <Text></Text>
         </Row>
-        <Row Tag="LOC_HUD_BUILDER_LENS_P1N">
-            <Text>Resources outside range</Text>
+        <Row Tag="LOC_HUD_BUILDER_LENS_P1B">
+            <Text>Bonus Resources</Text>
+        </Row>
+        <Row Tag="LOC_HUD_BUILDER_LENS_P1L">
+            <Text>Luxury Resources</Text>
+        </Row>
+        <Row Tag="LOC_HUD_BUILDER_LENS_P1S">
+            <Text>Strategic Resources</Text>
         </Row>
         <Row Tag="LOC_HUD_BUILDER_LENS_P2">
             <Text>Recommended / Pillaged / Unique Ability</Text>
@@ -44,6 +51,7 @@
         </Row>
         <!-- Nothing to add here atm -->
         <Row Tag="LOC_HUD_BUILDER_LENS_P6">
+            <!-- Intentionally empty so it does not appear on the CQUI Settings menu -->
             <Text></Text>
         </Row>
         <Row Tag="LOC_HUD_BUILDER_LENS_P7">
@@ -189,6 +197,19 @@
         </Row>
         <Row Tag="LOC_HUD_CITY_PLOT_LENS_CULTURE">
             <Text>Next Culture Plot Growth</Text>
+        </Row>
+
+        <Row Tag="LOC_HUD_ROUTES_LENS">
+            <Text>Routes</Text>
+        </Row>
+        <Row Tag="LOC_HUD_ROUTES_LENS_TOOLTIP">
+            <Text>Highlight the Roads and Railroads</Text>
+        </Row>
+        <Row Tag="LOC_HUD_ROUTES_LENS_ROAD">
+            <Text>Road</Text>
+        </Row>
+        <Row Tag="LOC_HUD_ROUTES_LENS_RAIL">
+            <Text>Railroad</Text>
         </Row>
 
         <!-- Settings Panel strings are in the cqui_text_settings.xml file -->

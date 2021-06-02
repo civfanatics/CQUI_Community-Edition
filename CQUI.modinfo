@@ -1274,6 +1274,7 @@
                 <File>Integrations/ML/Lenses/Archaeologist/ModLens_Archaeologist.lua</File>
                 <File>Integrations/ML/Lenses/Barbarian/ModLens_Barbarian.lua</File>
                 <File>Integrations/ML/Lenses/Naturalist/ModLens_Naturalist.lua</File>
+                <File>Integrations/ML/Lenses/Routes/ModLens_Routes.lua</File>
                 <File>Integrations/ML/Lenses/Wonder/ModLens_Wonder.lua</File>
                 <File>Integrations/ML/Lenses/CQUI_CitizenManagement/ModLens_CQUI_CitizenManagement.lua</File>
                 <File>Integrations/ML/Lenses/UnitAction/ModLens_UnitAction.lua</File>
@@ -1576,6 +1577,7 @@
         <File>Integrations/ML/Lenses/CityOverlap/ModLens_CityOverlap.lua</File>
         <File>Integrations/ML/Lenses/CQUI_CitizenManagement/ModLens_CQUI_CitizenManagement.lua</File>
         <File>Integrations/ML/Lenses/Naturalist/ModLens_Naturalist.lua</File>
+        <File>Integrations/ML/Lenses/Routes/ModLens_Routes.lua</File>
         <File>Integrations/ML/Lenses/Resource/ModLens_Resource.xml</File>
         <File>Integrations/ML/Lenses/Resource/ModLens_Resource.lua</File>
         <File>Integrations/ML/Lenses/Scout/ModLens_Scout.lua</File>

@@ -274,14 +274,19 @@ end
 if g_ModLensModalPanel ~= nil then
     g_ModLensModalPanel[LENS_NAME] = {}
     g_ModLensModalPanel[LENS_NAME].LensTextKey = "LOC_HUD_BUILDER_LENS"
-    g_ModLensModalPanel[LENS_NAME].Legend = {}
-    -- Insert in priority order and only those with Rules that do coloring
-    for _,lensInfo in ipairs(m_LensSettings_SortedIndexMap) do
-        local lensData = m_LensSettings[lensInfo.Key];
-        if (#lensData.ConfigRules > 0) then
-            table.insert(g_ModLensModalPanel[LENS_NAME].Legend, {lensData.KeyLabel, lensData.ConfiguredColor});
-        end
-    end
+    g_ModLensModalPanel[LENS_NAME].Legend = {
+        -- Insert only those with Rules that do coloring
+        {m_LensSettings["COLOR_BUILDER_LENS_P1B"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_P1B"].ConfiguredColor},
+        {m_LensSettings["COLOR_BUILDER_LENS_P1L"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_P1L"].ConfiguredColor},
+        {m_LensSettings["COLOR_BUILDER_LENS_P1S"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_P1S"].ConfiguredColor},
+        {m_LensSettings["COLOR_BUILDER_LENS_P2"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_P2"].ConfiguredColor},
+        {m_LensSettings["COLOR_BUILDER_LENS_P3"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_P3"].ConfiguredColor},
+        {m_LensSettings["COLOR_BUILDER_LENS_P4"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_P4"].ConfiguredColor},
+        {m_LensSettings["COLOR_BUILDER_LENS_P5"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_P5"].ConfiguredColor},
+        {m_LensSettings["COLOR_BUILDER_LENS_P7"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_P7"].ConfiguredColor},
+        {m_LensSettings["COLOR_BUILDER_LENS_PD"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_PD"].ConfiguredColor},
+        {m_LensSettings["COLOR_BUILDER_LENS_PN"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_PN"].ConfiguredColor},
+    }
 end
 
 -- Add CQUI LuaEvent Hooks for minimappanel and modallenspanel contexts

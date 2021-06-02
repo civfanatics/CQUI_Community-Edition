@@ -7,15 +7,15 @@
 -- Priority - Dangerous (Red color)
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
 VALUES                  (   'COLOR_BUILDER_LENS_PD',            '1',        '0',        '0',        '0.5');
--- Priority - 1 (Resources - Bonus - Purple)
+-- Priority - 1 (Resources - Bonus - Dark Yellow)
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_BUILDER_LENS_P1B',            '1',        '0.2',      '1',        '0.5');
+VALUES                  (   'COLOR_BUILDER_LENS_P1B',            '0.67',    '0.67',      '0',       '0.5');
 -- Priority - 1 (Resources - Luxury - Yellow)
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_BUILDER_LENS_P1L',            '1',        '1',        '0',        '0.5');
--- Priority - 1 (Resources - Strategic - Orange)
+VALUES                  (   'COLOR_BUILDER_LENS_P1L',            '1',         '1',       '0',       '0.5');
+-- Priority - 1 (Resources - Strategic - Lighter Yellow)
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
-VALUES                  (   'COLOR_BUILDER_LENS_P1S',            '1',       '0.42',      '0',        '0.5');
+VALUES                  (   'COLOR_BUILDER_LENS_P1S',            '1',         '1',      '0.67',     '0.5');
 -- Priority - 2 (Violet)
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
 VALUES                  (   'COLOR_BUILDER_LENS_P2',            '0.6',      '0.2',      '1',        '0.5');
@@ -155,3 +155,8 @@ INSERT INTO Colors      (   Type,                               Red,        Gree
 VALUES                  (   'COLOR_MORELENSES_AQUA',            '0',        '1',        '1',        '0.5');
 INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
 VALUES                  (   'COLOR_MORELENSES_WHITE',           '1',        '1',        '1',        '0.5');
+
+INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
+VALUES                  (   'COLOR_ROUTES_LENS_ROAD',          '1',        '0.42',       '0',       '0.5');
+INSERT INTO Colors      (   Type,                               Red,        Green,      Blue,       Alpha)
+VALUES                  (   'COLOR_ROUTES_LENS_RAIL',        '0.42',          '0',    '0.84',       '0.5');
