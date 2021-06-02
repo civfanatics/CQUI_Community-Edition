@@ -38,9 +38,9 @@ local plotCheckX = -1;
 local plotCheckY = 14;
 function PrintPlotCheck(pPlot, msg)
     -- Uncomment next 3 lines to enable
-    if (plotCheckX == -1 or (pPlot:GetX() == plotCheckX and pPlot:GetY() == plotCheckY)) then 
-        print("Check Plot: "..tostring(pPlot:GetX())..","..tostring(pPlot:GetY())..": "..msg)
-    end
+    -- if (plotCheckX == -1 or (pPlot:GetX() == plotCheckX and pPlot:GetY() == plotCheckY)) then 
+    --     print("Check Plot: "..tostring(pPlot:GetX())..","..tostring(pPlot:GetY())..": "..msg)
+    -- end
 end
 
 -- NATIONAL PARK
@@ -166,13 +166,8 @@ table.insert(GetConfigRules("COLOR_BUILDER_LENS_P2"),
     function(pPlot)
         PrintPlotCheck(pPlot, "P2 Pillaged / Unique Ability check");
         local localPlayer = Game.GetLocalPlayer()
-             -- TEMP
-             --print("checking: plot "..pPlot:GetX()..","..pPlot:GetY().." HasImprovement: "..tostring(plotHasImprovement(pPlot)).." Owner: "..tostring(pPlot:GetOwner()));
         if pPlot:GetOwner() == localPlayer and not plotHasDistrict(pPlot) then
-
             if plotHasImprovement(pPlot) and pPlot:IsImprovementPillaged() then
-                -- TEMP
-                print("plot "..pPlot:GetX()..","..pPlot:GetY().." pillaged!");
                 return GetConfiguredColor("COLOR_BUILDER_LENS_P2")
             end
         end

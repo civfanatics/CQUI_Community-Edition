@@ -166,9 +166,6 @@ local function OnGetColorPlotTable()
                 end
 
                 if bPlotColored then
-                    -- TEMP
-                    --print("plot "..pPlot:GetX()..","..pPlot:GetY().." Color: "..tostring(ruleColor));
-
                     break
                 end
             end
