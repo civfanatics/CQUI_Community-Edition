@@ -22,6 +22,7 @@ BASE_CQUI_ZoneDistrict = ZoneDistrict;
 -- ===========================================================================
 -- Show a faith icon instead of the turns-left for the faith-only units
 local CQUI_FAITH_ONLY_TURNS_LEFT = -2;
+local CQUI_GOLD_ONLY_TURNS_LEFT = -3; -- copied from faith for a gold purchased only added in Monopoly++
 local CQUI_PurchaseTable = {}; -- key = item Hash
 local CQUI_ProductionQueue :boolean = true;
 local CQUI_ShowProductionRecommendations :boolean = false;
@@ -250,6 +251,42 @@ function GetData()
 
             table.insert(new_data.UnitItems, kUnit );
         end
+        if row.MustPurchase and buildQueue:CanProduce( row.Hash, true ) and row.PurchaseYield == "YIELD_GOLD" then
+            local isCanProduceExclusion, results     = buildQueue:CanProduce( row.Hash, false, true );
+            -- If a unit is purchase only, then "isDisabled" needs to be True, as that disables the button control that
+            -- allows the units buyed only with gold to be added to a queue
+            -- TODO: It'd be nice to remove the unnecessary part about the production cost from the Tooltip string
+            -- I've copied from a faith one with adjustments for a Monopoly++ mod
+            local isDisabled  :boolean = row.MustPurchase -- not isCanProduceExclusion;
+            local sAllReasons :string = ComposeFailureReasonStrings( isDisabled, results );
+            local sToolTip    :string = ToolTipHelper.GetUnitToolTip( row.Hash, MilitaryFormationTypes.STANDARD_MILITARY_FORMATION, buildQueue ) .. sAllReasons;
+
+            local kUnit :table = {
+                Type                = row.UnitType,
+                Name                = row.Name,
+                ToolTip             = sToolTip,
+                Hash                = row.Hash,
+                Kind                = row.Kind,
+                TurnsLeft           = CQUI_GOLD_ONLY_TURNS_LEFT,
+                Disabled            = isDisabled,
+                Civilian            = row.FormationClass == "FORMATION_CLASS_CIVILIAN",
+                Cost                = 0,
+                Progress            = 0,
+                Corps               = false,
+                CorpsCost           = 0,
+                CorpsTurnsLeft      = 1,
+                CorpsTooltip        = "",
+                CorpsName           = "",
+                Army                = false,
+                ArmyCost            = 0,
+                ArmyTurnsLeft       = 1,
+                ArmyTooltip         = "",
+                ArmyName            = "",
+                IsCurrentProduction = row.Hash == m_CurrentProductionHash
+            };
+
+            table.insert(new_data.UnitItems, kUnit );
+        end
     end
 
     return new_data
@@ -270,6 +307,11 @@ function GetTurnsToCompleteStrings( turnsToComplete:number )
         turnsStr = "[ICON_Faith][ICON_Turn]";
         -- TODO: Build a better string for this?  Or since one isn't needed
         turnsStrTT = Locale.Lookup("LOC_PRODPANEL_PURCHASE_FAITH");
+    elseif turnsToComplete == CQUI_GOLD_ONLY_TURNS_LEFT then
+        turnsStr = "[ICON_GOLD][ICON_Turn]";
+        -- TODO: Build a better string for this?  Or since one isn't needed
+        turnsStrTT = Locale.Lookup("LOC_PRODPANEL_PURCHASE_GOLD");
+        -- copied from faith to add gold only purchase support for Monopoly++
     else
         turnsStr = turnsToComplete .. "[ICON_Turn]";
         turnsStrTT = turnsToComplete .. Locale.Lookup("LOC_HUD_CITY_TURNS_TO_COMPLETE", turnsToComplete);
