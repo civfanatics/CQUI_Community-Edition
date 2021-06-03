@@ -198,6 +198,12 @@
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA_TOOLTIP" Language="en_US">
       <Text>Enable this to automatically apply the Scout lens when selecting all military units.</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYENGINEERLENS" Language="en_US">
+      <Text>Auto-apply Routes lens for Engineer</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYENGINEERLENS_TOOLTIP" Language="en_US">
+      <Text>Enable this to automatically apply the Routes lens when selecting a Military Engineer.</Text>
+    </Row>
 
     <Row Tag="LOC_CQUI_POPUPS" Language="en_US">
       <Text>Popups</Text>
