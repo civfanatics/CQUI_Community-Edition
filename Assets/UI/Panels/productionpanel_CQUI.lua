@@ -282,7 +282,6 @@ function GetData()
                 ArmyTurnsLeft       = 1,
                 ArmyTooltip         = "",
                 ArmyName            = "",
-                IsCurrentProduction = row.Hash == m_CurrentProductionHash,
                 ReligiousStrength   = row.ReligiousStrength,
                 IsCurrentProduction = row.Hash == m_CurrentProductionHash
             };
