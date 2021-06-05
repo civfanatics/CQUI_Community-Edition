@@ -17,6 +17,7 @@ include("ModLens_Wonder.lua")
 include("Modlens_CQUI_CitizenManagement.lua")
 include("ModLens_Barbarian.lua")
 include("ModLens_Naturalist.lua")
+include("ModLens_Routes.lua")
 include("ModLens_Builder.lua")
 -- ModLens_Builder has an include for ModLens_Builder_Config_Default.lua
 include("ModLens_Scout.lua")
