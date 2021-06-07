@@ -579,6 +579,7 @@ function Initialize()
     PopulateCheckBox(Controls.BuilderLensDisableDangerousPlotCheckbox, "CQUI_BuilderLensDisableDangerousPlot", Locale.Lookup("LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS_TOOLTIP"));
     PopulateCheckBox(Controls.AutoapplyScoutLensCheckbox, "CQUI_AutoapplyScoutLens", Locale.Lookup("LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_TOOLTIP"));
     PopulateCheckBox(Controls.AutoapplyScoutLensExtraCheckbox, "CQUI_AutoapplyScoutLensExtra", Locale.Lookup("LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA_TOOLTIP"));
+    PopulateCheckBox(Controls.AutoapplyEngineerLensCheckbox, "CQUI_AutoapplyEngineerLens", Locale.Lookup("LOC_CQUI_LENSES_AUTOAPPLYENGINEERLENS_TOOLTIP"));
     PopulateComboBox(Controls.ReligionLensHideUnits, icon_style_options, "CQUI_ReligionLensUnitFlagStyle", Locale.Lookup("LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP"));
     
     -- Add Individual Builder Lenses

@@ -72,6 +72,7 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ('CQUI_BuilderLensDisableNothingPlot', 1), -- When enabled, do not show the "nothing to do here" plot with the Builder Lens
         ('CQUI_BuilderLensDisableDangerousPlot', 1), -- When enabled, do not show "dangerous / enemy near" plot with the Builder Lens
         ('CQUI_AutoapplyScoutLensExtra', 1), -- When enabled, auto-apply the Scout lens for every military unit
+        ('CQUI_AutoapplyEngineerLens', 1), -- When enabled, auto-apply the Routes lens when the Military Engineer is selected
         ('CQUI_ShowDebugPrint', 0); -- Shows print in the console
 
 /*

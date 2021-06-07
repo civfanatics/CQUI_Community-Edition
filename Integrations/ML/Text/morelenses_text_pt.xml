@@ -143,13 +143,13 @@
     <Replace Tag="LOC_HUD_NATURALIST_LENS_TOOLTIP" Language="pt_BR">
       <Text>Destaca lugares onde Parques Nacionais podem ser construídos</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_NATURALIST_LENS_NPARK" Language="pt_BR">
+    <Replace Tag="LOC_HUD_NATURALIST_LENS_PARK" Language="pt_BR">
       <Text>Área pronta para Parque Nacional</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_NATURALIST_LENS_OK" Language="pt_BR">
+    <Replace Tag="LOC_HUD_NATURALIST_LENS_OK" Language="pt_BR">
       <Text>Lote pode ser usado, se outro ponto for corrigido</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_NATURALIST_LENS_FIXABLE" Language="pt_BR">
+    <Replace Tag="LOC_HUD_NATURALIST_LENS_FIXABLE" Language="pt_BR">
       <Text>Precisa de correção se for usado para um parque</Text>
     </Replace>
 
