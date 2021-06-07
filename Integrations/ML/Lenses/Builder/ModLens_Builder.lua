@@ -2,13 +2,16 @@ include("LensSupport")
 -- Note: Include for BuilderLens_Config and BuilderLens_Support occurs below, as supporting calls need to be added first
 -- ==== BEGIN CQUI: Integration Modification =================================
 -- CQUI: Allow Customized Color Scheme for Plots
--- Key: PN = Nothing    PD = Dangerous    P1 = Resources    P1N = Resources Outside Range    P2 = Recommended/Pillaged/Unique
+-- Key: PN = Nothing    PD = Dangerous    P1 = Resources  P1B = Bonus  P1L = Luxury  P1S = Strategic    P2 = Recommended/Pillaged/Unique
 --      P3 = Currently Worked / Wonder-Buffed    P4 = Hills    P5 = Feature Extraction    P6 = Nothing(Disabled)    P7 = General
 local m_LensSettings = {
     ["COLOR_BUILDER_LENS_PN"]  =  { Index = 0x01, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_PN"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_PN" },
     ["COLOR_BUILDER_LENS_PD"]  =  { Index = 0x02, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_PD"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_PD" },
+    -- Holder for all of the "P1" Resource colors, no actual color shown for P1 
     ["COLOR_BUILDER_LENS_P1"]  =  { Index = 0x10, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P1"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P1" },
-    ["COLOR_BUILDER_LENS_P1N"] =  { Index = 0x11, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P1N"), ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P1N"},
+    ["COLOR_BUILDER_LENS_P1B"] =  { Index = 0x11, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P1N"), ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P1B"},
+    ["COLOR_BUILDER_LENS_P1L"] =  { Index = 0x12, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P1N"), ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P1L"},
+    ["COLOR_BUILDER_LENS_P1S"] =  { Index = 0x13, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P1N"), ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P1S"},
     ["COLOR_BUILDER_LENS_P2"]  =  { Index = 0x20, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P2"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P2" },
     ["COLOR_BUILDER_LENS_P3"]  =  { Index = 0x30, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P3"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P3" },
     ["COLOR_BUILDER_LENS_P4"]  =  { Index = 0x40, ConfiguredColor = GetLensColorFromSettings("COLOR_BUILDER_LENS_P4"),  ConfigRules = {}, KeyLabel = "LOC_HUD_BUILDER_LENS_P4" },
@@ -92,7 +95,7 @@ local function OnGetColorPlotTable()
 
     local colorPlot:table = {}
     local dangerousPlotsHash:table = {}
-    local fallbackColorIndex = m_LensSettings["COLOR_BUILDER_LENS_PN"].Index;
+    local fallbackColorIndex = GetColorForNothingPlot();
     colorPlot[fallbackColorIndex] = {}
 
     if not DISABLE_DANGEROUS_PLOT_HIGHLIGHT then
@@ -268,14 +271,19 @@ end
 if g_ModLensModalPanel ~= nil then
     g_ModLensModalPanel[LENS_NAME] = {}
     g_ModLensModalPanel[LENS_NAME].LensTextKey = "LOC_HUD_BUILDER_LENS"
-    g_ModLensModalPanel[LENS_NAME].Legend = {}
-    -- Insert in priority order and only those with Rules that do coloring
-    for _,lensInfo in ipairs(m_LensSettings_SortedIndexMap) do
-        local lensData = m_LensSettings[lensInfo.Key];
-        if (#lensData.ConfigRules > 0) then
-            table.insert(g_ModLensModalPanel[LENS_NAME].Legend, {lensData.KeyLabel, lensData.ConfiguredColor});
-        end
-    end
+    g_ModLensModalPanel[LENS_NAME].Legend = {
+        -- Insert only those with Rules that do coloring
+        {m_LensSettings["COLOR_BUILDER_LENS_P1B"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_P1B"].ConfiguredColor},
+        {m_LensSettings["COLOR_BUILDER_LENS_P1L"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_P1L"].ConfiguredColor},
+        {m_LensSettings["COLOR_BUILDER_LENS_P1S"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_P1S"].ConfiguredColor},
+        {m_LensSettings["COLOR_BUILDER_LENS_P2"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_P2"].ConfiguredColor},
+        {m_LensSettings["COLOR_BUILDER_LENS_P3"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_P3"].ConfiguredColor},
+        {m_LensSettings["COLOR_BUILDER_LENS_P4"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_P4"].ConfiguredColor},
+        {m_LensSettings["COLOR_BUILDER_LENS_P5"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_P5"].ConfiguredColor},
+        {m_LensSettings["COLOR_BUILDER_LENS_P7"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_P7"].ConfiguredColor},
+        {m_LensSettings["COLOR_BUILDER_LENS_PD"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_PD"].ConfiguredColor},
+        {m_LensSettings["COLOR_BUILDER_LENS_PN"].KeyLabel, m_LensSettings["COLOR_BUILDER_LENS_PN"].ConfiguredColor},
+    }
 end
 
 -- Add CQUI LuaEvent Hooks for minimappanel and modallenspanel contexts

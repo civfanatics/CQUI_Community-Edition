@@ -26,6 +26,7 @@ function PopulateLensRGBPickerSettings()
         { LensGroupName = "LOC_HUD_CITYOVERLAP_LENS",   LensBaseName = "COLOR_CITYOVERLAP_LENS", RowLabelFunc = GenerateCityOverlapRowLabel},
         { LensGroupName = "LOC_HUD_CITY_PLOT_LENS",     LensBaseName = "COLOR_CITY_PLOT_LENS" },
         { LensGroupName = "LOC_HUD_NATURALIST_LENS",    LensBaseName = "COLOR_NATURALIST_LENS"},
+        { LensGroupName = "LOC_HUD_ROUTES_LENS",        LensBaseName = "COLOR_ROUTES_LENS"},
         { LensGroupName = "LOC_HUD_RESOURCE_LENS",      LensBaseName = "COLOR_RESOURCE_LENS"},
         { LensGroupName = "LOC_HUD_SCOUT_LENS",         LensBaseName = "COLOR_SCOUT_LENS"},
         { LensGroupName = "LOC_HUD_WONDER_LENS",        LensBaseName = "COLOR_WONDER_LENS"}
