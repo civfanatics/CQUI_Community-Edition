@@ -126,5 +126,18 @@
       <Text>Племенное поселение</Text>
     </Replace>
 
+    <Replace Tag="LOC_HUD_ROUTES_LENS" Language="ru_RU">
+      <Text>Маршруты</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_RAIL" Language="ru_RU">
+      <Text>Железные дороги</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_ROAD" Language="ru_RU">
+      <Text>Дороги</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_TOOLTIP" Language="ru_RU">
+      <Text>Выделите дороги и железные дороги</Text>
+    </Replace>
+
   </LocalizedText>
 </GameData>

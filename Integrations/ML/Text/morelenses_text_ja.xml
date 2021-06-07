@@ -153,5 +153,18 @@
       <Text>要修正タイル</Text>
     </Replace>
 
+    <Replace Tag="LOC_HUD_ROUTES_LENS" Language="ja_JP">
+      <Text>ルート</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_RAIL" Language="ja_JP">
+      <Text>鉄道</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_ROAD" Language="ja_JP">
+      <Text>道路</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_TOOLTIP" Language="ja_JP">
+      <Text>道路と鉄道を強調する</Text>
+    </Replace>
+
   </LocalizedText>
 </GameData>

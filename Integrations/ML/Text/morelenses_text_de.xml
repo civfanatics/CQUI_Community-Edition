@@ -192,5 +192,18 @@
       <Text>Feld kann verbessert werden</Text>
     </Replace>
 
+    <Replace Tag="LOC_HUD_ROUTES_LENS" Language="de_DE">
+      <Text>Routen</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_RAIL" Language="de_DE">
+      <Text>Eisenbahnen</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_ROAD" Language="de_DE">
+      <Text>Straßen</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_TOOLTIP" Language="de_DE">
+      <Text>Hervorheben der Straßen und Eisenbahnen</Text>
+    </Replace>
+
   </LocalizedText>
 </GameData>

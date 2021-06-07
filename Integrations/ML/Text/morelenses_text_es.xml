@@ -126,5 +126,18 @@
       <Text>Aldea Tribal</Text>
     </Replace>
 
+    <Replace Tag="LOC_HUD_ROUTES_LENS" Language="es_ES">
+      <Text>Rutas</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_RAIL" Language="es_ES">
+      <Text>Ferrocarriles</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_ROAD" Language="es_ES">
+      <Text>Carreteras</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_TOOLTIP" Language="es_ES">
+      <Text>Destaque las carreteras y los ferrocarriles</Text>
+    </Replace>
+
   </LocalizedText>
 </GameData>
