@@ -20,8 +20,8 @@ BASE_CQUI_ZoneDistrict = ZoneDistrict;
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
--- Show a faith icon instead of the turns-left for the faith-only units
-local CQUI_FAITH_ONLY_TURNS_LEFT = -2;
+-- Do not show a number of turns or the timer icon if it's a purchase-only item
+local CQUI_TURNS_LEFT_PURCHASE_ONLY = -2;
 local CQUI_PurchaseTable = {}; -- key = item Hash
 local CQUI_ProductionQueue :boolean = true;
 local CQUI_ShowProductionRecommendations :boolean = false;
@@ -214,14 +214,16 @@ function GetData()
     local buildQueue = pSelectedCity:GetBuildQueue();
 
     for row in GameInfo.Units() do
-        if row.MustPurchase and buildQueue:CanProduce( row.Hash, true ) and row.PurchaseYield == "YIELD_FAITH" then
+        if row.MustPurchase and buildQueue:CanProduce( row.Hash, true ) and (row.PurchaseYield == "YIELD_FAITH" or row.PurchaseYield == "YIELD_GOLD") then
             local isCanProduceExclusion, results     = buildQueue:CanProduce( row.Hash, false, true );
             -- If a unit is purchase only, then "isDisabled" needs to be True, as that disables the button control that
             -- allows the religious units to be enqueued
-            -- TODO: It'd be nice to remove the unnecessary part about the production cost from the Tooltip string
             local isDisabled  :boolean = row.MustPurchase -- not isCanProduceExclusion;
             local sAllReasons :string = ComposeFailureReasonStrings( isDisabled, results );
             local sToolTip    :string = ToolTipHelper.GetUnitToolTip( row.Hash, MilitaryFormationTypes.STANDARD_MILITARY_FORMATION, buildQueue ) .. sAllReasons;
+            -- Remove the part about the production cost from the tooltip (this format comes from ToolTipHelper.lua)
+            local prodPartPattern = "%[NEWLINE%]%[NEWLINE%]"..Locale.Lookup("LOC_HUD_PRODUCTION_COST")..": .+%[ICON_Production%] "..Locale.Lookup("LOC_HUD_PRODUCTION");
+            sToolTip = sToolTip:gsub(prodPartPattern, "");
 
             local kUnit :table = {
                 Type                = row.UnitType,
@@ -229,7 +231,7 @@ function GetData()
                 ToolTip             = sToolTip,
                 Hash                = row.Hash,
                 Kind                = row.Kind,
-                TurnsLeft           = CQUI_FAITH_ONLY_TURNS_LEFT,
+                TurnsLeft           = CQUI_TURNS_LEFT_PURCHASE_ONLY,
                 Disabled            = isDisabled,
                 Civilian            = row.FormationClass == "FORMATION_CLASS_CIVILIAN",
                 Cost                = 0,
@@ -266,10 +268,9 @@ function GetTurnsToCompleteStrings( turnsToComplete:number )
     if turnsToComplete == -1 then
         turnsStr = "999+[ICON_Turn]";
         turnsStrTT = TXT_HUD_CITY_WILL_NOT_COMPLETE;
-    elseif turnsToComplete == CQUI_FAITH_ONLY_TURNS_LEFT then
-        turnsStr = "[ICON_Faith][ICON_Turn]";
-        -- TODO: Build a better string for this?  Or since one isn't needed
-        turnsStrTT = Locale.Lookup("LOC_PRODPANEL_PURCHASE_FAITH");
+    elseif turnsToComplete == CQUI_TURNS_LEFT_PURCHASE_ONLY then
+        turnsStr = "";
+        turnsStrTT = ""; --Locale.Lookup("LOC_PRODPANEL_PURCHASE_FAITH");
     else
         turnsStr = turnsToComplete .. "[ICON_Turn]";
         turnsStrTT = turnsToComplete .. Locale.Lookup("LOC_HUD_CITY_TURNS_TO_COMPLETE", turnsToComplete);
