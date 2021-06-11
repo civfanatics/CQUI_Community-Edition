@@ -126,5 +126,18 @@
       <Text>부족 마을</Text>
     </Replace>
 
+    <Replace Tag="LOC_HUD_ROUTES_LENS" Language="ko_KR">
+      <Text>경로</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_RAIL" Language="ko_KR">
+      <Text>철도</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_ROAD" Language="ko_KR">
+      <Text>도</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_TOOLTIP" Language="ko_KR">
+      <Text>도로와 철도 하이라이트</Text>
+    </Replace>
+
   </LocalizedText>
 </GameData>

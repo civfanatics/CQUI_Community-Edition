@@ -126,5 +126,18 @@
       <Text>Wioska plemienna</Text>
     </Replace>
 
+    <Replace Tag="LOC_HUD_ROUTES_LENS" Language="pl_PL">
+      <Text>Trasy</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_RAIL" Language="pl_PL">
+      <Text>Kolei</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_ROAD" Language="pl_PL">
+      <Text>Drogi</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_TOOLTIP" Language="pl_PL">
+      <Text>Wyróżnij drogi i tory kolejowe</Text>
+    </Replace>
+
   </LocalizedText>
 </GameData>

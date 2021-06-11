@@ -153,5 +153,18 @@
       <Text>Necessita una lavorazione per poterci costruire il Parco Nazionale</Text>
     </Replace>
 
+    <Replace Tag="LOC_HUD_ROUTES_LENS" Language="it_IT">
+      <Text>Itinerari</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_RAIL" Language="it_IT">
+      <Text>Ferrovie</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_ROAD" Language="it_IT">
+      <Text>strade</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_TOOLTIP" Language="it_IT">
+      <Text>Evidenzia le strade e le ferrovie</Text>
+    </Replace>
+
   </LocalizedText>
 </GameData>

@@ -126,5 +126,18 @@
       <Text>部落村庄</Text>
     </Replace>
 
+    <Replace Tag="LOC_HUD_ROUTES_LENS" Language="zh_Hans">
+      <Text>路线</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_RAIL" Language="zh_Hans">
+      <Text>铁路</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_ROAD" Language="zh_Hans">
+      <Text>道路</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_TOOLTIP" Language="zh_Hans">
+      <Text>突出道路和铁路</Text>
+    </Replace>
+
   </LocalizedText>
 </GameData>

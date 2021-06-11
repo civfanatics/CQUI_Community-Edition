@@ -126,5 +126,17 @@
       <Text>Village Tribal</Text>
     </Replace>
 
+    <Replace Tag="LOC_HUD_ROUTES_LENS" Language="fr_FR">
+      <Text>Parcours</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_RAIL" Language="fr_FR">
+      <Text>Chemins</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_ROAD" Language="fr_FR">
+      <Text>Routes</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_TOOLTIP" Language="fr_FR">
+      <Text>Mettre en évidence les routes et les chemins de fer</Text>
+    </Replace>
   </LocalizedText>
 </GameData>

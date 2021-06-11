@@ -153,5 +153,17 @@
       <Text>Precisa de correção se for usado para um parque</Text>
     </Replace>
 
+    <Replace Tag="LOC_HUD_ROUTES_LENS" Language="pt_BR">
+      <Text>Rotas</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_RAIL" Language="pt_BR">
+      <Text>Ferrovias</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_ROAD" Language="pt_BR">
+      <Text>Estradas</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_ROUTES_LENS_TOOLTIP" Language="pt_BR">
+      <Text>Destaque para as Estradas e Ferrovias</Text>
+    </Replace>
   </LocalizedText>
 </GameData>

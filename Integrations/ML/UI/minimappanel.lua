@@ -229,10 +229,15 @@ function OnToggleLensList()
         CloseLensList();
     else
         Controls.LensToggleStack:CalculateSize();
+        -- The screen size available to the lens panel is ScreenSizeY - 280 or so
+        -- The lens list without a scroll bar is at least 550 pixels high.
+        local _, screenSizeY = UIManager:GetScreenSizeVal();
+        local lensControlSizeY = Controls.LensToggleStack:GetSizeY() + LENS_PANEL_OFFSET;
+        if (lensControlSizeY > (screenSizeY - 280)) then
+            lensControlSizeY = screenSizeY - 280;
+        end
 
-        -- Astog: Disable increasing size of panel, since now we have a scrollbar
-		-- Infixo: re-enable (I don't want a scrollbar)
-        Controls.LensPanel:SetSizeY(Controls.LensToggleStack:GetSizeY() + LENS_PANEL_OFFSET);
+        Controls.LensPanel:SetSizeY(lensControlSizeY);
     end
 end
 
