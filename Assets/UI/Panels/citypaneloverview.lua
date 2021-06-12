@@ -107,7 +107,7 @@ local CQUI_ShowCityDetailAdvisor :boolean = false;
 
 -- ===========================================================================
 function CQUI_OnSettingsUpdate()
-        CQUI_ShowCityDetailAdvisor = GameConfiguration.GetValue("CQUI_ShowCityDetailAdvisor") == 1
+    CQUI_ShowCityDetailAdvisor = GameConfiguration.GetValue("CQUI_ShowCityDetailAdvisor") == 1
 end
 
 LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
@@ -115,13 +115,13 @@ LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
 
 -- ====================CQUI Cityview==========================================
 function CQUI_OnCityviewEnabled()
-        OnShowOverviewPanel(true)
+    OnShowOverviewPanel(true)
 end
 
 -- ===========================================================================
 function CQUI_OnCityviewDisabled()
-        OnShowOverviewPanel(false);
-        LuaEvents.CQUI_ClearCitizenManagement();
+    OnShowOverviewPanel(false);
+    LuaEvents.CQUI_ClearCitizenManagement();
 end
 
 LuaEvents.CQUI_CityPanelOverview_CityviewEnable.Add( CQUI_OnCityviewEnabled);

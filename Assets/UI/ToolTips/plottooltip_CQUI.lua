@@ -9,6 +9,7 @@ BASE_CQUI_View = View;
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
+local m_ShowPlotXY = false;
 
 -- ===========================================================================
 --  CQUI modified GetDetails functiton
@@ -17,6 +18,12 @@ BASE_CQUI_View = View;
 function GetDetails(data)
     local details = {};
     local iTourism:number = 0; -- #75
+
+    if (m_ShowPlotXY == true) then
+        local plotXY = Map.GetPlotByIndex(data.Index);
+        local xystring = "X:"..plotXY:GetX().." Y:"..plotXY:GetY().."[NEWLINE]";
+        table.insert(details,xystring);
+    end
 
     --Civilization and city ownership line
     if (data.Owner ~= nil) then

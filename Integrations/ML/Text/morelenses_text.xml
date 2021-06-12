@@ -198,6 +198,9 @@
         <Row Tag="LOC_HUD_CITY_PLOT_LENS_CULTURE">
             <Text>Next Culture Plot Growth</Text>
         </Row>
+        <Row Tag="LOC_HUD_CITY_PLOT_LENS_OTHER">
+            <Text>Other Plot</Text>
+        </Row>
 
         <Row Tag="LOC_HUD_ROUTES_LENS">
             <Text>Routes</Text>
