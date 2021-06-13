@@ -18,24 +18,6 @@
     <Replace Tag="LOC_HUD_BUILDER_LENS_TOOLTIP" Language="de_DE">
       <Text>Zeigt besondere Felder auf der Karte an, wo gebaut werden kann.</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_IMP" Language="de_DE">
-      <Text>Ressource, Einzig. Fähigk., Geplündert</Text>  
-    </Replace>
-    <Replace Tag="LOC_TOOLTIP_RECOMFEATURE_LENS_HILL" Language="de_DE">
-      <Text>Verbesserung empohlen</Text>
-    </Replace>
-    <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_HILL" Language="de_DE">
-      <Text>Hügel</Text>
-    </Replace>
-    <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_FEATURE" Language="de_DE">
-      <Text>Entfernbare Geländeart</Text>
-    </Replace>
-    <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_GENERIC" Language="de_DE">
-      <Text>Normales Feld</Text>
-    </Replace>
-    <Replace Tag="LOC_TOOLTIP_BUILDER_LENS_NOTHING" Language="de_DE">
-      <Text>Nichts zu tun</Text>
-    </Replace>
     <Replace Tag="LOC_HUD_BUILDER_LENS_PN" Language="de_DE">
        <Text>Nichts</Text>
     </Replace>
@@ -43,16 +25,23 @@
        <Text>Gefährlich</Text>
     </Replace>
     <Replace Tag="LOC_HUD_BUILDER_LENS_P1" Language="de_DE">
-       <Text>Ressourcen</Text>
+       <!-- Intentionally empty so it does not appear on the CQUI Settings menu --> 
+       <Text></Text>
     </Replace>
-    <Replace Tag="LOC_HUD_BUILDER_LENS_P1N" Language="de_DE">
-       <Text>Ressource außer Reichweite</Text>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P1B" Language="de_DE">
+       <Text>Bonusressourcen</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P1L" Language="de_DE">
+       <Text>Luxusressourcen</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P1S" Language="de_DE">
+       <Text>Strategischeressourcen</Text>
     </Replace>
     <Replace Tag="LOC_HUD_BUILDER_LENS_P2" Language="de_DE">
        <Text>Ressource, Einzig. Fähigk., Geplündert</Text>
     </Replace>
     <Replace Tag="LOC_HUD_BUILDER_LENS_P3" Language="de_DE">
-       <Text>Currently Worked, Wonder-Buffed</Text>
+       <Text>Currently Worked, Wonder-Buffed</Text><!-- Braucht mehr Infos für akkurate Übersetzung --> 
     </Replace>
     <Replace Tag="LOC_HUD_BUILDER_LENS_P4" Language="de_DE">
        <Text>Hügel</Text>
@@ -62,12 +51,14 @@
     </Replace>
     <!-- Nothing to add here atm -->
     <Replace Tag="LOC_HUD_BUILDER_LENS_P6" Language="de_DE">
+       <!-- Intentionally empty so it does not appear on the CQUI Settings menu --> 
        <Text></Text>
     </Replace>
     <Replace Tag="LOC_HUD_BUILDER_LENS_P7" Language="de_DE">
        <Text>Allgemein</Text>
     </Replace>
 
+    
     <!-- Archaeologist Lens -->
     <Replace Tag="LOC_HUD_ARCHAEOLOGIST_LENS" Language="de_DE">
       <Text>Archäologe</Text>
@@ -192,6 +183,22 @@
       <Text>Feld kann verbessert werden</Text>
     </Replace>
 
+    <Replace Tag="LOC_HUD_CITY_PLOT_LENS" Language="de_DE">
+      <Text>Stadtgrundstück</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITY_PLOT_LENS_TOOLTIP" Language="de_DE">
+      <Text>Zeigt Grundstücke auf denen gearbeitet wird und Grundstücke die noch gesperrt sind</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITY_PLOT_LENS_WORKING" Language="de_DE">
+      <Text>Arbeiter Grundstücke</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITY_PLOT_LENS_LOCKED" Language="de_DE">
+      <Text>Gesperrte Grundstücke</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITY_PLOT_LENS_CULTURE" Language="de_DE">
+      <Text>Nächstes Kultur-Grundstück</Text>
+    </Replace>
+    
     <Replace Tag="LOC_HUD_ROUTES_LENS" Language="de_DE">
       <Text>Routen</Text>
     </Replace>
@@ -204,6 +211,7 @@
     <Replace Tag="LOC_HUD_ROUTES_LENS_TOOLTIP" Language="de_DE">
       <Text>Hervorheben der Straßen und Eisenbahnen</Text>
     </Replace>
-
+    
+    <!-- Settings Panel strings are in the cqui_text_settings.xml file -->
   </LocalizedText>
 </GameData>
