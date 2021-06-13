@@ -24,7 +24,6 @@
     <Row Tag="LOC_CQUI_CITYVIEW" Language="de_DE">
       <Text>Stadtansicht</Text>
     </Row>
-    <!-- Relocate City Strike and Encampment Strike button translations done via Google Translate -->
     <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="de_DE">
       <Text>Stadtangriff-Schaltfläche verschieben</Text>
     </Row>
@@ -199,6 +198,13 @@
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA_TOOLTIP" Language="de_DE">
       <Text>Späher-Linse automatisch anwenden, sobald eine beliebige Militäreinheit ausgewählt wurde.</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYENGINEERLENS" Language="de_DE">
+      <Text>Automat. Ingenieur-Linse</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYENGINEERLENS_TOOLTIP" Language="de_DE">
+      <Text>Ingenieur-Linse automatisch anwenden, sobald ein Ingenieur ausgewählt wurde.</Text>
+    </Row>
+    
     <Row Tag="LOC_CQUI_POPUPS" Language="de_DE">
       <Text>Popups</Text>
     </Row>
@@ -381,17 +387,20 @@
     <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS" Language="de_DE">
       <Text>RGB-Farbeinstellungen für benutzerdefinierte Objektive</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_RED" Language="de_DE">
+      <Text>Rot</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_GREEN" Language="de_DE">
+      <Text>Grün</Text>
+    </Row>
     <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_BLUE" Language="de_DE">
       <Text>Blau</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_EDITBOX_TOOLTIP" Language="de_DE">
       <Text>Geben Sie einen Wert zwischen 0 und 255 ein.</Text>
     </Row>
-    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_GREEN" Language="de_DE">
-      <Text>Grün</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_RED" Language="de_DE">
-      <Text>Rot</Text>
-    </Row>
+        
+    
+    
   </LocalizedText>
 </GameData>
