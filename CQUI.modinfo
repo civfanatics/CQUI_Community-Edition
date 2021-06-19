@@ -72,6 +72,12 @@
     </ActionCriteria>
 
     <!-- ============================== CQUI specific settings ============================== -->
+    <FrontEndActions>
+        <UpdateDatabase id="MoreLenses_KeyBinding_Options">
+            <File>Integrations/ML/UI/hotkey_config.xml</File>
+        </UpdateDatabase>
+    </FrontEndActions>
+
     <InGameActions>
         <UpdateDatabase id="CQUI_Settings">
             <Properties>
@@ -1584,6 +1590,7 @@
         <File>Integrations/ML/Text/morelenses_text_pt.xml</File>
         <File>Integrations/ML/Text/morelenses_text_ru.xml</File>
         <File>Integrations/ML/Text/morelenses_text_zh.xml</File>
+        <File>Integrations/ML/UI/hotkey_config.xml</File>
         <File>Integrations/ML/UI/minimappanel.lua</File>
         <File>Integrations/ML/UI/minimappanel.xml</File>
         <File>Integrations/ML/UI/Panels/modallenspanel.lua</File>
