@@ -1441,7 +1441,32 @@ end
 -- ===========================================================================
 function OnStartObserverMode()
     Controls.MapPinListButton:SetHide(true);
-  end
+end
+
+-- ===========================================================================
+function CQUI_OnCityviewEnabled()
+    -- Slide the minimap over
+    Controls.MiniMapAnimSideways:SetToBeginning();
+    Controls.MiniMapAnimSideways:Play();
+    -- Disable the buttons that do not work well while in City View
+    ToggleButtonsWhenCityViewShown(true);
+end
+
+-- ===========================================================================
+function CQUI_OnCityviewDisabled()
+    -- Slide the minimap back
+    Controls.MiniMapAnimSideways:Reverse();
+    -- Enable the buttons that were disabled
+    ToggleButtonsWhenCityViewShown(false);
+end
+
+-- ===========================================================================
+function ToggleButtonsWhenCityViewShown(isHidden)
+    Controls.LensButton:SetHide(isHidden);
+    Controls.MapPinListButton:SetHide(isHidden);
+    Controls.CQUI_OptionsButton:SetHide(isHidden);
+    Controls.FullscreenMapButton:SetHide(isHidden);
+end
 
 -- ===========================================================================
 function LateInitialize( isReload:boolean )
@@ -1551,6 +1576,8 @@ function LateInitialize( isReload:boolean )
     -- CQUI Handlers
     LuaEvents.CQUI_Option_ToggleYields.Add( ToggleYieldIcons );
     LuaEvents.CQUI_SettingsInitialized.Add( CQUI_ToggleYieldIcons );
+    LuaEvents.CQUI_CityPanelOverview_CityviewEnable.Add( CQUI_OnCityviewEnabled );
+    LuaEvents.CQUI_CityPanelOverview_CityviewDisable.Add( CQUI_OnCityviewDisabled );
     -- ==== END CQUI Modification ======================================
 
     -- Game Events

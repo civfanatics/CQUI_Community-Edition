@@ -7,6 +7,7 @@ local m_cityID :number = -1;
 local m_LensSettings = {
     ["COLOR_CITY_PLOT_LENS_WORKING"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_WORKING"), KeyLabel = "LOC_HUD_CITY_PLOT_LENS_WORKING" },
     ["COLOR_CITY_PLOT_LENS_LOCKED"]  =  { ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_LOCKED"),  KeyLabel = "LOC_HUD_CITY_PLOT_LENS_LOCKED" },
+    ["COLOR_CITY_PLOT_LENS_OTHER"]   =  { ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_OTHER"),   KeyLabel = "LOC_HUD_CITY_PLOT_LENS_OTHER" },
     ["COLOR_CITY_PLOT_LENS_CULTURE"] =  { ConfiguredColor = GetLensColorFromSettings("COLOR_CITY_PLOT_LENS_CULTURE"), KeyLabel = "LOC_HUD_CITY_PLOT_LENS_CULTURE" }
 }
 -- ===========================================================================
@@ -27,8 +28,10 @@ function OnGetColorPlotTable()
 
         local workingColor:number = m_LensSettings["COLOR_CITY_PLOT_LENS_WORKING"].ConfiguredColor;
         local lockedColor:number = m_LensSettings["COLOR_CITY_PLOT_LENS_LOCKED"].ConfiguredColor;
+        local otherColor:number = m_LensSettings["COLOR_CITY_PLOT_LENS_OTHER"].ConfiguredColor;
         colorPlot[workingColor] = {};
         colorPlot[lockedColor] = {};
+        colorPlot[otherColor] = {};
 
         -- Get city plot and citizens info
         local tResults:table = CityManager.GetCommandTargets(pCity, CityCommandTypes.MANAGE, tParameters);
@@ -40,13 +43,16 @@ function OnGetColorPlotTable()
         local tPlots:table = tResults[CityCommandResults.PLOTS];
         local tUnits:table = tResults[CityCommandResults.CITIZENS];
         local tLockedUnits:table = tResults[CityCommandResults.LOCKED_CITIZENS];
+        local markedPlots = {};
 
         if tPlots ~= nil and table.count(tPlots) > 0 then
             for i, plotID in ipairs(tPlots) do
-                if (tLockedUnits[i] > 0 or cityPlotID == plotID) then
+                if ((tLockedUnits[i] ~= nil and tLockedUnits[i] > 0) or cityPlotID == plotID) then
                     table.insert(colorPlot[lockedColor], plotID);
-                elseif (tUnits[i] > 0) then
+                    markedPlots[plotID] = 1;
+                elseif (tUnits[i] ~= nil and tUnits[i] > 0) then
                     table.insert(colorPlot[workingColor], plotID);
+                    markedPlots[plotID] = 1;
                 end
             end
         end
@@ -60,6 +66,23 @@ function OnGetColorPlotTable()
                 if pNextPlotID ~= nil and Map.IsPlot(pNextPlotID) then
                     colorPlot[culturePlotColor] = {pNextPlotID};
                 end
+            end
+        end
+
+        -- Show the city borders and mark plots not yet marked with "other" color
+        local pOverlay:object = UILens.GetOverlay("CityBorders");
+        pOverlay:ClearPlotChannel(); -- Calling ClearPlotChannel without a channel clears all channels
+        pOverlay:SetVisible(true);
+
+        local backColor:number, frontColor:number  = UI.GetPlayerColors( pCity:GetOwner() );
+
+        local kCityPlots :table = Map.GetCityPlots():GetPurchasedPlots( pCity );
+        for _,plotId in pairs(kCityPlots) do
+            -- Add this city only to the border overlay
+            pOverlay:SetBorderColors(0, backColor, frontColor);
+            pOverlay:SetPlotChannel(kCityPlots, 0);
+            if markedPlots[plotId] == nil then
+                table.insert(colorPlot[otherColor], plotId);
             end
         end
     end
@@ -80,6 +103,10 @@ function ClearCitizenManagementLens()
         UILens.ToggleLayerOff(ML_LENS_LAYER);
     end
     LuaEvents.MinimapPanel_SetActiveModLens("NONE");
+
+    local pOverlay:object = UILens.GetOverlay("CityBorders");
+    pOverlay:ClearPlotChannel();
+    pOverlay:SetVisible(false);
     m_cityID = -1;
 end
 
