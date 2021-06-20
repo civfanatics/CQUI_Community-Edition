@@ -24,7 +24,11 @@
                             <Label ID="BreakdownLabel" Anchor="R,C" Offset="4,1" Style="CityPanelHeader" String="{LOC_HUD_DISTRICTS}" />
                         </Grid>
                         <Grid ID="ReligionGrid" Anchor="R,T" Offset="4,45" Size="parent-100,20" Style="CityPanelSlotGrid">
-                            <Label ID="ReligionNum" Anchor="L,C" Offset="33,0" Style="CityPanelNumLarge" String="-" />
+                            <Label ID="ReligionNum" Anchor="L,C" Offset="33,0" Style="CityPanelNumLarge" String="-" Hidden="1"/>
+                            <Stack ID="CQUI_LoyaltyLabels" Offset="33,0" StackGrowth="Right">
+                                <Label ID="CQUI_Loyalty" Anchor="L,C" Offset="0,0" Style="CityPanelNumLarge" String="-" />
+                                <Label ID="CQUI_LoyaltyPerTurn" Anchor="R,C" Offset="0,0" Style="CityPanelNumSmall" String="-" />
+                            </Stack>
                             <Label ID="ReligionLabel" Anchor="R,C" Offset="4,1" Style="CityPanelHeader" String="{LOC_HUD_CITY_RELIGIOUS_CITIZENS}" />
                         </Grid>
                         <Grid ID="AmenitiesGrid" Anchor="R,T" Offset="4,71" Size="parent-100,20" Style="CityPanelSlotGrid">
