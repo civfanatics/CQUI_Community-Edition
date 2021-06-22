@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+    <InputActions>
+        <Row ActionId="LensArchaeologist" Name="LOC_HUD_ARCHAEOLOGIST_LENS" Description="LOC_HUD_ARCHAEOLOGIST_LENS_TOOLTIP" CategoryId="LENSES" ContextId="World" LayoutType="PC"/>
+        <Row ActionId="LensBarbarian" Name="LOC_HUD_BARBARIAN_LENS" Description="LOC_HUD_BARBARIAN_LENS_TOOLTIP" CategoryId="LENSES" ContextId="World" LayoutType="PC"/>
+        <Row ActionId="LensBuilder" Name="LOC_HUD_BUILDER_LENS" Description="LOC_HUD_BUILDER_LENS_TOOLTIP" CategoryId="LENSES" ContextId="World" LayoutType="PC"/>
+        <Row ActionId="LensCityOverlap" Name="LOC_HUD_CITYOVERLAP_LENS" Description="LOC_HUD_CITYOVERLAP_LENS_TOOLTIP" CategoryId="LENSES" ContextId="World" LayoutType="PC"/>
+        <Row ActionId="LensNaturalist" Name="LOC_HUD_NATURALIST_LENS" Description="LOC_HUD_NATURALIST_LENS_TOOLTIP" CategoryId="LENSES" ContextId="World" LayoutType="PC"/>
+        <Row ActionId="LensResource" Name="LOC_HUD_RESOURCE_LENS" Description="LOC_HUD_RESOURCE_LENS_TOOLTIP" CategoryId="LENSES" ContextId="World" LayoutType="PC"/>
+        <Row ActionId="LensRoutes" Name="LOC_HUD_ROUTES_LENS" Description="LOC_HUD_ROUTES_LENS_TOOLTIP" CategoryId="LENSES" ContextId="World" LayoutType="PC"/>
+        <Row ActionId="LensWonder" Name="LOC_HUD_WONDER_LENS" Description="LOC_HUD_WONDER_LENS_TOOLTIP" CategoryId="LENSES" ContextId="World" LayoutType="PC"/>
+        <Row ActionId="LensScout" Name="LOC_HUD_SCOUT_LENS" Description="LOC_HUD_SCOUT_LENS_TOOLTIP" CategoryId="LENSES" ContextId="World" LayoutType="PC"/>
+    </InputActions>
+
+    <InputActionDefaultGestures>
+        <Row ActionId="LensArchaeologist" Index="0" GestureType="KBMouse" GestureData="LOC_OPTIONS_KEY_SHIFT+LOC_OPTIONS_KEY_1" />
+        <Row ActionId="LensBarbarian" Index="0" GestureType="KBMouse" GestureData="LOC_OPTIONS_KEY_SHIFT+LOC_OPTIONS_KEY_2" />
+        <Row ActionId="LensBuilder" Index="0" GestureType="KBMouse" GestureData="LOC_OPTIONS_KEY_SHIFT+LOC_OPTIONS_KEY_3" />
+        <Row ActionId="LensCityOverlap" Index="0" GestureType="KBMouse" GestureData="LOC_OPTIONS_KEY_SHIFT+LOC_OPTIONS_KEY_4" />
+        <Row ActionId="LensNaturalist" Index="0" GestureType="KBMouse" GestureData="LOC_OPTIONS_KEY_SHIFT+LOC_OPTIONS_KEY_5" />
+        <Row ActionId="LensResource" Index="0" GestureType="KBMouse" GestureData="LOC_OPTIONS_KEY_SHIFT+LOC_OPTIONS_KEY_6" />
+        <Row ActionId="LensRoutes" Index="0" GestureType="KBMouse" GestureData="LOC_OPTIONS_KEY_SHIFT+LOC_OPTIONS_KEY_7" />
+        <Row ActionId="LensScout" Index="0" GestureType="KBMouse" GestureData="LOC_OPTIONS_KEY_SHIFT+LOC_OPTIONS_KEY_8" />
+        <Row ActionId="LensWonder" Index="0" GestureType="KBMouse" GestureData="LOC_OPTIONS_KEY_SHIFT+LOC_OPTIONS_KEY_9" />
+    </InputActionDefaultGestures>
+</GameInfo>
