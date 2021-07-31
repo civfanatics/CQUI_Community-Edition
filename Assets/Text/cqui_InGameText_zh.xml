@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData>
+	<LocalizedText>
+    <!-- oerms: This file extends the vanilla InGameText.xml -->
+    <!-- Extended variables for world ranking from 20 to 30 players -->
+		<Row Tag="LOC_WORLD_RANKINGS_21_PLACE" Language="zh_Hans_CN">
+			<Text>21名</Text>
+		</Row>
+    <Row Tag="LOC_WORLD_RANKINGS_22_PLACE" Language="zh_Hans_CN">
+			<Text>22名</Text>
+		</Row>
+    <Row Tag="LOC_WORLD_RANKINGS_23_PLACE" Language="zh_Hans_CN">
+			<Text>23名</Text>
+		</Row>
+    <Row Tag="LOC_WORLD_RANKINGS_24_PLACE" Language="zh_Hans_CN">
+			<Text>24名</Text>
+		</Row>
+    <Row Tag="LOC_WORLD_RANKINGS_25_PLACE" Language="zh_Hans_CN">
+			<Text>25名</Text>
+		</Row>
+    <Row Tag="LOC_WORLD_RANKINGS_26_PLACE" Language="zh_Hans_CN">
+			<Text>26名</Text>
+		</Row>
+    <Row Tag="LOC_WORLD_RANKINGS_27_PLACE" Language="zh_Hans_CN">
+			<Text>27名</Text>
+		</Row>
+    <Row Tag="LOC_WORLD_RANKINGS_28_PLACE" Language="zh_Hans_CN">
+			<Text>28名</Text>
+		</Row>
+    <Row Tag="LOC_WORLD_RANKINGS_29_PLACE" Language="zh_Hans_CN">
+			<Text>29名</Text>
+		</Row>
+    <Row Tag="LOC_WORLD_RANKINGS_30_PLACE" Language="zh_Hans_CN">
+			<Text>30名</Text>
+		</Row>
+ 	</LocalizedText>
+</GameData>
