@@ -726,6 +726,7 @@
                 <File>Assets/Text/cqui_InGameText_it.xml</File>
                 <File>Assets/Text/cqui_InGameText_ja.xml</File>
                 <File>Assets/Text/cqui_InGameText_ru.xml</File>
+                <File>Assets/Text/cqui_InGameText_zh.xml</File>
                 <File>Assets/Text/cqui_text_general.xml</File>
                 <File>Assets/Text/cqui_text_general_de.xml</File>
                 <File>Assets/Text/cqui_text_general_es.xml</File>

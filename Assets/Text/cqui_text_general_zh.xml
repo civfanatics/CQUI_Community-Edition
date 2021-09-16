@@ -6,11 +6,11 @@
       <Text>CQUI</Text>
     </Replace>
 
-	<!-- IDS -->
-	<Replace Tag="LOC_IDS_DEAL_TERMS" Language="zh_Hans_CN">
+    <!-- IDS -->
+    <Replace Tag="LOC_IDS_DEAL_TERMS" Language="zh_Hans_CN">
       <Text>交易期限</Text>
     </Replace>
-	
+
     <!-- MESSAGES -->
     <Replace Tag="LOC_CQUI_CIVIC_MESSAGE_S" Language="zh_Hans_CN">
       <Text>当前市政，</Text>
@@ -29,11 +29,80 @@
     <Replace Tag="LOC_CQUI_CITY_ENTERTAINMENT" Language="zh_Hans_CN">
       <Text>娱乐</Text>
     </Replace>
+    <Replace Tag="LOC_HUD_CITY_FROM_POPULATION" Language="zh_Hans_CN">
+      <Text>来自人口</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITY_RELIGIOUS_MINORITIES" Language="zh_Hans_CN">
+      <Text>宗教少数民族</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITY_PILLAGED" Language="zh_Hans_CN">
+      <Text>[COLOR:StatBadCS](已掠夺)[ENDCOLOR]</Text>
+    </Replace>
+
+    <!-- CITY VIEW -->
+    <Replace Tag="LOC_HUD_CITY_NEXT_PLOT" Language="zh_Hans_CN">
+      <Text>城市领地将会在下一次文化边界增长时扩展至此单元格</Text>
+    </Replace>
 
     <!-- POPUPS -->
     <Replace Tag="LOC_CQUI_GREAT_PERSON_PROGRESS" Language="zh_Hans_CN">
       <Text>进度：</Text>
     </Replace>
 
+    <!-- ActionPanel -->
+    <Replace Tag="LOC_CQUI_ACTION_PANEL_ENCAMPMENT_RANGED_ATTACK" Language="zh_Hans_CN">
+      <Text>营地远程攻击</Text>
+    </Replace>
+    <Replace Tag="LOC_CQUI_ACTION_PANEL_ENCAMPMENT_RANGED_ATTACK_TOOLTIP" Language="zh_Hans_CN">
+      <Text>你的营地可以进行一次远程攻击</Text>
+    </Replace>
+
+    <!-- Policyreminderpopup -->
+    <Replace Tag="LOC_POLICY_REMINDER_TITLE" Language="zh_Hans_CN">
+      <Text>政策提醒</Text>
+    </Replace>
+    <Replace Tag="LOC_POLICY_REMINDER_TEXT" Language="zh_Hans_CN">
+      <Text>新的政策卡片已解锁。</Text>
+    </Replace>
+    <Replace Tag="LOC_POLICY_REMINDER_ACTION_BUTTON" Language="zh_Hans_CN">
+      <Text>政策变更</Text>
+    </Replace>
+    <Replace Tag="LOC_POLICY_REMINDER_ACTION_BUTTON_TOOLTIP" Language="zh_Hans_CN">
+      <Text>本回合你可以变更你的政策。</Text>
+    </Replace>
+
+    <!-- Diplomacy View -->
+    <Replace Tag="LOC_CQUI_DIPLOMACY_VIEW_TOTAL_SCORE_PER_TURN_TEXT" Language="zh_Hans_CN">
+      <Text>总计</Text>
+    </Replace>
+
+    <!-- Smartbanner unlocked citizen -->
+    <Replace Tag="LOC_CQUI_SMARTBANNER_UNLOCKEDCITIZEN_TOOLTIP" Language="zh_Hans_CN">
+      <Text>有已解锁的市民被城市AI自动进行了分配。</Text>
+    </Replace>
+
+    <!-- #62 Infixo original owner tooltip -->
+    <Replace Tag="LOC_CQUI_CITY_BANNER_ORIGINAL_CAPITAL_TT" Language="zh_Hans_CN">
+      <Text>[NEWLINE][ICON_Bullet]{1_OriginalOwner}的原始首都</Text>
+    </Replace>
+    <Replace Tag="LOC_CQUI_CITY_BANNER_ORIGINAL_CITY_TT" Language="zh_Hans_CN">
+      <Text>[NEWLINE][ICON_Bullet]{1_OriginalOwner}的原始城市</Text>
+    </Replace>
+
+    <!-- #75 Infixo tourism info in the plot tooltip -->
+    <Replace Tag="LOC_CQUI_TOOLTIP_PLOT_IMPROVE_RESOURCE" Language="zh_Hans_CN">
+      <Text>[COLOR:Civ6Red]改良或修理该单元格以获得此资源[ENDCOLOR]</Text>
+    </Replace>
+
+    <!-- #177 Infixo goody hut rewards -->
+    <Replace Tag="LOC_GOODYHUT_CIVIC_BOOST_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>The [ICON_CivicBoosted]{1_Num} {1_Num: plural 1?随机市政; other?多项随机市政;}的灵感时刻</Text>
+    </Replace>
+    <Replace Tag="LOC_GOODYHUT_TECH_BOOST_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>The [ICON_TechBoosted]{1_Num} {1_Num: plural 1?随机科技; other?多项随机科技;}的尤里卡时刻</Text>
+    </Replace>
+    <Replace Tag="LOC_GOODYHUT_STRATEGIC_RESOURCES_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>+{1_Num}最高级的战略资源</Text>
+    </Replace>
   </LocalizedText>
 </GameData>

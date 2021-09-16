@@ -9,7 +9,7 @@
             <Text>[COLOR_Red]贸易[ENDCOLOR]</Text>
         </Replace>
         <Replace Tag="LOC_IDS_DEAL_SUZERAIN" Language="zh_Hans_CN">
-            <Text>[COLOR_Civ6Blue]宗主國[ENDCOLOR]</Text>
+            <Text>[COLOR_Civ6Blue]宗主国[ENDCOLOR]</Text>
         </Replace>
         <Replace Tag="LOC_IDS_DEAL_UNTRADEABLE" Language="zh_Hans_CN">
             <Text>不能交易</Text>
