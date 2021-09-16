@@ -13,6 +13,7 @@ BASE_CQUI_OnDistrictAddedToMap = OnDistrictAddedToMap;
 BASE_CQUI_AggregateLensHexes = AggregateLensHexes;
 BASE_CQUI_RealizeTilt = RealizeTilt;
 BASE_CQUI_Initialize = Initialize;
+BASE_CQUI_OnClickCitizen = OnClickCitizen;
 
 -- ===========================================================================
 -- CQUI Members
@@ -22,7 +23,7 @@ local CQUI_WorkIconAlpha = .60;
 local CQUI_SmartWorkIcon: boolean = true;
 local CQUI_SmartWorkIconSize: number = 64;
 local CQUI_SmartWorkIconAlpha = .45;
-local CQUI_DragStarted = false;
+local CQUI_DragThresholdExceeded = false;
 local CITY_CENTER_DISTRICT_INDEX = GameInfo.Districts["DISTRICT_CITY_CENTER"].Index;
 
 function CQUI_OnSettingsUpdate()
@@ -54,6 +55,7 @@ function CQUI_UpdateCloseCitiesCitizensWhenCityFounded(playerID, cityID)
     end
 end
 
+-- ===========================================================================
 --Takes a table with duplicates and returns a new table without duplicates. Credit to vogomatix at stask exchange for the code
 function CQUI_RemoveDuplicates(i:table)
     local hash = {};
@@ -67,8 +69,22 @@ function CQUI_RemoveDuplicates(i:table)
     return o;
 end
 
-function CQUI_StartDragMap()
-    CQUI_DragStarted = true;
+-- ===========================================================================
+function CQUI_DragThresholdExceeded()
+    CQUI_DragThresholdExceeded = true;
+end
+
+-- ===========================================================================
+--  CQUI modified OnClickCitizen function
+--  Force the tiles in the city view to update when a citizen icon is clicked
+-- ===========================================================================
+function OnClickCitizen( plotId:number )
+    local pSelectedCity :table = UI.GetHeadSelectedCity();
+    if pSelectedCity ~= nil then
+        LuaEvents.CQUI_RefreshCitizenManagement(pSelectedCity:GetID());
+    end
+
+    BASE_CQUI_OnClickCitizen(plotId);
 end
 
 -- ===========================================================================
@@ -93,14 +109,13 @@ end
 --  Update the city data
 -- ===========================================================================
 function OnClickPurchasePlot( plotId:number )
-    -- CQUI (Azurency) : if we're dragging, don't purchase
-    if CQUI_DragStarted then
-        CQUI_DragStarted = false;
-        return;
+    -- CQUI: If we're dragging and we exceeded the threshold for how far we could move the mouse while dragging, do not purchase
+    if CQUI_DragThresholdExceeded then
+        CQUI_DragThresholdExceeded = false;
+        return false;
     end
 
     local result = BASE_CQUI_OnClickPurchasePlot(plotId);
-
     OnClickCitizen();  -- CQUI : update selected city citizens and data
 
     return result;
@@ -199,7 +214,7 @@ function Initialize_PlotInfo_CQUI()
 
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
-    LuaEvents.CQUI_StartDragMap.Add(CQUI_StartDragMap);
+    LuaEvents.CQUI_DragThresholdExceeded.Add(CQUI_DragThresholdExceeded);
     LuaEvents.CQUI_RefreshPurchasePlots.Add(RefreshPurchasePlots);
 end
 Initialize_PlotInfo_CQUI();

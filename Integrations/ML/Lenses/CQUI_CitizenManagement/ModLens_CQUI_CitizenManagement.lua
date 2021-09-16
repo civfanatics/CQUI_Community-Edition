@@ -98,21 +98,26 @@ function ShowCitizenManagementLens(cityID:number)
 end
 
 -- ===========================================================================
-function ClearCitizenManagementLens()
+function ClearCitizenManagementLens(clearBorder:boolean)
     if UILens.IsLayerOn(ML_LENS_LAYER) then
         UILens.ToggleLayerOff(ML_LENS_LAYER);
     end
+
     LuaEvents.MinimapPanel_SetActiveModLens("NONE");
 
-    local pOverlay:object = UILens.GetOverlay("CityBorders");
-    pOverlay:ClearPlotChannel();
-    pOverlay:SetVisible(false);
+    if (clearBorder == nil or clearBorder == true) then
+        local pOverlay:object = UILens.GetOverlay("CityBorders");
+        pOverlay:ClearPlotChannel();
+        pOverlay:SetVisible(false);
+    end
+
     m_cityID = -1;
 end
 
 -- ===========================================================================
 function RefreshCitizenManagementLens(cityID:number)
-    ClearCitizenManagementLens();
+    -- Do not redraw the border for the city, just refresh the tiles
+    ClearCitizenManagementLens(false);
     ShowCitizenManagementLens(cityID);
 end
 

@@ -4,6 +4,8 @@ include("CQUICommon.lua");
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
+BASE_CQUI_StartDragMap             = StartDragMap;
+BASE_CQUI_EndDragMap               = EndDragMap;
 BASE_CQUI_UpdateDragMap            = UpdateDragMap;
 BASE_CQUI_OnUnitSelectionChanged   = OnUnitSelectionChanged;
 BASE_CQUI_DefaultKeyDownHandler    = DefaultKeyDownHandler;
@@ -18,11 +20,16 @@ BASE_CQUI_LateInitialize           = LateInitialize;
 local CQUI_HOTKEYMODE_CLASSIC     = 1;
 local CQUI_HOTKEYMODE_STANDARD    = 0;
 
-local CQUI_cityview     :boolean = false;
-local CQUI_hotkeyMode   :number  = CQUI_HOTKEYMODE_CLASSIC;
-local CQUI_isShiftDown  :boolean = false;
-local CQUI_isAltDown    :boolean = false;
+local CQUI_cityview        :boolean = false;
+local CQUI_hotkeyMode      :number  = CQUI_HOTKEYMODE_CLASSIC;
+local CQUI_isShiftDown     :boolean = false;
+local CQUI_isAltDown       :boolean = false;
 local CQUI_ActiveLensSaved :boolean = false;
+
+local CQUI_dragStartX            :number = 0;
+local CQUI_dragStartY            :number = 0;
+local CQUI_dragThreshold         :number = 0.025;
+local CQUI_dragThresholdExceeded :boolean = false;
 
 local CQUI_keyMaps      :table = {};
 
@@ -59,13 +66,40 @@ function OnUserRequestClose()
 end
 
 -- ===========================================================================
+function StartDragMap()
+    CQUI_dragThresholdExceeded = false;
+    -- Get the position of the mouse when the Dragging of the map starts
+    CQUI_dragStartX, CQUI_dragStartY = UIManager:GetNormalizedMousePos();
+
+    BASE_CQUI_StartDragMap();
+end
+
+-- ===========================================================================
+function EndDragMap(resetSpin:boolean)
+    -- This function is called if nothing handled the release of the mouse button
+    CQUI_dragThresholdExceeded = false;
+    BASE_CQUI_EndDragMap(resetSpin);
+end
+
+-- ===========================================================================
 function UpdateDragMap()
     if g_isMouseDragging then
-        -- Event sets a global in PlotInfo so tiles are not purchased while dragging
-        LuaEvents.CQUI_StartDragMap();
+        if (CQUI_dragThresholdExceeded == false) then
+            -- if the threshold has not yet been exceeded then get the current position and see if it has
+            -- once the mouse is moved far enough away from the original drag point, the threshold is considered exceeded
+            -- this covers the scenario where the drag starts while on the purchase tile button, moves far off, then moves back to original position
+            -- in that scenario it would not be desired to do the purchase tile
+            local dragStartX:number, dragStartY:number = UIManager:GetNormalizedMousePos();
+            if (math.abs(CQUI_dragStartX - dragStartX) > CQUI_dragThreshold)
+              or (math.abs(CQUI_dragStartY - dragStartY) > CQUI_dragThreshold) then
+                CQUI_dragThresholdExceeded = true;
+                -- Fire the event to set the value in PlotInfo
+                LuaEvents.CQUI_DragThresholdExceeded();
+            end
+        end
     end
 
-    return BASE_CQUI_UpdateDragMap();
+    BASE_CQUI_UpdateDragMap();
 end
 
 -- ===========================================================================
