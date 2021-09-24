@@ -72,6 +72,28 @@
     </ActionCriteria>
 
     <!-- ============================== CQUI specific settings ============================== -->
+    <FrontEndActions>
+        <UpdateDatabase id="MoreLenses_KeyBinding_Options">
+            <File>Integrations/ML/UI/hotkey_config.xml</File>
+        </UpdateDatabase>
+
+        <LocalizedText id="CQUI_MORELENSES_TEXT">
+            <Items>
+                <File Priority="1">Integrations/ML/Text/morelenses_text.xml</File>
+                <File>Integrations/ML/Text/morelenses_text_de.xml</File>
+                <File>Integrations/ML/Text/morelenses_text_es.xml</File>
+                <File>Integrations/ML/Text/morelenses_text_fr.xml</File>
+                <File>Integrations/ML/Text/morelenses_text_it.xml</File>
+                <File>Integrations/ML/Text/morelenses_text_ja.xml</File>
+                <File>Integrations/ML/Text/morelenses_text_ko.xml</File>
+                <File>Integrations/ML/Text/morelenses_text_pl.xml</File>
+                <File>Integrations/ML/Text/morelenses_text_pt.xml</File>
+                <File>Integrations/ML/Text/morelenses_text_ru.xml</File>
+                <File>Integrations/ML/Text/morelenses_text_zh.xml</File>
+            </Items>
+        </LocalizedText>
+    </FrontEndActions>
+
     <InGameActions>
         <UpdateDatabase id="CQUI_Settings">
             <Properties>
@@ -1586,6 +1608,7 @@
         <File>Integrations/ML/Text/morelenses_text_pt.xml</File>
         <File>Integrations/ML/Text/morelenses_text_ru.xml</File>
         <File>Integrations/ML/Text/morelenses_text_zh.xml</File>
+        <File>Integrations/ML/UI/hotkey_config.xml</File>
         <File>Integrations/ML/UI/minimappanel.lua</File>
         <File>Integrations/ML/UI/minimappanel.xml</File>
         <File>Integrations/ML/UI/Panels/modallenspanel.lua</File>

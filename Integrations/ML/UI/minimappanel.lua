@@ -979,6 +979,46 @@ function OnInputActionTriggered( actionId )
         UI.PlaySound("Play_UI_Click");
         Toggle2DView();
     end
+
+    -- ==== BEGIN CQUI Modification ====================================
+    if m_LensArchaeologistLensId ~= nil and (actionId == m_LensArchaeologistLensId) then
+        UI.PlaySound("Play_UI_Click");
+        ToggleModLensKeyboardShortcut("ML_ARCHAEOLOGIST", "LOC_HUD_ARCHAEOLOGIST_LENS");
+    end
+    if m_LensBarbarianLensId ~= nil and (actionId == m_LensBarbarianLensId) then
+        UI.PlaySound("Play_UI_Click");
+        ToggleModLensKeyboardShortcut("ML_BARBARIAN", "LOC_HUD_BARBARIAN_LENS");
+    end
+    if m_LensBuilderLensId ~= nil and (actionId == m_LensBuilderLensId) then
+        UI.PlaySound("Play_UI_Click");
+        ToggleModLensKeyboardShortcut("ML_BUILDER", "LOC_HUD_BUILDER_LENS");
+    end
+    if m_LensCityOverlapLensId ~= nil and (actionId == m_LensCityOverlapLensId) then
+        UI.PlaySound("Play_UI_Click");
+        ToggleModLensKeyboardShortcut("ML_CITYOVERLAP", "LOC_HUD_CITYOVERLAP_LENS");
+    end
+    if m_LensNaturalistLensId ~= nil and (actionId == m_LensNaturalistLensId) then
+        UI.PlaySound("Play_UI_Click");
+        ToggleModLensKeyboardShortcut("ML_NATURALIST", "LOC_HUD_NATURALIST_LENS");
+    end
+    if m_LensResourceLensId ~= nil and (actionId == m_LensResourceLensId) then
+        UI.PlaySound("Play_UI_Click");
+        ToggleModLensKeyboardShortcut("ML_RESOURCE", "LOC_HUD_RESOURCE_LENS");
+    end
+    if m_LensRoutesLensId ~= nil and (actionId == m_LensRoutesLensId) then
+        UI.PlaySound("Play_UI_Click");
+        ToggleModLensKeyboardShortcut("ML_ROUTES", "LOC_HUD_ROUTES_LENS");
+    end
+    if m_LensScoutLensId ~= nil and (actionId == m_LensScoutLensId) then
+        UI.PlaySound("Play_UI_Click");
+        ToggleModLensKeyboardShortcut("ML_SCOUT", "LOC_HUD_SCOUT_LENS");
+    end
+    if m_LensWonderLensId ~= nil and (actionId == m_LensWonderLensId) then
+        UI.PlaySound("Play_UI_Click");
+        ToggleModLensKeyboardShortcut("ML_WONDER", "LOC_HUD_WONDER_LENS");
+    end
+    -- ==== END CQUI Modification ====================================
+
     if m_OpenMapSearchId ~= nil and (actionId == m_OpenMapSearchId) then
         UI.PlaySound("Play_UI_Click");
 
@@ -1050,8 +1090,33 @@ function GetLensPanelOffsets(offsets:table)
 end
 
 -- ===========================================================================
-function ToggleModLens(buttonControl:table, lensName:string)
-    if buttonControl:IsChecked() then
+function ToggleModLensButton(buttonControl:table, lensName:string)
+    ToggleModLens(buttonControl:IsChecked(), lensName);
+end
+
+-- ===========================================================================
+function ToggleModLensKeyboardShortcut(lensName:string, lensDisplayName:string)
+    -- find the button for this lens
+    local i = 1
+    local lensButtonInstance = m_LensButtonIM:GetAllocatedInstance(i)
+    while lensButtonInstance ~= nil do
+        if lensButtonInstance.LensButton:GetTextButton():GetText() == Locale.Lookup(lensDisplayName) then
+            break
+        end
+
+        i = i + 1
+        lensButtonInstance = m_LensButtonIM:GetAllocatedInstance(i)
+    end
+
+    if lensButtonInstance ~= nil then
+        LensPanelHotkeyControl( lensButtonInstance.LensButton );
+        ToggleModLens(lensButtonInstance.LensButton:IsChecked(), lensName);
+    end
+end
+
+-- ===========================================================================
+function ToggleModLens(showLens:boolean, lensName:string)
+    if showLens then
         SetActiveModdedLens(lensName);
 
         -- Check if the appeal lens is already active. Needed to clear any modded lens
@@ -1099,7 +1164,7 @@ function InitLens(lensName, modLens)
     modLensToggle.LensButton:SetToolTipString(pToolTip)
     modLensToggle.LensButton:RegisterCallback(Mouse.eLClick,
         function()
-            ToggleModLens(modLensToggle.LensButton, lensName);
+            ToggleModLensButton(modLensToggle.LensButton, lensName);
         end
         )
 end
@@ -1482,6 +1547,19 @@ function LateInitialize( isReload:boolean )
         m_TogglePoliticalLensId = Input.GetActionId("LensPolitical");
         m_ToggleTourismLensId   = Input.GetActionId("LensTourism");
         m_ToggleEmpireLensId    = Input.GetActionId("LensEmpire");
+
+        -- ==== BEGIN CQUI Modification ====================================
+        -- Modded Lenses
+        m_LensArchaeologistLensId = Input.GetActionId("LensArchaeologist");
+        m_LensBarbarianLensId     = Input.GetActionId("LensBarbarian");
+        m_LensBuilderLensId       = Input.GetActionId("LensBuilder");
+        m_LensCityOverlapLensId   = Input.GetActionId("LensCityOverlap");
+        m_LensNaturalistLensId    = Input.GetActionId("LensNaturalist");
+        m_LensResourceLensId      = Input.GetActionId("LensResource");
+        m_LensRoutesLensId        = Input.GetActionId("LensRoutes");
+        m_LensScoutLensId         = Input.GetActionId("LensScout");
+        m_LensWonderLensId        = Input.GetActionId("LensWonder");
+        -- ==== END CQUI Modification ======================================
     end
 
     Controls.ReligionLensButton:SetHide(not GameCapabilities.HasCapability("CAPABILITY_LENS_RELIGION"));
