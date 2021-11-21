@@ -383,6 +383,7 @@
 
         <ImportFiles id="CQUI_IMPORT_FILES_TOPPANEL">
             <Items>
+                <File>Assets/UI/toppanel.xml</File>
                 <File>Assets/UI/toppanel_CQUI_basegame.lua</File>
                 <File>Assets/UI/toppanel_CQUI.lua</File>
             </Items>
@@ -1530,6 +1531,7 @@
         <File>Assets/UI/partialscreenhooks_CQUI.lua</File>
         <File>Assets/UI/partialscreenhooks.xml</File>
         <File>Assets/UI/productionpanel.xml</File>
+        <File>Assets/UI/toppanel.xml</File>
         <File>Assets/UI/toppanel_CQUI_basegame.lua</File>
         <File>Assets/UI/toppanel_CQUI.lua</File>
         <File>Assets/UI/unitflagmanager_CQUI.lua</File>

@@ -8,6 +8,7 @@ BASE_CQUI_RefreshResources = RefreshResources;
 -- CQUI Members
 -- ===========================================================================
 local CQUI_showLuxury = true;
+local m_kResourceLuxuryIM = InstanceManager:new("ResourceInstance", "Top", Controls.ResourceStackLuxury);
 
 function CQUI_OnSettingsInitialized()
     CQUI_showLuxury = GameConfiguration.GetValue("CQUI_ShowLuxuries"); -- Infixo, issue #44
@@ -27,13 +28,15 @@ function RefreshResources()
 
     local localPlayerID = Game.GetLocalPlayer();
     if localPlayerID == PlayerTypes.NONE or localPlayerID == PlayerTypes.OBSERVER then return; end
-    
+
+    m_kResourceLuxuryIM:ResetInstances();
     local pPlayerResources:table = Players[localPlayerID]:GetResources();
     local yieldStackX:number = Controls.YieldStack:GetSizeX();
     local infoStackX:number = Controls.StaticInfoStack:GetSizeX();
     local metaStackX:number = Controls.RightContents:GetSizeX();
     local screenX, _:number = UIManager:GetScreenSizeVal();
-    local maxSize:number = math.max(screenX - yieldStackX - infoStackX - metaStackX - META_PADDING, 0);
+    local resourceStackX:number = Controls.ResourceStack:GetSizeX();
+    local maxSize:number = math.max(screenX - yieldStackX - infoStackX - metaStackX - resourceStackX - META_PADDING, 0);
     local currSize:number = 0;
     local isOverflow:boolean = false;
     local overflowString:string = "";
@@ -49,14 +52,14 @@ function RefreshResources()
                     local numDigits:number = (amount >= 10 and 4 or 3);
                     local guessinstanceWidth:number = math.ceil(numDigits * FONT_MULTIPLIER);
                     if currSize + guessinstanceWidth < maxSize and not isOverflow then
-                        local instance:table = m_kResourceIM:GetInstance();
+                        local instance:table = m_kResourceLuxuryIM:GetInstance();
                         instance.ResourceText:SetText(resourceText);
                         instance.ResourceText:SetToolTipString(Locale.Lookup(resource.Name).."[NEWLINE]"..Locale.Lookup("LOC_TOOLTIP_LUXURY_RESOURCE"));
                         currSize = currSize + instance.ResourceText:GetSizeX();
                     else
                         if not isOverflow then
                             overflowString = amount.. "[ICON_"..resource.ResourceType.."]".. Locale.Lookup(resource.Name);
-                            local instance:table = m_kResourceIM:GetInstance();
+                            local instance:table = m_kResourceLuxuryIM:GetInstance();
                             instance.ResourceText:SetText("[ICON_Plus]");
                             plusInstance = instance.ResourceText;
                         else
@@ -72,8 +75,8 @@ function RefreshResources()
     if plusInstance ~= nil then
         plusInstance:SetToolTipString(overflowString);
     end
-    Controls.ResourceStack:CalculateSize();
-    Controls.Resources:SetHide( Controls.ResourceStack:GetSizeX() == 0 );
+    Controls.ResourceStackLuxury:CalculateSize();
+    Controls.LuxuryResources:SetHide( Controls.ResourceStackLuxury:GetSizeX() == 0 or not CQUI_showLuxury );
 end
 
 -- ===========================================================================
