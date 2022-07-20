@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameData>
+	<LocalizedText>
+		<!-- Replace Gossip Text -->
+		<Replace Tag="LOC_GOSSIP_AGENDA_KUDOS" Language="ko_KR">
+			<Text>[ICON_Declare_friendship] {1_LeaderName}이(가) {2_Leadername}에게 감사를 표함 (성향: {3_AgendaName}).</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_AGENDA_WARNING" Language="ko_KR">
+			<Text>[ICON_Denounce] {1_LeaderName}이(가) {2_Leadername}에게 경고를 보냄! (성향: {3_AgendaName}).</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ALLIED" Language="ko_KR">
+			<Text>[ICON_Alliance] {1_CivName}이(가) {2_CivName}(과)와 동맹을 맺음.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ARTIFACT_EXTRACTED" Language="ko_KR">
+			<Text>[ICON_Greatwork_relic] {1_CivName}이(가) 유물 발굴 : {2_GreatWork}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_BARBARIAN_INVASION_STARTED" Language="ko_KR">
+			<Text>[ICON_Barbarian] {1_CivName}의 도시 {2_CityName}이(가) 야만인의 침략을 받음.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_BARBARIAN_RAID_STARTED" Language="ko_KR">
+			<Text>[ICON_Barbarian] {1_CivName}의 도시 {2_CityName}이(가) 야만인의 습격을 받음.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_BEACH_RESORT_CREATED" Language="ko_KR">
+			<Text>[ICON_Production] {1_CivName}이(가) {2_CityName}에 해변 리조트를 건설.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CHANGE_GOVERNMENT" Language="ko_KR">
+			<Text>[ICON_Government] {1_CivName}이(가) 정부를 {2_Government}로 전환.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_BESIEGED" Language="ko_KR">
+			<Text>[ICON_Razed] {1_CityName}이(가) 포위당함.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_LIBERATED" Language="ko_KR">
+			<Text>[ICON_Buildings] {1_CivName}이(가) {2_CityName}을(를) 해방해 {3_CivName}에게 반환.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_RAZED" Language="ko_KR">
+			<Text>[ICON_Razed] {1_CivName}이(가) {2_CivName}에 의해 세워진 도시를 파괴.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CLEAR_CAMP" Language="ko_KR">
+			<Text>[ICON_Barbarian] {1_CivName}이(가) {2_UnitName}(으)로 {3_ImprovementName}을(를) 제거.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_STATE_INFLUENCE" Language="ko_KR">
+			<Text>[ICON_Envoy] {1_CivName}이(가) {2_CityState}에게 사절을 보냄.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONQUER_CITY" Language="ko_KR">
+			<Text>[ICON_Razed] {1_CivName}이(가) {2_CityName}을(를) 정복.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONSTRUCT_BUILDING" Language="ko_KR">
+			<Text>[ICON_Production] {1_CivName}이(가) {3_CityName}에 {2_BuildingName}을(를) 건설.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONSTRUCT_DISTRICT" Language="ko_KR">
+			<Text>[ICON_Production] {1_CivName}이(가) {3_CityName}에 {2_DistrictName}을(를) 완공.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CREATE_PANTHEON" Language="ko_KR">
+			<Text>[ICON_Religion] {1_CivName}이(가) 종교 교리 {2_BeliefName}을(를) 채택.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CULTURVATE_CIVIC" Language="ko_KR">
+			<Text>[ICON_Culture] {1_CivName}이(가) {2_CivicName} 개발을 완료.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_DECLARED_FRIENDSHIP" Language="ko_KR">
+			<Text>[ICON_Declare_friendship] {1_CivName}이(가) {2_CivName}과(와) 우호관계를 선언.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_DELEGATION" Language="ko_KR">
+			<Text>[ICON_Envoy] {1_CivName}이(가) {2_CivName}의 대표단을 영접.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_DENOUNCED" Language="ko_KR">
+			<Text>[ICON_Denounce] {1_CivName}이(가) {2_CivName}을(를) 공개비난.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_EMBASSY" Language="ko_KR">
+			<Text>[ICON_Resident_embassy] {1_CivName}에 {2_CivName}의 상주대사관이 설립됨.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ERA_CHANGED" Language="ko_KR">
+			<Text>[ICON_Capitallarge] {1_CivName}이(가) {3_NewEra}에 진입.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_FIND_NATURAL_WONDER" Language="ko_KR">
+			<Text>[ICON_Terrain] {1_CivName}이(가) 자연경관 {2_NWName}을(를) 발견.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_FOUND_CITY" Language="ko_KR">
+			<Text>[ICON_Buildings] {1_CivName}이(가) 새로운 개척지 {2_CityName}을(를) 세움.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_FOUND_RELIGION" Language="ko_KR">
+			<Text>[ICON_Religion] {1_CivName}이(가) 새로운 종교 {2_ReligionName}을(를) 창시.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_GREATPERSON_CREATED" Language="ko_KR">
+			<Text>[ICON_Greatperson] {1_CivName}이(가) {2_unit} {3_GreatPerson}을(를) 영입.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_LAUNCHING_ATTACK" Language="ko_KR">
+			<Text>[ICON_Declare_formal_war] {1_CivName}이(가) {2_CivName}에 대한 군사공격을 감행.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WAR_PREPARATION" Language="ko_KR">
+			<Text>[ICON_Declare_formal_war] {1_CivName}이(가) {2_CivName}(과)와의 전쟁을 고려 중.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_INQUISITION_LAUNCHED" Language="ko_KR">
+			<Text>[ICON_Religion] {1_CivName}이(가) {2_ReligionName}에 반대하는 이교도들에 대한 종교재판 시작.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_LAND_UNIT_LEVEL" Language="ko_KR">
+			<Text>[ICON_Promotion] {1_CivName}의 {2_UnitName}이(가) {3_PromotionName} 진급을 획득.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_MAKE_DOW" Language="ko_KR">
+			<Text>[ICON_Declare_formal_war] {1_CivName}이(가) {2_OtherPlayer}에게 전쟁선포!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_NATIONAL_PARK_CREATED" Language="ko_KR">
+			<Text>[ICON_Terrain] {1_CivName}이(가) {2_NationalParkName}을(를) 설립.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_NAVAL_UNIT_LEVEL" Language="ko_KR">
+			<Text>[ICON_Promotion] {1_CivName}의 {2_UnitName}이(가) {3_PromotionName} 진급을 획득.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_NEW_RELIGIOUS_MAJORITY" Language="ko_KR">
+			<Text>[ICON_Religion] 현재 {1_CivName}의 대중종교는 {2_ReligionName}입니다.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_PILLAGE" Language="ko_KR">
+			<Text>[ICON_Pillaged] {1_CivName}의 {3_UnitName}이(가) {2_TargetName}을(를) 약탈.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_POLICY_ENACTED" Language="ko_KR">
+			<Text>[ICON_Policy] {1_CivName}이(가) {2_SlotName} 정책 {3_PolicyName}을(를) 도입.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RECEIVE_DOW" Language="ko_KR">
+			<Text>[ICON_Declare_formal_war] {1_CivName}이(가) {2_OtherPlayer}의 전쟁선포를 받음!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RELIC_RECEIVED" Language="ko_KR">
+			<Text>[ICON_Greatwork_religious] {1_CivName}이(가) 성유물 {2_RelicName}을(를) 획득.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RESEARCH_AGREEMENT" Language="ko_KR">
+			<Text>[ICON_Research_agreement] {1_CivName}과(와) {2_CivName}이(가) 연구협약을 체결.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RESEARCH_TECH" Language="ko_KR">
+			<Text>[ICON_Science] {1_CivName}이(가) {2_TechName} 연구를 완료.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_DETECTED" Language="ko_KR">
+			<Text>[ICON_Pillaged] {1_CivName}의 {2_CityName}에 있는 우주공항이 {3_SpyPlayer}에 의해 파괴당함.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_UNDETECTED" Language="ko_KR">
+			<Text>[ICON_Pillaged] {1_CivName}의 {2_CityName}에 있는 우주공항이 정체불명의 스파이에 의해 파괴당함.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_GREAT_WORK_HEIST_DETECTED" Language="ko_KR">
+			<Text>[ICON_Exclamation] {3_SpyPlayer}이(가) {2_CityName}에 있는 {1_CivName}의 걸작을 훔침.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_GREAT_WORK_HEIST_UNDETECTED" Language="ko_KR">
+			<Text>[ICON_Exclamation] 익명의 스파이가 {2_CityName}에 있는 {1_CivName}의 걸작을 훔침.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_RECRUIT_PARTISANS_DETECTED" Language="ko_KR">
+			<Text>[ICON_Exclamation] {1_CivName}은(는) {2_CityName} 내의 {3_SpyPlayer}을(를) 따르는 반란군을 진압 중.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_RECRUIT_PARTISANS_UNDETECTED" Language="ko_KR">
+			<Text>[ICON_Exclamation] {1_CivName}은(는) {2_CityName} 내의 정체불명의 반란군을 진압 중.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SABOTAGE_PRODUCTION_DETECTED" Language="ko_KR">
+			<Text>[ICON_Exclamation] {1_CivName}의 {2_CityName}에 있는 산업구역이 {3_SpyPlayer}에 의해 파괴당함.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SABOTAGE_PRODUCTION_UNDETECTED" Language="ko_KR">
+			<Text>[ICON_Exclamation] {1_CivName}의 {2_CityName}에 있는 산업구역이 정체불명의 스파이에 의해 파괴당함.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SIPHON_FUNDS_DETECTED" Language="ko_KR">
+			<Text>[ICON_Exclamation] {1_CivName}의 {2_CityName}에서 {3_SpyPlayer}이(가) 금을 약탈.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SIPHON_FUNDS_UNDETECTED" Language="ko_KR">
+			<Text>[ICON_Exclamation] {1_CivName}의 {2_CityName}에서 정체불명의 스파이가 금을 약탈.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_STEAL_TECH_BOOST_DETECTED" Language="ko_KR">
+			<Text>[ICON_Exclamation] {1_CivName}의 {2_CityName}에서 {3_SpyPlayer}이(가) 기술을 훔침.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_STEAL_TECH_BOOST_UNDETECTED" Language="ko_KR">
+			<Text>[ICON_Exclamation] {1_CivName}의 {2_CityName}에서 정체불명의 스파이가 기술을 훔침.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRADE_DEAL" Language="ko_KR">
+			<Text>[ICON_Gold] {1_CivName}이(가) {2_CivName}과(와) 거래 중.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRADE_RENEGE" Language="ko_KR">
+			<Text>[ICON_Gold] {1_CivName}이(가) {2_CivName}(과)와의 거래를 위반.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRAIN_SETTLER" Language="ko_KR">
+			<Text>[ICON_Unit] {1_CivName}이(가) 새 {2_UnitName}을(를) 생산.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRAIN_UNIT" Language="ko_KR">
+			<Text>[ICON_Unit] {1_CivName}이(가) 최초의 {2_UnitName}을(를) 훈련.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRAIN_UNIQUE_UNIT" Language="ko_KR">
+			<Text>[ICON_Unit] {1_CivName}이(가) 특유 유닛 {2_UnitName}을(를) 훈련.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPACE_RACE_PROJECT_COMPLETED" Language="ko_KR">
+			<Text>{1_CivName}이(가) 우주 경쟁 프로젝트 부분 완료: {2_ProjectType}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WMD_BUILT" Language="ko_KR">
+			<Text>[ICON_Nuclear] {1_CivName}이(가) 대량살상무기 {2_WMDCount}개 제조!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WMD_STRIKE" Language="ko_KR">
+			<Text>[ICON_Nuclear] {1_CivName}이(가) 대량살상무기 {2_UnitName}을 사용!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WONDER_STARTED" Language="ko_KR">
+			<Text>[ICON_Production] {1_CivName}이(가) {2_CityName}에 {3_BuildingName} 건설을 시작.</Text>
+		</Replace>
+	</LocalizedText>
+</GameData>

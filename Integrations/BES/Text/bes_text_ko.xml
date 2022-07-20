@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData>
+  <LocalizedText>
+    <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_ALL" Language="ko_KR">
+      <Text>총합</Text>
+    </Replace>
+    <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_SHOW_CITIES" Language="ko_KR">
+      <Text>도시 표시</Text>
+    </Replace>
+  </LocalizedText>
+</GameData>
