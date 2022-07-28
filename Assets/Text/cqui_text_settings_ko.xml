@@ -10,13 +10,13 @@
       <Text>단축키 모드</Text>
     </Row>
     <Row Tag="LOC_CQUI_BINDINGS_DROPDOWN_TOOLTIP" Language="ko_KR">
-      <Text>표준: 문명 VI 기본 단축키 모드입니다.[NEWLINE]클래식: 문명 V 단축키 모드입니다.[NEWLINE]강화판: 문명 V 단축키의 강화 모드입니다.[NEWLINE]  WASD 화면 이동[NEWLINE]  Q/E 유닛/도시간 순환[NEWLINE]  Shift 도시/유닛간 선택 전환 토글[NEWLINE]  alt-key + Q/S 발굴/공습[NEWLINE]  [ICON_EXCLAMATION]주의:먼저 게임 옵션 단축키 설정에서 W와 E 단축키 할당을 해제하십시오.</Text>
+      <Text>표준: 문명 VI 기본 단축키[NEWLINE]클래식: 문명 V 기본 단축키[NEWLINE]향상된: 문명 V 기반 향상된 버전[NEWLINE]  WASD: 화면 이동[NEWLINE]  Q/E: 유닛/도시 순차 선택[NEWLINE]  Shift: 유닛/도시 선택 전환 토글[NEWLINE]  Alt+Q/S: 발굴/공습[NEWLINE]  주의: 단축키 설정에서 W와 E를 지정 해제하십시오.</Text>
     </Row>
     <Row Tag="LOC_CQUI_BINDINGS_CLASSIC" Language="ko_KR">
       <Text>클래식</Text>
     </Row>
     <Row Tag="LOC_CQUI_BINDINGS_ENHANCED" Language="ko_KR">
-      <Text>강화판</Text>
+      <Text>향상된</Text>
     </Row>
     <Row Tag="LOC_CQUI_BINDINGS_STANDARD" Language="ko_KR">
       <Text>표준</Text>
@@ -24,18 +24,17 @@
     <Row Tag="LOC_CQUI_CITYVIEW" Language="ko_KR">
       <Text>도시 화면</Text>
     </Row>
-    <!-- Relocate City Strike and Encampment Strike button translations done via Google Translate -->
     <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON" Language="ko_KR">
-      <Text>도시 스트라이크 버튼 재배치</Text>
+      <Text>도시 원거리 공격 버튼 재배치</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP" Language="ko_KR">
-      <Text>이 옵션을 사용하면 체력 및 방어 막대 위의 City Strike 버튼을 재배치합니다</Text>
+      <Text>도시 원거리 공격 버튼을 체력 및 방어 막대 위에 표시합니다.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" Language="ko_KR">
-      <Text>야영 스트라이크 재배치 버튼</Text>
+      <Text>주둔지 원거리 공격 버튼 재배치</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP" Language="ko_KR">
-      <Text>이 옵션을 사용하면 상태 및 방어 막대 위의 야영지 스트라이크 버튼을 재배치하십시오.</Text>
+      <Text>주둔지 원거리 공격 버튼을 체력 및 방어 막대 위에 표시합니다.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_PRODUCTIONQUEUE" Language="ko_KR">
       <Text>생산 대기열 활성화</Text>
@@ -44,55 +43,85 @@
       <Text>국경 확장 오버레이 활성화</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWCULTUREGROWTH_TOOLTIP" Language="ko_KR">
-      <Text>이 옵션은 도시 화면에서 성장 아이콘을 클릭해서 토글할 수 있습니다./隐藏</Text>
+      <Text>도시 화면의 성장 아이콘을 클릭하여 토글할 수 있습니다.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWYIELDSONCITYHOVER" Language="ko_KR">
-      <Text>마우스를 도시에 올릴 때 도시 정보 표시</Text>
+      <Text>마우스 오버로 도시 관리 정보 표시</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWYIELDSONCITYHOVER_TOOLTIP" Language="ko_KR">
-      <Text>마우스를 도시에 올릴 때 시민 배치, 타일 생산량 그리고 도시 경계 확장 정보를 표시합니다.</Text>
+      <Text>마우스 오버시 도시의 시민 배치, 타일 생산량, 국경 확장 정보를 표시합니다.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITIZENICONSONHOVER" Language="ko_KR">
+      <Text>마우스 오버로 시민 아이콘 표시</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITIZENICONSONHOVER_TOOLTIP" Language="ko_KR">
+      <Text>도시 배너에 마우스 오버시 시민 아이콘을 표시합니다.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEONHOVER" Language="ko_KR">
+      <Text>마우스 오버시 시민 관리 영역 표시</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEONHOVER_TOOLTIP" Language="ko_KR">
+      <Text>도시 배너에 마우스 오버시 시민 관리 영역을 표시합니다.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_HEADER" Language="ko_KR">
-      <Text>스마트배너</Text>
+      <Text>스마트 배너</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER" Language="ko_KR">
-      <Text>스마트배너 활성화</Text>
+      <Text>스마트 배너 활성화</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_TOOLTIP" Language="ko_KR">
-      <Text>새로운 아이콘들을 도시 배너에 표시합니다.</Text>
+      <Text>도시 배너에 신규 아이콘과 정보를 표시합니다.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_UNLOCKEDCITIZEN_TOOLTIP" Language="ko_KR">
-      <Text>새로운 시민이 자동으로 할당될 때마다 [ICON_EXCLAMATION]이 표시됩니다.</Text>
+      <Text>AI가 시민을 자동으로 할당할 때 [ICON_EXCLAMATION] 아이콘이 표시됩니다.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_DISTRICTS_TOOLTIP" Language="ko_KR">
-      <Text>지어진 특수지구를 나타내는 아이콘이 표시됩니다.</Text>
+      <Text>건설된 특수지구를 아이콘으로 표시합니다.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_POPULATION_TOOLTIP" Language="ko_KR">
-      <Text>새로운 시민 생성까지 남은 턴 수와[NEWLINE][수용가능인원 - 현재 인구수]를 표시합니다.</Text>
+      <Text>인구 성장까지 남은 턴 수와 [현재 인구수/주거공간]을 표시합니다.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_CULTURAL_TOOLTIP" Language="ko_KR">
       <Text>다음 국경 확장까지 남은 턴 수를 표시합니다.</Text>
     </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_DISTRICTS_AVAILABLE" Language="ko_KR">
+      <Text>건설 가능한 특수지구 표시</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_DISTRICTS_AVAILABLE_TOOLTIP" Language="ko_KR">
+      <Text>도시에 건설 가능한 특수지구의 아이콘을 표시합니다.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="ko_KR">
+      <Text>도시 국가 배너에 종주국 표시</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="ko_KR">
+      <Text>도시 국가 배너에 종주국인 문명 또는 지도자 아이콘을 표시합니다.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="ko_KR">
+      <Text>도시 국가 배너에 전쟁중 표시</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="ko_KR">
+      <Text>도시 국가와 전쟁중일 때, 해당 도시 국가 배너에 전쟁중 아이콘을 표시합니다.</Text>
+    </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTWORKICON" Language="ko_KR">
-      <Text>스마트 시민 타일 아이콘</Text>
+      <Text>스마트 시민 아이콘</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTWORKICON_TOOLTIP" Language="ko_KR">
-      <Text>배치된 시민 타일 아이콘에 별도의 크기 / 투명도 설정</Text>
+      <Text>배치된 시민 타일 아이콘에 별도의 크기/투명도를 설정합니다.</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTWORKICONALPHA" Language="ko_KR">
-      <Text>스마트 시민 타일 아이콘 투명도</Text>
+      <Text>스마트 시민 아이콘 투명도</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTWORKICONSIZE" Language="ko_KR">
-      <Text>스마트 시민 타일 아이콘 크기</Text>
+      <Text>스마트 시민 아이콘 크기</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_WORKICONS_HEADER" Language="ko_KR">
-      <Text>비어있는 시민 타일 아이콘</Text>
+      <Text>비어있는 시민 아이콘</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_WORKICONALPHA" Language="ko_KR">
-      <Text>비어있는 시민 타일 아이콘 투명도</Text>
+      <Text>비어있는 시민 아이콘 투명도</Text>
     </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_WORKICONSIZE" Language="ko_KR">
-      <Text>비어있는 시민 타일 아이콘 크기</Text>
+      <Text>비어있는 시민 아이콘 크기</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL" Language="ko_KR">
       <Text>일반</Text>
@@ -104,10 +133,10 @@
       <Text>미니맵 크기</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_RESOURCEDIMMINGSTYLE" Language="ko_KR">
-      <Text>개발된 자원 타일 아이콘의 표시</Text>
+      <Text>개발된 자원 아이콘 스타일</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_RESOURCEDIMMINGSTYLE_TOOLTIP" Language="ko_KR">
-      <Text>불투명: 항상 모든 자원의 아이콘을 표시합니다.[NEWLINE]반투명: 개발된 자원의 아이콘은 반투명하게 표시합니다.[NEWLINE]숨김: 개발된 자원의 아이콘을 숨깁니다.</Text>
+      <Text>불투명: 항상 자원 아이콘을 표시[NEWLINE]반투명: 개발된 자원 아이콘 반투명 표시[NEWLINE]숨김: 개발된 자원 아이콘 숨기기</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_SHOWLUXURY" Language="ko_KR">
       <Text>상단 패널에 사치 자원 표시</Text>
@@ -116,117 +145,262 @@
       <Text>불투명</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_TOGGLEYIELDSONLOAD" Language="ko_KR">
-      <Text>수확량 아이콘 보기를 기본적으로 활성화</Text>
+      <Text>타일 수확량 표시를 기본으로 활성화</Text>
     </Row>
     <Row Tag="LOC_CQUI_GENERAL_TRANSPARENT" Language="ko_KR">
       <Text>반투명</Text>
     </Row>
     <Row Tag="LOC_CQUI_GOSSIP" Language="ko_KR">
-      <Text>소식</Text>
+      <Text>첩보</Text>
     </Row>
     <Row Tag="LOC_CQUI_GOSSIP_TRIMMESSAGE" Language="ko_KR">
-      <Text>소식 메시지 간략화</Text>
+      <Text>첩보 메시지 간략화</Text>
     </Row>
     <Row Tag="LOC_CQUI_GOSSIP_TRIMMESSAGE_TOOLTIP" Language="ko_KR">
-      <Text>정보의 출처를 설명하는 소식 메시지의 장황한 시작 부분을 제거합니다.</Text>
+      <Text>정보의 출처를 설명하는 첩보 메시지의 시작 부분을 제거합니다.</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES" Language="ko_KR">
       <Text>렌즈</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYARCHAEOLOGISTLENS" Language="ko_KR">
-      <Text>고고학자 렌즈를 자동으로 표시</Text>
+      <Text>고고학자 렌즈 자동 적용</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYARCHAEOLOGISTLENS_TOOLTIP" Language="ko_KR">
+      <Text>고고학자 유닛을 클릭 시 자동으로 고고학자 렌즈를 적용합니다.</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYBUILDERLENS" Language="ko_KR">
-      <Text>건설자 렌즈를 자동으로 표시</Text>
+      <Text>건설자 렌즈 자동 적용</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYBUILDERLENS_TOOLTIP" Language="ko_KR">
+      <Text>건설자 유닛을 클릭 시 자동으로 건설자 렌즈를 적용합니다.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLENOTHING" Language="ko_KR">
+      <Text>건설자 렌즈: 일반 타일 하이라이트 해제</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLENOTHING_TOOLTIP" Language="ko_KR">
+      <Text>자원이 없는 일반 타일에 하이라이트를 끕니다.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS" Language="ko_KR">
+      <Text>건설자 렌즈: 위험 영역 표시 해제</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS_TOOLTIP" Language="ko_KR">
+      <Text>적 유닛에 인접한 타일의 위험 영역 표시를 끕니다.</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS" Language="ko_KR">
-      <Text>정찰병 렌즈를 자동으로 표시</Text>
+      <Text>정찰병 렌즈 자동 적용</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_TOOLTIP" Language="ko_KR">
+      <Text>정찰병 유닛을 클릭 시 자동으로 정찰병 렌즈를 적용합니다.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA" Language="ko_KR">
+      <Text>정찰병 렌즈 자동 적용 (특수)</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA_TOOLTIP" Language="ko_KR">
+      <Text>모든 종류의 군사 유닛을 클릭 시 자동으로 정찰병 렌즈를 적용합니다.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYENGINEERLENS" Language="ko_KR">
+      <Text>공병을 위한 도로 렌즈 자동 적용</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYENGINEERLENS_TOOLTIP" Language="ko_KR">
+      <Text>공병 유닛을 클릭시 자동으로 도로 렌즈를 적용합니다.</Text>
+    </Row>
+
     <Row Tag="LOC_CQUI_POPUPS" Language="ko_KR">
       <Text>팝업</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_ALWAYSOPENTECHTREES" Language="ko_KR">
-      <Text>팝업 대신 과학 기술 창을 표시</Text>
+      <Text>팝업 대신 항상 전체 트리 열기</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHVISUAL" Language="ko_KR">
-      <Text>과학 기술/사회 제도 팝업창 표시</Text>
+      <Text>기술/사회 제도 팝업창 표시</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHVISUAL_TOOLTIP" Language="ko_KR">
-      <Text>새로운 과학 기술을 완료하거나 사회 제도를 완성했을 때 나타나는 팝업의 표시 여부를 결정합니다.</Text>
+      <Text>새로운 기술이나 사회 제도가 개발됐을 때 나타나는 팝업창 표시 여부를 토글합니다.</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO" Language="ko_KR">
-      <Text>기술/시빅 팝업으로 오디오 재생</Text>
+      <Text>기술/사회 제도 팝업창 음성 재생</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO_TOOLTIP" Language="ko_KR">
-      <Text>기술/시빅 팝업이 표시될 때 오디오 음성 해설을 자동으로 재생하려면 전환</Text>
+      <Text>새로운 기술이나 사회 제도가 개발됐을 때 음성 재생 여부를 토글합니다.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTVISUAL" Language="ko_KR">
+      <Text>불가사의 동영상 재생</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTVISUAL_TOOLTIP" Language="ko_KR">
+      <Text>불가사의가 완공됐을 때 나타나는 팝업 영상 재생 여부를 토글합니다.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTAUDIO" Language="ko_KR">
+      <Text>불가사의 음성 재생</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTAUDIO_TOOLTIP" Language="ko_KR">
+      <Text>불가사의가 완공됐을 때 음성 재생 여부를 토글합니다. 완공 시 재생되는 동영상 표시 여부와 상관없이 독립적으로 음성을 재생할 수 있습니다.</Text>
     </Row>
     <Row Tag="LOC_CQUI_SETTINGS_REMINDER" Language="ko_KR">
-      <Text>주의: CQUI 설정은 개별 게임 세이브에 저장됩니다![NEWLINE]설정 기본값을 변경하려면 [MOD INSTALL DIRECTORY]/CQUI/Assets 디렉토리의 CQUI_Settings.sql 파일을 수정하십시오.</Text>
+      <Text>주의: CQUI 설정은 개별 저장 파일에 적용됩니다![NEWLINE]설정 기본값을 변경하려면 [모드 설치 폴더]/CQUI/Assets 디렉토리의 cqui_settings.sql 파일을 수정하십시오.</Text>
     </Row>
     <Row Tag="LOC_CQUI_UNITS" Language="ko_KR">
       <Text>유닛</Text>
     </Row>
     <Row Tag="LOC_CQUI_UNITS_SHOWUNITPATHS" Language="ko_KR">
-      <Text>유닛에 마우스를 올리거나 유닛 선택시 경로 표시</Text>
+      <Text>마우스 오버 또는 클릭 시 유닛의 이동 경로 표시</Text>
     </Row>
     <Row Tag="LOC_CQUI_UNITS_AUTOEXPANDUNITACTIONS" Language="ko_KR">
-      <Text>유닛 패널의 숨겨진 행동 아이콘 자동 표시</Text>
+      <Text>유닛 패널의 모든 행동 아이콘 표시</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER" Language="ko_KR">
-      <Text>수제레인 인 시티스테이트 배너</Text>
+    <Row Tag="LOC_CQUI_GENERAL_SHOWPRD" Language="ko_KR">
+      <Text>정책 팝업 알림 표시</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER" Language="ko_KR">
-      <Text>시티스테이트 배너의 전쟁 아이콘</Text>
+    <Row Tag="LOC_CQUI_GENERAL_SHOWPRD_TOOLTIP" Language="ko_KR">
+      <Text>턴 종료 전 정책 카드 변경에 대한 팝업 알림을 표시합니다.</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP" Language="ko_KR">
-      <Text>도시 국가와의 전쟁 때, 그 도시 국가의 도시 배너에 전쟁 아이콘을 표시</Text>
+    <Row Tag="LOC_CQUI_TRADER_SCREEN" Language="ko_KR">
+      <Text>상인 교역로 화면</Text>
     </Row>
-    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="ko_KR">
-    <Text>쇼 수제레인 특사 라벨</Text>
+    <Row Tag="LOC_CQUI_TRADER_SHOW_SORT_ORDER" Language="ko_KR">
+      <Text>정렬 순서 표시</Text>
     </Row>
-    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON_TOOLTIP" Language="ko_KR">
-        <Text>시티스테이트 배너에서 수제레인 특사 라벨 표시[NEWLINE]당신이 수즈레인 때, 아이콘의 오른쪽 상단에 있는 숫자는 보낸 특사를 보여줍니다.[NEWLINE]수제레인이 아니라면, 당신의 특사는 왼쪽 상단에 표시, 오른쪽 상단에 수제레인 특사.</Text>
+    <Row Tag="LOC_CQUI_TRADER_SHOW_SORT_ORDER_TOOLTIP" Language="ko_KR">
+      <Text>교역로 화면에서 다양한 종류의 수익에 대한 정렬 순서를 표시합니다.</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_CIV_ICON" Language="ko_KR">
-        <Text>문명 아이콘 표시</Text>
+    <Row Tag="LOC_CQUI_TRADER_COLOR_YIELDS" Language="ko_KR">
+      <Text>수익 값 색상 적용</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_TRADER_COLOR_YIELDS_TOOLTIP" Language="ko_KR">
+      <Text>수익의 종류에 따라 해당 값에 색을 부여합니다. 예: 식량 수익 값에 초록색을 부여합니다.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_TRADER_ADD_DIVIDER" Language="ko_KR">
+      <Text>그룹 사이에 구분선 추가</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_TRADER_ADD_DIVIDER_TOOLTIP" Language="ko_KR">
+      <Text>교역로 패널에서 그룹 사이에 구분선을 추가합니다.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_RECOMMENDATIONS_SCREEN" Language="ko_KR">
+      <Text>추천 사항</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_RECOMMENDATIONS_SHOWPRODUCTION" Language="ko_KR">
+      <Text>생산 추천 사항을 표시합니다.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_RECOMMENDATIONS_SHOWTECH" Language="ko_KR">
+      <Text>기술/사회 제도 추천 사항을 표시합니다.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_RECOMMENDATIONS_SHOWIMPROVEMENTS" Language="ko_KR">
+      <Text>개발/건설 추천 사항을 표시합니다.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_RECOMMENDATIONS_SHOWCITYDETAILADVISOR" Language="ko_KR">
+      <Text>도시 상세 조언을 표시합니다.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CANCEL_COMMAND" Language="ko_KR">
+      <Text>대기중인 유닛 행동을 취소합니다.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_REMOVE_HARVEST" Language="ko_KR">
+      <Text>지형 특성 제거 / 자원 수확</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_FISHING" Language="ko_KR">
+      <Text>어선 건설</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_FORT" Language="ko_KR">
+      <Text>요새 건설</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_CAMP" Language="ko_KR">
+      <Text>야영지 건설</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_FARM" Language="ko_KR">
+      <Text>농장 건설</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_MILL" Language="ko_KR">
+      <Text>제재소 건설</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_OIL" Language="ko_KR">
+      <Text>유정 건설</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_PASTURE" Language="ko_KR">
+      <Text>목장 건설</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_PLANTATION" Language="ko_KR">
+      <Text>재배지 건설</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_QUARRY" Language="ko_KR">
+      <Text>채석장 건설</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_RAILROAD" Language="ko_KR">
+      <Text>철도 건설</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_BUILD_MINE" Language="ko_KR">
+      <Text>광산 건설</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_NUKE" Language="ko_KR">
+      <Text>대량살상무기 공격: 원자 폭탄</Text>
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_DISABLED" Language="ko_KR">
-        <Text>수즈레인을 표시하지 마십시오</Text>
+      <Text>종주국 표시 해제</Text>
     </Row>
-    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_IN_CITYSTATE_BANNER_TOOLTIP" Language="ko_KR">
-        <Text>시티스테이트 배너에서 수제레인의 문명 또는 지도자 아이콘 을 보여</Text>
+    <Row Tag="LOC_CQUI_SHOW_SUZERAIN_CIV_ICON" Language="ko_KR">
+      <Text>문명 아이콘 표시</Text>
     </Row>
     <Row Tag="LOC_CQUI_SHOW_SUZERAIN_LEADER_ICON" Language="ko_KR">
-        <Text>리더 아이콘 표시</Text>
+      <Text>지도자 아이콘 표시</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON" Language="ko_KR">
+      <Text>종주국 사절 라벨 표시</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LABELS_ON_SUZERAIN_ICON_TOOLTIP" Language="ko_KR">
+      <Text>도시 국가 배너에 종주국 사절 라벨을 표시합니다.[NEWLINE]플레이어가 종주국일 때, 아이콘의 오른쪽 상단에 플레이어의 사절 숫자를 표시합니다.[NEWLINE]플레이어가 종주국이 아닐 때는 왼쪽 상단에 플레이어의 사절 숫자를, 오른쪽 상단에 종주국의 사절 숫자를 표시합니다.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_THERMO_NUKE" Language="ko_KR">
+      <Text>대량살상무기 공격: 수소 폭탄</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_REBASE" Language="ko_KR">
+      <Text>재배치</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_PLACE_PIN" Language="ko_KR">
+      <Text>지도 핀 배치</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_INLINE_CITY_STATE_QUEST" Language="ko_KR">
+      <Text>도시 국가 퀘스트 표시</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_INLINE_CITY_STATE_QUEST_FONT_SIZE" Language="ko_KR">
+      <Text>도시 국가 퀘스트 표시 폰트 크기:</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE" Language="ko_KR">
-      <Text>종교 렌즈 단위 플래그 스타일</Text>
+      <Text>종교 렌즈 유닛 표시 스타일</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP" Language="ko_KR">
-      <Text>종교 렌즈가 켜지면 비종교 단위의 단위 플래그 아이콘스타일[NEWLINE]솔리드: 단위 플래그가 변경되지 않음 으로 표시됩니다.[NEWLINE]투명: 단위 플래그가 투명해집니다.[NEWLINE]숨겨진: 단위 플래그가 숨겨져 있습니다.</Text>
+      <Text>종교 렌즈 활성화 시[NEWLINE]비종교 유닛의 표시 아이콘 스타일[NEWLINE]불투명: 유닛 아이콘을 그대로 표시[NEWLINE]반투명: 유닛 아이콘을 반투명으로 표시[NEWLINE]숨김: 유닛 아이콘을 숨김</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_SPREAD_RELIGION" Language="ko_KR">
+      <Text>종교 전파</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_REMOVE_HERESY" Language="ko_KR">
+      <Text>이단 심문</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_REST_HEAL" Language="ko_KR">
+      <Text>휴식과 회복</Text>
     </Row>
     <Row Tag="LOC_CQUI_SETTINGS" Language="ko_KR">
       <Text>CQUI 설정</Text>
     </Row>
     <Row Tag="LOC_CQUI_SETTINGS_MOVED" Language="ko_KR">
-      <Text>이제 게임 메뉴에서 옵션을 선택한 다음 CQUI 설정 단추를 선택하여 CQUI 설정을 찾을 수 있습니다.</Text>
+      <Text>CQUI 설정은 이제 게임 메뉴의 "설정" 탭 클릭 후 CQUI 설정 버튼 클릭을 통해 찾을 수 있습니다.</Text>
     </Row>
 
     <!-- More Lenses Color Slider Controls -->
     <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS" Language="ko_KR">
-      <Text>사용자 지정 렌즈용 RGB 색상 설정</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_BLUE" Language="ko_KR">
-      <Text>파랑</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_EDITBOX_TOOLTIP" Language="ko_KR">
-      <Text>0에서 255 사이의 값을 입력합니다.</Text>
-    </Row>
-    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_GREEN" Language="ko_KR">
-      <Text>녹색</Text>
+      <Text>커스텀 렌즈의 RGB 색상 설정</Text>
     </Row>
     <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_RED" Language="ko_KR">
-      <Text>빨강</Text>
+      <Text>R</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_GREEN" Language="ko_KR">
+      <Text>G</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_BLUE" Language="ko_KR">
+      <Text>B</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_RGB_COLOR_SETTINGS_EDITBOX_TOOLTIP" Language="ko_KR">
+      <Text>0 이상 255 이하의 값을 입력하십시오.</Text>
+    </Row>
+
+
+
   </LocalizedText>
 </GameData>

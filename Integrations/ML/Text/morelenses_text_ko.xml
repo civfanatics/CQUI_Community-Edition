@@ -3,6 +3,14 @@
   <LocalizedText>
     <!-- KOREAN -->
 
+    <!-- Missing Citizen management Lens -->
+    <Replace Tag="LOC_HUD_CITIZEN_MANAGEMENT_LENS" Language="ko_KR">
+      <Text>건설자</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITIZEN_MANAGEMENT_LENS_TOOLTIP" Language="ko_KR">
+      <Text>건설자가 작업할 수 있는 타일을 나타냅니다.</Text>
+    </Replace>
+
     <!-- Builder Lens -->
     <Replace Tag="LOC_HUD_BUILDER_LENS" Language="ko_KR">
       <Text>건설자</Text>
@@ -10,8 +18,30 @@
     <Replace Tag="LOC_HUD_BUILDER_LENS_TOOLTIP" Language="ko_KR">
       <Text>건설자가 작업할 수 있는 타일을 나타냅니다.</Text>
     </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_PN" Language="ko_KR">
+      <Text>할 수 있는 작업 없음</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_PD" Language="ko_KR">
+      <Text>위험 표시</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P1" Language="ko_KR">
+      <!-- Intentionally empty so it does not appear on the CQUI Settings menu -->
+      <Text></Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P1B" Language="ko_KR">
+      <Text>보너스 자원</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P1L" Language="ko_KR">
+      <Text>사치 자원</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P1S" Language="ko_KR">
+      <Text>전략 자원</Text>
+    </Replace>
     <Replace Tag="LOC_HUD_BUILDER_LENS_P2" Language="ko_KR">
-      <Text>자원/약탈당함/고유 능력</Text>
+      <Text>추천 / 약탈당함 / 고유 능력</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P3" Language="ko_KR">
+      <Text>최근 작업됨 / 불가사의로 향상</Text>
     </Replace>
     <Replace Tag="LOC_HUD_BUILDER_LENS_P4" Language="ko_KR">
       <Text>언덕</Text>
@@ -19,12 +49,15 @@
     <Replace Tag="LOC_HUD_BUILDER_LENS_P5" Language="ko_KR">
       <Text>제거 가능한 지형 특성</Text>
     </Replace>
+    <!-- Nothing to add here atm -->
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P6" Language="ko_KR">
+      <!-- Intentionally empty so it does not appear on the CQUI Settings menu -->
+      <Text></Text>
+    </Replace>
     <Replace Tag="LOC_HUD_BUILDER_LENS_P7" Language="ko_KR">
       <Text>일반 타일</Text>
     </Replace>
-    <Replace Tag="LOC_HUD_BUILDER_LENS_PN" Language="ko_KR">
-      <Text>할수 있는 작업 없음</Text>
-    </Replace>
+
 
     <!-- Archaeologist Lens -->
     <Replace Tag="LOC_HUD_ARCHAEOLOGIST_LENS" Language="ko_KR">
@@ -41,19 +74,26 @@
     </Replace>
 
     <!-- City Overlap Lens -->
-    <Replace Tag="LOC_HUD_CITYOVERLAP6_LENS" Language="ko_KR">
-      <Text>도시 오버랩 6칸</Text>
+    <Replace Tag="LOC_HUD_CITYOVERLAP_LENS" Language="ko_KR">
+      <Text>도시 오버랩</Text>
     </Replace>
-    <Replace Tag="LOC_HUD_CITYOVERLAP6_LENS_TOOLTIP" Language="ko_KR">
+    <Replace Tag="LOC_HUD_CITYOVERLAP_LENS_TOOLTIP" Language="ko_KR">
       <Text>얼마나 많은 도시가 6개 타일 범위에서 서로 중복되는지 보여줍니다.</Text>
     </Replace>
-
-    <!-- City Overlap Lens -->
-    <Replace Tag="LOC_HUD_CITYOVERLAP9_LENS" Language="ko_KR">
-      <Text>도시 오버랩 9칸</Text>
+    <Replace Tag="LOC_PANEL_CITYOVERLAP_OPTION1" Language="ko_KR">
+      <Text>외부 국경 표시</Text>
     </Replace>
-    <Replace Tag="LOC_HUD_CITYOVERLAP9_LENS_TOOLTIP" Language="ko_KR">
-      <Text>얼마나 많은 도시가 9개 타일 범위에서 서로 중복되는지 보여줍니다.</Text>
+    <Replace Tag="LOC_PANEL_CITYOVERLAP_NMOUSE" Language="ko_KR">
+      <Text>마우스 사용 안함</Text>
+    </Replace>
+    <Replace Tag="LOC_PANEL_CITYOVERLAP_RANGE" Language="ko_KR">
+      <Text>마우스 범위 사용</Text>
+    </Replace>
+    <Replace Tag="LOC_TOOLTIP_CITYOVERLAP_RANGE" Language="ko_KR">
+      <Text>커서에 위치한 타일 기준 설정한 범위(하단 설정) 내의 도시들을 나타냅니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PANEL_CITYOVERLAP_RADIUS" Language="ko_KR">
+      <Text>범위</Text>
     </Replace>
 
     <!-- Barbarian Lens -->
@@ -126,6 +166,42 @@
       <Text>부족 마을</Text>
     </Replace>
 
+    <!-- Naturalist Lens -->
+    <Replace Tag="LOC_HUD_NATURALIST_LENS" Language="ko_KR">
+      <Text>박물학자</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_NATURALIST_LENS_TOOLTIP" Language="ko_KR">
+      <Text>국립공원을 건설할 수 있는 구역을 표시합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_NATURALIST_LENS_PARK" Language="ko_KR">
+      <Text>바로 건설 가능한 지역</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_NATURALIST_LENS_OK" Language="ko_KR">
+      <Text>주위 타일 수정으로 건설 가능한 지역</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_NATURALIST_LENS_FIXABLE" Language="ko_KR">
+      <Text>해당 타일 수정으로 건설 가능한 지역</Text>
+    </Replace>
+
+    <Replace Tag="LOC_HUD_CITY_PLOT_LENS" Language="ko_KR">
+      <Text>도시 타일</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITY_PLOT_LENS_TOOLTIP" Language="ko_KR">
+      <Text>시민이 작업하는 타일을 표시합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITY_PLOT_LENS_WORKING" Language="ko_KR">
+      <Text>작업 타일</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITY_PLOT_LENS_LOCKED" Language="ko_KR">
+      <Text>고정 작업 타일</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITY_PLOT_LENS_CULTURE" Language="ko_KR">
+      <Text>다음 국경 확장 타일</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITY_PLOT_LENS_OTHER" Language="ko_KR">
+      <Text>그 외 타일</Text>
+    </Replace>
+    
     <Replace Tag="LOC_HUD_ROUTES_LENS" Language="ko_KR">
       <Text>경로</Text>
     </Replace>
@@ -133,10 +209,10 @@
       <Text>철도</Text>
     </Replace>
     <Replace Tag="LOC_HUD_ROUTES_LENS_ROAD" Language="ko_KR">
-      <Text>도</Text>
+      <Text>도로</Text>
     </Replace>
     <Replace Tag="LOC_HUD_ROUTES_LENS_TOOLTIP" Language="ko_KR">
-      <Text>도로와 철도 하이라이트</Text>
+      <Text>도로와 철도를 표시합니다.</Text>
     </Replace>
 
   </LocalizedText>

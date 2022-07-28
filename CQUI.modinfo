@@ -743,12 +743,14 @@
                 <File>Assets/Text/Gossip_Text_ja.xml</File>
                 <File>Assets/Text/Gossip_Text_pt.xml</File>
                 <File>Assets/Text/Gossip_Text_ru.xml</File>
+                <File>Assets/Text/Gossip_Text_ko.xml</File>
                 <File>Assets/Text/cqui_InGameText.xml</File>
                 <File>Assets/Text/cqui_InGameText_de.xml</File>
                 <File>Assets/Text/cqui_InGameText_it.xml</File>
                 <File>Assets/Text/cqui_InGameText_ja.xml</File>
                 <File>Assets/Text/cqui_InGameText_ru.xml</File>
                 <File>Assets/Text/cqui_InGameText_zh.xml</File>
+                <File>Assets/Text/cqui_InGameText_ko.xml</File>
                 <File>Assets/Text/cqui_text_general.xml</File>
                 <File>Assets/Text/cqui_text_general_de.xml</File>
                 <File>Assets/Text/cqui_text_general_es.xml</File>
@@ -1291,6 +1293,7 @@
                 <File>Integrations/BES/Text/bes_text_ja.xml</File>
                 <File>Integrations/BES/Text/bes_text_pt.xml</File>
                 <File>Integrations/BES/Text/bes_text_ru.xml</File>
+                <File>Integrations/BES/Text/bes_text_ko.xml</File>
             </Items>
         </LocalizedText>
 
@@ -1464,11 +1467,13 @@
         <File>Assets/Text/Gossip_Text_ja.xml</File>
         <File>Assets/Text/Gossip_Text_pt.xml</File>
         <File>Assets/Text/Gossip_Text_ru.xml</File>
+        <File>Assets/Text/Gossip_Text_ko.xml</File>
         <File>Assets/Text/cqui_InGameText.xml</File>
         <File>Assets/Text/cqui_InGameText_de.xml</File>
         <File>Assets/Text/cqui_InGameText_it.xml</File>
         <File>Assets/Text/cqui_InGameText_ja.xml</File>
         <File>Assets/Text/cqui_InGameText_ru.xml</File>
+        <File>Assets/Text/cqui_InGameText_ko.xml</File>
         <File>Assets/Text/cqui_text_general.xml</File>
         <File>Assets/Text/cqui_text_general_de.xml</File>
         <File>Assets/Text/cqui_text_general_es.xml</File>
@@ -1645,5 +1650,6 @@
         <File>Integrations/BES/Text/bes_text_ja.xml</File>
         <File>Integrations/BES/Text/bes_text_pt.xml</File>
         <File>Integrations/BES/Text/bes_text_ru.xml</File>
+        <File>Integrations/BES/Text/bes_text_ko.xml</File>
     </Files>
 </Mod>
