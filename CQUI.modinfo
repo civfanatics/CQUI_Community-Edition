@@ -1261,6 +1261,9 @@
             </Items>
         </LocalizedText>
         <ImportFiles id="CQUI_IMPORT_FILES_BTS">
+            <Properties>
+                <LoadOrder>1</LoadOrder>
+            </Properties>
             <Items>
                 <File>Integrations/BTS/UI/tradeoverview.xml</File>
                 <File>Integrations/BTS/UI/tradeoverview.lua</File>
