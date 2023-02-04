@@ -157,7 +157,7 @@ function SetDesiredLens(desiredLens)
             UILens.SetActive(m_desiredLens);
         end
 
-        ContextPtr:SetUpdate(EnsureDesiredLens);
+        --ContextPtr:SetUpdate(EnsureDesiredLens);
     else
         UILens.SetActive(m_desiredLens);
     end
@@ -279,7 +279,7 @@ function HideAll()
     Controls.PanelDynamicTab:SetHide(true);
 
     -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-    SetDesiredLens("CityManagement");
+    --SetDesiredLens("CityManagement");
     -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 end
 
@@ -1086,20 +1086,27 @@ end
 function OnCloseButtonClicked()
     -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     -- CQUI change the behavior of when the Close button is clicked
+    if UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT or UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT then
+        UI.SetInterfaceMode(InterfaceModeTypes.CITY_MANAGEMENT);
+        LuaEvents.CQUI_CityviewEnable();
+        return;
+    end
+
     LuaEvents.CQUI_CityPanel_CityviewDisable();
     -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 end
 
 -- ===========================================================================
 function View(data)
-    Controls.OverviewSubheader:SetText(Locale.ToUpper(Locale.Lookup(data.CityName)));
+    local cityName = Locale.Lookup(data.CityName);
+    Controls.OverviewSubheader:SetText(Locale.ToUpper(cityName));
 
     local canChangeName = GameCapabilities.HasCapability("CAPABILITY_RENAME");
     if (canChangeName and not m_kEspionageViewManager:IsEspionageView()) then
         Controls.RenameCityButton:RegisterCallback(Mouse.eLClick, function()
                 Controls.OverviewSubheader:SetHide(true);
 
-                Controls.EditCityName:SetText(Controls.OverviewSubheader:GetText());
+                Controls.EditCityName:SetText(cityName);
                 Controls.EditCityName:SetHide(false);
                 Controls.EditCityName:TakeFocus();
             end);
@@ -1144,6 +1151,7 @@ function Refresh()
     if m_pPlayer ~= nil and m_pCity ~= nil then
         -- Trigger selection callback
         View( m_kData );
+        SetDesiredLens("CityManagement"); -- CQUI - Apply City Management lens
         if m_tabs.selectedControl then
             m_tabs.SelectTab(m_tabs.selectedControl);
         end

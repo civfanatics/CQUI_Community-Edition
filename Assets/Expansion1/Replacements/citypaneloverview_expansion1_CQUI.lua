@@ -11,3 +11,9 @@ function ViewPanelAmenities(data:table)
     --kInstance.AmenityYield:SetText( Locale.ToNumber(data.AmenitiesFromGovernors) );
     CQUI_BuildAmenityBubbleInstance("ICON_GOVERNOR_THE_EDUCATOR", data.AmenitiesFromGovernors, "LOC_REPORTS_GOVERNOR");
 end
+
+function RefreshCulturalIdentityPanel()
+    --UILens.SetActive("Loyalty");
+    SetDesiredLens("Loyalty");
+    LuaEvents.CityPanelTabRefresh();
+end
