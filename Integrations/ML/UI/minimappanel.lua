@@ -58,10 +58,11 @@ local m_MapOptionIM             :table = InstanceManager:new("MapOptionInstance"
 
 local m_OptionButtons           :table = {};    -- option buttons indexed by buttonName.
 local iZoomIncrement            :number = 2;
-local m_isCollapsed             :boolean= false;
-local m_ContinentsCreated       :boolean=false;
+local m_isCollapsed             :boolean = false;
+local m_ContinentsCreated       :boolean = false;
 local m_MiniMap_xmloffsety      :number = 0;
 local m_kFlyoutControlIds       :table = { "MapOptions", "Lens", "MapPinList", "MapSearch" };   -- Name of controls that are the backing for "flyout" menus.
+local m_flyoutOnce              :boolean = false;
 
 local m_ToggleReligionLensId    = -1;
 local m_ToggleContinentLensId   = -1;
@@ -1510,19 +1511,24 @@ end
 
 -- ===========================================================================
 function CQUI_OnCityviewEnabled()
-    -- Slide the minimap over
-    Controls.MiniMapAnimSideways:SetToBeginning();
-    Controls.MiniMapAnimSideways:Play();
-    -- Disable the buttons that do not work well while in City View
-    ToggleButtonsWhenCityViewShown(true);
+    if Controls.MiniMapAnimSideways:IsReversing() or not m_flyoutOnce then
+        -- Slide the minimap over
+        Controls.MiniMapAnimSideways:SetToBeginning();
+        Controls.MiniMapAnimSideways:Play();
+        -- Disable the buttons that do not work well while in City View
+        ToggleButtonsWhenCityViewShown(true);
+        m_flyoutOnce = true;
+    end
 end
 
 -- ===========================================================================
 function CQUI_OnCityviewDisabled()
-    -- Slide the minimap back
-    Controls.MiniMapAnimSideways:Reverse();
-    -- Enable the buttons that were disabled
-    ToggleButtonsWhenCityViewShown(false);
+    if not Controls.MiniMapAnimSideways:IsReversing() then
+        -- Slide the minimap back
+        Controls.MiniMapAnimSideways:Reverse();
+        -- Enable the buttons that were disabled
+        ToggleButtonsWhenCityViewShown(false);
+    end
 end
 
 -- ===========================================================================
