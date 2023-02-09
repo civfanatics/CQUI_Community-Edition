@@ -12,6 +12,9 @@
 		<Replace Tag="LOC_GOSSIP_ALLIED" Language="en_US">
 			<Text>[ICON_Alliance] {1_CivName} formed an alliance with {2_CivName}.</Text>
 		</Replace>
+		<Replace Tag="LOC_GOSSIP_ANARCHY_BEGINS" Language="en_US">
+			<Text>[ICON_Razed] There has been a coup d'état in {1_CivName} removing {2_Government}. Anarchy has begun.</Text>
+		</Replace>	
 		<Replace Tag="LOC_GOSSIP_ARTIFACT_EXTRACTED" Language="en_US">
 			<Text>[ICON_Greatwork_relic] {1_CivName} excavated a relic: {2_GreatWork}.</Text>
 		</Replace>
@@ -44,6 +47,9 @@
 		</Replace>
 		<Replace Tag="LOC_GOSSIP_CONQUER_CITY" Language="en_US">
 			<Text>[ICON_Razed] {1_CivName} conquered {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONQUER_CAPITAL_CITY" Language="en_US">
+			<Text>[ICON_Razed] {1_CivName} has conquered the original {2_CivAdjective} capital of {3_CityName}.</Text>
 		</Replace>
 		<Replace Tag="LOC_GOSSIP_CONSTRUCT_BUILDING" Language="en_US">
 			<Text>[ICON_Production] {1_CivName} built {LOC_GRAMMAR_A_AN &lt;&lt; {2_BuildingName}} in {3_CityName}.</Text>
@@ -126,6 +132,9 @@
 		<Replace Tag="LOC_GOSSIP_RESEARCH_TECH" Language="en_US">
 			<Text>[ICON_Science] {1_CivName} completed research on {2_TechName}.</Text>
 		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_CAPTURED" Language="en_US">
+			<Text>[ICON_Exclamation] {1_CivName} has captured {3_SpyPlayer}'s spy in {2_CityName}.</Text>
+		</Replace>
 		<Replace Tag="LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_DETECTED" Language="en_US">
 			<Text>[ICON_Pillaged] {1_CivName}'s Spaceport in {2_CityName} was sabotaged by {3_SpyPlayer}.</Text>
 		</Replace>
@@ -177,8 +186,17 @@
 		<Replace Tag="LOC_GOSSIP_TRAIN_UNIQUE_UNIT" Language="en_US">
 			<Text>[ICON_Unit] {1_CivName} created unique unit, the {2_UnitName}.</Text>
 		</Replace>
+		<Replace Tag="LOC_GOSSIP_PROJECT_STARTED" Language="en_US">
+			<Text>[ICON_Production] {1_CivName} has started {2_ProjectType}.</Text>
+		</Replace>
 		<Replace Tag="LOC_GOSSIP_SPACE_RACE_PROJECT_COMPLETED" Language="en_US">
-			<Text>{1_CivName} completed Space Race project {2_ProjectType}.</Text>
+			<Text>[ICON_Production] {1_CivName} completed Space Race project {2_ProjectType}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_START_VICTORY_STRATEGY" Language="en_US">
+			<Text>[ICON_Exclamation] {1_CivName} is seeking {LOC_GRAMMAR_A_AN &lt;&lt; {2_VictoryName}}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_STOP_VICTORY_STRATEGY" Language="en_US">
+			<Text>[ICON_Exclamation] {1_CivName} is no longer seeking a {2_VictoryType}.</Text>
 		</Replace>
 		<Replace Tag="LOC_GOSSIP_WMD_BUILT" Language="en_US">
 			<Text>[ICON_Nuclear] {1_CivName} built {2_WMDCount} WMDs!</Text>

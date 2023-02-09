@@ -4,7 +4,7 @@
     <Properties>
         <AffectsSavedGames>0</AffectsSavedGames>
         <Name>Community Quick User Interface</Name>
-        <Teaser>CQUI</Teaser>
+        <Teaser>CQUI_TEASER</Teaser>
         <Description>The Community Quick User Interface MOD, 2020 CivFanatics Version</Description>
         <CompatibleVersions>1.2,2.0</CompatibleVersions>
         <!-- (New-TimeSpan -Start (Get-Date "01/01/1970") -End (Get-Date)).TotalSeconds -->
@@ -739,11 +739,15 @@
             <Items>
                 <File>Assets/Text/Gossip_Text.xml</File>
                 <File>Assets/Text/Gossip_Text_de.xml</File>
+                <File>Assets/Text/Gossip_Text_es.xml</File>
+                <File>Assets/Text/Gossip_Text_fr.xml</File>
                 <File>Assets/Text/Gossip_Text_it.xml</File>
                 <File>Assets/Text/Gossip_Text_ja.xml</File>
+                <File>Assets/Text/Gossip_Text_ko.xml</File>
+                <File>Assets/Text/Gossip_Text_pl.xml</File>
                 <File>Assets/Text/Gossip_Text_pt.xml</File>
                 <File>Assets/Text/Gossip_Text_ru.xml</File>
-                <File>Assets/Text/Gossip_Text_ko.xml</File>
+                <File>Assets/Text/Gossip_Text_zh.xml</File>
                 <File>Assets/Text/cqui_InGameText.xml</File>
                 <File>Assets/Text/cqui_InGameText_de.xml</File>
                 <File>Assets/Text/cqui_InGameText_it.xml</File>
@@ -784,6 +788,30 @@
                 <File>Assets/Text/cqui_diplomacy_text_pt.xml</File>
                 <File>Assets/Text/cqui_diplomacy_text_ru.xml</File>
                 <File>Assets/Text/cqui_diplomacy_text_zh.xml</File>
+            </Items>
+        </LocalizedText>
+        
+        <LocalizedText id="CQUI_TEXT_EXP1BEYOND" criteria="Expansion1AndBeyond">
+            <Items>
+                <File>Assets/Expansion1/Text/Gossip_Text.xml</File>
+                <File>Assets/Expansion1/Text/Gossip_Text_de.xml</File>
+                <File>Assets/Expansion1/Text/Gossip_Text_es.xml</File>
+                <File>Assets/Expansion1/Text/Gossip_Text_fr.xml</File>
+                <File>Assets/Expansion1/Text/Gossip_Text_ja.xml</File>
+                <File>Assets/Expansion1/Text/Gossip_Text_ko.xml</File>
+                <File>Assets/Expansion1/Text/Gossip_Text_pl.xml</File>
+                <File>Assets/Expansion1/Text/Gossip_Text_pt.xml</File>
+                <File>Assets/Expansion1/Text/Gossip_Text_zh.xml</File>
+            </Items>
+        </LocalizedText>
+
+        <LocalizedText id="CQUI_TEXT_EXP2" criteria="Expansion2">
+            <Items>
+                <File>Assets/Expansion2/Text/Gossip_Text.xml</File>
+                <File>Assets/Expansion2/Text/Gossip_Text_de.xml</File>
+                <File>Assets/Expansion2/Text/Gossip_Text_es.xml</File>
+                <File>Assets/Expansion2/Text/Gossip_Text_ja.xml</File>
+                <File>Assets/Expansion2/Text/Gossip_Text_zh.xml</File>
             </Items>
         </LocalizedText>
 
@@ -1463,11 +1491,15 @@
 
         <File>Assets/Text/Gossip_Text.xml</File>
         <File>Assets/Text/Gossip_Text_de.xml</File>
+        <File>Assets/Text/Gossip_Text_es.xml</File>
+        <File>Assets/Text/Gossip_Text_fr.xml</File>
         <File>Assets/Text/Gossip_Text_it.xml</File>
         <File>Assets/Text/Gossip_Text_ja.xml</File>
+        <File>Assets/Text/Gossip_Text_ko.xml</File>
+        <File>Assets/Text/Gossip_Text_pl.xml</File>
         <File>Assets/Text/Gossip_Text_pt.xml</File>
         <File>Assets/Text/Gossip_Text_ru.xml</File>
-        <File>Assets/Text/Gossip_Text_ko.xml</File>
+        <File>Assets/Text/Gossip_Text_zh.xml</File>
         <File>Assets/Text/cqui_InGameText.xml</File>
         <File>Assets/Text/cqui_InGameText_de.xml</File>
         <File>Assets/Text/cqui_InGameText_it.xml</File>
@@ -1507,6 +1539,20 @@
         <File>Assets/Text/cqui_diplomacy_text_pt.xml</File>
         <File>Assets/Text/cqui_diplomacy_text_ru.xml</File>
         <File>Assets/Text/cqui_diplomacy_text_zh.xml</File>
+        <File>Assets/Expansion1/Text/Gossip_Text.xml</File>
+        <File>Assets/Expansion1/Text/Gossip_Text_de.xml</File>
+        <File>Assets/Expansion1/Text/Gossip_Text_es.xml</File>
+        <File>Assets/Expansion1/Text/Gossip_Text_fr.xml</File>
+        <File>Assets/Expansion1/Text/Gossip_Text_ja.xml</File>
+        <File>Assets/Expansion1/Text/Gossip_Text_ko.xml</File>
+        <File>Assets/Expansion1/Text/Gossip_Text_pl.xml</File>
+        <File>Assets/Expansion1/Text/Gossip_Text_pt.xml</File>
+        <File>Assets/Expansion1/Text/Gossip_Text_zh.xml</File>
+        <File>Assets/Expansion2/Text/Gossip_Text.xml</File>
+        <File>Assets/Expansion2/Text/Gossip_Text_de.xml</File>
+        <File>Assets/Expansion2/Text/Gossip_Text_es.xml</File>
+        <File>Assets/Expansion2/Text/Gossip_Text_ja.xml</File>
+        <File>Assets/Expansion2/Text/Gossip_Text_zh.xml</File>
 
         <File>Assets/Texture/CQUI_GreatPeople_Background_Bottom.dds</File>
         <File>Assets/Texture/CQUI_GreatPeople_Background_Repeat_Bottom.dds</File>

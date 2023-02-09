@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameData>
+	<LocalizedText>
+		<!-- Replace Expansion 1 Gossip Text -->
+		<Replace Tag="LOC_GOSSIP_SPY_FOMENT_UNREST_DETECTED" Language="ko_KR">
+			<Text>[ICON_Exclamation] {1_CivName}의 {2_CityName}내 충성도가 {3_SpyPlayer}의 스파이에 의해 감소</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_FOMENT_UNREST_UNDETECTED" Language="ko_KR">
+			<Text>[ICON_Exclamation] {1_CivName}의 {2_CityName}내 충성도가 정체불명의 스파이에 의해 감소</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_DETECTED" Language="ko_KR">
+			<Text>[ICON_Exclamation] {1_CivName}의 총독이 {2_CityName}에서 {3_SpyPlayer}의 스파이에 의해 무력화됨</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_UNDETECTED" Language="ko_KR">
+			<Text>[ICON_Exclamation] {1_CivName}의 총독이 {2_CityName}에서 정체불명의 스파이에 의해 무력화됨</Text>
+		</Replace>
+	</LocalizedText>
+</GameData>

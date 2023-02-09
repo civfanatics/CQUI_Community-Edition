@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameData>
+	<LocalizedText>
+		<!-- Replace Expansion 2 Gossip Text -->
+		<Replace Tag="LOC_GOSSIP_SPY_DAM_BREACHED_DETECTED" Language="ja_JP">
+			<Text>[ICON_Pillaged] {3_SpyPlayer}のスパイが{1_CivName}の{2_CityName}でダムを破壊した。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_DAM_BREACHED_UNDETECTED" Language="ja_JP">
+			<Text>[ICON_Pillaged] 身元不明のスパイが{1_CivName}の{2_CityName}でダムを破壊した。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ROCK_CONCERT" Language="ja_JP">
+			<Text>[ICON_Exclamation] {1_City_Name}の新聞が{3_BandName}のコンサートについて「{2_ResultName}」と評した。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_POWERED_CITY" Language="ja_JP">
+			<Text>[ICON_Power] {1_CivName}が{2_CityName}に電気をもたらした。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RANDOM_EVENT" Language="ja_JP">
+			<Text>[ICON_Exclamation] {1_CivName}が{2_NaturalDisasterName}によって深刻な被害を受けた。</Text>
+		</Replace>
+	</LocalizedText>
+</GameData>

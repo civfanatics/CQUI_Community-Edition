@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameData>
+	<LocalizedText>
+		<!-- Replace Expansion 2 Gossip Text -->
+		<Replace Tag="LOC_GOSSIP_SPY_DAM_BREACHED_DETECTED" Language="en_US">
+			<Text>[ICON_Pillaged] {LOC_GRAMMAR_CIVNAME &lt;&lt; {1_CivName}} had a dam breached in {2_CityName} due to a spy from {3_SpyPlayer}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_DAM_BREACHED_UNDETECTED" Language="en_US">
+			<Text>[ICON_Pillaged] {LOC_GRAMMAR_CIVNAME &lt;&lt; {1_CivName}} had a dam breached in {2_CityName} due to an unknown spy.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ROCK_CONCERT" Language="en_US">
+			<Text>[ICON_Exclamation] {3_BandName}'s concert in {1_City_Name} earned a review entitled "{2_ResultName}".</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_POWERED_CITY" Language="en_US">
+			<Text>[ICON_Power] {LOC_GRAMMAR_CIVNAME &lt;&lt; {1_CivName}} {1_CivName : plural 1?has; other?have;} is now powering {2_CityName} with electricity.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RANDOM_EVENT" Language="en_US">
+			<Text>[ICON_Exclamation] {LOC_GRAMMAR_CIVNAME &lt;&lt; {1_CivName}} {1_CivName : plural 1?has; other?have;} has suffered significant damage from a {2_NaturalDisasterName}.</Text>
+		</Replace>	
+	</LocalizedText>
+</GameData>

@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameData>
+	<LocalizedText>
+		<!-- Replace Gossip Text -->
+		<Replace Tag="LOC_GOSSIP_AGENDA_KUDOS" Language="zh_Hans_CN">
+			<Text>[ICON_Declare_friendship] {1_LeaderName}感谢{2_Leadername}对议程——{3_AgendaName}的合作。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_AGENDA_WARNING" Language="zh_Hans_CN">
+			<Text>[ICON_Denounce] {1_LeaderName}警告{2_Leadername}不要干涉议程：{3_AgendaName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ALLIED" Language="zh_Hans_CN">
+			<Text>[ICON_Alliance] {1_CivName}同{2_CivName}结成联盟。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ANARCHY_BEGINS" Language="zh_Hans_CN">
+			<Text>[ICON_Razed] {1_CivName}发生了政变，{2_Government}政体被推翻。已进入无政府状态。</Text>
+		</Replace>	
+		<Replace Tag="LOC_GOSSIP_ARTIFACT_EXTRACTED" Language="zh_Hans_CN">
+			<Text>[ICON_Greatwork_relic] {1_CivName}挖掘出了新的考古作品：{2_GreatWork}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_BARBARIAN_INVASION_STARTED" Language="zh_Hans_CN">
+			<Text>[ICON_Barbarian] {1_CivName}正在{2_CityName}面临蛮族入侵。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_BARBARIAN_RAID_STARTED" Language="zh_Hans_CN">
+			<Text>[ICON_Barbarian] {1_CivName}正在{2_CityName}面临蛮族袭击。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_BEACH_RESORT_CREATED" Language="zh_Hans_CN">
+			<Text>[ICON_Production] {1_CivName}在{2_CityName}建造了海滨度假区。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CHANGE_GOVERNMENT" Language="zh_Hans_CN">
+			<Text>[ICON_Government] {1_CivName}把政体转变成了{2_Government}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_BESIEGED" Language="zh_Hans_CN">
+			<Text>[ICON_Razed] {1_CityName}正被围攻。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_LIBERATED" Language="zh_Hans_CN">
+			<Text>[ICON_Buildings] {1_CivName}解放了{2_CityName}，并将其归还给{3_CivName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_RAZED" Language="zh_Hans_CN">
+			<Text>[ICON_Razed] {1_CivName}把{2_CivName}创建的城市夷为平地。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CLEAR_CAMP" Language="zh_Hans_CN">
+			<Text>[ICON_Barbarian] {1_CivName}已使用{2_UnitName}来清除{3_ImprovementName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_STATE_INFLUENCE" Language="zh_Hans_CN">
+			<Text>[ICON_Envoy] {1_CivName}派遣了一名使者前往{2_CityState}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONQUER_CITY" Language="zh_Hans_CN">
+			<Text>[ICON_Razed] {1_CivName}占领了{2_CityName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONQUER_CAPITAL_CITY" Language="zh_Hans_CN">
+			<Text>[ICON_Razed] {1_CivName}征服了{2_CivAdjective}的原始首都：{3_CityName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONSTRUCT_BUILDING" Language="zh_Hans_CN">
+			<Text>[ICON_Production] {1_CivName}在{3_CityName}建造了{2_BuildingName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONSTRUCT_DISTRICT" Language="zh_Hans_CN">
+			<Text>[ICON_Production] {1_CivName}在{3_CityName}建造了{2_DistrictName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CREATE_PANTHEON" Language="zh_Hans_CN">
+			<Text>[ICON_Religion] {1_CivName}正崇拜万神殿中的{2_BeliefName}的信仰。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CULTURVATE_CIVIC" Language="zh_Hans_CN">
+			<Text>[ICON_Culture] {1_CivName}完成了对{2_CivicName}的研究。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_DECLARED_FRIENDSHIP" Language="zh_Hans_CN">
+			<Text>[ICON_Declare_friendship] {1_CivName}宣布了同{2_CivName}的友谊。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_DELEGATION" Language="zh_Hans_CN">
+			<Text>[ICON_Envoy] {1_CivName}接待了一支{2_CivName}派来的代表团。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_DENOUNCED" Language="zh_Hans_CN">
+			<Text>[ICON_Denounce] {1_CivName}谴责了{2_CivName}的恶行。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_EMBASSY" Language="zh_Hans_CN">
+			<Text>[ICON_Resident_embassy] {1_CivName}首都出现了来自{2_CivName}的大使馆。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ERA_CHANGED" Language="zh_Hans_CN">
+			<Text>[ICON_Capitallarge] {1_CivName}从{2_OldEra}发展到了{3_NewEra}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_FIND_NATURAL_WONDER" Language="zh_Hans_CN">
+			<Text>[ICON_Terrain] {1_CivName}发现了{2_NWName}自然奇观。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_FOUND_CITY" Language="zh_Hans_CN">
+			<Text>[ICON_Buildings] {1_CivName}增加了新的定居点：{2_CityName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_FOUND_RELIGION" Language="zh_Hans_CN">
+			<Text>[ICON_Religion] {1_CivName}创立了新宗教：{2_ReligionName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_GREATPERSON_CREATED" Language="zh_Hans_CN">
+			<Text>[ICON_Greatperson] {1_CivName}获得了{2_unit}{3_GreatPerson}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_LAUNCHING_ATTACK" Language="zh_Hans_CN">
+			<Text>[ICON_Declare_formal_war] {1_CivName}开始对{2_CivName}进行军事进攻。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WAR_PREPARATION" Language="zh_Hans_CN">
+			<Text>[ICON_Declare_formal_war] {1_CivName}正在考虑对{2_CivName}发动战争。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_INQUISITION_LAUNCHED" Language="zh_Hans_CN">
+			<Text>[ICON_Religion] {1_CivName}发起了宗教审讯，以铲除反对{2_ReligionName}的异教徒。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_LAND_UNIT_LEVEL" Language="zh_Hans_CN">
+			<Text>[ICON_Promotion] {1_CivName}拥有一个刚获得{3_PromotionName}提升的{2_UnitName}单位。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_MAKE_DOW" Language="zh_Hans_CN">
+			<Text>[ICON_Declare_formal_war] {1_CivName}对{2_OtherPlayer}宣战！</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_NATIONAL_PARK_CREATED" Language="zh_Hans_CN">
+			<Text>[ICON_Terrain] {1_CivName}创建了{2_NationalParkName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_NAVAL_UNIT_LEVEL" Language="zh_Hans_CN">
+			<Text>[ICON_Promotion] {1_CivName}拥有一个刚获得{3_PromotionName}提升的{2_UnitName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_NEW_RELIGIOUS_MAJORITY" Language="zh_Hans_CN">
+			<Text>[ICON_Religion] {1_CivName}的大部分城市目前信奉的宗教：{2_ReligionName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_PILLAGE" Language="zh_Hans_CN">
+			<Text>[ICON_Pillaged] {1_CivName}的{3_UnitName}掠夺了一个敌人的{2_TargetName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_POLICY_ENACTED" Language="zh_Hans_CN">
+			<Text>[ICON_Policy] {1_CivName}采用了{2_SlotName}政策——{3_PolicyName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RECEIVE_DOW" Language="zh_Hans_CN">
+			<Text>[ICON_Declare_formal_war] {2_OtherPlayer}对{1_CivName}宣战！</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RELIC_RECEIVED" Language="zh_Hans_CN">
+			<Text>[ICON_Greatwork_religious] {1_CivName}得到了新的遗物：{2_RelicName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RESEARCH_AGREEMENT" Language="zh_Hans_CN">
+			<Text>[ICON_Research_agreement] {1_CivName}和{2_CivName}结成了科学同盟。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RESEARCH_TECH" Language="zh_Hans_CN">
+			<Text>[ICON_Science] {1_CivName}完成了对{2_TechName}的研究。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_CAPTURED" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] {1_CivName}在{2_CityName}逮捕了{1_CivName}派出的间谍。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_DETECTED" Language="zh_Hans_CN">
+			<Text>[ICON_Pillaged] {1_CivName}在{2_CityName}的宇航中心被来自{3_SpyPlayer}的间谍破坏了。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_UNDETECTED" Language="zh_Hans_CN">
+			<Text>[ICON_Pillaged] {1_CivName}在{2_CityName}的宇航中心被一名未知间谍破坏了。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_GREAT_WORK_HEIST_DETECTED" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] {1_CivName}在{2_CityName}的巨作被来自{3_SpyPlayer}的间谍盗走了。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_GREAT_WORK_HEIST_UNDETECTED" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] {1_CivName}在{2_CityName}的巨作被一名未知间谍盗走了。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_RECRUIT_PARTISANS_DETECTED" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] {1_CivName}正在{2_CityName}镇压由{3_SpyPlayer}招募的游击队。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_RECRUIT_PARTISANS_UNDETECTED" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] {1_CivName}正在{2_CityName}镇压由一名未知间谍招募的游击队。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SABOTAGE_PRODUCTION_DETECTED" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] {1_CivName}在{2_CityName}的工业区被来自{3_SpyPlayer}的间谍破坏了。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SABOTAGE_PRODUCTION_UNDETECTED" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] {1_CivName}在{2_CityName}的工业区被一名未知间谍破坏了。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SIPHON_FUNDS_DETECTED" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] {1_CivName}在{2_CityName}的资金被来自{3_SpyPlayer}的间谍盗走了。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SIPHON_FUNDS_UNDETECTED" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] {1_CivName}在{2_CityName}的资金被一名未知间谍盗走了。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_STEAL_TECH_BOOST_DETECTED" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] {1_CivName}在{2_CityName}的科技方案被来自{3_SpyPlayer}的间谍盗走了。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_STEAL_TECH_BOOST_UNDETECTED" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] {1_CivName}在{2_CityName}的科技方案被一名未知间谍盗走了。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRADE_DEAL" Language="zh_Hans_CN">
+			<Text>[ICON_Gold] {1_CivName}正与{2_CivName}进行交易。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRADE_RENEGE" Language="zh_Hans_CN">
+			<Text>[ICON_Gold] {1_CivName}在同{2_CivName}的交易中食言了。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRAIN_SETTLER" Language="zh_Hans_CN">
+			<Text>[ICON_Unit] {1_CivName}完成训练了新的{2_UnitName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRAIN_UNIT" Language="zh_Hans_CN">
+			<Text>[ICON_Unit] {1_CivName}完成训练了世界上第一个{2_UnitName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRAIN_UNIQUE_UNIT" Language="zh_Hans_CN">
+			<Text>[ICON_Unit] {1_CivName}完成训练了特色单位：{2_UnitName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_PROJECT_STARTED" Language="zh_Hans_CN">
+			<Text>[ICON_Production] {1_CivName}已开始{2_ProjectType}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPACE_RACE_PROJECT_COMPLETED" Language="zh_Hans_CN">
+			<Text>[ICON_Production] {1_CivName}完成太空竞赛项目：{2_ProjectType}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_START_VICTORY_STRATEGY" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] {1_CivName}正在寻求{2_VictoryName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_STOP_VICTORY_STRATEGY" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] {1_CivName}不再寻求{2_VictoryType}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WMD_BUILT" Language="zh_Hans_CN">
+			<Text>[ICON_Nuclear] {1_CivName}建造了{2_WMDCount}大规模杀伤性武器。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WMD_STRIKE" Language="zh_Hans_CN">
+			<Text>[ICON_Nuclear] {1_CivName}发动了大规模杀伤性武器！{2_UnitName}！</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WONDER_STARTED" Language="zh_Hans_CN">
+			<Text>[ICON_Production] {1_CivName}开始在{2_CityName}建造{3_BuildingName}。</Text>
+		</Replace>
+	</LocalizedText>
+</GameData>

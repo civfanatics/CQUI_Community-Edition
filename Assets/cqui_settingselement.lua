@@ -291,6 +291,7 @@ end
 -- ===========================================================================
 --Populates the status message panel checkboxes with appropriate strings
 function InitializeGossipCheckboxes()
+    -- Base Gossip
     Controls.LOC_GOSSIP_AGENDA_KUDOSCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_AGENDA_KUDOS", "X", "Y", "Z", "1", "2", "3"));
     Controls.LOC_GOSSIP_AGENDA_WARNINGCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_AGENDA_WARNING", "X", "Y", "Z", "1", "2", "3"));
     Controls.LOC_GOSSIP_ALLIEDCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_ALLIED", "X", "Y", "Z", "1", "2", "3"));
@@ -306,6 +307,8 @@ function InitializeGossipCheckboxes()
     Controls.LOC_GOSSIP_CLEAR_CAMPCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_CLEAR_CAMP", "X", "Y", "Z", "1", "2", "3") .. " (" .. Locale.Lookup("LOC_IMPROVEMENT_BARBARIAN_CAMP_NAME") .. ")");
     Controls.LOC_GOSSIP_CITY_STATE_INFLUENCECheckbox:SetText(Locale.Lookup("LOC_GOSSIP_CITY_STATE_INFLUENCE", "X", "Y", "Z", "1", "2", "3"));
     Controls.LOC_GOSSIP_CONQUER_CITYCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_CONQUER_CITY", "X", "Y", "Z", "1", "2", "3"));
+    Controls.LOC_GOSSIP_CONQUER_CAPITAL_CITYCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_CONQUER_CAPITAL_CITY", "X", "Y", "Z", "1", "2", "3"));
+    Controls.LOC_GOSSIP_CONSTRUCT_BUILDINGCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_CONSTRUCT_BUILDING", "X", "Y", "Z", "1", "2", "3") .. "  (" .. Locale.Lookup("LOC_BUILDING_NAME") .. ")");
     Controls.LOC_GOSSIP_CONSTRUCT_DISTRICTCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_CONSTRUCT_DISTRICT", "X", "Y", "Z", "1", "2", "3") .. "  (" .. Locale.Lookup("LOC_DISTRICT_NAME") .. ")");
     Controls.LOC_GOSSIP_CREATE_PANTHEONCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_CREATE_PANTHEON", "X", "Y", "Z", "1", "2", "3"));
     Controls.LOC_GOSSIP_CULTURVATE_CIVICCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_CULTURVATE_CIVIC", "X", "Y", "Z", "1", "2", "3"));
@@ -321,9 +324,10 @@ function InitializeGossipCheckboxes()
     Controls.LOC_GOSSIP_LAUNCHING_ATTACKCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_LAUNCHING_ATTACK", "X", "Y", "Z", "1", "2", "3"));
     Controls.LOC_GOSSIP_WAR_PREPARATIONCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_WAR_PREPARATION", "X", "Y", "Z", "1", "2", "3"));
     Controls.LOC_GOSSIP_INQUISITION_LAUNCHEDCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_INQUISITION_LAUNCHED", "X", "Y", "Z", "1", "2", "3"));
-    Controls.LOC_GOSSIP_LAND_UNIT_LEVELCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_LAND_UNIT_LEVEL", "X", "Y", "Z", "1", "2", "3"));
+    Controls.LOC_GOSSIP_LAND_UNIT_LEVELCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_LAND_UNIT_LEVEL", "X", "Y", "Z", "1", "2", "3") .. " (" .. Locale.Lookup("LOC_FORMATION_CLASS_LAND_COMBAT_NAME", "") .. ")");
     Controls.LOC_GOSSIP_MAKE_DOWCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_MAKE_DOW", "X", "Y", "Z", "1", "2", "3"));
-    Controls.LOC_GOSSIP_NATIONAL_PARK_CREATEDCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_NATIONAL_PARK_CREATED", "X", "Y", "Z", "1", "2", "3") .. " (" .. Locale.Lookup("LOC_NATIONAL_PARK_NAME", "") .. " )");
+    Controls.LOC_GOSSIP_NATIONAL_PARK_CREATEDCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_NATIONAL_PARK_CREATED", "X", "Y", "Z", "1", "2", "3") .. " (" .. Locale.Lookup("LOC_NATIONAL_PARK_NAME", "") .. ")");
+    Controls.LOC_GOSSIP_NAVAL_UNIT_LEVELCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_NAVAL_UNIT_LEVEL", "X", "Y", "Z", "1", "2", "3") .. " (" .. Locale.Lookup("LOC_FORMATION_CLASS_NAVAL_NAME", "") .. ")");
     Controls.LOC_GOSSIP_NEW_RELIGIOUS_MAJORITYCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_NEW_RELIGIOUS_MAJORITY", "X", "Y", "Z", "1", "2", "3"));
     Controls.LOC_GOSSIP_PILLAGECheckbox:SetText(Locale.Lookup("LOC_GOSSIP_PILLAGE", "X", "Y", "Z", "1", "2", "3"));
     Controls.LOC_GOSSIP_POLICY_ENACTEDCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_POLICY_ENACTED", "X", "Y", "Z", "1", "2", "3"));
@@ -331,6 +335,7 @@ function InitializeGossipCheckboxes()
     Controls.LOC_GOSSIP_RELIC_RECEIVEDCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_RELIC_RECEIVED", "X", "Y", "Z", "1", "2", "3"));
     Controls.LOC_GOSSIP_RESEARCH_AGREEMENTCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_RESEARCH_AGREEMENT", "X", "Y", "Z", "1", "2", "3"));
     Controls.LOC_GOSSIP_RESEARCH_TECHCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_RESEARCH_TECH", "X", "Y", "Z", "1", "2", "3"));
+    Controls.LOC_GOSSIP_SPY_CAPTUREDCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_SPY_CAPTURED", "X", "Y", "Z", "1", "2", "3"));
     Controls.LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_DETECTEDCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_DETECTED", "X", "Y", "Z", "1", "2", "3"));
     Controls.LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_UNDETECTEDCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_UNDETECTED", "X", "Y", "Z", "1", "2", "3"));
     Controls.LOC_GOSSIP_SPY_GREAT_WORK_HEIST_DETECTEDCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_SPY_GREAT_WORK_HEIST_DETECTED", "X", "Y", "Z", "1", "2", "3"));
@@ -349,6 +354,7 @@ function InitializeGossipCheckboxes()
     Controls.LOC_GOSSIP_TRAIN_UNITCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_TRAIN_UNIT", "X", "Y", "Z", "1", "2", "3"));
     Controls.LOC_GOSSIP_TRAIN_UNIQUE_UNITCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_TRAIN_UNIQUE_UNIT", "X", "Y", "Z", "1", "2", "3"));
     Controls.LOC_GOSSIP_PROJECT_STARTEDCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_PROJECT_STARTED", "X", "Y", "Z", "1", "2", "3") .. " (" .. Locale.Lookup("LOC_PROJECT_NAME") .. ")");
+    Controls.LOC_GOSSIP_SPACE_RACE_PROJECT_COMPLETEDCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_SPACE_RACE_PROJECT_COMPLETED", "X", "Y", "Z", "1", "2", "3") .. " (" .. Locale.Lookup("LOC_PROJECT_NAME") .. ")");
     Controls.LOC_GOSSIP_START_VICTORY_STRATEGYCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_START_VICTORY_STRATEGY", "X", "Y", "Z", "1", "2", "3") .. " (" .. Locale.Lookup("LOC_VICTORY_DEFAULT_NAME") .. ")");
     Controls.LOC_GOSSIP_STOP_VICTORY_STRATEGYCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_STOP_VICTORY_STRATEGY", "X", "Y", "Z", "1", "2", "3") .. " (" .. Locale.Lookup("LOC_VICTORY_DEFAULT_NAME") .. ")");
     Controls.LOC_GOSSIP_WMD_BUILTCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_WMD_BUILT", "X", "Y", "Z", "1", "2", "3"));
@@ -370,6 +376,8 @@ function InitializeGossipCheckboxes()
     PopulateCheckBox(Controls.LOC_GOSSIP_CLEAR_CAMPCheckbox, "CQUI_LOC_GOSSIP_CLEAR_CAMP");
     PopulateCheckBox(Controls.LOC_GOSSIP_CITY_STATE_INFLUENCECheckbox, "CQUI_LOC_GOSSIP_CITY_STATE_INFLUENCE");
     PopulateCheckBox(Controls.LOC_GOSSIP_CONQUER_CITYCheckbox, "CQUI_LOC_GOSSIP_CONQUER_CITY");
+    PopulateCheckBox(Controls.LOC_GOSSIP_CONQUER_CAPITAL_CITYCheckbox, "CQUI_LOC_GOSSIP_CONQUER_CAPITAL_CITY");
+    PopulateCheckBox(Controls.LOC_GOSSIP_CONSTRUCT_BUILDINGCheckbox, "CQUI_LOC_GOSSIP_CONSTRUCT_BUILDING");
     PopulateCheckBox(Controls.LOC_GOSSIP_CONSTRUCT_DISTRICTCheckbox, "CQUI_LOC_GOSSIP_CONSTRUCT_DISTRICT");
     PopulateCheckBox(Controls.LOC_GOSSIP_CREATE_PANTHEONCheckbox, "CQUI_LOC_GOSSIP_CREATE_PANTHEON");
     PopulateCheckBox(Controls.LOC_GOSSIP_CULTURVATE_CIVICCheckbox, "CQUI_LOC_GOSSIP_CULTURVATE_CIVIC");
@@ -388,6 +396,7 @@ function InitializeGossipCheckboxes()
     PopulateCheckBox(Controls.LOC_GOSSIP_LAND_UNIT_LEVELCheckbox, "CQUI_LOC_GOSSIP_LAND_UNIT_LEVEL");
     PopulateCheckBox(Controls.LOC_GOSSIP_MAKE_DOWCheckbox, "CQUI_LOC_GOSSIP_MAKE_DOW");
     PopulateCheckBox(Controls.LOC_GOSSIP_NATIONAL_PARK_CREATEDCheckbox, "CQUI_LOC_GOSSIP_NATIONAL_PARK_CREATED");
+    PopulateCheckBox(Controls.LOC_GOSSIP_NAVAL_UNIT_LEVELCheckbox, "CQUI_LOC_GOSSIP_NAVAL_UNIT_LEVEL");
     PopulateCheckBox(Controls.LOC_GOSSIP_NEW_RELIGIOUS_MAJORITYCheckbox, "CQUI_LOC_GOSSIP_NEW_RELIGIOUS_MAJORITY");
     PopulateCheckBox(Controls.LOC_GOSSIP_PILLAGECheckbox, "CQUI_LOC_GOSSIP_PILLAGE");
     PopulateCheckBox(Controls.LOC_GOSSIP_POLICY_ENACTEDCheckbox, "CQUI_LOC_GOSSIP_POLICY_ENACTED");
@@ -395,6 +404,7 @@ function InitializeGossipCheckboxes()
     PopulateCheckBox(Controls.LOC_GOSSIP_RELIC_RECEIVEDCheckbox, "CQUI_LOC_GOSSIP_RELIC_RECEIVED");
     PopulateCheckBox(Controls.LOC_GOSSIP_RESEARCH_AGREEMENTCheckbox, "CQUI_LOC_GOSSIP_RESEARCH_AGREEMENT");
     PopulateCheckBox(Controls.LOC_GOSSIP_RESEARCH_TECHCheckbox, "CQUI_LOC_GOSSIP_RESEARCH_TECH");
+    PopulateCheckBox(Controls.LOC_GOSSIP_SPY_CAPTUREDCheckbox, "CQUI_LOC_GOSSIP_SPY_CAPTURED");
     PopulateCheckBox(Controls.LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_DETECTEDCheckbox, "CQUI_LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_DETECTED");
     PopulateCheckBox(Controls.LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_UNDETECTEDCheckbox, "CQUI_LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_UNDETECTED");
     PopulateCheckBox(Controls.LOC_GOSSIP_SPY_GREAT_WORK_HEIST_DETECTEDCheckbox, "CQUI_LOC_GOSSIP_SPY_GREAT_WORK_HEIST_DETECTED");
@@ -413,11 +423,51 @@ function InitializeGossipCheckboxes()
     PopulateCheckBox(Controls.LOC_GOSSIP_TRAIN_UNITCheckbox, "CQUI_LOC_GOSSIP_TRAIN_UNIT");
     PopulateCheckBox(Controls.LOC_GOSSIP_TRAIN_UNIQUE_UNITCheckbox, "CQUI_LOC_GOSSIP_TRAIN_UNIQUE_UNIT");
     PopulateCheckBox(Controls.LOC_GOSSIP_PROJECT_STARTEDCheckbox, "CQUI_LOC_GOSSIP_PROJECT_STARTED");
+    PopulateCheckBox(Controls.LOC_GOSSIP_SPACE_RACE_PROJECT_COMPLETEDCheckbox, "CQUI_LOC_GOSSIP_SPACE_RACE_PROJECT_COMPLETED");
     PopulateCheckBox(Controls.LOC_GOSSIP_START_VICTORY_STRATEGYCheckbox, "CQUI_LOC_GOSSIP_START_VICTORY_STRATEGY");
     PopulateCheckBox(Controls.LOC_GOSSIP_STOP_VICTORY_STRATEGYCheckbox, "CQUI_LOC_GOSSIP_STOP_VICTORY_STRATEGY");
     PopulateCheckBox(Controls.LOC_GOSSIP_WMD_BUILTCheckbox, "CQUI_LOC_GOSSIP_WMD_BUILT");
     PopulateCheckBox(Controls.LOC_GOSSIP_WMD_STRIKECheckbox, "CQUI_LOC_GOSSIP_WMD_STRIKE");
     PopulateCheckBox(Controls.LOC_GOSSIP_WONDER_STARTEDCheckbox, "CQUI_LOC_GOSSIP_WONDER_STARTED");
+
+    -- Expansion 1 Gossip
+    if g_bIsRiseAndFall or g_bIsGatheringStorm then
+        Controls.LOC_GOSSIP_SPY_FOMENT_UNREST_DETECTEDCheckbox:SetHide(false);
+        Controls.LOC_GOSSIP_SPY_FOMENT_UNREST_UNDETECTEDCheckbox:SetHide(false);
+        Controls.LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_DETECTEDCheckbox:SetHide(false);
+        Controls.LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_UNDETECTEDCheckbox:SetHide(false);
+        
+        Controls.LOC_GOSSIP_SPY_FOMENT_UNREST_DETECTEDCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_SPY_FOMENT_UNREST_DETECTED", "X", "Y", "Z", "1", "2", "3"));
+        Controls.LOC_GOSSIP_SPY_FOMENT_UNREST_UNDETECTEDCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_SPY_FOMENT_UNREST_UNDETECTED", "X", "Y", "Z", "1", "2", "3"));
+        Controls.LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_DETECTEDCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_DETECTED", "X", "Y", "Z", "1", "2", "3"));
+        Controls.LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_UNDETECTEDCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_UNDETECTED", "X", "Y", "Z", "1", "2", "3"));
+
+        PopulateCheckBox(Controls.LOC_GOSSIP_SPY_FOMENT_UNREST_DETECTEDCheckbox, "CQUI_LOC_GOSSIP_SPY_FOMENT_UNREST_DETECTED");
+        PopulateCheckBox(Controls.LOC_GOSSIP_SPY_FOMENT_UNREST_UNDETECTEDCheckbox, "CQUI_LOC_GOSSIP_SPY_FOMENT_UNREST_UNDETECTED");
+        PopulateCheckBox(Controls.LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_DETECTEDCheckbox, "CQUI_LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_DETECTED");
+        PopulateCheckBox(Controls.LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_UNDETECTEDCheckbox, "CQUI_LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_UNDETECTED");
+    end
+
+    -- Expansion 2 Gossip
+    if g_bIsGatheringStorm then
+        Controls.LOC_GOSSIP_SPY_DAM_BREACHED_DETECTEDCheckbox:SetHide(false);
+        Controls.LOC_GOSSIP_SPY_DAM_BREACHED_UNDETECTEDCheckbox:SetHide(false);
+        Controls.LOC_GOSSIP_ROCK_CONCERTCheckbox:SetHide(false);
+        Controls.LOC_GOSSIP_POWERED_CITYCheckbox:SetHide(false);
+        Controls.LOC_GOSSIP_RANDOM_EVENTCheckbox:SetHide(false);
+        
+        Controls.LOC_GOSSIP_SPY_DAM_BREACHED_DETECTEDCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_SPY_DAM_BREACHED_DETECTED", "X", "Y", "Z", "1", "2", "3"));
+        Controls.LOC_GOSSIP_SPY_DAM_BREACHED_UNDETECTEDCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_SPY_DAM_BREACHED_UNDETECTED", "X", "Y", "Z", "1", "2", "3"));
+        Controls.LOC_GOSSIP_ROCK_CONCERTCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_ROCK_CONCERT", "X", "Y", "Z", "1", "2", "3"));
+        Controls.LOC_GOSSIP_POWERED_CITYCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_POWERED_CITY", "X", "Y", "Z", "1", "2", "3"));
+        Controls.LOC_GOSSIP_RANDOM_EVENTCheckbox:SetText(Locale.Lookup("LOC_GOSSIP_RANDOM_EVENT", "X", "Y", "Z", "1", "2", "3"));
+
+        PopulateCheckBox(Controls.LOC_GOSSIP_SPY_DAM_BREACHED_DETECTEDCheckbox, "CQUI_LOC_GOSSIP_SPY_DAM_BREACHED_DETECTED");
+        PopulateCheckBox(Controls.LOC_GOSSIP_SPY_DAM_BREACHED_UNDETECTEDCheckbox, "CQUI_LOC_GOSSIP_SPY_DAM_BREACHED_UNDETECTED");
+        PopulateCheckBox(Controls.LOC_GOSSIP_ROCK_CONCERTCheckbox, "CQUI_LOC_GOSSIP_ROCK_CONCERT");
+        PopulateCheckBox(Controls.LOC_GOSSIP_POWERED_CITYCheckbox, "CQUI_LOC_GOSSIP_POWERED_CITY");
+        PopulateCheckBox(Controls.LOC_GOSSIP_RANDOM_EVENTCheckbox, "CQUI_LOC_GOSSIP_RANDOM_EVENT");
+    end
 end
 
 -- ===========================================================================
