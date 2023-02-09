@@ -516,27 +516,38 @@ end
 function CQUI_CheckPolicyCanBeChanged()
     local pPlayer = Players[Game.GetLocalPlayer()]
     if (pPlayer == nil) then
-        return false
+        return false;
     end
 
-    if CQUI_PolicyReminderClosed or not CQUI_ShowPolicyReminder then
-        return false
+    if (CQUI_PolicyReminderClosed or not CQUI_ShowPolicyReminder) then
+        return false;
     end
 
-    -- AURENCY : get the Index of the future tech
-    local futureCivicIndex = GameInfo["Civics"]["CIVIC_FUTURE_CIVIC"].Index
-
-    local PRD:table = pPlayer:GetCulture()
-    local completedThisTurnIndex = PRD:GetCivicCompletedThisTurn()
-
-    if (PRD:CivicCompletedThisTurn() 
-        and completedThisTurnIndex ~= futureCivicIndex
-        and completedThisTurnIndex ~= -1 -- Civs with free policy slots can show, on the first turn, as CivicCompletedThisTurn = true and GetCivicCompletedThisTurn as -1
-        and not PRD:PolicyChangeMade()) then
-        return true
+    local PRD:table = pPlayer:GetCulture();
+    if (not PRD:CivicCompletedThisTurn() or PRD:PolicyChangeMade()) then
+        return false;
+    end
+    
+    local civicInfo:table = GameInfo.Civics[PRD:GetCivicCompletedThisTurn()];
+    if (civicInfo == nil) then
+        return false;
     end
 
-    return false
+    local civicType = civicInfo.CivicType;
+    local unlockables = GetUnlockablesForCivic(civicType, player);
+
+    if (unlockables and #unlockables > 0) then
+        for i,v in ipairs(unlockables) do
+            local typeName = v[1];
+            local typeInfo = GameInfo.Types[typeName];
+            
+            if (typeInfo and typeInfo.Kind == "KIND_POLICY") then
+                return true;
+            end
+        end
+    end
+    
+    return false;
 end
 
 -- ===========================================================================
@@ -1104,10 +1115,6 @@ function OnLocalPlayerTurnBegin()
         -- if auto-cycle is OFF, play this sound to indicate "start of turn"
         if (not UserConfiguration.IsAutoUnitCycle()) then
                 UI.PlaySound("SP_Turn_Start");
-            -- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
-                -- AZURENCY : also reset the policy reminder shown status
-                CQUI_PolicyReminderClosed = false
-            -- ==== CQUI CUSTOMIZATION END  ====================================================================================== -- 
         end
     end
 end
@@ -1227,6 +1234,11 @@ end
 -- ===========================================================================
 function OnTurnBegin()
     m_unreadiedTurn = false;
+    
+    -- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
+    -- Reset the policy reminder shown status
+    CQUI_PolicyReminderClosed = false;
+    -- ==== CQUI CUSTOMIZATION END  ====================================================================================== -- 
 end
 
 -- ===========================================================================
