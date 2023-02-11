@@ -118,25 +118,27 @@ if GameInfo.Improvements["IMPROVEMENT_GEOTHERMAL_PLANT"] ~= nil then
 end
 
 
--- SEASIDE RESORTS
+-- SEASIDE RESORTS (Only add if exists)
 --------------------------------------
-table.insert(GetConfigRules("COLOR_BUILDER_LENS_P2"),
-    function(pPlot)
-        PrintPlotCheck(pPlot, "P2 Seaside Resort check");
+if GameInfo.Improvements["IMPROVEMENT_BEACH_RESORT"] ~= nil then
+    table.insert(GetConfigRules("COLOR_BUILDER_LENS_P2"),
+        function(pPlot)
+            PrintPlotCheck(pPlot, "P2 Seaside Resort check");
 
-        local localPlayer = Game.GetLocalPlayer()
-        local pPlayer:table = Players[localPlayer]
-        local resortImprovInfo = GameInfo.Improvements["IMPROVEMENT_BEACH_RESORT"]
-        local iAppeal = pPlot:GetAppeal()
-        if pPlot:GetOwner() == localPlayer and not pPlot:IsMountain() and not plotHasDistrict(pPlot)
-                and iAppeal >= resortImprovInfo.MinimumAppeal
-                and pPlot:GetImprovementType() ~= resortImprovInfo.Index then
+            local localPlayer = Game.GetLocalPlayer()
+            local pPlayer:table = Players[localPlayer]
+            local resortImprovInfo = GameInfo.Improvements["IMPROVEMENT_BEACH_RESORT"]
+            local iAppeal = pPlot:GetAppeal()
+            if pPlot:GetOwner() == localPlayer and not pPlot:IsMountain() and not plotHasDistrict(pPlot)
+                    and iAppeal >= resortImprovInfo.MinimumAppeal
+                    and pPlot:GetImprovementType() ~= resortImprovInfo.Index then
 
-            if plotCanHaveImprovement(pPlayer, pPlot, resortImprovInfo) then
-                return GetConfiguredColor("COLOR_BUILDER_LENS_P2")
+                if plotCanHaveImprovement(pPlayer, pPlot, resortImprovInfo) then
+                    return GetConfiguredColor("COLOR_BUILDER_LENS_P2")
+                end
             end
-        end
-    end)
+        end)
+end
 
 
 -- SKI RESORTS (Only add if exists)

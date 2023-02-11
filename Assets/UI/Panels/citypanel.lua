@@ -739,7 +739,9 @@ function ViewMain( data:table )
     end
 
     if not GameCapabilities.HasCapability("CAPABILITY_FAITH") then
-        Controls.ProduceWithFaithCheck:SetHide(true);
+        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+        -- Controls.ProduceWithFaithCheck:SetHide(true);
+        -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
         Controls.FaithGrid:SetHide(true);
     end
 
@@ -1335,8 +1337,10 @@ function OnProductionPanelClose()
     -- If no longer checked, make sure the side Production Panel closes.
     -- Clear the checks, even if hidden, the Production Pane can close after the City Panel has already been closed.
     Controls.ChangeProductionCheck:SetCheck( false );
-    Controls.ProduceWithFaithCheck:SetCheck( false );
-    Controls.ProduceWithGoldCheck:SetCheck( false );
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- Controls.ProduceWithFaithCheck:SetCheck( false );
+    -- Controls.ProduceWithGoldCheck:SetCheck( false );
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 
     AnimateToOpenFromWithProductionQueue();
 end
@@ -1475,32 +1479,34 @@ end
 
 -- ===========================================================================
 function OnTogglePurchaseWithGold()
-    if Controls.ProduceWithGoldCheck:IsChecked() then
-        RecenterCameraOnCity();
-        LuaEvents.CityPanel_PurchaseGoldOpen();
-        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-        Controls.ChangeProductionCheck:SetCheck( false );
-        Controls.ProduceWithFaithCheck:SetCheck( false );
-        --AnimateToWithProductionQueue();
-        -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
-    else
-        LuaEvents.CityPanel_ProductionClose();
-    end
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- CQUI allows purchasing with gold at all times, so no code is required here
+    -- if Controls.ProduceWithGoldCheck:IsChecked() then
+    --     RecenterCameraOnCity();
+    --     LuaEvents.CityPanel_PurchaseGoldOpen();
+    --     Controls.ChangeProductionCheck:SetCheck( false );
+    --     Controls.ProduceWithFaithCheck:SetCheck( false );
+    --     --AnimateToWithProductionQueue();
+    -- else
+    --     LuaEvents.CityPanel_ProductionClose();
+    -- end
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 end
 
 -- ===========================================================================
 function OnTogglePurchaseWithFaith()
-    if Controls.ProduceWithFaithCheck:IsChecked() then
-        RecenterCameraOnCity();
-        LuaEvents.CityPanel_PurchaseFaithOpen();
-        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
-        Controls.ChangeProductionCheck:SetCheck( false );
-        Controls.ProduceWithGoldCheck:SetCheck( false );
-        --AnimateToWithProductionQueue();
-        -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
-    else
-        LuaEvents.CityPanel_ProductionClose();
-    end
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- CQUI allows purchasing with faith at all times, so no code is required here
+    -- if Controls.ProduceWithFaithCheck:IsChecked() then
+    --     RecenterCameraOnCity();
+    --     LuaEvents.CityPanel_PurchaseFaithOpen();
+    --     Controls.ChangeProductionCheck:SetCheck( false );
+    --     Controls.ProduceWithGoldCheck:SetCheck( false );
+    --     --AnimateToWithProductionQueue();
+    -- else
+    --     LuaEvents.CityPanel_ProductionClose();
+    -- end
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 end
 
 function OnCloseOverviewPanel()

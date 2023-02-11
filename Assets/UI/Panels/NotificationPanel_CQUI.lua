@@ -52,14 +52,14 @@ function OnTechBoostActivateNotification( notificationEntry : NotificationType, 
             local techSource = pNotification:GetValue("TechSource");
             if (techIndex ~= nil and techProgress ~= nil and techSource ~= nil) then
                 -- CQUI update all cities real housing when play as India and boosted and researched Sanitation
-                if techIndex == GameInfo.Technologies["TECH_SANITATION"].Index then        -- Sanitation
+                if GameInfo.Technologies["TECH_SANITATION"] and techIndex == GameInfo.Technologies["TECH_SANITATION"].Index then        -- Sanitation
                     if PlayerConfigurations[notificationEntry.m_PlayerID]:GetCivilizationTypeName() == "CIVILIZATION_INDIA" then
                         if Players[notificationEntry.m_PlayerID]:GetTechs():HasTech(techIndex) then
                             LuaEvents.CQUI_AllCitiesInfoUpdatedOnTechCivicBoost(notificationEntry.m_PlayerID);
                         end
                     end
                 -- CQUI update all cities real housing when play as Indonesia and boosted and researched Mass Production
-                elseif techIndex == GameInfo.Technologies["TECH_MASS_PRODUCTION"].Index then        -- Mass Production
+                elseif GameInfo.Technologies["TECH_MASS_PRODUCTION"] and techIndex == GameInfo.Technologies["TECH_MASS_PRODUCTION"].Index then        -- Mass Production
                     if PlayerConfigurations[notificationEntry.m_PlayerID]:GetCivilizationTypeName() == "CIVILIZATION_INDONESIA" then
                         if Players[notificationEntry.m_PlayerID]:GetTechs():HasTech(techIndex) then
                             LuaEvents.CQUI_AllCitiesInfoUpdatedOnTechCivicBoost(notificationEntry.m_PlayerID);
@@ -83,14 +83,14 @@ function OnCivicBoostActivateNotification( notificationEntry : NotificationType,
             local civicSource = pNotification:GetValue("CivicSource");
             if (civicIndex ~= nil and civicProgress ~= nil and civicSource ~= nil) then
                 -- CQUI update all cities real housing when play as Cree and boosted and researched Civil Service
-                if civicIndex == GameInfo.Civics["CIVIC_CIVIL_SERVICE"].Index then -- Civil Service
+                if GameInfo.Civics["CIVIC_CIVIL_SERVICE"] and civicIndex == GameInfo.Civics["CIVIC_CIVIL_SERVICE"].Index then -- Civil Service
                     if PlayerConfigurations[notificationEntry.m_PlayerID]:GetCivilizationTypeName() == "CIVILIZATION_CREE" then
                         if Players[notificationEntry.m_PlayerID]:GetCulture():HasCivic(civicIndex) then
                             LuaEvents.CQUI_AllCitiesInfoUpdatedOnTechCivicBoost(notificationEntry.m_PlayerID);
                         end
                     end
                 -- CQUI update all cities real housing when play as Scotland and boosted and researched Globalization
-                elseif civicIndex == GameInfo.Civics["CIVIC_GLOBALIZATION"].Index then -- Globalization
+                elseif GameInfo.Civics["CIVIC_GLOBALIZATION"] and civicIndex == GameInfo.Civics["CIVIC_GLOBALIZATION"].Index then -- Globalization
                     if PlayerConfigurations[notificationEntry.m_PlayerID]:GetCivilizationTypeName() == "CIVILIZATION_SCOTLAND" then
                         if Players[notificationEntry.m_PlayerID]:GetCulture():HasCivic(civicIndex) then
                             LuaEvents.CQUI_AllCitiesInfoUpdatedOnTechCivicBoost(notificationEntry.m_PlayerID);
@@ -215,9 +215,9 @@ function Initialize_RewardDescriptions()
                 local infoUnit:table = GameInfo.Units[sType];
                 if infoUnit == nil then
                     returnStr = "Warning! Cannot decode"..sSubType;
+                else
+                    returnStr = Locale.Lookup(sDescription, iNum, Locale.Lookup(infoUnit.Name));
                 end
-
-                returnStr = Locale.Lookup(sDescription, iNum, Locale.Lookup(infoUnit.Name));
             elseif g_RewardExceptions[sSubType] == "res" then
                 local iNum:number = tonumber(GetModifierParam(sModifierID, "Amount"));
                 returnStr = Locale.Lookup("LOC_GOODYHUT_STRATEGIC_RESOURCES_DESCRIPTION", iNum);
