@@ -235,30 +235,115 @@
     <Row Tag="LOC_CQUI_POPUPS_ALWAYSOPENTECHTREES" Language="en_US">
       <Text>Always open full tree instead of popups</Text>
     </Row>
-    <Row Tag="LOC_CQUI_POPUPS_TECHVISUAL" Language="en_US">
-      <Text>Tech/Civic popup visual</Text>
+    <Row Tag="LOC_CQUI_POPUPS_BOOSTUNLOCKEDVISUAL" Language="en_US">
+      <Text>Tech/Civic boost popup visual</Text>
     </Row>
-    <Row Tag="LOC_CQUI_POPUPS_TECHVISUAL_TOOLTIP" Language="en_US">
+    <Row Tag="LOC_CQUI_POPUPS_BOOSTUNLOCKEDVISUAL_TOOLTIP" Language="en_US">
+      <Text>Toggles the popup that appears whenever a tech or civic is boosted</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_ERACOMPLETEVISUAL" Language="en_US">
+      <Text>Era reached popup visual</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_ERACOMPLETEVISUAL_TOOLTIP" Language="en_US">
+      <Text>Toggles the popup visual that appears whenever a new era is reached</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_HERODISCOVEREDVISUAL" Language="en_US">
+      <Text>Hero discovered popup visual</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_HERODISCOVEREDVISUAL_TOOLTIP" Language="en_US">
+      <Text>Toggles the popup that appears whenever a new hero is discovered</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_HEROEXPIREDVISUAL" Language="en_US">
+      <Text>Hero expired popup visual</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_HEROEXPIREDVISUAL_TOOLTIP" Language="en_US">
+      <Text>Toggles the popup that appears whenever a hero expires</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_HISTORICMOMENTSVISUAL" Language="en_US">
+      <Text>Historic moments popup visual</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_HISTORICMOMENTSVISUAL_TOOLTIP" Language="en_US">
+      <Text>Toggles the automatic popup that appears whenever a historic moment is achieved</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_MULTIPLAYER" Language="en_US">
+      <Text>Multiplayer popups</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_MULTIPLAYER_TOOLTIP" Language="en_US">
+      <Text>Allows popup visuals and popup movies in multiplayer[NEWLINE][NEWLINE]Note: Some popup movie camera animations are missing in multiplayer</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_NATURALDISASTERVISUAL" Language="en_US">
+      <Text>Natural disaster popup movie</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_NATURALDISASTERVISUAL_TOOLTIP" Language="en_US">
+      <Text>Toggles the popup movie that appears whenever a natural disaster occurs</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_NATURALWONDERVISUAL" Language="en_US">
+      <Text>Natural wonder popup movie</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_NATURALWONDERVISUAL_TOOLTIP" Language="en_US">
+      <Text>Toggles the popup movie that appears whenever a natural wonder is discovered</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_NATURALWONDERAUDIO" Language="en_US">
+      <Text>Natural wonder popup audio</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_NATURALWONDERAUDIO_TOOLTIP" Language="en_US">
+      <Text>Toggles the popup audio that plays whenever a natural wonder is discovered. Is fully independent of the visual component and can play even when there is no visible popup</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_PROJECTBUILTVISUAL" Language="en_US">
+      <Text>Space race project popup movie</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_PROJECTBUILTVISUAL_TOOLTIP" Language="en_US">
+      <Text>Toggles the popup movie that appears whenever a space race project is completed</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_ROCKBANDMOVIEVISUAL" Language="en_US">
+      <Text>Rock band popup movie</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_ROCKBANDMOVIEVISUAL_TOOLTIP" Language="en_US">
+      <Text>Toggles the popup movie that appears whenever you perform a rock concert</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_SECRETSOCIETYDISCOVEREDVISUAL" Language="en_US">
+      <Text>Secret Society discovered popup visual</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_SECRETSOCIETYDISCOVEREDVISUAL_TOOLTIP" Language="en_US">
+      <Text>Toggles the popup that appears whenever a new secret society is discovered</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_SECRETSOCIETYJOINEDVISUAL" Language="en_US">
+      <Text>Secret Society joined popup visual</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_SECRETSOCIETYJOINEDVISUAL_TOOLTIP" Language="en_US">
+      <Text>Toggles the popup that appears whenever a secret society is joined</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_TECHCIVICCOMPLETEDVISUAL" Language="en_US">
+      <Text>Tech/Civic achieved popup visual</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_TECHCIVICCOMPLETEDVISUAL_TOOLTIP" Language="en_US">
       <Text>Toggles the popup that appears whenever a new tech or civic is achieved</Text>
     </Row>
-    <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO" Language="en_US">
-      <Text>Play audio with Tech/Civic popup</Text>
+    <Row Tag="LOC_CQUI_POPUPS_TECHCIVICCOMPLETEDAUDIO" Language="en_US">
+      <Text>Tech/Civic achieved popup audio</Text>
     </Row>
-    <Row Tag="LOC_CQUI_POPUPS_TECHAUDIO_TOOLTIP" Language="en_US">
-      <Text>Toggle to automatically play the audio voiceover when the Tech/Civic popup appears</Text>
+    <Row Tag="LOC_CQUI_POPUPS_TECHCIVICCOMPLETEDAUDIO_TOOLTIP" Language="en_US">
+      <Text>Toggle to automatically play the audio voiceover when the Tech/Civic achieved popup appears</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_UNITCAPTUREDVISUAL" Language="en_US">
+      <Text>Unit captured popup visual</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_POPUPS_UNITCAPTUREDVISUAL_TOOLTIP" Language="en_US">
+      <Text>Toggles the popup that appears whenever you capture a unit or whenever your unit is captured</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTVISUAL" Language="en_US">
-      <Text>Wonder popup movie</Text>
+      <Text>World wonder popup movie</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTVISUAL_TOOLTIP" Language="en_US">
-      <Text>Toggles the popup movie that appears whenever a wonder is completed</Text>
+      <Text>Toggles the popup movie that appears whenever a world wonder is completed</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTAUDIO" Language="en_US">
-      <Text>Wonder popup audio</Text>
+      <Text>World wonder popup audio</Text>
     </Row>
     <Row Tag="LOC_CQUI_POPUPS_WONDERBUILTAUDIO_TOOLTIP" Language="en_US">
-      <Text>Toggles the popup audio that plays whenever a wonder is completed. Is fully independent of the visual component and can play even when there is no visible popup.</Text>
+      <Text>Toggles the popup audio that plays whenever a world wonder is completed. Is fully independent of the visual component and can play even when there is no visible popup</Text>
     </Row>
+
     <Row Tag="LOC_CQUI_SETTINGS_REMINDER" Language="en_US">
       <Text>Remember: CQUI settings are attached to individual saves![NEWLINE]If you'd like to change a setting by default, please read the info[NEWLINE]in cqui_settings.sql file within the [MOD INSTALL DIRECTORY]/CQUI/Assets directory</Text>
     </Row>

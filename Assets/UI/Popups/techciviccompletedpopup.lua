@@ -9,34 +9,39 @@
 -- ===========================================================================
 --  Popups when a Tech or Civic are completed
 -- ===========================================================================
-include("TechAndCivicSupport");      -- (Already includes Civ6Common and InstanceManager) PopulateUnlockablesForTech, PopulateUnlockablesForCivic, GetUnlockablesForCivic, GetUnlockablesForTech
+include("TechAndCivicSupport");         -- (Already includes Civ6Common and InstanceManager) PopulateUnlockablesForTech, PopulateUnlockablesForCivic, GetUnlockablesForCivic, GetUnlockablesForTech
 include("LocalPlayerActionSupport");
 
 
 -- ===========================================================================
 --  CONSTANTS / MEMBERS
 -- ===========================================================================
-local RELOAD_CACHE_ID        :string = "TechCivicCompletedPopup";
-local m_unlockIM             :table  = InstanceManager:new( "UnlockInstance", "Top", Controls.UnlockStack );
-local m_isDisabledByTutorial :boolean= false;
-local m_kCurrentData         :table  = nil;
-local m_kPopupData           :table  = {};
-local m_isCivicData          :boolean= false;
-local m_quote_audio          :table;
+local RELOAD_CACHE_ID       :string = "TechCivicCompletedPopup";
+local m_unlockIM            :table  = InstanceManager:new( "UnlockInstance", "Top", Controls.UnlockStack );
+local m_isDisabledByTutorial:boolean= false;
+local m_kCurrentData        :table  = nil;
+local m_kPopupData          :table  = {};
+local m_isCivicData         :boolean= false;
+local m_quote_audio:table;
 
 -- === BEGIN CQUI CHANGES ====================================================
-local CQUI_TechPopupVisual = true;
-local CQUI_TechPopupAudio  = true;
-
-function CQUI_OnSettingsUpdate()
-    CQUI_TechPopupVisual = GameConfiguration.GetValue("CQUI_TechPopupVisual");
-    CQUI_TechPopupAudio  = GameConfiguration.GetValue("CQUI_TechPopupAudio");
-end
+local CQUI_TechPopupAudio   :boolean = true;
 -- === END CQUI CHANGES ======================================================
 
 -- ===========================================================================
 --  FUNCTIONS
 -- ===========================================================================
+
+-- === BEGIN CQUI CHANGES ====================================================
+-- ===========================================================================
+--  CQUI added CQUI_OnSettingsUpdate function
+--  Update the local variables based on the user settings
+-- ===========================================================================
+function CQUI_OnSettingsUpdate()
+    -- Get the user settings
+    CQUI_TechPopupAudio  = GameConfiguration.GetValue("CQUI_TechCivicCompletedPopupAudio");
+end
+-- === END CQUI CHANGES ======================================================
 
 -- ===========================================================================
 function ShowCivicCompletedPopup( player:number, civic:number, quote:string, audio:string )
@@ -124,7 +129,7 @@ function ShowCivicCompletedPopup( player:number, civic:number, quote:string, aud
         Controls.ChangeGovernmentButton:RegisterCallback( Mouse.eMouseEnter, function() UI.PlaySound("Main_Menu_Mouse_Over"); end);
     end
 
-    Controls.ChangeGovernmentButton:SetHide(false);  -- Show Change Government Button
+    Controls.ChangeGovernmentButton:SetHide(false); -- Show Change Government Button
 end
 
 
@@ -187,7 +192,7 @@ function ShowTechCompletedPopup( player:number, tech:number, quote:string, audio
         Controls.QuoteButton:SetHide(true);
     end
 
-    Controls.ChangeGovernmentButton:SetHide(true);    -- Hide Change Government Button
+    Controls.ChangeGovernmentButton:SetHide(true); -- Hide Change Government Button
 end
 
 
@@ -207,13 +212,8 @@ end
 -- ===========================================================================
 function AddCompletedPopup( player:number, civic:number, tech:number, isByUser:boolean )
     local isNotBlockedByTutorial:boolean = (not m_isDisabledByTutorial);
-    if player == Game.GetLocalPlayer() 
-       and isNotBlockedByTutorial
-    -- === BEGIN CQUI CHANGES ====================================================
-    -- CQUI: Do the work for the popup only if enabled
-       and CQUI_TechPopupVisual
-    -- === END CQUI CHANGES ======================================================
-       and (not GameConfiguration.IsNetworkMultiplayer()) then
+
+    if player == Game.GetLocalPlayer() and isNotBlockedByTutorial then
 
         local results   :table;
         local civicType :string;
@@ -250,14 +250,14 @@ function AddCompletedPopup( player:number, civic:number, tech:number, isByUser:b
         end
 
         table.insert(m_kPopupData, {
-            player    = player,
-            civic     = civic,
-            civicType = civicType,
-            tech      = tech,
-            techType  = techType,
-            isByUser  = isByUser,
-            quote     = quote,
-            audio     = audio
+            player      = player,
+            civic       = civic,
+            civicType   = civicType,
+            tech        = tech,
+            techType    = techType,
+            isByUser    = isByUser,
+            quote       = quote,
+            audio       = audio
         });
 
         -- If its the first (or only) popup data added then queue it in Forge.
@@ -270,17 +270,30 @@ end
 
 -- ===========================================================================
 --  UI Callback
---  Wait one frame via RequestRefresh() to avoid conflicts with other screens.
 -- ===========================================================================
 function OnShow()
+    -- === BEGIN CQUI CHANGES ====================================================
+    -- Wait one frame via RequestRefresh() to avoid conflicts with other screens.
     ContextPtr:RequestRefresh();
+    -- === END CQUI CHANGES ======================================================
 end
 
 
+-- === BEGIN CQUI CHANGES ====================================================
+-- ===========================================================================
+--  CQUI added OnRefresh function
+--  Callback for OnShow()
 -- ===========================================================================
 function OnRefresh()
     ContextPtr:ClearRequestRefresh();
     RealizeNextPopup();
+end
+-- === END CQUI CHANGES ======================================================
+
+
+-- ===========================================================================
+function OnHide()
+    StopSound();
 end
 
 
@@ -312,11 +325,14 @@ function RealizeNextPopup()
     UI.PlaySound("Pause_Advisor_Speech");
     UI.PlaySound("Resume_TechCivic_Speech");
     -- === BEGIN CQUI CHANGES ====================================================
-    -- We will only get here if CQUI_TechPopupVisual is true, only play Audio if desired
+    -- Only play the audio based on the user settings
     if (m_kCurrentData and m_kCurrentData.audio and CQUI_TechPopupAudio) then
-    -- === END CQUI CHANGES ======================================================
         UI.PlaySound( m_kCurrentData.audio );
+    else
+        -- Stop audio from previous popups continuing to play
+        StopSound();
     end
+    -- === END CQUI CHANGES ======================================================
 
     RefreshSize();
 end
@@ -327,9 +343,9 @@ end
 -- ===========================================================================
 function Close()
     StopSound();
-    m_kPopupData = {};  -- Force no data (e.g., immediate end turn)
+    m_kPopupData = {}; -- Force no data (e.g., immediate end turn)
     m_kCurrentData = nil;
-    UIManager:DequeuePopup( ContextPtr );  -- Triggers hide event
+    UIManager:DequeuePopup( ContextPtr ); -- Triggers hide event
 end
 
 -- ===========================================================================
@@ -346,7 +362,7 @@ function TryClose()
     if m_kCurrentData==nil then
         UI.DataError("Attempting to TryClosing the techcivic completed popup but it appears to have no data in it.");
         Close();
-		return;
+        return;
     end
 
     if m_kCurrentData.civicType and string.len(m_kCurrentData.civicType)>0 then
@@ -361,7 +377,7 @@ function TryClose()
         RealizeNextPopup();
         return;
     end
-    
+
     Close();
 end
 
@@ -387,14 +403,14 @@ end
 
 -- ===========================================================================
 function OnChangeGovernment()
-    LuaEvents.TechCivicCompletedPopup_GovernmentOpenGovernments(); -- Open Government Screen  before closing this popup, otherwise a popup in the queue will be shown and immediately hidden
+    LuaEvents.TechCivicCompletedPopup_GovernmentOpenGovernments(); -- Open Government Screen before closing this popup, otherwise a popup in the queue will be shown and immediately hidden
     Close();
     UI.PlaySound("Stop_Speech_Civics");
 end
 
 -- ===========================================================================
 function OnChangePolicy()
-    LuaEvents.TechCivicCompletedPopup_GovernmentOpenPolicies();  -- Open Government Screen  before closing this popup, otherwise a popup in the queue will be shown and immediately hidden
+    LuaEvents.TechCivicCompletedPopup_GovernmentOpenPolicies(); -- Open Government Screen before closing this popup, otherwise a popup in the queue will be shown and immediately hidden
     Close();
     UI.PlaySound("Stop_Speech_Civics");
 end
@@ -406,7 +422,6 @@ function OnInit( isReload:boolean )
     if isReload then
         LuaEvents.GameDebug_GetValues(RELOAD_CACHE_ID);
     end
-
     LateInitialize();
 end
 
@@ -415,11 +430,9 @@ end
 -- ===========================================================================
 function OnShutdown()
     -- Cache values for hotloading...
-    LuaEvents.GameDebug_AddValue(RELOAD_CACHE_ID, "isHidden",      ContextPtr:IsHidden() );
-    LuaEvents.GameDebug_AddValue(RELOAD_CACHE_ID, "m_kPopupData",  m_kPopupData );
-    LuaEvents.GameDebug_AddValue(RELOAD_CACHE_ID, "m_kCurrentData",m_kCurrentData );
-
-    ContextPtr:ClearRefreshHandler();
+    LuaEvents.GameDebug_AddValue(RELOAD_CACHE_ID, "isHidden",       ContextPtr:IsHidden() );
+    LuaEvents.GameDebug_AddValue(RELOAD_CACHE_ID, "m_kPopupData",   m_kPopupData );
+    LuaEvents.GameDebug_AddValue(RELOAD_CACHE_ID, "m_kCurrentData", m_kCurrentData );
 end
 
 -- ===========================================================================
@@ -474,10 +487,12 @@ function OnNotificationPanel_ShowCivicDiscovered(ePlayer, civicIndex, isByUser:b
 end
 
 -- ===========================================================================
--- FOR OVERRIDE
+--  FOR OVERRIDE
 -- ===========================================================================
 function LateInitialize()
-  -- Unmodified version of this file has no code here, this function exists entirely for Override by other mods
+    -- === BEGIN CQUI CHANGES ====================================================
+    -- Unmodified version of this file has no code here, this function exists entirely for Override by other mods
+    -- === END CQUI CHANGES ======================================================
 end
 
 -- ===========================================================================
@@ -487,7 +502,10 @@ function Initialize()
     ContextPtr:SetInputHandler( OnInputHandler, true );
     ContextPtr:SetShutdown( OnShutdown );
     ContextPtr:SetShowHandler( OnShow );
+    ContextPtr:SetHideHandler( OnHide );
+    -- === BEGIN CQUI CHANGES ====================================================
     ContextPtr:SetRefreshHandler( OnRefresh );
+    -- === END CQUI CHANGES ======================================================
 
     Controls.CloseButton:RegisterCallback( Mouse.eLClick, OnClose );
     Controls.CloseButton:RegisterCallback( Mouse.eMouseEnter, function() UI.PlaySound("Main_Menu_Mouse_Over"); end);
@@ -503,6 +521,7 @@ function Initialize()
     Events.LocalPlayerTurnEnd.Add( OnLocalPlayerTurnEnd );
 
     -- === BEGIN CQUI CHANGES ====================================================
+    -- Initialize CQUI Settings function
     LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
     LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
     -- === END CQUI CHANGES ======================================================
