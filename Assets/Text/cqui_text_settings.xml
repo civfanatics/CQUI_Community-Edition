@@ -253,6 +253,12 @@
     <Row Tag="LOC_CQUI_GENERAL_SHOWPRD_TOOLTIP" Language="en_US">
       <Text>Enable a Popup to remind you to change your policy cards before end turn</Text>
     </Row>
+    <Row Tag="LOC_CQUI_GENERAL_AUTOREPEATTECHCIVIC" Language="en_US">
+      <Text>Auto repeat repeatable Techs and Civics</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_GENERAL_AUTOREPEATTECHCIVIC_TOOLTIP" Language="en_US">
+      <Text>Automatically repeat research on technologies and civics that can be repeated (Future Tech and Future Civic)</Text>
+    </Row>
     <Row Tag="LOC_CQUI_TRADER_SCREEN" Language="en_US">
       <Text>Trader Screen</Text>
     </Row>
