@@ -178,6 +178,17 @@ function CQUI_OnUnitFlagPointerExited(playerID:number, unitID:number)
         LuaEvents.CQUI_clearUnitPath();
 
         CQUI_IsFlagHover = false;
+        
+        -- If we have a unit selected with queued movement, display that path
+        if (not UI.IsGameCoreBusy()) then
+            local pSelectedUnit :table = UI.GetHeadSelectedUnit();
+            if pSelectedUnit then
+                local endPlotId = UnitManager.GetQueuedDestination( pSelectedUnit );
+                if endPlotId then
+                    LuaEvents.CQUI_showUnitPath(true);
+                end
+            end
+        end
     end
 end
 
@@ -281,7 +292,9 @@ local tReligionPromosMap:table = {
 
 -- add names to speed up TT creation
 for promoType,promoData in pairs(tReligionPromosMap) do
-    promoData.Name = Locale.Lookup( GameInfo.UnitPromotions[ promoType ].Name );
+    if GameInfo.UnitPromotions[ promoType ] then
+        promoData.Name = Locale.Lookup( GameInfo.UnitPromotions[ promoType ].Name );
+    end
 end
 
 -- ===========================================================================

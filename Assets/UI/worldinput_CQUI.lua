@@ -342,7 +342,7 @@ function RealizeMovementPath(showQueuedPath:boolean, unitID:number)
 
     -- BEGIN CQUI changes from basegame RealizeMovementPath (1st of 2 in this function)
     CQUI_im = UI.GetInterfaceMode();
-    if (CQUI_im == InterfaceModeTypes.CITY_MANAGEMENT or CQUI_im == InterfaceModeTypes.CITY_RANGE_ATTACK or CQUI_im == InterfaceModeTypes.DISTRICT_RANGE_ATTACK) then
+    if (CQUI_im == InterfaceModeTypes.CITY_MANAGEMENT or CQUI_im == InterfaceModeTypes.CITY_RANGE_ATTACK or CQUI_im == InterfaceModeTypes.DISTRICT_RANGE_ATTACK or CQUI_im == InterfaceModeTypes.RANGE_ATTACK) then
         return;
     end
 
@@ -353,15 +353,17 @@ function RealizeMovementPath(showQueuedPath:boolean, unitID:number)
     else
         kUnit = UI.GetHeadSelectedUnit();
     end
-    -- END CQUI changes from basegame RealizeMovementPath (1 of 2)
 
     -- Bail if no selected unit
     if kUnit == nil then
-        UILens.SetActive("Default");
+        if not CQUI_im == InterfaceModeTypes.VIEW_MODAL_LENS then
+            UILens.SetActive("Default");
+        end
         m_cachedPathUnit = nil;
         m_cachedPathPlotId = -1;
         return;
     end
+    -- END CQUI changes from basegame RealizeMovementPath (1 of 2)
 
     -- Bail if unit is not a type that allows movement.
     if GameInfo.Units[kUnit:GetUnitType()].IgnoreMoves then
@@ -639,7 +641,7 @@ function ClearMovementPath()
     UILens.ClearLayerHexes( g_MovementPath );
     UILens.ClearLayerHexes( g_Numbers );
     -- CQUI : As we show path on over
-    if (UI.GetInterfaceMode() ~= InterfaceModeTypes.CITY_RANGE_ATTACK and UI.GetInterfaceMode() ~= InterfaceModeTypes.DISTRICT_RANGE_ATTACK) then
+    if (UI.GetInterfaceMode() ~= InterfaceModeTypes.CITY_RANGE_ATTACK and UI.GetInterfaceMode() ~= InterfaceModeTypes.DISTRICT_RANGE_ATTACK and UI.GetInterfaceMode() ~= InterfaceModeTypes.RANGE_ATTACK) then
         UILens.ClearLayerHexes( g_AttackRange );
     end
     m_cachedPathUnit = nil;

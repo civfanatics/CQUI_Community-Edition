@@ -1339,6 +1339,7 @@ function CQUI_OnLensLayerOff( layerNum:number )
     -- print("CityBannerManager_CQUI: CQUI_OnLensLayerOff ENTRY, layerNum:", layerNum);
     if layerNum == m_HexColoringReligion then
         m_isReligionLensActive = false;
+        UILens.ClearLayerHexes(m_HexColoringReligion);
         RealizeReligion();
     end
 

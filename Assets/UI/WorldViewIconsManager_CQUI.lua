@@ -8,6 +8,7 @@ include("CQUICommon.lua");
 -- Cached Base Functions
 -- ===========================================================================
 BASE_CQUI_SetResourceIcon = SetResourceIcon;
+BASE_CQUI_AddImprovementRecommendationsForCity = AddImprovementRecommendationsForCity;
 BASE_CQUI_LateInitialize = LateInitialize;
 
 -- ===========================================================================
@@ -18,10 +19,12 @@ local CQUI_RESOURCEICONSTYLE_TRANSPARENT = 1;
 local CQUI_RESOURCEICONSTYLE_HIDDEN = 2;
 
 local CQUI_ResourceIconStyle = CQUI_RESOURCEICONSTYLE_TRANSPARENT;
+local CQUI_ShowImprovementsRecommendations :boolean = false;
 local m_LoadScreenClosed = false;
 
 -- ===========================================================================
 function CQUI_GetSettingsValues()
+    CQUI_ShowImprovementsRecommendations = GameConfiguration.GetValue("CQUI_ShowImprovementsRecommendations") == 1;
     CQUI_ResourceIconStyle = GameConfiguration.GetValue("CQUI_ResourceDimmingStyle");
     if CQUI_ResourceIconStyle == nil then
         print("CQUI_ResourceIconStyle is nil!  Using default value (CQUI_RESOURCEICONSTYLE_TRANSPARENT).");
@@ -91,10 +94,12 @@ end
 
 -- ===========================================================================
 --  CQUI modified AddImprovementRecommendationsForCity functiton
---  Don't show builder recommandation, it's often stupid
+--  Show builder recommendations based on settings
 -- ===========================================================================
 function AddImprovementRecommendationsForCity( pCity:table, pSelectedUnit:table )
-    return;
+    if CQUI_ShowImprovementsRecommendations then
+        BASE_CQUI_AddImprovementRecommendationsForCity( pCity, pSelectedUnit );
+    end
 end
 
 -- ===========================================================================

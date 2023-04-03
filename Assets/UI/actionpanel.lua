@@ -784,7 +784,8 @@ function OnEndTurnBlockingChanged( ePrevEndTurnBlockingType:number, eNewEndTurnB
 
             -- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
             -- Azurency : also look at the unit when selecting it.
-            UI.LookAtPlot(unit:GetX(), unit:GetY());
+            pUnit = UI.GetHeadSelectedUnit();
+            UI.LookAtPlot(pUnit:GetX(), pUnit:GetY());
             -- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
         end
     end
