@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameData>
+	<LocalizedText>
+		<!-- Replace Expansion 1 Gossip Text -->
+		<Replace Tag="LOC_GOSSIP_SPY_FOMENT_UNREST_DETECTED" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] 由于{3_SpyPlayer}间谍的扰乱，{1_CivName}的城市{2_CityName}，忠诚度下降。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_FOMENT_UNREST_UNDETECTED" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] 由于一名未知间谍的扰乱，{1_CivName}的城市{2_CityName}，忠诚度下降。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_DETECTED" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] {1_CivName}城市{2_CityName}的总督被{3_SpyPlayer}派出的间谍陷害。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_UNDETECTED" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] {1_CivName}城市{2_CityName}的总督被一名未知间谍陷害。</Text>
+		</Replace>
+	</LocalizedText>
+</GameData>

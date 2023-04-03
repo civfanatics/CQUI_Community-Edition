@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameData>
+	<LocalizedText>
+		<!-- Replace Expansion 2 Gossip Text -->
+		<Replace Tag="LOC_GOSSIP_SPY_DAM_BREACHED_DETECTED" Language="es_ES">
+			<Text>[ICON_Pillaged] Un espía de {3_SpyPlayer} ha roto una Presa {1_CivName: plural 2?{1:gender masculine?de los;feminine?de las;}; other?{1:gender *:la?de la;*:el?del;other?de;};} {1_CivName} en {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_DAM_BREACHED_UNDETECTED" Language="es_ES">
+			<Text>[ICON_Pillaged] Un espía desconocido ha roto una Presa {1_CivName: plural 2?{1:gender masculine?de los;feminine?de las;}; other?{1:gender *:la?de la;*:el?del;other?de;};} {1_CivName} en {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ROCK_CONCERT" Language="es_ES">
+			<Text>[ICON_Exclamation] El periódico de {1_City_Name} ha publicado una reseña titulada "{2_ResultName}" sobre el concierto de {3_BandName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_POWERED_CITY" Language="es_ES">
+			<Text>[ICON_Power] {1_CivName: plural 2?{1: gender masculine?Los {1} han; feminine?Las {1} han;}; other?{1: gender *:la?La {1} ha; *:el?El {1} ha; other? {1} ha;};} llevado la magia de la electricidad a la ciudad de {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RANDOM_EVENT" Language="es_ES">
+			<Text>[ICON_Exclamation] {1_CivName: plural 2?{1: gender masculine?Los {1} han; feminine?Las {1} han;}; other?{1: gender *:la?La {1} ha; *:el?El {1} ha; other? {1} ha;};} sufrido daños importantes debido a {2: gender masculine?un; feminine?una;} {2_NaturalDisasterName}.</Text>
+		</Replace>
+	</LocalizedText>
+</GameData>

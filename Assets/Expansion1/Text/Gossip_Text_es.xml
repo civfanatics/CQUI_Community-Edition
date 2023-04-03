@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameData>
+	<LocalizedText>
+		<!-- Replace Expansion 1 Gossip Text -->
+		<Replace Tag="LOC_GOSSIP_SPY_FOMENT_UNREST_DETECTED" Language="es_ES">
+			<Text>[ICON_Exclamation] Un espía de {3_SpyPlayer} ha hecho que {1_CivName:plural 2?{1:gender masculine?los {1_CivName} pierdan;feminine?las {1_CivName} pierdan;}; other?{1:gender *:la?la {1_CivName} pierda;*:el?el {1_CivName} pierda;other?{1_CivName} pierda;};} Lealtad en {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_FOMENT_UNREST_UNDETECTED" Language="es_ES">
+			<Text>[ICON_Exclamation] Un espía desconocido ha hecho que {1_CivName:plural 2?{1:gender masculine?los {1_CivName} pierdan;feminine?las {1_CivName} pierdan;}; other?{1:gender *:la?la {1_CivName} pierda;*:el?el {1_CivName} pierda;other?{1_CivName} pierda;};} Lealtad en {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_DETECTED" Language="es_ES">
+			<Text>[ICON_Exclamation] Un espía de {3_SpyPlayer} ha neutralizado al gobernador {1_CivName:plural 2?{1:gender masculine?de los {1_CivName};feminine?de las {1_CivName};}; other?{1:gender *:la?de la {1_CivName};*:el?del {1_CivName};other?de {1_CivName};};} en {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_UNDETECTED" Language="es_ES">
+			<Text>[ICON_Exclamation] Un espía desconocido ha neutralizado al gobernador {1_CivName:plural 2?{1:gender masculine?de los {1_CivName};feminine?de las {1_CivName};}; other?{1:gender *:la?de la {1_CivName};*:el?del {1_CivName};other?de {1_CivName};};} en {2_CityName}.</Text>
+		</Replace>
+	</LocalizedText>
+</GameData>

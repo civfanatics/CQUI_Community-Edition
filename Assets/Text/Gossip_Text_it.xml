@@ -12,6 +12,9 @@
 		<Replace Tag="LOC_GOSSIP_ALLIED" Language="it_IT">
 			<Text>[ICON_Alliance] {1_CivName} ha formato un'alleanza con {2_CivName}.</Text>
 		</Replace>
+        <Replace Tag="LOC_GOSSIP_ANARCHY_BEGINS" Language="it_IT">
+            <Text>[ICON_Razed] Il governo {1_CivName[2]}, {2_Government}, è stato rovesciato da un colpo di stato. L'anarchia si è impadronita del paese.</Text>
+        </Replace>
 		<Replace Tag="LOC_GOSSIP_ARTIFACT_EXTRACTED" Language="it_IT">
 			<Text>[ICON_Greatwork_relic] {1_CivName} ha estratto una reliquia: {2_GreatWork}.</Text>
 		</Replace>
@@ -44,6 +47,9 @@
 		</Replace>
 		<Replace Tag="LOC_GOSSIP_CONQUER_CITY" Language="it_IT">
 			<Text>[ICON_Razed] {1_CivName} ha conquistato {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONQUER_CAPITAL_CITY" Language="it_IT">
+			<Text>[ICON_Razed] {1_CivName[4]} {1: plural 1?ha; other?hanno;} conquistato {3_CityName}, la capitale originale {2_CivAdjective[2]}.</Text>
 		</Replace>
 		<Replace Tag="LOC_GOSSIP_CONSTRUCT_BUILDING" Language="it_IT">
 			<Text>[ICON_Production] {1_CivName} ha costruito {LOC_GRAMMAR_A_AN &lt;&lt; {2_BuildingName}} a {3_CityName}.</Text>
@@ -126,6 +132,9 @@
 		<Replace Tag="LOC_GOSSIP_RESEARCH_TECH" Language="it_IT">
 			<Text>[ICON_Science] {1_CivName} ha completato la ricerca di {2_TechName}.</Text>
 		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_CAPTURED" Language="it_IT">
+			<Text>[ICON_Exclamation] La spia {3_SpyPlayer[2]} nella città di {2_CityName} è stata catturata {1_CivName[5]}.</Text>
+		</Replace>
 		<Replace Tag="LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_DETECTED" Language="it_IT">
 			<Text>[ICON_Pillaged] Lo Spazioporto di {1_CivName} a {2_CityName} è stato sabotato da {3_SpyPlayer}.</Text>
 		</Replace>
@@ -177,8 +186,17 @@
 		<Replace Tag="LOC_GOSSIP_TRAIN_UNIQUE_UNIT" Language="it_IT">
 			<Text>[ICON_Unit] {1_CivName} ha creato l'unità unica {2_UnitName}.</Text>
 		</Replace>
+		<Replace Tag="LOC_GOSSIP_PROJECT_STARTED" Language="it_IT">
+			<Text>[ICON_Production] {1_CivName[4]} {1: plural 1?ha;other?hanno;} dato inizio a un progetto: {2_ProjectType}.</Text>
+		</Replace>
 		<Replace Tag="LOC_GOSSIP_SPACE_RACE_PROJECT_COMPLETED" Language="it_IT">
-			<Text>{1_CivName} ha completato il progetto Corsa allo Spazio {2_ProjectType}.</Text>
+			<Text>[ICON_Production] {1_CivName} ha completato il progetto Corsa allo Spazio {2_ProjectType}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_START_VICTORY_STRATEGY" Language="it_IT">
+			<Text>[ICON_Exclamation] {1_CivName[4]} {1: plural 1?sta;other?stanno;} inseguendo una {2_VictoryName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_STOP_VICTORY_STRATEGY" Language="it_IT">
+            <Text>[ICON_Exclamation] {1_CivName[4]} non {1: plural 1?sta;other?stanno;} più inseguendo una {2_VictoryType}.</Text>
 		</Replace>
 		<Replace Tag="LOC_GOSSIP_WMD_BUILT" Language="it_IT">
 			<Text>[ICON_Nuclear] {1_CivName} ha costruito numero {2_WMDCount} arma di distruzione di massa!</Text>

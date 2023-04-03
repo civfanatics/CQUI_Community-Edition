@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameData>
+	<LocalizedText>
+		<!-- Replace Gossip Text -->
+		<Replace Tag="LOC_GOSSIP_AGENDA_KUDOS" Language="fr_FR">
+			<Text>[ICON_Declare_friendship] {1_LeaderName} a remercié {2_Leadername}. (Agenda: {3_AgendaName}).</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_AGENDA_WARNING" Language="fr_FR">
+			<Text>[ICON_Denounce] {1_LeaderName} a averti {2_Leadername}! (Agenda: {3_AgendaName}).</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ALLIED" Language="fr_FR">
+			<Text>[ICON_Alliance] {1_CivName} a formé une alliance avec {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ANARCHY_BEGINS" Language="fr_FR">
+			<Text>[ICON_Razed] Il y a eu un coup d'état en {1_CivName} enlever {2_Government}. L'anarchie a commencé.</Text>
+		</Replace>	
+		<Replace Tag="LOC_GOSSIP_ARTIFACT_EXTRACTED" Language="fr_FR">
+			<Text>[ICON_Greatwork_relic] {1_CivName} a fouillé une relique: {2_GreatWork}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_BARBARIAN_INVASION_STARTED" Language="fr_FR">
+			<Text>[ICON_Barbarian] {1_CivName} est confronté à une invasion barbare à {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_BARBARIAN_RAID_STARTED" Language="fr_FR">
+			<Text>[ICON_Barbarian] {1_CivName} est confronté à un raid barbare à {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_BEACH_RESORT_CREATED" Language="fr_FR">
+			<Text>[ICON_Production] {1_CivName} a construit une station balnéaire à l'extérieur de {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CHANGE_GOVERNMENT" Language="fr_FR">
+			<Text>[ICON_Government] {1_CivName} a changé de gouvernement pour {2_Government}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_BESIEGED" Language="fr_FR">
+			<Text>[ICON_Razed] {1_CityName} a fait face à un siège.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_LIBERATED" Language="fr_FR">
+			<Text>[ICON_Buildings] {1_CivName} a libéré {2_CityName} et a été redonné à {3_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_RAZED" Language="fr_FR">
+			<Text>[ICON_Razed] {1_CivName} a rasé une ville fondée par {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CLEAR_CAMP" Language="fr_FR">
+			<Text>[ICON_Barbarian] {1_CivName} a utilisé {LOC_GRAMMAR_A_AN &lt;&lt; {2_UnitName}} pour raser {LOC_GRAMMAR_A_AN &lt;&lt; {3_ImprovementName}}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_STATE_INFLUENCE" Language="fr_FR">
+			<Text>[ICON_Envoy] {1_CivName} a envoyé un espion à {2_CityState}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONQUER_CITY" Language="fr_FR">
+			<Text>[ICON_Razed] {1_CivName} a conquis {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONQUER_CAPITAL_CITY" Language="fr_FR">
+			<Text>[ICON_Razed] {1_CivName} a conquis l'original {2_CivAdjective} capitale de {3_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONSTRUCT_BUILDING" Language="fr_FR">
+			<Text>[ICON_Production] {1_CivName} a construit {LOC_GRAMMAR_A_AN &lt;&lt; {2_BuildingName}} à {3_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONSTRUCT_DISTRICT" Language="fr_FR">
+			<Text>[ICON_Production] {1_CivName} a construit {LOC_GRAMMAR_A_AN &lt;&lt; {2_DistrictName}} à {3_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CREATE_PANTHEON" Language="fr_FR">
+			<Text>[ICON_Religion] {1_CivName} adopte un Panthéon concentré sur la {2_BeliefName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CULTURVATE_CIVIC" Language="fr_FR">
+			<Text>[ICON_Culture] {1_CivName} a terminé le développement de {2_CivicName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_DECLARED_FRIENDSHIP" Language="fr_FR">
+			<Text>[ICON_Declare_friendship] {1_CivName} est maintenant amie avec {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_DELEGATION" Language="fr_FR">
+			<Text>[ICON_Envoy] {1_CivName} reçu une délégation de {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_DENOUNCED" Language="fr_FR">
+			<Text>[ICON_Denounce] {1_CivName} a dénoncé {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_EMBASSY" Language="fr_FR">
+			<Text>[ICON_Resident_embassy] {1_CivName} a établie une nouvelle ambassade en {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ERA_CHANGED" Language="fr_FR">
+			<Text>[ICON_Capitallarge] {1_CivName} a progressé à la {3_NewEra}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_FIND_NATURAL_WONDER" Language="fr_FR">
+			<Text>[ICON_Terrain] {1_CivName} a découvert la merveille naturelle: {2_NWName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_FOUND_CITY" Language="fr_FR">
+			<Text>[ICON_Buildings] {1_CivName} a fondé une nouvelle ville nommée: {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_FOUND_RELIGION" Language="fr_FR">
+			<Text>[ICON_Religion] {1_CivName} a fondé une nouvelle religion: {2_ReligionName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_GREATPERSON_CREATED" Language="fr_FR">
+			<Text>[ICON_Greatperson] {1_CivName} a gagné le {2_unit} {3_GreatPerson}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_LAUNCHING_ATTACK" Language="fr_FR">
+			<Text>[ICON_Declare_formal_war] {1_CivName} a lancé un assaut militaire sur {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WAR_PREPARATION" Language="fr_FR">
+			<Text>[ICON_Declare_formal_war] {1_CivName} envisage une guerre contre {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_INQUISITION_LAUNCHED" Language="fr_FR">
+			<Text>[ICON_Religion] {1_CivName} a lancé une inquisition extirpant {2_ReligionName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_LAND_UNIT_LEVEL" Language="fr_FR">
+			<Text>[ICON_Promotion] {1_CivName} a {LOC_GRAMMAR_A_AN &lt;&lt; {2_UnitName}} qui a valu la promotion: {3_PromotionName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_MAKE_DOW" Language="fr_FR">
+			<Text>[ICON_Declare_formal_war] {1_CivName} a déclarée la guerre à {2_OtherPlayer}!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_NATIONAL_PARK_CREATED" Language="fr_FR">
+			<Text>[ICON_Terrain] {1_CivName} a créé {2_NationalParkName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_NAVAL_UNIT_LEVEL" Language="fr_FR">
+			<Text>[ICON_Promotion] {1_CivName} a {LOC_GRAMMAR_A_AN &lt;&lt; {2_UnitName}} qui a valu la promotion: {3_PromotionName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_NEW_RELIGIOUS_MAJORITY" Language="fr_FR">
+			<Text>[ICON_Religion] La religion dominate en {1_CivName} est maintenant: {2_ReligionName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_PILLAGE" Language="fr_FR">
+			<Text>[ICON_Pillaged] {1_CivName} a pillé un ennemi {2_TargetName} avec {LOC_GRAMMAR_A_AN &lt;&lt; {3_UnitName}}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_POLICY_ENACTED" Language="fr_FR">
+			<Text>[ICON_Policy] {1_CivName} a adopté le {2_SlotName} politique {3_PolicyName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RECEIVE_DOW" Language="fr_FR">
+			<Text>[ICON_Declare_formal_war] {1_CivName} a reçu une déclaration de guerre de {2_OtherPlayer}!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RELIC_RECEIVED" Language="fr_FR">
+			<Text>[ICON_Greatwork_religious] {1_CivName} a gagné une nouvelle relique sainte: {2_RelicName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RESEARCH_AGREEMENT" Language="fr_FR">
+			<Text>[ICON_Research_agreement] {1_CivName} et {2_CivName} ont formé un partenariat scientifique.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RESEARCH_TECH" Language="fr_FR">
+			<Text>[ICON_Science] {1_CivName} a terminé la recherche sur {2_TechName}</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_CAPTURED" Language="fr_FR">
+			<Text>[ICON_Exclamation] L'espion {3: gender *:vowel?d'; other?de ;}{3_SpyPlayer} à {2_CityName} a été capturé par {1: plural 1?{1: gender *:no_article?; *:vowel?l'; m?le ; f?la ;}; 2?les ;}{1_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_DETECTED" Language="fr_FR">
+			<Text>[ICON_Pillaged] Le Spaceport de {1_CivName} à {2_CityName} a été saboté par {3_SpyPlayer}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_UNDETECTED" Language="fr_FR">
+			<Text>[ICON_Pillaged] Le Spaceport de {1_CivName} à {2_CityName} a été saboté.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_GREAT_WORK_HEIST_DETECTED" Language="fr_FR">
+			<Text>[ICON_Exclamation] {1_CivName}'s Great Work in {2_CityName} a été pillé par {3_SpyPlayer}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_GREAT_WORK_HEIST_UNDETECTED" Language="fr_FR">
+			<Text>[ICON_Exclamation] {1_CivName}'s Great Work in {2_CityName} a été pillé.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_RECRUIT_PARTISANS_DETECTED" Language="fr_FR">
+			<Text>[ICON_Exclamation] {1_CivName} se bat contre des partisans à {2_CityName} recruté par {3_SpyPlayer}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_RECRUIT_PARTISANS_UNDETECTED" Language="fr_FR">
+			<Text>[ICON_Exclamation] {1_CivName} se bat contre des partisans à {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SABOTAGE_PRODUCTION_DETECTED" Language="fr_FR">
+			<Text>[ICON_Exclamation] La zone industrielle de {1_CivName} à {2_CityName} a été sabotée par {3_SpyPlayer}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SABOTAGE_PRODUCTION_UNDETECTED" Language="fr_FR">
+			<Text>[ICON_Exclamation] La zone industrielle de {1_CivName} à {2_CityName} a été sabotée.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SIPHON_FUNDS_DETECTED" Language="fr_FR">
+			<Text>[ICON_Exclamation] {1_CivName} a volé des fonds à {2_CityName} par {3_SpyPlayer}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SIPHON_FUNDS_UNDETECTED" Language="fr_FR">
+			<Text>[ICON_Exclamation] {1_CivName} a volé des fonds à {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_STEAL_TECH_BOOST_DETECTED" Language="fr_FR">
+			<Text>[ICON_Exclamation] {1_CivName} a volé une technologie à {2_CityName} by {3_SpyPlayer}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_STEAL_TECH_BOOST_UNDETECTED" Language="fr_FR">
+			<Text>[ICON_Exclamation] {1_CivName} a volé une technologie à {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRADE_DEAL" Language="fr_FR">
+			<Text>[ICON_Gold] {1_CivName} fait du commerce avec {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRADE_RENEGE" Language="fr_FR">
+			<Text>[ICON_Gold] {1_CivName} a renoncé à un accord avec {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRAIN_SETTLER" Language="fr_FR">
+			<Text>[ICON_Unit] {1_CivName} a créé une nouvelle {2_UnitName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRAIN_UNIT" Language="fr_FR">
+			<Text>[ICON_Unit] {1_CivName} premier monde a créé des {2_UnitName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRAIN_UNIQUE_UNIT" Language="fr_FR">
+			<Text>[ICON_Unit] {1_CivName} a créé une unité unique, des {2_UnitName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_PROJECT_STARTED" Language="fr_FR">
+			<Text>[ICON_Production] {1_CivName} a commencé {2_ProjectType}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPACE_RACE_PROJECT_COMPLETED" Language="fr_FR">
+			<Text>[ICON_Production] {1_CivName} a terminé le projet de course à l'espace: {2_ProjectType}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_START_VICTORY_STRATEGY" Language="fr_FR">
+			<Text>[ICON_Exclamation] {1_CivName} cherche {LOC_GRAMMAR_A_AN &lt;&lt; {2_VictoryName}}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_STOP_VICTORY_STRATEGY" Language="fr_FR">
+			<Text>[ICON_Exclamation] {1_CivName} ne cherche plus une {2_VictoryType}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WMD_BUILT" Language="fr_FR">
+			<Text>[ICON_Nuclear] {1_CivName} a construit {2_WMDCount} une arme de destruction massive!</Text>
+		</Replace> 
+		<Replace Tag="LOC_GOSSIP_WMD_STRIKE" Language="fr_FR">
+			<Text>[ICON_Nuclear] {1_CivName} libéré une bombe atomique! Sur {2_UnitName}!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WONDER_STARTED" Language="fr_FR">
+			<Text>[ICON_Production] {1_CivName} a commencé la construction de {3_BuildingName} à {2_CityName}.</Text>
+		</Replace>
+	</LocalizedText>
+</GameData>

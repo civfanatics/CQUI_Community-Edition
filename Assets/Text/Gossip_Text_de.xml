@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
 <GameData>
 	<LocalizedText>
 		<!-- Replace Gossip Text: GERMAN -->
@@ -10,6 +11,9 @@
 		</Replace>
 		<Replace Tag="LOC_GOSSIP_ALLIED" Language="de_DE">
 			<Text>[ICON_Alliance] {1_CivName} und {2_CivName} sind eine Allianz eingegangen.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ANARCHY_BEGINS" Language="de_DE">
+			<Text>[ICON_Razed] Es gab einen Staatsstreich {1_CivName : plural 1?{1_CivName : gender *:no_article?in; m?im; f?in der; other?in;}; other?in den;} {1_CivName[3]}, durch den {2_Government : plural 1?{2_Government : gender *:no_article?; m?der; f?die; other?das;}; other?die;} {2_Government[5]} gestürzt {2_Government : plural 1?wurde; other?wurden;}. Nun herrscht Anarchie.</Text>
 		</Replace>
 		<Replace Tag="LOC_GOSSIP_ARTIFACT_EXTRACTED" Language="de_DE">
 			<Text>[ICON_Greatwork_relic] {1_CivName} fand bei einer Ausgrabung {2_GreatWork}.</Text>
@@ -44,6 +48,9 @@
 		<Replace Tag="LOC_GOSSIP_CONQUER_CITY" Language="de_DE">
 			<Text>[ICON_Razed] {1_CivName} nahm {2_CityName}.</Text>
 		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONQUER_CAPITAL_CITY" Language="de_DE">
+			<Text>[ICON_Razed] {1_CivName} erobert die erste {2_CivAdjective} Hauptstadt {3_CityName}.</Text>
+		</Replace>
 		<Replace Tag="LOC_GOSSIP_CONSTRUCT_BUILDING" Language="de_DE">
 			<Text>[ICON_Production] {1_CivName} errichtete {2_BuildingName} in {3_CityName}.</Text>
 		</Replace>
@@ -61,7 +68,7 @@
 		</Replace>
 		<Replace Tag="LOC_GOSSIP_DELEGATION" Language="de_DE">
 			<Text>[ICON_Envoy] {1_CivName} hat eine Delegation von {2_CivName} empfangen.</Text>
-    </Replace>
+		</Replace>
 		<Replace Tag="LOC_GOSSIP_DENOUNCED" Language="de_DE">
 			<Text>[ICON_Denounce] {1_CivName} denunzierte {2_CivName}.</Text>
 		</Replace>
@@ -125,6 +132,9 @@
 		<Replace Tag="LOC_GOSSIP_RESEARCH_TECH" Language="de_DE">
 			<Text>[ICON_Science] {1_CivName} hat {2_TechName} erforscht.</Text>
 		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_CAPTURED" Language="de_DE">
+			<Text>[ICON_Exclamation] {1_CivName : plural 1?{1_CivName : gender *:no_article?; m?Der ; f?Die ; other?Das ;}; other?Die ;}{1_CivName[5]} {1_CivName : plural 1?hat; other?haben;} den Spion {3_SpyPlayer : plural 1?{3_SpyPlayer : gender *:no_article?; m?des ; f?der ; other?des ;}; other?der ;}{3_SpyPlayer[4]} in {2_CityName} gefangen genommen.</Text>
+		</Replace>
 		<Replace Tag="LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_DETECTED" Language="de_DE">
 			<Text>[ICON_Pillaged] Der Raumhafen von {1_CivName} in {2_CityName} wurde von {3_SpyPlayer} sabotiert.</Text>
 		</Replace>
@@ -176,8 +186,17 @@
 		<Replace Tag="LOC_GOSSIP_TRAIN_UNIQUE_UNIT" Language="de_DE">
 			<Text>[ICON_Unit] {1_CivName} stellte die einzigartige Einheit, den/die {2_UnitName} auf.</Text>
 		</Replace>
+		<Replace Tag="LOC_GOSSIP_PROJECT_STARTED" Language="de_DE">
+			<Text>[ICON_Production] {1_CivName} startet {2_ProjectType}.</Text>
+		</Replace>
 		<Replace Tag="LOC_GOSSIP_SPACE_RACE_PROJECT_COMPLETED" Language="de_DE">
-			<Text>{1_CivName} hat das Weltraumrennen mit {2_ProjectType} vorangetrieben.</Text>
+			<Text>[ICON_Production] {1_CivName} hat das Weltraumrennen mit {2_ProjectType} vorangetrieben.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_START_VICTORY_STRATEGY" Language="de_DE">
+			<Text>[ICON_Exclamation] {1_CivName} strebt nach {2_VictoryName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_STOP_VICTORY_STRATEGY" Language="de_DE">
+			<Text>[ICON_Exclamation] {1_CivName} strebt nicht länger nach {2_VictoryType}.</Text>
 		</Replace>
 		<Replace Tag="LOC_GOSSIP_WMD_BUILT" Language="de_DE">
 			<Text>[ICON_Nuclear] {1_CivName} hat {2_WMDCount} Massenvernichtungswaffen gebaut.</Text>

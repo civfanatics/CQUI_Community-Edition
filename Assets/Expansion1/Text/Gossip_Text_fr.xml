@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameData>
+	<LocalizedText>
+		<!-- Replace Expansion 1 Gossip Text -->
+		<Replace Tag="LOC_GOSSIP_SPY_FOMENT_UNREST_DETECTED" Language="fr_FR">
+			<Text>[ICON_Exclamation] {1_CivName} a perdu de la loyauté à {2_CityName} en raison d'un espion de {3_SpyPlayer}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_FOMENT_UNREST_UNDETECTED" Language="fr_FR">
+			<Text>[ICON_Exclamation] {1_CivName} a perdu de la loyauté à {2_CityName} à cause d'un espion inconnu.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_DETECTED" Language="fr_FR">
+			<Text>[ICON_Exclamation] {1_CivName}: Le gouverneur de {2_CityName} a été neutralisé par un espion de {3_SpyPlayer}!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_UNDETECTED" Language="fr_FR">
+			<Text>[ICON_Exclamation] {1_CivName}: Le gouverneur à {2_CityName} a été neutralisé par un espion inconnu.</Text>
+		</Replace>
+	</LocalizedText>
+</GameData>

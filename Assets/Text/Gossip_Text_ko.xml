@@ -12,6 +12,9 @@
 		<Replace Tag="LOC_GOSSIP_ALLIED" Language="ko_KR">
 			<Text>[ICON_Alliance] {1_CivName}이(가) {2_CivName}(과)와 동맹을 맺음.</Text>
 		</Replace>
+		<Replace Tag="LOC_GOSSIP_ANARCHY_BEGINS" Language="ko_KR">
+			<Text>[ICON_Razed] {1_CivName}에서 {2_Government}에 반대하는 쿠데타 발생! 무정부 상태에 빠집니다.</Text>
+		</Replace>	
 		<Replace Tag="LOC_GOSSIP_ARTIFACT_EXTRACTED" Language="ko_KR">
 			<Text>[ICON_Greatwork_relic] {1_CivName}이(가) 유물 발굴 : {2_GreatWork}.</Text>
 		</Replace>
@@ -44,6 +47,9 @@
 		</Replace>
 		<Replace Tag="LOC_GOSSIP_CONQUER_CITY" Language="ko_KR">
 			<Text>[ICON_Razed] {1_CivName}이(가) {2_CityName}을(를) 정복.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONQUER_CAPITAL_CITY" Language="ko_KR">
+			<Text>[ICON_Razed] {1_CivName}이(가) {2_CivAdjective}의 옛 수도 {3_CityName}을(를) 점령</Text>
 		</Replace>
 		<Replace Tag="LOC_GOSSIP_CONSTRUCT_BUILDING" Language="ko_KR">
 			<Text>[ICON_Production] {1_CivName}이(가) {3_CityName}에 {2_BuildingName}을(를) 건설.</Text>
@@ -126,6 +132,9 @@
 		<Replace Tag="LOC_GOSSIP_RESEARCH_TECH" Language="ko_KR">
 			<Text>[ICON_Science] {1_CivName}이(가) {2_TechName} 연구를 완료.</Text>
 		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_CAPTURED" Language="ko_KR">
+			<Text>[ICON_Exclamation] &gt;&gt;{3_SpyPlayer}의 스파이가 {2_CityName}에서 {1_CivName}에 의해 체포되었습니다.</Text>
+		</Replace>
 		<Replace Tag="LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_DETECTED" Language="ko_KR">
 			<Text>[ICON_Pillaged] {1_CivName}의 {2_CityName}에 있는 우주공항이 {3_SpyPlayer}에 의해 파괴당함.</Text>
 		</Replace>
@@ -177,8 +186,17 @@
 		<Replace Tag="LOC_GOSSIP_TRAIN_UNIQUE_UNIT" Language="ko_KR">
 			<Text>[ICON_Unit] {1_CivName}이(가) 특유 유닛 {2_UnitName}을(를) 훈련.</Text>
 		</Replace>
+		<Replace Tag="LOC_GOSSIP_PROJECT_STARTED" Language="ko_KR">
+			<Text>[ICON_Production] {1_CivName}이(가) {2_ProjectType}을(를) 시작</Text>
+		</Replace>
 		<Replace Tag="LOC_GOSSIP_SPACE_RACE_PROJECT_COMPLETED" Language="ko_KR">
-			<Text>{1_CivName}이(가) 우주 경쟁 프로젝트 부분 완료: {2_ProjectType}.</Text>
+			<Text>[ICON_Production] {1_CivName}이(가) 우주 경쟁 프로젝트 부분 완료: {2_ProjectType}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_START_VICTORY_STRATEGY" Language="ko_KR">
+			<Text>[ICON_Exclamation] {1_CivName}이(가) {2_VictoryName}를 하고자 합니다.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_STOP_VICTORY_STRATEGY" Language="ko_KR">
+			<Text>[ICON_Exclamation] {1_CivName}이(가) 더이상 {2_VictoryType}를 하려 하지 않습니다..</Text>
 		</Replace>
 		<Replace Tag="LOC_GOSSIP_WMD_BUILT" Language="ko_KR">
 			<Text>[ICON_Nuclear] {1_CivName}이(가) 대량살상무기 {2_WMDCount}개 제조!</Text>

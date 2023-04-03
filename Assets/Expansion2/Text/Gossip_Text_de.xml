@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameData>
+	<LocalizedText>
+		<!-- Replace Expansion 2 Gossip Text: GERMAN -->
+		<Replace Tag="LOC_GOSSIP_SPY_DAM_BREACHED_DETECTED" Language="de_DE">
+			<Text>[ICON_Pillaged] {LOC_GRAMMAR_CIVNAME &lt;&lt; {1_CivName}} hatte einen Dammbruch in {2_CityName} aufgrund eines Spions von {3_SpyPlayer}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_DAM_BREACHED_UNDETECTED" Language="de_DE">
+			<Text>[ICON_Pillaged] {LOC_GRAMMAR_CIVNAME &lt;&lt; {1_CivName}} hatte einen Dammbruch in {2_CityName} aufgrund eines unbekannten Spions.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ROCK_CONCERT" Language="de_DE">
+			<Text>[ICON_Exclamation] Die Zeitung von {1_City_Name} titelt "{2_ResultName}" über das Konzert von {3_BandName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_POWERED_CITY" Language="de_DE">
+			<Text>[ICON_Power] {LOC_GRAMMAR_CIVNAME &lt;&lt; {1_CivName}} {1_CivName : plural 1?hat; other?haben;} die Magie der Elektriziät der Stadt {2_CityName} gebracht.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RANDOM_EVENT" Language="de_DE">
+			<Text>[ICON_Exclamation] {LOC_GRAMMAR_CIVNAME &lt;&lt; {1_CivName}} {1_CivName : plural 1?hat; other?haben;} signifikanten Schaden von {2_NaturalDisasterName} davon getragen.</Text>
+		</Replace>	
+	</LocalizedText>
+</GameData>

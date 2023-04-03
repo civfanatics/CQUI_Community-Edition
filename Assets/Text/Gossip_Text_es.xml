@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameData>
+	<LocalizedText>
+		<!-- Replace Gossip Text -->
+		<Replace Tag="LOC_GOSSIP_AGENDA_KUDOS" Language="es_ES">
+			<Text>[ICON_Declare_friendship] {1_LeaderName} le ha agradecido a {2_Leadername} su cooperación en la agenda: {3_AgendaName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_AGENDA_WARNING" Language="es_ES">
+			<Text>[ICON_Denounce] {1_LeaderName} le ha advertido a {2_Leadername} que no interfiera con la agenda: {3_AgendaName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ALLIED" Language="es_ES">
+			<Text>[ICON_Alliance] {1_CivName} {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} formado una alianza con {2_CivName:plural 2?{2:gender masculine?los {2_CivName};feminine?las {2_CivName};}; other?{2:gender *:la?la {2_CivName};*:el?el {2_CivName};other?{2_CivName};};}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ANARCHY_BEGINS" Language="es_ES">
+			<Text>[ICON_Razed] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} sufrido un golpe de estado y el régimen de {2_Government} ha sido derrocado. La anarquía se ha apoderado de las calles.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ARTIFACT_EXTRACTED" Language="es_ES">
+			<Text>[ICON_Greatwork_relic] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} extraído una obra arqueológica nueva: {2_GreatWork}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_BARBARIAN_INVASION_STARTED" Language="es_ES">
+			<Text>[ICON_Barbarian] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} se enfrentan;feminine?Las {1_CivName} se enfrentan;}; other?{1:gender *:la?La {1_CivName} se enfrenta;*:el?El {1_CivName} se enfrenta;other?{1_CivName} se enfrenta;};} a una invasión bárbara en {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_BARBARIAN_RAID_STARTED" Language="es_ES">
+			<Text>[ICON_Barbarian] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} se enfrentan;feminine?Las {1_CivName} se enfrentan;}; other?{1:gender *:la?La {1_CivName} se enfrenta;*:el?El {1_CivName} se enfrenta;other?{1_CivName} se enfrenta;};} a una incursión bárbara en {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_BEACH_RESORT_CREATED" Language="es_ES">
+			<Text>[ICON_Production] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} escuchado que el nuevo Centro turístico costero en las afueras de {2_CityName} es un lugar ideal para tomar el sol.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CHANGE_GOVERNMENT" Language="es_ES">
+			<Text>[ICON_Government] La nueva forma de gobierno {1_CivName:plural 2?{1:gender masculine?de los;feminine?de las;}; other?{1:gender *:la?de la;*:el?del;other?de;};} {1_CivName} es: {2_Government}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_BESIEGED" Language="es_ES">
+			<Text>[ICON_Razed] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} están;feminine?Las {1_CivName} están;}; other?{1:gender *:la?La {1_CivName} está;*:el?El {1_CivName} está;other?{1_CivName} está;};} bajo asedio.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_LIBERATED" Language="es_ES">
+			<Text>[ICON_Buildings] {1_CivName: plural 2?{1: gender masculine?Los {1} acaban; feminine?Las {1} acaban;}; other?{1: gender *:la?La {1} acaba; *:el?El {1} acaba; other?{1_Civ} acaba;};} de liberar {2_CityName}, que ha vuelto a mano {3_CivName: plural 2?{3: gender masculine?de los; feminine?de las;}; other?{3: gender *:la?de la; *:el?del; other?de;};} {3_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_RAZED" Language="es_ES">
+			<Text>[ICON_Razed] {1_CivName: plural 2?{1:gender masculine?Los {1} han;feminine?Las {1} han;}; other?{1:gender *:la?La {1} ha;*:el?El {1} ha;other?{1} ha;};} arrasado una ciudad {2_CivName: plural 2?{2:gender masculine?de los {2};feminine?de las {2};}; other?{2:gender *:la?de la {2};*:el?al {2};other?de {2};};}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CLEAR_CAMP" Language="es_ES">
+			<Text>[ICON_Barbarian] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} usado a {2: gender masculine?un; feminine?una;} {2_UnitName} para despejar {3: plural 1?{3: gender masculine?un; feminine?una;}; other?{3: gender masculine?unos; other?unas;};} {3_ImprovementName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_STATE_INFLUENCE" Language="es_ES">
+			<Text>[ICON_Envoy] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} mandado a un Enviado hacia {2_CityState}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONQUER_CITY" Language="es_ES">
+			<Text>[ICON_Razed] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} conquistado {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONQUER_CAPITAL_CITY" Language="es_ES">
+			<Text>[ICON_Razed] {1_CivName} ha conquistado la capital {2_CivAdjective[2]} original de {3_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONSTRUCT_BUILDING" Language="es_ES">
+			<Text>[ICON_Production] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} construido {2: plural 1?{2: gender masculine?un; feminine?una;}; other?{2: gender masculine?unos; other?unas;};} {2_BuildingName} en {3_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONSTRUCT_DISTRICT" Language="es_ES">
+			<Text>[ICON_Production] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} construido {2: plural 1?{2: gender masculine?un; feminine?una;}; other?{2: gender masculine?unos; other?unas;};} {2_DistrictName} en {3_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CREATE_PANTHEON" Language="es_ES">
+			<Text>[ICON_Religion] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} adoran;feminine?Las {1_CivName} adoran;}; other?{1:gender *:la?La {1_CivName} adora;*:el?El {1_CivName} adora;other?{1_CivName} adora;};} a un Panteón de dioses centrado en la creencia {2: plural 1?{2: gender masculine?del; feminine?de la;}; other?{2: gender masculine?de los; other?de las;};} {2_BeliefName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CULTURVATE_CIVIC" Language="es_ES">
+			<Text>[ICON_Culture] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} completado el desarrollo de: {2_CivicName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_DECLARED_FRIENDSHIP" Language="es_ES">
+			<Text>[ICON_Declare_friendship] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} declarado su amistad con {2_CivName:plural 2?{2:gender masculine?los {2_CivName};feminine?las {2_CivName};}; other?{2:gender *:la?la {2_CivName};*:el?el {2_CivName};other?{2_CivName};};}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_DELEGATION" Language="es_ES">
+			<Text>[ICON_Envoy] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} acaban;feminine?Las {1_CivName} acaban;}; other?{1:gender *:la?La {1_CivName} acaba;*:el?El {1_CivName} acaba;other?{1_CivName} acaba;};} de recibir una delegación extranjera de parte {2_CivName:plural 2?{2:gender masculine?de los;feminine?de las;}; other?{2:gender *:la?de la;*:el?del;other?de;};} {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_DENOUNCED" Language="es_ES">
+			<Text>[ICON_Denounce] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} denunciado {2_CivName:plural 2?{2:gender masculine?a los;feminine?a las;}; other?{2:gender *:la?a la;*:el?del;other?a;};} {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_EMBASSY" Language="es_ES">
+			<Text>[ICON_Resident_embassy] Se ha construído una embajada permanente {2_CivName:plural 2?{2:gender masculine?de los;feminine?de las;}; other?{2:gender *:la?de la;*:el?del;other?de;};} {2_CivName} en la capital {1_CivName:plural 2?{1:gender masculine?de los;feminine?de las;}; other?{1:gender *:la?de la;*:el?del;other?de;};} {1_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ERA_CHANGED" Language="es_ES">
+			<Text>[ICON_Capitallarge] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} avanzado de la {2_OldEra} a la {3_NewEra}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_FIND_NATURAL_WONDER" Language="es_ES">
+			<Text>[ICON_Terrain] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} se han;feminine?Las {1_CivName} se han;}; other?{1:gender *:la?La {1_CivName} se ha;*:el?El {1_CivName} se ha;other?{1_CivName} se ha;};} encontrado con la maravilla natural: {2_NWName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_FOUND_CITY" Language="es_ES">
+			<Text>[ICON_Buildings] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} se están;feminine?Las {1_CivName} se están;}; other?{1:gender *:la?La {1_CivName} se está;*:el?El {1_CivName} se está;other?{1_CivName} se está;};} expandiendo con su nuevo asentamiento de {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_FOUND_RELIGION" Language="es_ES">
+			<Text>[ICON_Religion] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} fundado una religión nueva: {2_ReligionName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_GREATPERSON_CREATED" Language="es_ES">
+			<Text>[ICON_Greatperson] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} atraído un {2_unit}: {3_GreatPerson}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_LAUNCHING_ATTACK" Language="es_ES">
+			<Text>[ICON_Declare_formal_war] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} están;feminine?Las {1_CivName} están;}; other?{1:gender *:la?La {1_CivName} está;*:el?El {1_CivName} está;other?{1_CivName} está;};} iniciando un asalto militar contra {2_CivName:plural 2?{2:gender masculine?los {2_CivName};feminine?las {2_CivName};}; other?{2:gender *:la?la {2_CivName};*:el?el {2_CivName};other?{2_CivName};};}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WAR_PREPARATION" Language="es_ES">
+			<Text>[ICON_Declare_formal_war] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} están;feminine?Las {1_CivName} están;}; other?{1:gender *:la?La {1_CivName} está;*:el?El {1_CivName} está;other?{1_CivName} está;};} pensando declararle la guerra {2: plural 2?{2: gender masculine?a los; feminine?a las;}; other?{2:gender *:la?a la;*:el?al;other?a;};} {2_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_INQUISITION_LAUNCHED" Language="es_ES">
+			<Text>[ICON_Religion] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} iniciado una inquisición para erradicar a los herejes que se oponen {2: gender masculine?al; feminine?a la;} {2_ReligionName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_LAND_UNIT_LEVEL" Language="es_ES">
+			<Text>[ICON_Promotion] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} tienen;feminine?Las {1_CivName} tienen;}; other?{1:gender *:la?La {1_CivName} tiene;*:el?El {1_CivName} tiene;other?{1_CivName} tiene;};} {2: gender masculine?un; feminine?una;} {2_UnitName} que ha conseguido el ascenso a {3_PromotionName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_MAKE_DOW" Language="es_ES">
+			<Text>[ICON_Declare_formal_war] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} declarado la guerra a {2_OtherPlayer}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_NATIONAL_PARK_CREATED" Language="es_ES">
+			<Text>[ICON_Terrain] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} acaban;feminine?Las {1_CivName} acaban;}; other?{1:gender *:la?La {1_CivName} acaba;*:el?El {1_CivName} acaba;other?{1_CivName} acaba;};} de crear {2: gender masculine?un; feminine?una;} {2_NationalParkName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_NAVAL_UNIT_LEVEL" Language="es_ES">
+			<Text>[ICON_Promotion] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} tienen;feminine?Las {1_CivName} tienen;}; other?{1:gender *:la?La {1_CivName} tiene;*:el?El {1_CivName} tiene;other?{1_CivName} tiene;};} {2: gender masculine?un; feminine?una;} {2_UnitName} que ha conseguido el ascenso a {3_PromotionName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_NEW_RELIGIOUS_MAJORITY" Language="es_ES">
+			<Text>[ICON_Religion] La mayoría de las ciudades {1: plural 2?{1: gender masculine?de los; feminine?de las;}; other?{1:gender *:la?de la;*:el?del;other?de;};} {1_CivName} han adoptado la religión {2: gender masculine?del; feminine?de la;} {2_ReligionName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_PILLAGE" Language="es_ES">
+			<Text>[ICON_Pillaged] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} saqueado a {2: gender masculine?un; feminine?una;} {2_TargetName} del enemigo con {3: gender masculine?un; feminine?una;} {3_UnitName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_POLICY_ENACTED" Language="es_ES">
+			<Text>[ICON_Policy] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} adoptado la política {2_SlotName}: {3_PolicyName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RECEIVE_DOW" Language="es_ES">
+			<Text>[ICON_Declare_formal_war] {2_OtherPlayer} le va a declarar la guerra {1_CivName:plural 2?{1:gender masculine?a los;feminine?a las;}; other?{1:gender *:la?a la;*:el?al;other?a;};} {1_CivName}!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RELIC_RECEIVED" Language="es_ES">
+			<Text>[ICON_Greatwork_religious] Los peregrinos {1: plural 2?{1: gender masculine?de los; feminine?de las;}; other?{1:gender *:la?de la;*:el?del;other?de;};} {1_CivName} acuden en masa para ver la reliquia sagrada: {2_RelicName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RESEARCH_AGREEMENT" Language="es_ES">
+			<Text>[ICON_Research_agreement] Científicos {1: plural 2?{1: gender masculine?de los; feminine?de las;}; other?{1:gender *:la?de la;*:el?del;other?de;};} y {2: plural 2?{2: gender masculine?de los; feminine?de las;}; other?{2:gender *:la?de la;*:el?del;other?de;};} {2_CivName} están colaborando entre ellos.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RESEARCH_TECH" Language="es_ES">
+			<Text>[ICON_Science] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} completado la investigación de la siguiente tecnología: {2_TechName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_CAPTURED" Language="es_ES">
+			<Text>[ICON_Exclamation] {3_SpyPlayer} ha visto a su espía en {2_CityName} capturado {1_CivName: plural 2?{1:gender masculine?por los;feminine?por las;}; other?{1:gender *:la?por la;*:el?por el;other?por;};} {1_CivName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_DETECTED" Language="es_ES">
+			<Text>[ICON_Pillaged] Un espía de {3_SpyPlayer} ha saboteado el Puerto espacial que {1_CivName: plural 2?{1: gender masculine?los {1} tienen; feminine?las {1} tienen;}; other?{1: gender *:la?la {1} tiene; *:el?el {1} tiene; other?{1} tiene;};} en {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_UNDETECTED" Language="es_ES">
+			<Text>[ICON_Pillaged] Un espía desconocido ha saboteado el Puerto espacial que {1_CivName: plural 2?{1: gender masculine?los {1} tienen; feminine?las {1} tienen;}; other?{1: gender *:la?la {1} tiene; *:el?el {1} tiene; other?{1} tiene;};} en {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_GREAT_WORK_HEIST_DETECTED" Language="es_ES">
+			<Text>[ICON_Exclamation] Un espía de {3_SpyPlayer} ha robado la gran obra que {1_CivName: plural 2?{1: gender masculine?los {1} tienen; feminine?las {1} tienen;}; other?{1: gender *:la?la {1} tiene; *:el?el {1} tiene; other?{1} tiene;};} en {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_GREAT_WORK_HEIST_UNDETECTED" Language="es_ES">
+			<Text>[ICON_Exclamation] Un espía desconocido ha robado la gran obra que {1_CivName: plural 2?{1: gender masculine?los {1} tienen; feminine?las {1} tienen;}; other?{1: gender *:la?la {1} tiene; *:el?el {1} tiene; other?{1} tiene;};} en {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_RECRUIT_PARTISANS_DETECTED" Language="es_ES">
+			<Text>[ICON_Exclamation] {1_CivName: plural 2?{1: gender masculine?Los {1} intentan; feminine?Las {1} intentan;}; other?{1: gender *:la?La {1} intenta; *:el?El {1} intenta; other?{1} intenta;};} sofocar a los partisanos de  {2_CityName} que reclutó {3_SpyPlayer}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_RECRUIT_PARTISANS_UNDETECTED" Language="es_ES">
+			<Text>[ICON_Exclamation] {1_CivName: plural 2?{1: gender masculine?Los {1} intentan; feminine?Las {1} intentan;}; other?{1: gender *:la?La {1} intenta; *:el?El {1} intenta; other?{1_Civ} intenta;};} sofocar a los partisanos de  {2_CityName} que reclutó un espía desconocido.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SABOTAGE_PRODUCTION_DETECTED" Language="es_ES">
+			<Text>[ICON_Exclamation] Un espía de {3_SpyPlayer} ha saboteado la Zona industrial que {1_CivName: plural 2?{1: gender masculine?los {1} tienen; feminine?las {1} tienen;}; other?{1: gender *:la?la {1} tiene; *:el?el {1} tiene; other?{1} tiene;};} en {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SABOTAGE_PRODUCTION_UNDETECTED" Language="es_ES">
+			<Text>[ICON_Exclamation] Un espía desconocido ha saboteado la Zona industrial que {1_CivName: plural 2?{1: gender masculine?los {1} tienen; feminine?las {1} tienen;}; other?{1: gender *:la?la {1} tiene; *:el?el {1} tiene; other?{1} tiene;};} en {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SIPHON_FUNDS_DETECTED" Language="es_ES">
+			<Text>[ICON_Exclamation] Un espía de {3_SpyPlayer} ha robado los fondos que {1_CivName: plural 2?{1: gender masculine?los {1} tienen; feminine?las {1} tienen;}; other?{1: gender *:la?la {1} tiene; *:el?el {1} tiene; other?{1} tiene;};} en {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SIPHON_FUNDS_UNDETECTED" Language="es_ES">
+			<Text>[ICON_Exclamation] Un espía desconocido ha robado los fondos que {1_CivName: plural 2?{1: gender masculine?los {1} tienen; feminine?las {1} tienen;}; other?{1: gender *:la?la {1} tiene; *:el?el {1} tiene; other?{1} tiene;};} en {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_STEAL_TECH_BOOST_DETECTED" Language="es_ES">
+			<Text>[ICON_Exclamation] Un espía de {3_SpyPlayer} ha robado los planos de tecnología que {1_CivName: plural 2?{1: gender masculine?los {1} tienen; feminine?las {1} tienen;}; other?{1: gender *:la?la {1} tiene; *:el?el {1} tiene; other?{1} tiene;};} en {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_STEAL_TECH_BOOST_UNDETECTED" Language="es_ES">
+			<Text>[ICON_Exclamation] Un espía desconocido ha robado los planos de tecnología que {1_CivName: plural 2?{1: gender masculine?los {1} tienen; feminine?las {1} tienen;}; other?{1: gender *:la?la {1} tiene; *:el?el {1} tiene; other?{1} tiene;};} en {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRADE_DEAL" Language="es_ES">
+			<Text>[ICON_Gold] {1_CivName: plural 2?{1:gender masculine?Los {1} están;feminine?Las {1} están;}; other?{1:gender *:la?La {1} está;*:el?El {1} está;other?{1} está;};} comerciando con {2_CivName: plural 2?{2: gender masculine?los {2}; feminine?las {2};}; other?{2:gender *:la?la {2};*:el?el {2};other?{2};};}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRADE_RENEGE" Language="es_ES">
+			<Text>[ICON_Gold] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} incumplido un trato con {2: plural 2?{2: gender masculine?los {2_CivName}; feminine?las {2_CivName};}; other?{2:gender *:la?la {2_CivName};*:el?el {2_CivName};other?{2_CivName};};}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRAIN_SETTLER" Language="es_ES">
+			<Text>[ICON_Unit] {1_CivName:plural 2?{1:gender m?Los {1_CivName} pueden;f?Las {1_CivName} pueden;}; other?{1:gender *:la?La {1_CivName} puede;*:el?El {1_CivName} puede;other?{1_CivName} puede;};} fundar una nueva ciudad.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRAIN_UNIT" Language="es_ES">
+			<Text>[ICON_Unit] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} ha acabado de entrenar {2: plural 1?{2: gender masculine?al mejor; feminine?a la mejor;}; plural 2?{2: gender masculine?a los mejores; feminine?a las mejores;};} {2_UnitName} del mundo.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRAIN_UNIQUE_UNIT" Language="es_ES">
+			<Text>[ICON_Unit] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} entrenado una unidad exclusiva, {2: plural 1?{2: gender masculine?el; feminine?la;}; plural 2?{2: gender masculine?los; feminine?las;};} {2_UnitName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_PROJECT_STARTED" Language="es_ES">
+			<Text>[ICON_Production] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} empezado {2_ProjectType:plural 2?{2:gender masculine?los {2_ProjectType};feminine?las {2_ProjectType};}; other?{2:gender *:la?la {2_ProjectType};*:el?el {2_ProjectType};other?{2_ProjectType};};}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPACE_RACE_PROJECT_COMPLETED" Language="es_ES">
+			<Text>[ICON_Production] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} completado el siguiente proyecto de Carrera espacial: {2_ProjectType}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_START_VICTORY_STRATEGY" Language="es_ES">
+			<Text>[ICON_Exclamation] {1_CivName: plural 2?{1: gender masculine?Los {1} buscan; feminine?Las {1} buscan;}; other?{1: gender *:la?La {1} busca; *:el?El {1} busca; other?{1} busca;};} una {2_VictoryName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_STOP_VICTORY_STRATEGY" Language="es_ES">
+			<Text>[ICON_Exclamation] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} ya no buscan;feminine?Las {1_CivName} ya no buscan;}; other?{1:gender *:la?La {1_CivName} ya no busca;*:el?El {1_CivName} ya no busca;other?{1_CivName} ya no busca;};} una {2_VictoryType}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WMD_BUILT" Language="es_ES">
+			<Text>[ICON_Nuclear] ¡{1_CivName:plural 2?{1:gender masculine?Los {1_CivName} acaban;feminine?Las {1_CivName} acaban;}; other?{1:gender *:la?La {1_CivName} acaba;*:el?El {1_CivName} acaba;other?{1_CivName} acaba;};} de crear {2_WMDCount} {2_WMDCount: plural 1?arma de destrucción masiva; other?armas de destrucción masiva;}!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WMD_STRIKE" Language="es_ES">
+			<Text>[ICON_Nuclear] ¡{1_CivName:plural 2?{1:gender masculine?Los {1_CivName} acaban;feminine?Las {1_CivName} acaban;}; other?{1:gender *:la?La {1_CivName} acaba;*:el?El {1_CivName} acaba;other?{1_CivName} acaba;};} de liberar un arma de destrucción masiva. ¡{2: gender masculine?Un; feminine?Una;} {2_UnitName}!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WONDER_STARTED" Language="es_ES">
+			<Text>[ICON_Production] {1_CivName:plural 2?{1:gender masculine?Los {1_CivName} han;feminine?Las {1_CivName} han;}; other?{1:gender *:la?La {1_CivName} ha;*:el?El {1_CivName} ha;other?{1_CivName} ha;};} despejado la tierra en {2_CityName} para construir {3: plural 1?{3: gender masculine?el; feminine?la;}; other?{3: gender masculine?los; other?las;};} {3_BuildingName}.</Text>
+		</Replace>
+	</LocalizedText>
+</GameData>

@@ -140,6 +140,9 @@ function CQUI_GetIgnoredGossipMessages()
     if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_CONQUER_CITY") == false) then
         ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_CONQUER_CITY", "[]", "[]", "[]", "[]", "[]", "[]");
     end
+    if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_CONQUER_CAPITAL_CITY") == false) then
+        ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_CONQUER_CAPITAL_CITY", "[]", "[]", "[]", "[]", "[]", "[]");
+    end
     if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_CONSTRUCT_BUILDING") == false) then
         ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_CONSTRUCT_BUILDING", "[]", "[]", "[]", "[]", "[]", "[]");
     end
@@ -197,6 +200,9 @@ function CQUI_GetIgnoredGossipMessages()
     if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_NATIONAL_PARK_CREATED") == false) then
         ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_NATIONAL_PARK_CREATED", "[]", "[]", "[]", "[]", "[]", "[]");
     end
+    if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_NAVAL_UNIT_LEVEL") == false) then
+        ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_NAVAL_UNIT_LEVEL", "[]", "[]", "[]", "[]", "[]", "[]");
+    end
     if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_NEW_RELIGIOUS_MAJORITY") == false) then
         ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_NEW_RELIGIOUS_MAJORITY", "[]", "[]", "[]", "[]", "[]", "[]");
     end
@@ -217,6 +223,9 @@ function CQUI_GetIgnoredGossipMessages()
     end
     if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_RESEARCH_TECH") == false) then
         ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_RESEARCH_TECH", "[]", "[]", "[]", "[]", "[]", "[]");
+    end
+    if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_SPY_CAPTURED") == false) then
+        ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_SPY_CAPTURED", "[]", "[]", "[]", "[]", "[]", "[]");
     end
     if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_DETECTED") == false) then
         ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_DETECTED", "[]", "[]", "[]", "[]", "[]", "[]");
@@ -272,6 +281,9 @@ function CQUI_GetIgnoredGossipMessages()
     if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_PROJECT_STARTED") == false) then
         ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_PROJECT_STARTED", "[]", "[]", "[]", "[]", "[]", "[]");
     end
+    if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_SPACE_RACE_PROJECT_COMPLETED") == false) then
+        ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_SPACE_RACE_PROJECT_COMPLETED", "[]", "[]", "[]", "[]", "[]", "[]");
+    end
     if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_START_VICTORY_STRATEGY") == false) then
         ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_START_VICTORY_STRATEGY", "[]", "[]", "[]", "[]", "[]", "[]");
     end
@@ -286,6 +298,33 @@ function CQUI_GetIgnoredGossipMessages()
     end
     if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_WONDER_STARTED") == false) then
         ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_WONDER_STARTED", "[]", "[]", "[]", "[]", "[]", "[]");
+    end
+    if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_SPY_FOMENT_UNREST_DETECTED") == false) then
+        ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_SPY_FOMENT_UNREST_DETECTED", "[]", "[]", "[]", "[]", "[]", "[]");
+    end
+    if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_SPY_FOMENT_UNREST_UNDETECTED") == false) then
+        ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_SPY_FOMENT_UNREST_UNDETECTED", "[]", "[]", "[]", "[]", "[]", "[]");
+    end
+    if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_DETECTED") == false) then
+        ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_DETECTED", "[]", "[]", "[]", "[]", "[]", "[]");
+    end
+    if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_UNDETECTED") == false) then
+        ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_SPY_NEUTRALIZE_GOVERNOR_UNDETECTED", "[]", "[]", "[]", "[]", "[]", "[]");
+    end
+    if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_SPY_DAM_BREACHED_DETECTED") == false) then
+        ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_SPY_DAM_BREACHED_DETECTED", "[]", "[]", "[]", "[]", "[]", "[]");
+    end
+    if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_SPY_DAM_BREACHED_UNDETECTED") == false) then
+        ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_SPY_DAM_BREACHED_UNDETECTED", "[]", "[]", "[]", "[]", "[]", "[]");
+    end
+    if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_ROCK_CONCERT") == false) then
+        ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_ROCK_CONCERT", "[]", "[]", "[]", "[]", "[]", "[]");
+    end
+    if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_POWERED_CITY") == false) then
+        ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_POWERED_CITY", "[]", "[]", "[]", "[]", "[]", "[]");
+    end
+    if (GameConfiguration.GetValue("CQUI_LOC_GOSSIP_RANDOM_EVENT") == false) then
+        ignored[#ignored+1] = Locale.Lookup("LOC_GOSSIP_RANDOM_EVENT", "[]", "[]", "[]", "[]", "[]", "[]");
     end
 
     return ignored;

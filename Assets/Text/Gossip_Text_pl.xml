@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameData>
+	<LocalizedText>
+		<!-- Replace Gossip Text -->
+		<Replace Tag="LOC_GOSSIP_AGENDA_KUDOS" Language="pl_PL">
+			<Text>[ICON_Declare_friendship] {1_LeaderName} dziękuje {2_Leadername[3]} za współpracę. (Cel: {3_AgendaName[7]}).</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_AGENDA_WARNING" Language="pl_PL">
+			<Text>[ICON_Denounce] {1_LeaderName} ostrzega {2_Leadername[4]}! (Cel: {3_AgendaName[7]}).</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ALLIED" Language="pl_PL">
+			<Text>[ICON_Alliance] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?zawarł; feminine?zawarła; other?zawarło;}; 2?{1_CivName: gender masculine?zawarli; other?zawarły;};} sojusz z {2_CivName[5]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ANARCHY_BEGINS" Language="pl_PL">
+			<Text>[ICON_Razed] Doszło do przewrotu stanu w {1_CivName[6]}. W jego wyniku usunięto reżim {2_Government[2]}. Rozpoczęła się anarchia.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ARTIFACT_EXTRACTED" Language="pl_PL">
+			<Text>[ICON_Greatwork_relic] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?dokonał; feminine?dokonała; other?dokonało;}; 2?{1_CivName: gender masculine?dokonali; other?dokonały;};} nowego odkrycia archeologicznego: {2_GreatWork}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_BARBARIAN_INVASION_STARTED" Language="pl_PL">
+			<Text>[ICON_Barbarian] {1_CivName} walczy z inwazją barbarzyńców w {2_CityName[6]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_BARBARIAN_RAID_STARTED" Language="pl_PL">
+			<Text>[ICON_Barbarian] {1_CivName} walczy z atakiem barbarzyńców w {2_CityName[6]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_BEACH_RESORT_CREATED" Language="pl_PL">
+			<Text>[ICON_Production] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?zbudował; feminine?zbudowała; other?zbudowało;}; 2?{1_CivName: gender masculine?zbudowali; other?zbudowały;};} kurort pod {2_CityName[5]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CHANGE_GOVERNMENT" Language="pl_PL">
+			<Text>[ICON_Government] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?zmienił; feminine?zmieniła; other?zmieniło;}; 2?{1_CivName: gender masculine?zmienili; other?zmieniły;};} ustrój na {2_Government[10]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_BESIEGED" Language="pl_PL">
+			<Text>[ICON_Razed] {1_CityName} przeżywa oblężenie.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_LIBERATED" Language="pl_PL">
+			<Text>[ICON_Buildings] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?wyzwolił; feminine?wyzwoliła; other?wyzwoliło;}; 2?{1_CivName: gender masculine?wyzwolili; other?wyzwoliły;};} {2_CityName[4]} i oddała {2_CityName: plural 1?{2_CityName: gender masculine?go; feminine?ją; other?je;}; 2?je;} {3_CivName[9]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_RAZED" Language="pl_PL">
+			<Text>[ICON_Razed] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?zburzył; feminine?zburzyła; other?zburzyło;}; 2?{1_CivName: gender masculine?zburzyli; other?zburzyły;};} miasto założone przez {2_CivName[4]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CLEAR_CAMP" Language="pl_PL">
+			<Text>[ICON_Barbarian] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?wykorzystał; feminine?wykorzystała; other?wykorzystało;}; 2?{1_CivName: gender masculine?wykorzystali; other?wykorzystały;};} {2_UnitName[10]} w celu usunięcia {3_ImprovementName[8]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CITY_STATE_INFLUENCE" Language="pl_PL">
+			<Text>[ICON_Envoy] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?wysłał; feminine?wysłała; other?wysłało;}; 2?{1_CivName: gender masculine?wysłali; other?wysłały;};} emisariusza do {2_CityState[8]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONQUER_CITY" Language="pl_PL">
+			<Text>[ICON_Razed] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?podbił; feminine?podbiła; other?podbiło;}; 2?{1_CivName: gender masculine?podbili; other?podbiły;};} {2_CityName[4]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONQUER_CAPITAL_CITY" Language="pl_PL">
+			<Text>[ICON_Razed] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?zdobył; feminine?zdobyła; other?zdobyło;}; 2?{1_CivName: gender masculine?zdobyli; other?zdobyły;};} {3_CityName[4]} – pierwotną {2_CivAdjective[10]}ą stolicę.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONSTRUCT_BUILDING" Language="pl_PL">
+			<Text>[ICON_Production] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?zbudował; feminine?zbudowała; other?zbudowało;}; 2?{1_CivName: gender masculine?zbudowali; other?zbudowały;};} {2_BuildingName[10]} w {3_CityName[6]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONSTRUCT_DISTRICT" Language="pl_PL">
+			<Text>[ICON_Production] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?zbudował; feminine?zbudowała; other?zbudowało;}; 2?{1_CivName: gender masculine?zbudowali; other?zbudowały;};} {2_DistrictName[10]} w {3_CityName[6]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CREATE_PANTHEON" Language="pl_PL">
+			<Text>[ICON_Religion] {1_CivName} {1_CivName: plural 1?oddaje; 2?oddają;} cześć panteonowi bogów skoncentrowanemu na wierzeniu {2_BeliefName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CULTURVATE_CIVIC" Language="pl_PL">
+			<Text>[ICON_Culture] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?opracował; feminine?opracowała; other?opracowało;}; 2?{1_CivName: gender masculine?opracowali; other?opracowały;};} {2_CivicName[4]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_DECLARED_FRIENDSHIP" Language="pl_PL">
+			<Text>[ICON_Declare_friendship] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?ogłosił; feminine?ogłosiła; other?ogłosiło;}; 2?{1_CivName: gender masculine?ogłosili; other?ogłosiły;};} przyjaźń z {2_CivName[5]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_DELEGATION" Language="pl_PL">
+			<Text>[ICON_Envoy] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?przyjęł; feminine?przyjęła; other?przyjęło;}; 2?{1_CivName: gender masculine?przyjęli; other?przyjęły;};} delegację z {2_CivName[2]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_DENOUNCED" Language="pl_PL">
+			<Text>[ICON_Denounce] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?potępił; feminine?potępiła; other?potępiło;}; 2?{1_CivName: gender masculine?potępili; other?potępiły;};} czyny {2_CivName[2]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_EMBASSY" Language="pl_PL">
+			<Text>[ICON_Resident_embassy] W {1_CivName[6]} powstała stała ambasada {2_CivName[2]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ERA_CHANGED" Language="pl_PL">
+			<Text>[ICON_Capitallarge] W {1_CivName[6]} zaczyna się {3_NewEra}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_FIND_NATURAL_WONDER" Language="pl_PL">
+			<Text>[ICON_Terrain] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?odkrył; feminine?odkryła; other?odkryło;}; 2?{1_CivName: gender masculine?odkryli; other?odkryły;};} cud natury: {2_NWName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_FOUND_CITY" Language="pl_PL">
+			<Text>[ICON_Buildings] {1_CivName} {1_CivName: plural 1?zakłada; 2?zakładają;} nową osadę: {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_FOUND_RELIGION" Language="pl_PL">
+			<Text>[ICON_Religion] {1_CivName} {1_CivName: plural 1?zakłada; 2?zakładają;} nową religię, {2_ReligionName[10]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_GREATPERSON_CREATED" Language="pl_PL">
+			<Text>[ICON_Greatperson] {1_CivName} {1_CivName: plural 1?zdobywa; 2?zdobywają;} {3_GreatPerson[4]} ({2_unit[10]}).</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_LAUNCHING_ATTACK" Language="pl_PL">
+			<Text>[ICON_Declare_formal_war] {1_CivName} {1_CivName: plural 1?rozpoczyna; 2?rozpoczynają;} atak wojskowy na {2_CivName[4]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WAR_PREPARATION" Language="pl_PL">
+			<Text>[ICON_Declare_formal_war] {1_CivName} {1_CivName: plural 1?rozważa; 2?rozważają;} wojnę z {2_CivName[5]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_INQUISITION_LAUNCHED" Language="pl_PL">
+			<Text>[ICON_Religion] {1_CivName} {1_CivName: plural 1?rozpoczyna; 2?rozpoczynają;} inkwizycję zwalczającą heretyków sprzeciwiających się {2_ReligionName[9]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_LAND_UNIT_LEVEL" Language="pl_PL">
+			<Text>[ICON_Promotion] {1_CivName} {1_CivName: plural 1?ma; 2?mają;} {2_UnitName[4]}. Ta jednostka właśnie otrzymała awans {3_PromotionName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_MAKE_DOW" Language="pl_PL">
+			<Text>[ICON_Declare_formal_war] {1_CivName} {1_CivName: plural 1?wypowiada; 2?wypowiadają;} wojnę {2_OtherPlayer[3]}!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_NATIONAL_PARK_CREATED" Language="pl_PL">
+			<Text>[ICON_Terrain] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?stworzył; feminine?stworzyła; other?stworzyło;}; 2?{1_CivName: gender masculine?stworzyli; other?stworzyły;};} {2_NationalParkName[4]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_NAVAL_UNIT_LEVEL" Language="pl_PL">
+			<Text>[ICON_Promotion] {1_CivName} {1_CivName: plural 1?ma; 2?mają;} {2_UnitName[4]}. Ta jednostka właśnie otrzymała awans {3_PromotionName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_NEW_RELIGIOUS_MAJORITY" Language="pl_PL">
+			<Text>[ICON_Religion] [Religją dominującą w {1_CivName[6]} jest teraz: {2_ReligionName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_PILLAGE" Language="pl_PL">
+			<Text>[ICON_Pillaged] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?splądrował; feminine?splądrowała; other?splądrowało;}; 2?{1_CivName: gender masculine?splądrowali; other?splądrowały;};} {2_TargetName[10]} wroga, wykorzystując {3_UnitName[10]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_POLICY_ENACTED" Language="pl_PL">
+			<Text>[ICON_Policy] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?przyjął; feminine?przyjęła; other?przyjęło;}; 2?{1_CivName: gender masculine?przyjęli; other?przyjęły;};} doktrynę {3_PolicyName[8]} ({2_SlotName[10]}).</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RECEIVE_DOW" Language="pl_PL">
+			<Text>[ICON_Declare_formal_war] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?stał; feminine?stała; other?stało;}; 2?{1_CivName: gender masculine?stali; other?stały;};} się celem wojny wypowiedzianej przez {2_OtherPlayer[4]}!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RELIC_RECEIVED" Language="pl_PL">
+			<Text>[ICON_Greatwork_religious] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?uzyskał; feminine?uzyskała; other?uzyskało;}; 2?{1_CivName: gender masculine?uzyskali; other?uzyskały;};} świętą relikwię: {2_RelicName[10]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RESEARCH_AGREEMENT" Language="pl_PL">
+			<Text>[ICON_Research_agreement] {1_CivName} i {2_CivName} rozpoczynają współpracę naukową.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RESEARCH_TECH" Language="pl_PL">
+			<Text>[ICON_Science] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?ukończył; feminine?ukończyła; other?ukończyło;}; 2?{1_CivName: gender masculine?ukończyli; other?ukończyły;};} prace nad {2_TechName[5]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_CAPTURED" Language="pl_PL">
+			<Text>[ICON_Exclamation] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?schwytał; feminine?schwytała; other?schwytało;}; 2?{1_CivName: gender masculine?schwytali; other?schwytały;};} szpiega należącego do {3_SpyPlayer[2]}, który działał mieście {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_DETECTED" Language="pl_PL">
+			<Text>[ICON_Pillaged] [Port kosmiczny {1_CivName[2]} w {2_CityName[6]} padł ofiarą sabotażu ze strony szpiega {3_SpyPlayer[2]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_UNDETECTED" Language="pl_PL">
+			<Text>[ICON_Pillaged] [Port kosmiczny {1_CivName[2]} w {2_CityName[6]} padł ofiarą sabotażu ze strony nieznanego szpiega.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_GREAT_WORK_HEIST_DETECTED" Language="pl_PL">
+			<Text>[ICON_Exclamation] Wielkie dzieło {1_CivName[2]} zostało wykradzione z {2_CityName[2]} przez szpiega {3_SpyPlayer[2]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_GREAT_WORK_HEIST_UNDETECTED" Language="pl_PL">
+			<Text>[ICON_Exclamation] Wielkie dzieło {1_CivName[2]} zostało wykradzione z {2_CityName[2]} przez nieznanego szpiega.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_RECRUIT_PARTISANS_DETECTED" Language="pl_PL">
+			<Text>[ICON_Exclamation] {1_CivName} próbuje zwalczyć partyzantów opłaconych przez {3_SpyPlayer[4]} w {2_CityName[6]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_RECRUIT_PARTISANS_UNDETECTED" Language="pl_PL">
+			<Text>[ICON_Exclamation] {1_CivName} próbuje zwalczyć partyzantów w {2_CityName[6]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SABOTAGE_PRODUCTION_DETECTED" Language="pl_PL">
+			<Text>[ICON_Exclamation] Dzielnica przemysłowa {1_CivName[2]} w mieście {2_CityName} padła ofiarą sabotażu ze strony szpiega {3_SpyPlayer[2]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SABOTAGE_PRODUCTION_UNDETECTED" Language="pl_PL">
+			<Text>[ICON_Exclamation] Dzielnica przemysłowa {1_CivName[2]} w mieście {2_CityName} padła ofiarą sabotażu.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SIPHON_FUNDS_DETECTED" Language="pl_PL">
+			<Text>[ICON_Exclamation] Fundusze {1_CivName[2]} w mieście {2_CityName} zostały wykradzione przez szpiega {3_SpyPlayer[2]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_SIPHON_FUNDS_UNDETECTED" Language="pl_PL">
+			<Text>[ICON_Exclamation] Fundusze {1_CivName[2]} w mieście {2_CityName} zostały wykradzione.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_STEAL_TECH_BOOST_DETECTED" Language="pl_PL">
+			<Text>[ICON_Exclamation] Plany technologiczne {1_CivName[2]} w mieście {2_CityName} zostały wykradzione przez szpiega {3_SpyPlayer[2]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_STEAL_TECH_BOOST_UNDETECTED" Language="pl_PL">
+			<Text>[ICON_Exclamation] Plany technologiczne {1_CivName[2]} w mieście {2_CityName} zostały wykradzione przez szpiega {3_SpyPlayer[2]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRADE_DEAL" Language="pl_PL">
+			<Text>[ICON_Gold] {1_CivName} {1_CivName: plural 1?handluje; 2?handlują;} z {2_CivName[5]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRADE_RENEGE" Language="pl_PL">
+			<Text>[ICON_Gold] {1_CivName} nie {1_CivName: plural 1?{1_CivName: gender masculine?dotrzymał; feminine?dotrzymała; other?dotrzymało;}; 2?{1_CivName: gender masculine?dotrzymali; other?dotrzymały;};} umowy z {2_CivName[5]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRAIN_SETTLER" Language="pl_PL">
+			<Text>[ICON_Unit] {1_CivName[7]} {1_CivName: plural 1?chce; 2?chcą;} założyć miasto przy użyciu świeżo wyszkolonej jednostki {2_UnitName[2]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRAIN_UNIT" Language="pl_PL">
+			<Text>[ICON_Unit] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?wyszkolił; feminine?wyszkoliła; other?wyszkoliło;}; 2?{1_CivName: gender masculine?wyszkolili; other?wyszkoliły;};} pierwszą na świecie jednostkę {2_UnitName[2]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_TRAIN_UNIQUE_UNIT" Language="pl_PL">
+			<Text>[ICON_Unit] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?wyszkolił; feminine?wyszkoliła; other?wyszkoliło;}; 2?{1_CivName: gender masculine?wyszkolili; other?wyszkoliły;};} wyjątkową jednostkę, {2_UnitName[4]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_PROJECT_STARTED" Language="pl_PL">
+			<Text>[ICON_Production] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?rozpoczął; feminine?rozpoczęła; other?rozpoczęło;}; 2?{1_CivName: gender masculine?rozpoczęli; other?rozpoczęły;};} {2_ProjectType[4]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPACE_RACE_PROJECT_COMPLETED" Language="pl_PL">
+			<Text>[ICON_Production] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?ukończył; feminine?ukończyła; other?ukończyło;}; 2?{1_CivName: gender masculine?ukończyli; other?ukończyły;};} projekt wyścigu kosmicznego: {2_ProjectType}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_START_VICTORY_STRATEGY" Language="pl_PL">
+			<Text>[ICON_Exclamation] {1_CivName} {1_CivName: plural 1?pragnie; 2?pragną;} osiągnąć {2_VictoryType[7]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_STOP_VICTORY_STRATEGY" Language="pl_PL">
+			<Text>[ICON_Exclamation] {1_CivName[2]} nie interesuje się już {2_VictoryType[7]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WMD_BUILT" Language="pl_PL">
+			<Text>[ICON_Nuclear] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?stworzył; feminine?stworzyła; other?stworzyło;}; 2?{1_CivName: gender masculine?stworzyli; other?stworzyły;};} {2_WMDCount} {2_WMDCount: plural 1?sztukę; 2?sztuki; other?sztuk;} broni masowego rażenia!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WMD_STRIKE" Language="pl_PL">
+			<Text>[ICON_Nuclear] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?użył; feminine?użyła; other?użyło;}; 2?{1_CivName: gender masculine?użyli; other?użyły;};} broni masowego rażenia – {2_UnitName[10]}! Kryć się!</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_WONDER_STARTED" Language="pl_PL">
+			<Text>[ICON_Production] {1_CivName} {1_CivName: plural 1?{1_CivName: gender masculine?oczyścił; feminine?oczyściła; other?oczyściło;}; 2?{1_CivName: gender masculine?oczyścili; other?oczyściły;};} w {2_CityName[6]} teren pod budowę {3_BuildingName[8]}.</Text>
+		</Replace>
+	</LocalizedText>
+</GameData>

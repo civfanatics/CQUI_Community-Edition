@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameData>
+	<LocalizedText>
+		<!-- Replace Expansion 2 Gossip Text -->
+		<Replace Tag="LOC_GOSSIP_SPY_DAM_BREACHED_DETECTED" Language="zh_Hans_CN">
+			<Text>[ICON_Pillaged] {1_CivName}在{2_CityName}的堤坝被来自{3_SpyPlayer}的间谍破坏了。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_DAM_BREACHED_UNDETECTED" Language="zh_Hans_CN">
+			<Text>[ICON_Pillaged] {1_CivName}在{2_CityName}的堤坝被一名未知间谍破坏了。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_ROCK_CONCERT" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] {3_BandName}在{1_City_Name}举办的音乐会{2_ResultName}。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_POWERED_CITY" Language="zh_Hans_CN">
+			<Text>[ICON_Power] {1_CivName}为城市{2_CityName}带来了魔法般的电力供给。</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_RANDOM_EVENT" Language="zh_Hans_CN">
+			<Text>[ICON_Exclamation] {1_CivName}因{2_NaturalDisasterName}而遭受严重损害。</Text>
+		</Replace>	
+	</LocalizedText>
+</GameData>

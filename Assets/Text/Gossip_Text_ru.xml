@@ -12,6 +12,9 @@
 		<Replace Tag="LOC_GOSSIP_ALLIED" Language="ru_RU">
 			<Text>[ICON_Alliance] {1_CivName} заключил союз с {2_CivName}.</Text>
 		</Replace>
+		<Replace Tag="LOC_GOSSIP_ANARCHY_BEGINS" Language="ru_RU">
+			<Text>[ICON_Razed] в {1_CivName[6]} произошел государственный переворот. {2_Government} терпит крах. Наступила анархия.</Text>
+		</Replace>
 		<Replace Tag="LOC_GOSSIP_ARTIFACT_EXTRACTED" Language="ru_RU">
 			<Text>[ICON_Greatwork_relic] {1_CivName} раскопал реликвию: {2_GreatWork}.</Text>
 		</Replace>
@@ -44,6 +47,9 @@
 		</Replace>
 		<Replace Tag="LOC_GOSSIP_CONQUER_CITY" Language="ru_RU">
 			<Text>[ICON_Razed] {1_CivName} завоевал {2_CityName}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_CONQUER_CAPITAL_CITY" Language="ru_RU">
+			<Text>[ICON_Razed] {1_CivName} {1_CivName: plural 1?{1: gender masculine?захватил; feminine?захватила; neuter?захватило;}; other?захватили;} первоначальную {2_CivAdjective} столицу – {3_CityName[4]}.</Text>
 		</Replace>
 		<Replace Tag="LOC_GOSSIP_CONSTRUCT_BUILDING" Language="ru_RU">
 			<Text>[ICON_Production] {1_CivName} построил {LOC_GRAMMAR_A_AN &lt;&lt; {2_BuildingName}} в {3_CityName}.</Text>
@@ -126,6 +132,9 @@
 		<Replace Tag="LOC_GOSSIP_RESEARCH_TECH" Language="ru_RU">
 			<Text>[ICON_Science] {1_CivName} завершил исследования {2_TechName}.</Text>
 		</Replace>
+		<Replace Tag="LOC_GOSSIP_SPY_CAPTURED" Language="ru_RU">
+			<Text>[ICON_Exclamation] Держава {1_CivName} захватила шпиона игрока {3_SpyPlayer} в городе {2_CityName}.</Text>
+		</Replace>
 		<Replace Tag="LOC_GOSSIP_SPY_DISRUPT_ROCKETRY_DETECTED" Language="ru_RU">
 			<Text>[ICON_Pillaged] {1_CivName} космодром в {2_CityName} был саботирован {3_SpyPlayer}.</Text>
 		</Replace>
@@ -177,8 +186,17 @@
 		<Replace Tag="LOC_GOSSIP_TRAIN_UNIQUE_UNIT" Language="ru_RU">
 			<Text>[ICON_Unit] {1_CivName} завершил создание уникального юнита, {2_UnitName}.</Text>
 		</Replace>
+		<Replace Tag="LOC_GOSSIP_PROJECT_STARTED" Language="ru_RU">
+			<Text>[ICON_Production] {1_CivName} {1_CivName : plural 1?начинает; other?начинают;} {2_ProjectType[4]}.</Text>
+		</Replace>
 		<Replace Tag="LOC_GOSSIP_SPACE_RACE_PROJECT_COMPLETED" Language="ru_RU">
-			<Text>{1_CivName} завершил проект космической гонки {2_ProjectType}.</Text>
+			<Text>[ICON_Production] {1_CivName} завершил проект космической гонки {2_ProjectType}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_START_VICTORY_STRATEGY" Language="ru_RU">
+			<Text>[ICON_Exclamation] {1_CivName} {1_CivName : plural 1?стремится; other?стремятся;} к {2_VictoryName[3]}.</Text>
+		</Replace>
+		<Replace Tag="LOC_GOSSIP_STOP_VICTORY_STRATEGY" Language="ru_RU">
+			<Text>[ICON_Exclamation] {1_CivName} больше не {1_CivName : plural 1?стремится; other?стремятся;} к {2_VictoryType[3]}.</Text>
 		</Replace>
 		<Replace Tag="LOC_GOSSIP_WMD_BUILT" Language="ru_RU">
 			<Text>[ICON_Nuclear] {1_CivName} построил {2_WMDCount} единиц оружия массового поражения!</Text>
