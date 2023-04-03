@@ -1153,6 +1153,7 @@ end
 
 function Close()
     LuaEvents.TradeRouteChooser_SetTradeUnitStatus("");
+    UILens.ClearLayerHexes(m_TradeRouteLens);
     ContextPtr:SetHide(true);
     m_isOpen = false;
 
