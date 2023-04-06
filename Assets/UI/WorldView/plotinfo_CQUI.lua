@@ -56,7 +56,8 @@ function CQUI_UpdateCloseCitiesCitizensWhenCityFounded(playerID, cityID)
 end
 
 -- ===========================================================================
---Takes a table with duplicates and returns a new table without duplicates. Credit to vogomatix at stask exchange for the code
+-- Takes a table with duplicates and returns a new table without duplicates. Credit to vogomatix at stask exchange for the code
+-- ===========================================================================
 function CQUI_RemoveDuplicates(i:table)
     local hash = {};
     local o = {};
@@ -70,8 +71,10 @@ function CQUI_RemoveDuplicates(i:table)
 end
 
 -- ===========================================================================
-function CQUI_DragThresholdExceeded()
-    CQUI_DragThresholdExceeded = true;
+-- Sets the variable tracking if the map was dragged beyond the threshold
+-- ===========================================================================
+function CQUI_SetDragThresholdExceeded( state:boolean )
+    CQUI_DragThresholdExceeded = state;
 end
 
 -- ===========================================================================
@@ -84,6 +87,11 @@ function OnClickCitizen( plotId:number )
         LuaEvents.CQUI_RefreshCitizenManagement(pSelectedCity:GetID());
     end
 
+    if CQUI_DragThresholdExceeded then
+        CQUI_DragThresholdExceeded = false;
+        return false;
+    end
+
     BASE_CQUI_OnClickCitizen(plotId);
 end
 
@@ -92,6 +100,11 @@ end
 --  Update citizens, data and real housing for both cities
 -- ===========================================================================
 function OnClickSwapTile( plotId:number )
+    if CQUI_DragThresholdExceeded then
+        CQUI_DragThresholdExceeded = false;
+        return false;
+    end
+
     local result = BASE_CQUI_OnClickSwapTile(plotId);
 
     local pSelectedCity :table = UI.GetHeadSelectedCity();
@@ -214,7 +227,7 @@ function Initialize_PlotInfo_CQUI()
 
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
-    LuaEvents.CQUI_DragThresholdExceeded.Add(CQUI_DragThresholdExceeded);
+    LuaEvents.CQUI_SetDragThresholdExceeded.Add(CQUI_SetDragThresholdExceeded);
     LuaEvents.CQUI_RefreshPurchasePlots.Add(RefreshPurchasePlots);
 end
 Initialize_PlotInfo_CQUI();

@@ -576,6 +576,12 @@ end
 --    CQUI modified OnClose via click
 -- ===========================================================================
 function OnClose()
+    if UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT or UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT then
+        UI.SetInterfaceMode(InterfaceModeTypes.CITY_MANAGEMENT);
+        LuaEvents.CQUI_CityviewEnable();
+        return;
+    end
+
     LuaEvents.CQUI_CityPanel_CityviewDisable();
 end
 

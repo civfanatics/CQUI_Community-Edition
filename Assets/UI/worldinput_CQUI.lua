@@ -68,6 +68,7 @@ end
 -- ===========================================================================
 function StartDragMap()
     CQUI_dragThresholdExceeded = false;
+    LuaEvents.CQUI_SetDragThresholdExceeded(false);
     -- Get the position of the mouse when the Dragging of the map starts
     CQUI_dragStartX, CQUI_dragStartY = UIManager:GetNormalizedMousePos();
 
@@ -78,6 +79,7 @@ end
 function EndDragMap(resetSpin:boolean)
     -- This function is called if nothing handled the release of the mouse button
     CQUI_dragThresholdExceeded = false;
+    LuaEvents.CQUI_SetDragThresholdExceeded(false);
     BASE_CQUI_EndDragMap(resetSpin);
 end
 
@@ -94,7 +96,7 @@ function UpdateDragMap()
               or (math.abs(CQUI_dragStartY - dragStartY) > CQUI_dragThreshold) then
                 CQUI_dragThresholdExceeded = true;
                 -- Fire the event to set the value in PlotInfo
-                LuaEvents.CQUI_DragThresholdExceeded();
+                LuaEvents.CQUI_SetDragThresholdExceeded(true);
             end
         end
     end
@@ -663,6 +665,7 @@ end
 function OnMouseBuildingPlacementCancel( pInputStruct:table )
     -- print_debug("** Function Entry: OnMouseBuildingPlacementCancel (CQUI Hook)");
     if IsCancelAllowed() then
+        UI.SetInterfaceMode(InterfaceModeTypes.CITY_MANAGEMENT);
         LuaEvents.CQUI_CityviewEnable();
         -- CQUI: Do not call ExitPlacementMode here
         -- ExitPlacementMode( true );
@@ -674,6 +677,7 @@ function OnMouseDistrictPlacementCancel( pInputStruct:table )
     -- print_debug("** Function Entry: OnMouseDistrictPlacementCancel (CQUI Hook)");
     if IsCancelAllowed() then
         LuaEvents.StoreHash(0);
+        UI.SetInterfaceMode(InterfaceModeTypes.CITY_MANAGEMENT);
         LuaEvents.CQUI_CityviewEnable();
         -- CQUI: Do not call ExitPlacementMode here
         -- ExitPlacementMode( true );

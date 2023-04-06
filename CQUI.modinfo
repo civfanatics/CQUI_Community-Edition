@@ -605,6 +605,16 @@
             </Items>
         </ImportFiles>
 
+        <ImportFiles id="CQUI_IMPORT_FILES_EXP2_CITYPANELPOWER" criteria="Expansion2">
+            <Properties>
+                <LoadOrder>200</LoadOrder>
+                <Context>InGame</Context>
+            </Properties>
+            <Items>
+                <File>Assets/Expansion2/Replacements/citypanelpower_CQUI.lua</File>
+            </Items>
+        </ImportFiles>
+
         <ImportFiles id="CQUI_IMPORT_FILES_EXP2_CITYSTATES" criteria="Expansion2">
             <Properties>
                 <LoadOrder>200</LoadOrder>
@@ -877,6 +887,14 @@
                 <LoadOrder>200</LoadOrder>
                 <LuaContext>CityPanelOverview</LuaContext>
                 <LuaReplace>Assets/Expansion2/Replacements/citypaneloverview_expansion2_CQUI.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
+        <ReplaceUIScript id="CQUI_CityPanelPower_EXP2" criteria="Expansion2">
+            <Properties>
+                <LoadOrder>200</LoadOrder>
+                <LuaContext>CityPanelPower</LuaContext>
+                <LuaReplace>Assets/Expansion2/Replacements/citypanelpower_CQUI.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
 
@@ -1467,6 +1485,7 @@
         <!-- EXP 2 -->
         <File>Assets/Expansion2/Replacements/CityPanel_Expansion1.lua</File>
         <File>Assets/Expansion2/Replacements/citypaneloverview_expansion2_CQUI.lua</File>
+        <File>Assets/Expansion2/Replacements/citypanelpower_CQUI.lua</File>
         <File>Assets/Expansion2/Replacements/citystates.xml</File>
         <File>Assets/Expansion2/Replacements/citystates_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/diplomacyactionview_CQUI_expansion2.lua</File>
