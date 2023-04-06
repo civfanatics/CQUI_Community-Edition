@@ -27,9 +27,11 @@ BASE_CQUI_SetCurrentNode = SetCurrentNode;
 local CQUI_STATUS_MESSAGE_TECHS :number = 4;  -- Number to distinguish tech messages
 local CQUI_halfwayNotified  :table = {};
 local CQUI_ShowTechCivicRecommendations = false;
+local CQUI_AutoRepeatTechCivic:boolean = false;
 
 function CQUI_OnSettingsUpdate()
-    CQUI_ShowTechCivicRecommendations = GameConfiguration.GetValue("CQUI_ShowTechCivicRecommendations") == 1
+    CQUI_ShowTechCivicRecommendations = GameConfiguration.GetValue("CQUI_ShowTechCivicRecommendations") == 1;
+    CQUI_AutoRepeatTechCivic = GameConfiguration.GetValue("CQUI_AutoRepeatTechCivic");
 end
 
 -- ===========================================================================
@@ -141,6 +143,18 @@ function OnResearchComplete( ePlayer:number, eTech:number)
             end
         end
 
+        -- If repeatable, automatically repeat per settings
+        if (currentTechID ~= -1 and CQUI_AutoRepeatTechCivic) then
+            local tech = GameInfo.Technologies[currentTechID];
+            local kPlayerTechs = kPlayer:GetTechs();
+            local pathToTech = kPlayerTechs:GetResearchPath(tech.Hash);
+            if ((pathToTech == nil or next(pathToTech) == nil) and tech and tech.Repeatable and kPlayerTechs:CanResearch(tech.Index)) then
+                local tParameters = {};
+                tParameters[PlayerOperations.PARAM_TECH_TYPE] = tech.Hash;
+                tParameters[PlayerOperations.PARAM_INSERT_MODE] = PlayerOperations.VALUE_EXCLUSIVE;
+                UI.RequestPlayerOperation(ePlayer, PlayerOperations.RESEARCH, tParameters);
+            end
+        end
     end
 end
 
@@ -157,12 +171,12 @@ function SetCurrentNode( hash:number )
         local tParameters = {};
         local tech = GameInfo.Technologies[hash] -- the selected tech
 
-        if next(pathToTech) == nil and tech.Repeatable and localPlayerTechs:CanResearch(tech.Index) then
+        if (pathToTech == nil or next(pathToTech) == nil) and tech and tech.Repeatable and localPlayerTechs:CanResearch(tech.Index) then
             tParameters[PlayerOperations.PARAM_TECH_TYPE] = hash;
             tParameters[PlayerOperations.PARAM_INSERT_MODE] = PlayerOperations.VALUE_EXCLUSIVE;
 
             UI.RequestPlayerOperation(Game.GetLocalPlayer(), PlayerOperations.RESEARCH, tParameters);
-            UI.PlaySound("Confirm_Tech_TechTree");
+            --UI.PlaySound("Confirm_Tech_TechTree");
         end
     end
 

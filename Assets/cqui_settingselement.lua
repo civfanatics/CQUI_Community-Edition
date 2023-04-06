@@ -601,6 +601,7 @@ function Initialize()
     PopulateCheckBox(Controls.InlineCityStateQuest, "CQUI_InlineCityStateQuest");
     RegisterControl (Controls.ProductionQueueCheckbox, "CQUI_ProductionQueue", UpdateCheckbox);
     PopulateCheckBox(Controls.ShowLuxuryCheckbox, "CQUI_ShowLuxuries");
+    PopulateCheckBox(Controls.AutoRepeatTechCivicCheckbox, "CQUI_AutoRepeatTechCivic", Locale.Lookup("LOC_CQUI_GENERAL_AUTOREPEATTECHCIVIC_TOOLTIP"));
     PopulateCheckBox(Controls.ShowCultureGrowthCheckbox, "CQUI_ShowCultureGrowth", Locale.Lookup("LOC_CQUI_CITYVIEW_SHOWCULTUREGROWTH_TOOLTIP"));
     RegisterControl (Controls.ShowCultureGrowthCheckbox, "CQUI_ShowCultureGrowth", UpdateCheckbox);
     PopulateCheckBox(Controls.SmartbannerCheckbox, "CQUI_Smartbanner", Locale.Lookup("LOC_CQUI_CITYVIEW_SMARTBANNER_TOOLTIP"));

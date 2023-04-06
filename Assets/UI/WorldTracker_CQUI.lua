@@ -97,7 +97,7 @@ end
 function SetMainPanelToolTip(toolTip:string, panelTextureName:string)
     --print("SetMainPanelToolTip", toolTip, panelTextureName);
     -- Get either the MainPanel from the CivicInstance or ResearchInstance
-    for _,ctrl in pairs(Controls.PanelStack:GetChildren()) do
+    for _,ctrl in pairs(Controls.WorldTrackerVerticalContainer:GetChildren()) do
         if (ctrl:GetID() == "MainPanel" and ctrl:GetTexture() == panelTextureName) then
             ctrl:LocalizeAndSetToolTip(toolTip);
         end

@@ -35,6 +35,9 @@
                             <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
                                 <GridButton ID="ShowPolicyReminderCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_GENERAL_SHOWPRD" />
                             </Stack>
+                            <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
+                                <GridButton ID="AutoRepeatTechCivicCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_GENERAL_AUTOREPEATTECHCIVIC" />
+                            </Stack>
                             <Stack Anchor="C,T" StackGrowth="Right" Padding="20">
                                 <Label Anchor="C,C" Style="ShellOptionText" String="LOC_CQUI_GENERAL_RESOURCEDIMMINGSTYLE"/>
                                 <PullDown ID="ResourceIconStyle" Style="PullDownBlue" ScrollThreshold="400" Size="200,24" Offset="0,0" SpaceForScroll="0"/>

@@ -40,9 +40,11 @@ BASE_CQUI_SetCurrentNode = SetCurrentNode;
 local CQUI_STATUS_MESSAGE_CIVIC :number = 3;    -- Number to distinguish civic messages
 local CQUI_halfwayNotified  :table = {};
 local CQUI_ShowTechCivicRecommendations = false;
+local CQUI_AutoRepeatTechCivic:boolean = false;
 
 function CQUI_OnSettingsUpdate()
-    CQUI_ShowTechCivicRecommendations = GameConfiguration.GetValue("CQUI_ShowTechCivicRecommendations") == 1
+    CQUI_ShowTechCivicRecommendations = GameConfiguration.GetValue("CQUI_ShowTechCivicRecommendations") == 1;
+    CQUI_AutoRepeatTechCivic = GameConfiguration.GetValue("CQUI_AutoRepeatTechCivic");
 end
 
 -- ===========================================================================
@@ -140,6 +142,18 @@ function OnCivicComplete( ePlayer:number, eTech:number)
             end
         end
 
+        -- If repeatable, automatically repeat per settings
+        if (currentCivicID ~= -1 and CQUI_AutoRepeatTechCivic) then
+            local civic = GameInfo.Civics[currentCivicID];
+            local kPlayerCivics = kPlayer:GetCulture();
+            local pathToCivic = kPlayerCivics:GetCivicPath(civic.Hash);
+            if ((pathToCivic == nil or next(pathToCivic) == nil) and civic and civic.Repeatable and kPlayerCivics:CanProgress(civic.Index)) then
+                local tParameters = {};
+                tParameters[PlayerOperations.PARAM_CIVIC_TYPE]  = civic.Hash;
+                tParameters[PlayerOperations.PARAM_INSERT_MODE] = PlayerOperations.VALUE_EXCLUSIVE;
+                UI.RequestPlayerOperation(ePlayer, PlayerOperations.PROGRESS_CIVIC, tParameters);
+            end
+        end
     end
 end
 
@@ -171,12 +185,12 @@ function SetCurrentNode( hash )
         local tParameters = {};
         local civic = GameInfo.Civics[hash];
 
-        if next(pathToCivic) == nil and civic and civic.Repeatable and localPlayerCulture:CanProgress(civic.Index) then
+        if (pathToCivc == nil or next(pathToCivic) == nil) and civic and civic.Repeatable and localPlayerCulture:CanProgress(civic.Index) then
             tParameters[PlayerOperations.PARAM_CIVIC_TYPE]  = hash;
             tParameters[PlayerOperations.PARAM_INSERT_MODE] = PlayerOperations.VALUE_EXCLUSIVE;
 
             UI.RequestPlayerOperation(Game.GetLocalPlayer(), PlayerOperations.PROGRESS_CIVIC, tParameters);
-            UI.PlaySound("Confirm_Civic_CivicsTree");
+            --UI.PlaySound("Confirm_Civic_CivicsTree");
         end
     end
 end
