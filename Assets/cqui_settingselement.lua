@@ -653,9 +653,23 @@ function Initialize()
     
     -- Notifications
     PopulateCheckBox(Controls.NotificationGoodyHutCheckbox,   "CQUI_NotificationGoodyHut");
+    PopulateCheckBox(Controls.NOTIFICATION_CITY_LOW_AMENITIESCheckbox,   "CQUI_NOTIFICATION_CITY_LOW_AMENITIES");
+    PopulateCheckBox(Controls.NOTIFICATION_HOUSING_PREVENTING_GROWTHCheckbox,   "CQUI_NOTIFICATION_HOUSING_PREVENTING_GROWTH");
+    PopulateCheckBox(Controls.NOTIFICATION_CITY_FOOD_FOCUSCheckbox,   "CQUI_NOTIFICATION_CITY_FOOD_FOCUS");
     --PopulateCheckBox(Controls.NotificationTradeDealCheckbox,  "CQUI_NotificationTradeDeal");
     --PopulateCheckBox(Controls.NotificationPopulationCheckbox, "CQUI_NotificationPopulation");
     --PopulateCheckBox(Controls.NotificationCityBorderCheckbox, "CQUI_NotificationCityBorder");
+
+    -- Expansion 1 Notifications
+    if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
+        -- Nothing (for now)
+    end
+
+    -- Expansion 2 Notifications
+    if (g_bIsGatheringStorm) then
+        Controls.NOTIFICATION_CITY_UNPOWEREDCheckbox:SetHide(false);
+        PopulateCheckBox(Controls.NOTIFICATION_CITY_UNPOWEREDCheckbox, "CQUI_NOTIFICATION_CITY_UNPOWERED");
+    end
 
     InitializeGossipCheckboxes();
     InitializeTraderScreenCheckboxes();
