@@ -101,6 +101,9 @@
                                 <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
                                     <GridButton ID="RelocateEncampmentStrikeCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON" />
                                 </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="ShowCityManageOverLensesCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEOVERLENSES" />
+                                </Stack>
                                 <Stack Anchor="C,C" StackGrowth="Left">
                                     <Label Anchor="C,C" Style="ShellOptionText" String="LOC_CQUI_CITYVIEW_SMARTBANNER_HEADER" Offset="0,10"/>
                                 </Stack>
@@ -480,6 +483,15 @@
                                 </Stack>
                                 <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
                                     <GridButton ID="AutoapplyEngineerLensCheckbox" Anchor="L,C" Offset="0,0" Size="400,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_AUTOAPPLYENGINEERLENS"/>
+                                </Stack>
+                                <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="AutoapplyReligionLensInCityCheckbox" Anchor="L,C" Offset="0,0" Size="400,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_AUTOAPPLYRELIGIONLENSINCITY"/>
+                                </Stack>
+                                <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="AutoapplyLoyaltyLensInCityCheckbox" Anchor="L,C" Offset="0,0" Size="400,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_AUTOAPPLYLOYALTYLENSINCITY" Hidden="1"/>
+                                </Stack>
+                                <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="AutoapplyPowerLensInCityCheckbox" Anchor="L,C" Offset="0,0" Size="400,24" Style="CheckBoxControl" String="LOC_CQUI_LENSES_AUTOAPPLYPOWERLENSINCITY" Hidden="1"/>
                                 </Stack>
                                 <Stack Anchor="C,T" StackGrowth="Left" Padding="5">
                                     <PullDown ID="ReligionLensHideUnits" Style="PullDownBlue" ScrollThreshold="400" Size="200,24" Offset="0,0" SpaceForScroll="0"/>

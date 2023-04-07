@@ -122,6 +122,22 @@ function RefreshCitizenManagementLens(cityID:number)
 end
 
 -- ===========================================================================
+function HideCitizenManagementLens()
+    -- Hide the highlighted tiles, but don't clear the data
+    if (m_cityID ~= -1 and UILens.IsLayerOn(ML_LENS_LAYER)) then
+        UILens.ToggleLayerOff(ML_LENS_LAYER);
+    end
+end
+
+-- ===========================================================================
+function UnhideCitizenManagementLens()
+    -- Unhides the highlighted tiles
+    if (m_cityID ~= -1 and not UILens.IsLayerOn(ML_LENS_LAYER)) then
+        UILens.ToggleLayerOn(ML_LENS_LAYER);
+    end
+end
+
+-- ===========================================================================
 local function CQUI_OnSettingsInitialized()
     UpdateLensConfiguredColors(m_LensSettings, nil, nil);
 end
@@ -137,6 +153,8 @@ local function OnInitialize()
     LuaEvents.CQUI_ShowCitizenManagement.Add( ShowCitizenManagementLens );
     LuaEvents.CQUI_RefreshCitizenManagement.Add( RefreshCitizenManagementLens );
     LuaEvents.CQUI_ClearCitizenManagement.Add( ClearCitizenManagementLens );
+    LuaEvents.CQUI_HideCitizenManagementLens.Add( HideCitizenManagementLens );
+    LuaEvents.CQUI_UnhideCitizenManagementLens.Add( UnhideCitizenManagementLens );
 end
 
 local CitizenManagementEntry = {

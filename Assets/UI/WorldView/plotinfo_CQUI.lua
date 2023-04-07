@@ -14,6 +14,8 @@ BASE_CQUI_AggregateLensHexes = AggregateLensHexes;
 BASE_CQUI_RealizeTilt = RealizeTilt;
 BASE_CQUI_Initialize = Initialize;
 BASE_CQUI_OnClickCitizen = OnClickCitizen;
+BASE_CQUI_OnLensLayerOn = OnLensLayerOn;
+BASE_CQUI_OnLensLayerOff = OnLensLayerOff;
 
 -- ===========================================================================
 -- CQUI Members
@@ -23,8 +25,14 @@ local CQUI_WorkIconAlpha = .60;
 local CQUI_SmartWorkIcon: boolean = true;
 local CQUI_SmartWorkIconSize: number = 64;
 local CQUI_SmartWorkIconAlpha = .45;
+local CQUI_ShowCityManageOverLenses = false;
 local CQUI_DragThresholdExceeded = false;
 local CITY_CENTER_DISTRICT_INDEX = GameInfo.Districts["DISTRICT_CITY_CENTER"].Index;
+
+-- Power, Loyalty, and Religion lenses
+local m_Power : number = UILens.CreateLensLayerHash("Power_Lens");
+local m_Loyalty : number = UILens.CreateLensLayerHash("Cultural_Identity_Lens");
+local m_Religion : number = UILens.CreateLensLayerHash("Hex_Coloring_Religion");
 
 function CQUI_OnSettingsUpdate()
     CQUI_WorkIconSize = GameConfiguration.GetValue("CQUI_WorkIconSize");
@@ -32,6 +40,7 @@ function CQUI_OnSettingsUpdate()
     CQUI_SmartWorkIcon = GameConfiguration.GetValue("CQUI_SmartWorkIcon");
     CQUI_SmartWorkIconSize = GameConfiguration.GetValue("CQUI_SmartWorkIconSize");
     CQUI_SmartWorkIconAlpha = GameConfiguration.GetValue("CQUI_SmartWorkIconAlpha") / 100;
+    CQUI_ShowCityManageOverLenses = GameConfiguration.GetValue("CQUI_ShowCityManageOverLenses");
 end
 
 -- ===========================================================================
@@ -219,11 +228,45 @@ function RealizeTilt()
 end
 
 -- ===========================================================================
+--	CQUI modified OnLensLayerOn
+--	Allow citizen management on other lenses
+-- ===========================================================================
+function OnLensLayerOn( layerNum:number )
+    BASE_CQUI_OnLensLayerOn(layerNum);
+
+    if (CQUI_ShowCityManageOverLenses and (layerNum == m_Power or layerNum == m_Loyalty or layerNum == m_Religion)) then
+        ShowCitizens();
+        RealizeShadowMask();
+        RealizeTilt();
+        RefreshCityYieldsPlotList();
+    end
+end
+
+-- ===========================================================================
+--	CQUI modified OnLensLayerOn
+--	Allow citizen management on other lenses
+-- ===========================================================================
+function OnLensLayerOff( layerNum:number )
+    BASE_CQUI_OnLensLayerOff(layerNum);
+
+    if (CQUI_ShowCityManageOverLenses and (layerNum == m_Power or layerNum == m_Loyalty or layerNum == m_Religion)) then
+        HideCitizens();
+        RealizeShadowMask();
+        RealizeTilt();
+        RefreshCityYieldsPlotList();
+    end
+end
+
+-- ===========================================================================
 function Initialize_PlotInfo_CQUI()
     -- Note: Replacing the existing Initialize function does not work unless it's called at the end of this file
     --       As such, it does not have to be called "Initialize", any name will do.
     Events.DistrictAddedToMap.Remove(BASE_CQUI_OnDistrictAddedToMap);
     Events.DistrictAddedToMap.Add(OnDistrictAddedToMap);
+	Events.LensLayerOn.Remove(BASE_CQUI_OnLensLayerOn);
+	Events.LensLayerOff.Remove(BASE_CQUI_OnLensLayerOff);
+	Events.LensLayerOn.Add(OnLensLayerOn);
+	Events.LensLayerOff.Add(OnLensLayerOff);
 
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);

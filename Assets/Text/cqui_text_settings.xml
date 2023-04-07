@@ -63,6 +63,12 @@
     <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEONHOVER_TOOLTIP" Language="en_US">
       <Text>Shows citizen managament area when hovering over city banner</Text>
     </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEOVERLENSES" Language="en_US">
+      <Text>Show city management over city lenses</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_CITYVIEW_SHOWCITYMANAGEOVERLENSES_TOOLTIP" Language="en_US">
+      <Text>Shows citizen managament over the lenses activated by the various tabs in the City View, such as the Religion tab.</Text>
+    </Row>
     <Row Tag="LOC_CQUI_CITYVIEW_SMARTBANNER_HEADER" Language="en_US">
       <Text>Smartbanners</Text>
     </Row>
@@ -203,6 +209,24 @@
     </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYENGINEERLENS_TOOLTIP" Language="en_US">
       <Text>Enable this to automatically apply the Routes lens when selecting a Military Engineer.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYRELIGIONLENSINCITY" Language="en_US">
+      <Text>Auto-apply Religion lens in the City View</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYRELIGIONLENSINCITY_TOOLTIP" Language="en_US">
+      <Text>Enable this to automatically apply the Religion lens when selecting the Religion tab in the City View.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYLOYALTYLENSINCITY" Language="en_US">
+      <Text>Auto-apply Loyalty lens in the City View</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYLOYALTYLENSINCITY_TOOLTIP" Language="en_US">
+      <Text>Enable this to automatically apply the Loyalty lens when selecting the Loyalty tab in the City View.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYPOWERLENSINCITY" Language="en_US">
+      <Text>Auto-apply Power lens in the City View</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYPOWERLENSINCITY_TOOLTIP" Language="en_US">
+      <Text>Enable this to automatically apply the Power lens when selecting the Power tab in the City View.</Text>
     </Row>
 
     <Row Tag="LOC_CQUI_POPUPS" Language="en_US">

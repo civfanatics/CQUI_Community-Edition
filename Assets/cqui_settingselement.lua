@@ -615,6 +615,9 @@ function Initialize()
     PopulateCheckBox(Controls.ShowWarIconInCityStateBanner, "CQUI_ShowWarIconInCityStateBanner", Locale.Lookup("LOC_CQUI_SHOW_WAR_ICON_IN_CITYSTATE_BANNER_TOOLTIP"));
     PopulateCheckBox(Controls.RelocateCityStrikeCheckbox, "CQUI_RelocateCityStrike", Locale.Lookup("LOC_CQUI_CITYVIEW_RELOCATECITYSTRIKEBUTTON_TOOLTIP"));
     PopulateCheckBox(Controls.RelocateEncampmentStrikeCheckbox, "CQUI_RelocateEncampmentStrike", Locale.Lookup("LOC_CQUI_CITYVIEW_RELOCATEENCAMPMENTSTRIKEBUTTON_TOOLTIP"));
+    PopulateCheckBox(Controls.ShowCityManageOverLensesCheckbox, "CQUI_ShowCityManageOverLenses", Locale.Lookup("LOC_CQUI_CITYVIEW_SHOWCITYMANAGEOVERLENSES_TOOLTIP"));
+
+    -- Popups
     PopulateCheckBox(Controls.TechVisualCheckbox, "CQUI_TechPopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_TECHVISUAL_TOOLTIP"));
     PopulateCheckBox(Controls.TechAudioCheckbox, "CQUI_TechPopupAudio", Locale.Lookup("LOC_CQUI_POPUPS_TECHAUDIO_TOOLTIP"));
     PopulateCheckBox(Controls.WonderBuiltVisualCheckbox, "CQUI_WonderBuiltPopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_WONDERBUILTVISUAL_TOOLTIP"));
@@ -632,6 +635,19 @@ function Initialize()
     PopulateCheckBox(Controls.AutoapplyScoutLensExtraCheckbox, "CQUI_AutoapplyScoutLensExtra", Locale.Lookup("LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA_TOOLTIP"));
     PopulateCheckBox(Controls.AutoapplyEngineerLensCheckbox, "CQUI_AutoapplyEngineerLens", Locale.Lookup("LOC_CQUI_LENSES_AUTOAPPLYENGINEERLENS_TOOLTIP"));
     PopulateComboBox(Controls.ReligionLensHideUnits, icon_style_options, "CQUI_ReligionLensUnitFlagStyle", Locale.Lookup("LOC_CQUI_LENSES_RELIGIONLENSUNITFLAGSTYLE_TOOLTIP"));
+    PopulateCheckBox(Controls.AutoapplyReligionLensInCityCheckbox, "CQUI_AutoapplyReligionLensInCity", Locale.Lookup("LOC_CQUI_LENSES_AUTOAPPLYRELIGIONLENSINCITY_TOOLTIP"));
+    
+    -- Expansion 1 Lens Options
+    if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
+        Controls.AutoapplyLoyaltyLensInCityCheckbox:SetHide(false);
+        PopulateCheckBox(Controls.AutoapplyLoyaltyLensInCityCheckbox, "CQUI_AutoapplyLoyaltyLensInCity", Locale.Lookup("LOC_CQUI_LENSES_AUTOAPPLYLOYALTYLENSINCITY_TOOLTIP"));
+    end
+    
+    -- Expansion 2 Lens Options
+    if (g_bIsGatheringStorm) then
+        Controls.AutoapplyPowerLensInCityCheckbox:SetHide(false);
+        PopulateCheckBox(Controls.AutoapplyPowerLensInCityCheckbox, "CQUI_AutoapplyPowerLensInCity", Locale.Lookup("LOC_CQUI_LENSES_AUTOAPPLYPOWERLENSINCITY_TOOLTIP"));
+    end
     
     -- Add Individual Builder Lenses
     PopulateLensRGBPickerSettings();
