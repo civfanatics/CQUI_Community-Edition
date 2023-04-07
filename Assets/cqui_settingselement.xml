@@ -530,6 +530,14 @@
                     <!-- NOTIFICATIONS -->
                     <Container ID="NotificationsOptions" Size="parent,parent" Hidden="1">
                         <Stack Anchor="C,T" StackGrowth="Down" Padding="5" Offset="0,50">
+                            <!-- City notifications -->
+                            <Label Anchor="C,C" Style="ShellOptionText" String="LOC_CITY_NAME_BLANK"/>
+                            <GridButton ID="NOTIFICATION_CITY_LOW_AMENITIESCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_NOTIFICATION_CITY_LOW_AMENITIES_MESSAGE" />
+                            <GridButton ID="NOTIFICATION_HOUSING_PREVENTING_GROWTHCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_NOTIFICATION_HOUSING_PREVENTING_GROWTH_MESSAGE" />
+                            <GridButton ID="NOTIFICATION_CITY_FOOD_FOCUSCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_NOTIFICATION_CITY_FOOD_FOCUS_MESSAGE" />
+                            <GridButton ID="NOTIFICATION_CITY_UNPOWEREDCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_NOTIFICATION_CITY_UNPOWERED_MESSAGE" Hidden="1" />
+                            <!-- Other notifications -->
+                            <Label Anchor="C,C" Style="ShellOptionText" String="..."/>
                             <GridButton ID="NotificationGoodyHutCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_NOTIFICATION_DISCOVER_GOODY_HUT_MESSAGE" />
                             <!--<GridButton ID="NotificationTradeDealCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="(reserved)Trade Deal" />-->
                             <!--<GridButton ID="NotificationPopulationCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="(reserved)Population" />-->

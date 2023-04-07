@@ -17,11 +17,6 @@ local CQUI_NotificationGoodyHut:boolean = true;
 local m_eRewardMeteorHash:number = DB.MakeHash("METEOR_GOODIES"); -- the only entry in GameInfo.GoodyHuts with no .Hash value
 
 -- =======================================================================================
-function CQUI_OnSettingsInitialized()
-    CQUI_NotificationGoodyHut = GameConfiguration.GetValue("CQUI_NotificationGoodyHut");
-end
-
--- =======================================================================================
 function CQUI_OnSettingsUpdate()
     CQUI_NotificationGoodyHut = GameConfiguration.GetValue("CQUI_NotificationGoodyHut");
 end
@@ -109,9 +104,16 @@ function OnNotificationAdded( playerID:number, notificationID:number )
     if (playerID == Game.GetLocalPlayer()) then -- Was it for us?
         local pNotification = NotificationManager.Find( playerID, notificationID );
         -- CQUI: Notification when a City lost tile to a Culture Bomb. We use it to update real housing.
-        if pNotification ~= nil and pNotification:GetType() == GameInfo.Notifications["NOTIFICATION_TILE_LOST_CULTURE_BOMB"].Hash then
-            local x, y = pNotification:GetLocation();
-            LuaEvents.CQUI_CityLostTileToCultureBomb(playerID, x, y);
+        if pNotification ~= nil then
+            if pNotification:GetType() == GameInfo.Notifications["NOTIFICATION_TILE_LOST_CULTURE_BOMB"].Hash then
+                local x, y = pNotification:GetLocation();
+                LuaEvents.CQUI_CityLostTileToCultureBomb(playerID, x, y);
+            end
+            
+            -- CQUI: Stop if the notification is meant to be hidden
+            if (CQUI_IsNotificationIgnored(pNotification)) then
+                return;
+            end
         end
     end
 
@@ -124,6 +126,32 @@ function RegisterHandlers()
     
     g_notificationHandlers[NotificationTypes.CIVIC_BOOST].Activate = OnCivicBoostActivateNotification;
     g_notificationHandlers[NotificationTypes.TECH_BOOST].Activate = OnTechBoostActivateNotification;
+end
+
+-- ===========================================================================
+function CQUI_IsNotificationIgnored(pNotification:table)
+    -- Sanity checks
+    -- These should never be nil at this point, but let's be safe
+    -- If somehow nil, just return false to attempt using default behavior
+    if (pNotification == nil) then
+        return false;
+    end
+    
+    local typeName:string = pNotification:GetTypeName();
+    if (typeName == nil) then
+        return false;
+    end
+    
+    -- The name of the setting for each notification should be the typeName with the "CQUI_" prefix
+    local settingName = "CQUI_"..typeName;
+
+    -- Check if the notification is supposed to be ignored
+    -- If it doesn't exist, it will return nil, which does not equal false
+    if (GameConfiguration.GetValue(settingName) == false) then
+        return true;
+    end
+
+    return false;
 end
 
 -- ===========================================================================
@@ -295,7 +323,7 @@ function LateInitialize()
     -- dshowtable(g_RewardExceptions); -- debug
     -- dshowtable(g_RewardDescriptions); -- debug
 
-    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsInitialized);
+    LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     
     Events.NotificationAdded.Remove(BASE_CQUI_OnNotificationAdded);

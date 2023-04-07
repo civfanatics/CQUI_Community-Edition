@@ -66,10 +66,6 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ('CQUI_InlineCityStateQuest', 1), -- Show city state quest below city state name instead of a tooltip
         ('CQUI_ShowCityDetailAdvisor', 0), -- Shows the advisor recommendation in the city detail panel
         ('CQUI_ReligionLensUnitFlagStyle', 1), -- When Religion Lens is on, update Flags of non-religious units.  Values of 0 (Solid, unmodified gae), 1 (Transparent), or 2 (Hidden) are acceptable
-        ('CQUI_NotificationGoodyHut', 1), -- Notification - goody hut reward
-        --('CQUI_NotificationTradeDeal', 1), -- Notification - trade deal expired (reserved)
-        --('CQUI_NotificationPopulation', 0), -- Notification - population growth (reserved)
-        --('CQUI_NotificationCityBorder', 0), -- Notification - city border growth (reserved)
         ('CQUI_BuilderLensDisableNothingPlot', 1), -- When enabled, do not show the "nothing to do here" plot with the Builder Lens
         ('CQUI_BuilderLensDisableDangerousPlot', 1), -- When enabled, do not show "dangerous / enemy near" plot with the Builder Lens
         ('CQUI_AutoapplyScoutLensExtra', 1), -- When enabled, auto-apply the Scout lens for every military unit
@@ -228,3 +224,22 @@ INSERT OR REPLACE INTO CQUI_Bindings -- Don't touch this line!
         ("REST_HEAL", "H", "LOC_CQUI_REST_HEAL"),
         ("REBASE", "Alt+R", "LOC_CQUI_REBASE"),
         ("PLACE_PIN", "Shift+P", "LOC_CQUI_PLACE_PIN");
+
+/*
+    ┌────────────────────────────────────────────────────────────────────────────────────────────┐
+    │                                    Notification settings                                   │
+    ├────────────────────────────────────────────────────────────────────────────────────────────┤
+    │These settings control the default state of the Notification checkboxes                     │
+    │Valid values are 0 (disabled) or 1 (enabled). Don't change the names or the first line!     │
+    └────────────────────────────────────────────────────────────────────────────────────────────┘
+*/
+
+INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
+    VALUES  ("CQUI_NotificationGoodyHut", 1), -- Notification - goody hut reward
+        --('CQUI_NotificationTradeDeal', 1), -- Notification - trade deal expired (reserved)
+        --('CQUI_NotificationPopulation', 0), -- Notification - population growth (reserved)
+        --('CQUI_NotificationCityBorder', 0), -- Notification - city border growth (reserved)
+        ("CQUI_NOTIFICATION_CITY_LOW_AMENITIES", 1),
+        ("CQUI_NOTIFICATION_HOUSING_PREVENTING_GROWTH", 1),
+        ("CQUI_NOTIFICATION_CITY_FOOD_FOCUS", 1),
+        ("CQUI_NOTIFICATION_CITY_UNPOWERED", 1);
