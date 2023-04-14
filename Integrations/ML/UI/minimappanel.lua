@@ -1047,10 +1047,10 @@ function SetModLens()
         elseif funNonStandard ~= nil then
             funNonStandard()
         else
-            print("ERROR: SetModLens - No Plot Color Function for "..tostring(m_CurrentModdedLensOn))
+            print("WARN: SetModLens - No Plot Color Function for "..tostring(m_CurrentModdedLensOn))
         end
     else
-        print("ERROR: SetModLens - Given lens '"..tostring(m_CurrentModdedLensOn).."' has no entry")
+        print("WARN: SetModLens - Given lens '"..tostring(m_CurrentModdedLensOn).."' has no entry")
     end
 end
 
@@ -1065,7 +1065,7 @@ function SetModLensHexes(colorPlot:table)
             end
         end
     else
-        print("ERROR: SetModLensHexes - Invalid colorPlot table")
+        print("WARN: SetModLensHexes - Invalid colorPlot table")
     end
 end
 

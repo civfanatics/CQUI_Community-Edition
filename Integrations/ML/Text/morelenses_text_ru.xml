@@ -3,6 +3,15 @@
   <LocalizedText>
     <!-- RUSSIAN -->
 
+    <!-- Missing Citizen management Lens -->
+    <Replace Tag="LOC_HUD_CITIZEN_MANAGEMENT_LENS" Language="ru_RU">
+      <Text>Строитель</Text>
+    </Replace>
+
+    <Replace Tag="LOC_HUD_CITIZEN_MANAGEMENT_LENS_TOOLTIP" Language="ru_RU">
+      <Text>Выделяет клетки которые может обработать строитель</Text>
+    </Replace>
+
     <!-- Builder Lens -->
     <Replace Tag="LOC_HUD_BUILDER_LENS" Language="ru_RU">
       <Text>Строитель</Text>
@@ -10,8 +19,26 @@
     <Replace Tag="LOC_HUD_BUILDER_LENS_TOOLTIP" Language="ru_RU">
       <Text>Выделяет на каких клетках строитель может работать</Text>
     </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_PN" Language="ru_RU">
+      <Text>Нечего строить</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_PD" Language="ru_RU">
+      <Text>Опасно</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P1B" Language="ru_RU">
+      <Text>Бонусные ресурсы</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P1L" Language="ru_RU">
+      <Text>Редкие ресурсы</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P1S" Language="ru_RU">
+      <Text>Стратегические ресурсы</Text>
+    </Replace>
     <Replace Tag="LOC_HUD_BUILDER_LENS_P2" Language="ru_RU">
       <Text>Ресурс / Разграблено / Уникальная способность</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P3" Language="ru_RU">
+      <Text>Работает / усилено чудесами</Text>
     </Replace>
     <Replace Tag="LOC_HUD_BUILDER_LENS_P4" Language="ru_RU">
       <Text>Холм</Text>
@@ -21,9 +48,6 @@
     </Replace>
     <Replace Tag="LOC_HUD_BUILDER_LENS_P7" Language="ru_RU">
       <Text>Универсальная Клетка</Text>
-    </Replace>
-    <Replace Tag="LOC_HUD_BUILDER_LENS_PN" Language="ru_RU">
-      <Text>Нечего строить</Text>
     </Replace>
 
     <!-- Archaeologist Lens -->
@@ -41,6 +65,29 @@
     </Replace>
 
     <!-- City Overlap Lens -->
+    <Replace Tag="LOC_HUD_CITYOVERLAP_LENS" Language="ru_RU">
+      <Text>Радиус города</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITYOVERLAP_LENS_TOOLTIP" Language="ru_RU">
+      <Text>Показывает как много городов перекрывают клетку (в пределах 6 клеток)</Text>
+    </Replace>
+    <Replace Tag="LOC_PANEL_CITYOVERLAP_OPTION1" Language="ru_RU">
+      <Text>Выделяет внешние границы</Text>
+    </Replace>
+    <Replace Tag="LOC_PANEL_CITYOVERLAP_NMOUSE" Language="ru_RU">
+      <Text>Без мыши</Text>
+    </Replace>
+    <Replace Tag="LOC_PANEL_CITYOVERLAP_RANGE" Language="ru_RU">
+      <Text>Диапазон от мыши</Text>
+    </Replace>
+    <Replace Tag="LOC_TOOLTIP_CITYOVERLAP_RANGE" Language="ru_RU">
+      <Text>Показывает клетки и выделяет города в пределах диапазона (см. ниже) от клетки под курсором мыши.</Text>
+    </Replace>
+    <Replace Tag="LOC_PANEL_CITYOVERLAP_RADIUS" Language="ru_RU">
+      <Text>Радиус от мыши</Text>
+    </Replace>
+
+    <!-- City Overlap Lens (6) -->
     <Replace Tag="LOC_HUD_CITYOVERLAP6_LENS" Language="ru_RU">
       <Text>Общие клетки 6</Text>
     </Replace>
@@ -48,7 +95,7 @@
       <Text>Показывает, как много городов (в диапазоне 6 клеток) c общими клетками</Text>
     </Replace>
 
-    <!-- City Overlap Lens -->
+    <!-- City Overlap Lens (9) -->
     <Replace Tag="LOC_HUD_CITYOVERLAP9_LENS" Language="ru_RU">
       <Text>Общие клетки 9</Text>
     </Replace>
@@ -124,6 +171,42 @@
     </Replace>
     <Replace Tag="LOC_HUD_SCOUT_LENS_GHUT" Language="ru_RU">
       <Text>Племенное поселение</Text>
+    </Replace>
+
+    <!-- Naturalist Lens -->
+    <Replace Tag="LOC_HUD_NATURALIST_LENS" Language="ru_RU">
+      <Text>Натуралист</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_NATURALIST_LENS_TOOLTIP" Language="ru_RU">
+      <Text>Можно построить Нац.парк</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_NATURALIST_LENS_PARK" Language="ru_RU">
+      <Text>Подходит для нац.парка</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_NATURALIST_LENS_OK" Language="ru_RU">
+      <Text>Нужно исправить соседние клетки</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_NATURALIST_LENS_FIXABLE" Language="ru_RU">
+      <Text>Нужно исправить клетку</Text>
+    </Replace>
+
+    <Replace Tag="LOC_HUD_CITY_PLOT_LENS" Language="ru_RU">
+      <Text>Обрабатываемые клетки</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITY_PLOT_LENS_TOOLTIP" Language="ru_RU">
+      <Text>Выделяет обрабатываемые жителями и закрепленные клетки</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITY_PLOT_LENS_WORKING" Language="ru_RU">
+      <Text>Обрабатываемая клетка</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITY_PLOT_LENS_LOCKED" Language="ru_RU">
+      <Text>Закрепленная клетка</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITY_PLOT_LENS_CULTURE" Language="ru_RU">
+      <Text>Следующая клетка для культурного захвата</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_CITY_PLOT_LENS_OTHER" Language="ru_RU">
+      <Text>Прочие клетки</Text>
     </Replace>
 
     <Replace Tag="LOC_HUD_ROUTES_LENS" Language="ru_RU">

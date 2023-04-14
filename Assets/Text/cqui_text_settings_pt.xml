@@ -142,6 +142,7 @@
     <Row Tag="LOC_CQUI_GOSSIP_TRIMMESSAGE_TOOLTIP" Language="pt_BR">
       <Text>Remove o começo, na maior parte dos casos, da mensagem de fofoca que descreve de onde veio a informação</Text>
     </Row>
+
     <Row Tag="LOC_CQUI_LENSES" Language="pt_BR">
       <Text>Lentes</Text>
     </Row>
@@ -151,9 +152,34 @@
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYBUILDERLENS" Language="pt_BR">
       <Text>Lente de Construtor aplicada automaticamente</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYBUILDERLENS_TOOLTIP" Language="pt_BR">
+      <Text>Ativa automaticamente a lente de construtor ao selecionar um construtor.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLENOTHING" Language="pt_BR">
+      <Text>Desabilita destaques "Nada a trabalhar"</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLENOTHING_TOOLTIP" Language="pt_BR">
+      <Text>Ao utilizar a lente de construtor, desabilita o destacamento de hexágonos onde não há nada a se trabalhar.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS" Language="pt_BR">
+      <Text>Desabilita destaques "perigoso".</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_BUILDERDISABLEDANGEROUS_TOOLTIP" Language="pt_BR">
+      <Text>Ao utilizar a lente de construtor, desabilita o destacamento de hexágonos adjacentes a inimigos.</Text>
+    </Row>
     <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS" Language="pt_BR">
       <Text>Lente de Batedor aplicada automaticamente</Text>
     </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_TOOLTIP" Language="pt_BR">
+      <Text>Ativa automaticamente a lente de batedores ao selecionar um batedor.</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA" Language="pt_BR">
+      <Text>Lente de batedor para todas as unidades</Text>
+    </Row>
+    <Row Tag="LOC_CQUI_LENSES_AUTOAPPLYSCOUTLENS_EXTRA_TOOLTIP" Language="pt_BR">
+      <Text>Ativa automaticamente a lente de batedores ao selecionar um qualquer unidade militar.</Text>
+    </Row>
+
     <Row Tag="LOC_CQUI_POPUPS" Language="pt_BR">
       <Text>Popups</Text>
     </Row>
