@@ -104,10 +104,14 @@ local m_kEspionageViewManager = EspionageViewManager:CreateManager();
 -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
 --CQUI Members
 local CQUI_ShowCityDetailAdvisor :boolean = false;
+local CQUI_AutoapplyReligionLensInCity :boolean = true;
+local CQUI_ShowCityManageOverLenses :boolean = false;
 
 -- ===========================================================================
 function CQUI_OnSettingsUpdate()
-    CQUI_ShowCityDetailAdvisor = GameConfiguration.GetValue("CQUI_ShowCityDetailAdvisor") == 1
+    CQUI_ShowCityDetailAdvisor = GameConfiguration.GetValue("CQUI_ShowCityDetailAdvisor") == 1;
+    CQUI_AutoapplyReligionLensInCity = GameConfiguration.GetValue("CQUI_AutoapplyReligionLensInCity");
+    CQUI_ShowCityManageOverLenses = GameConfiguration.GetValue("CQUI_ShowCityManageOverLenses");
 end
 
 LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
@@ -139,8 +143,15 @@ function SetDesiredLens(desiredLens)
         return;
     end
 
+    local sameLens:boolean = (m_desiredLens == desiredLens);
+    
     m_desiredLens = desiredLens;
     if m_isShowingPanel then
+
+        if not sameLens then
+            LuaEvents.CQUI_UnhideCitizenManagementLens();
+        end
+
         if m_desiredLens == "CityManagement" then
             if (m_pCity == nil) then
                 Refresh();
@@ -157,7 +168,7 @@ function SetDesiredLens(desiredLens)
             UILens.SetActive(m_desiredLens);
         end
 
-        --ContextPtr:SetUpdate(EnsureDesiredLens);
+        ContextPtr:SetUpdate(EnsureDesiredLens);
     else
         UILens.SetActive(m_desiredLens);
     end
@@ -586,7 +597,9 @@ function ViewPanelReligion( data:table )
         end
     end
 
-    if visibleTypesCount > 0 then
+    -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+    -- Hide key if the religion lens isn't being shown
+    if (visibleTypesCount > 0 and CQUI_AutoapplyReligionLensInCity) then
         Controls.KeyPanel:SetHide(false);
         Controls.KeyScrollPanel:CalculateSize();
     else
@@ -594,11 +607,19 @@ function ViewPanelReligion( data:table )
     end
 
     if Controls.PanelReligion:IsVisible() then
-        -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
+        -- Check which lens to show based on settings
         -- Use CQUI Wrapper for UILens.SetActive
-        SetDesiredLens("Religion");
-        -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
+        if (CQUI_AutoapplyReligionLensInCity) then
+            SetDesiredLens("Religion");
+            
+            if (not CQUI_ShowCityManageOverLenses) then
+                LuaEvents.CQUI_HideCitizenManagementLens();
+            end
+        else
+            SetDesiredLens("CityManagement");
+        end
     end
+    -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 end
 
 -- ===========================================================================

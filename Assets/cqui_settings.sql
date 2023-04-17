@@ -56,6 +56,7 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ("CQUI_ToggleYieldsOnLoad", 1), -- Toggles yields immediately on load
         ('CQUI_ShowCitizenIconsOnCityHover', 0), -- Shows citizen icons when hovering over city banner
         ('CQUI_ShowCityManageAreaOnCityHover', 1), -- Shows citizen management area when hovering over city banner
+        ('CQUI_ShowCityManageOverLenses', 0), -- Shows citizen management over other lenses applied in city view (religion, loyalty, and power)
         ('CQUI_TraderAddDivider', 1), -- Adds a divider between groups in TradeOverview panel
         ('CQUI_TraderShowSortOrder', 0), -- Adds a divider between groups in TradeOverview panel
         ('CQUI_ShowProductionRecommendations', 0), -- Shows the advisor recommendation in the city produciton panel
@@ -70,6 +71,9 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ('CQUI_BuilderLensDisableDangerousPlot', 1), -- When enabled, do not show "dangerous / enemy near" plot with the Builder Lens
         ('CQUI_AutoapplyScoutLensExtra', 1), -- When enabled, auto-apply the Scout lens for every military unit
         ('CQUI_AutoapplyEngineerLens', 1), -- When enabled, auto-apply the Routes lens when the Military Engineer is selected
+        ('CQUI_AutoapplyReligionLensInCity', 1), -- When enabled, auto-apply the Religion lens when the Religion tab is selected in the city view
+        ('CQUI_AutoapplyLoyaltyLensInCity', 1), -- When enabled, auto-apply the Loyalty lens when the Loyalty tab is selected in the city view
+        ('CQUI_AutoapplyPowerLensInCity', 1), -- When enabled, auto-apply the Power lens when the Power tab is selected in the city view
         ('CQUI_ShowDebugPrint', 0); -- Shows print in the console
 
 /*

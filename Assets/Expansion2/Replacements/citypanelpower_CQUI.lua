@@ -12,9 +12,11 @@ BASE_CQUI_OnRefresh = OnRefresh;
 -- CQUI Members
 -- ===========================================================================
 local CQUI_ShowCityDetailAdvisor :boolean = false;
+local CQUI_AutoapplyPowerLensInCity :boolean = true;
 
 function CQUI_OnSettingsUpdate()
     CQUI_ShowCityDetailAdvisor = GameConfiguration.GetValue("CQUI_ShowCityDetailAdvisor") == 1;
+    CQUI_AutoapplyPowerLensInCity = GameConfiguration.GetValue("CQUI_AutoapplyPowerLensInCity");
 end
 
 -- ===========================================================================
@@ -38,10 +40,13 @@ function OnRefresh()
 
     BASE_CQUI_OnRefresh();
 
-  -- Hide the advisor if option is disabled
-  if not Controls.PowerAdvisor:IsHidden() then
-      Controls.PowerAdvisor:SetHide( CQUI_ShowCityDetailAdvisor == false );
-  end
+    -- Hide the advisor if option is disabled
+    if not Controls.PowerAdvisor:IsHidden() then
+        Controls.PowerAdvisor:SetHide( CQUI_ShowCityDetailAdvisor == false );
+    end
+  
+    -- Hide the lens key if the power lens isn't shown
+    Controls.KeyPanel:SetHide( CQUI_AutoapplyPowerLensInCity == false );
 
 end
 
