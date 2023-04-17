@@ -10,11 +10,20 @@
     <Replace Tag="LOC_HUD_BUILDER_LENS_TOOLTIP" Language="pt_BR">
       <Text>Destaques sobre quais hexagonos o construtor pode trabalhar</Text>
     </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_PN" Language="pt_BR">
+      <Text>Nada para fazer</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_PD" Language="pt_BR">
+      <Text>Perigoso</Text>
+    </Replace>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P1" Language="pt_BR">
+      <Text>Recurso</Text>
+    </Replace>
     <Replace Tag="LOC_HUD_BUILDER_LENS_P2" Language="pt_BR">
       <Text>Recurso/Saqueado/Habilidade Única</Text>
     </Replace>
-    <Replace Tag="LOC_TOOLTIP_RECOMFEATURE_LENS_HILL" Language="pt_BR">
-      <Text>Recomendado Melhorar o Recurso</Text>
+    <Replace Tag="LOC_HUD_BUILDER_LENS_P3" Language="pt_BR">
+      <Text>Trabalhado / Melhorado por Maravilha</Text>
     </Replace>
     <Replace Tag="LOC_HUD_BUILDER_LENS_P4" Language="pt_BR">
       <Text>Colina</Text>
@@ -25,8 +34,8 @@
     <Replace Tag="LOC_HUD_BUILDER_LENS_P7" Language="pt_BR">
       <Text>Lote genérico</Text>
     </Replace>
-    <Replace Tag="LOC_HUD_BUILDER_LENS_PN" Language="pt_BR">
-      <Text>Nada para fazer</Text>
+    <Replace Tag="LOC_TOOLTIP_RECOMFEATURE_LENS_HILL" Language="pt_BR">
+      <Text>Recomendado Melhorar o Recurso</Text>
     </Replace>
 
     <!-- Archaeologist Lens -->

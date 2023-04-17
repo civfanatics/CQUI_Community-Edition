@@ -202,49 +202,73 @@ local function ClearBuilderLens()
 end
 
 local function OnUnitSelectionChanged( playerID:number, unitID:number, hexI:number, hexJ:number, hexK:number, bSelected:boolean, bEditable:boolean )
-    if AUTO_APPLY_BUILDER_LENS and playerID == Game.GetLocalPlayer() then
-        local unitType = GetUnitTypeFromIDs(playerID, unitID);
-        if bSelected then
-            if unitType == "UNIT_BUILDER" then
-                ShowBuilderLens();
-            end
-        -- Deselection
-        else
-            if unitType == "UNIT_BUILDER" then
-                ClearBuilderLens();
-            end
-        end
+    if not AUTO_APPLY_BUILDER_LENS then
+        return
+    end
+    if playerID ~= Game.GetLocalPlayer() then
+        return
+    end
+
+    local unitType = GetUnitTypeFromIDs(playerID, unitID);
+    if unitType ~= "UNIT_BUILDER" then
+        return
+    end
+
+    if bSelected then
+        ShowBuilderLens();
+    -- Deselection
+    else
+        ClearBuilderLens();
     end
 end
 
 local function OnUnitChargesChanged( playerID: number, unitID : number, newCharges : number, oldCharges : number )
-    if AUTO_APPLY_BUILDER_LENS and playerID == Game.GetLocalPlayer() then
-        local unitType = GetUnitTypeFromIDs(playerID, unitID)
-        if unitType == "UNIT_BUILDER" then
-            if newCharges == 0 then
-                ClearBuilderLens();
-            end
-        end
+    if not AUTO_APPLY_BUILDER_LENS then
+        return
+    end
+    if playerID ~= Game.GetLocalPlayer() then
+        return
+    end
+
+    local unitType = GetUnitTypeFromIDs(playerID, unitID);
+    if unitType ~= "UNIT_BUILDER" then
+        return
+    end
+
+    if newCharges == 0 then
+        ClearBuilderLens();
     end
 end
 
 -- Multiplayer support for simultaneous turn captured builder
 local function OnUnitCaptured( currentUnitOwner, unit, owningPlayer, capturingPlayer )
-    if AUTO_APPLY_BUILDER_LENS and owningPlayer == Game.GetLocalPlayer() then
-        local unitType = GetUnitTypeFromIDs(owningPlayer, unitID)
-        if unitType == "UNIT_BUILDER" then
-            ClearBuilderLens();
-        end
+    if not AUTO_APPLY_BUILDER_LENS then
+        return
     end
+    if playerID ~= Game.GetLocalPlayer() then
+        return
+    end
+
+    local unitType = GetUnitTypeFromIDs(owningPlayer, unitID);
+    if unitType ~= "UNIT_BUILDER" then
+        return
+    end
+
+    ClearBuilderLens();
 end
 
 local function OnUnitRemovedFromMap( playerID: number, unitID : number )
-    if AUTO_APPLY_BUILDER_LENS and playerID == Game.GetLocalPlayer() then
-        local lens = {}
-        LuaEvents.MinimapPanel_GetActiveModLens(lens)
-        if lens[1] == LENS_NAME then
-            ClearBuilderLens();
-        end
+    if not AUTO_APPLY_BUILDER_LENS then
+        return
+    end
+    if playerID ~= Game.GetLocalPlayer() then
+        return
+    end
+
+    local lens = {}
+    LuaEvents.MinimapPanel_GetActiveModLens(lens)
+    if lens[1] == LENS_NAME then
+        ClearBuilderLens();
     end
 end
 

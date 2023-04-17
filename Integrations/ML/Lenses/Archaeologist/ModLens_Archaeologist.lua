@@ -112,23 +112,27 @@ end
 
 local function OnUnitRemovedFromMap( playerID: number, unitID : number )
     local localPlayer = Game.GetLocalPlayer()
+    if playerID ~= localPlayer then
+        return
+    end
+
     local lens = {}
     LuaEvents.MinimapPanel_GetActiveModLens(lens)
-    if playerID == localPlayer then
-        if lens[1] == LENS_NAME and AUTO_APPLY_ARCHEOLOGIST_LENS then
-            ClearArchaeologistLens()
-        end
+    if lens[1] == LENS_NAME and AUTO_APPLY_ARCHEOLOGIST_LENS then
+        ClearArchaeologistLens()
     end
 end
 
 -- For modded lens during multiplayer. Might need to test this further
 function OnUnitCaptured( currentUnitOwner, unit, owningPlayer, capturingPlayer )
     local localPlayer = Game.GetLocalPlayer()
-    if owningPlayer == localPlayer then
-        local unitType = GetUnitTypeFromIDs(owningPlayer, unitID)
-        if unitType and unitType == "UNIT_ARCHAEOLOGIST" and AUTO_APPLY_ARCHEOLOGIST_LENS then
-            ClearArchaeologistLens()
-        end
+    if owningPlayer ~= localPlayer then
+        return
+    end
+
+    local unitType = GetUnitTypeFromIDs(owningPlayer, unitID)
+    if unitType and unitType == "UNIT_ARCHAEOLOGIST" and AUTO_APPLY_ARCHEOLOGIST_LENS then
+        ClearArchaeologistLens()
     end
 end
 
