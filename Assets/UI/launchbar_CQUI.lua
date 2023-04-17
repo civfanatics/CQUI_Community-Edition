@@ -1,9 +1,11 @@
 include( "GameCapabilities" );
+include( "GovernorSupport" );
 
 -- ===========================================================================
 -- Cached Base Functions
 -- ===========================================================================
 BASE_CQUI_OnOpen = OnOpen;
+BASE_CQUI_RefreshGovernors = RefreshGovernors;
 BASE_CQUI_LateInitialize = LateInitialize;
 
 -- ===========================================================================
@@ -210,6 +212,85 @@ function TestLaunchBarExtension()
     }
 
     LuaEvents.LaunchBar_AddIcon(button2Info);
+end
+
+-- ===========================================================================
+-- CQUI extended RefreshGovernors
+-- Also show the alert indicator if a governor is assignable
+-- ===========================================================================
+function RefreshGovernors()
+    -- Autoplay
+    if (Game.GetLocalPlayer() == -1) then
+        return;
+    end
+
+    -- Base function
+    BASE_CQUI_RefreshGovernors();
+
+    local pPlayer            :table   = Players[Game.GetLocalPlayer()];
+    local pPlayerGovernors   :table   = pPlayer:GetGovernors();
+    local bCanAppoint        :boolean = pPlayerGovernors:CanAppoint();
+    local bCanPromote        :boolean = pPlayerGovernors:CanPromote();
+
+    -- Stop if a governor can be appointed or promoted
+    -- The indicator will already be showing, so no point in checking if a governor can be assigned
+    if (bCanAppoint or bCanPromote) then
+        return;
+    end
+
+    local bCanAssign :boolean = false;
+    local bHasGovernors, tGovernorList = pPlayerGovernors:GetGovernorList();
+
+    for _, pAppointedGovernor in ipairs(tGovernorList) do
+        -- Check if a governor is not assigned to a city and is not currently neutralized
+        if (not pAppointedGovernor:GetAssignedCity() and pAppointedGovernor:GetNeutralizedTurns() == 0) then
+            local eGovernorType:number = pAppointedGovernor:GetType();
+            local kGovernorDef:table = GameInfo.Governors[eGovernorType];
+            
+            -- Check if the governor is actually assignable
+            -- This prevents showing the indicator for secret society governors
+            if (not IsCannotAssign(kGovernorDef)) then
+                bCanAssign = true;
+            end
+        end
+    end
+
+    -- Stop if a governor doesn't need to be assigned
+    -- No need to find the indicator if this is the case
+    if (not bCanAssign) then
+        return;
+    end
+
+    -- Get the governor button instance
+    local governorAlertIndicator = nil;
+    for _,ctrl in pairs(Controls.ButtonStack:GetChildren()) do
+        if (ctrl:GetID() == "LaunchItemButton") then
+            local foundButton = false;
+            local foundIndicator = false;
+            local indicator = nil;
+            for _,ctrlChild in pairs(ctrl:GetChildren()) do
+                if (ctrlChild:GetID() == "LaunchItemIcon" and ctrlChild:GetTexture() == "LaunchBar_Hook_Governors") then
+                    foundButton = true;
+                end
+                if (ctrlChild:GetID() == "AlertIndicator") then
+                    foundIndicator = true;
+                    indicator = ctrlChild;
+                end
+            end
+
+            -- If a button and indicator were both found, then this is the correct item
+            if (foundButton and foundIndicator) then
+                governorAlertIndicator = indicator;
+                break;
+            end
+        end
+    end
+    
+    -- We should have the alert indicator now
+    if (governorAlertIndicator) then
+        governorAlertIndicator:SetShow(bCanAssign);
+        governorAlertIndicator:SetToolTipString(bCanAssign and Locale.Lookup("LOC_GOVERNOR_ACTION_AVAILABLE") or nil );
+    end
 end
 
 -- ===========================================================================
