@@ -665,10 +665,9 @@ end
 function OnMouseBuildingPlacementCancel( pInputStruct:table )
     -- print_debug("** Function Entry: OnMouseBuildingPlacementCancel (CQUI Hook)");
     if IsCancelAllowed() then
-        UI.SetInterfaceMode(InterfaceModeTypes.CITY_MANAGEMENT);
-        LuaEvents.CQUI_CityviewEnable();
         -- CQUI: Do not call ExitPlacementMode here
         -- ExitPlacementMode( true );
+        LuaEvents.CQUI_CityviewDisableCurrentMode();
     end
 end
 
@@ -676,11 +675,9 @@ end
 function OnMouseDistrictPlacementCancel( pInputStruct:table )
     -- print_debug("** Function Entry: OnMouseDistrictPlacementCancel (CQUI Hook)");
     if IsCancelAllowed() then
-        LuaEvents.StoreHash(0);
-        UI.SetInterfaceMode(InterfaceModeTypes.CITY_MANAGEMENT);
-        LuaEvents.CQUI_CityviewEnable();
         -- CQUI: Do not call ExitPlacementMode here
         -- ExitPlacementMode( true );
+        LuaEvents.CQUI_CityviewDisableCurrentMode();
     end
 end
 

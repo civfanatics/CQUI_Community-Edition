@@ -217,12 +217,12 @@ function AppendGreatWorksData( data:table )
     local pCity:table = data.City;
     local pCityBldgs:table = pCity:GetBuildings();
     -- iterate buildings
-	for buildingInfo in GameInfo.Buildings() do
-		local buildingIndex:number = buildingInfo.Index;
-		local buildingType:string = buildingInfo.BuildingType;
-		if pCityBldgs:HasBuilding(buildingIndex) then
-			local numSlots:number = pCityBldgs:GetNumGreatWorkSlots(buildingIndex);
-			if numSlots ~= nil and numSlots > 0 then
+    for buildingInfo in GameInfo.Buildings() do
+        local buildingIndex:number = buildingInfo.Index;
+        local buildingType:string = buildingInfo.BuildingType;
+        if pCityBldgs:HasBuilding(buildingIndex) then
+            local numSlots:number = pCityBldgs:GetNumGreatWorkSlots(buildingIndex);
+            if numSlots ~= nil and numSlots > 0 then
                 local buildingData:table = {
                     Icon = "ICON_"..buildingInfo.BuildingType,
                     Index = buildingIndex,
@@ -264,8 +264,8 @@ function AppendGreatWorksData( data:table )
                     table.insert(buildingData.Slots, slotData); --GameInfo.GreatWorks[greatWorkType]);
                 end
                 table.insert(data.GreatWorks, buildingData);
-			end -- numSlots > 0
-		end -- has building
+            end -- numSlots > 0
+        end -- has building
     end -- for all buildings
     --dshowrectable(data.GreatWorks); -- debug
 end
@@ -923,6 +923,8 @@ function ViewPanelCitizensGrowth( data:table )
 
     Controls.GrowthLongNum:SetText( not data.Occupied and math.abs(data.TurnsUntilGrowth) or 0);
     Controls.FoodNeededForGrowth:SetText( Locale.ToNumber(data.GrowthThreshold, "#,###.#") );
+    Controls.GrowthLongTurnsBar:SetPercent( data.CurrentFoodPercent );
+    Controls.GrowthLongTurnsBar:SetShadowPercent( data.FoodPercentNextTurn );
 
     local iModifiedFood;
     local total :number;
@@ -1107,13 +1109,7 @@ end
 function OnCloseButtonClicked()
     -- ==== CQUI CUSTOMIZATION BEGIN ====================================================================================== --
     -- CQUI change the behavior of when the Close button is clicked
-    if UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT or UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT then
-        UI.SetInterfaceMode(InterfaceModeTypes.CITY_MANAGEMENT);
-        LuaEvents.CQUI_CityviewEnable();
-        return;
-    end
-
-    LuaEvents.CQUI_CityPanel_CityviewDisable();
+    LuaEvents.CQUI_CityviewDisableCurrentMode();
     -- ==== CQUI CUSTOMIZATION END ======================================================================================== --
 end
 
@@ -1422,7 +1418,7 @@ function OnShutdown()
     LuaEvents.Tutorial_ResearchOpen.Remove(OnClose);
     LuaEvents.ActionPanel_OpenChooseResearch.Remove(OnClose);
     LuaEvents.ActionPanel_OpenChooseCivic.Remove(OnClose);
-    LuaEvents.CityPanel_ShowOverviewPanel.Remove( OnShowOverviewPanel );	
+    LuaEvents.CityPanel_ShowOverviewPanel.Remove( OnShowOverviewPanel );
     LuaEvents.CityPanel_ToggleOverviewCitizens.Remove( OnToggleCitizensTab );
     LuaEvents.CityPanel_ToggleOverviewBuildings.Remove( OnToggleBuildingsTab );
     LuaEvents.CityPanel_ToggleOverviewReligion.Remove( OnToggleReligionTab );

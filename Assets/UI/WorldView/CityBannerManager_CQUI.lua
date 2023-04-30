@@ -1215,7 +1215,7 @@ function OnCityBannerClick( playerID, cityID )
     elseif (localPlayerID == PlayerTypes.OBSERVER 
             or localPlayerID == PlayerTypes.NONE 
             or pPlayer:GetDiplomacy():HasMet(localPlayerID)) then
-        LuaEvents.CQUI_CityviewDisable(); -- Make sure the cityview is disable
+        LuaEvents.CQUI_CityviewDisable(); -- Make sure the cityview is disabled
         local pPlayerConfig :table   = PlayerConfigurations[playerID];
         local isMinorCiv    :boolean = pPlayerConfig:GetCivilizationLevelTypeID() ~= CivilizationLevelTypes.CIVILIZATION_LEVEL_FULL_CIV;
         -- print("clicked player " .. playerID .. " city.  IsMinor?: ",isMinorCiv);

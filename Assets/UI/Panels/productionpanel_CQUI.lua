@@ -111,6 +111,7 @@ function CQUI_ClearDistrictBuildingLayers()
     LuaEvents.CQUI_RefreshPurchasePlots();
     LuaEvents.CQUI_DistrictPlotIconManager_ClearEverything();
     LuaEvents.CQUI_Realize2dArtForDistrictPlacement();
+    LuaEvents.CQUI_DisplayGrowthTileIfValid();
 end
 
 -- ===========================================================================
@@ -576,13 +577,7 @@ end
 --    CQUI modified OnClose via click
 -- ===========================================================================
 function OnClose()
-    if UI.GetInterfaceMode() == InterfaceModeTypes.BUILDING_PLACEMENT or UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_PLACEMENT then
-        UI.SetInterfaceMode(InterfaceModeTypes.CITY_MANAGEMENT);
-        LuaEvents.CQUI_CityviewEnable();
-        return;
-    end
-
-    LuaEvents.CQUI_CityPanel_CityviewDisable();
+    LuaEvents.CQUI_CityviewDisableCurrentMode();
 end
 
 -- ===========================================================================
