@@ -29,7 +29,8 @@ local CQUI_ShowCityManageOverLenses = false;
 local CQUI_DragThresholdExceeded = false;
 local CITY_CENTER_DISTRICT_INDEX = GameInfo.Districts["DISTRICT_CITY_CENTER"].Index;
 
--- Power, Loyalty, and Religion lenses
+-- Citizen Management, Power, Loyalty, and Religion lenses
+-- local m_CitizenManagement : number = UILens.CreateLensLayerHash("Hex_Coloring_Appeal_Level");
 local m_Power : number = UILens.CreateLensLayerHash("Power_Lens");
 local m_Loyalty : number = UILens.CreateLensLayerHash("Cultural_Identity_Lens");
 local m_Religion : number = UILens.CreateLensLayerHash("Hex_Coloring_Religion");
@@ -210,10 +211,55 @@ function OnDistrictAddedToMap( playerID: number, districtID : number, cityID :nu
 end
 
 -- ===========================================================================
---  CQUI modified AggregateLensHexes function : Remove duplicate entry
+--  CQUI modified AggregateLensHexes function
+--  Remove duplicate entries and add selected city tiles if needed
 -- ===========================================================================
 function AggregateLensHexes(keys:table)
-    return CQUI_RemoveDuplicates(BASE_CQUI_AggregateLensHexes(keys));
+    -- Get the result from the base function
+    local result = BASE_CQUI_AggregateLensHexes(keys);
+
+    -- Return if we are in district/building placement mode or if no city is selected
+    local mode = UI.GetInterfaceMode();
+    local pSelectedCity :table = UI.GetHeadSelectedCity();
+    if (mode == InterfaceModeTypes.DISTRICT_PLACEMENT or mode == InterfaceModeTypes.BUILDING_PLACEMENT or pSelectedCity == nil) then
+        return CQUI_RemoveDuplicates(result);
+    end
+
+    -- Get the list of tiles available to purchase
+    local purchaseTiles = BASE_CQUI_AggregateLensHexes({"PLOT_PURCHASE"});
+
+--[[
+    -- Remove the city plots from purchaseTiles if the Citizen Management lens is active
+    if (#purchaseTiles > 0 and UILens.IsLayerOn(m_CitizenManagement)) then
+        local kCityPlots :table = Map.GetCityPlots():GetPurchasedPlots(pSelectedCity);
+        for _,plotId in pairs(kCityPlots) do
+            local index = (#purchaseTiles - #kCityPlots) + 1;
+            if (result[index] ~= plotId) then
+                break;
+            end
+            table.remove(result, index);
+        end
+    end
+
+    -- Add the city plots if there are no tiles available to purchase and the Citizen Management lens is not active
+    if (#purchaseTiles == 0 and not UILens.IsLayerOn(m_CitizenManagement)) then
+        local kCityPlots :table = Map.GetCityPlots():GetPurchasedPlots(pSelectedCity);
+        for _,plotId in pairs(kCityPlots) do
+            table.insert(result, plotId);
+        end
+    end
+--]]
+
+    -- Add the city plots if there are no tiles available to purchase
+    if (#purchaseTiles == 0) then
+        local kCityPlots :table = Map.GetCityPlots():GetPurchasedPlots(pSelectedCity);
+        for _,plotId in pairs(kCityPlots) do
+            table.insert(result, plotId);
+        end
+    end
+
+    -- Return the new result
+    return CQUI_RemoveDuplicates(result);
 end
 
 -- ===========================================================================
@@ -228,8 +274,8 @@ function RealizeTilt()
 end
 
 -- ===========================================================================
---	CQUI modified OnLensLayerOn
---	Allow citizen management on other lenses
+--  CQUI modified OnLensLayerOn
+--  Allow citizen management on other lenses
 -- ===========================================================================
 function OnLensLayerOn( layerNum:number )
     BASE_CQUI_OnLensLayerOn(layerNum);
@@ -243,8 +289,8 @@ function OnLensLayerOn( layerNum:number )
 end
 
 -- ===========================================================================
---	CQUI modified OnLensLayerOn
---	Allow citizen management on other lenses
+--  CQUI modified OnLensLayerOn
+--  Allow citizen management on other lenses
 -- ===========================================================================
 function OnLensLayerOff( layerNum:number )
     BASE_CQUI_OnLensLayerOff(layerNum);
@@ -263,10 +309,10 @@ function Initialize_PlotInfo_CQUI()
     --       As such, it does not have to be called "Initialize", any name will do.
     Events.DistrictAddedToMap.Remove(BASE_CQUI_OnDistrictAddedToMap);
     Events.DistrictAddedToMap.Add(OnDistrictAddedToMap);
-	Events.LensLayerOn.Remove(BASE_CQUI_OnLensLayerOn);
-	Events.LensLayerOff.Remove(BASE_CQUI_OnLensLayerOff);
-	Events.LensLayerOn.Add(OnLensLayerOn);
-	Events.LensLayerOff.Add(OnLensLayerOff);
+    Events.LensLayerOn.Remove(BASE_CQUI_OnLensLayerOn);
+    Events.LensLayerOff.Remove(BASE_CQUI_OnLensLayerOff);
+    Events.LensLayerOn.Add(OnLensLayerOn);
+    Events.LensLayerOff.Add(OnLensLayerOff);
 
     LuaEvents.CQUI_SettingsUpdate.Add(CQUI_OnSettingsUpdate);
     LuaEvents.CQUI_SettingsInitialized.Add(CQUI_OnSettingsUpdate);

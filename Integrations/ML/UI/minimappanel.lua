@@ -599,8 +599,11 @@ function OnLensLayerOff( layerNum:number )
     --------------------------------------------------------------------------------------------------
     -- Clear Modded Lens Seperately (Appeal lens included)
     elseif layerNum == m_HexColoringAppeal then
-        UILens.ClearLayerHexes( m_MapHexMask );
-        if UI.GetInterfaceMode() ~= InterfaceModeTypes.VIEW_MODAL_LENS or (UI.GetHeadSelectedUnit() == nil) then
+        local mode = UI.GetInterfaceMode();
+        if (mode ~= InterfaceModeTypes.CITY_MANAGEMENT and mode ~= InterfaceModeTypes.DISTRICT_PLACEMENT and mode ~= InterfaceModeTypes.BUILDING_PLACEMENT) then
+            UILens.ClearLayerHexes( m_MapHexMask );
+        end
+        if (mode ~= InterfaceModeTypes.VIEW_MODAL_LENS or (UI.GetHeadSelectedUnit() == nil)) then
             UILens.ClearLayerHexes(m_HexColoringAppeal);
         end
         UI.PlaySound("UI_Lens_Overlay_Off");
