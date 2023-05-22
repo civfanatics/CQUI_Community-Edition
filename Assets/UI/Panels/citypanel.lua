@@ -102,7 +102,6 @@ local CQUI_bSukUI:boolean = Modding.IsModActive("805cc499-c534-4e0a-bdce-32fb3c5
 local CQUI_cityview = false;
 local CQUI_usingStrikeButton = false;
 local CQUI_wonderMode = false;
-local CQUI_hiddenMode = false;
 local CQUI_growthTile = true;
 
 -- ===========================================================================
@@ -113,7 +112,6 @@ local CQUI_growthTile = true;
 function CQUI_CityviewEnableManager()
     CQUI_cityview = true;
     CQUI_wonderMode = false;
-    CQUI_hiddenMode = false;
     LuaEvents.CQUI_ProductionPanel_CityviewEnable();
     LuaEvents.CQUI_CityPanel_CityviewEnable();
     LuaEvents.CQUI_CityPanelOverview_CityviewEnable();
@@ -128,7 +126,6 @@ end
 function CQUI_CityviewDisableManager()
     CQUI_cityview = false;
     CQUI_wonderMode = false;
-    CQUI_hiddenMode = false;
     LuaEvents.CQUI_ProductionPanel_CityviewDisable();
     LuaEvents.CQUI_CityPanel_CityviewDisable();
     LuaEvents.CQUI_CityPanelOverview_CityviewDisable();
@@ -146,8 +143,7 @@ function CQUI_CityviewDisableCurrentMode()
         LuaEvents.CQUI_CityviewEnable();
 
     -- If not in District/Building placement mode, then exit out of the city view entirely
-    -- If we are in the standard city view mode or it is hidden, exit out of the city view entirely
-    elseif (CQUI_cityview or CQUI_hiddenMode) then
+    else
         LuaEvents.CQUI_CityviewDisable();
     end
 end
@@ -189,7 +185,6 @@ end
 function CQUI_WonderModeEnabled()
     CQUI_cityview = false;
     CQUI_wonderMode = true;
-    CQUI_hiddenMode = false;
     Close();
     UILens.ToggleLayerOff(m_PurchasePlot);
     UILens.ToggleLayerOff(m_CitizenManagement);
@@ -201,7 +196,6 @@ end
 function CQUI_HideCityInterface()
     CQUI_cityview = false;
     CQUI_wonderMode = false;
-    CQUI_hiddenMode = true;
     LuaEvents.CQUI_ProductionPanel_CityviewDisable();
     Close();
     UILens.ToggleLayerOff(m_PurchasePlot);
@@ -232,7 +226,13 @@ LuaEvents.CQUI_Strike_Exit.Add (function() CQUI_usingStrikeButton = false; end)
 -- ===========================================================================
 function CQUI_OnInterfaceModeChanged( eOldMode:number, eNewMode:number )
     if (eNewMode == InterfaceModeTypes.CITY_RANGE_ATTACK or eNewMode == InterfaceModeTypes.DISTRICT_RANGE_ATTACK or CQUI_usingStrikeButton) then
-        LuaEvents.CQUI_CityviewHide(); -- AZURENCY : always hide the cityview if new mode is CITY_RANGE_ATTACK
+        LuaEvents.CQUI_CityviewHide(); -- AZURENCY : always hide the cityview if new mode is CITY_RANGE_ATTACK or DISTRICT_RANGE_ATTACK
+
+        -- Set the strike mode back to the default value if set by DISTRICT_RANGE_ATTACK
+        -- If set by CITY_RANGE_ATTACK, CQUI_OnCitySelectionChanged will reset it to default
+        if (CQUI_usingStrikeButton and UI.GetHeadSelectedCity() == nil and UI.GetHeadSelectedDistrict() ~= nil) then
+            CQUI_usingStrikeButton = false;
+        end
     elseif (eOldMode == InterfaceModeTypes.CITY_MANAGEMENT or eOldMode == InterfaceModeTypes.DISTRICT_PLACEMENT or eOldMode == InterfaceModeTypes.BUILDING_PLACEMENT) then
         if (eNewMode == InterfaceModeTypes.DISTRICT_PLACEMENT or eNewMode == InterfaceModeTypes.BUILDING_PLACEMENT) then
             if (g_pCity == nil) then
@@ -287,12 +287,17 @@ function CQUI_DisplayGrowthTileIfValid()
         return;
     end
 
+    -- Stop if the mode isn't District/Building placement
+    local mode = UI.GetInterfaceMode();
+    if (mode ~= InterfaceModeTypes.DISTRICT_PLACEMENT and mode ~= InterfaceModeTypes.BUILDING_PLACEMENT) then
+        return;
+    end
+
     -- Make sure the growth tile is hidden
     HideGrowthTile();
 
     local newGrowthPlot:number = g_pCity:GetCulture():GetNextPlot();
     if (newGrowthPlot ~= -1) then
-        local mode = UI.GetInterfaceMode();
         if (mode == InterfaceModeTypes.DISTRICT_PLACEMENT) then
             local districtHash:number = UI.GetInterfaceModeParameter(CityOperationTypes.PARAM_DISTRICT_TYPE);
             local district:table      = GameInfo.Districts[districtHash];
@@ -358,8 +363,14 @@ function CQUI_OnCitySelectionChanged( ownerPlayerID:number, cityID:number, i:num
             -- If no city is selected and the city view is still up, close it
             -- This should only be the case when only calling something like UI.DeselectAllCities()
             -- Leaving the city view up in this case can cause some bad UI
-            if (UI.GetHeadSelectedCity() == nil and (CQUI_cityview or CQUI_wonderMode or CQUI_hiddenMode)) then
-                LuaEvents.CQUI_CityviewDisable();
+            if (UI.GetHeadSelectedCity() == nil and (CQUI_cityview or CQUI_wonderMode)) then
+                -- Hide if a district is selected for DISTRICT_RANGE_ATTACK
+                -- Otherwise, disable the city view entirely
+                if (UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_RANGE_ATTACK and UI.GetHeadSelectedDistrict() ~= nil) then
+                    LuaEvents.CQUI_CityviewHide();
+                else
+                    LuaEvents.CQUI_CityviewDisable();
+                end
             end
         end
     end

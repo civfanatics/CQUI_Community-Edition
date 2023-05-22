@@ -46,10 +46,10 @@
 
     <!-- ActionPanel -->
     <Row Tag="LOC_CQUI_ACTION_PANEL_ENCAMPMENT_RANGED_ATTACK" Language="en_US">
-      <Text>Encampent Ranged Strike</Text>
+      <Text>{1_DistrictName} RANGED ATTACK</Text>
     </Row>
     <Row Tag="LOC_CQUI_ACTION_PANEL_ENCAMPMENT_RANGED_ATTACK_TOOLTIP" Language="en_US">
-      <Text>Your encampment is able to make a ranged strike</Text>
+      <Text>Your {1_DistrictName} can perform a ranged attack.</Text>
     </Row>
 
     <!-- Policyreminderpopup -->

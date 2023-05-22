@@ -97,8 +97,8 @@ local estTilTurnToolStr           :string = Locale.Lookup("LOC_KEY_ESTIMATED_TIM
 local estTimeElapsedToolStr       :string = Locale.Lookup("LOC_KEY_ESTIMATED_TIME_ELAPSED_TOOLTIP");
 local canUnreadyTurnTip           :string = Locale.Lookup("LOC_ACTION_PANEL_CAN_UNREADY_TOOLTIP");
 -- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
-local cqui_encampmentRangedAttackString    :string = Locale.Lookup("LOC_CQUI_ACTION_PANEL_ENCAMPMENT_RANGED_ATTACK");
-local cqui_encampmentRangedAttackTip       :string = Locale.Lookup("LOC_CQUI_ACTION_PANEL_ENCAMPMENT_RANGED_ATTACK_TOOLTIP");
+local cqui_districtRangedAttackString    :string = "LOC_CQUI_ACTION_PANEL_ENCAMPMENT_RANGED_ATTACK";
+local cqui_districtRangedAttackTip       :string = "LOC_CQUI_ACTION_PANEL_ENCAMPMENT_RANGED_ATTACK_TOOLTIP";
 -- ==== CQUI CUSTOMIZATION END ======================================================================================= --
 
 -- ===========================================================================
@@ -229,12 +229,14 @@ function OnRefresh()
         toolTipString  = cityRangedAttackTip;
         iFlashingState = FLASHING_END_TURN;
 -- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
-    elseif (CQUI_CheckEncampmentRangeAttackState()) then
-        -- Special "Encampment Ranged Attack" state for when there are no end turn blockers but
-        -- there is a Encampment can that perform a ranged attack.
-        message        = cqui_encampmentRangedAttackString;
+    elseif (CQUI_CheckDistrictRangeAttackState()) then
+        -- Special "District Ranged Attack" state for when there are no end turn blockers but
+        -- there is a district can that perform a ranged attack.
+        local district:table = CQUI_GetFirstRangedAttackDistrict();
+        local districtName:string = (district and Locale.Lookup(GameInfo.Districts[district:GetType()].Name)) or Locale.Lookup("LOC_DISTRICT_NAME");
+        message        = Locale.Lookup(cqui_districtRangedAttackString, districtName:upper());
         icon           = "ICON_NOTIFICATION_CITY_RANGE_ATTACK";
-        toolTipString  = cqui_encampmentRangedAttackTip;
+        toolTipString  = Locale.Lookup(cqui_districtRangedAttackTip, districtName:lower());
         iFlashingState = FLASHING_END_TURN;
     elseif (CQUI_CheckPolicyCanBeChanged()) then
         message        = Locale.Lookup("LOC_POLICY_REMINDER_ACTION_BUTTON")
@@ -493,7 +495,7 @@ end
 
 -- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
 -- ===========================================================================
-function CQUI_CheckEncampmentRangeAttackState()
+function CQUI_CheckDistrictRangeAttackState()
     local pPlayer = Players[Game.GetLocalPlayer()];
     if (pPlayer == nil) then
         return false;
@@ -503,8 +505,9 @@ function CQUI_CheckEncampmentRangeAttackState()
         return false;
     end
 
-    for i, district in pPlayer:GetDistricts():Members() do
-        if CityManager.CanStartCommand(district, CityCommandTypes.RANGE_ATTACK) then
+    for _, district in pPlayer:GetDistricts():Members() do
+        local pCity = district:GetCity();
+        if ((pCity:GetX() ~= district:GetX() or pCity:GetY() ~= district:GetY()) and CityManager.CanStartCommand(district, CityCommandTypes.RANGE_ATTACK)) then
             return true;
         end
     end
@@ -551,17 +554,19 @@ function CQUI_CheckPolicyCanBeChanged()
 end
 
 -- ===========================================================================
-function CQUI_GetFirstRangedAttackEncampment()
+function CQUI_GetFirstRangedAttackDistrict()
     local pPlayer = Players[Game.GetLocalPlayer()];
     if (pPlayer == nil) then
         return nil;
     end
 
-    for i, district in pPlayer:GetDistricts():Members() do
-        if CityManager.CanStartCommand(district, CityCommandTypes.RANGE_ATTACK) then
+    for _, district in pPlayer:GetDistricts():Members() do
+        local pCity = district:GetCity();
+        if ((pCity:GetX() ~= district:GetX() or pCity:GetY() ~= district:GetY()) and CityManager.CanStartCommand(district, CityCommandTypes.RANGE_ATTACK)) then
             return district;
         end
     end
+
     return nil;
 end
 -- ==== CQUI CUSTOMIZATION END ====================================================================================== --
@@ -610,7 +615,7 @@ function CheckAutoEndTurn( eCurrentEndTurnBlockingType:number )
            -- In tactical phases, all units must have orders or used up their movement points.
            and (not CheckUnitsHaveMovesState() and not CheckCityRangeAttackState()
 -- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
-           and not CQUI_CheckEncampmentRangeAttackState())
+           and not CQUI_CheckDistrictRangeAttackState())
 -- ==== CQUI CUSTOMIZATION END  ====================================================================================== --
            -- Not already send turn complete for this turn.
            and not UI.HasSentTurnComplete()
@@ -672,7 +677,7 @@ function DoEndTurn( optionalNewBlocker:number )
     -- CQUI: This is an updated version of the logic commented out just above
     -- If not in selection mode; reset mode before performing the action.
     -- AZURENCY : and if in CITY_MANAGEMENT and the EndTurnBlockingTypes is Production don't change the mode.
-    if UI.GetInterfaceMode() ~= InterfaceModeTypes.SELECTION and UI.GetInterfaceMode() ~= InterfaceModeTypes.CITY_RANGE_ATTACK and not (UI.GetInterfaceMode() == InterfaceModeTypes.CITY_MANAGEMENT and m_activeBlockerId == EndTurnBlockingTypes.ENDTURN_BLOCKING_PRODUCTION) then
+    if UI.GetInterfaceMode() ~= InterfaceModeTypes.SELECTION and UI.GetInterfaceMode() ~= InterfaceModeTypes.CITY_RANGE_ATTACK and UI.GetInterfaceMode() ~= InterfaceModeTypes.DISTRICT_RANGE_ATTACK and not (UI.GetInterfaceMode() == InterfaceModeTypes.CITY_MANAGEMENT and m_activeBlockerId == EndTurnBlockingTypes.ENDTURN_BLOCKING_PRODUCTION) then
         UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
     end
     -- ==== CQUI CUSTOMIZATION END ======================================================================================= --
@@ -687,21 +692,19 @@ function DoEndTurn( optionalNewBlocker:number )
                 -- CQUI: These next two lines are in the unmodified code are replaced by the two CQUI LuaEvents that follow
                 -- UI.SelectCity(attackCity);
                 -- UI.SetInterfaceMode(InterfaceModeTypes.CITY_RANGE_ATTACK);
-                LuaEvents.CQUI_Strike_Enter();
                 LuaEvents.CQUI_CityRangeStrike(Game.GetLocalPlayer(), attackCity:GetID());
                 -- ==== CQUI CUSTOMIZATION END ======================================================================================= --
             else
                 UI.DataError( "Unable to find selectable attack city while in CheckCityRangeAttackState()" );
             end
         -- ==== CQUI CUSTOMIZATION BEGIN  ==================================================================================== --
-        -- CQUI: Add check on Encampment and Policy
-        elseif (CQUI_CheckEncampmentRangeAttackState()) then
-            local attackEncampment = CQUI_GetFirstRangedAttackEncampment();
-            if (attackEncampment ~= nil) then
-                UI.LookAtPlot(attackEncampment:GetX(), attackEncampment:GetY());
-                LuaEvents.CQUI_DistrictRangeStrike(Game.GetLocalPlayer(), attackEncampment:GetID());
+        -- CQUI: Add check on District and Policy
+        elseif (CQUI_CheckDistrictRangeAttackState()) then
+            local attackDistrict = CQUI_GetFirstRangedAttackDistrict();
+            if (attackDistrict ~= nil) then
+                LuaEvents.CQUI_DistrictRangeStrike(Game.GetLocalPlayer(), attackDistrict:GetID());
             else
-                UI.DataError( "Unable to find selectable attack encampment while in CQUI_CheckEncampmentRangeAttackState()" );
+                UI.DataError( "Unable to find selectable attack district while in CQUI_CheckDistrictRangeAttackState()" );
             end
         elseif (CQUI_CheckPolicyCanBeChanged()) then
             LuaEvents.CQUI_ShowPolicyReminderPopup(Game.GetLocalPlayer(), pPlayer:GetCulture():GetCivicCompletedThisTurn(), false)
@@ -1093,7 +1096,7 @@ end
 -- ===========================================================================
 function OnLocalPlayerTurnBegin()
     -- If the player is dead (observing), then automatically end their turn
-    local pPlayerConfig :table	= PlayerConfigurations[Game.GetLocalPlayer()];
+    local pPlayerConfig :table = PlayerConfigurations[Game.GetLocalPlayer()];
     if (not pPlayerConfig:IsAlive()) then
         DoEndTurn();
     else
@@ -1122,7 +1125,7 @@ end
 
 -- ===========================================================================
 function OnLocalPlayerTurnEnd()
-    local pPlayerConfig :table	= PlayerConfigurations[Game.GetLocalPlayer()];
+    local pPlayerConfig :table = PlayerConfigurations[Game.GetLocalPlayer()];
     if (pPlayerConfig:IsAlive()) then
         -- Only disable if not in multi-player, so turns can "unend"...
         if not GameConfiguration.IsAnyMultiplayer() then

@@ -537,8 +537,11 @@ function OnLensLayerOn( layerNum:number )
     --------------------------------------------------------------------------------------------------
     -- clear unit non-standard layers
     -- do this if no unit is selected, since these lenses are applied on unit selection, so control should be in SelectedUnit.lua
-    if UI.GetHeadSelectedUnit() == nil then
-        UILens.ClearLayerHexes(m_AttackRange);
+    if (UI.GetHeadSelectedUnit() == nil) then
+        local mode = UI.GetInterfaceMode();
+        if (mode ~= InterfaceModeTypes.CITY_RANGE_ATTACK and mode ~= InterfaceModeTypes.DISTRICT_RANGE_ATTACK) then
+            UILens.ClearLayerHexes(m_AttackRange);
+        end
         UILens.ClearLayerHexes(m_HexColoringGreatPeople);
         UILens.ClearLayerHexes(m_MovementZoneOfControl);
     end
@@ -583,8 +586,11 @@ function OnLensLayerOff( layerNum:number )
     --------------------------------------------------------------------------------------------------
     -- clear unit non-standard layers
     -- do this if no unit is selected, since these lenses are applied on unit selection, so control should be in SelectedUnit.lua
-    if UI.GetHeadSelectedUnit() == nil then
-        UILens.ClearLayerHexes(m_AttackRange);
+    if (UI.GetHeadSelectedUnit() == nil) then
+        local mode = UI.GetInterfaceMode();
+        if (mode ~= InterfaceModeTypes.CITY_RANGE_ATTACK and mode ~= InterfaceModeTypes.DISTRICT_RANGE_ATTACK) then
+            UILens.ClearLayerHexes(m_AttackRange);
+        end
         UILens.ClearLayerHexes(m_HexColoringGreatPeople);
         UILens.ClearLayerHexes(m_MovementZoneOfControl);
     end
@@ -1274,9 +1280,13 @@ function OnInterfaceModeChanged(eOldMode:number, eNewMode:number)
             end
 
             -- clear any non-standard layers
-            UILens.ClearLayerHexes(m_AttackRange);
-            UILens.ClearLayerHexes(m_HexColoringGreatPeople);
-            UILens.ClearLayerHexes(m_MovementZoneOfControl);
+            if (UI.GetHeadSelectedUnit() == nil) then
+                if (eNewMode ~= InterfaceModeTypes.CITY_RANGE_ATTACK and eNewMode ~= InterfaceModeTypes.DISTRICT_RANGE_ATTACK) then
+                    UILens.ClearLayerHexes(m_AttackRange);
+                end
+                UILens.ClearLayerHexes(m_HexColoringGreatPeople);
+                UILens.ClearLayerHexes(m_MovementZoneOfControl);
+            end
 
             LuaEvents.ML_CloseLensPanels()
             --------------------------------------------------------------------------------------------------
