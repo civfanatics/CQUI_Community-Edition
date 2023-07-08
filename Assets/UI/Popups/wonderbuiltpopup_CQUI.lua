@@ -12,40 +12,40 @@ BASE_CQUI_OnWonderCompleted = OnWonderCompleted;
 -- ===========================================================================
 -- CQUI Members
 -- ===========================================================================
+-- Base file local variables copied for use here
 local m_kPopupMgr :table = ExclusivePopupManager:new("WonderBuiltPopup");
 local m_kCurrentPopup :table = nil;
 local m_kQueuedPopups :table = {};
-local m_IsSinglePlayerGame = not GameConfiguration.IsAnyMultiplayer();
-local CQUI_wonderBuiltVisual = m_IsSinglePlayerGame;
-local CQUI_wonderBuiltAudio = m_IsSinglePlayerGame;
+
+-- CQUI added variables
+local m_IsSinglePlayerGame      :boolean = not GameConfiguration.IsAnyMultiplayer();
+local CQUI_wonderBuiltVisual    :boolean = m_IsSinglePlayerGame;
+local CQUI_wonderBuiltAudio     :boolean = m_IsSinglePlayerGame;
+local CQUI_MultiplayerPopups    :boolean = false;
 
 -- ===========================================================================
-function CQUI_OnSettingsInitialized(isUpdate)
+--  FUNCTIONS
+-- ===========================================================================
+
+-- ===========================================================================
+--  CQUI added CQUI_OnSettingsUpdate function
+--  Update the local variables based on the user settings
+-- ===========================================================================
+function CQUI_OnSettingsUpdate()
+    -- Get the user settings
     CQUI_wonderBuiltVisual = GameConfiguration.GetValue("CQUI_WonderBuiltPopupVisual");
     CQUI_wonderBuiltAudio = GameConfiguration.GetValue("CQUI_WonderBuiltPopupAudio");
+    CQUI_MultiplayerPopups = GameConfiguration.GetValue("CQUI_MultiplayerPopups");
 
-    if (isUpdate == nil) then
-        -- The only time isUpdate should be nil is when CQUI_SettingsInitialized is called by cqui_settingselement.
-        -- If it is multiplayer, we want to default to false.  Otherwise we can accept the Game Config.
+    -- Check to allow in multiplayer
+    if (not CQUI_MultiplayerPopups) then
         CQUI_wonderBuiltVisual = CQUI_wonderBuiltVisual and m_IsSinglePlayerGame;
         CQUI_wonderBuiltAudio = CQUI_wonderBuiltAudio and m_IsSinglePlayerGame;
-
-        GameConfiguration.SetValue("CQUI_WonderBuiltPopupVisual", CQUI_wonderBuiltVisual);
-        GameConfiguration.SetValue("CQUI_WonderBuiltPopupAudio", CQUI_wonderBuiltAudio);
-        -- The checkboxes were registered to react to this callback, so this will cause them to visually match whatever value was applied here
-        LuaEvents.CQUI_SettingsUpdate();
     end
 end
 
 -- ===========================================================================
-function CQUI_OnSettingsUpdate()
-    -- print("CityBannerManager_CQUI: CQUI_OnSettingsUpdate ENTRY")
-    -- Pass 'true' to indicate this was triggered from the CQUI Settings
-    CQUI_OnSettingsInitialized(true);
-end
-
--- ===========================================================================
---  CQUI CQUI_GetWonderTooltip functiton
+--  CQUI CQUI_GetWonderTooltip function
 --  Inspired by ToolTipHelper.GetBuildingToolTip
 -- ===========================================================================
 function CQUI_GetWonderTooltip(buildingHash, playerId, cityId)
@@ -155,14 +155,14 @@ function CQUI_GetWonderTooltip(buildingHash, playerId, cityId)
 end
 
 -- ===========================================================================
---  CQUI modified OnWonderCompleted functiton
+--  CQUI modified OnWonderCompleted function
 --  Setting to disable wonder movie and/or audio
 -- ===========================================================================
 function OnWonderCompleted( locX:number, locY:number, buildingIndex:number, playerIndex:number, cityId:number, iPercentComplete:number, pillaged:number)
 
     local localPlayer = Game.GetLocalPlayer();
     if (localPlayer == PlayerTypes.NONE) then
-        return;  -- Nobody there to click on it, just exit.
+        return; -- Nobody there to click on it, just exit.
     end
 
     -- Ignore if wonder isn't for this player.
@@ -182,40 +182,40 @@ function OnWonderCompleted( locX:number, locY:number, buildingIndex:number, play
         local currentBuildingType :string = GameInfo.Buildings[buildingIndex].BuildingType;
         if currentBuildingType ~= nil then
 
-            -- Remolten: Begin CQUI changes (reordered in front of visual code)
-            if (GameInfo.Buildings[buildingIndex].QuoteAudio ~= nil and CQUI_wonderBuiltAudio) then
-            -- Remolten: End CQUI changes
-                UI.PlaySound(GameInfo.Buildings[buildingIndex].QuoteAudio);
+            -- CQUI: Only play the visual is allowed by user settings
+            if (not CQUI_wonderBuiltVisual) then
+                -- CQUI: If there is valid quote audio, play it if allowed by user settings
+                if (GameInfo.Buildings[buildingIndex].QuoteAudio ~= nil and CQUI_wonderBuiltAudio) then
+                    UI.PlaySound(GameInfo.Buildings[buildingIndex].QuoteAudio);
+                end
+
+                -- CQUI: Stop to avoid doing the work for the visaul
+                return;
             end
 
-            -- Remolten: Begin CQUI changes (just added this if statement and put visual code inside of it)
-            if CQUI_wonderBuiltVisual then
-            -- Remolten: End CQUI changes
+            local kData:table =
+            {
+                locX = locX,
+                locY = locY,
+                buildingIndex = buildingIndex,
+                currentBuildingType = currentBuildingType,
+                currentCityId = cityId -- CQUI: Added cityId for our custom tooltip
+            };
 
-                local kData:table =
-                {
-                    locX = locX,
-                    locY = locY,
-                    buildingIndex = buildingIndex,
-                    currentBuildingType = currentBuildingType,
-                    currentCityId = cityId -- CQUI : Added cityId for Tooltip
-                };
-
-                if not m_kPopupMgr:IsLocked() then
-                    m_kPopupMgr:Lock( ContextPtr, PopupPriority.High );
-                    ShowPopup( kData );
-                    LuaEvents.WonderBuiltPopup_Shown();  -- Signal other systems (e.g., bulk hide UI)
-                else
-                    table.insert( m_kQueuedPopups, kData );
-                end
+            if not m_kPopupMgr:IsLocked() then
+                m_kPopupMgr:Lock( ContextPtr, PopupPriority.High );
+                ShowPopup( kData );
+                LuaEvents.WonderBuiltPopup_Shown(); -- Signal other systems (e.g., bulk hide UI)
+            else
+                table.insert( m_kQueuedPopups, kData );
             end
         end
     end
 end
 
 -- ===========================================================================
---  CQUI modified OnWonderCompleted functiton
---  Moved the sound to OnWonderCompleted
+--  CQUI modified OnWonderCompleted function
+--  Replace the tooltip string with our own, and check the quote audio settings
 -- ===========================================================================
 function ShowPopup( kData:table )
 
@@ -236,34 +236,57 @@ function ShowPopup( kData:table )
         Controls.ForceAutoCloseMarketingMode:RegisterEndCallback( OnClose );
     end
 
-    local locX :number = m_kCurrentPopup.locX;
-    local locY :number = m_kCurrentPopup.locY;
-    local buildingIndex :number = m_kCurrentPopup.buildingIndex;
-    local currentBuildingType :string = m_kCurrentPopup.currentBuildingType;
-    local cityId = m_kCurrentPopup.currentCityId;
+    local locX                  :number = m_kCurrentPopup.locX;
+    local locY                  :number = m_kCurrentPopup.locY;
+    local buildingIndex         :number = m_kCurrentPopup.buildingIndex;
+    local currentBuildingType   :string = m_kCurrentPopup.currentBuildingType;
+
+    -- CQUI: Get the City ID from the popup data too
+    local cityID                :number = m_kCurrentPopup.currentCityId;
 
     Controls.WonderName:SetText(Locale.ToUpper(Locale.Lookup(GameInfo.Buildings[buildingIndex].Name)));
     Controls.WonderIcon:SetIcon("ICON_"..currentBuildingType);
-    --Controls.WonderIcon:SetToolTipString(Locale.Lookup(GameInfo.Buildings[buildingIndex].Description));
+
+    -- CQUI: Replace the tooltip string with our own custom tooltip
+    -- Controls.WonderIcon:SetToolTipString(Locale.Lookup(GameInfo.Buildings[buildingIndex].Description));
     Controls.WonderIcon:SetToolTipString(CQUI_GetWonderTooltip(GameInfo.Buildings[buildingIndex].Hash, Game.GetLocalPlayer(), cityId));
+
     if (Locale.Lookup(GameInfo.Buildings[buildingIndex].Quote) ~= nil) then
         Controls.WonderQuote:SetText(Locale.Lookup(GameInfo.Buildings[buildingIndex].Quote));
     else
         UI.DataError("The field 'Quote' has not been initialized for "..GameInfo.Buildings[buildingIndex].BuildingType);
     end
 
+    -- Only play quote audio if CQUI settings allow
+    if (GameInfo.Buildings[buildingIndex].QuoteAudio ~= nil and CQUI_wonderBuiltAudio) then
+        UI.PlaySound(GameInfo.Buildings[buildingIndex].QuoteAudio);
+    end
+
     UI.LookAtPlot(locX, locY);
 
     Controls.ReplayButton:SetHide(UI.GetWorldRenderView() ~= WorldRenderView.VIEW_3D);
+
+    -- The camera animation does not work on multiplayer
+    -- As a workaround, use the Rock Band camera animation if on multiplayer
+    -- If this animation doesn't exist for some reason, nothing happens
+    if (not m_IsSinglePlayerGame) then
+        Events.PlayCameraAnimationAtHex("ROCK_BAND_CONCERT_CAMERA", locX, locY, 0.0, true);
+    end
 end
 
 -- ===========================================================================
---  CQUI modified Close functiton
---  Copy/Paste from the original version, just now it uses our own m_kQueuedPopups and m_kCurrentPopup
+--  CQUI modified Close function
+--  Now uses our own m_kQueuedPopups and m_kCurrentPopup
+--  Also ensures the camera animation is stopped if in multiplayer
 -- ===========================================================================
 function Close()
 
     StopSound();
+
+    -- Stop the multiplayer only camera animation
+    if (not m_IsSinglePlayerGame) then
+        Events.StopAllCameraAnimations();
+    end
 
     local isDone:boolean  = true;
 
@@ -286,11 +309,58 @@ function Close()
 end
 
 -- ===========================================================================
-function Initialize_WonderBuiltPopup_CQUI()
-    Events.WonderCompleted.Remove( BASE_CQUI_OnWonderCompleted );
-    Events.WonderCompleted.Add( OnWonderCompleted );
+--  CQUI modified OnRestartMovie function
+--  Now uses our own m_kQueuedPopups and m_kCurrentPopup, and checks CQUI audio settings
+-- ===========================================================================
+function OnRestartMovie()    
+    StopSound(); -- stop the music before beginning another go-round
+    Events.RestartWonderMovie();
 
-    LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
-    LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsInitialized );
+    -- CQUI: Only play quote audio if CQUI settings allow
+    local buildingIndex :number = m_kCurrentPopup.buildingIndex;
+    if (GameInfo.Buildings[buildingIndex].QuoteAudio ~= nil and CQUI_wonderBuiltAudio) then
+        UI.PlaySound(GameInfo.Buildings[buildingIndex].QuoteAudio);
+    end
+
+    -- The camera animation does not work on multiplayer
+    -- As a workaround, use the Rock Band camera animation if on multiplayer
+    -- If this animation doesn't exist for some reason, nothing happens
+    if (not m_IsSinglePlayerGame) then
+        Events.PlayCameraAnimationAtHex("ROCK_BAND_CONCERT_CAMERA", m_kCurrentPopup.locX, m_kCurrentPopup.locY, 0.0, true);
+    end
 end
+
+-- ===========================================================================
+--  CQUI added Initialize_WonderBuiltPopup_CQUI function
+--  Initialize the context
+-- ===========================================================================
+function Initialize_WonderBuiltPopup_CQUI()
+
+    -- Original file does not inititalize the following on AnyMultiplayer
+    -- Initialize it here for multiplayer to optionally allow popups in multiplayer
+    if (GameConfiguration.IsAnyMultiplayer()) then
+        ContextPtr:SetInputHandler( OnInputHandler, true );
+
+        Controls.Close:RegisterCallback(Mouse.eLClick, OnClose);
+        Controls.ReplayButton:RegisterCallback(Mouse.eLClick, OnRestartMovie);
+        Controls.ReplayButton:SetToolTipString(Locale.Lookup("LOC_UI_ENDGAME_REPLAY_MOVIE"));
+
+        Events.WonderCompleted.Add( OnWonderCompleted );
+        Events.WorldRenderViewChanged.Add( OnWorldRenderViewChanged );
+        Events.SystemUpdateUI.Add( OnUpdateUI );
+
+    else
+        -- If already inititalized, replace the event function with our new one
+        -- Also update the replay button control callback
+        Controls.ReplayButton:RegisterCallback(Mouse.eLClick, OnRestartMovie);
+        Events.WonderCompleted.Remove( BASE_CQUI_OnWonderCompleted );
+        Events.WonderCompleted.Add( OnWonderCompleted );
+    end
+
+    -- Add the CQUI Settings function to the LuaEvents
+    LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
+    LuaEvents.CQUI_SettingsInitialized.Add( CQUI_OnSettingsUpdate );
+end
+
+-- Start Initialize
 Initialize_WonderBuiltPopup_CQUI();

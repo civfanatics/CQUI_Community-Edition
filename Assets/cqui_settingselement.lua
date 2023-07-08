@@ -618,13 +618,54 @@ function Initialize()
     PopulateCheckBox(Controls.ShowCityManageOverLensesCheckbox, "CQUI_ShowCityManageOverLenses", Locale.Lookup("LOC_CQUI_CITYVIEW_SHOWCITYMANAGEOVERLENSES_TOOLTIP"));
 
     -- Popups
-    PopulateCheckBox(Controls.TechVisualCheckbox, "CQUI_TechPopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_TECHVISUAL_TOOLTIP"));
-    PopulateCheckBox(Controls.TechAudioCheckbox, "CQUI_TechPopupAudio", Locale.Lookup("LOC_CQUI_POPUPS_TECHAUDIO_TOOLTIP"));
+    -- Base game popups
+    PopulateCheckBox(Controls.TechCivicCompletedVisualCheckbox, "CQUI_TechCivicCompletedPopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_TECHCIVICCOMPLETEDVISUAL_TOOLTIP"));
+    PopulateCheckBox(Controls.TechCivicCompletedAudioCheckbox, "CQUI_TechCivicCompletedPopupAudio", Locale.Lookup("LOC_CQUI_POPUPS_TECHCIVICCOMPLETEDAUDIO_TOOLTIP"));
+    PopulateCheckBox(Controls.BoostUnlockedVisualCheckbox, "CQUI_BoostUnlockedPopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_BOOSTUNLOCKEDVISUAL_TOOLTIP"));
+    PopulateCheckBox(Controls.EraCompleteVisualCheckbox, "CQUI_EraCompletePopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_ERACOMPLETEVISUAL_TOOLTIP"));
+    PopulateCheckBox(Controls.ProjectBuiltVisualCheckbox, "CQUI_ProjectBuiltPopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_PROJECTBUILTVISUAL_TOOLTIP"));
+    PopulateCheckBox(Controls.UnitCapturedVisualCheckbox, "CQUI_UnitCapturedPopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_UNITCAPTUREDVISUAL_TOOLTIP"));
+    PopulateCheckBox(Controls.NaturalWonderVisualCheckbox, "CQUI_NaturalWonderPopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_NATURALWONDERVISUAL_TOOLTIP"));
+    PopulateCheckBox(Controls.NaturalWonderAudioCheckbox, "CQUI_NaturalWonderPopupAudio", Locale.Lookup("LOC_CQUI_POPUPS_NATURALWONDERAUDIO_TOOLTIP"));
     PopulateCheckBox(Controls.WonderBuiltVisualCheckbox, "CQUI_WonderBuiltPopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_WONDERBUILTVISUAL_TOOLTIP"));
-    RegisterControl (Controls.WonderBuiltVisualCheckbox, "CQUI_WonderBuiltPopupVisual", UpdateCheckbox);
     PopulateCheckBox(Controls.WonderBuiltAudioCheckbox, "CQUI_WonderBuiltPopupAudio", Locale.Lookup("LOC_CQUI_POPUPS_WONDERBUILTAUDIO_TOOLTIP"));
-    RegisterControl (Controls.WonderBuiltAudioCheckbox, "CQUI_WonderBuiltPopupAudio", UpdateCheckbox);
-    PopulateCheckBox(Controls.TrimGossipCheckbox, "CQUI_TrimGossip", Locale.Lookup("LOC_CQUI_GOSSIP_TRIMMESSAGE_TOOLTIP"));
+    
+    -- Expansion 1 Popups
+    if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
+        Controls.HistoricMomentsVisualCheckbox:SetHide(false);
+        PopulateCheckBox(Controls.HistoricMomentsVisualCheckbox, "CQUI_HistoricMomentsPopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_HISTORICMOMENTSVISUAL_TOOLTIP"));
+    end
+
+    -- Expansion 2 Popups
+    if (g_bIsGatheringStorm) then
+        Controls.NaturalDisasterVisualCheckbox:SetHide(false);
+        Controls.RockBandMovieVisualCheckbox:SetHide(false);
+        PopulateCheckBox(Controls.NaturalDisasterVisualCheckbox, "CQUI_NaturalDisasterPopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_NATURALDISASTERVISUAL_TOOLTIP"));
+        PopulateCheckBox(Controls.RockBandMovieVisualCheckbox, "CQUI_RockBandMoviePopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_ROCKBANDMOVIEVISUAL_TOOLTIP"));
+    end
+
+    -- Secret Societies Popups
+    if (GameCapabilities.HasCapability("CAPABILITY_SECRETSOCIETIES")) then
+        Controls.SecretSocietyDiscoveredVisualCheckbox:SetHide(false);
+        Controls.SecretSocietyJoinedVisualCheckbox:SetHide(false);
+        PopulateCheckBox(Controls.SecretSocietyDiscoveredVisualCheckbox, "CQUI_SecretSocietyDiscoveredPopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_SECRETSOCIETYDISCOVEREDVISUAL_TOOLTIP"));
+        PopulateCheckBox(Controls.SecretSocietyJoinedVisualCheckbox, "CQUI_SecretSocietyJoinedPopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_SECRETSOCIETYJOINEDVISUAL_TOOLTIP"));
+    end
+
+    -- Heroes and Legends Popups
+    if (GameInfo.Kinds.KIND_HEROCLASS ~= nil) then
+        Controls.HeroDiscoveredVisualCheckbox:SetHide(false);
+        Controls.HeroExpiredVisualCheckbox:SetHide(false);
+        PopulateCheckBox(Controls.HeroDiscoveredVisualCheckbox, "CQUI_HeroDiscoveredPopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_HERODISCOVEREDVISUAL_TOOLTIP"));
+        PopulateCheckBox(Controls.HeroExpiredVisualCheckbox, "CQUI_HeroExpiredPopupVisual", Locale.Lookup("LOC_CQUI_POPUPS_HEROEXPIREDVISUAL_TOOLTIP"));
+    end
+
+    -- Multiplayer Popups
+    if (GameConfiguration.IsAnyMultiplayer()) then
+        Controls.MultiplayerPopupsLabel:SetHide(false);
+        Controls.MultiplayerPopupsCheckbox:SetHide(false);
+        PopulateCheckBox(Controls.MultiplayerPopupsCheckbox, "CQUI_MultiplayerPopups", Locale.Lookup("LOC_CQUI_POPUPS_MULTIPLAYER_TOOLTIP"));
+    end
 
     -- Lenses
     PopulateCheckBox(Controls.AutoapplyArchaeologistLensCheckbox, "CQUI_AutoapplyArchaeologistLens", Locale.Lookup("LOC_CQUI_LENSES_AUTOAPPLYARCHAEOLOGISTLENS_TOOLTIP"));
@@ -687,7 +728,10 @@ function Initialize()
         PopulateCheckBox(Controls.NOTIFICATION_CITY_UNPOWEREDCheckbox, "CQUI_NOTIFICATION_CITY_UNPOWERED");
     end
 
+    -- Gossip
+    PopulateCheckBox(Controls.TrimGossipCheckbox, "CQUI_TrimGossip", Locale.Lookup("LOC_CQUI_GOSSIP_TRIMMESSAGE_TOOLTIP"));
     InitializeGossipCheckboxes();
+
     InitializeTraderScreenCheckboxes();
 
     ContextPtr:SetShowHandler( OnShow );
@@ -704,6 +748,15 @@ function Initialize()
     LuaEvents.CQUI_SettingsUpdate.Add(UpdateKeyBindingsDisplay);
     LuaEvents.CQUI_SettingsUpdate.Add(ToggleInlineCityStateQuestFontSizeSlider);
     LuaEvents.CQUI_SettingsUpdate.Add(ToggleCityBannerHoverOptions);
+    LuaEvents.CQUI_SettingsUpdate.Add(ToggleMultiplayerPopupOptions);
+
+    LuaEvents.CQUI_SettingsInitialized.Add(ToggleSmartbannerCheckboxes);
+    LuaEvents.CQUI_SettingsInitialized.Add(ToggleSmartWorkIconSettings);
+    LuaEvents.CQUI_SettingsInitialized.Add(ToggleSuzerainOptionsCheckboxes);
+    LuaEvents.CQUI_SettingsInitialized.Add(UpdateKeyBindingsDisplay);
+    LuaEvents.CQUI_SettingsInitialized.Add(ToggleInlineCityStateQuestFontSizeSlider);
+    LuaEvents.CQUI_SettingsInitialized.Add(ToggleCityBannerHoverOptions);
+    LuaEvents.CQUI_SettingsInitialized.Add(ToggleMultiplayerPopupOptions);
 
     LuaEvents.CQUI_SettingsInitialized(); --Tell other elements that the settings have been initialized and it's safe to try accessing settings now
 end
@@ -748,6 +801,60 @@ end
 function UpdateKeyBindingsDisplay()
     local selected = (GameConfiguration.GetValue("CQUI_BindingsMode") ~= 0);
     Controls.KeyBindingsScrollPanel:SetHide(not selected);
+end
+
+-- ===========================================================================
+function ToggleMultiplayerPopupOptions()
+    -- Check if multiplayer
+    if (not GameConfiguration.IsAnyMultiplayer()) then
+        return;
+    end
+
+    -- Check if the multiplayer popups checkbox is checked
+    local selected = Controls.MultiplayerPopupsCheckbox:IsSelected();
+
+    -- Show/hide all of the popup options based on the state of the main checkbox
+    -- Base game options
+    Controls.TechCivicCompletedVisualCheckbox:SetShow(selected);
+    Controls.TechCivicCompletedAudioCheckbox:SetShow(selected);
+    Controls.BoostUnlockedVisualCheckbox:SetShow(selected);
+    Controls.EraCompleteVisualCheckbox:SetShow(selected);
+    Controls.ProjectBuiltVisualCheckbox:SetShow(selected);
+    Controls.UnitCapturedVisualCheckbox:SetShow(selected);
+    Controls.NaturalWonderVisualCheckbox:SetShow(selected);
+    Controls.NaturalWonderAudioCheckbox:SetShow(selected);
+    Controls.WonderBuiltVisualCheckbox:SetShow(selected);
+    Controls.WonderBuiltAudioCheckbox:SetShow(selected);
+
+    -- Expansion 1 options
+    if (g_bIsRiseAndFall or g_bIsGatheringStorm) then
+        Controls.HistoricMomentsVisualCheckbox:SetShow(selected);
+    end
+
+    -- Expansion 2 options
+    if (g_bIsGatheringStorm) then
+        Controls.NaturalDisasterVisualCheckbox:SetShow(selected);
+        Controls.RockBandMovieVisualCheckbox:SetShow(selected);
+    end
+
+    -- Secret Societies options
+    if (GameCapabilities.HasCapability("CAPABILITY_SECRETSOCIETIES")) then
+        Controls.SecretSocietyDiscoveredVisualCheckbox:SetShow(selected);
+        Controls.SecretSocietyJoinedVisualCheckbox:SetShow(selected);
+    end
+
+    -- Heroes and Legends options
+    if (GameInfo.Kinds.KIND_HEROCLASS ~= nil) then
+        Controls.HeroDiscoveredVisualCheckbox:SetShow(selected);
+        Controls.HeroExpiredVisualCheckbox:SetShow(selected);
+    end
+
+    -- Option group labels
+    Controls.WonderPopupsLabel:SetShow(selected);
+    Controls.OtherPopupsLabel:SetShow(selected);
+
+    -- Reprocess anchoring
+    Controls.PopupsOptionsStack:ReprocessAnchoring();
 end
 
 -- Include the logic specific to the Lenses color settings

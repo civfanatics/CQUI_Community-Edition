@@ -49,10 +49,6 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ("CQUI_Smartbanner_Cultural", 1), -- Shows turns to city cultural growth in the banner
         ("CQUI_Smartbanner_DistrictsAvailable", 1), -- Shows that districts are available to be built
         ("CQUI_SmartWorkIcon", 1), -- Applies a different size/transparency to citizen icons if they're currently being worked
-        ("CQUI_TechPopupVisual", 1), -- Popups will be displayed when you discover a new tech or civic (this is the normal behavior for the unmoded game)
-        ("CQUI_TechPopupAudio", 1), -- Automatically play the voiceovers when you discover a new tech or civic (this is the normal behavior for the unmoded game)
-        ("CQUI_WonderBuiltPopupVisual", 1), -- Wonder movies will be displayed when you complete a wonder (this is the normal behavior for the unmoded game)
-        ("CQUI_WonderBuiltPopupAudio", 1), -- Wonder quote audio will be played when you complete a wonder (this is the normal behavior for the unmoded game)
         ("CQUI_ToggleYieldsOnLoad", 1), -- Toggles yields immediately on load
         ('CQUI_ShowCitizenIconsOnCityHover', 0), -- Shows citizen icons when hovering over city banner
         ('CQUI_ShowCityManageAreaOnCityHover', 1), -- Shows citizen management area when hovering over city banner
@@ -107,6 +103,35 @@ INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
         ("CQUI_WorkIconSize", 64), -- Size used for work icons. Applies to all icons that aren't flagged using the "smart" work icon feature. Recommended values fall between 48 and 128, though any positive multiple of 8 could work (non-multiples are rounded down)
         ("CQUI_WorkIconAlpha", 80), -- Size used for work icons. Applies to all icons that aren't flagged using the "smart" work icon feature. Recommended values fall between 10 and 100, though any value between 0 and 100 could work
         ('CQUI_InlineCityStateQuestFontSize', 10); -- Font size of the inline City State Quest font
+
+/*
+    ┌────────────────────────────────────────────────────────────────────────────────────────────┐
+    │                                    Popup settings                                          │
+    ├────────────────────────────────────────────────────────────────────────────────────────────┤
+    │These settings control the default state of the popup visuals / audio checkboxes.           │
+    │Valid values are 0 (disabled) or 1 (enabled). Don't change the names or the first line!     │
+    └────────────────────────────────────────────────────────────────────────────────────────────┘
+*/
+
+INSERT OR REPLACE INTO CQUI_Settings -- Don't touch this line!
+    VALUES  ("CQUI_MultiplayerPopups", 0), -- Allow popups and popup movies to be displayed in multiplayer
+        ("CQUI_BoostUnlockedPopupVisual", 1), -- Popups will be displayed when you boost a tech or civic (this is the normal behavior for the unmoded game)
+        ("CQUI_EraCompletePopupVisual", 1), -- Popups will be displayed when entering a new era (this is the normal behavior for the unmoded game)
+        ("CQUI_HeroDiscoveredPopupVisual", 1), -- Popups will be displayed when discovering a Hero (this is the normal behavior for the unmoded game)
+        ("CQUI_HeroExpiredPopupVisual", 1), -- Popups will be displayed when a Hero expires (this is the normal behavior for the unmoded game)
+        ("CQUI_HistoricMomentsPopupVisual", 1), -- Popups will be displayed when completing a historic moment (this is the normal behavior for the unmoded game)
+        ("CQUI_NaturalDisasterPopupVisual", 1), -- Diaster movies will be played when a disaster occurs (this is the normal behavior for the unmoded game)
+        ("CQUI_NaturalWonderPopupVisual", 1), -- Wonder movies will be displayed when you discover a natural wonder (this is the normal behavior for the unmoded game)
+        ("CQUI_NaturalWonderPopupAudio", 1), -- Wonder quote audio will be played when you discover a natural wonder (this is the normal behavior for the unmoded game)
+        ("CQUI_ProjectBuiltPopupVisual", 1), -- Popup movies will be displayed when you complete a space race project (this is the normal behavior for the unmoded game)
+        ("CQUI_RockBandMoviePopupVisual", 1), -- Popup movies will be displayed during a rock band performance (this is the normal behavior for the unmoded game)
+        ("CQUI_SecretSocietyDiscoveredPopupVisual", 1), -- Popups will be displayed when discovering a Secret Society (this is the normal behavior for the unmoded game)
+        ("CQUI_SecretSocietyJoinedPopupVisual", 1), -- Popups will be displayed when joining a Secret Society (this is the normal behavior for the unmoded game)
+        ("CQUI_TechCivicCompletedPopupVisual", 1), -- Popups will be displayed when you discover a new tech or civic (this is the normal behavior for the unmoded game)
+        ("CQUI_TechCivicCompletedPopupAudio", 1), -- Automatically play the voiceovers when you discover a new tech or civic (this is the normal behavior for the unmoded game)
+        ("CQUI_UnitCapturedPopupVisual", 1), -- Popups will be displayed when you capture a unit or your unit is captured (this is the normal behavior for the unmoded game)
+        ("CQUI_WonderBuiltPopupVisual", 1), -- Wonder movies will be displayed when you complete a wonder (this is the normal behavior for the unmoded game)
+        ("CQUI_WonderBuiltPopupAudio", 1); -- Wonder quote audio will be played when you complete a wonder (this is the normal behavior for the unmoded game)
 
 /*
     ┌────────────────────────────────────────────────────────────────────────────────────────────┐

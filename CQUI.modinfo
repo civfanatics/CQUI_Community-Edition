@@ -291,6 +291,13 @@
             </Items>
         </ImportFiles>
 
+        <ImportFiles id="CQUI_IMPORT_FILES_ERACOMPLETEPOPUP">
+            <Items>
+                <File>Assets/UI/Popups/eracompletepopup_CQUI_basegame.lua</File>
+                <File>Assets/UI/Popups/eracompletepopup_CQUI.lua</File>
+            </Items>
+        </ImportFiles>
+
         <ImportFiles id="CQUI_IMPORT_FILES_GOVERNMENTSCREEN">
             <Items>
                 <File>Assets/UI/Screens/governmentscreen_CQUI_basegame.lua</File>
@@ -323,6 +330,12 @@
         <ImportFiles id="CQUI_IMPORT_FILES_MAPPINMANAGER">
             <Items>
                 <File>Assets/UI/MapPinManager_CQUI.lua</File>
+            </Items>
+        </ImportFiles>
+
+        <ImportFiles id="CQUI_IMPORT_FILES_NATURALWONDERPOPUP">
+            <Items>
+                <File>Assets/UI/Popups/naturalwonderpopup_CQUI.lua</File>
             </Items>
         </ImportFiles>
 
@@ -362,9 +375,21 @@
             </Items>
         </ImportFiles>
 
+        <ImportFiles id="CQUI_IMPORT_FILES_POPUPMANAGER">
+            <Items>
+                <File>Assets/UI/popupmanager.lua</File>
+            </Items>
+        </ImportFiles>
+
         <ImportFiles id="CQUI_IMPORT_FILES_PRODUCTIONPANEL">
             <Items>
                 <File>Assets/UI/productionpanel.xml</File>
+            </Items>
+        </ImportFiles>
+
+        <ImportFiles id="CQUI_IMPORT_FILES_PROJECTBUILTPOPUP">
+            <Items>
+                <File>Assets/UI/Popups/projectbuiltpopup_CQUI.lua</File>
             </Items>
         </ImportFiles>
 
@@ -385,6 +410,12 @@
             <Items>
                 <File>Assets/UI/toppanel_CQUI_basegame.lua</File>
                 <File>Assets/UI/toppanel_CQUI.lua</File>
+            </Items>
+        </ImportFiles>
+
+        <ImportFiles id="CQUI_IMPORT_FILES_UNITCAPTUREDPOPUP">
+            <Items>
+                <File>Assets/UI/Popups/unitcaptured_CQUI.lua</File>
             </Items>
         </ImportFiles>
 
@@ -500,6 +531,16 @@
             </Items>
         </ImportFiles>
 
+        <ImportFiles id="CQUI_IMPORT_FILES_EXP1_ERACOMPLETEPOPUP" criteria="Expansion1">
+            <Properties>
+                <LoadOrder>100</LoadOrder>
+                <Context>InGame</Context>
+            </Properties>
+            <Items>
+                <File>Assets/Expansion1/Replacements/eracompletepopup_CQUI_expansion1.lua</File>
+            </Items>
+        </ImportFiles>
+
         <ImportFiles id="CQUI_IMPORT_FILES_EXP1_GOVERNMENTSCREEN" criteria="Expansion1">
             <Properties>
                 <LoadOrder>100</LoadOrder>
@@ -507,6 +548,16 @@
             </Properties>
             <Items>
                 <File>Assets/Expansion1/Replacements/governmentscreen_CQUI_expansion1.lua</File>
+            </Items>
+        </ImportFiles>
+
+        <ImportFiles id="CQUI_IMPORT_FILES_EXP1_HISTORICMOMENTS" criteria="Expansion1">
+            <Properties>
+                <LoadOrder>100</LoadOrder>
+                <Context>InGame</Context>
+            </Properties>
+            <Items>
+                <File>Assets/Expansion1/Replacements/historicmoments_CQUI_expansion1.lua</File>
             </Items>
         </ImportFiles>
 
@@ -568,6 +619,16 @@
             </Properties>
             <Items>
                 <File>Assets/Expansion1/Replacements/citypanelculture_CQUI.lua</File>
+            </Items>
+        </ImportFiles>
+
+        <ImportFiles id="CQUI_IMPORT_FILES_EXP1BEYOND_HISTORICMOMENTS" criteria="Expansion1AndBeyond">
+            <Properties>
+                <LoadOrder>150</LoadOrder>
+                <Context>InGame</Context>
+            </Properties>
+            <Items>
+                <File>Assets/Expansion1/Replacements/historicmoments_CQUI.lua</File>
             </Items>
         </ImportFiles>
 
@@ -647,6 +708,16 @@
             </Items>
         </ImportFiles>
 
+        <ImportFiles id="CQUI_IMPORT_FILES_EXP2_ERACOMPLETEPOPUP" criteria="Expansion2">
+            <Properties>
+                <LoadOrder>200</LoadOrder>
+                <Context>InGame</Context>
+            </Properties>
+            <Items>
+                <File>Assets/Expansion2/Replacements/eracompletepopup_CQUI_expansion2.lua</File>
+            </Items>
+        </ImportFiles>
+
         <ImportFiles id="CQUI_IMPORT_FILES_EXP2_GOVERNMENTSCREEN" criteria="Expansion2">
             <Properties>
                 <LoadOrder>200</LoadOrder>
@@ -654,6 +725,16 @@
             </Properties>
             <Items>
                 <File>Assets/Expansion2/Replacements/governmentscreen_CQUI_expansion2.lua</File>
+            </Items>
+        </ImportFiles>
+
+        <ImportFiles id="CQUI_IMPORT_FILES_EXP2_HISTORICMOMENTS" criteria="Expansion2">
+            <Properties>
+                <LoadOrder>200</LoadOrder>
+                <Context>InGame</Context>
+            </Properties>
+            <Items>
+                <File>Assets/Expansion2/Replacements/historicmoments_CQUI_expansion2.lua</File>
             </Items>
         </ImportFiles>
 
@@ -677,6 +758,16 @@
             </Items>
         </ImportFiles>
 
+        <ImportFiles id="CQUI_IMPORT_FILES_EXP2_NATURALDISASTERPOPUP" criteria="Expansion2">
+            <Properties>
+                <LoadOrder>200</LoadOrder>
+                <Context>InGame</Context>
+            </Properties>
+            <Items>
+                <File>Assets/Expansion2/Replacements/naturaldisasterpopup.lua</File>
+            </Items>
+        </ImportFiles>
+
         <ImportFiles id="CQUI_IMPORT_FILES_EXP2_PARTIALSCREENHOOKS" criteria="Expansion2">
             <Properties>
                 <LoadOrder>200</LoadOrder>
@@ -694,6 +785,26 @@
             </Properties>
             <Items>
                 <File>Assets/Expansion2/Replacements/plottooltip_CQUI_expansion2.lua</File>
+            </Items>
+        </ImportFiles>
+
+        <ImportFiles id="CQUI_IMPORT_FILES_EXP2_ROCKBANDMOVIEPOPUP" criteria="Expansion2">
+            <Properties>
+                <LoadOrder>200</LoadOrder>
+                <Context>InGame</Context>
+            </Properties>
+            <Items>
+                <File>Assets/Expansion2/Replacements/rockbandmoviepopup.lua</File>
+            </Items>
+        </ImportFiles>
+
+        <ImportFiles id="CQUI_IMPORT_FILES_EXP2_ROCKBANDPOPUP" criteria="Expansion2">
+            <Properties>
+                <LoadOrder>200</LoadOrder>
+                <Context>InGame</Context>
+            </Properties>
+            <Items>
+                <File>Assets/Expansion2/Replacements/rockbandpopup_CQUI_expansion2.lua</File>
             </Items>
         </ImportFiles>
 
@@ -998,6 +1109,29 @@
             </Properties>
         </ReplaceUIScript>
 
+        <ReplaceUIScript id="CQUI_EraCompletePopup">
+            <Properties>
+                <LuaContext>EraCompletePopup</LuaContext>
+                <LuaReplace>Assets/UI/Popups/eracompletepopup_CQUI_basegame.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
+        <ReplaceUIScript id="CQUI_EraCompletePopup_EXP1" criteria="Expansion1">
+            <Properties>
+                <LoadOrder>100</LoadOrder>
+                <LuaContext>EraCompletePopup</LuaContext>
+                <LuaReplace>Assets/Expansion1/Replacements/eracompletepopup_CQUI_expansion1.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
+        <ReplaceUIScript id="CQUI_EraCompletePopup_EXP2" criteria="Expansion2">
+            <Properties>
+                <LoadOrder>200</LoadOrder>
+                <LuaContext>EraCompletePopup</LuaContext>
+                <LuaReplace>Assets/Expansion2/Replacements/eracompletepopup_CQUI_expansion2.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
         <ReplaceUIScript id="CQUI_GovernmentScreen">
             <Properties>
                 <LuaContext>GovernmentScreen</LuaContext>
@@ -1018,6 +1152,22 @@
                 <LoadOrder>200</LoadOrder>
                 <LuaContext>GovernmentScreen</LuaContext>
                 <LuaReplace>Assets/Expansion2/Replacements/governmentscreen_CQUI_expansion2.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
+        <ReplaceUIScript id="CQUI_HistoricMoments_EXP1" criteria="Expansion1">
+            <Properties>
+                <LoadOrder>100</LoadOrder>
+                <LuaContext>HistoricMoments</LuaContext>
+                <LuaReplace>Assets/Expansion1/Replacements/historicmoments_CQUI_expansion1.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
+        <ReplaceUIScript id="CQUI_HistoricMoments_EXP2" criteria="Expansion2">
+            <Properties>
+                <LoadOrder>200</LoadOrder>
+                <LuaContext>HistoricMoments</LuaContext>
+                <LuaReplace>Assets/Expansion2/Replacements/historicmoments_CQUI_expansion2.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
 
@@ -1056,6 +1206,13 @@
             <Properties>
                 <LuaContext>MapPinManager</LuaContext>
                 <LuaReplace>Assets/UI/MapPinManager_CQUI.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
+        <ReplaceUIScript id="CQUI_NaturalWonderPopup">
+            <Properties>
+                <LuaContext>NaturalWonderPopup</LuaContext>
+                <LuaReplace>Assets/UI/Popups/naturalwonderpopup_CQUI.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
 
@@ -1121,6 +1278,13 @@
             </Properties>
         </ReplaceUIScript>
 
+        <ReplaceUIScript id="CQUI_ProjectBuiltPopup">
+            <Properties>
+                <LuaContext>ProjectBuiltPopup</LuaContext>
+                <LuaReplace>Assets/UI/Popups/projectbuiltpopup_CQUI.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
         <ReplaceUIScript id="CQUI_ResearchChooser">
             <Properties>
                 <LuaContext>ResearchChooser</LuaContext>
@@ -1141,6 +1305,14 @@
                 <LoadOrder>200</LoadOrder>
                 <LuaContext>ResearchChooser</LuaContext>
                 <LuaReplace>Assets/UI/Choosers/ResearchChooser_CQUI.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
+        <ReplaceUIScript id="CQUI_RockBandPopup_EXP2" criteria="Expansion2">
+            <Properties>
+                <LoadOrder>200</LoadOrder>
+                <LuaContext>RockBandPopup</LuaContext>
+                <LuaReplace>Assets/Expansion2/Replacements/rockbandpopup_CQUI_expansion2.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
 
@@ -1194,6 +1366,13 @@
                 <LoadOrder>200</LoadOrder>
                 <LuaContext>TopPanel</LuaContext>
                 <LuaReplace>Assets/Expansion2/Replacements/toppanel_CQUI_expansion2.lua</LuaReplace>
+            </Properties>
+        </ReplaceUIScript>
+
+        <ReplaceUIScript id="CQUI_UnitCaptured">
+            <Properties>
+                <LuaContext>UnitCaptured</LuaContext>
+                <LuaReplace>Assets/UI/Popups/unitcaptured_CQUI.lua</LuaReplace>
             </Properties>
         </ReplaceUIScript>
 
@@ -1475,7 +1654,10 @@
         <File>Assets/Expansion1/Replacements/citystates_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/diplomacyactionview_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/diplomacyribbon_CQUI_expansion1.lua</File>
+        <File>Assets/Expansion1/Replacements/eracompletepopup_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/governmentscreen_CQUI_expansion1.lua</File>
+        <File>Assets/Expansion1/Replacements/historicmoments_CQUI_expansion1.lua</File>
+        <File>Assets/Expansion1/Replacements/historicmoments_CQUI.lua</File>
         <File>Assets/Expansion1/Replacements/launchbar_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/partialscreenhooks_CQUI_expansion1.lua</File>
         <File>Assets/Expansion1/Replacements/toppanel_CQUI_expansion1.lua</File>
@@ -1491,11 +1673,16 @@
         <File>Assets/Expansion2/Replacements/diplomacyactionview_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/diplomacyactionview.xml</File>
         <File>Assets/Expansion2/Replacements/diplomacyribbon_CQUI_expansion2.lua</File>
+        <File>Assets/Expansion2/Replacements/eracompletepopup_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/governmentscreen_CQUI_expansion2.lua</File>
+        <File>Assets/Expansion2/Replacements/historicmoments_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/ingame.lua</File>
         <File>Assets/Expansion2/Replacements/launchbar_CQUI_expansion2.lua</File>
+        <File>Assets/Expansion2/Replacements/naturaldisasterpopup.lua</File>
         <File>Assets/Expansion2/Replacements/partialscreenhooks_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/plottooltip_CQUI_expansion2.lua</File>
+        <File>Assets/Expansion2/Replacements/rockbandmoviepopup.lua</File>
+        <File>Assets/Expansion2/Replacements/rockbandpopup_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/toppanel_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/unitpanel_CQUI_expansion2.lua</File>
         <File>Assets/Expansion2/Replacements/worldinput_CQUI_expansion2.lua</File>
@@ -1525,6 +1712,7 @@
         <File>Assets/Text/cqui_InGameText_ja.xml</File>
         <File>Assets/Text/cqui_InGameText_ru.xml</File>
         <File>Assets/Text/cqui_InGameText_ko.xml</File>
+        <File>Assets/Text/cqui_InGameText_zh.xml</File>
         <File>Assets/Text/cqui_text_general.xml</File>
         <File>Assets/Text/cqui_text_general_de.xml</File>
         <File>Assets/Text/cqui_text_general_es.xml</File>
@@ -1599,6 +1787,7 @@
         <File>Assets/UI/partialscreenhooks_CQUI_basegame.lua</File>
         <File>Assets/UI/partialscreenhooks_CQUI.lua</File>
         <File>Assets/UI/partialscreenhooks.xml</File>
+        <File>Assets/UI/popupmanager.lua</File>
         <File>Assets/UI/productionpanel.xml</File>
         <File>Assets/UI/toppanel_CQUI_basegame.lua</File>
         <File>Assets/UI/toppanel_CQUI.lua</File>
@@ -1625,11 +1814,16 @@
         <File>Assets/UI/PartialScreens/citystates_CQUI_basegame.lua</File>
         <File>Assets/UI/PartialScreens/citystates_CQUI.lua</File>
         <File>Assets/UI/PartialScreens/citystates.xml</File>
+        <File>Assets/UI/Popups/eracompletepopup_CQUI_basegame.lua</File>
+        <File>Assets/UI/Popups/eracompletepopup_CQUI.lua</File>
         <File>Assets/UI/Popups/greatpeoplepopup.lua</File>
         <File>Assets/UI/Popups/greatpeoplepopup.xml</File>
+        <File>Assets/UI/Popups/naturalwonderpopup_CQUI.lua</File>
         <File>Assets/UI/Popups/policyreminderpopup.lua</File>
         <File>Assets/UI/Popups/policyreminderpopup.xml</File>
+        <File>Assets/UI/Popups/projectbuiltpopup_CQUI.lua</File>
         <File>Assets/UI/Popups/techciviccompletedpopup.lua</File>
+        <File>Assets/UI/Popups/unitcaptured_CQUI.lua</File>
         <File>Assets/UI/Popups/wonderbuiltpopup_CQUI.lua</File>
         <File>Assets/UI/Screens/CivicsTree_CQUI.lua</File>
         <File>Assets/UI/Screens/governmentscreen_CQUI_basegame.lua</File>

@@ -58,23 +58,77 @@
                         </Stack>
                     </Container>
                     <Container ID="PopupsOptions" Size="parent,parent" Hidden="1">
-                        <Stack Anchor="C,T" StackGrowth="Down" Padding="5" Offset="0,50">
-                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
-                                <GridButton ID="TechVisualCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_TECHVISUAL" />
+                        <ScrollPanel Anchor="C,T" Style="ListingScrollPanel" Offset="0,10" Size="parent-20,parent-5" Vertical="1">
+                            <ScrollBar Style="ScrollVerticalBar" Offset="-20,-5" Length="420" Anchor="R,C" AnchorSide="O,I" />
+                            <Stack ID="PopupsOptionsStack" Anchor="C,T" StackGrowth="Down" Padding="5" Offset="0,50">
+                                <!-- Popup options -->
+                                <!-- Multiplayer popups -->
+                                <Label ID="MultiplayerPopupsLabel" Anchor="C,C" Style="ShellOptionText" String="LOC_PLAY_MULTIPLAYER" Hidden="1"/>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="MultiplayerPopupsCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_MULTIPLAYER" Hidden="1" />
+                                </Stack>
+                                <!-- Tech/Civic popups -->
+                                <Label ID="TechCivicPopupsLabel" Anchor="C,C" Style="ShellOptionText" String="[ICON_Science] / [ICON_Culture]"/>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="TechCivicCompletedVisualCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_TECHCIVICCOMPLETEDVISUAL" />
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="TechCivicCompletedAudioCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_TECHCIVICCOMPLETEDAUDIO" />
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="BoostUnlockedVisualCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_BOOSTUNLOCKEDVISUAL" />
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="AlwaysOpenTechTreesCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_ALWAYSOPENTECHTREES" />
+                                </Stack>
+                                <!-- Wonder popups -->
+                                <Label ID="WonderPopupsLabel" Anchor="C,C" Style="ShellOptionText" String="LOC_WONDER_NAME"/>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="NaturalWonderVisualCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_NATURALWONDERVISUAL" />
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="NaturalWonderAudioCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_NATURALWONDERAUDIO" />
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="WonderBuiltVisualCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_WONDERBUILTVISUAL" />
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="WonderBuiltAudioCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_WONDERBUILTAUDIO" />
+                                </Stack>
+                                <!-- Other popups -->
+                                <Label ID="OtherPopupsLabel" Anchor="C,C" Style="ShellOptionText" String="..."/>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="EraCompleteVisualCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_ERACOMPLETEVISUAL" />
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="HeroDiscoveredVisualCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_HERODISCOVEREDVISUAL" Hidden="1" />
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="HeroExpiredVisualCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_HEROEXPIREDVISUAL" Hidden="1" />
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="HistoricMomentsVisualCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_HISTORICMOMENTSVISUAL" Hidden="1" />
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="NaturalDisasterVisualCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_NATURALDISASTERVISUAL" Hidden="1" />
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="ProjectBuiltVisualCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_PROJECTBUILTVISUAL" />
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="RockBandMovieVisualCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_ROCKBANDMOVIEVISUAL" Hidden="1" />
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="SecretSocietyDiscoveredVisualCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_SECRETSOCIETYDISCOVEREDVISUAL" Hidden="1" />
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="SecretSocietyJoinedVisualCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_SECRETSOCIETYJOINEDVISUAL" Hidden="1" />
+                                </Stack>
+                                <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
+                                    <GridButton ID="UnitCapturedVisualCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_UNITCAPTUREDVISUAL" />
+                                </Stack>
                             </Stack>
-                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
-                                <GridButton ID="TechAudioCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_TECHAUDIO" />
-                            </Stack>
-                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
-                                <GridButton ID="AlwaysOpenTechTreesCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_ALWAYSOPENTECHTREES" />
-                            </Stack>
-                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
-                                <GridButton ID="WonderBuiltVisualCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_WONDERBUILTVISUAL" />
-                            </Stack>
-                            <Stack Anchor="R,T" StackGrowth="Left" Padding="5">
-                                <GridButton ID="WonderBuiltAudioCheckbox" Anchor="L,C" Offset="0,0" Size="300,24" Style="CheckBoxControl" String="LOC_CQUI_POPUPS_WONDERBUILTAUDIO" />
-                            </Stack>
-                        </Stack>
+                        </ScrollPanel>
                     </Container>
                     <Container ID="CityviewOptions" Size="parent,parent" Hidden="1">
                         <ScrollPanel Anchor="C,T" Style="ListingScrollPanel" Offset="0,10" Size="parent-20,parent-5" Vertical="1">
