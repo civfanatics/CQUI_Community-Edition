@@ -108,13 +108,13 @@ end
 function OnUnitSelectionChanged( playerID:number, unitID:number, hexI:number, hexJ:number, hexK:number, isSelected:boolean, isEditable:boolean )
     -- local msg = "** Function Entry: OnUnitSelectionChanged (CQUI Hook).  playerId:"..tostring(playerID).." unitId:"..tostring(unitID).." hexI:"..tostring(hexI).." hexJ:"..tostring(hexJ).." hexK:"..tostring(hexK).." isSelected:"..tostring(isSelected).." isEditable:"..tostring(isEditable);
     -- print_debug(msg);
-    if playerID ~= Game.GetLocalPlayer() then
+    if (playerID ~= Game.GetLocalPlayer()) then
         return;
     end
 
     -- CQUI (Azurency) : Fixes a Vanilla bug from SelectUnit.lua (not taking in account the district range attack)
     -- CQUI (Azurency) : If a selection is occuring and the district attack interface mode is up, take it down.
-    if UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_RANGE_ATTACK then
+    if (isSelected and UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_RANGE_ATTACK) then
         UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
     end
 

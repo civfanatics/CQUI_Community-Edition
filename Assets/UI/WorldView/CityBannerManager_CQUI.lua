@@ -1257,6 +1257,15 @@ function OnCityStrikeButtonClick( playerID, cityID )
 end
 
 -- ===========================================================================
+-- District Strike Button (Same for Basegame and Expansions)
+-- ===========================================================================
+function OnDistrictRangeStrikeButtonClick( playerID, districtID )
+    -- print("CityBannerManager_CQUI: OnDistrictRangeStrikeButtonClick ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID));
+    CQUI_OnDistrictRangeStrikeButtonClick(playerID, districtID)
+    -- print("CityBannerManager_CQUI: OnDistrictRangeStrikeButtonClick EXIT");
+end
+
+-- ===========================================================================
 function OnDistrictAddedToMap( playerID: number, districtID : number, cityID :number, districtX : number, districtY : number, districtType:number, percentComplete:number )
     -- print("CityBannerManager_CQUI: OnDistrictAddedToMap ENTRY playerID:"..tostring(playerID).." districtID:"..tostring(districtID).." cityID:"..tostring(cityID).." districtXY:"..tostring(districtX)..","..tostring(districtY).." districtType:"..tostring(districtType).." pctComplete:"..tostring(percentComplete));
     local pPlayer = Players[playerID];
@@ -1436,7 +1445,15 @@ function CQUI_Refresh_Banners()
       
             for _, city in pPlayerCities:Members() do
                 local cityID:number = city:GetID();
-                RefreshBanner(playerID, cityID) -- CQUI : refresh the banner info
+                local pCityDistricts :table = city:GetDistricts();
+                RefreshBanner(playerID, cityID); -- CQUI : refresh the city banner info
+
+                for _, district in pCityDistricts:Members() do
+                    if (city:GetX() ~= district:GetX() or city:GetY() ~= district:GetY()) then
+                        local districtID:number = district:GetID();
+                        RefreshMiniBanner(playerID, districtID); -- CQUI : Refresh the district banner info
+                    end
+                end
             end
         end
     end
@@ -1685,8 +1702,14 @@ function CQUI_OnCityRangeStrikeButtonClick( playerID, cityID )
         return;
     end
 
-    -- allow to leave the strike range mode on 2nd click
-    if UI.GetInterfaceMode() == InterfaceModeTypes.CITY_RANGE_ATTACK then
+    -- Get the currently selected city ID, if one is selected
+    local selectedCity = UI.GetHeadSelectedCity();
+    if (selectedCity ~= nil) then
+        selectedCity = selectedCity:GetID();
+    end
+
+    -- Allow to leave the strike range mode on 2nd click
+    if (UI.GetInterfaceMode() == InterfaceModeTypes.CITY_RANGE_ATTACK and selectedCity == cityID) then
         UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
         LuaEvents.CQUI_Strike_Exit();
         -- print("CityBannerManager_CQUI: CQUI_OnCityRangeStrikeButtonClick EXIT (Leave StrikeRange Mode)");
@@ -1755,13 +1778,25 @@ function CQUI_OnDistrictRangeStrikeButtonClick( playerID, districtID )
         return;
     end;
 
-    -- allow to leave the strike range mode on 2nd click
-    if UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_RANGE_ATTACK then
+    -- Get the currently selected district ID, if one is selected
+    local selectedDistrict = UI.GetHeadSelectedDistrict();
+    if (selectedDistrict ~= nil) then
+        selectedDistrict = selectedDistrict:GetID();
+    end
+
+    -- Allow to leave the strike range mode on 2nd click
+    if (UI.GetInterfaceMode() == InterfaceModeTypes.DISTRICT_RANGE_ATTACK and selectedDistrict == districtID) then
         UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
+        LuaEvents.CQUI_Strike_Exit();
         -- print("CityBannerManager_CQUI: CQUI_OnDistrictRangeStrikeButtonClick EXIT (interface mode, leave on 2nd click)");
         return;
     end
-    
+
+    -- Enter the range district mode on click
+    LuaEvents.CQUI_Strike_Enter();
+    -- Allow to switch between different district range attack (clicking on the range button of one
+    -- district and after on the range button of another district, without having to ESC or right click)
+    UI.SetInterfaceMode(InterfaceModeTypes.SELECTION);
     UI.DeselectAll();
     UI.SelectDistrict(pDistrict);
     -- CQUI (Azurency) : Look at the district plot

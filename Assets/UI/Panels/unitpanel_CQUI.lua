@@ -6,6 +6,7 @@ include("GameCapabilities");
 BASE_CQUI_VIEW = View;
 BASE_CQUI_Refresh = Refresh;
 BASE_CQUI_GetUnitActionsTable = GetUnitActionsTable;
+BASE_CQUI_OnInterfaceModeChanged = OnInterfaceModeChanged;
 
 -- ===========================================================================
 -- CQUI Members
@@ -110,3 +111,30 @@ function GetUnitActionsTable( pUnit )
 
     return actionsTable;
 end
+
+-- ===========================================================================
+--  CQUI modified OnInterfaceModeChanged
+--  Don't always hide the ContextPtr when leaving City/District Range Attack
+-- ===========================================================================
+function OnInterfaceModeChanged( eOldMode:number, eNewMode:number )
+    -- Base function call
+    BASE_CQUI_OnInterfaceModeChanged(eOldMode, eNewMode);
+
+    -- The ContextPtr is always set to hide when the old mode is CITY_RANGE_ATTACK or DISTRICT_RANGE_ATTACK
+    -- Unhide it if the new mode is also one of these, or if a unit was selected
+    -- Fixes basegame bug with the UnitPanel being hidden when it's not supposed to be
+    if ((eOldMode == InterfaceModeTypes.CITY_RANGE_ATTACK or eOldMode == InterfaceModeTypes.DISTRICT_RANGE_ATTACK)
+        and ((eNewMode == InterfaceModeTypes.CITY_RANGE_ATTACK or eNewMode == InterfaceModeTypes.DISTRICT_RANGE_ATTACK)
+        or (eNewMode == InterfaceModeTypes.SELECTION and UI.GetHeadSelectedUnit()))) then
+            ContextPtr:SetHide(false);
+    end
+end
+
+-- ===========================================================================
+--  Initialize the context
+-- ===========================================================================
+function Initialize_UnitPanel_CQUI()
+    Events.InterfaceModeChanged.Remove(BASE_CQUI_OnInterfaceModeChanged);
+    Events.InterfaceModeChanged.Add(OnInterfaceModeChanged);
+end
+Initialize_UnitPanel_CQUI();
